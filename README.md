@@ -1,6 +1,6 @@
 # Angular 2 CRUD table using Yii 2 REST
 
-CRUD table component for Angular 2 using Yii 2 REST backend and bootstrap 3.
+CRUD table component for Angular 2 using Yii 2 REST backend and Bootstrap 3 CSS.
 
 ### Configuration
 ```typescript
@@ -52,8 +52,16 @@ export class PlayersComponent {
 }
 ```
 
-```typescript
+You will need bootstrap styles
+
+```
+<!-- index.html -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 ```
 
-```typescript
-```
+## Features
+* Filtering
+* Sorting
+* Pagination
+* Modal
+* Create/Update/Delete
