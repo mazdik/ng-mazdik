@@ -1,0 +1,73 @@
+<h1 class="page-header" *ngIf="settings.pageHeader">{{settings.pageHeader}}</h1>
+<div class="alert alert-danger" role="alert" *ngIf="errors">
+    {{errors.errMsg}}</div>
+<div class="grid-view" *ngIf="!onDetailView">
+    <p *ngIf="settings.crud">
+        <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
+    </p>
+    <div class="loader" [style.visibility]="(!loading) ? 'hidden' : 'visible' "></div>
+    <table class="table table-hover table-bordered crud-table" *ngIf="!onDetailView">
+        <thead>
+            <tr>
+                <th *ngFor="let column of columns" (click)="sort($event,column)">
+                    {{column.title}}
+                    <i *ngIf="column.sortable" class="pull-right fa" [ngClass]="{'fa-chevron-down': (getSortOrder(column) == -1), 'fa-chevron-up': (getSortOrder(column) == 1)}"></i>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td *ngFor="let column of columns">
+                    <input type="text" class="form-control" [attr.placeholder]="column.name" *ngIf="column.filter" [value]="filters[column.name] ? filters[column.name].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, column.name, column.filterMatchMode)" />
+                </td>
+                <td></td>
+            </tr>
+            <tr *ngFor="let item of items">
+                <td *ngFor="let column of columns">{{item[column.name]}}</td>
+                <td class="action-column">
+                    <a (click)="viewDetails(item)" title="Просмотр" aria-label="Просмотр"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a *ngIf="settings.crud" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
+</div>
+
+<app-modal #childModal>
+    <div class="app-modal-header">
+        <h4 class="modal-title pull-left">{{modalTitle()}}</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="childModal.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="app-modal-body">
+        <div *ngIf="item">
+            <div class="form-group" *ngFor="let column of columns">
+                <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
+                <input *ngIf="elemEnabled(column.name)" class="form-control" type="text" [id]="column.name" [(ngModel)]="item[column.name]" />
+            </div>
+        </div>
+    </div>
+    <div class="app-modal-footer">
+        <button type="button" class="btn btn-danger pull-left" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Удалить</button>
+        <button type="button" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Сохранить</button>
+        <button type="button" class="btn btn-primary" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Закрыть</button>
+    </div>
+</app-modal>
+
+<div class="detail-view" *ngIf="onDetailView && item">
+    <p>
+        <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
+        <button type="button" class="btn btn-primary pull-right" (click)="closeDetails()"> <i class="fa fa-arrow-circle-left"></i> Назад</button>
+    </p>
+    <table class="table table-striped table-bordered detail-view">
+        <tbody>
+            <tr *ngFor="let column of columns">
+                <th>{{column.name}}</th>
+                <td>{{item[column.name]}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

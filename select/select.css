@@ -1,0 +1,8 @@
+.selection {
+    position: absolute;
+    border-top: none;
+}
+
+.selected {
+    background-color: #e0e0e0;
+}
