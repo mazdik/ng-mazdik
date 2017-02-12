@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
-import { CrudService } from './crud.service';
-import { ModalComponent } from './modal.component';
+import { CrudService } from './services/crud.service';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
     selector: 'crud-table',
@@ -202,21 +202,10 @@ export class CrudTableComponent implements OnInit {
         return true;
     }
 
-    sort(event, column: any) {
-        if (!column.sortable) {
-            return;
-        }
-        this.sortOrder = (this.sortField === column.name) ? this.sortOrder * -1 : 1;
-        this.sortField = column.name;
+    sort(event) {
+        this.sortField = event.field;
+        this.sortOrder = event.order;
         this.getItems();
-    }
-
-    getSortOrder(column: any) {
-        let order = 0;
-        if (this.sortField && this.sortField === column.name) {
-            order = this.sortOrder;
-        }
-        return order;
     }
 
     public modalTitle() {

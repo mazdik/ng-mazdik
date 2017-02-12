@@ -65,3 +65,5 @@ You will need bootstrap styles
 * Pagination
 * Modal
 * Create/Update/Delete
+* Loading indicator
+* MultiSelect

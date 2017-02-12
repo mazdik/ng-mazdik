@@ -1,0 +1,7 @@
+th {
+    background-color: #9bc2e6;
+}
+th:hover {
+    background-color: #5b9bd5;
+    cursor: pointer;
+}

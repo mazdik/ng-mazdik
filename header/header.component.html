@@ -1,0 +1,7 @@
+<tr>
+    <th *ngFor="let column of columns" (click)="sort($event,column)">
+        {{column.title}}
+        <i *ngIf="column.sortable" class="glyphicon" [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
+    </th>
+    <th></th>
+</tr>

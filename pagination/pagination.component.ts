@@ -2,29 +2,7 @@ import { Component, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
     selector: "pagination",
-    template: `
-  <ul class="pagination">
-    <li class="pagination-first page-item"
-        [class.disabled]="currentPage===1">
-      <a class="page-link" href (click)="setPage(1, $event)">&laquo;</a>
-    </li>
-    <li class="pagination-prev page-item"
-        [class.disabled]="currentPage===1">
-      <a class="page-link" href (click)="setPage(currentPage - 1, $event)">&lsaquo;</a>
-      </li>
-    <li *ngFor="let page of getPages()"
-        [ngClass]="{active:currentPage === page}"
-        class="pagination-page page-item">
-      <a class="page-link" href (click)="setPage(page, $event)">{{page}}</a>
-    </li>
-    <li class="pagination-next page-item"
-        [class.disabled]="currentPage===calculateTotalPages()">
-      <a class="page-link" href (click)="setPage(currentPage + 1, $event)">&rsaquo;</a></li>
-    <li class="pagination-last page-item"
-        [class.disabled]="currentPage===calculateTotalPages()">
-      <a class="page-link" href (click)="setPage(calculateTotalPages(), $event)">&raquo;</a></li>
-  </ul>
-  `
+    templateUrl: 'pagination.component.html',
 })
 export class PaginationComponent {
 

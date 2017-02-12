@@ -1,7 +1,5 @@
 import { Component, Input, Output, OnInit, DoCheck, EventEmitter, ElementRef, Pipe, ViewChild, IterableDiffers } from '@angular/core';
 
-import { Test1 } from './test1';
-
 export interface ISelectOption {
     id: any;
     name: string;

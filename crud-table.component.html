@@ -7,15 +7,7 @@
     </p>
     <div class="loader" [style.visibility]="(!loading) ? 'hidden' : 'visible' "></div>
     <table class="table table-hover table-bordered crud-table" *ngIf="!onDetailView">
-        <thead>
-            <tr>
-                <th *ngFor="let column of columns" (click)="sort($event,column)">
-                    {{column.title}}
-                    <i *ngIf="column.sortable" class="pull-right fa" [ngClass]="{'fa-chevron-down': (getSortOrder(column) == -1), 'fa-chevron-up': (getSortOrder(column) == 1)}"></i>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
+        <thead datatable-header [columns]="columns" (onSort)="sort($event)"></thead>
         <tbody>
             <tr>
                 <td *ngFor="let column of columns">
@@ -34,7 +26,6 @@
     </table>
     <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
 </div>
-
 <app-modal #childModal>
     <div class="app-modal-header">
         <h4 class="modal-title pull-left">{{modalTitle()}}</h4>
@@ -56,7 +47,6 @@
         <button type="button" class="btn btn-primary" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Закрыть</button>
     </div>
 </app-modal>
-
 <div class="detail-view" *ngIf="onDetailView && item">
     <p>
         <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
