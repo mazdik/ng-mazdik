@@ -5,9 +5,10 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CrudService {
 
-  public url;
+  public url: string;
+  public primaryKey: string = 'id';
 
-  constructor(private http:Http) {
+  constructor(private http: Http) {
   }
 
   getJsonHeaders() {
@@ -34,14 +35,14 @@ export class CrudService {
 
   getItem(id:number) {
     let filterId = {
-      id: {value: id}
+      [this.primaryKey]: {value: id}
     };
     return this.getItems(1, filterId)
       .then(data => data.items[0]);
   }
 
   save(item:any):Promise<any> {
-    if (item.id) {
+    if (item[this.primaryKey]) {
       return this.put(item);
     }
     return this.post(item);
@@ -50,7 +51,7 @@ export class CrudService {
   delete(item:any) {
     let headers = this.getAuthHeaders();
     ;
-    let url = `${this.url}/${item.id}`;
+    let url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .delete(url, {headers: headers})
       .toPromise()
@@ -72,7 +73,7 @@ export class CrudService {
   put(item:any) {
     let headers = this.getAuthHeaders();
     ;
-    let url = `${this.url}/${item.id}`;
+    let url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()

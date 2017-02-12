@@ -9,12 +9,7 @@
     <table class="table table-hover table-bordered crud-table" *ngIf="!onDetailView">
         <thead datatable-header [columns]="columns" (onSort)="sort($event)"></thead>
         <tbody>
-            <tr>
-                <td *ngFor="let column of columns">
-                    <input type="text" class="form-control" [attr.placeholder]="column.name" *ngIf="column.filter" [value]="filters[column.name] ? filters[column.name].value : ''" (click)="onFilterInputClick($event)" (keyup)="onFilterKeyup($event.target.value, column.name, column.filterMatchMode)" />
-                </td>
-                <td></td>
-            </tr>
+            <tr datatable-filter [columns]="columns" (onFilter)="filter($event)"></tr>
             <tr *ngFor="let item of items">
                 <td *ngFor="let column of columns">{{item[column.name]}}</td>
                 <td class="action-column">
@@ -35,10 +30,7 @@
     </div>
     <div class="app-modal-body">
         <div *ngIf="item">
-            <div class="form-group" *ngFor="let column of columns">
-                <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
-                <input *ngIf="elemEnabled(column.name)" class="form-control" type="text" [id]="column.name" [(ngModel)]="item[column.name]" />
-            </div>
+            <row-form [columns]="columns" [item]="item" [settings]="settings"></row-form>
         </div>
     </div>
     <div class="app-modal-footer">
@@ -52,12 +44,5 @@
         <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
         <button type="button" class="btn btn-primary pull-right" (click)="closeDetails()"> <i class="fa fa-arrow-circle-left"></i> Назад</button>
     </p>
-    <table class="table table-striped table-bordered detail-view">
-        <tbody>
-            <tr *ngFor="let column of columns">
-                <th>{{column.name}}</th>
-                <td>{{item[column.name]}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <detail-view [columns]="columns" [item]="item"></detail-view>
 </div>

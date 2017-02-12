@@ -37,10 +37,14 @@ export class CrudTableComponent implements OnInit {
     } = {};
     public sortField: string;
     public sortOrder: number;
-    public filterTimeout: any;
-    public filterDelay: number = 300;
 
     constructor(private service: CrudService) {}
+
+    ngOnInit() {
+        this.service.url = this.api;
+        this.service.primaryKey = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
+        this.getItems();
+    }
 
     loadingShow() {
         this.loading = true;
@@ -64,11 +68,6 @@ export class CrudTableComponent implements OnInit {
                 this.loadingHide();
                 this.errors = error;
             });
-    }
-
-    ngOnInit() {
-        this.service.url = this.api;
-        this.getItems();
     }
 
     public pageChanged(event: any): void {
@@ -168,38 +167,9 @@ export class CrudTableComponent implements OnInit {
         this.onDetailView = false;
     }
 
-    onFilterInputClick(event) {
-        event.stopPropagation();
-    }
-
-    onFilterKeyup(value, field, matchMode) {
-        if (this.filterTimeout) {
-            clearTimeout(this.filterTimeout);
-        }
-
-        this.filterTimeout = setTimeout(() => {
-            this.filter(value, field, matchMode);
-            this.filterTimeout = null;
-        }, this.filterDelay);
-    }
-
-    filter(value, field, matchMode) {
-        if (!this.isFilterBlank(value))
-            this.filters[field] = { value: value, matchMode: matchMode };
-        else if (this.filters[field])
-            delete this.filters[field];
-
+    filter(event) {
+    	this.filters = event;
         this.getItems();
-    }
-
-    isFilterBlank(filter: any): boolean {
-        if (filter !== null && filter !== undefined) {
-            if ((typeof filter === 'string' && filter.trim().length == 0) || (filter instanceof Array && filter.length == 0))
-                return true;
-            else
-                return false;
-        }
-        return true;
     }
 
     sort(event) {
@@ -210,10 +180,6 @@ export class CrudTableComponent implements OnInit {
 
     public modalTitle() {
         return (this.newItem) ? 'Добавить' : 'Редактировать';
-    }
-
-    public elemEnabled(name: string): boolean {
-        return (name === 'id') ? false : true;
     }
 
 }

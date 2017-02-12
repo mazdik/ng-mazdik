@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: '[datatable-header]',
@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     styleUrls: ['header.component.css'],
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
     @Input() public columns: Array <any>;
     @Output() onSort: EventEmitter<any> = new EventEmitter();
@@ -15,9 +15,6 @@ export class HeaderComponent implements OnInit {
     public sortOrder: number;
 
     constructor() {}
-
-    ngOnInit() {
-    }
 
     sort(event, column: any) {
         if (!column.sortable) {

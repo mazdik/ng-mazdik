@@ -1,0 +1,9 @@
+<td *ngFor="let column of columns">
+    <input type="text" class="form-control" 
+	    [attr.placeholder]="column.name" 
+	    *ngIf="column.filter" 
+	    [value]="filters[column.name] ? filters[column.name].value : ''" 
+	    (click)="onFilterInputClick($event)" 
+	    (keyup)="onFilterKeyup($event.target.value, column.name, column.filterMatchMode)" />
+</td>
+<td></td>

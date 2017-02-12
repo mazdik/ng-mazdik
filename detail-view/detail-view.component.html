@@ -1,0 +1,8 @@
+<table class="table table-striped table-bordered detail-view">
+    <tbody>
+        <tr *ngFor="let column of columns">
+            <th>{{column.name}}</th>
+            <td>{{item[column.name]}}</td>
+        </tr>
+    </tbody>
+</table>

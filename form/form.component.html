@@ -1,0 +1,4 @@
+<div class="form-group" *ngFor="let column of columns">
+    <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
+    <input *ngIf="elemEnabled(column.name)" class="form-control" type="text" [id]="column.name" [(ngModel)]="item[column.name]" />
+</div>
