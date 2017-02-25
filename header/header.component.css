@@ -1,7 +1,24 @@
 th {
-    background-color: #9bc2e6;
+	position: relative;
+    background-color: #5b9bd5;
+    color: white;
 }
 th:hover {
-    background-color: #5b9bd5;
-    cursor: pointer;
+    background-color: #337ab7;
+}
+.column-menu {
+    float: right;
+    padding: 2px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+.column-menu:hover {
+	cursor: pointer;
+    border: 1px solid #808080;
+}
+.column-title {
+	color: white;
+}
+.column-title:hover {
+	cursor: pointer;
 }

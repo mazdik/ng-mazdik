@@ -1,7 +1,14 @@
 <tr>
-    <th *ngFor="let column of columns" (click)="sort($event,column)">
-        {{column.title}}
+    <th *ngFor="let column of columns" 
+    	(mouseenter)="onColumnMouseEnter($event, column.name)" 
+    	(mouseleave)="onColumnMouseLeave($event, column.name)">
+    	<i class="glyphicon glyphicon-filter" [style.visibility]="(!isFilter(column.name)) ? 'hidden' : 'visible' "></i>
+        <span class="column-title" (click)="sort($event, column)">{{column.title}}</span>
         <i *ngIf="column.sortable" class="glyphicon" [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
+        <i (click)="showColumnMenu($event, column.name)" 
+			[style.visibility]="(column.name !== activeColumn) ? 'hidden' : 'visible' "
+			class="glyphicon glyphicon-menu-hamburger column-menu"></i>
+        <ng-select #selectFilter [options]="options" [selectedOptions]="selectedOptions" (onChange)="onChangeSelect($event)"></ng-select>
     </th>
     <th></th>
 </tr>
