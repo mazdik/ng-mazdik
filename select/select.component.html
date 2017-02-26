@@ -1,12 +1,14 @@
+<i (click)="showColumnMenu($event)" 
+	[style.visibility]="(column.name !== activeColumn) ? 'hidden' : 'visible' "
+	class="glyphicon glyphicon-menu-hamburger column-menu"></i>
 <div class="selection" 
 	#selectionSpan 
 	[ngStyle]="{'top.px': top, 'left.px': left, 'width.px': width}" 
 	(click)="onSelectContainerClick($event)" 
 	(keydown.esc)="closeDropdown()" 
-	(window:click)="onWindowClick()"
-	(window:resize)="onWindowResize()">
+	(window:click)="onWindowClick()">
 	<div class="dropdown">
-	    <ul class="dropdown-menu" [style.display]="isVisible?'block':'none'" style="height: auto; overflow-y: auto; max-height:200px; padding: 3px;">
+	    <ul class="dropdown-menu" [style.display]="isVisible?'block':'none'">
 		<li class="dropdown-item">
 		    <div class="input-group input-group-sm">
 			<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
@@ -16,7 +18,8 @@
 			</span>
 		    </div>
 		</li>
-		<li class="dropdown-item">
+		<li class="list-divider"></li>
+		<li *ngIf="selectionLimit !== 1" class="dropdown-item">
 		    <a href="javascript:;" role="menuitem" tabindex="-1" (click)="checkAll()">
 			<span style="width: 16px;" class="glyphicon glyphicon-ok"></span>
 			Select all
@@ -28,10 +31,11 @@
 			Clear
 		    </a>
 		</li>
-		<li class="dropdown-divider divider"></li>
-		<li class="dropdown-item" style="cursor: pointer;" 
-		[ngClass]="{'active': isSelected(option)}"
-		*ngFor="let option of options | searchFilter:searchFilterText" (click)="setSelected($event, option)">
+		<li class="list-divider"></li>
+		<li class="dropdown-item" 
+		*ngFor="let option of column.options | searchFilter:searchFilterText" 
+		[ngClass]="{'active': isSelected(option)}" 
+		(click)="setSelected($event, option)">
 		    <a href="javascript:;" role="menuitem" tabindex="-1">
 			<input type="checkbox" [checked]="isSelected(option)" />
 			<span style="width: 16px;" class="glyphicon" [class.glyphicon-ok]="isSelected(option)"></span>

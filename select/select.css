@@ -6,3 +6,28 @@
 .selected {
     background-color: #e0e0e0;
 }
+
+.list-divider {
+    height: 1px;
+    margin: 3px 0;
+    overflow: hidden;
+    background-color: #e5e5e5;
+}
+
+.dropdown-menu {
+    height: auto;
+    overflow-y: auto;
+    max-height: 200px;
+    padding: 3px;
+}
+
+.column-menu {
+    float: right;
+    padding: 2px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+.column-menu:hover {
+    cursor: pointer;
+    border: 1px solid #808080;
+}

@@ -1,19 +1,18 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Column, Filter } from '../types/interfaces';
 
 @Component({
-    selector: '[datatable-filter]',
+    selector: '[input-filter]',
     templateUrl: 'filter.component.html',
     styleUrls: ['filter.component.css'],
 })
 
 export class FilterComponent {
 
-    @Input() public columns: Array <any>;
+    @Input() public column: Column;
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
-    public filters: {
-        [s: string]: any;
-    } = {};
+    public filters: Filter = {};
     public filterTimeout: any;
     public filterDelay: number = 300;
 

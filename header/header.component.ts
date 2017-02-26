@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { ISelectOption, Column, Filter } from '../types/interfaces';
 
 @Component({
     selector: '[datatable-header]',
@@ -8,25 +9,19 @@ import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core
 
 export class HeaderComponent {
 
-    @Input() public columns: Array <any>;
-    @Output() onSort: EventEmitter<any> = new EventEmitter();
+    @Input() public columns: Column[] ;
+    @Output() onSort: EventEmitter < any > = new EventEmitter();
+    @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
     public sortField: string;
     public sortOrder: number;
 
-    @ViewChild('selectFilter') selectFilter: any;
-
-    public options: Array < any > = this.options || [];
-    public selectedOptions: any[];
-    public filters: {
-        [s: string]: any;
-    } = {};
-    public column: string;
+    public filters: Filter = {};
     public activeColumn: string;
 
     constructor() {}
 
-    sort(event, column: any) {
+    sort(event, column: Column) {
         if (!column.sortable) {
             return;
         }
@@ -38,7 +33,7 @@ export class HeaderComponent {
         });
     }
 
-    getSortOrder(column: any) {
+    getSortOrder(column: Column) {
         let order = 0;
         if (this.sortField && this.sortField === column.name) {
             order = this.sortOrder;
@@ -46,50 +41,21 @@ export class HeaderComponent {
         return order;
     }
 
-    showColumnMenu(event, column) {
-        //event.stopPropagation();
-        this.column = column;
-        this.selectedOptions = this.filters[this.column];
-
-        if (column === 'www') {
-            this.options = [
-                { id: 12, name: 'Option 12' },
-                { id: 2, name: 'Option 2' },
-                { id: 3, name: 'Option 3' },
-                { id: 4, name: 'Option 4' }
-            ];
-        } else {
-            this.options = [
-                { id: 1, name: 'Option 1' },
-                { id: 2, name: 'Option 2' },
-                { id: 3, name: 'Option 3' },
-                { id: 4, name: 'Option 4' },
-                { id: 5, name: 'Option 5' },
-                { id: 6, name: 'Option 6' },
-            ];
-        }
-        let el = event.target.parentNode;
-        let width = (el.offsetWidth > 200) ? el.offsetWidth : 200;
-        this.selectFilter.show(width, el.offsetHeight, el.offsetLeft);
-    }
-
-    isFilter(column): boolean {
-        let length = this.filters[column] && this.filters[column].length || 0;
+    isFilter(column: Column): boolean {
+        let length = this.filters[column.name] && this.filters[column.name].length || 0;
         return length > 0 ? true : false;
     }
 
     onChangeSelect(event) {
-        this.filters[this.column] = event;
-        this.selectedOptions = event;
-/*        console.log(this.selectedOptions);
-        console.log(this.filters);*/
+        this.filters = event;
+        this.onFilter.emit(this.filters);
     }
 
-    onColumnMouseEnter(event, column) {
-        this.activeColumn = column;
+    onColumnMouseEnter(event, column: Column) {
+        this.activeColumn = column.name;
     }
-    
-    onColumnMouseLeave(event, column) {
+
+    onColumnMouseLeave(event, column: Column) {
         this.activeColumn = null;
     }
 

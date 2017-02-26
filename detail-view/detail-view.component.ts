@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Column } from '../types/interfaces';
 
 @Component({
     selector: 'detail-view',
@@ -8,7 +9,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export class DetailViewComponent {
 
-    @Input() public columns: Array <any>;
+    @Input() public columns: Column[];
     @Input() public item: any;
 
     constructor() {}

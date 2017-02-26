@@ -7,9 +7,14 @@
     </p>
     <div class="loader" [style.visibility]="(!loading) ? 'hidden' : 'visible' "></div>
     <table class="table table-hover table-bordered crud-table" *ngIf="!onDetailView">
-        <thead datatable-header [columns]="columns" (onSort)="sort($event)"></thead>
+        <thead datatable-header [columns]="columns" (onSort)="sort($event)" (onFilter)="filter($event)"></thead>
         <tbody>
-            <tr datatable-filter [columns]="columns" (onFilter)="filter($event)"></tr>
+            <tr>
+                <td *ngFor="let column of columns">
+                    <span input-filter [column]="column" (onFilter)="filter($event)"></span>
+                </td>
+                <td></td>
+            </tr>
             <tr *ngFor="let item of items">
                 <td *ngFor="let column of columns">{{item[column.name]}}</td>
                 <td class="action-column">

@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Column, Settings } from '../types/interfaces';
 
 @Component({
     selector: 'row-form',
@@ -8,9 +9,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export class FormComponent {
 
-    @Input() public columns: Array <any>;
+    @Input() public columns: Column[];
+    @Input() public settings: Settings;
     @Input() public item: any;
-    @Input() public settings: Array <any>;
 
     constructor() {}
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
 import { CrudService } from './services/crud.service';
 import { ModalComponent } from './modal/modal.component';
+import { Column, Filter, Settings } from './types/interfaces';
 
 @Component({
     selector: 'crud-table',
@@ -15,9 +16,8 @@ export class CrudTableComponent implements OnInit {
     @ViewChild('childModal')
     public readonly childModal: ModalComponent;
 
-    @Input() public api: string;
-    @Input() public columns: Array < any > ;
-    @Input() public settings: Array < any > ;
+    @Input() public columns: Column[];
+    @Input() public settings: Settings;
 
     items: any[];
     item: any;
@@ -32,16 +32,14 @@ export class CrudTableComponent implements OnInit {
     public totalItems: number = 0;
     public currentPage: number = 1;
 
-    public filters: {
-        [s: string]: any;
-    } = {};
+    public filters: Filter = {};
     public sortField: string;
     public sortOrder: number;
 
     constructor(private service: CrudService) {}
 
     ngOnInit() {
-        this.service.url = this.api;
+        this.service.url = this.settings.api;
         this.service.primaryKey = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
         this.getItems();
     }
