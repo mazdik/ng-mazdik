@@ -42,11 +42,11 @@ export class HeaderComponent {
     }
 
     isFilter(column: Column): boolean {
-        let length = this.filters[column.name] && this.filters[column.name].length || 0;
+        let length = this.filters[column.name] && this.filters[column.name].value.trim().length || 0;
         return length > 0 ? true : false;
     }
 
-    onChangeSelect(event) {
+    filter(event) {
         this.filters = event;
         this.onFilter.emit(this.filters);
     }
@@ -57,6 +57,22 @@ export class HeaderComponent {
 
     onColumnMouseLeave(event, column: Column) {
         this.activeColumn = null;
+    }
+
+    clearAllFilters() {
+        //this.filters = {};
+        //this.onFilter.emit(this.filters);
+    }
+
+    hasFilter() {
+        let empty = true;
+        for(let prop in this.filters) {
+            if(this.filters.hasOwnProperty(prop)) {
+                empty = false;
+                break;
+            }
+        }
+        return !empty;
     }
 
 }
