@@ -1,8 +1,6 @@
 # Angular 2 CRUD table using Yii 2 REST
 
-CRUD table component for Angular 2 using Yii 2 REST backend and Bootstrap 3 CSS.
-
-<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>
+CRUD table component for Angular 2 using Yii 2 REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)
 
 ### Configuration
 ```typescript
