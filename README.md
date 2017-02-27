@@ -2,11 +2,13 @@
 
 CRUD table component for Angular 2 using Yii 2 REST backend and Bootstrap 3 CSS.
 
+<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>
+
 ### Configuration
 ```typescript
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {CrudTableModule} from './crud-table';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { CrudTableModule } from './crud-table';
 
 import {AppComponent} from './app.component';
 
@@ -27,7 +29,7 @@ export class AppModule {}
 
 ### Sample
 ```typescript
-import {Component}  from '@angular/core';
+import { Component }  from '@angular/core';
 
 @Component({
   selector: 'my-app',

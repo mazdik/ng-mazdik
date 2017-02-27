@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import { Filter } from '../types/interfaces';
 
 @Injectable()
 export class CrudService {
@@ -24,7 +25,7 @@ export class CrudService {
     return headers;
   }
 
-  getItems(page:number = 1, filters?:{[s:string]:any;}, sortField?:string, sortOrder?:number):Promise<any> {
+  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
     let headers = this.getAuthHeaders();
     let url = this.url + "?page=" + page + this.urlEncode(filters) + this.urlSort(sortField, sortOrder)
     return this.http.get(url, {headers: headers})
@@ -33,7 +34,7 @@ export class CrudService {
       .catch(this.handleError);
   }
 
-  getItem(id:number) {
+  getItem(id: number) {
     let filterId = {
       [this.primaryKey]: {value: id}
     };
@@ -41,27 +42,16 @@ export class CrudService {
       .then(data => data.items[0]);
   }
 
-  save(item:any):Promise<any> {
+  save(item: any):Promise<any> {
     if (item[this.primaryKey]) {
       return this.put(item);
     }
     return this.post(item);
   }
 
-  delete(item:any) {
-    let headers = this.getAuthHeaders();
-    ;
-    let url = `${this.url}/${item[this.primaryKey]}`;
-    return this.http
-      .delete(url, {headers: headers})
-      .toPromise()
-      .catch(this.handleError);
-  }
-
   // Add new
-  post(item:any):Promise<any> {
+  post(item: any):Promise<any> {
     let headers = this.getAuthHeaders();
-    ;
     return this.http
       .post(this.url, JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -70,9 +60,8 @@ export class CrudService {
   }
 
   // Update existing
-  put(item:any) {
+  put(item: any) {
     let headers = this.getAuthHeaders();
-    ;
     let url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
@@ -81,7 +70,16 @@ export class CrudService {
       .catch(this.handleError);
   }
 
-  private extractData(res:Response) {
+  delete(item: any) {
+    let headers = this.getAuthHeaders();
+    let url = `${this.url}/${item[this.primaryKey]}`;
+    return this.http
+      .delete(url, {headers: headers})
+      .toPromise()
+      .catch(this.handleError);
+  }
+
+  private extractData(res: Response) {
     let body = res.json();
     return body;
   }
@@ -106,7 +104,7 @@ export class CrudService {
     return Promise.reject(errors);
   }
 
-  private urlEncode(obj:{[s:string]:any;}):string {
+  private urlEncode(obj: Filter): string {
     let urlSearchParams = new URLSearchParams();
     for (let key in obj) {
       if (obj[key]['value']) {
@@ -117,7 +115,7 @@ export class CrudService {
     return (url) ? '&' + url : '';
   }
 
-  private urlSort(sortField:string, sortOrder:number):string {
+  private urlSort(sortField: string, sortOrder: number): string {
     if (sortField) {
       if (sortOrder > 0) {
         return '&sort=' + sortField;
