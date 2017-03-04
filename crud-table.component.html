@@ -10,7 +10,7 @@
         <thead datatable-header [columns]="columns" (onSort)="sort($event)" (onFilter)="filter($event)"></thead>
         <tbody>
             <tr *ngFor="let item of items">
-                <td *ngFor="let column of columns">{{item[column.name]}}</td>
+                <td *ngFor="let column of columns">{{format(item[column.name], column)}}</td>
                 <td class="action-column">
                     <a (click)="viewDetails(item)" title="Просмотр" aria-label="Просмотр"><span class="glyphicon glyphicon-eye-open"></span></a>
                     <a *ngIf="settings.crud" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>

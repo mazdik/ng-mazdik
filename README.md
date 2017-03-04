@@ -7,8 +7,7 @@ CRUD table component for Angular 2 using Yii 2 REST backend and Bootstrap 3 CSS.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CrudTableModule } from './crud-table';
-
-import {AppComponent} from './app.component';
+import { AppComponent } from './app.component';
 
 @NgModule({
     declarations: [
@@ -60,6 +59,7 @@ export class PlayersComponent {
             ]
         },
         { title: 'Exp', name: 'exp', sortable: true, filter: true },
+        { title: 'Last online', name: 'last_online', sortable: true, filter: true, format: 'date'}
     ];
     public settings: any = {
         api: 'http://host3/players',

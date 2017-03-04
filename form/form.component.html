@@ -1,4 +1,7 @@
 <div class="form-group" *ngFor="let column of columns">
     <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
-    <input *ngIf="elemEnabled(column.name)" class="form-control" type="text" [id]="column.name" [(ngModel)]="item[column.name]" />
+    <input class="form-control" type="text" *ngIf="elemEnabled(column.name) && !column.options" [id]="column.name" [(ngModel)]="item[column.name]" />
+    <select class="form-control" *ngIf="elemEnabled(column.name) && column.options" [id]="column.name" [(ngModel)]="item[column.name]">
+      <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
+    </select>
 </div>

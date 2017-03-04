@@ -37,7 +37,6 @@
 		[ngClass]="{'active': isSelected(option)}" 
 		(click)="setSelected($event, option)">
 		    <a href="javascript:;" role="menuitem" tabindex="-1">
-			<input type="checkbox" [checked]="isSelected(option)" />
 			<span style="width: 16px;" class="glyphicon" [class.glyphicon-ok]="isSelected(option)"></span>
 			{{ option.name }}
 		    </a>

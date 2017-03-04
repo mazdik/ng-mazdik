@@ -68,7 +68,7 @@ export class CrudTableComponent implements OnInit {
             });
     }
 
-    public pageChanged(event: any): void {
+    pageChanged(event: any): void {
         this.currentPage = event;
         this.getItems();
     }
@@ -176,8 +176,16 @@ export class CrudTableComponent implements OnInit {
         this.getItems();
     }
 
-    public modalTitle() {
+    modalTitle() {
         return (this.newItem) ? 'Добавить' : 'Редактировать';
+    }
+
+    format(value: any, column: Column) {
+        if(column.format &&  column.format === 'date') {
+            let d = new Date(value*1000);
+            value = d.toLocaleString('ru');
+        }
+        return value;
     }
 
 }

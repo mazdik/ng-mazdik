@@ -70,9 +70,9 @@ export class FilterComponent implements OnInit, DoCheck {
         if (!this.isVisible) {
             this.isVisible = true;
             if(this.column.options) {
-                setTimeout(() => {this.searchFilterInput.nativeElement.focus()});
+                setTimeout(() => {this.searchFilterInput.nativeElement.focus()}, 1);
             } else {
-                setTimeout(() => {this.filterInput.nativeElement.focus()});
+                setTimeout(() => {this.filterInput.nativeElement.focus()}, 1);
             }
         }
     }

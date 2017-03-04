@@ -28,6 +28,7 @@ export interface Column {
     sortable: boolean;
     filter: boolean;
     options?: ISelectOption[];
+    format?: string;
 }
 
 export interface Filter {
