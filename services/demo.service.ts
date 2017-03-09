@@ -1,33 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Filter } from '../types/interfaces';
-import { CrudService } from './crud.service';
+import { Filter, ICrudService } from '../types/interfaces';
 
 @Injectable()
-export class DemoService extends CrudService {
+export class DemoService implements ICrudService {
+
+    public url: string;
+    public primaryKey: string = 'id';
 
     private itemsPerPage: number = 20;
     private data: any = {
         "items": [
-            { "id": 1, "name": "Defunct", "race": "ASMODIANS", "gender": "MALE", "exp": 7734770 },
-            { "id": 2, "name": "Extaze", "race": "ASMODIANS", "gender": "MALE", "exp": 5231886 },
-            { "id": 3, "name": "Soer", "race": "ASMODIANS", "gender": "MALE", "exp": 1012433064 },
-            { "id": 4, "name": "Mmmm", "race": "ASMODIANS", "gender": "MALE", "exp": 1500 },
-            { "id": 5, "name": "Spartacus", "race": "ELYOS ", "gender": "MALE", "exp": 127866172 },
-            { "id": 6, "name": "Dendy", "race": "ASMODIANS", "gender": "FEMALE", "exp": 19740 },
-            { "id": 7, "name": "Sega", "race": "ELYOS", "gender": "FEMALE", "exp": 3750 },
-            { "id": 8, "name": "Chesterxd", "race": "ELYOS", "gender": "MALE", "exp": 5250 },
-            { "id": 9, "name": "Kpoxa", "race": "ELYOS", "gender": "FEMALE", "exp": 343 },
-            { "id": 10, "name": "Chester", "race": "ASMODIANS", "gender": "MALE", "exp": 1902523321 },
-            { "id": 11, "name": "Oumen", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 12, "name": "Ganicus", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 13, "name": "Wolvorin", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 14, "name": "Inkognito", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 15, "name": "Ultras", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 16, "name": "Pandorum", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 17, "name": "Ylolld", "race": "ASMODIANS", "gender": "MALE", "exp": 454 },
-            { "id": 18, "name": "Tratata", "race": "ASMODIANS", "gender": "MALE", "exp": 454 }
+            { "id": 1, "name": "Defunct", "race": "ASMODIANS", "gender": "MALE", "exp": 7734770, "last_online": 1367077316 },
+            { "id": 2, "name": "Extaze", "race": "ASMODIANS", "gender": "MALE", "exp": 5231886, "last_online": 1367077376 },
+            { "id": 3, "name": "Soer", "race": "ASMODIANS", "gender": "MALE", "exp": 1012433064, "last_online": 1367093343 },
+            { "id": 4, "name": "Mmmm", "race": "ASMODIANS", "gender": "MALE", "exp": 1500, "last_online": 1367093368 },
+            { "id": 5, "name": "Spartacus", "race": "ELYOS ", "gender": "MALE", "exp": 127866172, "last_online": 1367093504 },
+            { "id": 6, "name": "Dendy", "race": "ASMODIANS", "gender": "FEMALE", "exp": 19740, "last_online": 1367093627 },
+            { "id": 7, "name": "Sega", "race": "ELYOS", "gender": "FEMALE", "exp": 3750, "last_online": 1367093842 },
+            { "id": 8, "name": "Chesterxd", "race": "ELYOS", "gender": "MALE", "exp": 5250, "last_online": 1367094014 },
+            { "id": 9, "name": "Kpoxa", "race": "ELYOS", "gender": "FEMALE", "exp": 343, "last_online": 1367223323 },
+            { "id": 10, "name": "Chester", "race": "ASMODIANS", "gender": "MALE", "exp": 1902523321, "last_online": 1368002013 },
+            { "id": 11, "name": "Oumen", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1368679384 },
+            { "id": 12, "name": "Ganicus", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370243574 },
+            { "id": 13, "name": "Wolvorin", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370243622 },
+            { "id": 14, "name": "Inkognito", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370243643 },
+            { "id": 15, "name": "Ultras", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370243673 },
+            { "id": 16, "name": "Pandorum", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370243681 },
+            { "id": 17, "name": "Ylolld", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370243777 },
+            { "id": 18, "name": "Tratata", "race": "ASMODIANS", "gender": "MALE", "exp": 454, "last_online": 1370244306 }
         ],
         "_meta": { "totalCount": 18, "pageCount": 1, "currentPage": 1, "perPage": this.itemsPerPage }
     };
@@ -48,7 +50,7 @@ export class DemoService extends CrudService {
         });
     }
 
-    getItem(id: number) {
+    getItem(id: number): Promise<any> {
         let filterId = {
             [this.primaryKey]: { value: id }
         };

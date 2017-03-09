@@ -1,6 +1,7 @@
-# Angular 2 CRUD table using Yii 2 REST
+# Angular 2 CRUD table using REST backend
 
-CRUD table component for Angular 2 using Yii 2 REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)
+Simple CRUD table component for Angular 2 using REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)
+Supports Yii2 RESTful API and ORDS (Oracle REST Data Services)
 
 ### Configuration
 ```typescript
@@ -35,7 +36,7 @@ import { Component }  from '@angular/core';
 
 export class PlayersComponent {
 
-    public columns: Array < any > = [
+    public columns: any[] = [
         { title: 'Id', name: 'id', sortable: true, filter: true },
         { title: 'Name', name: 'name', sortable: true, filter: true }, 
         {
@@ -66,6 +67,7 @@ export class PlayersComponent {
         crud: true,
         pageHeader: 'Players',
         primaryKey: 'id',
+		type: 'yii', // ords or yii (default)
     };
 
 }

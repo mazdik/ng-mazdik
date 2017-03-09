@@ -40,4 +40,16 @@ export interface Settings {
 	crud: boolean;
 	pageHeader?: string;
 	primaryKey?: string;
+    type?: string;
+}
+
+export interface ICrudService {
+  url: string;
+  primaryKey: string;
+  getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
+  getItem(id: number): Promise<any>;
+  save(item: any): Promise<any>;
+  post(item: any): Promise<any>;
+  put(item: any);
+  delete(item: any);
 }

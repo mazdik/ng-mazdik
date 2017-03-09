@@ -1,14 +1,16 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 
-import { CrudService } from './services/crud.service';
+import { YiiService } from './services/yii.service';
+import { OrdsService } from './services/ords.service';
+import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
-import { Column, Filter, Settings } from './types/interfaces';
+import { Column, Filter, Settings, ICrudService } from './types/interfaces';
 
 @Component({
     selector: 'crud-table',
     templateUrl: './crud-table.component.html',
     styleUrls: ['./crud-table.css'],
-    providers: [CrudService]
+    providers: [YiiService, OrdsService, DemoService]
 })
 
 export class CrudTableComponent implements OnInit {
@@ -35,10 +37,20 @@ export class CrudTableComponent implements OnInit {
     public filters: Filter = {};
     public sortField: string;
     public sortOrder: number;
+    private service: ICrudService;
 
-    constructor(private service: CrudService) {}
+    constructor(private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
     ngOnInit() {
+        if (this.settings.type === 'yii') {
+          this.service = this.yiiService;
+        } else if (this.settings.type === 'ords') {
+          this.service = this.ordsService;
+        } else if (this.settings.type === 'demo') {
+          this.service = this.demoService;
+        } else {
+          this.service = this.yiiService;
+        }
         this.service.url = this.settings.api;
         this.service.primaryKey = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
         this.getItems();

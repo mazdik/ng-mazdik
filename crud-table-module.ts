@@ -9,7 +9,6 @@ import { FilterComponent, SelectSearchFilter } from './filter/filter.component';
 import { DetailViewComponent } from './detail-view/detail-view.component';
 import { FormComponent } from './form/form.component';
 import { CrudTableComponent } from './crud-table.component';
-import { CrudService } from './services/crud.service';
 
 @NgModule({
   imports: [
@@ -27,7 +26,7 @@ import { CrudService } from './services/crud.service';
 	SelectSearchFilter
   ],
   exports: [CrudTableComponent],
-  providers: [CrudService]
+  providers: []
 })
 export class CrudTableModule {
 }

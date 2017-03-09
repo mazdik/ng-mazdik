@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Filter } from '../types/interfaces';
+import { Filter, ICrudService } from '../types/interfaces';
 
 @Injectable()
-export class CrudService {
+export class OrdsService implements ICrudService {
 
   public url: string;
   public primaryKey: string = 'id';
@@ -21,20 +21,26 @@ export class CrudService {
   getAuthHeaders() {
     let headers = this.getJsonHeaders();
     let authToken = localStorage.getItem('auth_token');
-    headers.append('Authorization', `Bearer ${authToken}`);
+    if(authToken) {
+        headers.append('Authorization', `Bearer ${authToken}`);
+    }
     return headers;
   }
 
   getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
     let headers = this.getAuthHeaders();
-    let url = this.url + "?page=" + page + this.urlEncode(filters) + this.urlSort(sortField, sortOrder)
+    let url = this.url + "/";
+    if(page > 1) {
+        url = url + "/?offset=" + page;
+    }
+    url = url + this.filterObject(filters, sortField, sortOrder);
     return this.http.get(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
   }
 
-  getItem(id: number) {
+  getItem(id: number): Promise<any> {
     let filterId = {
       [this.primaryKey]: {value: id}
     };
@@ -53,7 +59,7 @@ export class CrudService {
   post(item: any):Promise<any> {
     let headers = this.getAuthHeaders();
     return this.http
-      .post(this.url, JSON.stringify(item), {headers: headers})
+      .post(this.url+'/', JSON.stringify(item), {headers: headers})
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);
@@ -72,7 +78,7 @@ export class CrudService {
 
   delete(item: any) {
     let headers = this.getAuthHeaders();
-    let url = `${this.url}/${item[this.primaryKey]}`;
+    let url = `${this.url}/?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
     return this.http
       .delete(url, {headers: headers})
       .toPromise()
@@ -81,6 +87,11 @@ export class CrudService {
 
   private extractData(res: Response) {
     let body = res.json();
+    let meta = {
+    	"totalCount": body.count, 
+    	"perPage": body.limit
+    	};
+    body = {"items": body.items, "_meta": meta};
     return body;
   }
 
@@ -104,29 +115,32 @@ export class CrudService {
     return Promise.reject(errors);
   }
 
-  private urlEncode(obj: Filter): string {
-    let urlSearchParams = new URLSearchParams();
-    for (let key in obj) {
-      if (obj[key]['value']) {
-        urlSearchParams.append(key, obj[key]['value']);
-      }
-    }
-    let url = urlSearchParams.toString();
-    return (url) ? '&' + url : '';
-  }
+  private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {
+  	let filterObject = {};
+  	let orderby = {};
+  	let result = '';
 
-  private urlSort(sortField: string, sortOrder: number): string {
-    if (sortField) {
-      if (sortOrder > 0) {
-        return '&sort=' + sortField;
-      } else if(sortOrder < 0) {
-        return '&sort=-' + sortField;
-      } else {
-        return '';  
+  	if(sortField && sortOrder) {
+  		orderby = {[sortField]: sortOrder};
+  	}
+
+    for (let key in obj) {
+      if (obj[key]['value'] && obj[key]['value'].trim()) {
+      	if(typeof obj[key]['value'] === 'string') { // TODO
+      		filterObject[key] = {"$like": obj[key]['value']+'%25'};
+      	} else {
+        	filterObject[key] = {"$eq": obj[key]['value']};
+    	}
       }
-    } else {
-      return '';
     }
+
+  	if(Object.keys(orderby).length !== 0) {
+    	filterObject["$orderby"] = orderby;
+  	}
+    if(Object.keys(filterObject).length !== 0) {
+    	result = '?q=' + JSON.stringify(filterObject)
+    }
+    return result;
   }
 
 }
