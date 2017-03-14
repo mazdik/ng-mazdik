@@ -6,18 +6,7 @@
         <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
     </p>
     <div class="loader" [style.visibility]="(!loading) ? 'hidden' : 'visible' "></div>
-    <table class="table table-hover table-bordered crud-table">
-        <thead datatable-header [columns]="columns" (onSort)="sort($event)" (onFilter)="filter($event)"></thead>
-        <tbody>
-            <tr *ngFor="let item of items">
-                <td *ngFor="let column of columns">{{format(item[column.name], column)}}</td>
-                <td class="action-column">
-                    <a (click)="viewDetails(item)" title="Просмотр" aria-label="Просмотр"><span class="glyphicon glyphicon-eye-open"></span></a>
-                    <a *ngIf="settings.crud" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+
     <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
 </div>
 <app-modal #childModal>
@@ -44,4 +33,182 @@
         <button type="button" class="btn btn-primary pull-right" (click)="closeDetails()"> <i class="fa fa-arrow-circle-left"></i> Назад</button>
     </p>
     <detail-view [columns]="columns" [item]="item"></detail-view>
+</div>
+
+<div class="k-grid" #dataTable>
+    <div class="k-grid-header">
+        <div class="k-grid-header-locked" [ngStyle]="{'width.px': headerLockedWidth}">
+            <table>
+                <colgroup>
+                    <col style="width:150px">
+                    <col style="width:300px">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Ship Name</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="k-grid-header-wrap" [ngStyle]="{'width.px': headerWrapWidth}">
+            <table>
+                <colgroup>
+                    <col *ngFor="let column of columns" [ngStyle]="{'width.px': column.width}">
+                    <col style="width:40px">
+                </colgroup>
+                <thead datatable-header [columns]="columns" (onSort)="sort($event)" (onFilter)="filter($event)"></thead>
+            </table>
+        </div>
+        <div style="display: inline-block; vertical-align: top; overflow-y: scroll; visibility: hidden;"></div>
+    </div>
+    <div class="k-grid-body">
+    <div class="k-grid-content-locked" [ngStyle]="{'width.px': contentLockedWidth, 'height.px': contentLockedHeight}">
+        <table>
+            <colgroup>
+                <col style="width:150px">
+                <col style="width:300px">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>10248</td>
+                    <td>Vins et alcools Chevalier</td>
+                </tr>
+                <tr>
+                    <td>10249</td>
+                    <td>Toms Spezialitäten</td>
+                </tr>
+                <tr>
+                    <td>10250</td>
+                    <td>Hanari Carnes</td>
+                </tr>
+                <tr>
+                    <td>10251</td>
+                    <td>Victuailles en stock</td>
+                </tr>
+                <tr>
+                    <td>10252</td>
+                    <td>Suprêmes délices</td>
+                </tr>
+                <tr>
+                    <td>10253</td>
+                    <td>Hanari Carnes</td>
+                </tr>
+                <tr>
+                    <td>10254</td>
+                    <td>Chop-suey Chinese</td>
+                </tr>
+                <tr>
+                    <td>10255</td>
+                    <td>Richter Supermarkt</td>
+                </tr>
+                <tr>
+                    <td>10256</td>
+                    <td>Wellington Importadora</td>
+                </tr>
+                <tr>
+                    <td>10257</td>
+                    <td>HILARION-Abastos</td>
+                </tr>
+                <tr>
+                    <td>10258</td>
+                    <td>Ernst Handel</td>
+                </tr>
+                <tr>
+                    <td>10259</td>
+                    <td>Centro comercial Moctezuma</td>
+                </tr>
+                <tr>
+                    <td>10260</td>
+                    <td>Ottilies Käseladen</td>
+                </tr>
+                <tr>
+                    <td>10261</td>
+                    <td>Que Delícia</td>
+                </tr>
+                <tr>
+                    <td>10262</td>
+                    <td>Rattlesnake Canyon Grocery</td>
+                </tr>
+                <tr>
+                    <td>10263</td>
+                    <td>Ernst Handel</td>
+                </tr>
+                <tr>
+                    <td>10264</td>
+                    <td>Folk och fä HB</td>
+                </tr>
+                <tr>
+                    <td>10265</td>
+                    <td>Blondel père et fils</td>
+                </tr>
+                <tr>
+                    <td>10266</td>
+                    <td>Wartian Herkku</td>
+                </tr>
+                <tr>
+                    <td>10267</td>
+                    <td>Frankenversand</td>
+                </tr>
+                <tr>
+                    <td>10268</td>
+                    <td>GROSELLA-Restaurante</td>
+                </tr>
+                <tr>
+                    <td>10269</td>
+                    <td>White Clover Markets</td>
+                </tr>
+                <tr>
+                    <td>10270</td>
+                    <td>Wartian Herkku</td>
+                </tr>
+                <tr>
+                    <td>10271</td>
+                    <td>Split Rail Beer &amp; Ale</td>
+                </tr>
+                <tr>
+                    <td>10272</td>
+                    <td>Rattlesnake Canyon Grocery</td>
+                </tr>
+                <tr>
+                    <td>10273</td>
+                    <td>QUICK-Stop</td>
+                </tr>
+                <tr>
+                    <td>10274</td>
+                    <td>Vins et alcools Chevalier</td>
+                </tr>
+                <tr>
+                    <td>10275</td>
+                    <td>Magazzini Alimentari Riuniti</td>
+                </tr>
+                <tr>
+                    <td>10276</td>
+                    <td>Tortuga Restaurante</td>
+                </tr>
+                <tr>
+                    <td>10277</td>
+                    <td>Morgenstern Gesundkost</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="k-grid-content" [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
+        <table>
+            <colgroup>
+                <col *ngFor="let column of columns" [ngStyle]="{'width.px': column.width}">
+                <col style="width:40px">
+            </colgroup>
+            <tbody>
+              <tr *ngFor="let item of items">
+                <td *ngFor="let column of columns">{{format(item[column.name], column)}}</td>
+                <td class="action-column">
+                    <a (click)="viewDetails(item)" title="Просмотр" aria-label="Просмотр"><span class="glyphicon glyphicon-eye-open"></span></a>
+                    <a *ngIf="settings.crud" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
 </div>

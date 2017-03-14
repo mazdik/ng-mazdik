@@ -23,3 +23,90 @@
     95% {left: 120%;}
     to {left: 100%;}
 }
+.k-grid {
+    position: relative;
+    zoom: 1;
+}
+.k-widget *, .k-widget:before {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.k-grid-header, .k-grid-body {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.k-grid-content-locked, .k-grid-header-locked {
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    position: relative;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    border-color: #c6c6c6;
+}
+.k-grid-content-locked+.k-grid-content, .k-grid-header-locked+.k-grid-header-wrap {
+    display: inline-block;
+    vertical-align: top;
+}
+.k-grid-header-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    border-color: #c6c6c6;
+    zoom: 1;
+}
+.k-grid-content {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+  overflow-x: auto;
+  overflow-y: scroll;
+  zoom: 1;
+  min-height: 0;
+}
+.k-grid table {
+  table-layout:fixed;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.k-grid tbody>tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.k-grid tbody>tr:hover {
+    background-color: #f5f5f5;
+}
+.k-grid th, td {
+  border: 1px solid #c6c6c6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 3px;
+  line-height: 1.42857143;
+  vertical-align: top;
+}
+.k-grid th {
+  font-weight: bold;
+  text-align: left;
+  position: relative;
+  background-color: #5b9bd5;
+  color: white;
+}
+.k-grid th:hover {
+  background-color: #337ab7;
+}
+.column-title:hover {
+    cursor: pointer;
+}
+.scrollbar-measure {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+  position: absolute;
+  top: -9999px;
+}

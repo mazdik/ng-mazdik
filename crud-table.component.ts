@@ -1,19 +1,21 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, Renderer, AfterViewInit, OnDestroy  } from '@angular/core';
 
 import { YiiService } from './services/yii.service';
 import { OrdsService } from './services/ords.service';
 import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
 import { Column, Filter, Settings, ICrudService } from './types/interfaces';
+import { setColumnDefaults, getFrozenColumns } from './utils/column';
 
 @Component({
     selector: 'crud-table',
     templateUrl: './crud-table.component.html',
     styleUrls: ['./crud-table.css'],
+    encapsulation: ViewEncapsulation.None,
     providers: [YiiService, OrdsService, DemoService]
 })
 
-export class CrudTableComponent implements OnInit {
+export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('childModal')
     public readonly childModal: ModalComponent;
@@ -39,9 +41,58 @@ export class CrudTableComponent implements OnInit {
     public sortOrder: number;
     private service: ICrudService;
 
-    constructor(private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
+    public scrollHeight: number = 387;
+    public scrollWidth: number = 852;
+    @ViewChild('dataTable') dataTable: ElementRef;
+    listenFunc: Function;
+    headerLockedWidth: number;
+    headerWrapWidth: number;
+    contentLockedWidth: number;
+    contentWidth: number;
+    contentLockedHeight: number;
+    contentHeight: number;
+    frozenColumns: Column[];
+
+    constructor(private renderer: Renderer, private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
     ngOnInit() {
+        this.initService();
+        setColumnDefaults(this.columns);
+        this.frozenColumns = getFrozenColumns(this.columns);
+        this.initTableSize() ;
+        this.getItems();
+    }
+
+    ngAfterViewInit() {
+        this.initScrolling();
+    }
+
+    ngOnDestroy() {
+        // Removes "listen" listener
+        this.listenFunc();
+    }
+
+    initTableSize() {
+        let scrollBarWidth = this.calculateScrollbarWidth();
+        this.headerLockedWidth = 450;
+        this.headerWrapWidth = this.scrollWidth - this.headerLockedWidth ;
+        this.contentLockedWidth = this.headerLockedWidth;
+        this.contentWidth = this.headerWrapWidth + scrollBarWidth;
+        this.contentLockedHeight = this.scrollHeight;
+        this.contentHeight = this.contentLockedHeight + scrollBarWidth;
+    }
+
+    initScrolling() {
+        let rcBody = this.dataTable.nativeElement.querySelector('.k-grid-content');
+        let fcBody = this.dataTable.nativeElement.querySelector('.k-grid-content-locked');
+        let rcHead = this.dataTable.nativeElement.querySelector('.k-grid-header-wrap');
+        this.listenFunc = this.renderer.listen(rcBody, 'scroll', (event) => {
+            fcBody.scrollTop = rcBody.scrollTop;
+            rcHead.scrollLeft = rcBody.scrollLeft;
+        });
+    }
+
+    initService() {
         if (this.settings.type === 'yii') {
           this.service = this.yiiService;
         } else if (this.settings.type === 'ords') {
@@ -53,7 +104,6 @@ export class CrudTableComponent implements OnInit {
         }
         this.service.url = this.settings.api;
         this.service.primaryKey = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
-        this.getItems();
     }
 
     loadingShow() {
@@ -198,6 +248,17 @@ export class CrudTableComponent implements OnInit {
             value = d.toLocaleString('ru');
         }
         return value;
+    }
+
+    calculateScrollbarWidth(): number {
+        let scrollDiv = document.createElement("div");
+        scrollDiv.className = "scrollbar-measure";
+        document.body.appendChild(scrollDiv);
+
+        let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        
+        return scrollbarWidth;
     }
 
 }

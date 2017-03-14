@@ -29,6 +29,8 @@ export interface Column {
     filter: boolean;
     options?: ISelectOption[];
     format?: string;
+    width?: number;
+    frozen?: boolean;
 }
 
 export interface Filter {
@@ -44,12 +46,12 @@ export interface Settings {
 }
 
 export interface ICrudService {
-  url: string;
-  primaryKey: string;
-  getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
-  getItem(id: number): Promise<any>;
-  save(item: any): Promise<any>;
-  post(item: any): Promise<any>;
-  put(item: any);
-  delete(item: any);
+    url: string;
+    primaryKey: string;
+    getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
+    getItem(id: number): Promise<any>;
+    save(item: any): Promise<any>;
+    post(item: any): Promise<any>;
+    put(item: any);
+    delete(item: any);
 }
