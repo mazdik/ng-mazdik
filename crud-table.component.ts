@@ -56,6 +56,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     frozenColumns: Column[];
     scrollableColumns: Column[];
     frozenWidth: number = 0;
+    scrollableColumnsWidth: number = 0;
 
     constructor(private renderer: Renderer, private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
@@ -87,6 +88,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
             } 
             else {
                 this.scrollableColumns.push(column);
+                this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
             }
         });
     }

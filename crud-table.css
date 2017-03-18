@@ -66,6 +66,10 @@
   zoom: 1;
   min-height: 0;
 }
+.k-grid-content-expander {
+    visibility: hidden;
+    height: 1px;
+}
 .k-grid table {
   table-layout:fixed;
   width: 100%;
