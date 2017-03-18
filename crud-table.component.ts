@@ -5,7 +5,7 @@ import { OrdsService } from './services/ords.service';
 import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
 import { Column, Filter, Settings, ICrudService } from './types/interfaces';
-import { setColumnDefaults, getFrozenColumns } from './utils/column';
+import { setColumnDefaults } from './utils/column';
 
 @Component({
     selector: 'crud-table',
@@ -19,6 +19,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('childModal')
     public readonly childModal: ModalComponent;
+    @ViewChild('selectFilter') selectFilter: any;
 
     @Input() public columns: Column[];
     @Input() public settings: Settings;
@@ -41,8 +42,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public sortOrder: number;
     private service: ICrudService;
 
-    public scrollHeight: number = 387;
-    public scrollWidth: number = 852;
+    public scrollHeight: number = 380;
+    public scrollWidth: number = 820;
     @ViewChild('dataTable') dataTable: ElementRef;
     listenFunc: Function;
     headerLockedWidth: number;
@@ -51,14 +52,16 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     contentWidth: number;
     contentLockedHeight: number;
     contentHeight: number;
+
     frozenColumns: Column[];
+    scrollableColumns: Column[];
+    frozenWidth: number = 0;
 
     constructor(private renderer: Renderer, private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
     ngOnInit() {
         this.initService();
-        setColumnDefaults(this.columns);
-        this.frozenColumns = getFrozenColumns(this.columns);
+        this.initColumns();
         this.initTableSize() ;
         this.getItems();
     }
@@ -72,9 +75,25 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.listenFunc();
     }
 
+    initColumns(): void {
+        setColumnDefaults(this.columns);
+       
+        this.scrollableColumns = [];
+        this.columns.forEach((column) => {
+            if(column.frozen) {
+                this.frozenColumns = this.frozenColumns||[];
+                this.frozenColumns.push(column);
+                this.frozenWidth = this.frozenWidth + column.width;
+            } 
+            else {
+                this.scrollableColumns.push(column);
+            }
+        });
+    }
+
     initTableSize() {
         let scrollBarWidth = this.calculateScrollbarWidth();
-        this.headerLockedWidth = 450;
+        this.headerLockedWidth = this.frozenWidth + 40;
         this.headerWrapWidth = this.scrollWidth - this.headerLockedWidth ;
         this.contentLockedWidth = this.headerLockedWidth;
         this.contentWidth = this.headerWrapWidth + scrollBarWidth;
@@ -89,6 +108,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.listenFunc = this.renderer.listen(rcBody, 'scroll', (event) => {
             fcBody.scrollTop = rcBody.scrollTop;
             rcHead.scrollLeft = rcBody.scrollLeft;
+            this.selectFilter.hide();
         });
     }
 
@@ -259,6 +279,10 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         document.body.removeChild(scrollDiv);
         
         return scrollbarWidth;
+    }
+
+    showColumnMenu(event) {
+        this.selectFilter.show(200, event.top, event.left, event.column);
     }
 
 }

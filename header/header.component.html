@@ -1,4 +1,9 @@
 <tr>
+    <th *ngIf="firstColumn">
+    <i class="glyphicon glyphicon-filter" 
+        [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
+        (click)="clearAllFilters()" title="Очистить все фильтры"></i>
+    </th>
     <th *ngFor="let column of columns" 
     	(mouseenter)="onColumnMouseEnter($event, column)" 
     	(mouseleave)="onColumnMouseLeave($event, column)">
@@ -7,11 +12,8 @@
         {{column.title}}
         <i *ngIf="column.sortable" class="glyphicon" [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
         </span>
-        <ng-filter [column]="column" [activeColumn]="activeColumn" [filters]="filters" (onFilter)="filter($event)"></ng-filter>
-    </th>
-    <th>
-    <i class="glyphicon glyphicon-filter" 
-        [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
-        (click)="clearAllFilters()" title="Очистить все фильтры"></i>
+        <i (click)="showColumnMenu($event, column)" 
+            [style.visibility]="(column.name !== activeColumn) ? 'hidden' : 'visible' "
+            class="glyphicon glyphicon-menu-hamburger column-menu"></i>
     </th>
 </tr>

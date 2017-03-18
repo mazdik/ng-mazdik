@@ -27,28 +27,6 @@ export function setColumnDefaults(columns: Column[]): Column[] {
     return result;
 }
 
-export function getFrozenColumns(columns: Column[]): Column[]  {
-	let frozenColumns: Column[];
-    columns.forEach((column) => {
-        if (column.frozen) {
-            frozenColumns.push(column);
-        }
-    });
-    return frozenColumns;
-}
-
-export function frozenColumnsWidth(columns: Column[]): number {
-    let totalWidth = 0;
-
-    for (let column of columns) {
-    	if (column.frozen) {
-        	totalWidth = totalWidth + column.width;
-    	}
-    }
-
-    return totalWidth;
-}
-
 export function columnsTotalWidth(columns: Column[]): number {
     let totalWidth = 0;
 

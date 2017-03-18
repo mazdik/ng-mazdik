@@ -10,13 +10,16 @@ import { ISelectOption, Column, Filter } from '../types/interfaces';
 export class HeaderComponent {
 
     @Input() public columns: Column[] ;
+    @Input() public filters: Filter = {};
+    @Input() public firstColumn: boolean = false;
     @Output() onSort: EventEmitter < any > = new EventEmitter();
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
+    @Output() onShowColumnMenu: EventEmitter<any> = new EventEmitter();
+    @Output() onClearAllFilters: EventEmitter<any> = new EventEmitter();
 
     public sortField: string;
     public sortOrder: number;
 
-    public filters: Filter = {};
     public activeColumn: string;
 
     constructor() {}
@@ -60,8 +63,8 @@ export class HeaderComponent {
     }
 
     clearAllFilters() {
-        //this.filters = {};
-        //this.onFilter.emit(this.filters);
+        this.filters = {};
+        this.onClearAllFilters.emit(true);
     }
 
     hasFilter() {
@@ -73,6 +76,27 @@ export class HeaderComponent {
             }
         }
         return !empty;
+    }
+
+    showColumnMenu(event, column: Column) {
+        let el = event.target.parentNode;
+        let left = el.offsetLeft;
+        let top = el.offsetTop;
+        let trHeight = this.getHeight(el.parentNode);
+        top = top + trHeight;
+
+        let doc = el.parentNode.parentNode.parentNode.parentNode;
+        let windowScrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+        left = left - windowScrollLeft;
+
+        this.onShowColumnMenu.emit({'top':top, 'left':left, 'column': column});
+    }
+
+    getHeight(el): number {
+        let height = el.offsetHeight;
+        let style = getComputedStyle(el);
+        height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
+        return height;
     }
 
 }

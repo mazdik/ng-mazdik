@@ -20,14 +20,3 @@
     max-height: 200px;
     padding: 3px;
 }
-
-.column-menu {
-    float: right;
-    padding: 2px;
-    border: 1px solid transparent;
-    border-radius: 3px;
-}
-.column-menu:hover {
-    cursor: pointer;
-    border: 1px solid #808080;
-}
