@@ -68,6 +68,8 @@ export class PlayersComponent {
         pageHeader: 'Players',
         primaryKey: 'id',
 		type: 'yii', // ords or yii (default)
+        tableWidth: 820,
+        scrollHeight: 380,
     };
 
 }

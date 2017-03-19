@@ -33,6 +33,12 @@
     border-color: #c6c6c6;
     zoom: 1;
 }
+.k-grid-header-block {
+    display: inline-block;
+    vertical-align: top;
+    overflow-y: scroll;
+    visibility: hidden;
+}
 .k-grid-content {
   width: 100%;
   overflow: auto;

@@ -42,7 +42,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     private service: ICrudService;
 
     public scrollHeight: number = 380;
-    public scrollWidth: number = 820;
+    public tableWidth: number = 820;
     @ViewChild('dataTable') dataTable: ElementRef;
     listenFunc: Function;
     headerLockedWidth: number;
@@ -56,6 +56,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     scrollableColumns: Column[];
     frozenWidth: number = 0;
     scrollableColumnsWidth: number = 0;
+    scrollBarWidth: number;
 
     constructor(private renderer: Renderer, private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
@@ -93,13 +94,15 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     initTableSize() {
-        let scrollBarWidth = this.calculateScrollbarWidth();
+    	this.scrollHeight = this.settings.scrollHeight || this.scrollHeight;
+     	this.tableWidth = this.settings.tableWidth || this.tableWidth;
+        this.scrollBarWidth = this.calculateScrollbarWidth();
         this.headerLockedWidth = this.frozenWidth + 40;
-        this.headerWrapWidth = this.scrollWidth - this.headerLockedWidth ;
+        this.headerWrapWidth = this.tableWidth - this.headerLockedWidth ;
         this.contentLockedWidth = this.headerLockedWidth;
-        this.contentWidth = this.headerWrapWidth + scrollBarWidth;
+        this.contentWidth = this.headerWrapWidth + this.scrollBarWidth;
         this.contentLockedHeight = this.scrollHeight;
-        this.contentHeight = this.contentLockedHeight + scrollBarWidth;
+        this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;
     }
 
     initScrolling() {
@@ -124,7 +127,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
           this.service = this.yiiService;
         }
         this.service.url = this.settings.api;
-        this.service.primaryKey = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
+        this.service.primaryKey = (this.settings.primaryKey) ? this.settings.primaryKey.toLowerCase() : 'id';
     }
 
     loadingShow() {
@@ -294,19 +297,15 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
             if (!column.hasOwnProperty('sortable')) {
                 column.sortable = true;
             }
-
             if (!column.hasOwnProperty('filter')) {
                 column.filter = true;
             }
-
             if (!column.hasOwnProperty('width')) {
                 column.width = 150;
             }
-
             if (!column.hasOwnProperty('frozen')) {
                 column.frozen = false;
             }
-
             return column;
 
         });

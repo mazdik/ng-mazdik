@@ -43,6 +43,8 @@ export interface Settings {
 	pageHeader?: string;
 	primaryKey?: string;
     type?: string;
+    tableWidth?: number;
+    scrollHeight?: number;
 }
 
 export interface ICrudService {

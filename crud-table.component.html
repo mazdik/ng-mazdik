@@ -26,7 +26,7 @@
                     <thead datatable-header [columns]="scrollableColumns" [filters]="filters" (onSort)="sort($event)" (onFilter)="filter($event)" (onShowColumnMenu)="showColumnMenu($event)"></thead>
                 </table>
             </div>
-            <div style="display: inline-block; vertical-align: top; overflow-y: scroll; visibility: hidden;"></div>
+            <div class="k-grid-header-block"></div>
         </div>
         <div class="k-grid-body">
         <div class="k-grid-content-locked" [ngStyle]="{'width.px': contentLockedWidth, 'height.px': contentLockedHeight}">
