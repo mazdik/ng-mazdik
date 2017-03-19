@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { ISelectOption, Column, Filter } from '../types/interfaces';
+import { ISelectOption, Column, Filter, SortMeta } from '../types/interfaces';
 
 @Component({
     selector: '[datatable-header]',
@@ -12,13 +12,12 @@ export class HeaderComponent {
     @Input() public columns: Column[] ;
     @Input() public filters: Filter = {};
     @Input() public firstColumn: boolean = false;
+    @Input() public sortMeta: SortMeta;
+
     @Output() onSort: EventEmitter < any > = new EventEmitter();
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
     @Output() onShowColumnMenu: EventEmitter<any> = new EventEmitter();
     @Output() onClearAllFilters: EventEmitter<any> = new EventEmitter();
-
-    public sortField: string;
-    public sortOrder: number;
 
     public activeColumn: string;
 
@@ -28,18 +27,17 @@ export class HeaderComponent {
         if (!column.sortable) {
             return;
         }
-        this.sortOrder = (this.sortField === column.name) ? this.sortOrder * -1 : 1;
-        this.sortField = column.name;
+        this.sortMeta.order = (this.sortMeta.field === column.name) ? this.sortMeta.order * -1 : 1;
+        this.sortMeta.field = column.name;
         this.onSort.emit({
-            field: this.sortField,
-            order: this.sortOrder
+            sortMeta: this.sortMeta
         });
     }
 
     getSortOrder(column: Column) {
         let order = 0;
-        if (this.sortField && this.sortField === column.name) {
-            order = this.sortOrder;
+        if (this.sortMeta.field && this.sortMeta.field === column.name) {
+            order = this.sortMeta.order;
         }
         return order;
     }

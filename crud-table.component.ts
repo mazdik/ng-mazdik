@@ -4,7 +4,7 @@ import { YiiService } from './services/yii.service';
 import { OrdsService } from './services/ords.service';
 import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
-import { Column, Filter, Settings, ICrudService } from './types/interfaces';
+import { Column, Filter, Settings, ICrudService, SortMeta } from './types/interfaces';
 
 @Component({
     selector: 'crud-table',
@@ -37,8 +37,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public currentPage: number = 1;
 
     public filters: Filter = {};
-    public sortField: string;
-    public sortOrder: number;
+    public sortMeta: SortMeta = <SortMeta>{};
     private service: ICrudService;
 
     public scrollHeight: number = 380;
@@ -141,7 +140,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     getItems() {
         this.loadingShow();
         this.errors = null;
-        this.service.getItems(this.currentPage, this.filters, this.sortField, this.sortOrder)
+        this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
             .then(data => {
                 this.loadingHide();
                 this.items = data.items;
@@ -257,8 +256,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     sort(event) {
-        this.sortField = event.field;
-        this.sortOrder = event.order;
+        this.sortMeta = event.sortMeta;
         this.getItems();
     }
 

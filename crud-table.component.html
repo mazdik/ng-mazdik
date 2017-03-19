@@ -1,6 +1,7 @@
 <h1 class="page-header" *ngIf="settings.pageHeader">{{settings.pageHeader}}</h1>
-<div class="alert alert-danger" role="alert" *ngIf="errors">
-    {{errors.errMsg}}</div>
+
+<div class="alert alert-danger" *ngIf="errors">{{errors.errMsg}}</div>
+
 <div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
     <p *ngIf="settings.crud">
         <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
@@ -15,7 +16,15 @@
                         <col style="width:40px">
                         <col *ngFor="let column of frozenColumns" [ngStyle]="{'width.px': column.width}">
                     </colgroup>
-                    <thead datatable-header [columns]="frozenColumns" [filters]="filters" (onSort)="sort($event)" (onFilter)="filter($event)" (onShowColumnMenu)="showColumnMenu($event)" [firstColumn]="true" (onClearAllFilters)="selectFilter.clearAllFilters()"></thead>
+                    <thead datatable-header 
+                        [columns]="frozenColumns" 
+                        [filters]="filters" 
+                        [sortMeta]="sortMeta" 
+                        (onSort)="sort($event)" 
+                        (onShowColumnMenu)="showColumnMenu($event)" 
+                        [firstColumn]="true" 
+                        (onClearAllFilters)="selectFilter.clearAllFilters()">
+                    </thead>
                 </table>
             </div>
             <div class="k-grid-header-wrap" [ngStyle]="{'width.px': headerWrapWidth}">
@@ -23,7 +32,13 @@
                     <colgroup>
                         <col *ngFor="let column of scrollableColumns" [ngStyle]="{'width.px': column.width}">
                     </colgroup>
-                    <thead datatable-header [columns]="scrollableColumns" [filters]="filters" (onSort)="sort($event)" (onFilter)="filter($event)" (onShowColumnMenu)="showColumnMenu($event)"></thead>
+                    <thead datatable-header 
+                        [columns]="scrollableColumns" 
+                        [filters]="filters" 
+                        [sortMeta]="sortMeta" 
+                        (onSort)="sort($event)" 
+                        (onShowColumnMenu)="showColumnMenu($event)">
+                    </thead>
                 </table>
             </div>
             <div class="k-grid-header-block"></div>
@@ -64,6 +79,7 @@
 
     <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
 </div>
+
 <app-modal #childModal>
     <div class="app-modal-header">
         <h4 class="modal-title pull-left">{{modalTitle()}}</h4>
@@ -82,6 +98,7 @@
         <button type="button" class="btn btn-primary" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Закрыть</button>
     </div>
 </app-modal>
+
 <div class="detail-view" *ngIf="onDetailView && item">
     <p>
         <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>

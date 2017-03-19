@@ -57,3 +57,8 @@ export interface ICrudService {
     put(item: any);
     delete(item: any);
 }
+
+export interface SortMeta {
+    field: string;
+    order: number;
+}
