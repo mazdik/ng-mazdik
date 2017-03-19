@@ -5,7 +5,6 @@ import { OrdsService } from './services/ords.service';
 import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
 import { Column, Filter, Settings, ICrudService } from './types/interfaces';
-import { setColumnDefaults } from './utils/column';
 
 @Component({
     selector: 'crud-table',
@@ -77,7 +76,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     initColumns(): void {
-        setColumnDefaults(this.columns);
+        this.setColumnDefaults(this.columns);
        
         this.scrollableColumns = [];
         this.columns.forEach((column) => {
@@ -285,6 +284,41 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     showColumnMenu(event) {
         this.selectFilter.show(200, event.top, event.left, event.column);
+    }
+
+    setColumnDefaults(columns: Column[]): Column[] {
+        if (!columns) return;
+
+        let result = columns.map(function(column) {
+
+            if (!column.hasOwnProperty('sortable')) {
+                column.sortable = true;
+            }
+
+            if (!column.hasOwnProperty('filter')) {
+                column.filter = true;
+            }
+
+            if (!column.hasOwnProperty('width')) {
+                column.width = 150;
+            }
+
+            if (!column.hasOwnProperty('frozen')) {
+                column.frozen = false;
+            }
+
+            return column;
+
+        });
+        return result;
+    }
+
+    columnsTotalWidth(columns: Column[]): number {
+        let totalWidth = 0;
+        for (let column of columns) {
+            totalWidth = totalWidth + column.width;
+        }
+        return totalWidth;
     }
 
 }

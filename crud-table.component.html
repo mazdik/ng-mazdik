@@ -5,8 +5,7 @@
     <p *ngIf="settings.crud">
         <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
     </p>
-    <div class="loader" [style.visibility]="(!loading) ? 'hidden' : 'visible' "></div>
-
+    <loading-indicator [isLoading]="loading"></loading-indicator>
     <div class="k-grid" #dataTable>
         <ng-filter #selectFilter [filters]="filters" (onFilter)="filter($event)"></ng-filter>
         <div class="k-grid-header">

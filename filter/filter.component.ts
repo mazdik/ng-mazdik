@@ -1,23 +1,10 @@
 import { Component, Input, Output, OnInit, EventEmitter, Pipe, ViewChild } from '@angular/core';
 import { ISelectOption, Column, Filter } from '../types/interfaces';
 
-@Pipe({
-    name: 'searchFilter'
-})
-export class SelectSearchFilter {
-    transform(options: ISelectOption[] , args: string): ISelectOption[] {
-        options = options || [];
-        return options.filter((option: ISelectOption) =>
-            option.name
-            .toLowerCase()
-            .indexOf((args || '').toLowerCase()) > -1);
-    }
-}
-
 @Component({
     selector: 'ng-filter',
     templateUrl: './filter.component.html',
-    styleUrls: ['./filter.css'],
+    styleUrls: ['./filter.component.css'],
 })
 export class FilterComponent implements OnInit {
 

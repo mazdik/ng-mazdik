@@ -88,3 +88,5 @@ You will need bootstrap styles
 * Create/Update/Delete
 * Loading indicator
 * MultiSelect
+* Scrolling with fixed header horizontally and vertically
+* Frozen columns
