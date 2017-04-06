@@ -42,6 +42,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public scrollHeight: number = 380;
     public tableWidth: number = 820;
+    public letterWidth: number = 10;
     @ViewChild('dataTable') dataTable: ElementRef;
     listenFunc: Function;
     headerLockedWidth: number;
@@ -76,7 +77,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     initColumns(): void {
-        this.setColumnDefaults(this.columns);
+        this.letterWidth = this.getTextWidth('M', 'bold 14px arial');
+        this.setColumnsDefaults(this.columns);
        
         this.scrollableColumns = [];
         this.columns.forEach((column) => {
@@ -287,26 +289,26 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectFilter.show(200, event.top, event.left, event.column);
     }
 
-    setColumnDefaults(columns: Column[]): Column[] {
+    setColumnDefaults(column: Column): Column {
+        if (!column.hasOwnProperty('sortable')) {
+            column.sortable = true;
+        }
+        if (!column.hasOwnProperty('filter')) {
+            column.filter = true;
+        }
+        if (!column.hasOwnProperty('width')) {
+            column.width = (column.name.length * this.letterWidth) + 50;
+        }
+        if (!column.hasOwnProperty('frozen')) {
+            column.frozen = false;
+        }
+        return column;
+    }
+
+    setColumnsDefaults(columns: Column[]): Column[] {
         if (!columns) return;
 
-        let result = columns.map(function(column) {
-
-            if (!column.hasOwnProperty('sortable')) {
-                column.sortable = true;
-            }
-            if (!column.hasOwnProperty('filter')) {
-                column.filter = true;
-            }
-            if (!column.hasOwnProperty('width')) {
-                column.width = 150;
-            }
-            if (!column.hasOwnProperty('frozen')) {
-                column.frozen = false;
-            }
-            return column;
-
-        });
+        let result = columns.map(this.setColumnDefaults, this);
         return result;
     }
 
@@ -317,5 +319,13 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         return totalWidth;
     }
+
+	getTextWidth(text, font) {
+	    let canvas = document.createElement("canvas");
+	    let context = canvas.getContext("2d");
+	    context.font = font;
+	    let metrics = context.measureText(text);
+	    return metrics.width;
+	};
 
 }
