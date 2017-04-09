@@ -2,7 +2,7 @@
 
     <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
 
-    <div [ngSwitch]="column.type">
+    <div *ngIf="elemEnabled(column.name)" [ngSwitch]="column.type">
         <select class="form-control"
             *ngSwitchCase="'dropdown'"
 			[(ngModel)]="item[column.name]"
