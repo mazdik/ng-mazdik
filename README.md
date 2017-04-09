@@ -44,6 +44,7 @@ export class PlayersComponent {
             name: 'race',
             sortable: true,
             filter: true,
+            type: 'dropdown',
             options: [
                 { id: 'ASMODIANS', name: 'ASMODIANS' },
                 { id: 'ELYOS', name: 'ELYOS' },
@@ -54,13 +55,14 @@ export class PlayersComponent {
             name: 'gender',
             sortable: true,
             filter: true,
+            type: 'radio',
             options: [
                 { id: 'MALE', name: 'MALE' },
                 { id: 'FEMALE', name: 'FEMALE' },
             ]
         },
-        { title: 'Exp', name: 'exp', sortable: true, filter: true },
-        { title: 'Last online', name: 'last_online', sortable: true, filter: true, format: 'date'}
+        { title: 'Exp', name: 'exp', sortable: true, filter: true, type: 'number' },
+        { title: 'Last online', name: 'last_online', sortable: true, filter: true, format: 'date', type: 'date' }
     ];
     public settings: any = {
         api: 'http://host3/players',
@@ -92,3 +94,4 @@ You will need bootstrap styles
 * MultiSelect
 * Scrolling with fixed header horizontally and vertically
 * Frozen columns
+* Dynamic forms

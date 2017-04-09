@@ -1,7 +1,57 @@
 <div class="form-group" *ngFor="let column of columns">
+
     <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
-    <input class="form-control" type="text" *ngIf="elemEnabled(column.name) && !column.options" [id]="column.name" [(ngModel)]="item[column.name]" />
-    <select class="form-control" *ngIf="elemEnabled(column.name) && column.options" [id]="column.name" [(ngModel)]="item[column.name]">
-      <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
-    </select>
+
+    <div [ngSwitch]="column.type">
+        <select class="form-control"
+            *ngSwitchCase="'dropdown'"
+			[(ngModel)]="item[column.name]"
+            [id]="column.name">
+            <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
+        </select>   
+        
+        <div *ngSwitchCase="'checkbox'">
+            <div class="checkbox" *ngFor="let o of column.options">
+            	<label>
+                <input 
+                    [type]="column.type"
+                    [(ngModel)]="item[column.name]"
+                    [name]="column.name"
+                    [value]="o.id"
+                    [checked]="isSelectActive(column, o)"
+                    >
+                </label>
+                <span>{{o.name ? o.name : o.id}}</span>   
+            </div>
+        </div>
+        
+        <textarea class="form-control" 
+            *ngSwitchCase="'textarea'" 
+            [(ngModel)]="item[column.name]"
+            [id]="column.name">   
+        </textarea> 
+        
+        <div *ngSwitchCase="'radio'">
+            <div class="radio" *ngFor="let o of column.options">
+            	<label>
+                <input 
+                    [type]="column.type"
+                    [(ngModel)]="item[column.name]"
+                    [name]="column.name"
+                    [value]="o.id"
+                    [checked]="item[column.name] === o.id"
+                    (click)="item[column.name] = o.id" >
+                 </label>
+                <span>{{o.name ? o.name : o.id}}</span>    
+            </div>
+        </div>
+    
+        <input class="form-control"
+            *ngSwitchDefault
+            [(ngModel)]="item[column.name]"
+            [attr.placeholder]="column.title"
+            [type]="column.type"
+            [id]="column.name"> 
+    </div>
+
 </div>

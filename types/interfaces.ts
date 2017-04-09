@@ -31,6 +31,7 @@ export interface Column {
     format?: string;
     width?: number;
     frozen?: boolean;
+    type?: 'text' | 'password' | 'number' | 'dropdown' | 'radio' | 'checkbox' | 'textarea' | 'date';
 }
 
 export interface Filter {

@@ -20,4 +20,12 @@ export class FormComponent {
         return (name === pk) ? false : true;
     }
 
+    isSelectActive(column, option) {
+        if (Array.isArray(this.item[column.name])) {
+            return this.item[column.name].find(a => a === option.id) ? true : false;
+        } else {
+            return this.item[column.name] === option.id;
+        }
+    }
+
 }

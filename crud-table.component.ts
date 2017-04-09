@@ -302,6 +302,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!column.hasOwnProperty('frozen')) {
             column.frozen = false;
         }
+        if (!column.hasOwnProperty('type')) {
+            column.type = 'text';
+        }
         return column;
     }
 
