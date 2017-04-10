@@ -1,4 +1,4 @@
-<div class="form-group" *ngFor="let column of columns">
+<div class="form-group" *ngFor="let column of columns" [ngClass]="{'has-error':hasError(column)}">
 
     <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
 
@@ -6,6 +6,7 @@
         <select class="form-control"
             *ngSwitchCase="'dropdown'"
 			[(ngModel)]="item[column.name]"
+            (focus)="startValidate(column)"
             [id]="column.name">
             <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
         </select>   
@@ -28,6 +29,7 @@
         <textarea class="form-control" 
             *ngSwitchCase="'textarea'" 
             [(ngModel)]="item[column.name]"
+            (focus)="startValidate(column)"
             [id]="column.name">   
         </textarea> 
         
@@ -51,7 +53,12 @@
             [(ngModel)]="item[column.name]"
             [attr.placeholder]="column.title"
             [type]="column.type"
+            (focus)="startValidate(column)"
             [id]="column.name"> 
+    </div>
+
+    <div class="help-block">
+        <span *ngFor="let err of errors(column)">{{err}}<br></span>
     </div>
 
 </div>

@@ -32,6 +32,7 @@ export interface Column {
     width?: number;
     frozen?: boolean;
     type?: 'text' | 'password' | 'number' | 'dropdown' | 'radio' | 'checkbox' | 'textarea' | 'date';
+    validation?: IValidation;
 }
 
 export interface Filter {
@@ -62,4 +63,10 @@ export interface ICrudService {
 export interface SortMeta {
     field: string;
     order: number;
+}
+
+export interface IValidation {
+    required?: boolean;
+    minLength?: number;
+    maxLength?: number;
 }
