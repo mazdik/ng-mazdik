@@ -84,6 +84,9 @@
 .column-title:hover {
     cursor: pointer;
 }
+.pager-wrap {
+    text-align: center;
+}
 .scrollbar-measure {
   width: 100px;
   height: 100px;

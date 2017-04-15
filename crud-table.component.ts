@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, Renderer, AfterViewInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, Renderer, AfterViewInit, OnDestroy, HostListener } from '@angular/core';
 
 import { YiiService } from './services/yii.service';
 import { OrdsService } from './services/ords.service';
@@ -44,6 +44,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public tableWidth: number = 820;
     public letterWidth: number = 10;
     @ViewChild('dataTable') dataTable: ElementRef;
+    @ViewChild('tableContent') tableContent: ElementRef;
     listenFunc: Function;
     headerLockedWidth: number;
     headerWrapWidth: number;
@@ -69,6 +70,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.initScrolling();
+        this.setContentHeight();
     }
 
     ngOnDestroy() {
@@ -103,7 +105,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.contentLockedWidth = this.headerLockedWidth;
         this.contentWidth = this.headerWrapWidth + this.scrollBarWidth;
         this.contentLockedHeight = this.scrollHeight;
-        this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;
+        this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;;
     }
 
     initScrolling() {
@@ -329,6 +331,20 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 	    context.font = font;
 	    let metrics = context.measureText(text);
 	    return metrics.width;
-	};
+	}
+
+    setContentHeight() {
+        let hasHorizontalScrollbar = this.tableContent.nativeElement.scrollWidth > this.tableContent.nativeElement.clientWidth;
+        if(hasHorizontalScrollbar) {
+           this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;
+        } else {
+            this.contentHeight = this.contentLockedHeight;
+        }
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+      this.setContentHeight();
+    }
 
 }

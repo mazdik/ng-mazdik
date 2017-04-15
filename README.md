@@ -50,7 +50,8 @@ export class PlayersComponent {
             sortable: true, 
             filter: true, 
             frozen: true, 
-            width: 250 
+            width: 250,
+            validation: { pattern: '^[a-zA-Z ]+$' },
         },
         {
             title: 'Race',
@@ -117,8 +118,9 @@ You will need bootstrap styles
 * Pagination
 * Modal
 * Create/Update/Delete
+* Single row view
 * Loading indicator
 * MultiSelect
 * Scrolling with fixed header horizontally and vertically
 * Frozen columns
-* Dynamic forms
+* Dynamic forms with validation

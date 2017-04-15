@@ -61,7 +61,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="k-grid-content" [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
+        <div class="k-grid-content" #tableContent [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
             <table>
                 <colgroup>
                     <col *ngFor="let column of scrollableColumns" [ngStyle]="{'width.px': column.width}">
@@ -75,9 +75,11 @@
             <div class="k-grid-content-expander" *ngIf="totalItems <=0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
         </div>
         </div>
+        <div class="pager-wrap">
+            <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>        
+        </div>
     </div>
 
-    <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
 </div>
 
 <app-modal #childModal>

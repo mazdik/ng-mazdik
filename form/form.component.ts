@@ -44,6 +44,9 @@ export class FormComponent {
      	if(column.validation.maxLength && length > column.validation.maxLength) {
     		temp.push(`${column.title} can't be longer then ${column.validation.maxLength} characters. ActualLength: ${length}`);
     	}
+    	if(column.validation.pattern && this.item[column.name] && this.pattern(column)) {
+    		temp.push(this.pattern(column));
+    	}
     	return temp;
     }
 
@@ -60,5 +63,19 @@ export class FormComponent {
     hasError(column: Column) {
     	return (this.errors(column)) ? this.errors(column).length > 0 : false; 
     }
+
+	pattern(column: Column): string {
+		let pattern: string|RegExp = column.validation.pattern;
+	    let regex: RegExp;
+	    let regexStr: string;
+	    if (typeof pattern === 'string') {
+	      regexStr = `^${pattern}$`;
+	      regex = new RegExp(regexStr);
+	    } else {
+	      regexStr = pattern.toString();
+	      regex = pattern;
+	    }
+		return regex.test(this.item[column.name]) ? null : `${column.title} must match this pattern: ${regexStr}.`;
+	}
 
 }
