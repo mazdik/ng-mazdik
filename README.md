@@ -52,6 +52,7 @@ export class PlayersComponent {
             frozen: true, 
             width: 250,
             validation: { pattern: '^[a-zA-Z ]+$' },
+            editable: true,
         },
         {
             title: 'Race',
@@ -62,7 +63,8 @@ export class PlayersComponent {
             options: [
                 { id: 'ASMODIANS', name: 'ASMODIANS' },
                 { id: 'ELYOS', name: 'ELYOS' },
-            ]
+            ],
+            editable: true,
         }, 
         {
             title: 'Gender',
@@ -73,7 +75,8 @@ export class PlayersComponent {
             options: [
                 { id: 'MALE', name: 'MALE' },
                 { id: 'FEMALE', name: 'FEMALE' },
-            ]
+            ],
+            editable: true,
         },
         { 
             title: 'Exp',
@@ -82,6 +85,7 @@ export class PlayersComponent {
             filter: true,
             type: 'number',
             validation: { required: true, minLength: 2, maxLength: 10 },
+            editable: true,
         },
         { 
             title: 'Last online', 
@@ -89,7 +93,8 @@ export class PlayersComponent {
             sortable: true, 
             filter: true,
             type: 'date',
-            format: 'date', 
+            format: 'date',
+            editable: true,
         }
     ];
     public settings: any = {
@@ -124,3 +129,4 @@ You will need bootstrap styles
 * Scrolling with fixed header horizontally and vertically
 * Frozen columns
 * Dynamic forms with validation
+* Editable

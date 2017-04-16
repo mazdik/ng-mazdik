@@ -16,7 +16,7 @@ export class DemoService implements ICrudService {
             { "id": 2, "name": "Extaze", "race": "ASMODIANS", "gender": "MALE", "exp": 5231886, "last_online": 1367077376 },
             { "id": 3, "name": "Soer", "race": "ASMODIANS", "gender": "MALE", "exp": 1012433064, "last_online": 1367093343 },
             { "id": 4, "name": "Mmmm", "race": "ASMODIANS", "gender": "MALE", "exp": 1500, "last_online": 1367093368 },
-            { "id": 5, "name": "Spartacus", "race": "ELYOS ", "gender": "MALE", "exp": 127866172, "last_online": 1367093504 },
+            { "id": 5, "name": "Spartacus", "race": "ELYOS", "gender": "MALE", "exp": 127866172, "last_online": 1367093504 },
             { "id": 6, "name": "Dendy", "race": "ASMODIANS", "gender": "FEMALE", "exp": 19740, "last_online": 1367093627 },
             { "id": 7, "name": "Sega", "race": "ELYOS", "gender": "FEMALE", "exp": 3750, "last_online": 1367093842 },
             { "id": 8, "name": "Chesterxd", "race": "ELYOS", "gender": "MALE", "exp": 5250, "last_online": 1367094014 },

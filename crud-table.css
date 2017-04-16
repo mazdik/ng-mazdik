@@ -2,10 +2,6 @@
     position: relative;
     zoom: 1;
 }
-.k-widget *, .k-widget:before {
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-}
 .k-grid-header, .k-grid-body {
     display: -webkit-box;
     display: -moz-box;

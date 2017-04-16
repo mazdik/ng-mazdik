@@ -43,6 +43,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public scrollHeight: number = 380;
     public tableWidth: number = 820;
     public letterWidth: number = 10;
+    public actionColumnWidth: number = 40;
     @ViewChild('dataTable') dataTable: ElementRef;
     @ViewChild('tableContent') tableContent: ElementRef;
     listenFunc: Function;
@@ -100,7 +101,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     	this.scrollHeight = this.settings.scrollHeight || this.scrollHeight;
      	this.tableWidth = this.settings.tableWidth || this.tableWidth;
         this.scrollBarWidth = this.calculateScrollbarWidth();
-        this.headerLockedWidth = this.frozenWidth + 40;
+        this.headerLockedWidth = this.frozenWidth + this.actionColumnWidth;
         this.headerWrapWidth = this.tableWidth - this.headerLockedWidth ;
         this.contentLockedWidth = this.headerLockedWidth;
         this.contentWidth = this.headerWrapWidth + this.scrollBarWidth;
@@ -168,9 +169,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.newItem) {
             this.service
                 .post(this.item)
-                .then(item => {
+                .then(res => {
                     this.loadingHide();
-                    this.item = item;
+                    this.item = res;
                     this.items.push(this.item);
                 })
                 .catch(error => {
@@ -180,9 +181,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         } else {
             this.service
                 .put(this.item)
-                .then(item => {
+                .then(res => {
                     this.loadingHide();
-                    this.items[this.findSelectedItemIndex()] = item;
+                    this.items[this.findSelectedItemIndex()] = res;
                 })
                 .catch(error => {
                     this.loadingHide();
@@ -239,6 +240,12 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.childModal.show();
     }
 
+    editItem(item: any) {
+        this.newItem = false;
+        this.item = this.cloneItem(item);
+        this.save();
+    }
+
     deleteItem(item: any) {
         this.item = this.cloneItem(item);
         this.delete();
@@ -268,14 +275,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         return (this.newItem) ? 'Добавить' : 'Редактировать';
     }
 
-    format(value: any, column: Column) {
-        if(column.format &&  column.format === 'date') {
-            let d = new Date(value*1000);
-            value = d.toLocaleString('ru');
-        }
-        return value;
-    }
-
     calculateScrollbarWidth(): number {
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "scrollbar-measure";
@@ -300,6 +299,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         if (!column.hasOwnProperty('width')) {
             column.width = (column.name.length * this.letterWidth) + 50;
+            if(column.width < 150) {
+                column.width = 150;
+            }
         }
         if (!column.hasOwnProperty('frozen')) {
             column.frozen = false;

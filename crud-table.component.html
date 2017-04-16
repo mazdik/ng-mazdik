@@ -8,12 +8,16 @@
     </p>
     <div class="k-grid" #dataTable [ngStyle]="{'max-width.px': tableWidth+scrollBarWidth}">
         <loading-indicator [isLoading]="loading"></loading-indicator>
-        <ng-filter #selectFilter [filters]="filters" (onFilter)="filter($event)"></ng-filter>
+        <ng-filter 
+            #selectFilter 
+            [filters]="filters" 
+            (onFilter)="filter($event)">
+        </ng-filter>
         <div class="k-grid-header">
             <div class="k-grid-header-locked" [ngStyle]="{'width.px': headerLockedWidth}">
                 <table>
                     <colgroup>
-                        <col style="width:40px">
+                        <col [ngStyle]="{'width.px': actionColumnWidth}">
                         <col *ngFor="let column of frozenColumns" [ngStyle]="{'width.px': column.width}">
                     </colgroup>
                     <thead datatable-header 
@@ -47,17 +51,17 @@
         <div class="k-grid-content-locked" [ngStyle]="{'width.px': contentLockedWidth, 'height.px': contentLockedHeight}">
             <table>
                 <colgroup>
-                    <col style="width:40px">
+                    <col [ngStyle]="{'width.px': actionColumnWidth}">
                     <col *ngFor="let column of frozenColumns" [ngStyle]="{'width.px': column.width}">
                 </colgroup>
-                <tbody>
-                    <tr *ngFor="let item of items">
-                        <td class="action-column">
-                            <a (click)="viewDetails(item)" title="Просмотр" aria-label="Просмотр"><span class="glyphicon glyphicon-eye-open"></span></a>
-                            <a *ngIf="settings.crud" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
-                        </td>
-                        <td *ngFor="let column of frozenColumns">{{format(item[column.name], column)}}</td>
-                    </tr>
+                <tbody datatable-body 
+                    [columns]="frozenColumns"
+                    [items]="items"
+                    [enableAction]="true" 
+                    [crud]="settings.crud"
+                    (onViewAction)="viewDetails($event)"
+                    (onUpdateAction)="updateItem($event)"
+                    (onEditComplete)="editItem($event)">
                 </tbody>
             </table>
         </div>
@@ -66,17 +70,21 @@
                 <colgroup>
                     <col *ngFor="let column of scrollableColumns" [ngStyle]="{'width.px': column.width}">
                 </colgroup>
-                <tbody>
-                  <tr *ngFor="let item of items">
-                    <td *ngFor="let column of scrollableColumns">{{format(item[column.name], column)}}</td>
-                </tr>
-                </tbody>
+                <tbody datatable-body
+                    [columns]="scrollableColumns"
+                    [items]="items"
+                    (onEditComplete)="editItem($event)">
+                </tbody> 
             </table>
-            <div class="k-grid-content-expander" *ngIf="totalItems <=0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
+            <div class="k-grid-content-expander" *ngIf="totalItems <= 0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
         </div>
         </div>
         <div class="pager-wrap">
-            <pagination [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>        
+            <pagination 
+                [totalItems]="totalItems" 
+                [itemsPerPage]="itemsPerPage" 
+                (pageChanged)="pageChanged($event)">
+            </pagination>        
         </div>
     </div>
 
@@ -91,7 +99,11 @@
     </div>
     <div class="app-modal-body">
         <div *ngIf="item">
-            <row-form [columns]="columns" [item]="item" [settings]="settings"></row-form>
+            <row-form 
+                [columns]="columns" 
+                [item]="item" 
+                [settings]="settings">
+            </row-form>
         </div>
     </div>
     <div class="app-modal-footer">
@@ -103,8 +115,11 @@
 
 <div class="detail-view" *ngIf="onDetailView && item">
     <p>
-        <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать" aria-label="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
         <button type="button" class="btn btn-primary pull-right" (click)="closeDetails()"> <i class="fa fa-arrow-circle-left"></i> Назад</button>
     </p>
-    <detail-view [columns]="columns" [item]="item"></detail-view>
+    <detail-view 
+        [columns]="columns" 
+        [item]="item">
+    </detail-view>
 </div>

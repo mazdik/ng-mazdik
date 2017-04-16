@@ -11,6 +11,8 @@ import { DetailViewComponent } from './detail-view/detail-view.component';
 import { FormComponent } from './form/form.component';
 import { CrudTableComponent } from './crud-table.component';
 import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
+import { BodyComponent } from './body/body.component';
+
 
 @NgModule({
   imports: [
@@ -26,7 +28,8 @@ import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator
 	DetailViewComponent,
 	FormComponent,
 	SearchFilterPipe,
-	LoadingIndicatorComponent
+	LoadingIndicatorComponent,
+	BodyComponent
   ],
   exports: [CrudTableComponent],
   providers: []

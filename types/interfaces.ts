@@ -33,6 +33,7 @@ export interface Column {
     frozen?: boolean;
     type?: 'text' | 'password' | 'number' | 'dropdown' | 'radio' | 'checkbox' | 'textarea' | 'date';
     validation?: IValidation;
+    editable?: boolean;
 }
 
 export interface Filter {
