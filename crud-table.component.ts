@@ -5,6 +5,7 @@ import { OrdsService } from './services/ords.service';
 import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
 import { Column, Filter, Settings, ICrudService, SortMeta } from './types/interfaces';
+import { ITreeNode } from './tree-view';
 
 @Component({
     selector: 'crud-table',
@@ -22,6 +23,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @Input() public columns: Column[];
     @Input() public settings: Settings;
+    @Input() public treeNodes: ITreeNode[];
 
     items: any[];
     item: any;
@@ -59,6 +61,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     frozenWidth: number = 0;
     scrollableColumnsWidth: number = 0;
     scrollBarWidth: number;
+
+    treeViewWidth: number = 150;
+    selectedNode: ITreeNode;
 
     constructor(private renderer: Renderer, private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
@@ -98,11 +103,16 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     initTableSize() {
+        if (this.treeNodes) {
+            this.treeViewWidth = this.settings.treeViewWidth || this.treeViewWidth;
+        } else {
+            this.treeViewWidth = 0;
+        }
     	this.scrollHeight = this.settings.scrollHeight || this.scrollHeight;
      	this.tableWidth = this.settings.tableWidth || this.tableWidth;
         this.scrollBarWidth = this.calculateScrollbarWidth();
         this.headerLockedWidth = this.frozenWidth + this.actionColumnWidth;
-        this.headerWrapWidth = this.tableWidth - this.headerLockedWidth ;
+        this.headerWrapWidth = this.tableWidth - this.headerLockedWidth - this.treeViewWidth;
         this.contentLockedWidth = this.headerLockedWidth;
         this.contentWidth = this.headerWrapWidth + this.scrollBarWidth;
         this.contentLockedHeight = this.scrollHeight;
@@ -264,6 +274,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     filter(event) {
     	this.filters = event;
         this.getItems();
+        this.syncNode();
     }
 
     sort(event) {
@@ -347,6 +358,58 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     @HostListener('window:resize', ['$event'])
     onResize(event) {
       this.setContentHeight();
+    }
+
+    selectNode(node: ITreeNode) {
+        if(node) {
+            if (node.id) {
+                this.filters[node.column] = { value: node.id, matchMode: null };
+            }
+            else if (this.filters[node.column]) {
+                delete this.filters[node.column];
+            }
+            this.selectFilter.setColumnSelectedOption(node.id, node.column, null);
+            //console.log('node.id ' + node.id);
+
+            if(node.parent) {
+                this.selectNode(node.parent); 
+            }
+        }
+    }
+
+    onSelectNode(node: ITreeNode) {
+        this.selectedNode = node;
+        this.selectNode(node);
+        if(node.children) {
+            for (let childNode of node.children) {
+                if (this.filters[childNode.column]) {
+                    delete this.filters[childNode.column];
+                    this.selectFilter.setColumnSelectedOption(null, childNode.column, null);
+                    //console.log('childNode.id ' + childNode.id);
+                }
+            }
+        }
+        this.getItems();
+    }
+
+    setNode(field: string, value: string) {
+        for (let node of this.treeNodes) {
+            if(node.column === field && node.id === value) {
+                this.selectedNode = node;
+            }
+        } 
+    }
+
+    syncNode() {
+        if(Object.keys(this.filters).length === 0) {
+            this.selectedNode = null;
+        } else {
+            for (let key in this.filters) {
+                if (this.filters[key]['value']) {
+                    this.setNode(key, this.filters[key]['value']);
+                }
+            }
+        }
     }
 
 }

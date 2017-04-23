@@ -1,0 +1,27 @@
+.indicator {
+    cursor: pointer;
+}
+.treenode-content {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 .25em;
+    vertical-align: middle;
+}
+.treenode {
+    background-attachment: scroll;
+    background-color: transparent;
+    background-image: none;
+    background-position: 0 0;
+    background-repeat: repeat-y;
+    list-style: none outside none;
+    margin: 0;
+    padding: 5px 0 0 0;
+}
+.highlight {
+    border-color: #156090;
+    background: #5b9bd5;
+    color: #FFFFFF;
+}
+ul {
+    padding-left: 25px;
+}

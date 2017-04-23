@@ -2,10 +2,10 @@
 
 <div class="alert alert-danger" *ngIf="errors">{{errors.errMsg}}</div>
 
+<p *ngIf="settings.crud" [style.display]="(!onDetailView) ? 'block' : 'none' ">
+    <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
+</p>
 <div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-    <p *ngIf="settings.crud">
-        <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
-    </p>
     <div class="k-grid" #dataTable [ngStyle]="{'max-width.px': tableWidth+scrollBarWidth}">
         <loading-indicator [isLoading]="loading"></loading-indicator>
         <ng-filter 
@@ -13,6 +13,13 @@
             [filters]="filters" 
             (onFilter)="filter($event)">
         </ng-filter>
+        <tree-view style="float: left;"
+            [ngStyle]="{'width.px': treeViewWidth}"
+            *ngIf="treeNodes" 
+            [nodes]="treeNodes" 
+            [selectedNode]="selectedNode"
+            (onSelectedChanged)="onSelectNode($event)">
+        </tree-view>
         <div class="k-grid-header">
             <div class="k-grid-header-locked" [ngStyle]="{'width.px': headerLockedWidth}">
                 <table>
@@ -86,8 +93,8 @@
                 (pageChanged)="pageChanged($event)">
             </pagination>        
         </div>
+        <div class="clearfix"></div>
     </div>
-
 </div>
 
 <app-modal #childModal>

@@ -1,0 +1,26 @@
+<ng-template [ngIf]="node">
+    <li class="treenode">
+		<i class="indicator glyphicon" 
+        [ngClass]="{'glyphicon-folder-close': !isLeaf(), 'glyphicon-folder-open': !isLeaf() && node.isExpanded}" 
+        (click)="toggle()">
+		</i>
+
+    	<span class="treenode-content" 
+        (click)="onSelectNode(node)" 
+        (dblclick)="toggle()"
+        [ngClass]="{'highlight':isSelected()}">
+        {{node.name}}
+      </span>
+
+    	<div *ngIf="node.isExpanded">
+          	<ul *ngIf="node.children">
+          		<treeNode *ngFor="let childNode of node.children" 
+          			[node]="childNode"
+                [parentNode]="node"
+          			[selectedNode]="selectedNode"
+          			(onSelectedChanged)="onSelectNode($event)">
+          		</treeNode>
+          	</ul>
+    	</div>
+    </li>
+</ng-template>

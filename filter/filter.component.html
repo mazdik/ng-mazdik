@@ -32,7 +32,7 @@
 		<li class="dropdown-item" 
 		*ngFor="let option of column.options | searchFilter:searchFilterText" 
 		[ngClass]="{'active': isSelected(option)}" 
-		(click)="setSelected($event, option)">
+		(click)="setSelected(option.id)">
 		    <a href="javascript:;" role="menuitem" tabindex="-1">
 			<span style="width: 16px;" class="glyphicon" [class.glyphicon-ok]="isSelected(option)"></span>
 			{{ option.name }}

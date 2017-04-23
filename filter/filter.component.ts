@@ -63,21 +63,25 @@ export class FilterComponent implements OnInit {
         }
     }
 
-    setSelected(event: any, option: ISelectOption) {
+    setSelectedOptions(value: any) {
         if (!this.selectedOptions) {
             this.selectedOptions = [];
         }
-        let index = this.selectedOptions.indexOf(option.id);
+        let index = this.selectedOptions.indexOf(value);
         if (index > -1) {
             this.selectedOptions.splice(index, 1);
         } else {
             if (this.selectionLimit === 0 || this.selectedOptions.length < this.selectionLimit) {
-                this.selectedOptions.push(option.id);
+                this.selectedOptions.push(value);
             } else {
-              this.selectedOptions.push(option.id);
+              this.selectedOptions.push(value);
               this.selectedOptions.shift();
             }
         }
+    }
+
+    setSelected(value: any) {
+        this.setSelectedOptions(value);
         this.filter(this.selectedOptions[0], this.column.name, null); // [0] todo multi
         this.toggleDropdown();
     }
@@ -148,10 +152,12 @@ export class FilterComponent implements OnInit {
     }
 
     filter(value, field, matchMode) {
-        if (!this.isFilterBlank(value))
+        if (!this.isFilterBlank(value)) {
             this.filters[field] = { value: value, matchMode: matchMode };
-        else if (this.filters[field])
+        }
+        else if (this.filters[field]) {
             delete this.filters[field];
+        }
 
         this.onFilter.emit(this.filters);
         this.updateNumSelected();
@@ -174,6 +180,18 @@ export class FilterComponent implements OnInit {
         this.selectedOptions = [];
         this.columnsSelectedOptions = [];
         this.onFilter.emit(this.filters);
+    }
+
+    setColumnSelectedOption(value, field, matchMode) {
+        this.selectedOptions = this.columnsSelectedOptions[field];
+        if(value) {
+            this.selectedOptions = [];
+            this.selectedOptions.push(value);
+        } else {
+            this.selectedOptions = [];
+        }
+        this.updateNumSelected();
+        this.columnsSelectedOptions[field] = this.selectedOptions;
     }
 
 }

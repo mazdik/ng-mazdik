@@ -48,6 +48,7 @@ export interface Settings {
     type?: string;
     tableWidth?: number;
     scrollHeight?: number;
+    treeViewWidth?: number;
 }
 
 export interface ICrudService {

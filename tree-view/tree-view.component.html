@@ -1,0 +1,10 @@
+<div class="tree-view">
+  <ul class="tree-container">
+      <treeNode *ngFor="let node of nodes" 
+        [node]="node"
+        [parentNode]="node"
+        [selectedNode]="selectedNode"
+        (onSelectedChanged)="onSelectNode($event)">
+      </treeNode>
+  </ul>
+</div>
