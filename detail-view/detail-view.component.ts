@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Column } from '../types/interfaces';
+import { Column, Settings } from '../types/interfaces';
 
 @Component({
     selector: 'detail-view',
@@ -10,7 +10,14 @@ import { Column } from '../types/interfaces';
 export class DetailViewComponent {
 
     @Input() public columns: Column[];
+    @Input() public settings: Settings;
     @Input() public item: any;
+
+    @Output() onSaveItem: EventEmitter<any> = new EventEmitter();
+    @Output() onDeleteItem: EventEmitter<any> = new EventEmitter();
+    @Output() onClose: EventEmitter<any> = new EventEmitter();
+
+    public edit: boolean = false;
 
     constructor() {}
 
@@ -20,6 +27,32 @@ export class DetailViewComponent {
             value = d.toLocaleString('ru');
         }
         return value;
+    }
+
+    openForm() {
+        this.edit = true;
+    }
+
+    closeForm() {
+        this.edit = false;   
+    }
+
+    toggleForm() {
+        this.edit = !this.edit;   
+    }
+
+    closeDetails() {
+        this.onClose.emit(true);        
+    }
+
+    saveItem() {
+        this.onSaveItem.emit(this.item);
+        this.edit = false; 
+    }
+
+    deleteItem() {
+        this.onDeleteItem.emit(this.item);
+        this.onClose.emit(true); 
     }
 
 }

@@ -1,8 +1,42 @@
-<table class="table table-striped table-bordered detail-view">
-    <tbody>
-        <tr *ngFor="let column of columns">
-            <th>{{column.title}}</th>
-            <td>{{format(item[column.name], column)}}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="detail-view" *ngIf="item">
+	<p>
+	    <button type="button" 
+	    class="btn btn-primary" 
+	    	(click)="closeDetails()">
+	    <i class="fa fa-arrow-circle-left"></i> Назад
+	    </button>
+
+	    <a class="btn btn-warning pull-right" 
+	    	*ngIf="settings.crud" 
+	    	(click)="toggleForm()" 
+	    	[ngClass]="{'active': edit}" 
+	    	title="Редактировать">
+	    	<span class="glyphicon glyphicon-pencil"></span>
+	    </a>
+	</p>
+
+	<table class="table table-striped table-bordered detail-view" *ngIf="!edit">
+	    <tbody>
+	        <tr *ngFor="let column of columns">
+	            <th>{{column.title}}</th>
+	            <td>{{format(item[column.name], column)}}</td>
+	        </tr>
+	    </tbody>
+	</table>
+
+	<div class="detail-form col-sm-10" *ngIf="edit">
+	    <row-form
+	        [columns]="columns" 
+	        [item]="item" 
+	        [settings]="settings">
+	    </row-form>
+	    <div class="form-group">
+		    <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-close"></i> Удалить</button>
+		    <div class="pull-right">
+			    <button type="button" class="btn btn-success" (click)="saveItem()"><i class="fa fa-check"></i> Сохранить</button>
+			    <button type="button" class="btn btn-primary" (click)="closeForm()"> <i class="fa fa-arrow-circle-left"></i> Отмена</button>
+		    </div>
+	    </div>
+    </div>
+
+</div>

@@ -120,13 +120,11 @@
     </div>
 </app-modal>
 
-<div class="detail-view" *ngIf="onDetailView && item">
-    <p>
-        <a *ngIf="settings.crud" class="btn btn-warning" (click)="updateItem(item)" title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
-        <button type="button" class="btn btn-primary pull-right" (click)="closeDetails()"> <i class="fa fa-arrow-circle-left"></i> Назад</button>
-    </p>
-    <detail-view 
-        [columns]="columns" 
-        [item]="item">
-    </detail-view>
-</div>
+<detail-view *ngIf="onDetailView && item"
+    [columns]="columns" 
+    [item]="item"
+    [settings]="settings"
+    (onClose)="closeDetails()"
+    (onSaveItem)="save()"
+    (onDeleteItem)="delete()">
+</detail-view>
