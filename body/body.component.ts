@@ -12,9 +12,11 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
 	@Input() public items: any;
 	@Input() public enableAction: boolean;
 	@Input() public crud: boolean;
+    @Input() public selectedRowIndex: number;
 	@Output() onViewAction: EventEmitter<any> = new EventEmitter();
 	@Output() onUpdateAction: EventEmitter<any> = new EventEmitter();
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
+    @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
 	public editingCell: any;
     public editorClick: boolean;
     public documentClickListener: Function;
@@ -158,6 +160,11 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     updateAction(item: any) {
     	this.onUpdateAction.emit(item);
+    }
+
+    handleRowClick(event: any, rowIndex: number) {
+        this.selectedRowIndex = rowIndex;
+        this.onRowSelect.emit(this.selectedRowIndex);
     }
 
 }

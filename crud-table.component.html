@@ -66,6 +66,8 @@
                     [items]="items"
                     [enableAction]="true" 
                     [crud]="settings.crud"
+                    [selectedRowIndex]="selectedRowIndex"
+                    (onRowSelect)="onRowSelect($event)"
                     (onViewAction)="viewDetails($event)"
                     (onUpdateAction)="updateItem($event)"
                     (onEditComplete)="editItem($event)">
@@ -80,6 +82,8 @@
                 <tbody datatable-body
                     [columns]="scrollableColumns"
                     [items]="items"
+                    [selectedRowIndex]="selectedRowIndex"
+                    (onRowSelect)="onRowSelect($event)"
                     (onEditComplete)="editItem($event)">
                 </tbody> 
             </table>

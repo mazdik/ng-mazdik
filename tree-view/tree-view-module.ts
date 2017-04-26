@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { TreeView, TreeNode } from './tree-view.component';
+import { TreeViewComponent, TreeNodeComponent } from './tree-view.component';
 
 @NgModule({
   imports: [
   	CommonModule,
   ],
-  declarations: [TreeView, TreeNode],
-  exports: [TreeView],
+  declarations: [TreeViewComponent, TreeNodeComponent],
+  exports: [TreeViewComponent],
   providers: []
 })
 export class TreeViewModule {

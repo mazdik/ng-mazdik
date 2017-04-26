@@ -25,12 +25,13 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() public settings: Settings;
     @Input() public treeNodes: ITreeNode[];
 
-    items: any[];
-    item: any;
-    selectedItem: any;
-    newItem: boolean;
-    errors: any;
-    onDetailView: boolean = false;
+    public items: any[];
+    public item: any;
+    public selectedItem: any;
+    public selectedRowIndex: number;
+    public newItem: boolean;
+    public errors: any;
+    public onDetailView: boolean = false;
 
     public loading: boolean = false;
 
@@ -221,9 +222,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.childModal.hide();
     }
 
-    onRowSelect(item: any) {
-        this.newItem = false;
-        this.item = this.cloneItem(item);
+    onRowSelect(event) {
+        this.selectedRowIndex = event;
     }
 
     cloneItem(item: any) {

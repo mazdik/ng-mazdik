@@ -53,12 +53,6 @@
   border-spacing: 0;
   border-collapse: collapse;
 }
-.k-grid tbody>tr:nth-of-type(odd) {
-  background-color: #f9f9f9;
-}
-.k-grid tbody>tr:hover {
-    background-color: #f5f5f5;
-}
 .k-grid th, td {
   border: 1px solid #c6c6c6;
   white-space: nowrap;
@@ -67,18 +61,6 @@
   padding: 3px;
   line-height: 1.42857143;
   vertical-align: top;
-}
-.k-grid th {
-  font-weight: bold;
-  text-align: left;
-  background-color: #5b9bd5;
-  color: white;
-}
-.k-grid th:hover {
-  background-color: #337ab7;
-}
-.column-title:hover {
-    cursor: pointer;
 }
 .pager-wrap {
     text-align: center;

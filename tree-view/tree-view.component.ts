@@ -15,11 +15,11 @@ export interface ITreeNode {
     templateUrl: './tree-node.component.html',
     styleUrls: ['./tree-node.component.css'],
 })
-export class TreeNode implements OnInit {
+export class TreeNodeComponent implements OnInit {
 
 	@Input() node: any;
     @Input() selectedNode: ITreeNode;
-    @Input() parentNode: TreeNode;
+    @Input() parentNode: ITreeNode;
     @Output() onSelectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
 
 	ngOnInit() {
@@ -54,7 +54,7 @@ export class TreeNode implements OnInit {
     templateUrl: './tree-view.component.html',
     styleUrls: ['./tree-view.component.css'],
 })
-export class TreeView {
+export class TreeViewComponent {
 
     @Input() nodes: ITreeNode[];
     @Input() selectedNode: ITreeNode;
