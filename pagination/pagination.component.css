@@ -1,6 +1,36 @@
 .pagination {
     display: inline-block;
-    padding-left: 0;
-    margin: 10px 0;
-    border-radius: 4px;
+    margin: 0;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+}
+
+.pagination a.active {
+    background-color: #5b9bd5;
+    color: white;
+    border: 1px solid #5b9bd5;
+    pointer-events: none;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
+.pagination a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.pagination a.disabled {
+    color: rgba(46, 64, 87, 0.4);
+    pointer-events: none;
 }
