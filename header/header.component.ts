@@ -18,8 +18,10 @@ export class HeaderComponent {
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
     @Output() onShowColumnMenu: EventEmitter<any> = new EventEmitter();
     @Output() onClearAllFilters: EventEmitter<any> = new EventEmitter();
+    @Output() onResize: EventEmitter<any> = new EventEmitter();
 
-    public activeColumn: string;
+    public minWidthColumn: number = 50;
+    public maxWidthColumn: number = 500;
 
     constructor() {}
 
@@ -50,14 +52,6 @@ export class HeaderComponent {
     filter(event) {
         this.filters = event;
         this.onFilter.emit(this.filters);
-    }
-
-    onColumnMouseEnter(event, column: Column) {
-        this.activeColumn = column.name;
-    }
-
-    onColumnMouseLeave(event, column: Column) {
-        this.activeColumn = null;
     }
 
     clearAllFilters() {
@@ -95,6 +89,20 @@ export class HeaderComponent {
         let style = getComputedStyle(el);
         height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
         return height;
+    }
+
+    onColumnResized(width: number, column: Column): void {
+
+        if (width <= this.minWidthColumn) {
+            width = this.minWidthColumn;
+        } else if (width >= this.maxWidthColumn) {
+            width = this.maxWidthColumn;
+        }
+
+        this.onResize.emit({
+            column: column,
+            newValue: width
+        });
     }
 
 }

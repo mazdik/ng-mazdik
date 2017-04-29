@@ -22,46 +22,32 @@
         </tree-view>
         <div class="k-grid-header">
             <div class="k-grid-header-locked" [ngStyle]="{'width.px': headerLockedWidth}">
-                <table>
-                    <colgroup>
-                        <col [ngStyle]="{'width.px': actionColumnWidth}">
-                        <col *ngFor="let column of frozenColumns" [ngStyle]="{'width.px': column.width}">
-                    </colgroup>
-                    <thead datatable-header 
-                        [columns]="frozenColumns" 
-                        [filters]="filters" 
-                        [sortMeta]="sortMeta" 
-                        (onSort)="sort($event)" 
-                        (onShowColumnMenu)="showColumnMenu($event)" 
-                        [firstColumn]="true" 
-                        (onClearAllFilters)="selectFilter.clearAllFilters()">
-                    </thead>
+                <table datatable-header 
+                    [columns]="frozenColumns" 
+                    [filters]="filters" 
+                    [sortMeta]="sortMeta" 
+                    (onSort)="sort($event)" 
+                    (onShowColumnMenu)="showColumnMenu($event)" 
+                    [firstColumn]="true" 
+                    (onClearAllFilters)="selectFilter.clearAllFilters()"
+                    (onResize)="resizeColumn($event)">
                 </table>
             </div>
             <div class="k-grid-header-wrap" [ngStyle]="{'width.px': headerWrapWidth}">
-                <table>
-                    <colgroup>
-                        <col *ngFor="let column of scrollableColumns" [ngStyle]="{'width.px': column.width}">
-                    </colgroup>
-                    <thead datatable-header 
-                        [columns]="scrollableColumns" 
-                        [filters]="filters" 
-                        [sortMeta]="sortMeta" 
-                        (onSort)="sort($event)" 
-                        (onShowColumnMenu)="showColumnMenu($event)">
-                    </thead>
+                <table datatable-header 
+                    [columns]="scrollableColumns" 
+                    [filters]="filters" 
+                    [sortMeta]="sortMeta" 
+                    (onSort)="sort($event)" 
+                    (onShowColumnMenu)="showColumnMenu($event)"
+                    (onResize)="resizeColumn($event)">
                 </table>
             </div>
             <div class="k-grid-header-block"></div>
         </div>
         <div class="k-grid-body">
-        <div class="k-grid-content-locked" [ngStyle]="{'width.px': contentLockedWidth, 'height.px': contentLockedHeight}">
-            <table>
-                <colgroup>
-                    <col [ngStyle]="{'width.px': actionColumnWidth}">
-                    <col *ngFor="let column of frozenColumns" [ngStyle]="{'width.px': column.width}">
-                </colgroup>
-                <tbody datatable-body 
+            <div class="k-grid-content-locked" [ngStyle]="{'width.px': contentLockedWidth, 'height.px': contentLockedHeight}">
+                <table datatable-body 
                     [columns]="frozenColumns"
                     [items]="items"
                     [enableAction]="true" 
@@ -71,24 +57,18 @@
                     (onViewAction)="viewDetails($event)"
                     (onUpdateAction)="updateItem($event)"
                     (onEditComplete)="editItem($event)">
-                </tbody>
-            </table>
-        </div>
-        <div class="k-grid-content" #tableContent [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
-            <table>
-                <colgroup>
-                    <col *ngFor="let column of scrollableColumns" [ngStyle]="{'width.px': column.width}">
-                </colgroup>
-                <tbody datatable-body
+                </table>
+            </div>
+            <div class="k-grid-content" #tableContent [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
+                <table datatable-body
                     [columns]="scrollableColumns"
                     [items]="items"
                     [selectedRowIndex]="selectedRowIndex"
                     (onRowSelect)="onRowSelect($event)"
                     (onEditComplete)="editItem($event)">
-                </tbody> 
-            </table>
-            <div class="k-grid-content-expander" *ngIf="totalItems <= 0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
-        </div>
+                </table>
+                <div class="k-grid-content-expander" *ngIf="totalItems <= 0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
+            </div>
         </div>
         <div class="pager-wrap">
             <pagination 

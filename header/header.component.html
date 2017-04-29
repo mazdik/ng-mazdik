@@ -1,19 +1,27 @@
-<tr>
-    <th *ngIf="firstColumn">
-    <i class="glyphicon glyphicon-filter" 
-        [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
-        (click)="clearAllFilters()" title="Очистить все фильтры"></i>
-    </th>
-    <th *ngFor="let column of columns" 
-    	(mouseenter)="onColumnMouseEnter($event, column)" 
-    	(mouseleave)="onColumnMouseLeave($event, column)">
-    	<i class="glyphicon glyphicon-filter" [style.visibility]="(!isFilter(column)) ? 'hidden' : 'visible' "></i>
-        <span class="column-title" (click)="sort($event, column)">
-        {{column.title}}
-        <i *ngIf="column.sortable" class="glyphicon" [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
-        </span>
-        <i (click)="showColumnMenu($event, column)" 
-            [style.visibility]="(column.name !== activeColumn) ? 'hidden' : 'visible' "
-            class="glyphicon glyphicon-menu-hamburger column-menu"></i>
-    </th>
-</tr>
+<thead>
+    <tr>
+        <th *ngIf="firstColumn">
+        <i class="glyphicon glyphicon-filter" 
+            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
+            (click)="clearAllFilters()" title="Очистить все фильтры"></i>
+        </th>
+        <th *ngFor="let column of columns"
+            [ngStyle]="{'width.px': column.width}"
+            resizeable
+            [resizeEnabled]="column.resizeable"
+            [minWidth]="minWidthColumn"
+            [maxWidth]="maxWidthColumn"
+            (resize)="onColumnResized($event, column)">
+        	<i class="glyphicon glyphicon-filter" 
+                [style.visibility]="(!isFilter(column)) ? 'hidden' : 'visible' "></i>
+            <span class="column-title" (click)="sort($event, column)">
+            {{column.title}}
+            <i class="glyphicon" 
+                *ngIf="column.sortable" 
+                [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
+            </span>
+            <i (click)="showColumnMenu($event, column)"
+                class="glyphicon glyphicon-menu-hamburger column-menu"></i>
+        </th>
+    </tr>
+</thead>

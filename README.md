@@ -42,7 +42,8 @@ export class PlayersComponent {
             name: 'id', 
             sortable: true, 
             filter: true, 
-            frozen: true
+            frozen: true,
+            resizeable: false,
         },
         { 
             title: 'Name', 
@@ -53,6 +54,7 @@ export class PlayersComponent {
             width: 250,
             validation: { pattern: '^[a-zA-Z ]+$' },
             editable: true,
+            resizeable: false,
         },
         {
             title: 'Race',
@@ -168,3 +170,4 @@ You will need bootstrap styles
 * Dynamic forms with validation
 * Editable
 * Tree view
+* Column Resizing

@@ -72,3 +72,13 @@
   position: absolute;
   top: -9999px;
 }
+.resize-handle {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    padding: 0 4px;
+    cursor: ew-resize;
+}

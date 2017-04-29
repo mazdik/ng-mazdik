@@ -320,6 +320,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!column.hasOwnProperty('type')) {
             column.type = 'text';
         }
+        if (!column.hasOwnProperty('resizeable')) {
+            column.resizeable = true;
+        }
         return column;
     }
 
@@ -393,11 +396,13 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     setNode(field: string, value: string) {
-        for (let node of this.treeNodes) {
-            if(node.column === field && node.id === value) {
-                this.selectedNode = node;
+        if(this.treeNodes) {
+            for (let node of this.treeNodes) {
+                if(node.column === field && node.id === value) {
+                    this.selectedNode = node;
+                }
             }
-        } 
+        }
     }
 
     syncNode() {
@@ -408,6 +413,14 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
                 if (this.filters[key]['value']) {
                     this.setNode(key, this.filters[key]['value']);
                 }
+            }
+        }
+    }
+
+    resizeColumn({column, newValue}: any) {
+        for (let col of this.columns) {
+            if(col.name === column.name) {
+               col.width = newValue; 
             }
         }
     }

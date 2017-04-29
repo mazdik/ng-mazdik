@@ -1,32 +1,35 @@
-<tr *ngFor="let item of items; let rowIndex=index"
-	(click)="handleRowClick($event, rowIndex)"
-	[ngClass]="{'row-selected' : rowIndex === selectedRowIndex}">
+<tbody>
+    <tr *ngFor="let item of items; let rowIndex=index"
+    	(click)="handleRowClick($event, rowIndex)"
+    	[ngClass]="{'row-selected' : rowIndex === selectedRowIndex}">
 
-    <td class="action-column" *ngIf="enableAction">
-        <a (click)="viewAction(item)" title="Просмотр" ><span class="glyphicon glyphicon-eye-open"></span></a>
-        <a *ngIf="crud" (click)="updateAction(item)" title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
-    </td>
-
-    <ng-template ngFor let-column [ngForOf]="columns" let-colIndex="index">
-        <td (click)="switchCellToEditMode($event, column)">
-
-            <span class="cell-data">{{format(item[column.name], column)}}</span>
-
-            <div class="cell-editor" *ngIf="column.editable">
-                <select 
-                    *ngIf="column.options"
-                    [(ngModel)]="item[column.name]"
-                    [id]="column.name"
-                    (keydown)="onCellEditorKeydown($event, column, item, colIndex)">
-                    <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
-                </select>
-
-                <input type="text"
-                    *ngIf="!column.options" 
-                    [(ngModel)]="item[column.name]" 
-                    (keydown)="onCellEditorKeydown($event, column, item, colIndex)"/>
-            </div>
-
+        <td class="action-column" *ngIf="enableAction">
+            <a (click)="viewAction(item)" title="Просмотр" ><span class="glyphicon glyphicon-eye-open"></span></a>
+            <a *ngIf="crud" (click)="updateAction(item)" title="Редактировать"><span class="glyphicon glyphicon-pencil"></span></a>
         </td>
-    </ng-template>
-</tr>
+
+        <ng-template ngFor let-column [ngForOf]="columns" let-colIndex="index">
+            <td [ngStyle]="{'width.px': column.width}"
+                (click)="switchCellToEditMode($event, column)">
+
+                <span class="cell-data">{{format(item[column.name], column)}}</span>
+
+                <div class="cell-editor" *ngIf="column.editable">
+                    <select 
+                        *ngIf="column.options"
+                        [(ngModel)]="item[column.name]"
+                        [id]="column.name"
+                        (keydown)="onCellEditorKeydown($event, column, item, colIndex)">
+                        <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
+                    </select>
+
+                    <input type="text"
+                        *ngIf="!column.options" 
+                        [(ngModel)]="item[column.name]" 
+                        (keydown)="onCellEditorKeydown($event, column, item, colIndex)"/>
+                </div>
+
+            </td>
+        </ng-template>
+    </tr>
+</tbody>
