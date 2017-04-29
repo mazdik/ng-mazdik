@@ -101,13 +101,7 @@
     </div>
 </div>
 
-<app-modal #childModal>
-    <div class="app-modal-header">
-        <h4 class="modal-title pull-left">{{modalTitle()}}</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="childModal.hide()">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+<app-modal #childModal [modalTitle]="modalTitle()">
     <div class="app-modal-body">
         <div *ngIf="item">
             <row-form 
@@ -118,9 +112,9 @@
         </div>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-danger pull-left" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Удалить</button>
+        <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Удалить</button>
         <button type="button" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Сохранить</button>
-        <button type="button" class="btn btn-primary" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Закрыть</button>
+        <button type="button" class="btn btn-primary pull-right" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Закрыть</button>
     </div>
 </app-modal>
 

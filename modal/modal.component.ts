@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild, Input } from "@angular/core";
 
 @Component({
     selector: 'app-modal',
@@ -7,6 +7,8 @@ import { Component, ElementRef, ViewChild } from "@angular/core";
 })
 export class ModalComponent {
 
+    @Input() public modalTitle: string;
+    
     @ViewChild("modalRoot")
     public modalRoot: ElementRef;
 
