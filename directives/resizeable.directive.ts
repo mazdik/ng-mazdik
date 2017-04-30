@@ -1,5 +1,10 @@
-import { Directive, ElementRef, HostListener, Input, Output, EventEmitter } from '@angular/core';
-import { Observable, Subscription } from 'rxjs/Rx';
+import {
+  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit
+} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+import "rxjs/add/operator/takeUntil";
 
 @Directive({
   selector: '[resizeable]',
@@ -7,7 +12,7 @@ import { Observable, Subscription } from 'rxjs/Rx';
     '[class.resizeable]': 'resizeEnabled'
   }
 })
-export class ResizeableDirective {
+export class ResizeableDirective implements OnDestroy, AfterViewInit {
 
   @Input() resizeEnabled: boolean = true;
   @Input() minWidth: number;
@@ -15,15 +20,15 @@ export class ResizeableDirective {
 
   @Output() resize: EventEmitter<any> = new EventEmitter();
 
-  private element: HTMLElement;
-  private subscription: Subscription;
-  private resizing: boolean = false;
+  element: HTMLElement;
+  subscription: Subscription;
+  resizing: boolean = false;
 
   constructor(element: ElementRef) {
     this.element = element.nativeElement;
   }
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
     if (this.resizeEnabled) {
       const node = document.createElement('span');
       node.classList.add('resize-handle');
@@ -33,23 +38,22 @@ export class ResizeableDirective {
 
   ngOnDestroy(): void {
     if (this.subscription) {
-      this.subscription.unsubscribe();
+      this._destroySubscription();
     }
   }
 
-  @HostListener('document:mouseup', ['$event'])
-  onMouseup() {
+  onMouseup(): void {
     this.resizing = false;
 
     if (this.subscription && !this.subscription.closed) {
-      this.subscription.unsubscribe();
+      this._destroySubscription();
       this.resize.emit(this.element.clientWidth);
     }
   }
 
   @HostListener('mousedown', ['$event'])
-  onMousedown(event) {
-    const isHandle = event.target.classList.contains('resize-handle');
+  onMousedown(event: MouseEvent): void {
+    const isHandle = (<HTMLElement>(event.target)).classList.contains('resize-handle');
     const initialWidth = this.element.clientWidth;
     const mouseDownScreenX = event.screenX;
 
@@ -57,12 +61,19 @@ export class ResizeableDirective {
       event.stopPropagation();
       this.resizing = true;
 
-      this.subscription = Observable.fromEvent(document, 'mousemove')
-        .subscribe((e) => this.move(e, initialWidth, mouseDownScreenX));
+      let mouseup = Observable.fromEvent(document, 'mouseup');
+      this.subscription = mouseup
+        .subscribe((ev: MouseEvent) => this.onMouseup());
+
+      let mouseMoveSub = Observable.fromEvent(document, 'mousemove')
+        .takeUntil(mouseup)
+        .subscribe((e: MouseEvent) => this.move(e, initialWidth, mouseDownScreenX));
+
+      this.subscription.add(mouseMoveSub);
     }
   }
 
-  move(event, initialWidth, mouseDownScreenX): void {
+  move(event: MouseEvent, initialWidth: number, mouseDownScreenX: number): void {
     const movementX = event.screenX - mouseDownScreenX;
     const newWidth = initialWidth + movementX;
 
@@ -72,6 +83,11 @@ export class ResizeableDirective {
     if (overMinWidth && underMaxWidth) {
       this.element.style.width = `${newWidth}px`;
     }
+  }
+
+  private _destroySubscription() {
+    this.subscription.unsubscribe();
+    this.subscription = undefined;
   }
 
 }
