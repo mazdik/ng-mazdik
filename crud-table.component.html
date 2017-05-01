@@ -29,6 +29,7 @@
                     (onSort)="sort($event)" 
                     (onShowColumnMenu)="showColumnMenu($event)" 
                     [firstColumn]="true" 
+                    [actionColumnWidth]="actionColumnWidth"
                     (onClearAllFilters)="selectFilter.clearAllFilters()"
                     (onResize)="resizeColumn($event)">
                 </table>
@@ -38,6 +39,7 @@
                     [columns]="scrollableColumns" 
                     [filters]="filters" 
                     [sortMeta]="sortMeta" 
+                    [actionColumnWidth]="actionColumnWidth"
                     (onSort)="sort($event)" 
                     (onShowColumnMenu)="showColumnMenu($event)"
                     (onResize)="resizeColumn($event)">
@@ -53,6 +55,7 @@
                     [enableAction]="true" 
                     [crud]="settings.crud"
                     [selectedRowIndex]="selectedRowIndex"
+                    [actionColumnWidth]="actionColumnWidth"
                     (onRowSelect)="onRowSelect($event)"
                     (onViewAction)="viewDetails($event)"
                     (onUpdateAction)="updateItem($event)"
@@ -64,6 +67,7 @@
                     [columns]="scrollableColumns"
                     [items]="items"
                     [selectedRowIndex]="selectedRowIndex"
+                    [actionColumnWidth]="actionColumnWidth"
                     (onRowSelect)="onRowSelect($event)"
                     (onEditComplete)="editItem($event)">
                 </table>

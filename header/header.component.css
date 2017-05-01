@@ -11,6 +11,7 @@ th:hover .column-menu {
 }
 .column-title {
 	color: white;
+    padding: 2px;
 }
 .column-title:hover {
 	cursor: pointer;
@@ -18,11 +19,11 @@ th:hover .column-menu {
 .column-menu {
     float: right;
     padding: 2px;
-    border: 1px solid transparent;
-    border-radius: 3px;
     visibility: hidden;
 }
 .column-menu:hover {
     cursor: pointer;
-    border: 1px solid #808080;
+}
+.is-filter {
+    visibility: visible;   
 }

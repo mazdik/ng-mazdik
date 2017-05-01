@@ -78,4 +78,14 @@ export class FormComponent {
 		return regex.test(this.item[column.name]) ? null : `${column.title} must match this pattern: ${regexStr}.`;
 	}
 
+    getOptions(column: Column) {
+        if(column.options) {
+            if(column.dependsColumn) {
+                return column.options.filter((value)=> value.parentId == this.item[column.dependsColumn]);
+            } else {
+                return column.options;
+            }
+        }
+    }
+
 }

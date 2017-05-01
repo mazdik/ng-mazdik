@@ -37,7 +37,7 @@ import { Component }  from '@angular/core';
 export class PlayersComponent {
 
     public columns: any[] = [
-        { 
+        {
             title: 'Id', 
             name: 'id', 
             sortable: true, 
@@ -45,7 +45,7 @@ export class PlayersComponent {
             frozen: true,
             resizeable: false,
         },
-        { 
+        {
             title: 'Name', 
             name: 'name', 
             sortable: true, 
@@ -67,7 +67,23 @@ export class PlayersComponent {
                 { id: 'ELYOS', name: 'ELYOS' },
             ],
             editable: true,
-        }, 
+        },
+        {
+            title: 'Cascading Select',
+            name: 'note',
+            editable: true,
+            type: 'dropdown',
+            options: [
+                { id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS' },
+                { id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS' },
+                { id: 'ASM3', name: 'ASM note 3', parentId: 'ASMODIANS' },
+                { id: 'ASM4', name: 'ASM note 4', parentId: 'ASMODIANS' },
+                { id: 'ELY1', name: 'ELY note 1', parentId: 'ELYOS' },
+                { id: 'ELY2', name: 'ELY note 2', parentId: 'ELYOS' },
+                { id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS' },
+            ],
+            dependsColumn: 'race',
+        },
         {
             title: 'Gender',
             name: 'gender',
@@ -80,7 +96,7 @@ export class PlayersComponent {
             ],
             editable: true,
         },
-        { 
+        {
             title: 'Exp',
             name: 'exp',
             sortable: true,
@@ -89,7 +105,7 @@ export class PlayersComponent {
             validation: { required: true, minLength: 2, maxLength: 10 },
             editable: true,
         },
-        { 
+        {
             title: 'Last online', 
             name: 'last_online', 
             sortable: true, 
@@ -171,3 +187,4 @@ You will need bootstrap styles
 * Editable
 * Tree view
 * Column Resizing
+* Cascading Select (DropDown)

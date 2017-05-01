@@ -13,10 +13,13 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
 	@Input() public enableAction: boolean;
 	@Input() public crud: boolean;
     @Input() public selectedRowIndex: number;
+    @Input() public actionColumnWidth: number;
+
 	@Output() onViewAction: EventEmitter<any> = new EventEmitter();
 	@Output() onUpdateAction: EventEmitter<any> = new EventEmitter();
     @Output() onEditComplete: EventEmitter<any> = new EventEmitter();
     @Output() onRowSelect: EventEmitter<any> = new EventEmitter();
+    
 	public editingCell: any;
     public editorClick: boolean;
     public documentClickListener: Function;
@@ -165,6 +168,16 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
     handleRowClick(event: any, rowIndex: number) {
         this.selectedRowIndex = rowIndex;
         this.onRowSelect.emit(this.selectedRowIndex);
+    }
+
+    getOptions(column: Column, item: any) {
+        if(column.options) {
+            if(column.dependsColumn) {
+                return column.options.filter((value)=> value.parentId == item[column.dependsColumn]);
+            } else {
+                return column.options;
+            }
+        }
     }
 
 }

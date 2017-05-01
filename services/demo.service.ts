@@ -46,7 +46,11 @@ export class DemoService implements ICrudService {
         for (let key in filters) {
             if (filters[key]['value']) {
                 filteredData = filteredData.filter((item: any) => {
-                    return item[key].toString().match(filters[key]['value']);
+                    if(item[key]) {
+                        return item[key].toString().match(filters[key]['value']);
+                    } else {
+                        return false;
+                    }
                 });
             }
         }

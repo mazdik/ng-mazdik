@@ -8,11 +8,11 @@
 			[(ngModel)]="item[column.name]"
             (focus)="startValidate(column)"
             [id]="column.name">
-            <option *ngFor="let opt of column.options" [value]="opt.id">{{opt.name}}</option>
+            <option *ngFor="let opt of getOptions(column)" [value]="opt.id">{{opt.name}}</option>
         </select>   
         
         <div *ngSwitchCase="'checkbox'">
-            <div class="checkbox" *ngFor="let o of column.options">
+            <div class="checkbox" *ngFor="let o of getOptions(column)">
             	<label>
                 <input 
                     [type]="column.type"
@@ -34,7 +34,7 @@
         </textarea> 
         
         <div *ngSwitchCase="'radio'">
-            <div class="radio" *ngFor="let o of column.options">
+            <div class="radio" *ngFor="let o of getOptions(column)">
             	<label>
                 <input 
                     [type]="column.type"

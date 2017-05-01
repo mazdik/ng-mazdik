@@ -1,6 +1,7 @@
 <thead>
     <tr>
-        <th *ngIf="firstColumn">
+        <th *ngIf="firstColumn"
+            [ngStyle]="{'width.px': actionColumnWidth}">
         <i class="glyphicon glyphicon-filter" 
             [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
             (click)="clearAllFilters()" title="Очистить все фильтры"></i>
@@ -12,8 +13,7 @@
             [minWidth]="minWidthColumn"
             [maxWidth]="maxWidthColumn"
             (resize)="onColumnResized($event, column)">
-        	<i class="glyphicon glyphicon-filter" 
-                [style.visibility]="(!isFilter(column)) ? 'hidden' : 'visible' "></i>
+
             <span class="column-title" (click)="sort($event, column)">
             {{column.title}}
             <i class="glyphicon" 
@@ -21,7 +21,8 @@
                 [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
             </span>
             <i (click)="showColumnMenu($event, column)"
-                class="glyphicon glyphicon-menu-hamburger column-menu"></i>
+                [ngClass]="{'is-filter': isFilter(column)}"
+                class="glyphicon glyphicon-filter column-menu"></i>
         </th>
     </tr>
 </thead>

@@ -20,6 +20,7 @@ export interface Data {
 export interface ISelectOption {
     id: any;
     name: string;
+    parentId?: any;
 }
 
 export interface Column {
@@ -35,6 +36,7 @@ export interface Column {
     validation?: IValidation;
     editable?: boolean;
     resizeable?: boolean;
+    dependsColumn?: string;
 }
 
 export interface Filter {

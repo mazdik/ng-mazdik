@@ -13,6 +13,7 @@ export class HeaderComponent {
     @Input() public filters: Filter = {};
     @Input() public firstColumn: boolean = false;
     @Input() public sortMeta: SortMeta;
+    @Input() public actionColumnWidth: number;
 
     @Output() onSort: EventEmitter < any > = new EventEmitter();
     @Output() onFilter: EventEmitter<any> = new EventEmitter();
