@@ -14,9 +14,10 @@
             (onFilter)="filter($event)">
         </ng-filter>
         <tree-view style="float: left;"
-            [ngStyle]="{'width.px': treeViewWidth}"
             *ngIf="treeNodes" 
             [nodes]="treeNodes" 
+            [width]="treeViewWidth"
+            [height]="contentHeight"
             [selectedNode]="selectedNode"
             (onSelectedChanged)="onSelectNode($event)">
         </tree-view>

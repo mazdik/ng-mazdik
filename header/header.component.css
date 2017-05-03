@@ -17,8 +17,11 @@ th:hover .column-menu {
 	cursor: pointer;
 }
 .column-menu {
-    float: right;
-    padding: 2px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: right;
+    padding: 5px;
     visibility: hidden;
 }
 .column-menu:hover {

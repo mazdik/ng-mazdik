@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from "@angular/core";
+import { Component, Input, Output, EventEmitter, OnInit, HostBinding } from "@angular/core";
 
 export interface ITreeNode {
     id: string;
@@ -53,11 +53,20 @@ export class TreeNodeComponent implements OnInit {
     selector: "tree-view",
     templateUrl: './tree-view.component.html',
     styleUrls: ['./tree-view.component.css'],
+    host: {
+        'style': 'overflow: auto;'
+    }
 })
 export class TreeViewComponent {
 
     @Input() nodes: ITreeNode[];
     @Input() selectedNode: ITreeNode;
+
+    @HostBinding('style.height.px')
+    @Input() height: number;
+
+    @HostBinding('style.width.px')
+    @Input() width: number;
 
     @Output() onSelectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
     @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();

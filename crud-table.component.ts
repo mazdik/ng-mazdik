@@ -117,7 +117,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.contentLockedWidth = this.headerLockedWidth;
         this.contentWidth = this.headerWrapWidth + this.scrollBarWidth;
         this.contentLockedHeight = this.scrollHeight;
-        this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;;
+        this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;
     }
 
     initScrolling() {
