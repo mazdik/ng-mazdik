@@ -3,7 +3,7 @@
 <div class="alert alert-danger" *ngIf="errors">{{errors.errMsg}}</div>
 
 <p *ngIf="settings.crud" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-    <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Добавить</button>
+    <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Create</button>
 </p>
 <div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
     <div class="k-grid" #dataTable [ngStyle]="{'max-width.px': tableWidth+scrollBarWidth}">
@@ -53,23 +53,19 @@
                 <table datatable-body 
                     [columns]="frozenColumns"
                     [items]="items"
-                    [enableAction]="true" 
-                    [crud]="settings.crud"
-                    [selectedRowIndex]="selectedRowIndex"
+                    [enableAction]="true"
+                    [(selectedRowIndex)]="selectedRowIndex"
                     [actionColumnWidth]="actionColumnWidth"
-                    (onRowSelect)="onRowSelect($event)"
-                    (onViewAction)="viewDetails($event)"
-                    (onUpdateAction)="updateItem($event)"
-                    (onEditComplete)="editItem($event)">
+                    (onEditComplete)="editItem($event)"
+                    [actionMenu]="rowMenu">
                 </table>
             </div>
             <div class="k-grid-content" #tableContent [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
                 <table datatable-body
                     [columns]="scrollableColumns"
                     [items]="items"
-                    [selectedRowIndex]="selectedRowIndex"
+                    [(selectedRowIndex)]="selectedRowIndex"
                     [actionColumnWidth]="actionColumnWidth"
-                    (onRowSelect)="onRowSelect($event)"
                     (onEditComplete)="editItem($event)">
                 </table>
                 <div class="k-grid-content-expander" *ngIf="totalItems <= 0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
@@ -97,9 +93,9 @@
         </div>
     </div>
     <div class="app-modal-footer">
-        <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Удалить</button>
-        <button type="button" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Сохранить</button>
-        <button type="button" class="btn btn-primary pull-right" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Закрыть</button>
+        <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Delete</button>
+        <button type="button" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-primary pull-right" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Close</button>
     </div>
 </app-modal>
 

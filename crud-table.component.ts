@@ -4,7 +4,7 @@ import { YiiService } from './services/yii.service';
 import { OrdsService } from './services/ords.service';
 import { DemoService } from './services/demo.service';
 import { ModalComponent } from './modal/modal.component';
-import { Column, Filter, Settings, ICrudService, SortMeta } from './types/interfaces';
+import { Column, Filter, Settings, ICrudService, SortMeta, MenuItem } from './types/interfaces';
 import { ITreeNode } from './tree-view';
 
 @Component({
@@ -65,13 +65,15 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     treeViewWidth: number = 150;
     selectedNode: ITreeNode;
+    rowMenu: MenuItem[];
 
     constructor(private renderer: Renderer, private yiiService: YiiService, private ordsService: OrdsService, private demoService: DemoService) {}
 
     ngOnInit() {
         this.initService();
         this.initColumns();
-        this.initTableSize() ;
+        this.initTableSize();
+        this.initRowMenu();
         this.getItems();
     }
 
@@ -143,6 +145,13 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.service.url = this.settings.api;
         this.service.primaryKey = (this.settings.primaryKey) ? this.settings.primaryKey.toLowerCase() : 'id';
+    }
+
+    initRowMenu() {
+        this.rowMenu = [
+            { label: 'View', icon: 'glyphicon glyphicon-eye-open', command: (event) => this.viewDetails(this.items[this.selectedRowIndex]) },
+            { label: 'Update', icon: 'glyphicon glyphicon-pencil', command: (event) => this.updateItem(this.items[this.selectedRowIndex]), disabled: !this.settings.crud }
+        ];
     }
 
     loadingShow() {
@@ -222,10 +231,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.childModal.hide();
     }
 
-    onRowSelect(event) {
-        this.selectedRowIndex = event;
-    }
-
     cloneItem(item: any) {
         let clone = Object.assign({}, item);
         this.selectedItem = Object.assign({}, item);
@@ -283,7 +288,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     modalTitle() {
-        return (this.newItem) ? 'Добавить' : 'Редактировать';
+        return (this.newItem) ? 'Create' : 'Update';
     }
 
     calculateScrollbarWidth(): number {

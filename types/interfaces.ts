@@ -1,3 +1,5 @@
+import { EventEmitter } from '@angular/core';
+
 export interface Link {
     self: string;
     next: string;
@@ -75,4 +77,14 @@ export interface IValidation {
     minLength?: number;
     maxLength?: number;
     pattern?: string|RegExp;
+}
+
+export interface MenuItem {
+    label?: string;
+    icon?: string;
+    command?: (event?: any) => void;
+    url?: string;
+    routerLink?: any;
+    eventEmitter?: EventEmitter<any>;
+    disabled?: boolean;
 }
