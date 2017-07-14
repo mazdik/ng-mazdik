@@ -89,4 +89,9 @@ export class PaginationComponent {
         return pages;
     }
 
+    rowCount() {
+        let count = this.itemsPerPage * this.currentPage;
+        return (count < this.totalItems) ? count : this.totalItems;
+    }
+
 }

@@ -41,15 +41,21 @@ export interface Column {
     dependsColumn?: string;
 }
 
+export interface FilterMetadata {
+    value?: any;
+    matchMode?: string;
+}
+
 export interface Filter {
-    [s: string]: any;
+    [s: string]: FilterMetadata;
 }
 
 export interface Settings {
-	api: string;
-	crud: boolean;
-	pageHeader?: string;
-	primaryKey?: string;
+    api: string;
+    process?: string;
+    crud: boolean;
+    pageHeader?: string;
+    primaryKey?: string;
     type?: string;
     tableWidth?: number;
     scrollHeight?: number;
@@ -59,6 +65,7 @@ export interface Settings {
 export interface ICrudService {
     url: string;
     primaryKey: string;
+    settings: Settings;
     getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
     getItem(id: number): Promise<any>;
     save(item: any): Promise<any>;

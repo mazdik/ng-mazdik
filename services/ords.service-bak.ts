@@ -28,14 +28,17 @@ export class OrdsService implements ICrudService {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise < any > {
-      let headers = this.getAuthHeaders();
-      let url = this.url;
-      filters = this.filterObject(filters);
-      return this.http.post(url, { process: this.settings.process, limit: 25, page: page, sort_field: sortField, sort: sortOrder, filters: filters }, { headers: headers })
-          .toPromise()
-          .then(this.extractData)
-          .catch(this.handleError);
+  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
+    let headers = this.getAuthHeaders();
+    let url = this.url + "/";
+    if(page > 1) {
+        url = url + "/?offset=" + page;
+    }
+    url = url + this.filterObject(filters, sortField, sortOrder);
+    return this.http.get(url, {headers: headers})
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
   getItem(id: number): Promise<any> {
@@ -76,7 +79,7 @@ export class OrdsService implements ICrudService {
 
   delete(item: any) {
     let headers = this.getAuthHeaders();
-    let url = `${this.url}?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
+    let url = `${this.url}/?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
     return this.http
       .delete(url, {headers: headers})
       .toPromise()
@@ -85,11 +88,9 @@ export class OrdsService implements ICrudService {
 
   private extractData(res: Response) {
     let body = res.json();
-    let count = (body.items[0] && body.items[0].row_cnt) ? body.items[0].row_cnt : 0;
-    let limit = body.limit;
     let meta = {
-    	"totalCount": count, 
-    	"perPage": limit
+    	"totalCount": body.count, 
+    	"perPage": body.limit
     	};
     body = {"items": body.items, "_meta": meta};
     return body;
@@ -115,15 +116,32 @@ export class OrdsService implements ICrudService {
     return Promise.reject(errors);
   }
 
-  private filterObject(obj: Filter): any {
-  	let filterObjects = [];
+  private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {
+  	let filterObject = {};
+  	let orderby = {};
+  	let result = '';
+
+  	if(sortField && sortOrder) {
+  		orderby = {[sortField]: sortOrder};
+  	}
 
     for (let key in obj) {
-      if (obj[key]['value']) {
-      	filterObjects.push({field: key, value: obj[key]['value'], matchMode: obj[key]['matchMode'] || 'eq'});
+      if (obj[key]['value'] && obj[key]['value'].trim()) {
+      	if(typeof obj[key]['value'] === 'string') { // TODO
+      		filterObject[key] = {"$like": obj[key]['value']+'%25'};
+      	} else {
+        	filterObject[key] = {"$eq": obj[key]['value']};
+    	}
       }
     }
-    return JSON.stringify({params: filterObjects});
+
+  	if(Object.keys(orderby).length !== 0) {
+    	filterObject["$orderby"] = orderby;
+  	}
+    if(Object.keys(filterObject).length !== 0) {
+    	result = '?q=' + JSON.stringify(filterObject)
+    }
+    return result;
   }
 
 }

@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Filter, ICrudService } from '../types/interfaces';
+import { Filter, ICrudService, Settings } from '../types/interfaces';
 
 @Injectable()
 export class YiiService implements ICrudService {
 
   public url: string;
   public primaryKey: string = 'id';
+  public settings: Settings;
 
   constructor(private http: Http) {
   }

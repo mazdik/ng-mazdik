@@ -43,7 +43,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     public sortMeta: SortMeta = <SortMeta>{};
     private service: ICrudService;
 
-    public scrollHeight: number = 380;
+    public scrollHeight: number = 0;
     public tableWidth: number = 820;
     public letterWidth: number = 10;
     public actionColumnWidth: number = 40;
@@ -54,8 +54,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     headerWrapWidth: number;
     contentLockedWidth: number;
     contentWidth: number;
-    contentLockedHeight: number;
-    contentHeight: number;
+    contentLockedHeight: any;
+    contentHeight: any;
 
     frozenColumns: Column[];
     scrollableColumns: Column[];
@@ -79,7 +79,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.initScrolling();
-        this.setContentHeight();
     }
 
     ngOnDestroy() {
@@ -118,8 +117,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.headerWrapWidth = this.tableWidth - this.headerLockedWidth - this.treeViewWidth;
         this.contentLockedWidth = this.headerLockedWidth;
         this.contentWidth = this.headerWrapWidth + this.scrollBarWidth;
-        this.contentLockedHeight = this.scrollHeight;
-        this.contentHeight = this.contentLockedHeight + this.scrollBarWidth;
+        this.contentLockedHeight = (this.scrollHeight > 0) ? this.scrollHeight : 'auto';
+        this.contentHeight = (this.scrollHeight > 0) ? this.scrollHeight + this.scrollBarWidth : 'auto';
+        this.setContentHeight();
     }
 
     initScrolling() {
@@ -145,6 +145,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         }
         this.service.url = this.settings.api;
         this.service.primaryKey = (this.settings.primaryKey) ? this.settings.primaryKey.toLowerCase() : 'id';
+        this.service.settings = this.settings;
     }
 
     initRowMenu() {

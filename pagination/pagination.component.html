@@ -15,3 +15,5 @@
       <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(calculateTotalPages(), $event)">&raquo;</a>
 
   </div>
+  
+  <span class="page-range">{{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}</span>
