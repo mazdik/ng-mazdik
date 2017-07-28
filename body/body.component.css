@@ -24,12 +24,6 @@
   cursor: pointer;
   background: #ffffff;
 }
-tr:not(.row-selected):nth-of-type(odd) {
-  background-color: #f9f9f9;
-}
-tr:not(.row-selected):hover {
-    background-color: #f5f5f5;
-}
 .row-selected {
   background-color: #ecf3ff;
 }

@@ -1,28 +1,55 @@
-<thead>
-    <tr>
-        <th *ngIf="firstColumn"
-            [ngStyle]="{'width.px': actionColumnWidth}">
-        <i class="glyphicon glyphicon-filter" 
-            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
-            (click)="clearAllFilters()" title="Очистить все фильтры"></i>
-        </th>
-        <th *ngFor="let column of columns"
-            [ngStyle]="{'width.px': column.width}"
-            resizeable
-            [resizeEnabled]="column.resizeable"
-            [minWidth]="minWidthColumn"
-            [maxWidth]="maxWidthColumn"
-            (resize)="onColumnResized($event, column)">
+<div class="datatable-header-inner">
+
+  <div class="datatable-row-left">
+    <div class="datatable-header-cell" *ngFor="let column of frozenColumns; let colIndex = index"
+         [ngStyle]="{'width.px': column.width}"
+         resizeable
+         [resizeEnabled]="column.resizeable"
+         [minWidth]="minWidthColumn"
+         [maxWidth]="maxWidthColumn"
+         (resize)="onColumnResized($event, column)">
+
+      <ng-template [ngIf]="colIndex == 0">
+        <i class="glyphicon glyphicon-filter"
+           [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
+           (click)="clearAllFilters()"
+           title="Очистить все фильтры"></i>
+      </ng-template>
+      <ng-template [ngIf]="colIndex > 0">
+          <span class="column-title" (click)="sort($event, column)">
+          {{column.title}}
+          <i class="glyphicon"
+             *ngIf="column.sortable"
+             [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
+          </span>
+          <i (click)="showColumnMenu($event, column)"
+             [ngClass]="{'is-filter': isFilter(column)}"
+             class="glyphicon glyphicon-filter column-menu"></i>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="datatable-row-center"
+       [ngStyle]="stylesByGroup()">
+    <div class="datatable-header-cell" *ngFor="let column of scrollableColumns"
+         [ngStyle]="{'width.px': column.width}"
+         resizeable
+         [resizeEnabled]="column.resizeable"
+         [minWidth]="minWidthColumn"
+         [maxWidth]="maxWidthColumn"
+         (resize)="onColumnResized($event, column)">
 
             <span class="column-title" (click)="sort($event, column)">
             {{column.title}}
-            <i class="glyphicon" 
-                *ngIf="column.sortable" 
-                [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
+            <i class="glyphicon"
+               *ngIf="column.sortable"
+               [ngClass]="{'glyphicon-chevron-down': (getSortOrder(column) == -1), 'glyphicon-chevron-up': (getSortOrder(column) == 1)}"></i>
             </span>
-            <i (click)="showColumnMenu($event, column)"
-                [ngClass]="{'is-filter': isFilter(column)}"
-                class="glyphicon glyphicon-filter column-menu"></i>
-        </th>
-    </tr>
-</thead>
+      <i (click)="showColumnMenu($event, column)"
+         [ngClass]="{'is-filter': isFilter(column)}"
+         class="glyphicon glyphicon-filter column-menu"></i>
+    </div>
+  </div>
+
+</div>
+

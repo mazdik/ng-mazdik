@@ -1,19 +1,17 @@
-  <div class="pagination">
+<div class="pagination">
 
-      <a [class.disabled]="currentPage===1" href (click)="setPage(1, $event)">&laquo;</a>
+    <a [class.disabled]="currentPage===1" href (click)="setPage(1, $event)">&laquo;</a>
 
-      <a [class.disabled]="currentPage===1" href (click)="setPage(currentPage - 1, $event)">&lsaquo;</a>
+    <a [class.disabled]="currentPage===1" href (click)="setPage(currentPage - 1, $event)">&lsaquo;</a>
 
-      <a *ngFor="let page of getPages()"
-        [ngClass]="{active:currentPage === page}"
-        href (click)="setPage(page, $event)">
-        {{page}}
-      </a>
+    <a *ngFor="let page of getPages()"
+       [ngClass]="{active:currentPage === page}"
+       href (click)="setPage(page, $event)">
+      {{page}}
+    </a>
 
-      <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(currentPage + 1, $event)">&rsaquo;</a>
+    <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(currentPage + 1, $event)">&rsaquo;</a>
 
-      <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(calculateTotalPages(), $event)">&raquo;</a>
+    <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(calculateTotalPages(), $event)">&raquo;</a>
 
   </div>
-  
-  <span class="page-range">{{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}</span>

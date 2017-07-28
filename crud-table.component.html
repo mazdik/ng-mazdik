@@ -3,107 +3,83 @@
 <div class="alert alert-danger" *ngIf="errors">{{errors.errMsg}}</div>
 
 <p *ngIf="settings.crud" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-    <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Create</button>
+  <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Create</button>
 </p>
 <div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-    <div class="k-grid" #dataTable [ngStyle]="{'max-width.px': tableWidth+scrollBarWidth}">
-        <loading-indicator [isLoading]="loading"></loading-indicator>
-        <ng-filter 
-            #selectFilter 
-            [filters]="filters" 
-            (onFilter)="filter($event)">
-        </ng-filter>
-        <tree-view style="float: left;"
-            *ngIf="treeNodes" 
-            [nodes]="treeNodes" 
-            [width]="treeViewWidth"
-            [height]="contentHeight"
-            [selectedNode]="selectedNode"
-            (onSelectedChanged)="onSelectNode($event)">
-        </tree-view>
-        <div class="k-grid-header">
-            <div class="k-grid-header-locked" [ngStyle]="{'width.px': headerLockedWidth}">
-                <table datatable-header 
-                    [columns]="frozenColumns" 
-                    [filters]="filters" 
-                    [sortMeta]="sortMeta" 
-                    (onSort)="sort($event)" 
-                    (onShowColumnMenu)="showColumnMenu($event)" 
-                    [firstColumn]="true" 
-                    [actionColumnWidth]="actionColumnWidth"
-                    (onClearAllFilters)="selectFilter.clearAllFilters()"
-                    (onResize)="resizeColumn($event)">
-                </table>
-            </div>
-            <div class="k-grid-header-wrap" [ngStyle]="{'width.px': headerWrapWidth}">
-                <table datatable-header 
-                    [columns]="scrollableColumns" 
-                    [filters]="filters" 
-                    [sortMeta]="sortMeta" 
-                    [actionColumnWidth]="actionColumnWidth"
-                    (onSort)="sort($event)" 
-                    (onShowColumnMenu)="showColumnMenu($event)"
-                    (onResize)="resizeColumn($event)">
-                </table>
-            </div>
-            <div class="k-grid-header-block"></div>
-        </div>
-        <div class="k-grid-body">
-            <div class="k-grid-content-locked" [ngStyle]="{'width.px': contentLockedWidth, 'height.px': contentLockedHeight}">
-                <table datatable-body 
-                    [columns]="frozenColumns"
-                    [items]="items"
-                    [enableAction]="true"
-                    [(selectedRowIndex)]="selectedRowIndex"
-                    [actionColumnWidth]="actionColumnWidth"
-                    (onEditComplete)="editItem($event)"
-                    [actionMenu]="rowMenu">
-                </table>
-            </div>
-            <div class="k-grid-content" #tableContent [ngStyle]="{'width.px': contentWidth, 'height.px': contentHeight}">
-                <table datatable-body
-                    [columns]="scrollableColumns"
-                    [items]="items"
-                    [(selectedRowIndex)]="selectedRowIndex"
-                    [actionColumnWidth]="actionColumnWidth"
-                    (onEditComplete)="editItem($event)">
-                </table>
-                <div class="k-grid-content-expander" *ngIf="totalItems <= 0" [ngStyle]="{'width.px': scrollableColumnsWidth}"></div>
-            </div>
-        </div>
-        <div class="pager-wrap">
-            <pagination 
-                [totalItems]="totalItems" 
-                [itemsPerPage]="itemsPerPage" 
-                (pageChanged)="pageChanged($event)">
-            </pagination>
-        </div>
-        <div class="clearfix"></div>
-    </div>
+  <tree-view style="float: left;"
+             *ngIf="treeNodes"
+             [nodes]="treeNodes"
+             [width]="treeViewWidth"
+             [height]="contentHeight"
+             [selectedNode]="selectedNode"
+             (onSelectedChanged)="onSelectNode($event)">
+  </tree-view>
+  <div class="datatable fixed-header fixed-row scroll-vertical scroll-horz"
+       [ngStyle]="{'width.px': tableWidth}">
+    <loading-indicator [isLoading]="loading"></loading-indicator>
+    <ng-filter
+      #selectFilter
+      [filters]="filters"
+      (onFilter)="filter($event)">
+    </ng-filter>
+    <datatable-header
+         class="datatable-header"
+         [columns]="columns"
+         [filters]="filters"
+         [sortMeta]="sortMeta"
+         (onSort)="sort($event)"
+         (onShowColumnMenu)="showColumnMenu($event)"
+         [actionColumnWidth]="actionColumnWidth"
+         (onClearAllFilters)="selectFilter.clearAllFilters()"
+         (onResize)="resizeColumn($event)"
+         [offsetX]="offsetX">
+    </datatable-header>
+    <datatable-body
+         class="datatable-body"
+         [ngStyle]="{'height.px': scrollHeight}"
+         [columns]="columns"
+         [items]="items"
+         [enableAction]="true"
+         [(selectedRowIndex)]="selectedRowIndex"
+         [actionColumnWidth]="actionColumnWidth"
+         (onEditComplete)="editItem($event)"
+         [actionMenu]="rowMenu"
+         [offsetX]="offsetX"
+         (scroll)="onBodyScroll($event)">
+    </datatable-body>
+    <datatable-footer
+      [totalItems]="totalItems"
+      [itemsPerPage]="itemsPerPage"
+      (pageChanged)="pageChanged($event)">
+    </datatable-footer>
+  </div>
 </div>
 
 <app-modal #childModal [modalTitle]="modalTitle()">
-    <div class="app-modal-body">
-        <div *ngIf="item">
-            <row-form 
-                [columns]="columns" 
-                [item]="item" 
-                [settings]="settings">
-            </row-form>
-        </div>
+  <div class="app-modal-body">
+    <div *ngIf="item">
+      <row-form
+        [columns]="columns"
+        [item]="item"
+        [settings]="settings">
+      </row-form>
     </div>
-    <div class="app-modal-footer">
-        <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Delete</button>
-        <button type="button" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-primary pull-right" (click)="childModal.hide()"> <i class="fa fa-arrow-circle-left"></i> Close</button>
-    </div>
+  </div>
+  <div class="app-modal-footer">
+    <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()"><i class="fa fa-close"></i> Delete
+    </button>
+    <button type="button" class="btn btn-success" (click)="save()"><i class="fa fa-check"></i> Save</button>
+    <button type="button" class="btn btn-primary pull-right" (click)="childModal.hide()"><i
+      class="fa fa-arrow-circle-left"></i> Close
+    </button>
+  </div>
 </app-modal>
 
 <detail-view *ngIf="onDetailView && item"
-    [columns]="columns" 
-    [item]="item"
-    [settings]="settings"
-    (onClose)="closeDetails()"
-    (onSaveItem)="save()"
-    (onDeleteItem)="delete()">
+             [columns]="columns"
+             [item]="item"
+             [settings]="settings"
+             (onClose)="closeDetails()"
+             (onSaveItem)="save()"
+             (onDeleteItem)="delete()">
 </detail-view>

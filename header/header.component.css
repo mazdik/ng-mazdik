@@ -1,14 +1,3 @@
-th {
-	position: relative;
-    background-color: #5b9bd5;
-    color: white;
-}
-th:hover {
-    background-color: #337ab7;
-}
-th:hover .column-menu {
-    visibility: visible;
-}
 .column-title {
 	color: white;
     padding: 2px;
@@ -28,5 +17,5 @@ th:hover .column-menu {
     cursor: pointer;
 }
 .is-filter {
-    visibility: visible;   
+    visibility: visible;
 }

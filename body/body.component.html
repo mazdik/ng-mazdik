@@ -1,43 +1,82 @@
-<tbody>
-    <tr *ngFor="let item of items; let rowIndex=index"
-    	(click)="rowClick($event, rowIndex)"
-    	[ngClass]="{'row-selected' : rowIndex === selectedRowIndex}">
+<div class="datatable-selection">
+  <datatable-scroller
+    [scrollbarV]="true"
+    [scrollbarH]="true"
+    (scroll)="onBodyScroll($event)">
+    <div class="datatable-row-wrapper">
+      <div class="datatable-body-row"
+           *ngFor="let item of items; let rowIndex=index"
+           (click)="rowClick($event, rowIndex)"
+           [ngClass]="{'row-selected' : rowIndex === selectedRowIndex}">
 
-        <td class="action-column" 
-            *ngIf="enableAction"
-            [ngStyle]="{'width.px': actionColumnWidth}">
+        <div class="datatable-row-left datatable-row-group"
+             [ngStyle]="stylesByGroup()">
+
+          <div class="datatable-body-cell"
+               *ngIf="enableAction"
+               [ngStyle]="{'width.px': actionColumnWidth}">
 
             <ng-template ngFor let-action [ngForOf]="actionMenu">
-                <a *ngIf="!action.disabled"
-                    title="{{action.label}}"
-                    (click)="actionClick($event, action, rowIndex)">
-                    <span [ngClass]="action.icon"></span>
-                </a>
+              <a *ngIf="!action.disabled"
+                 title="{{action.label}}"
+                 (click)="actionClick($event, action, rowIndex)">
+                <span [ngClass]="action.icon"></span>
+              </a>
             </ng-template>
-        </td>
+          </div>
 
-        <ng-template ngFor let-column [ngForOf]="columns" let-colIndex="index">
-            <td [ngStyle]="{'width.px': column.width}"
-                (click)="switchCellToEditMode($event, column)">
+          <ng-template ngFor let-column [ngForOf]="frozenColumns" let-colIndex="index">
+            <div class="datatable-body-cell"
+                 [ngStyle]="{'width.px': column.width}"
+                 (click)="switchCellToEditMode($event, column)">
 
-                <span class="cell-data">{{format(item[column.name], column)}}</span>
+              <span class="cell-data">{{format(item[column.name], column)}}</span>
 
-                <div class="cell-editor" *ngIf="column.editable">
-                    <select 
-                        *ngIf="column.options"
-                        [(ngModel)]="item[column.name]"
-                        [id]="column.name"
-                        (keydown)="onCellEditorKeydown($event, column, item, colIndex)">
-                        <option *ngFor="let opt of getOptions(column, item)" [value]="opt.id">{{opt.name}}</option>
-                    </select>
+              <div class="cell-editor" *ngIf="column.editable">
+                <select
+                  *ngIf="column.options"
+                  [(ngModel)]="item[column.name]"
+                  [id]="column.name"
+                  (keydown)="onCellEditorKeydown($event, column, item, colIndex)">
+                  <option *ngFor="let opt of getOptions(column, item)" [value]="opt.id">{{opt.name}}</option>
+                </select>
 
-                    <input type="text"
-                        *ngIf="!column.options" 
-                        [(ngModel)]="item[column.name]" 
-                        (keydown)="onCellEditorKeydown($event, column, item, colIndex)"/>
-                </div>
+                <input type="text"
+                       *ngIf="!column.options"
+                       [(ngModel)]="item[column.name]"
+                       (keydown)="onCellEditorKeydown($event, column, item, colIndex)"/>
+              </div>
+            </div>
+          </ng-template>
 
-            </td>
-        </ng-template>
-    </tr>
-</tbody>
+        </div>
+
+        <div class="datatable-row-center datatable-row-group">
+          <ng-template ngFor let-column [ngForOf]="scrollableColumns" let-colIndex="index">
+            <div class="datatable-body-cell" [ngStyle]="{'width.px': column.width}"
+                 (click)="switchCellToEditMode($event, column)">
+
+              <span class="cell-data">{{format(item[column.name], column)}}</span>
+
+              <div class="cell-editor" *ngIf="column.editable">
+                <select
+                  *ngIf="column.options"
+                  [(ngModel)]="item[column.name]"
+                  [id]="column.name"
+                  (keydown)="onCellEditorKeydown($event, column, item, colIndex)">
+                  <option *ngFor="let opt of getOptions(column, item)" [value]="opt.id">{{opt.name}}</option>
+                </select>
+
+                <input type="text"
+                       *ngIf="!column.options"
+                       [(ngModel)]="item[column.name]"
+                       (keydown)="onCellEditorKeydown($event, column, item, colIndex)"/>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+
+      </div>
+    </div>
+  </datatable-scroller>
+</div>
