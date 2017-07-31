@@ -14,7 +14,7 @@
              [selectedNode]="selectedNode"
              (onSelectedChanged)="onSelectNode($event)">
   </tree-view>
-  <div class="datatable fixed-header fixed-row scroll-vertical scroll-horz"
+  <div class="datatable fixed-header fixed-row scroll-horz"
        [ngStyle]="{'width.px': tableWidth}">
     <loading-indicator [isLoading]="loading"></loading-indicator>
     <ng-filter

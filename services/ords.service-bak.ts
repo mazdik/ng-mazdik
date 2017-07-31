@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Headers } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Filter, ICrudService, Settings } from '../types/interfaces';
+import {Filter, ICrudService, Settings} from '../types/interfaces';
 
 @Injectable()
 export class OrdsService implements ICrudService {
@@ -22,8 +22,8 @@ export class OrdsService implements ICrudService {
   getAuthHeaders() {
     let headers = this.getJsonHeaders();
     let authToken = localStorage.getItem('auth_token');
-    if(authToken) {
-        headers.append('Authorization', `Bearer ${authToken}`);
+    if (authToken) {
+      headers.append('Authorization', `Bearer ${authToken}`);
     }
     return headers;
   }
@@ -31,8 +31,8 @@ export class OrdsService implements ICrudService {
   getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
     let headers = this.getAuthHeaders();
     let url = this.url + "/";
-    if(page > 1) {
-        url = url + "/?offset=" + page;
+    if (page > 1) {
+      url = url + "/?offset=" + page;
     }
     url = url + this.filterObject(filters, sortField, sortOrder);
     return this.http.get(url, {headers: headers})
@@ -49,7 +49,7 @@ export class OrdsService implements ICrudService {
       .then(data => data.items[0]);
   }
 
-  save(item: any):Promise<any> {
+  save(item: any): Promise<any> {
     if (item[this.primaryKey]) {
       return this.put(item);
     }
@@ -57,10 +57,10 @@ export class OrdsService implements ICrudService {
   }
 
   // Add new
-  post(item: any):Promise<any> {
+  post(item: any): Promise<any> {
     let headers = this.getAuthHeaders();
     return this.http
-      .post(this.url+'/', JSON.stringify(item), {headers: headers})
+      .post(this.url + '/', JSON.stringify(item), {headers: headers})
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);
@@ -89,16 +89,16 @@ export class OrdsService implements ICrudService {
   private extractData(res: Response) {
     let body = res.json();
     let meta = {
-    	"totalCount": body.count, 
-    	"perPage": body.limit
-    	};
+      "totalCount": body.count,
+      "perPage": body.limit
+    };
     body = {"items": body.items, "_meta": meta};
     return body;
   }
 
   private handleError(response: Response | any) {
     let errMsg: string;
-    let errors : any;
+    let errors: any;
     let fieldErrors: any;
     if (response instanceof Response) {
       const body = response.json() || '';
@@ -117,29 +117,29 @@ export class OrdsService implements ICrudService {
   }
 
   private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {
-  	let filterObject = {};
-  	let orderby = {};
-  	let result = '';
+    let filterObject = {};
+    let orderby = {};
+    let result = '';
 
-  	if(sortField && sortOrder) {
-  		orderby = {[sortField]: sortOrder};
-  	}
+    if (sortField && sortOrder) {
+      orderby = {[sortField]: sortOrder};
+    }
 
     for (let key in obj) {
       if (obj[key]['value'] && obj[key]['value'].trim()) {
-      	if(typeof obj[key]['value'] === 'string') { // TODO
-      		filterObject[key] = {"$like": obj[key]['value']+'%25'};
-      	} else {
-        	filterObject[key] = {"$eq": obj[key]['value']};
-    	}
+        if (typeof obj[key]['value'] === 'string') { // TODO
+          filterObject[key] = {"$like": obj[key]['value'] + '%25'};
+        } else {
+          filterObject[key] = {"$eq": obj[key]['value']};
+        }
       }
     }
 
-  	if(Object.keys(orderby).length !== 0) {
-    	filterObject["$orderby"] = orderby;
-  	}
-    if(Object.keys(filterObject).length !== 0) {
-    	result = '?q=' + JSON.stringify(filterObject)
+    if (Object.keys(orderby).length !== 0) {
+      filterObject["$orderby"] = orderby;
+    }
+    if (Object.keys(filterObject).length !== 0) {
+      result = '?q=' + JSON.stringify(filterObject)
     }
     return result;
   }

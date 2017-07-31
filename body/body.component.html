@@ -53,7 +53,8 @@
 
         <div class="datatable-row-center datatable-row-group">
           <ng-template ngFor let-column [ngForOf]="scrollableColumns" let-colIndex="index">
-            <div class="datatable-body-cell" [ngStyle]="{'width.px': column.width}"
+            <div class="datatable-body-cell"
+                 [ngStyle]="{'width.px': column.width}"
                  (click)="switchCellToEditMode($event, column)">
 
               <span class="cell-data">{{format(item[column.name], column)}}</span>

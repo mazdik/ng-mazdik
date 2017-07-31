@@ -75,7 +75,7 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
 
   findCell(event) {
     let cell = event.target;
-    while (cell.tagName !== 'DIV') {
+    while (cell.classList.contains('datatable-body-cell') === false) {
       cell = cell.parentElement;
     }
     return cell;
@@ -202,7 +202,7 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
         item: item
       });
     }
-}
+  }
 
   onBodyScroll(event: any): void {
     const scrollYPos: number = event.scrollYPos;
@@ -220,9 +220,9 @@ export class BodyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.offsetY = scrollYPos;
     this.offsetX = scrollXPos;
 
-/*    this.updateIndexes();
-    this.updatePage(event.direction);
-    this.updateRows();*/
+    /*    this.updateIndexes();
+        this.updatePage(event.direction);
+        this.updateRows();*/
   }
 
   stylesByGroup() {

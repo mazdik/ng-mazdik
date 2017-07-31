@@ -56,9 +56,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public tableWidth: number = 820;
   public letterWidth: number = 10;
   public actionColumnWidth: number = 40;
-  @ViewChild('dataTable') dataTable: ElementRef;
-  @ViewChild('tableContent') tableContent: ElementRef;
-  contentHeight: any;
 
   frozenColumns: Column[];
   scrollableColumns: Column[];
@@ -100,8 +97,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.frozenColumns = this.frozenColumns || [];
         this.frozenColumns.push(column);
         this.frozenWidth = this.frozenWidth + column.width;
-      }
-      else {
+      } else {
         this.scrollableColumns.push(column);
         this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
       }
@@ -280,17 +276,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     return (this.newItem) ? 'Create' : 'Update';
   }
 
-  calculateScrollbarWidth(): number {
-    let scrollDiv = document.createElement("div");
-    scrollDiv.className = "scrollbar-measure";
-    document.body.appendChild(scrollDiv);
-
-    let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    document.body.removeChild(scrollDiv);
-
-    return scrollbarWidth;
-  }
-
   showColumnMenu(event) {
     this.selectFilter.show(200, event.top, event.left, event.column);
   }
@@ -348,12 +333,10 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     if (node) {
       if (node.id) {
         this.filters[node.column] = {value: node.id, matchMode: null};
-      }
-      else if (this.filters[node.column]) {
+      } else if (this.filters[node.column]) {
         delete this.filters[node.column];
       }
       this.selectFilter.setColumnSelectedOption(node.id, node.column, null);
-      //console.log('node.id ' + node.id);
 
       if (node.parent) {
         this.selectNode(node.parent);
@@ -369,7 +352,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         if (this.filters[childNode.column]) {
           delete this.filters[childNode.column];
           this.selectFilter.setColumnSelectedOption(null, childNode.column, null);
-          //console.log('childNode.id ' + childNode.id);
         }
       }
     }

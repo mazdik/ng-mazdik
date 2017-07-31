@@ -1,1 +1,1 @@
-export { CrudTableModule } from './crud-table-module';
+export {CrudTableModule} from './crud-table-module';

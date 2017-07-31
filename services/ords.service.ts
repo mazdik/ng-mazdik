@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Headers } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Filter, ICrudService, Settings } from '../types/interfaces';
+import {Filter, ICrudService, Settings} from '../types/interfaces';
 
 @Injectable()
 export class OrdsService implements ICrudService {
@@ -22,20 +22,27 @@ export class OrdsService implements ICrudService {
   getAuthHeaders() {
     let headers = this.getJsonHeaders();
     let authToken = localStorage.getItem('auth_token');
-    if(authToken) {
-        headers.append('Authorization', `Bearer ${authToken}`);
+    if (authToken) {
+      headers.append('Authorization', `Bearer ${authToken}`);
     }
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise < any > {
-      let headers = this.getAuthHeaders();
-      let url = this.url;
-      filters = this.filterObject(filters);
-      return this.http.post(url, { process: this.settings.process, limit: 25, page: page, sort_field: sortField, sort: sortOrder, filters: filters }, { headers: headers })
-          .toPromise()
-          .then(this.extractData)
-          .catch(this.handleError);
+  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
+    let headers = this.getAuthHeaders();
+    let url = this.url;
+    filters = this.filterObject(filters);
+    return this.http.post(url, {
+      process: this.settings.process,
+      limit: 25,
+      page: page,
+      sort_field: sortField,
+      sort: sortOrder,
+      filters: filters
+    }, {headers: headers})
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
   }
 
   getItem(id: number): Promise<any> {
@@ -46,7 +53,7 @@ export class OrdsService implements ICrudService {
       .then(data => data.items[0]);
   }
 
-  save(item: any):Promise<any> {
+  save(item: any): Promise<any> {
     if (item[this.primaryKey]) {
       return this.put(item);
     }
@@ -54,10 +61,10 @@ export class OrdsService implements ICrudService {
   }
 
   // Add new
-  post(item: any):Promise<any> {
+  post(item: any): Promise<any> {
     let headers = this.getAuthHeaders();
     return this.http
-      .post(this.url+'/', JSON.stringify(item), {headers: headers})
+      .post(this.url + '/', JSON.stringify(item), {headers: headers})
       .toPromise()
       .then(res => res.json())
       .catch(this.handleError);
@@ -88,16 +95,16 @@ export class OrdsService implements ICrudService {
     let count = (body.items[0] && body.items[0].row_cnt) ? body.items[0].row_cnt : 0;
     let limit = body.limit;
     let meta = {
-    	"totalCount": count, 
-    	"perPage": limit
-    	};
+      "totalCount": count,
+      "perPage": limit
+    };
     body = {"items": body.items, "_meta": meta};
     return body;
   }
 
   private handleError(response: Response | any) {
     let errMsg: string;
-    let errors : any;
+    let errors: any;
     let fieldErrors: any;
     if (response instanceof Response) {
       const body = response.json() || '';
@@ -116,11 +123,11 @@ export class OrdsService implements ICrudService {
   }
 
   private filterObject(obj: Filter): any {
-  	let filterObjects = [];
+    let filterObjects = [];
 
     for (let key in obj) {
       if (obj[key]['value']) {
-      	filterObjects.push({field: key, value: obj[key]['value'], matchMode: obj[key]['matchMode'] || 'eq'});
+        filterObjects.push({field: key, value: obj[key]['value'], matchMode: obj[key]['matchMode'] || 'eq'});
       }
     }
     return JSON.stringify({params: filterObjects});

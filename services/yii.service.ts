@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams, Headers } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, URLSearchParams, Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import { Filter, ICrudService, Settings } from '../types/interfaces';
+import {Filter, ICrudService, Settings} from '../types/interfaces';
 
 @Injectable()
 export class YiiService implements ICrudService {
@@ -43,7 +43,7 @@ export class YiiService implements ICrudService {
       .then(data => data.items[0]);
   }
 
-  save(item: any):Promise<any> {
+  save(item: any): Promise<any> {
     if (item[this.primaryKey]) {
       return this.put(item);
     }
@@ -51,7 +51,7 @@ export class YiiService implements ICrudService {
   }
 
   // Add new
-  post(item: any):Promise<any> {
+  post(item: any): Promise<any> {
     let headers = this.getAuthHeaders();
     return this.http
       .post(this.url, JSON.stringify(item), {headers: headers})
@@ -87,7 +87,7 @@ export class YiiService implements ICrudService {
 
   private handleError(response: Response | any) {
     let errMsg: string;
-    let errors : any;
+    let errors: any;
     let fieldErrors: any;
     if (response instanceof Response) {
       const body = response.json() || '';
@@ -120,10 +120,10 @@ export class YiiService implements ICrudService {
     if (sortField) {
       if (sortOrder > 0) {
         return '&sort=' + sortField;
-      } else if(sortOrder < 0) {
+      } else if (sortOrder < 0) {
         return '&sort=-' + sortField;
       } else {
-        return '';  
+        return '';
       }
     } else {
       return '';

@@ -1,4 +1,7 @@
 .cell-data {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   display: block;
 }
 .cell-editor {
@@ -15,11 +18,12 @@
 }
 .cell-editor input{
   width: 100%;
+  height: 100%;
   padding: 1px 3px;
 }
 .cell-editor select{
   width: 100%;
-  height: 27px;
+  height: 100%;
   padding: 1px 3px;
   cursor: pointer;
   background: #ffffff;
