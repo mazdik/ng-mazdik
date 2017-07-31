@@ -14,7 +14,7 @@ import {LoadingIndicatorComponent} from './loading-indicator/loading-indicator.c
 import {BodyComponent} from './body/body.component';
 import {ScrollerComponent} from './body/scroller.component';
 import {FooterComponent} from './footer/footer.component';
-import {TreeViewModule} from './tree-view';
+import {TreeViewComponent} from './tree-view/tree-view.component';
 import {ResizeableDirective} from './directives/resizeable.directive';
 
 
@@ -22,7 +22,6 @@ import {ResizeableDirective} from './directives/resizeable.directive';
   imports: [
     CommonModule,
     FormsModule,
-    TreeViewModule
   ],
   declarations: [
     CrudTableComponent,
@@ -37,7 +36,8 @@ import {ResizeableDirective} from './directives/resizeable.directive';
     BodyComponent,
     ResizeableDirective,
     ScrollerComponent,
-    FooterComponent
+    FooterComponent,
+    TreeViewComponent
   ],
   exports: [CrudTableComponent],
   providers: []

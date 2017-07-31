@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit, HostBinding} from "@angular/core";
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 
 export interface ITreeNode {
   id: string;
@@ -11,67 +11,30 @@ export interface ITreeNode {
 }
 
 @Component({
-  selector: 'treeNode',
-  templateUrl: './tree-node.component.html',
-  styleUrls: ['./tree-node.component.css'],
-})
-export class TreeNodeComponent implements OnInit {
-
-  @Input() node: any;
-  @Input() selectedNode: ITreeNode;
-  @Input() parentNode: ITreeNode;
-  @Output() onSelectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
-
-  ngOnInit() {
-    if (this.node !== this.parentNode) {
-      this.node.parent = this.parentNode;
-    }
-  }
-
-  toggle() {
-    this.node.isExpanded = !this.node.isExpanded;
-  }
-
-  isLeaf() {
-    return this.node.leaf == false ? false : !(this.node.children && this.node.children.length);
-  }
-
-  onSelectNode(node: ITreeNode) {
-    if (this.selectedNode !== node) {
-      this.selectedNode = node;
-      this.onSelectedChanged.emit(node);
-    }
-  }
-
-  isSelected() {
-    return this.node === this.selectedNode;
-  }
-
-}
-
-@Component({
-  selector: "tree-view",
+  selector: 'tree-view',
   templateUrl: './tree-view.component.html',
-  styleUrls: ['./tree-view.component.css'],
-  host: {
-    'style': 'overflow: auto;'
-  }
+  styleUrls: ['./tree-view.component.css']
 })
-export class TreeViewComponent {
+export class TreeViewComponent implements OnInit {
 
   @Input() nodes: ITreeNode[];
   @Input() selectedNode: ITreeNode;
 
-  @HostBinding('style.height.px')
-  @Input() height: number;
-
-  @HostBinding('style.width.px')
-  @Input() width: number;
-
   @Output() onSelectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
-  @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
+  @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  isLeaf(node: ITreeNode) {
+      return node.leaf === false ? false : !(node.children && node.children.length);
+  }
+
+  isSelected(node: ITreeNode) {
+    return node === this.selectedNode;
   }
 
   onSelectNode(node: ITreeNode) {
@@ -91,4 +54,5 @@ export class TreeViewComponent {
   onRequestLocal(node: ITreeNode) {
     this.onRequestNodes.emit(node);
   }
+
 }

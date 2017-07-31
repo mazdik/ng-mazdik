@@ -1,10 +1,23 @@
-<div class="tree-view">
-  <ul class="tree-container">
-      <treeNode *ngFor="let node of nodes" 
-        [node]="node"
-        [parentNode]="node"
-        [selectedNode]="selectedNode"
-        (onSelectedChanged)="onSelectNode($event)">
-      </treeNode>
-  </ul>
-</div>
+<ul class="tree-container">
+    <li class="treenode" *ngFor="let node of nodes">
+      <i class="indicator glyphicon"
+         [ngClass]="{'glyphicon-folder-close': !isLeaf(node), 'glyphicon-folder-open': !isLeaf(node) && node.isExpanded}"
+         (click)="onExpand(node)">
+      </i>
+
+      <span class="treenode-content"
+            (click)="onSelectNode(node)"
+            (dblclick)="onExpand(node)"
+            [ngClass]="{'highlight':isSelected(node)}">
+        {{node.name}}
+      </span>
+
+      <tree-view
+            [nodes]="node.children"
+            [selectedNode]="selectedNode"
+            (onSelectedChanged)="onSelectNode($event)"
+            (onRequestNodes)="onRequestLocal($event)"
+            *ngIf="node.children && node.isExpanded">
+      </tree-view>
+    </li>
+</ul>

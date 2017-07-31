@@ -6,11 +6,10 @@
   <button type="button" class="btn btn-primary" (click)="createItem()"><i class="fa fa-plus"></i> Create</button>
 </p>
 <div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-  <tree-view style="float: left;"
+  <tree-view style="float: left; overflow: auto;"
+             [ngStyle]="{'width.px': treeViewWidth, 'height.px': scrollHeight}"
              *ngIf="treeNodes"
              [nodes]="treeNodes"
-             [width]="treeViewWidth"
-             [height]="contentHeight"
              [selectedNode]="selectedNode"
              (onSelectedChanged)="onSelectNode($event)">
   </tree-view>

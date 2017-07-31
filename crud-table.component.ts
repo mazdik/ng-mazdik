@@ -4,7 +4,6 @@ import {
   ViewChild,
   Input,
   ViewEncapsulation,
-  ElementRef,
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
@@ -14,7 +13,7 @@ import {OrdsService} from './services/ords.service';
 import {DemoService} from './services/demo.service';
 import {ModalComponent} from './modal/modal.component';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
-import {ITreeNode} from './tree-view';
+import {ITreeNode} from './tree-view/tree-view.component';
 
 @Component({
   selector: 'crud-table',

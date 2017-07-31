@@ -1,9 +1,31 @@
-.tree-view {
+.tree-container {
+  height: 100%;
+  margin: 0;
+  white-space: nowrap;
 }
 
-.tree-container {
-    height: 100%;
-    margin: 0;
-    padding: 5px;
-    white-space: nowrap;
+.indicator {
+  cursor: pointer;
+}
+
+.treenode-content {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.treenode {
+  list-style: none outside none;
+  margin: 0;
+  padding: 5px 0 0 0;
+}
+
+.highlight {
+  border-color: #156090;
+  background: #5b9bd5;
+  color: #FFFFFF;
+}
+
+ul {
+  padding-left: 25px;
 }
