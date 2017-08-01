@@ -331,11 +331,11 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   selectNode(node: ITreeNode) {
     if (node) {
       if (node.id) {
-        this.filters[node.column] = {value: node.id, matchMode: null};
-      } else if (this.filters[node.column]) {
-        delete this.filters[node.column];
+        this.filters[node.data['column']] = {value: node.id, matchMode: null};
+      } else if (this.filters[node.data['column']]) {
+        delete this.filters[node.data['column']];
       }
-      this.selectFilter.setColumnSelectedOption(node.id, node.column, null);
+      this.selectFilter.setColumnSelectedOption(node.id, node.data['column'], null);
 
       if (node.parent) {
         this.selectNode(node.parent);
@@ -348,9 +348,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectNode(node);
     if (node.children) {
       for (let childNode of node.children) {
-        if (this.filters[childNode.column]) {
-          delete this.filters[childNode.column];
-          this.selectFilter.setColumnSelectedOption(null, childNode.column, null);
+        if (this.filters[childNode.data['column']]) {
+          delete this.filters[childNode.data['column']];
+          this.selectFilter.setColumnSelectedOption(null, childNode.data['column'], null);
         }
       }
     }
@@ -360,7 +360,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   setNode(field: string, value: string) {
     if (this.treeNodes) {
       for (let node of this.treeNodes) {
-        if (node.column === field && node.id === value) {
+        if (node.data['column'] === field && node.id === value) {
           this.selectedNode = node;
         }
       }

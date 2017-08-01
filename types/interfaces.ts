@@ -54,7 +54,6 @@ export interface Settings {
   api: string;
   process?: string;
   crud: boolean;
-  pageHeader?: string;
   primaryKey?: string;
   type?: string;
   tableWidth?: number;

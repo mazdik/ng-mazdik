@@ -3,7 +3,7 @@ import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 export interface ITreeNode {
   id: string;
   name: string;
-  column: string;
+  data: any;
   children?: ITreeNode[];
   isExpanded?: boolean;
   leaf?: boolean;

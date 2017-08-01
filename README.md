@@ -119,7 +119,6 @@ export class PlayersComponent {
     public settings: any = {
         api: 'http://host3/players',
         crud: true,
-        pageHeader: 'Players',
         primaryKey: 'id',
         type: 'yii', // ords or yii (default)
         tableWidth: 820,
@@ -131,33 +130,33 @@ export class PlayersComponent {
         {
             id: 'ASMODIANS',
             name: 'ASMODIANS',
-            column: 'race',
+            data: {column: 'race'},
             children: [
             {
                 id: 'MALE',
                 name: 'MALE',
-                column: 'gender',
-            }, 
+                data: {column: 'gender'},
+            },
             {
                 id: 'FEMALE',
                 name: 'FEMALE',
-                column: 'gender',
+                data: {column: 'gender'},
             }],
-        }, 
+        },
         {
             id: 'ELYOS',
             name: 'ELYOS',
-            column: 'race',
+            data: {column: 'race'},
             children: [
             {
                 id: 'MALE',
                 name: 'MALE',
-                column: 'gender',
-            }, 
+                data: {column: 'gender'},
+            },
             {
                 id: 'FEMALE',
                 name: 'FEMALE',
-                column: 'gender',
+                data: {column: 'gender'},
             }],
         }
     ];

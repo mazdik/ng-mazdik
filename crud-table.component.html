@@ -1,5 +1,3 @@
-<h1 class="page-header" *ngIf="settings.pageHeader">{{settings.pageHeader}}</h1>
-
 <div class="alert alert-danger" *ngIf="errors">{{errors.errMsg}}</div>
 
 <p *ngIf="settings.crud" [style.display]="(!onDetailView) ? 'block' : 'none' ">
