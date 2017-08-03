@@ -9,7 +9,7 @@ export class ModalComponent {
 
   @Input() public modalTitle: string;
 
-  @ViewChild("modalRoot")
+  @ViewChild('modalRoot')
   public modalRoot: ElementRef;
 
   public visible: boolean = false;

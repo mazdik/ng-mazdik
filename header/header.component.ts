@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit {
   }
 
   isFilter(column: Column): boolean {
-    let length = this.filters[column.name] && this.filters[column.name].value.trim().length || 0;
+    const length = this.filters[column.name] && this.filters[column.name].value.trim().length || 0;
     return length > 0 ? true : false;
   }
 
@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit {
 
   hasFilter() {
     let empty = true;
-    for (let prop in this.filters) {
+    for (const prop in this.filters) {
       if (this.filters.hasOwnProperty(prop)) {
         empty = false;
         break;
@@ -104,8 +104,8 @@ export class HeaderComponent implements OnInit {
     // datatable-row-left + offsetLeft
     left = left + el.parentNode.offsetLeft;
 
-    let doc = el.parentNode.parentNode.parentNode.parentNode;
-    let windowScrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
+    const doc = el.parentNode.parentNode.parentNode.parentNode;
+    const windowScrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     left = left - windowScrollLeft;
 
     this.onShowColumnMenu.emit({'top': top, 'left': left, 'column': column});
@@ -113,7 +113,7 @@ export class HeaderComponent implements OnInit {
 
   getHeight(el): number {
     let height = el.offsetHeight;
-    let style = getComputedStyle(el);
+    const style = getComputedStyle(el);
     height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
     return height;
   }
@@ -133,7 +133,7 @@ export class HeaderComponent implements OnInit {
   }
 
   stylesByGroup() {
-    let styles: any = {};
+    const styles: any = {};
     styles.left = `${this.offsetX * -1}px`;
     return styles;
   }

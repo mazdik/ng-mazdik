@@ -24,7 +24,7 @@ export class DetailViewComponent {
 
   format(value: any, column: Column) {
     if (column.format && column.format === 'date') {
-      let d = new Date(value * 1000);
+      const d = new Date(value * 1000);
       value = d.toLocaleString('ru');
     }
     return value;

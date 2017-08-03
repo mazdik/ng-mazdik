@@ -19,7 +19,7 @@ export class FormComponent {
   }
 
   elemEnabled(name: string): boolean {
-    let pk = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
+    const pk = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
     return (name === pk) ? false : true;
   }
 
@@ -32,8 +32,10 @@ export class FormComponent {
   }
 
   setErrors(column: Column) {
-    let temp = [];
-    if (!column.validation) return temp;
+    const temp = [];
+    if (!column.validation) {
+      return temp;
+    }
     const length: number = this.item[column.name] ? this.item[column.name].length : 0;
 
     if (column.validation.required && !this.item[column.name]) {
@@ -66,7 +68,7 @@ export class FormComponent {
   }
 
   pattern(column: Column): string {
-    let pattern: string | RegExp = column.validation.pattern;
+    const pattern: string | RegExp = column.validation.pattern;
     let regex: RegExp;
     let regexStr: string;
     if (typeof pattern === 'string') {
@@ -82,7 +84,7 @@ export class FormComponent {
   getOptions(column: Column) {
     if (column.options) {
       if (column.dependsColumn) {
-        return column.options.filter((value) => value.parentId == this.item[column.dependsColumn]);
+        return column.options.filter((value) => value.parentId === this.item[column.dependsColumn]);
       } else {
         return column.options;
       }

@@ -13,12 +13,6 @@ export interface Meta {
   perPage: number;
 }
 
-export interface Data {
-  items: any[];
-  links: Link;
-  meta: Meta;
-}
-
 export interface ISelectOption {
   id: any;
   name: string;
@@ -99,4 +93,14 @@ export interface MenuItem {
   routerLink?: any;
   eventEmitter?: EventEmitter<any>;
   disabled?: boolean;
+}
+
+export interface ITreeNode {
+  id: string;
+  name: string;
+  data: any;
+  children?: ITreeNode[];
+  isExpanded?: boolean;
+  leaf?: boolean;
+  parent?: ITreeNode;
 }

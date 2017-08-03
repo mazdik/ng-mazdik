@@ -17,7 +17,8 @@ import {ScrollerComponent} from './body/scroller.component';
 import {FooterComponent} from './footer/footer.component';
 import {TreeViewComponent} from './tree-view/tree-view.component';
 import {ResizeableDirective} from './directives/resizeable.directive';
-
+import {TreeTableComponent} from './tree-table/tree-table.component';
+import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
 
 @NgModule({
   imports: [
@@ -39,9 +40,11 @@ import {ResizeableDirective} from './directives/resizeable.directive';
     ResizeableDirective,
     ScrollerComponent,
     FooterComponent,
-    TreeViewComponent
+    TreeViewComponent,
+    TreeTableComponent,
+    TreeTableNodeComponent
   ],
-  exports: [CrudTableComponent],
+  exports: [CrudTableComponent, TreeTableComponent],
   providers: []
 })
 export class CrudTableModule {

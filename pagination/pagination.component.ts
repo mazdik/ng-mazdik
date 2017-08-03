@@ -55,24 +55,24 @@ export class PaginationComponent {
     }
 
     if (event && event.target) {
-      let target: any = event.target;
+      const target: any = event.target;
       target.blur();
     }
     this.currentPage = page;
   }
 
   public calculateTotalPages(): number {
-    let totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
+    const totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
     return Math.max(totalPages || 0, 1);
   }
 
   public getPages(): any[] {
-    let maxSize: number = 10;
-    let pages: any[] = [];
+    const maxSize: number = 10;
+    const pages: any[] = [];
     let startPage = 1;
-    let totalPages = this.calculateTotalPages();
+    const totalPages = this.calculateTotalPages();
     let endPage = totalPages;
-    let isMaxSized = typeof maxSize !== 'undefined' && maxSize < totalPages;
+    const isMaxSized = typeof maxSize !== 'undefined' && maxSize < totalPages;
 
     if (isMaxSized) {
       startPage = Math.max(this.currentPage - Math.floor(maxSize / 2), 1);

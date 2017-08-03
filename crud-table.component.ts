@@ -12,8 +12,7 @@ import {YiiService} from './services/yii.service';
 import {OrdsService} from './services/ords.service';
 import {DemoService} from './services/demo.service';
 import {ModalComponent} from './modal/modal.component';
-import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
-import {ITreeNode} from './tree-view/tree-view.component';
+import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem, ITreeNode} from './types/interfaces';
 
 @Component({
   selector: 'crud-table',
@@ -221,14 +220,14 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   cloneItem(item: any) {
-    let clone = Object.assign({}, item);
+    const clone = Object.assign({}, item);
     this.selectedItem = Object.assign({}, item);
     return clone;
   }
 
   findSelectedItemIndex(): number {
-    let obj = this.items.find(x => JSON.stringify(x) === JSON.stringify(this.selectedItem));
-    let index = this.items.indexOf(obj);
+    const obj = this.items.find(x => JSON.stringify(x) === JSON.stringify(this.selectedItem));
+    const index = this.items.indexOf(obj);
     return index;
   }
 
@@ -308,23 +307,23 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!columns) {
       return;
     }
-    let result = columns.map(this.setColumnDefaults, this);
+    const result = columns.map(this.setColumnDefaults, this);
     return result;
   }
 
   columnsTotalWidth(columns: Column[]): number {
     let totalWidth = 0;
-    for (let column of columns) {
+    for (const column of columns) {
       totalWidth = totalWidth + column.width;
     }
     return totalWidth + this.actionColumnWidth;
   }
 
   getTextWidth(text, font) {
-    let canvas = document.createElement("canvas");
-    let context = canvas.getContext("2d");
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
     context.font = font;
-    let metrics = context.measureText(text);
+    const metrics = context.measureText(text);
     return metrics.width;
   }
 
@@ -347,7 +346,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedNode = node;
     this.selectNode(node);
     if (node.children) {
-      for (let childNode of node.children) {
+      for (const childNode of node.children) {
         if (this.filters[childNode.data['column']]) {
           delete this.filters[childNode.data['column']];
           this.selectFilter.setColumnSelectedOption(null, childNode.data['column'], null);
@@ -359,7 +358,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setNode(field: string, value: string) {
     if (this.treeNodes) {
-      for (let node of this.treeNodes) {
+      for (const node of this.treeNodes) {
         if (node.data['column'] === field && node.id === value) {
           this.selectedNode = node;
         }
@@ -371,7 +370,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     if (Object.keys(this.filters).length === 0) {
       this.selectedNode = null;
     } else {
-      for (let key in this.filters) {
+      for (const key in this.filters) {
         if (this.filters[key]['value']) {
           this.setNode(key, this.filters[key]['value']);
         }
@@ -380,7 +379,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   resizeColumn({column, newValue}: any) {
-    for (let col of this.columns) {
+    for (const col of this.columns) {
       if (col.name === column.name) {
         col.width = newValue;
       }

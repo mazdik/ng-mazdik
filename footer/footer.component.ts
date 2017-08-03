@@ -9,6 +9,7 @@ import {Component, Output, EventEmitter, Input} from '@angular/core';
 })
 export class FooterComponent {
 
+  @Input() footerHeight: number;
   @Input() totalItems: number;
   @Input() itemsPerPage: number;
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
@@ -21,7 +22,7 @@ export class FooterComponent {
   }
 
   rowCount() {
-    let count = this.itemsPerPage * this.currentPage;
+    const count = this.itemsPerPage * this.currentPage;
     return (count < this.totalItems) ? count : this.totalItems;
   }
 
