@@ -20,4 +20,13 @@ export class TreeTableComponent implements OnInit {
   ngOnInit() {
   }
 
+  resizeColumn({column, newValue}: any) {
+    for (const col of this.columns) {
+      if (col.name === column.name) {
+        col.width = newValue;
+      }
+    }
+  }
+
+
 }

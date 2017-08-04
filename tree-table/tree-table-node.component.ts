@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {ITreeNode} from '../types/interfaces';
+import {ITreeNode, Column} from '../types/interfaces';
 
 @Component({
   selector: 'tree-table-node',
@@ -7,7 +7,8 @@ import {ITreeNode} from '../types/interfaces';
 })
 export class TreeTableNodeComponent {
 
-  @Input() nodes: ITreeNode[];
+  @Input() public nodes: ITreeNode[];
+  @Input() public columns: Column[];
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   constructor() {

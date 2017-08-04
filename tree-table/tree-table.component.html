@@ -2,12 +2,13 @@
   <datatable-header
     class="datatable-header"
     [columns]="columns"
-    [actionColumnWidth]="250">
+    [actionColumnWidth]="250"
+    (onResize)="resizeColumn($event)">
   </datatable-header>
 
   <div class="datatable-body">
     <div class="datatable-selection">
-      <tree-table-node [nodes]="nodes"></tree-table-node>
+      <tree-table-node [nodes]="nodes" [columns]="columns"></tree-table-node>
     </div>
   </div>
 

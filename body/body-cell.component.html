@@ -1,0 +1,16 @@
+<span class="cell-data">{{format(row[column.name], column)}}</span>
+
+<div class="cell-editor" *ngIf="column.editable">
+  <select
+    *ngIf="column.options"
+    [(ngModel)]="row[column.name]"
+    [id]="column.name"
+    (keydown)="onCellEditorKeydown($event, column, row, colIndex)">
+    <option *ngFor="let opt of getOptions(column, row)" [value]="opt.id">{{opt.name}}</option>
+  </select>
+
+  <input type="text"
+         *ngIf="!column.options"
+         [(ngModel)]="row[column.name]"
+         (keydown)="onCellEditorKeydown($event, column, row, colIndex)"/>
+</div>

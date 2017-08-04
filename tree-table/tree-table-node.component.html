@@ -15,20 +15,23 @@
         </span>
 
       </div>
-      
-      <div class="datatable-body-cell"
-           [ngStyle]="{'width.px': 250}">
-        {{node.data['column']}}
-      </div>
-
     </div>
 
-    <div class="datatable-row-center datatable-row-group"></div>
+    <div class="datatable-row-center datatable-row-group">
+      <ng-template ngFor let-column [ngForOf]="columns" let-colIndex="index">
+        <div class="datatable-body-cell"
+             [ngStyle]="{'width.px': column.width}">
+          {{node.data[column.name]}}
+        </div>
+      </ng-template>
+    </div>
 
   </div>
+
   <tree-table-node
     [nodes]="node.children"
-    *ngIf="node.children && node.isExpanded">
+    *ngIf="node.children && node.isExpanded"
+    [columns]="columns">
   </tree-table-node>
 
 </div>

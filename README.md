@@ -130,33 +130,33 @@ export class PlayersComponent {
         {
             id: 'ASMODIANS',
             name: 'ASMODIANS',
-            data: {column: 'race'},
+            data: {column: 'race', cube_size: '1'},
             children: [
             {
                 id: 'MALE',
                 name: 'MALE',
-                data: {column: 'gender'},
+                data: {column: 'gender', cube_size: '12'},
             },
             {
                 id: 'FEMALE',
                 name: 'FEMALE',
-                data: {column: 'gender'},
+                data: {column: 'gender', cube_size: '13'},
             }],
         },
         {
             id: 'ELYOS',
             name: 'ELYOS',
-            data: {column: 'race'},
+            data: {column: 'race', cube_size: '2'},
             children: [
             {
                 id: 'MALE',
                 name: 'MALE',
-                data: {column: 'gender'},
+                data: {column: 'gender', cube_size: '21'},
             },
             {
                 id: 'FEMALE',
                 name: 'FEMALE',
-                data: {column: 'gender'},
+                data: {column: 'gender', cube_size: '22'},
             }],
         }
     ];

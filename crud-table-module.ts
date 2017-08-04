@@ -13,6 +13,7 @@ import {CrudTableComponent} from './crud-table.component';
 import {LoadingIndicatorComponent} from './loading-indicator/loading-indicator.component';
 import {BodyComponent} from './body/body.component';
 import {BodyRowComponent} from './body/body-row.component';
+import {BodyCellComponent} from './body/body-cell.component';
 import {ScrollerComponent} from './body/scroller.component';
 import {FooterComponent} from './footer/footer.component';
 import {TreeViewComponent} from './tree-view/tree-view.component';
@@ -37,6 +38,7 @@ import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
     LoadingIndicatorComponent,
     BodyComponent,
     BodyRowComponent,
+    BodyCellComponent,
     ResizeableDirective,
     ScrollerComponent,
     FooterComponent,
