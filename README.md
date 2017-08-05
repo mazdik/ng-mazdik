@@ -111,7 +111,6 @@ export class PlayersComponent {
             sortable: true, 
             filter: true,
             type: 'date',
-            format: 'date',
             editable: true,
         }
     ];

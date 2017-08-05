@@ -1,10 +1,9 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, PipeTransform} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
 
 @Component({
   selector: 'detail-view',
-  templateUrl: 'detail-view.component.html',
-  styleUrls: ['detail-view.component.css'],
+  templateUrl: 'detail-view.component.html'
 })
 
 export class DetailViewComponent {
@@ -23,9 +22,9 @@ export class DetailViewComponent {
   }
 
   format(value: any, column: Column) {
-    if (column.format && column.format === 'date') {
-      const d = new Date(value * 1000);
-      value = d.toLocaleString('ru');
+    const userPipe: PipeTransform = column.pipe;
+    if (userPipe) {
+      return userPipe.transform(value);
     }
     return value;
   }

@@ -18,8 +18,6 @@ export class BodyCellComponent implements OnDestroy {
   @Input() colIndex: number;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  public editingCell: any;
-  public editorClick: boolean;
   public isFocused: boolean = false;
   public element: any;
 
@@ -40,10 +38,7 @@ export class BodyCellComponent implements OnDestroy {
 
   @HostBinding('class')
   get columnCssClasses(): any {
-    let cls = 'datatable-body-cell';
-/*    if (this.isFocused) {
-      cls += ' cell-editing';
-    }*/
+    const cls = 'datatable-body-cell';
     return cls;
   }
 
@@ -59,52 +54,39 @@ export class BodyCellComponent implements OnDestroy {
   ngOnDestroy(): void {
   }
 
-  format(value: any, column: Column) {
-    if (column.format && column.format === 'date') {
-      const d = new Date(value * 1000);
-      value = d.toLocaleString('ru');
+  get value(): any {
+    if (!this.row || !this.column) {
+      return '';
     }
-    return value;
-  }
+    const val = this.row[this.column.name];
+    const userPipe: PipeTransform = this.column.pipe;
 
-  findCell(event) {
-    return this.element;
+    if (userPipe) {
+      return userPipe.transform(val);
+    }
+    if (val !== undefined) {
+      return val;
+    }
+    return '';
   }
 
   switchCellToEditMode(event: any, column: Column) {
     if (column.editable) {
-      this.editorClick = true;
-      const cell = this.findCell(event);
-      if (cell !== this.editingCell) {
-        if (this.editingCell) {
-          this.renderer.setElementClass(this.editingCell, 'cell-editing', false);
-        }
-        this.renderer.setElementClass(cell, 'cell-editing', true);
-        this.editingCell = cell;
+        this.renderer.setElementClass(this.element, 'cell-editing', true);
         let focusable;
         if (column.options) {
-          focusable = cell.querySelector('.cell-editor select');
+          focusable = this.element.querySelector('.cell-editor select');
         } else {
-          focusable = cell.querySelector('.cell-editor input');
+          focusable = this.element.querySelector('.cell-editor input');
         }
         if (focusable) {
           setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 50);
         }
-      }
     }
   }
 
-  switchCellToViewMode(event: any) {
-    this.editingCell = null;
-    const cell = this.findCell(event);
-    this.renderer.setElementClass(cell, 'cell-editing', false);
-  }
-
-  closeCell() {
-    if (this.editingCell) {
-      this.renderer.setElementClass(this.editingCell, 'cell-editing', false);
-      this.editingCell = null;
-    }
+  switchCellToViewMode() {
+    this.renderer.setElementClass(this.element, 'cell-editing', false);
   }
 
   onCellEditorKeydown(event: any, column: Column, item: any, colIndex: number) {
@@ -112,17 +94,17 @@ export class BodyCellComponent implements OnDestroy {
     if (event.keyCode === 13) {
       this.editComplete.emit(item);
       this.renderer.invokeElementMethod(event.target, 'blur');
-      this.switchCellToViewMode(event);
+      this.switchCellToViewMode();
       event.preventDefault();
       // escape
     } else if (event.keyCode === 27) {
       // this.onEditCancel.emit({column: column, data: rowData});
       this.renderer.invokeElementMethod(event.target, 'blur');
-      this.switchCellToViewMode(event);
+      this.switchCellToViewMode();
       event.preventDefault();
       // tab
     } else if (event.keyCode === 9) {
-      const currentCell = this.findCell(event);
+      const currentCell = this.element;
       const row = currentCell.parentElement;
       let targetCell;
 
@@ -153,10 +135,10 @@ export class BodyCellComponent implements OnDestroy {
     }
   }
 
-  getOptions(column: Column, item: any) {
+  getOptions(column: Column, row: any) {
     if (column.options) {
       if (column.dependsColumn) {
-        return column.options.filter((value) => value.parentId === item[column.dependsColumn]);
+        return column.options.filter((value) => value.parentId === row[column.dependsColumn]);
       } else {
         return column.options;
       }

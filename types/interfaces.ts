@@ -1,4 +1,4 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, PipeTransform} from '@angular/core';
 
 export interface Link {
   self: string;
@@ -25,7 +25,7 @@ export interface Column {
   sortable: boolean;
   filter: boolean;
   options?: ISelectOption[];
-  format?: string;
+  pipe?: PipeTransform;
   width?: number;
   frozen?: boolean;
   type?: 'text' | 'password' | 'number' | 'dropdown' | 'radio' | 'checkbox' | 'textarea' | 'date';
