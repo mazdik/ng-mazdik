@@ -14,21 +14,21 @@ export class YiiService implements ICrudService {
   }
 
   getJsonHeaders() {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return headers;
   }
 
   getAuthHeaders() {
-    let headers = this.getJsonHeaders();
-    let authToken = localStorage.getItem('auth_token');
+    const headers = this.getJsonHeaders();
+    const authToken = localStorage.getItem('auth_token');
     headers.append('Authorization', `Bearer ${authToken}`);
     return headers;
   }
 
   getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
-    let headers = this.getAuthHeaders();
-    let url = this.url + "?page=" + page + this.urlEncode(filters) + this.urlSort(sortField, sortOrder)
+    const headers = this.getAuthHeaders();
+    const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortField, sortOrder);
     return this.http.get(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
@@ -36,7 +36,7 @@ export class YiiService implements ICrudService {
   }
 
   getItem(id: number): Promise<any> {
-    let filterId = {
+    const filterId = {
       [this.primaryKey]: {value: id}
     };
     return this.getItems(1, filterId)
@@ -52,7 +52,7 @@ export class YiiService implements ICrudService {
 
   // Add new
   post(item: any): Promise<any> {
-    let headers = this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     return this.http
       .post(this.url, JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -62,8 +62,8 @@ export class YiiService implements ICrudService {
 
   // Update existing
   put(item: any) {
-    let headers = this.getAuthHeaders();
-    let url = `${this.url}/${item[this.primaryKey]}`;
+    const headers = this.getAuthHeaders();
+    const url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -72,8 +72,8 @@ export class YiiService implements ICrudService {
   }
 
   delete(item: any) {
-    let headers = this.getAuthHeaders();
-    let url = `${this.url}/${item[this.primaryKey]}`;
+    const headers = this.getAuthHeaders();
+    const url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .delete(url, {headers: headers})
       .toPromise()
@@ -81,7 +81,7 @@ export class YiiService implements ICrudService {
   }
 
   private extractData(res: Response) {
-    let body = res.json();
+    const body = res.json();
     return body;
   }
 
@@ -106,13 +106,13 @@ export class YiiService implements ICrudService {
   }
 
   private urlEncode(obj: Filter): string {
-    let urlSearchParams = new URLSearchParams();
-    for (let key in obj) {
+    const urlSearchParams = new URLSearchParams();
+    for (const key in obj) {
       if (obj[key]['value']) {
         urlSearchParams.append(key, obj[key]['value']);
       }
     }
-    let url = urlSearchParams.toString();
+    const url = urlSearchParams.toString();
     return (url) ? '&' + url : '';
   }
 

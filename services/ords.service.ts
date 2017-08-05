@@ -14,14 +14,14 @@ export class OrdsService implements ICrudService {
   }
 
   getJsonHeaders() {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return headers;
   }
 
   getAuthHeaders() {
-    let headers = this.getJsonHeaders();
-    let authToken = localStorage.getItem('auth_token');
+    const headers = this.getJsonHeaders();
+    const authToken = localStorage.getItem('auth_token');
     if (authToken) {
       headers.append('Authorization', `Bearer ${authToken}`);
     }
@@ -29,8 +29,8 @@ export class OrdsService implements ICrudService {
   }
 
   getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
-    let headers = this.getAuthHeaders();
-    let url = this.url;
+    const headers = this.getAuthHeaders();
+    const url = this.url;
     filters = this.filterObject(filters);
     return this.http.post(url, {
       process: this.settings.process,
@@ -46,7 +46,7 @@ export class OrdsService implements ICrudService {
   }
 
   getItem(id: number): Promise<any> {
-    let filterId = {
+    const filterId = {
       [this.primaryKey]: {value: id}
     };
     return this.getItems(1, filterId)
@@ -62,7 +62,7 @@ export class OrdsService implements ICrudService {
 
   // Add new
   post(item: any): Promise<any> {
-    let headers = this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     return this.http
       .post(this.url + '/', JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -72,8 +72,8 @@ export class OrdsService implements ICrudService {
 
   // Update existing
   put(item: any) {
-    let headers = this.getAuthHeaders();
-    let url = `${this.url}/${item[this.primaryKey]}`;
+    const headers = this.getAuthHeaders();
+    const url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -82,8 +82,8 @@ export class OrdsService implements ICrudService {
   }
 
   delete(item: any) {
-    let headers = this.getAuthHeaders();
-    let url = `${this.url}?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
+    const headers = this.getAuthHeaders();
+    const url = `${this.url}?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
     return this.http
       .delete(url, {headers: headers})
       .toPromise()
@@ -92,13 +92,13 @@ export class OrdsService implements ICrudService {
 
   private extractData(res: Response) {
     let body = res.json();
-    let count = (body.items[0] && body.items[0].row_cnt) ? body.items[0].row_cnt : 0;
-    let limit = body.limit;
-    let meta = {
-      "totalCount": count,
-      "perPage": limit
+    const count = (body.items[0] && body.items[0].row_cnt) ? body.items[0].row_cnt : 0;
+    const limit = body.limit;
+    const meta = {
+      'totalCount': count,
+      'perPage': limit
     };
-    body = {"items": body.items, "_meta": meta};
+    body = {'items': body.items, '_meta': meta};
     return body;
   }
 
@@ -123,9 +123,9 @@ export class OrdsService implements ICrudService {
   }
 
   private filterObject(obj: Filter): any {
-    let filterObjects = [];
+    const filterObjects = [];
 
-    for (let key in obj) {
+    for (const key in obj) {
       if (obj[key]['value']) {
         filterObjects.push({field: key, value: obj[key]['value'], matchMode: obj[key]['matchMode'] || 'eq'});
       }

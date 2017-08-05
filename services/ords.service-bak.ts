@@ -14,14 +14,14 @@ export class OrdsService implements ICrudService {
   }
 
   getJsonHeaders() {
-    let headers = new Headers();
+    const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return headers;
   }
 
   getAuthHeaders() {
-    let headers = this.getJsonHeaders();
-    let authToken = localStorage.getItem('auth_token');
+    const headers = this.getJsonHeaders();
+    const authToken = localStorage.getItem('auth_token');
     if (authToken) {
       headers.append('Authorization', `Bearer ${authToken}`);
     }
@@ -29,10 +29,10 @@ export class OrdsService implements ICrudService {
   }
 
   getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
-    let headers = this.getAuthHeaders();
-    let url = this.url + "/";
+    const headers = this.getAuthHeaders();
+    let url = this.url + '/';
     if (page > 1) {
-      url = url + "/?offset=" + page;
+      url = url + '/?offset=' + page;
     }
     url = url + this.filterObject(filters, sortField, sortOrder);
     return this.http.get(url, {headers: headers})
@@ -42,7 +42,7 @@ export class OrdsService implements ICrudService {
   }
 
   getItem(id: number): Promise<any> {
-    let filterId = {
+    const filterId = {
       [this.primaryKey]: {value: id}
     };
     return this.getItems(1, filterId)
@@ -58,7 +58,7 @@ export class OrdsService implements ICrudService {
 
   // Add new
   post(item: any): Promise<any> {
-    let headers = this.getAuthHeaders();
+    const headers = this.getAuthHeaders();
     return this.http
       .post(this.url + '/', JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -68,8 +68,8 @@ export class OrdsService implements ICrudService {
 
   // Update existing
   put(item: any) {
-    let headers = this.getAuthHeaders();
-    let url = `${this.url}/${item[this.primaryKey]}`;
+    const headers = this.getAuthHeaders();
+    const url = `${this.url}/${item[this.primaryKey]}`;
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -78,8 +78,8 @@ export class OrdsService implements ICrudService {
   }
 
   delete(item: any) {
-    let headers = this.getAuthHeaders();
-    let url = `${this.url}/?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
+    const headers = this.getAuthHeaders();
+    const url = `${this.url}/?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
     return this.http
       .delete(url, {headers: headers})
       .toPromise()
@@ -88,11 +88,11 @@ export class OrdsService implements ICrudService {
 
   private extractData(res: Response) {
     let body = res.json();
-    let meta = {
-      "totalCount": body.count,
-      "perPage": body.limit
+    const meta = {
+      'totalCount': body.count,
+      'perPage': body.limit
     };
-    body = {"items": body.items, "_meta": meta};
+    body = {'items': body.items, '_meta': meta};
     return body;
   }
 
@@ -117,7 +117,7 @@ export class OrdsService implements ICrudService {
   }
 
   private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {
-    let filterObject = {};
+    const filterObject = {};
     let orderby = {};
     let result = '';
 
@@ -125,21 +125,21 @@ export class OrdsService implements ICrudService {
       orderby = {[sortField]: sortOrder};
     }
 
-    for (let key in obj) {
+    for (const key in obj) {
       if (obj[key]['value'] && obj[key]['value'].trim()) {
         if (typeof obj[key]['value'] === 'string') { // TODO
-          filterObject[key] = {"$like": obj[key]['value'] + '%25'};
+          filterObject[key] = {'$like': obj[key]['value'] + '%25'};
         } else {
-          filterObject[key] = {"$eq": obj[key]['value']};
+          filterObject[key] = {'$eq': obj[key]['value']};
         }
       }
     }
 
     if (Object.keys(orderby).length !== 0) {
-      filterObject["$orderby"] = orderby;
+      filterObject['$orderby'] = orderby;
     }
     if (Object.keys(filterObject).length !== 0) {
-      result = '?q=' + JSON.stringify(filterObject)
+      result = '?q=' + JSON.stringify(filterObject);
     }
     return result;
   }
