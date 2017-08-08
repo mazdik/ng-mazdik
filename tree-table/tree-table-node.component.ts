@@ -3,12 +3,14 @@ import {ITreeNode, Column} from '../types/interfaces';
 
 @Component({
   selector: 'tree-table-node',
-  templateUrl: './tree-table-node.component.html'
+  templateUrl: './tree-table-node.component.html',
+  styles: ['.treenode {cursor: pointer;}']
 })
 export class TreeTableNodeComponent {
 
   @Input() public nodes: ITreeNode[];
   @Input() public columns: Column[];
+  @Input() public level: number = 0;
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   constructor() {

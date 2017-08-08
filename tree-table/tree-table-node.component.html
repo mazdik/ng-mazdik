@@ -5,25 +5,28 @@
       <div class="datatable-body-cell"
            [ngStyle]="{'width.px': 250}">
 
-        <i class="indicator glyphicon"
-           [ngClass]="{'glyphicon-folder-close': !isLeaf(node), 'glyphicon-folder-open': !isLeaf(node) && node.isExpanded}"
-           (click)="onExpand(node)">
-        </i>
-        <span class="treenode-content"
-              (dblclick)="onExpand(node)">
-          {{node.name}}
-        </span>
-
+        <div class="treenode">
+          <i class="indicator glyphicon"
+             [ngStyle]="{'padding-left.px': level*10}"
+             [ngClass]="{'glyphicon-folder-close': !isLeaf(node), 'glyphicon-folder-open': !isLeaf(node) && node.isExpanded}"
+             (click)="onExpand(node)">
+          </i>
+          <span class="treenode-content"
+                (dblclick)="onExpand(node)">
+            {{node.name}}
+          </span>
+        </div>
       </div>
     </div>
 
     <div class="datatable-row-center datatable-row-group">
-      <ng-template ngFor let-column [ngForOf]="columns" let-colIndex="index">
-        <div class="datatable-body-cell"
-             [ngStyle]="{'width.px': column.width}">
-          {{node.data[column.name]}}
-        </div>
-      </ng-template>
+      <datatable-body-cell
+        *ngFor="let column of columns; let colIndex = index"
+        tabindex="-1"
+        [colIndex]="colIndex"
+        [row]="node.data"
+        [column]="column">
+      </datatable-body-cell>
     </div>
 
   </div>
@@ -31,7 +34,8 @@
   <tree-table-node
     [nodes]="node.children"
     *ngIf="node.children && node.isExpanded"
-    [columns]="columns">
+    [columns]="columns"
+    [level]="level+1">
   </tree-table-node>
 
 </div>
