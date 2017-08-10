@@ -1,7 +1,8 @@
 <div class="datatable-row-wrapper" *ngFor="let node of nodes">
   <div class="datatable-body-row">
 
-    <div class="datatable-row-left datatable-row-group">
+    <div class="datatable-row-left datatable-row-group"
+         [ngStyle]="stylesByGroup()">
       <div class="datatable-body-cell"
            [ngStyle]="{'width.px': 250}">
 

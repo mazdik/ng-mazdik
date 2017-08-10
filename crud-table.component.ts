@@ -31,6 +31,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public treeNodes: ITreeNode[];
+  @Input() public headerHeight: number = 30;
 
   public items: any[];
   public item: any;

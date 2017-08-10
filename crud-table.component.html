@@ -20,7 +20,6 @@
       (onFilter)="filter($event)">
     </ng-filter>
     <datatable-header
-         class="datatable-header"
          [columns]="columns"
          [filters]="filters"
          [sortMeta]="sortMeta"
@@ -29,10 +28,10 @@
          [actionColumnWidth]="actionColumnWidth"
          (onClearAllFilters)="selectFilter.clearAllFilters()"
          (onResize)="resizeColumn($event)"
-         [offsetX]="offsetX">
+         [offsetX]="offsetX"
+         [headerHeight]="headerHeight">
     </datatable-header>
     <datatable-body
-         class="datatable-body"
          [ngStyle]="{'height.px': scrollHeight}"
          [columns]="columns"
          [items]="items"

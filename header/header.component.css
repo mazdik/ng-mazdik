@@ -1,21 +1,25 @@
 .column-title {
-	color: white;
-    padding: 2px;
+  color: white;
+  padding: 2px;
 }
+
 .column-title:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
+
 .column-menu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    text-align: right;
-    padding: 5px;
-    visibility: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  padding: 5px;
+  visibility: hidden;
 }
+
 .column-menu:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
+
 .is-filter {
-    visibility: visible;
+  visibility: visible;
 }

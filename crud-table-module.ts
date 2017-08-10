@@ -46,7 +46,7 @@ import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
     TreeTableComponent,
     TreeTableNodeComponent
   ],
-  exports: [CrudTableComponent, TreeTableComponent],
+  exports: [CrudTableComponent, TreeTableComponent, TreeViewComponent],
   providers: []
 })
 export class CrudTableModule {

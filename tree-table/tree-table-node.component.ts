@@ -11,6 +11,7 @@ export class TreeTableNodeComponent {
   @Input() public nodes: ITreeNode[];
   @Input() public columns: Column[];
   @Input() public level: number = 0;
+  @Input() public offsetX: number;
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   constructor() {
@@ -27,5 +28,10 @@ export class TreeTableNodeComponent {
     }
   }
 
+  stylesByGroup() {
+    const styles: any = {};
+    styles.left = `${this.offsetX}px`;
+    return styles;
+  }
 
 }

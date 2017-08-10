@@ -11,7 +11,7 @@ export class TreeTableComponent implements OnInit {
 
   @Input() nodes: ITreeNode[];
   @Input() columns: Column[];
-
+  @Input() public offsetX: number;
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   constructor() {
@@ -26,6 +26,12 @@ export class TreeTableComponent implements OnInit {
         col.width = newValue;
       }
     }
+  }
+
+  onBodyScroll(event: any): void {
+    const scrollYPos: number = event.scrollYPos;
+    const scrollXPos: number = event.scrollXPos;
+    this.offsetX = scrollXPos;
   }
 
 

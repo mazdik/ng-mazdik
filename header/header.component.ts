@@ -1,10 +1,13 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, HostBinding} from '@angular/core';
 import {Column, Filter, SortMeta} from '../types/interfaces';
 
 @Component({
   selector: 'datatable-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.css'],
+  host: {
+    class: 'datatable-header'
+  }
 })
 
 export class HeaderComponent implements OnInit {
@@ -20,6 +23,9 @@ export class HeaderComponent implements OnInit {
   @Output() onShowColumnMenu: EventEmitter<any> = new EventEmitter();
   @Output() onClearAllFilters: EventEmitter<any> = new EventEmitter();
   @Output() onResize: EventEmitter<any> = new EventEmitter();
+
+  @HostBinding('style.height.px')
+  @Input() headerHeight: number;
 
   public minWidthColumn: number = 50;
   public maxWidthColumn: number = 500;

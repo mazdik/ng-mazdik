@@ -10,11 +10,12 @@
         [row]="item"
         [rowIndex]="rowIndex"
         [enableAction]="enableAction"
-        [(selectedRowIndex)]="selectedRowIndex"
+        [selectedRowIndex]="selectedRowIndex"
         [actionColumnWidth]="actionColumnWidth"
         (editComplete)="editComplete.emit($event)"
         [actionMenu]="actionMenu"
-        [offsetX]="offsetX">
+        [offsetX]="offsetX"
+        (selectedRowIndexChange)="selectedRowIndexChange.emit($event)">
       </datatable-body-row>
     </div>
   </datatable-scroller>

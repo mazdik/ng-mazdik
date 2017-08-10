@@ -3,7 +3,10 @@ import {Column, MenuItem} from '../types/interfaces';
 
 @Component({
   selector: 'datatable-body',
-  templateUrl: './body.component.html'
+  templateUrl: './body.component.html',
+  host: {
+    class: 'datatable-body'
+  }
 })
 export class BodyComponent {
 
@@ -17,6 +20,7 @@ export class BodyComponent {
 
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() scroll: EventEmitter<any> = new EventEmitter();
+  @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
 
   offsetY: number = 0;
 
