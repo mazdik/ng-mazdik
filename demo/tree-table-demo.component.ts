@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ITreeNode, Column} from '../../src/types/interfaces';
+import {ITreeNode, Column} from '../index';
 
 @Component({
   selector: 'tree-table-demo',

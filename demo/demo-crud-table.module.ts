@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AppComponent } from './app.component';
-import { CrudTableModule } from '../../src';
+import { DemoCrudTableComponent } from './demo-crud-table.component';
+import { CrudTableModule } from '../crud-table-module';
 import { BasicDemoComponent } from './basic-demo.component';
 import { TreeTableDemoComponent } from './tree-table-demo.component';
 import { TreeFilterDemoComponent } from './tree-filter-demo.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    DemoCrudTableComponent,
     BasicDemoComponent,
     TreeTableDemoComponent,
     TreeFilterDemoComponent
@@ -23,6 +23,6 @@ import { TreeFilterDemoComponent } from './tree-filter-demo.component';
     CrudTableModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  exports: [DemoCrudTableComponent],
 })
-export class AppModule { }
+export class DemoCrudTableModule { }

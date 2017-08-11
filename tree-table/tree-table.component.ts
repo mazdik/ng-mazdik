@@ -11,8 +11,10 @@ export class TreeTableComponent implements OnInit {
 
   @Input() nodes: ITreeNode[];
   @Input() columns: Column[];
-  @Input() public offsetX: number;
+  @Input() public headerHeight: number = 30;
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+
+  offsetX: number = 0;
 
   constructor() {
   }

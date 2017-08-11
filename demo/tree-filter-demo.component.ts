@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {ITreeNode, Column, Settings, Filter} from '../../src/types/interfaces';
+import {ITreeNode, Column, Settings, Filter} from '../index';
 
 @Component({
   selector: 'tree-filter-demo',

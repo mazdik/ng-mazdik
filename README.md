@@ -31,7 +31,7 @@ import { Component }  from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: `<crud-table [columns]="columns" [settings]="settings" [treeNodes]="treeNodes"></crud-table>`
+  template: `<crud-table [columns]="columns" [settings]="settings"></crud-table>`
 })
 
 export class PlayersComponent {
@@ -124,42 +124,6 @@ export class PlayersComponent {
         scrollHeight: 380,
         treeViewWidth: 120,
     };
-
-    public treeNodes: any[] = [
-        {
-            id: 'ASMODIANS',
-            name: 'ASMODIANS',
-            data: {column: 'race', cube_size: '1'},
-            children: [
-            {
-                id: 'MALE',
-                name: 'MALE',
-                data: {column: 'gender', cube_size: '12'},
-            },
-            {
-                id: 'FEMALE',
-                name: 'FEMALE',
-                data: {column: 'gender', cube_size: '13'},
-            }],
-        },
-        {
-            id: 'ELYOS',
-            name: 'ELYOS',
-            data: {column: 'race', cube_size: '2'},
-            children: [
-            {
-                id: 'MALE',
-                name: 'MALE',
-                data: {column: 'gender', cube_size: '21'},
-            },
-            {
-                id: 'FEMALE',
-                name: 'FEMALE',
-                data: {column: 'gender', cube_size: '22'},
-            }],
-        }
-    ];
-
 }
 ```
 
@@ -186,3 +150,4 @@ You will need bootstrap styles
 * Tree view
 * Column Resizing
 * Cascading Select (DropDown)
+* Tree table
