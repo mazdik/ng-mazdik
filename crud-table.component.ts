@@ -3,9 +3,11 @@ import {
   OnInit,
   ViewChild,
   Input,
+  Output,
   ViewEncapsulation,
   AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  EventEmitter
 } from '@angular/core';
 
 import {YiiService} from './services/yii.service';
@@ -32,6 +34,17 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() public settings: Settings;
   @Input() public treeNodes: ITreeNode[];
   @Input() public headerHeight: number = 30;
+  @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
+  @Output() dataChanged: EventEmitter<any> = new EventEmitter();
+
+  @Input() set filters(val: any) {
+    this._filters = val;
+    this.filterChanged.emit(this._filters);
+  }
+  get filters(): any {
+    return this._filters;
+  }
+  _filters: Filter = {};
 
   public items: any[];
   public item: any;
@@ -47,7 +60,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public totalItems: number = 0;
   public currentPage: number = 1;
 
-  public filters: Filter = {};
   public sortMeta: SortMeta = <SortMeta>{};
   private service: ICrudService;
 
@@ -62,7 +74,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollableColumnsWidth: number = 0;
 
   treeViewWidth: number = 150;
-  selectedNode: ITreeNode;
   rowMenu: MenuItem[];
 
   offsetX: number = 0;
@@ -160,6 +171,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.items = data.items;
         this.totalItems = data._meta.totalCount;
         this.itemsPerPage = data._meta.perPage;
+        this.dataChanged.emit(true);
       })
       .catch(error => {
         this.loadingHide();
@@ -260,10 +272,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.onDetailView = false;
   }
 
-  filter(event) {
+  onFilter(event) {
     this.filters = event;
     this.getItems();
-    this.syncNode();
   }
 
   sort(event) {
@@ -328,57 +339,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     return metrics.width;
   }
 
-  selectNode(node: ITreeNode) {
-    if (node) {
-      if (node.id) {
-        this.filters[node.data['column']] = {value: node.id, matchMode: null};
-      } else if (this.filters[node.data['column']]) {
-        delete this.filters[node.data['column']];
-      }
-      this.selectFilter.setColumnSelectedOption(node.id, node.data['column'], null);
-
-      if (node.parent) {
-        this.selectNode(node.parent);
-      }
-    }
-  }
-
-  onSelectNode(node: ITreeNode) {
-    this.selectedNode = node;
-    this.selectNode(node);
-    if (node.children) {
-      for (const childNode of node.children) {
-        if (this.filters[childNode.data['column']]) {
-          delete this.filters[childNode.data['column']];
-          this.selectFilter.setColumnSelectedOption(null, childNode.data['column'], null);
-        }
-      }
-    }
-    this.getItems();
-  }
-
-  setNode(field: string, value: string) {
-    if (this.treeNodes) {
-      for (const node of this.treeNodes) {
-        if (node.data['column'] === field && node.id === value) {
-          this.selectedNode = node;
-        }
-      }
-    }
-  }
-
-  syncNode() {
-    if (Object.keys(this.filters).length === 0) {
-      this.selectedNode = null;
-    } else {
-      for (const key in this.filters) {
-        if (this.filters[key]['value']) {
-          this.setNode(key, this.filters[key]['value']);
-        }
-      }
-    }
-  }
-
   resizeColumn({column, newValue}: any) {
     for (const col of this.columns) {
       if (col.name === column.name) {
@@ -390,6 +350,10 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   onBodyScroll(event: MouseEvent): void {
     this.offsetX = event.offsetX;
     this.selectFilter.hide();
+  }
+
+  setColumnSelectedOption(value, field, matchMode) {
+    this.selectFilter.setColumnSelectedOption(value, field, null);
   }
 
 }
