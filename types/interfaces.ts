@@ -1,18 +1,5 @@
 import {EventEmitter, PipeTransform} from '@angular/core';
 
-export interface Link {
-  self: string;
-  next: string;
-  last: string;
-}
-
-export interface Meta {
-  totalCount: number;
-  pageCount: number;
-  currentPage: number;
-  perPage: number;
-}
-
 export interface ISelectOption {
   id: any;
   name: string;
@@ -52,7 +39,6 @@ export interface Settings {
   type?: string;
   tableWidth?: number;
   scrollHeight?: number;
-  treeViewWidth?: number;
 }
 
 export interface ICrudService {

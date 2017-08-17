@@ -13,6 +13,7 @@ import {
 import {YiiService} from './services/yii.service';
 import {OrdsService} from './services/ords.service';
 import {DemoService} from './services/demo.service';
+import {RestlessService} from  './services/restless.service';
 import {ModalComponent} from './modal/modal.component';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem, ITreeNode} from './types/interfaces';
 
@@ -21,7 +22,7 @@ import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem, ITreeNode} f
   templateUrl: './crud-table.component.html',
   styleUrls: ['./crud-table.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [YiiService, OrdsService, DemoService]
+  providers: [YiiService, OrdsService, DemoService, RestlessService]
 })
 
 export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -72,15 +73,13 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   scrollableColumns: Column[];
   frozenWidth: number = 0;
   scrollableColumnsWidth: number = 0;
-
-  treeViewWidth: number = 150;
   rowMenu: MenuItem[];
-
   offsetX: number = 0;
 
   constructor(private yiiService: YiiService,
               private ordsService: OrdsService,
-              private demoService: DemoService) {
+              private demoService: DemoService,
+              private restlessService: RestlessService) {
   }
 
   ngOnInit() {
@@ -115,11 +114,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initTableSize() {
-    if (this.treeNodes) {
-      this.treeViewWidth = this.settings.treeViewWidth || this.treeViewWidth;
-    } else {
-      this.treeViewWidth = 0;
-    }
     this.tableWidth = this.settings.tableWidth || this.columnsTotalWidth(this.columns);
   }
 
@@ -128,6 +122,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.service = this.yiiService;
     } else if (this.settings.type === 'ords') {
       this.service = this.ordsService;
+    } else if (this.settings.type === 'restless') {
+      this.service = this.restlessService;
     } else if (this.settings.type === 'demo') {
       this.service = this.demoService;
     } else {
