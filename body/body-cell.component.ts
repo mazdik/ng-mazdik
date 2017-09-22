@@ -58,13 +58,14 @@ export class BodyCellComponent implements OnDestroy {
     if (!this.row || !this.column) {
       return '';
     }
-    const val = this.row[this.column.name];
+    let val = this.row[this.column.name];
     const userPipe: PipeTransform = this.column.pipe;
 
     if (userPipe) {
       return userPipe.transform(val);
     }
     if (val !== undefined) {
+      val = this.getOptionName(val);
       return val;
     }
     return '';
@@ -142,6 +143,21 @@ export class BodyCellComponent implements OnDestroy {
       } else {
         return column.options;
       }
+    }
+  }
+
+  getOptionName(value) {
+    if (this.column.options) {
+      let name = null;
+      for (const el of this.column.options) {
+        if (el['id'] === value) {
+          name = el['name'];
+          break;
+        }
+      }
+      return name;
+    } else {
+      return value;
     }
   }
 

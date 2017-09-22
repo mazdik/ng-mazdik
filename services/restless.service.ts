@@ -91,7 +91,8 @@ export class RestlessService implements ICrudService {
       'totalCount': body.num_results,
       'perPage': 10
     };
-    body = {'items': body.objects, '_meta': meta};
+    const items = (body.objects) ? body.objects : body;
+    body = {'items': items, '_meta': meta};
     return body;
   }
 

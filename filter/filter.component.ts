@@ -47,7 +47,7 @@ export class FilterComponent implements OnInit {
   }
 
   openDropdown() {
-    if (!this.isVisible) {
+    if (!this.isVisible && this.column.filter) {
       this.isVisible = true;
       if (this.column.options) {
         setTimeout(() => {

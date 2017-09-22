@@ -13,7 +13,7 @@ import {
 import {YiiService} from './services/yii.service';
 import {OrdsService} from './services/ords.service';
 import {DemoService} from './services/demo.service';
-import {RestlessService} from  './services/restless.service';
+import {RestlessService} from './services/restless.service';
 import {ModalComponent} from './modal/modal.component';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem, ITreeNode} from './types/interfaces';
 
@@ -38,13 +38,16 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
 
-  @Input() set filters(val: any) {
+  @Input()
+  set filters(val: any) {
     this._filters = val;
     this.filterChanged.emit(this._filters);
   }
+
   get filters(): any {
     return this._filters;
   }
+
   _filters: Filter = {};
 
   public items: any[];
@@ -62,10 +65,10 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public currentPage: number = 1;
 
   public sortMeta: SortMeta = <SortMeta>{};
-  private service: ICrudService;
+  public service: ICrudService;
 
-  public scrollHeight: number = 380;
-  public tableWidth: number = 820;
+  public scrollHeight: number;
+  public tableWidth: number;
   public letterWidth: number = 10;
   public actionColumnWidth: number = 40;
 
@@ -115,6 +118,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   initTableSize() {
     this.tableWidth = this.settings.tableWidth || this.columnsTotalWidth(this.columns);
+    this.scrollHeight = this.settings.scrollHeight;
   }
 
   initService() {
@@ -159,6 +163,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getItems() {
+    if (!this.service.url) {
+      return {};
+    }
     this.loadingShow();
     this.errors = null;
     this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
@@ -287,10 +294,13 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setColumnDefaults(column: Column): Column {
-    if (!column.hasOwnProperty('sortable')) {
+    const sortable_all = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
+    const filter_all = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
+
+    if (!column.hasOwnProperty('sortable') && sortable_all) {
       column.sortable = true;
     }
-    if (!column.hasOwnProperty('filter')) {
+    if (!column.hasOwnProperty('filter') && filter_all) {
       column.filter = true;
     }
     if (!column.hasOwnProperty('width')) {

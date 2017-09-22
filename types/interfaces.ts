@@ -9,8 +9,8 @@ export interface ISelectOption {
 export interface Column {
   title: string;
   name: string;
-  sortable: boolean;
-  filter: boolean;
+  sortable?: boolean;
+  filter?: boolean;
   options?: ISelectOption[];
   pipe?: PipeTransform;
   width?: number;
@@ -39,6 +39,8 @@ export interface Settings {
   type?: string;
   tableWidth?: number;
   scrollHeight?: number;
+  sortable?: boolean;
+  filter?: boolean;
 }
 
 export interface ICrudService {
