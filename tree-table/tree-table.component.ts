@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {ITreeNode, Column} from '../types/interfaces';
+import {ITreeNode, Column, Settings} from '../types/interfaces';
 
 @Component({
   selector: 'tree-table',
@@ -12,6 +12,7 @@ export class TreeTableComponent implements OnInit {
   @Input() nodes: ITreeNode[];
   @Input() columns: Column[];
   @Input() public headerHeight: number = 30;
+  @Input() public settings: Settings = <Settings> {};
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   offsetX: number = 0;
@@ -20,6 +21,9 @@ export class TreeTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
+    this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
+    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
   }
 
   resizeColumn({column, newValue}: any) {

@@ -9,7 +9,7 @@
          [maxWidth]="maxWidthColumn"
          (resize)="onColumnResized($event, column)">
 
-      <ng-template [ngIf]="colIndex == 0">
+      <ng-template [ngIf]="colIndex == 0 && settings.filter">
         <i class="glyphicon glyphicon-filter"
            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
            (click)="clearAllFilters()"

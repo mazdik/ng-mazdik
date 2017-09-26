@@ -1,64 +1,64 @@
 <div class="form-group" *ngFor="let column of columns" [ngClass]="{'has-error':hasError(column)}">
 
-    <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
+  <label *ngIf="elemEnabled(column.name)" [attr.for]="column.name">{{column.title}}</label>
 
-    <div *ngIf="elemEnabled(column.name)" [ngSwitch]="column.type">
-        <select class="form-control"
+  <div *ngIf="elemEnabled(column.name)" [ngSwitch]="column.type">
+    <select class="form-control"
             *ngSwitchCase="'dropdown'"
-			[(ngModel)]="item[column.name]"
+            [(ngModel)]="item[column.name]"
             (focus)="startValidate(column)"
             [id]="column.name">
-            <option *ngFor="let opt of getOptions(column)" [value]="opt.id">{{opt.name}}</option>
-        </select>   
-        
-        <div *ngSwitchCase="'checkbox'">
-            <div class="checkbox" *ngFor="let o of getOptions(column)">
-            	<label>
-                <input 
-                    [type]="column.type"
-                    [(ngModel)]="item[column.name]"
-                    [name]="column.name"
-                    [value]="o.id"
-                    [checked]="isSelectActive(column, o)"
-                    >
-                </label>
-                <span>{{o.name ? o.name : o.id}}</span>   
-            </div>
-        </div>
-        
-        <textarea class="form-control" 
-            *ngSwitchCase="'textarea'" 
-            [(ngModel)]="item[column.name]"
-            (focus)="startValidate(column)"
-            [id]="column.name">   
-        </textarea> 
-        
-        <div *ngSwitchCase="'radio'">
-            <div class="radio" *ngFor="let o of getOptions(column)">
-            	<label>
-                <input 
-                    [type]="column.type"
-                    [(ngModel)]="item[column.name]"
-                    [name]="column.name"
-                    [value]="o.id"
-                    [checked]="item[column.name] === o.id"
-                    (click)="item[column.name] = o.id" >
-                 </label>
-                <span>{{o.name ? o.name : o.id}}</span>    
-            </div>
-        </div>
-    
-        <input class="form-control"
-            *ngSwitchDefault
-            [(ngModel)]="item[column.name]"
-            [attr.placeholder]="column.title"
+      <option *ngFor="let opt of getOptions(column)" [value]="opt.id">{{opt.name}}</option>
+    </select>
+
+    <div *ngSwitchCase="'checkbox'">
+      <div class="checkbox" *ngFor="let o of getOptions(column)">
+        <label>
+          <input
             [type]="column.type"
-            (focus)="startValidate(column)"
-            [id]="column.name"> 
+            [(ngModel)]="item[column.name]"
+            [name]="column.name"
+            [value]="o.id"
+            [checked]="isSelectActive(column, o)"
+          >
+        </label>
+        <span>{{o.name ? o.name : o.id}}</span>
+      </div>
     </div>
 
-    <div class="help-block">
-        <span *ngFor="let err of errors(column)">{{err}}<br></span>
+    <textarea class="form-control"
+              *ngSwitchCase="'textarea'"
+              [(ngModel)]="item[column.name]"
+              (focus)="startValidate(column)"
+              [id]="column.name">
+        </textarea>
+
+    <div *ngSwitchCase="'radio'">
+      <div class="radio" *ngFor="let o of getOptions(column)">
+        <label>
+          <input
+            [type]="column.type"
+            [(ngModel)]="item[column.name]"
+            [name]="column.name"
+            [value]="o.id"
+            [checked]="item[column.name] === o.id"
+            (click)="item[column.name] = o.id">
+        </label>
+        <span>{{o.name ? o.name : o.id}}</span>
+      </div>
     </div>
+
+    <input class="form-control"
+           *ngSwitchDefault
+           [(ngModel)]="item[column.name]"
+           [attr.placeholder]="column.title"
+           [type]="column.type"
+           (focus)="startValidate(column)"
+           [id]="column.name">
+  </div>
+
+  <div class="help-block">
+    <span *ngFor="let err of errors(column)">{{err}}<br></span>
+  </div>
 
 </div>

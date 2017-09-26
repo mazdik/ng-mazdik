@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
 
 @Component({
@@ -7,20 +7,32 @@ import {Column, Settings} from '../types/interfaces';
   styleUrls: ['form.component.css'],
 })
 
-export class FormComponent {
+export class FormComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public item: any;
+  @Input() public isNew: boolean = true;
 
   public beginValidate: any[] = [];
 
   constructor() {
   }
 
+  ngOnInit() {
+  }
+
   elemEnabled(name: string): boolean {
-    const pk = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : 'id';
-    return (name === pk) ? false : true;
+    if (Array.isArray(this.settings.primaryKey)) {
+      if (!this.isNew) {
+        return (this.settings.primaryKey.indexOf(name) === -1);
+      } else {
+        return true;
+      }
+    } else {
+      const pk = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : null;
+      return (name !== pk);
+    }
   }
 
   isSelectActive(column, option) {

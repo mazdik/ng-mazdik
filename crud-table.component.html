@@ -22,7 +22,8 @@
          (onClearAllFilters)="selectFilter.clearAllFilters()"
          (onResize)="resizeColumn($event)"
          [offsetX]="offsetX"
-         [headerHeight]="headerHeight">
+         [headerHeight]="headerHeight"
+         [settings]="settings">
     </datatable-header>
     <datatable-body
          [ngStyle]="{'height.px': scrollHeight}"
@@ -50,7 +51,8 @@
       <row-form
         [columns]="columns"
         [item]="item"
-        [settings]="settings">
+        [settings]="settings"
+        [isNew]="newItem">
       </row-form>
     </div>
   </div>

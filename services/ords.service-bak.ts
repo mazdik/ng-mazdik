@@ -7,7 +7,7 @@ import {Filter, ICrudService, Settings} from '../types/interfaces';
 export class OrdsService implements ICrudService {
 
   public url: string;
-  public primaryKey: string = 'id';
+  public primaryKey: any;
   public settings: Settings;
 
   constructor(private http: Http) {
@@ -69,7 +69,16 @@ export class OrdsService implements ICrudService {
   // Update existing
   put(item: any) {
     const headers = this.getAuthHeaders();
-    const url = `${this.url}/${item[this.primaryKey]}`;
+    let url;
+    if (Array.isArray(this.primaryKey)) {
+      url = this.url + '?';
+      for (const key of this.primaryKey) {
+        url += key + '=' + item[key] + '&';
+      }
+      url = url.slice(0, -1);
+    } else {
+      url = (this.primaryKey) ? `${this.url}/${item[this.primaryKey]}` : this.url;
+    }
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()
@@ -79,7 +88,16 @@ export class OrdsService implements ICrudService {
 
   delete(item: any) {
     const headers = this.getAuthHeaders();
-    const url = `${this.url}/?q={"${this.primaryKey}":${item[this.primaryKey]}}`;
+    let url;
+    if (Array.isArray(this.primaryKey)) {
+      url = this.url + '?';
+      for (const key of this.primaryKey) {
+        url += key + '=' + item[key] + '&';
+      }
+      url = url.slice(0, -1);
+    } else {
+      url = (this.primaryKey) ? `${this.url}/?q={"${this.primaryKey}":${item[this.primaryKey]}}` : this.url;
+    }
     return this.http
       .delete(url, {headers: headers})
       .toPromise()

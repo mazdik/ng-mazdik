@@ -35,17 +35,18 @@ export interface Settings {
   api: string;
   process?: string;
   crud: boolean;
-  primaryKey?: string;
+  primaryKey?: any;
   type?: string;
   tableWidth?: number;
   scrollHeight?: number;
   sortable?: boolean;
   filter?: boolean;
+  initLoad?: boolean;
 }
 
 export interface ICrudService {
   url: string;
-  primaryKey: string;
+  primaryKey: any;
   settings: Settings;
 
   getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;

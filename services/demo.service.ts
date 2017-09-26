@@ -8,7 +8,7 @@ import {ITEMS} from './demo.items';
 export class DemoService implements ICrudService {
 
   public url: string;
-  public primaryKey: string = 'id';
+  public primaryKey: any;
   public settings: Settings;
 
   private itemsPerPage: number = 20;

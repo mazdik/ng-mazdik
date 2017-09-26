@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, HostBinding} from '@angular/core';
-import {Column, Filter, SortMeta} from '../types/interfaces';
+import {Column, Filter, SortMeta, Settings} from '../types/interfaces';
 
 @Component({
   selector: 'datatable-header',
@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   @Input() public sortMeta: SortMeta;
   @Input() public actionColumnWidth: number;
   @Input() offsetX: number;
+  @Input() public settings: Settings;
 
   @Output() onSort: EventEmitter<any> = new EventEmitter();
   @Output() onFilter: EventEmitter<any> = new EventEmitter();

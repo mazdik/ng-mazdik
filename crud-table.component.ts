@@ -90,7 +90,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initColumns();
     this.initTableSize();
     this.initRowMenu();
-    this.getItems();
+    if (this.settings.initLoad) {
+      this.getItems();
+    }
   }
 
   ngAfterViewInit() {
@@ -100,6 +102,10 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initColumns(): void {
+    this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
+    this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
+    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
+
     this.letterWidth = this.getTextWidth('M', 'bold 14px arial');
     this.setColumnsDefaults(this.columns);
 
@@ -134,7 +140,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.service = this.yiiService;
     }
     this.service.url = this.settings.api;
-    this.service.primaryKey = (this.settings.primaryKey) ? this.settings.primaryKey.toLowerCase() : 'id';
+    this.service.primaryKey = this.settings.primaryKey;
     this.service.settings = this.settings;
   }
 
@@ -294,13 +300,10 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setColumnDefaults(column: Column): Column {
-    const sortable_all = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
-    const filter_all = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
-
-    if (!column.hasOwnProperty('sortable') && sortable_all) {
+    if (!column.hasOwnProperty('sortable') && this.settings.sortable) {
       column.sortable = true;
     }
-    if (!column.hasOwnProperty('filter') && filter_all) {
+    if (!column.hasOwnProperty('filter') && this.settings.filter) {
       column.filter = true;
     }
     if (!column.hasOwnProperty('width')) {
