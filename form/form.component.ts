@@ -95,10 +95,16 @@ export class FormComponent implements OnInit {
 
   getOptions(column: Column) {
     if (column.options) {
-      if (column.dependsColumn) {
-        return column.options.filter((value) => value.parentId === this.item[column.dependsColumn]);
+      let options;
+      if (typeof column.options === 'function') {
+        options = column.options();
       } else {
-        return column.options;
+        options = column.options;
+      }
+      if (column.dependsColumn) {
+        return options.filter((value) => value.parentId === this.item[column.dependsColumn]);
+      } else {
+        return options;
       }
     }
   }

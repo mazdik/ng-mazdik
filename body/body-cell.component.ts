@@ -73,16 +73,16 @@ export class BodyCellComponent implements OnDestroy {
 
   switchCellToEditMode(event: any, column: Column) {
     if (column.editable) {
-        this.renderer.setElementClass(this.element, 'cell-editing', true);
-        let focusable;
-        if (column.options) {
-          focusable = this.element.querySelector('.cell-editor select');
-        } else {
-          focusable = this.element.querySelector('.cell-editor input');
-        }
-        if (focusable) {
-          setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 50);
-        }
+      this.renderer.setElementClass(this.element, 'cell-editing', true);
+      let focusable;
+      if (column.options) {
+        focusable = this.element.querySelector('.cell-editor select');
+      } else {
+        focusable = this.element.querySelector('.cell-editor input');
+      }
+      if (focusable) {
+        setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 50);
+      }
     }
   }
 
@@ -138,10 +138,16 @@ export class BodyCellComponent implements OnDestroy {
 
   getOptions(column: Column, row: any) {
     if (column.options) {
-      if (column.dependsColumn) {
-        return column.options.filter((value) => value.parentId === row[column.dependsColumn]);
+      let options;
+      if (typeof column.options === 'function') {
+        options = column.options();
       } else {
-        return column.options;
+        options = column.options;
+      }
+      if (column.dependsColumn) {
+        return options.filter((value) => value.parentId === row[column.dependsColumn]);
+      } else {
+        return options;
       }
     }
   }
@@ -149,7 +155,13 @@ export class BodyCellComponent implements OnDestroy {
   getOptionName(value) {
     if (this.column.options) {
       let name = null;
-      for (const el of this.column.options) {
+      let options;
+      if (typeof this.column.options === 'function') {
+        options = this.column.options();
+      } else {
+        options = this.column.options;
+      }
+      for (const el of options) {
         if (el['id'] === value) {
           name = el['name'];
           break;
