@@ -16,6 +16,7 @@ import {BodyRowComponent} from './body/body-row.component';
 import {BodyCellComponent} from './body/body-cell.component';
 import {ScrollerComponent} from './body/scroller.component';
 import {FooterComponent} from './footer/footer.component';
+import {DatatableComponent} from './datatable/datatable.component';
 import {TreeViewComponent} from './tree-view/tree-view.component';
 import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
@@ -44,6 +45,7 @@ import {NguiDatetimePickerModule} from './datetime-picker';
     ResizeableDirective,
     ScrollerComponent,
     FooterComponent,
+    DatatableComponent,
     TreeViewComponent,
     TreeTableComponent,
     TreeTableNodeComponent

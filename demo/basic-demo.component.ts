@@ -109,7 +109,7 @@ export class BasicDemoComponent {
     {title: 'Recoverexp', name: 'recoverexp', editable: true,},
     {title: 'Heading', name: 'heading', editable: true,},
     {title: 'World id', name: 'world_id', editable: true,},
-    {title: 'Creation date', name: 'creation_date', editable: true,},
+    {title: 'Creation date', name: 'creation_date', editable: true, type: 'date'},
     {title: 'Stigma slot size', name: 'advanced_stigma_slot_size', editable: true,},
     {title: 'Warehouse size', name: 'warehouse_size', editable: true,},
     {title: 'Mailbox Letters', name: 'mailboxLetters', editable: true,},
