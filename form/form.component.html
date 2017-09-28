@@ -6,9 +6,9 @@
                *ngIf="column.cellTemplate"
                [ngTemplateOutlet]="column.cellTemplate"
                [ngOutletContext]="{
-          value: item[column.name],
-          column: column
-        }">
+                  value: item[column.name],
+                  column: column
+               }">
   </ng-template>
 
   <div *ngIf="elemEnabled(column.name) && !column.cellTemplate" [ngSwitch]="column.type">
@@ -40,7 +40,7 @@
               [(ngModel)]="item[column.name]"
               (focus)="startValidate(column)"
               [id]="column.name">
-        </textarea>
+    </textarea>
 
     <div *ngSwitchCase="'radio'">
       <div class="radio" *ngFor="let o of getOptions(column)">
@@ -51,19 +51,26 @@
             [name]="column.name"
             [value]="o.id"
             [checked]="item[column.name] === o.id"
-            (click)="item[column.name] = o.id">
+            (click)="item[column.name] = o.id"/>
         </label>
         <span>{{o.name ? o.name : o.id}}</span>
       </div>
     </div>
 
     <input class="form-control"
+           *ngSwitchCase="'date'"
+           required
+           [(ngModel)]="item[column.name]"
+           ngui-datetime-picker
+    />
+
+    <input class="form-control"
            *ngSwitchDefault
            [(ngModel)]="item[column.name]"
            [attr.placeholder]="column.title"
-           [type]="column.type"
+           [type]="text"
            (focus)="startValidate(column)"
-           [id]="column.name">
+           [id]="column.name"/>
   </div>
 
   <div class="help-block">

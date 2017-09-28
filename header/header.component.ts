@@ -77,7 +77,10 @@ export class HeaderComponent implements OnInit {
   }
 
   isFilter(column: Column): boolean {
-    const length = this.filters[column.name] && this.filters[column.name].value.trim().length || 0;
+    let length = 0;
+    if (this.filters[column.name] && this.filters[column.name].value) {
+      length = this.filters[column.name].value.trim().length;
+    }
     return length > 0 ? true : false;
   }
 

@@ -1,0 +1,256 @@
+@keyframes slideDown {
+  0% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.ngui-datetime-picker-wrapper {
+  position: relative;
+}
+
+.ngui-datetime-picker {
+  color: #333;
+  outline-width: 0;
+  font: normal 14px sans-serif;
+  border: 1px solid #ddd;
+  display: inline-block;
+  background: #fff;
+  animation: slideDown 0.1s ease-in-out;
+  animation-fill-mode: both;
+}
+
+.ngui-datetime-picker .days {
+  width: 210px; /* 30 x 7 days */
+  box-sizing: content-box;
+}
+
+.ngui-datetime-picker .close-button {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  right: 0;
+  z-index: 1;
+  padding: 0 5px;
+  box-sizing: content-box;
+}
+
+.ngui-datetime-picker .close-button:before {
+  content: 'X';
+  cursor: pointer;
+  color: #ff0000;
+}
+
+.ngui-datetime-picker > .month {
+  text-align: center;
+  line-height: 22px;
+  padding: 10px;
+  background: #fcfcfc;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+}
+
+.ngui-datetime-picker > .month > .prev_next {
+  color: #555;
+  display: block;
+  font: normal 24px sans-serif;
+  outline: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 25px;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+.ngui-datetime-picker > .month > .prev_next:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+.ngui-datetime-picker > .month > .prev_next.prev {
+  float: left;
+}
+
+.ngui-datetime-picker > .month > .prev_next.next {
+  float: right;
+}
+
+.ngui-datetime-picker .week-numbers-and-days {
+  text-align: center;
+}
+
+.ngui-datetime-picker .week-numbers {
+  line-height: 30px;
+  display: inline-block;
+  padding: 30px 0 0 0;
+  color: #ddd;
+  text-align: right;
+  width: 21px;
+  vertical-align: top;
+  box-sizing: content-box;
+}
+
+.ngui-datetime-picker .days {
+  display: inline-block;
+  width: 210px; /* 30 x 7 */
+  text-align: center;
+  padding: 0 10px;
+  box-sizing: content-box;
+}
+
+.ngui-datetime-picker .days .day-of-week,
+.ngui-datetime-picker .days .day {
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  width: 30px;
+  line-height: 28px;
+  float: left;
+}
+
+.ngui-datetime-picker .days .day-of-week {
+  font-weight: bold;
+}
+
+.ngui-datetime-picker .days .day-of-week.weekend {
+  color: #ccc;
+  background-color: inherit;
+}
+
+.ngui-datetime-picker .days .day:not(.selectable) {
+  color: #ccc;
+  cursor: default;
+}
+
+.ngui-datetime-picker .days .weekend {
+  color: #ccc;
+  background-color: #eee;
+}
+
+.ngui-datetime-picker .days .day.selectable {
+  cursor: pointer;
+}
+
+.ngui-datetime-picker .days .day.selected {
+  background: gray;
+  color: #fff;
+}
+
+.ngui-datetime-picker .days .day:not(.selected).selectable:hover {
+  background: #eee;
+}
+
+.ngui-datetime-picker .days:after {
+  content: '';
+  display: block;
+  clear: left;
+  height: 0;
+}
+
+.ngui-datetime-picker .time {
+  position: relative;
+  padding: 10px;
+  text-transform: Capitalize;
+}
+
+.ngui-datetime-picker .year-selector {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  height: 100%;
+  overflow: auto;
+  padding: 5px;
+  z-index: 2;
+}
+
+.ngui-datetime-picker .year-selector .locale {
+  text-align: center;
+}
+
+.ngui-datetime-picker .year-selector .year {
+  display: inline-block;
+  cursor: pointer;
+  padding: 2px 5px;
+}
+
+.ngui-datetime-picker .year-selector .year:hover {
+  background-color: #ddd;
+}
+
+.ngui-datetime-picker .select-current-time {
+  position: absolute;
+  top: 1em;
+  right: 5px;
+  z-index: 1;
+  cursor: pointer;
+  color: #0000ff;
+}
+
+.ngui-datetime-picker .hourLabel,
+.ngui-datetime-picker .minutesLabel {
+  display: inline-block;
+  width: 45px;
+  vertical-align: top;
+  box-sizing: content-box;
+}
+
+.closing-layer {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0);
+}
+
+.ngui-datetime-picker .shortcuts {
+  padding: 10px;
+  text-align: center;
+}
+
+.ngui-datetime-picker .shortcuts a {
+  font-family: Sans-serif;
+  margin: 0 0.5em;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .ngui-datetime-picker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto !important;
+    animation: slideUp 0.1s ease-in-out;
+  }
+
+  .ngui-datetime-picker > .days {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .closing-layer {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
