@@ -20,6 +20,7 @@ export interface Column {
   editable?: boolean;
   resizeable?: boolean;
   dependsColumn?: string;
+  cellTemplate?: any;
 }
 
 export interface FilterMetadata {

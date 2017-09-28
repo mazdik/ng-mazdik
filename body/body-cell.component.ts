@@ -1,5 +1,5 @@
 import {
-  Component, Input, PipeTransform, HostBinding, ViewChild,
+  Component, Input, Pipe, PipeTransform, HostBinding, ViewChild,
   Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy, Renderer
 } from '@angular/core';
 import {Column} from '../types/interfaces';
@@ -20,6 +20,7 @@ export class BodyCellComponent implements OnDestroy {
 
   public isFocused: boolean = false;
   public element: any;
+  @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
 
   @HostBinding('style.width.px')
   get width(): number {
@@ -52,6 +53,9 @@ export class BodyCellComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.cellTemplate) {
+      this.cellTemplate.clear();
+    }
   }
 
   get value(): any {

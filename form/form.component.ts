@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
 
 @Component({
@@ -7,7 +7,7 @@ import {Column, Settings} from '../types/interfaces';
   styleUrls: ['form.component.css'],
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
@@ -15,11 +15,18 @@ export class FormComponent implements OnInit {
   @Input() public isNew: boolean = true;
 
   public beginValidate: any[] = [];
+  @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy(): void {
+    if (this.cellTemplate) {
+      this.cellTemplate.clear();
+    }
   }
 
   elemEnabled(name: string): boolean {
