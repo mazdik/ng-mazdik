@@ -20,16 +20,16 @@
     [settings]="settings">
   </datatable-header>
   <datatable-body
-    [ngStyle]="{'height.px': scrollHeight}"
     [columns]="columns"
     [items]="items"
-    [enableAction]="true"
-    [(selectedRowIndex)]="selectedRowIndex"
+    [bodyHeight]="scrollHeight"
+    [selectedRowIndex]="selectedRowIndex"
     [actionColumnWidth]="actionColumnWidth"
     (editComplete)="onEditComplete($event)"
     [actionMenu]="rowMenu"
     [offsetX]="offsetX"
-    (scroll)="onBodyScroll($event)">
+    (scroll)="onBodyScroll($event)"
+    (selectedRowIndexChange)="selectedRowIndexChanged.emit($event)">
   </datatable-body>
   <datatable-footer
     [totalItems]="totalItems"

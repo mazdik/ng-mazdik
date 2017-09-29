@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Column, Settings} from '../index';
 
 @Component({
   selector: 'basic-demo',
@@ -11,7 +12,7 @@ export class BasicDemoComponent {
   constructor() {
   }
 
-  public settings: any = {
+  public settings: Settings = {
     api: 'http://host3/players',
     crud: true,
     primaryKey: 'id',
@@ -20,7 +21,7 @@ export class BasicDemoComponent {
     scrollHeight: 380,
   };
 
-  public columns: any[] = [
+  public columns: Column[] = [
     {
       title: 'Id',
       name: 'id',

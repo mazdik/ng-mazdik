@@ -4,7 +4,6 @@ import {
   ViewChild,
   Input,
   Output,
-  ViewEncapsulation,
   AfterViewInit,
   OnDestroy,
   EventEmitter
@@ -15,28 +14,20 @@ import {OrdsService} from './services/ords.service';
 import {DemoService} from './services/demo.service';
 import {RestlessService} from './services/restless.service';
 import {ModalComponent} from './modal/modal.component';
-import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem, ITreeNode} from './types/interfaces';
+import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
 
 @Component({
   selector: 'crud-table',
   templateUrl: './crud-table.component.html',
   styleUrls: ['./crud-table.css'],
-  encapsulation: ViewEncapsulation.None,
   providers: [YiiService, OrdsService, DemoService, RestlessService]
 })
 
 export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('childModal')
-  public readonly childModal: ModalComponent;
-  @ViewChild('selectFilter') selectFilter: any;
-
   @Input() public columns: Column[];
   @Input() public settings: Settings;
-  @Input() public treeNodes: ITreeNode[];
-  @Input() public headerHeight: number = 30;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
-  @Output() dataChanged: EventEmitter<any> = new EventEmitter();
 
   @Input()
   set filters(val: any) {
@@ -49,6 +40,9 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   _filters: Filter = {};
+
+  @ViewChild('childModal')
+  public readonly childModal: ModalComponent;
 
   public items: any[];
   public item: any;
@@ -66,18 +60,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public sortMeta: SortMeta = <SortMeta>{};
   public service: ICrudService;
-
-  public scrollHeight: number;
-  public tableWidth: number;
-  public letterWidth: number = 10;
-  public actionColumnWidth: number = 40;
-
-  frozenColumns: Column[];
-  scrollableColumns: Column[];
-  frozenWidth: number = 0;
-  scrollableColumnsWidth: number = 0;
-  rowMenu: MenuItem[];
-  offsetX: number = 0;
+  public rowMenu: MenuItem[];
 
   constructor(private yiiService: YiiService,
               private ordsService: OrdsService,
@@ -87,9 +70,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.initService();
-    this.initColumns();
-    this.initTableSize();
     this.initRowMenu();
+    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
     if (this.settings.initLoad) {
       this.getItems();
     }
@@ -99,32 +81,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-  }
-
-  initColumns(): void {
-    this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
-    this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
-    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
-
-    this.letterWidth = this.getTextWidth('M', 'bold 14px arial');
-    this.setColumnsDefaults(this.columns);
-
-    this.scrollableColumns = [];
-    this.columns.forEach((column) => {
-      if (column.frozen) {
-        this.frozenColumns = this.frozenColumns || [];
-        this.frozenColumns.push(column);
-        this.frozenWidth = this.frozenWidth + column.width;
-      } else {
-        this.scrollableColumns.push(column);
-        this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
-      }
-    });
-  }
-
-  initTableSize() {
-    this.tableWidth = this.settings.tableWidth || this.columnsTotalWidth(this.columns);
-    this.scrollHeight = this.settings.scrollHeight;
   }
 
   initService() {
@@ -180,7 +136,6 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.items = data.items;
         this.totalItems = data._meta.totalCount;
         this.itemsPerPage = data._meta.perPage;
-        this.dataChanged.emit(true);
       })
       .catch(error => {
         this.loadingHide();
@@ -287,7 +242,7 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   sort(event) {
-    this.sortMeta = event.sortMeta;
+    this.sortMeta = event;
     this.getItems();
   }
 
@@ -295,74 +250,8 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
     return (this.newItem) ? 'Create' : 'Update';
   }
 
-  showColumnMenu(event) {
-    this.selectFilter.show(200, event.top, event.left, event.column);
-  }
-
-  setColumnDefaults(column: Column): Column {
-    if (!column.hasOwnProperty('sortable') && this.settings.sortable) {
-      column.sortable = true;
-    }
-    if (!column.hasOwnProperty('filter') && this.settings.filter) {
-      column.filter = true;
-    }
-    if (!column.hasOwnProperty('width')) {
-      column.width = (column.name.length * this.letterWidth) + 50;
-      if (column.width < 150) {
-        column.width = 150;
-      }
-    }
-    if (!column.hasOwnProperty('frozen')) {
-      column.frozen = false;
-    }
-    if (!column.hasOwnProperty('type')) {
-      column.type = 'text';
-    }
-    if (!column.hasOwnProperty('resizeable')) {
-      column.resizeable = true;
-    }
-    return column;
-  }
-
-  setColumnsDefaults(columns: Column[]): Column[] {
-    if (!columns) {
-      return;
-    }
-    const result = columns.map(this.setColumnDefaults, this);
-    return result;
-  }
-
-  columnsTotalWidth(columns: Column[]): number {
-    let totalWidth = 0;
-    for (const column of columns) {
-      totalWidth = totalWidth + column.width;
-    }
-    return totalWidth + this.actionColumnWidth;
-  }
-
-  getTextWidth(text, font) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-
-  resizeColumn({column, newValue}: any) {
-    for (const col of this.columns) {
-      if (col.name === column.name) {
-        col.width = newValue;
-      }
-    }
-  }
-
-  onBodyScroll(event: MouseEvent): void {
-    this.offsetX = event.offsetX;
-    this.selectFilter.hide();
-  }
-
-  setColumnSelectedOption(value, field, matchMode) {
-    this.selectFilter.setColumnSelectedOption(value, field, null);
+  onSelectedRow(event) {
+    this.selectedRowIndex = event;
   }
 
 }

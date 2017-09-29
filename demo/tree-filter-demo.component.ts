@@ -141,7 +141,6 @@ export class TreeFilterDemoComponent {
       } else if (this.filters[node.data['column']]) {
         delete this.filters[node.data['column']];
       }
-      this.table.setColumnSelectedOption(node.id, node.data['column'], null);
 
       if (node.parent) {
         this.selectNode(node.parent);
@@ -156,7 +155,6 @@ export class TreeFilterDemoComponent {
       for (const childNode of node.children) {
         if (this.filters[childNode.data['column']]) {
           delete this.filters[childNode.data['column']];
-          this.table.setColumnSelectedOption(null, childNode.data['column'], null);
         }
       }
     }

@@ -9,7 +9,6 @@ export class BodyRowComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public row: any;
-  @Input() public enableAction: boolean;
   @Input() public actionColumnWidth: number;
   @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
@@ -20,11 +19,15 @@ export class BodyRowComponent implements OnInit {
 
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
+  public enableAction: boolean = false;
 
   constructor() {
   }
 
   ngOnInit() {
+    if (this.actionMenu) {
+      this.enableAction = true;
+    }
     if (this.columns) {
       this.columns.forEach((column) => {
         if (column.frozen) {

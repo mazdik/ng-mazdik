@@ -64,11 +64,11 @@
            ngui-datetime-picker
     />
 
-    <input class="form-control"
+    <input type="text"
+           class="form-control"
            *ngSwitchDefault
            [(ngModel)]="item[column.name]"
            [attr.placeholder]="column.title"
-           [type]="text"
            (focus)="startValidate(column)"
            [id]="column.name"/>
   </div>

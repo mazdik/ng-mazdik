@@ -5,8 +5,6 @@ import {
   Input,
   Output,
   ViewEncapsulation,
-  AfterViewInit,
-  OnDestroy,
   EventEmitter
 } from '@angular/core';
 import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
@@ -17,12 +15,13 @@ import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces'
   styleUrls: ['./datatable.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DatatableComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public headerHeight: number = 30;
   @Input() public items: any;
+  @Input() public filters: Filter;
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
@@ -31,19 +30,9 @@ export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
-
-  @Input()
-  set filters(val: any) {
-    this._filters = val;
-    this.filterChanged.emit(this._filters);
-  }
-
-  get filters(): any {
-    return this._filters;
-  }
+  @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
   @ViewChild('selectFilter') selectFilter: any;
-  _filters: Filter = {};
 
   public selectedRowIndex: number;
   public sortMeta: SortMeta = <SortMeta>{};
@@ -58,6 +47,7 @@ export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
   frozenWidth: number = 0;
   scrollableColumnsWidth: number = 0;
   offsetX: number = 0;
+  itemsCopy: any;
 
   constructor() {
   }
@@ -65,18 +55,15 @@ export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.initColumns();
     this.initTableSize();
-  }
-
-  ngAfterViewInit() {
-  }
-
-  ngOnDestroy() {
+    if (this.settings.clientSide) {
+      // TODO client side
+      this.itemsCopy = Object.assign({}, this.items);
+    }
   }
 
   initColumns(): void {
     this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
     this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
-    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
 
     this.letterWidth = this.getTextWidth('M', 'bold 14px arial');
     this.setColumnsDefaults(this.columns);
@@ -100,7 +87,11 @@ export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onPageChanged(event: any): void {
-    this.pageChanged.emit(event);
+    if (this.settings.clientSide) {
+      this.items = this.page(this.items, event);
+    } else {
+      this.pageChanged.emit(event);
+    }
   }
 
   onEditComplete(event) {
@@ -109,11 +100,20 @@ export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onFilter(event) {
     this.filters = event;
+    if (this.settings.clientSide) {
+      this.items = this.filter(this.itemsCopy, this.filters);
+    } else {
+      this.filterChanged.emit(this.filters);
+    }
   }
 
   onSort(event) {
     this.sortMeta = event.sortMeta;
-    this.sortChanged.emit(this.sortMeta);
+    if (this.settings.clientSide) {
+      this.items = this.sort(this.items, this.sortMeta.field, this.sortMeta.order);
+    } else {
+      this.sortChanged.emit(this.sortMeta);
+    }
   }
 
   showColumnMenu(event) {
@@ -180,10 +180,6 @@ export class DatatableComponent implements OnInit, AfterViewInit, OnDestroy {
   onBodyScroll(event: MouseEvent): void {
     this.offsetX = event.offsetX;
     this.selectFilter.hide();
-  }
-
-  setColumnSelectedOption(value, field, matchMode) {
-    this.selectFilter.setColumnSelectedOption(value, field, null);
   }
 
   filter(data: any, filters: Filter) {

@@ -43,6 +43,7 @@ export interface Settings {
   sortable?: boolean;
   filter?: boolean;
   initLoad?: boolean;
+  clientSide?: boolean;
 }
 
 export interface ICrudService {

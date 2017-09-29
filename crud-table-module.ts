@@ -50,7 +50,7 @@ import {NguiDatetimePickerModule} from './datetime-picker';
     TreeTableComponent,
     TreeTableNodeComponent
   ],
-  exports: [CrudTableComponent, TreeTableComponent, TreeViewComponent],
+  exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent],
   providers: []
 })
 export class CrudTableModule {

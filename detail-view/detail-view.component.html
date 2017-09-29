@@ -1,16 +1,12 @@
 <div class="detail-view" *ngIf="item">
   <p>
-    <button type="button"
-            class="btn btn-primary"
-            (click)="closeDetails()">
-      <i class="fa fa-arrow-circle-left"></i> Назад
-    </button>
+    <button type="button" class="btn btn-primary" (click)="closeDetails()">Back</button>
 
     <a class="btn btn-warning pull-right"
        *ngIf="settings.crud"
        (click)="toggleForm()"
        [ngClass]="{'active': edit}"
-       title="Редактировать">
+       title="Update">
       <span class="glyphicon glyphicon-pencil"></span>
     </a>
   </p>
@@ -31,13 +27,10 @@
       [settings]="settings">
     </row-form>
     <div class="form-group">
-      <button type="button" class="btn btn-danger" (click)="deleteItem()"><i class="fa fa-close"></i> Удалить</button>
+      <button type="button" class="btn btn-danger" (click)="deleteItem()">Delete</button>
       <div class="pull-right">
-        <button type="button" class="btn btn-success" (click)="saveItem()"><i class="fa fa-check"></i> Сохранить
-        </button>
-        <button type="button" class="btn btn-primary" (click)="closeForm()"><i class="fa fa-arrow-circle-left"></i>
-          Отмена
-        </button>
+        <button type="button" class="btn btn-success" (click)="saveItem()">Save</button>
+        <button type="button" class="btn btn-primary" (click)="closeForm()">Cancel</button>
       </div>
     </div>
   </div>
