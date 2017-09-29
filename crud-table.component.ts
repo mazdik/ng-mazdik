@@ -1,29 +1,17 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  Output,
-  AfterViewInit,
-  OnDestroy,
-  EventEmitter
-} from '@angular/core';
-
-import {YiiService} from './services/yii.service';
-import {OrdsService} from './services/ords.service';
-import {DemoService} from './services/demo.service';
-import {RestlessService} from './services/restless.service';
+import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+import {Http} from '@angular/http';
+import {MainService} from './services/main.service';
 import {ModalComponent} from './modal/modal.component';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
+
 
 @Component({
   selector: 'crud-table',
   templateUrl: './crud-table.component.html',
   styleUrls: ['./crud-table.css'],
-  providers: [YiiService, OrdsService, DemoService, RestlessService]
 })
 
-export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CrudTableComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
@@ -62,42 +50,16 @@ export class CrudTableComponent implements OnInit, AfterViewInit, OnDestroy {
   public service: ICrudService;
   public rowMenu: MenuItem[];
 
-  constructor(private yiiService: YiiService,
-              private ordsService: OrdsService,
-              private demoService: DemoService,
-              private restlessService: RestlessService) {
+  constructor(private http: Http) {
   }
 
   ngOnInit() {
-    this.initService();
+    this.service = MainService.getInstance(this.settings, this.http);
     this.initRowMenu();
     this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
     if (this.settings.initLoad) {
       this.getItems();
     }
-  }
-
-  ngAfterViewInit() {
-  }
-
-  ngOnDestroy() {
-  }
-
-  initService() {
-    if (this.settings.type === 'yii') {
-      this.service = this.yiiService;
-    } else if (this.settings.type === 'ords') {
-      this.service = this.ordsService;
-    } else if (this.settings.type === 'restless') {
-      this.service = this.restlessService;
-    } else if (this.settings.type === 'demo') {
-      this.service = this.demoService;
-    } else {
-      this.service = this.yiiService;
-    }
-    this.service.url = this.settings.api;
-    this.service.primaryKey = this.settings.primaryKey;
-    this.service.settings = this.settings;
   }
 
   initRowMenu() {

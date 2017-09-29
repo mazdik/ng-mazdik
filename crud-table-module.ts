@@ -22,6 +22,7 @@ import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
 import {NguiDatetimePickerModule} from './datetime-picker';
+import {MainService} from './services/main.service';
 
 @NgModule({
   imports: [
@@ -51,7 +52,7 @@ import {NguiDatetimePickerModule} from './datetime-picker';
     TreeTableNodeComponent
   ],
   exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent],
-  providers: []
+  providers: [MainService]
 })
 export class CrudTableModule {
 }
