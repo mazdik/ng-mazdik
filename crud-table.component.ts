@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import {Http} from '@angular/http';
 import {MainService} from './services/main.service';
-import {ModalComponent} from './modal/modal.component';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
+import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 
 
 @Component({
@@ -29,14 +29,10 @@ export class CrudTableComponent implements OnInit {
 
   _filters: Filter = {};
 
-  @ViewChild('childModal')
-  public readonly childModal: ModalComponent;
-
   public items: any[];
   public item: any;
   public selectedItem: any;
   public selectedRowIndex: number;
-  public newItem: boolean;
   public errors: any;
   public onDetailView: boolean = false;
 
@@ -49,6 +45,8 @@ export class CrudTableComponent implements OnInit {
   public sortMeta: SortMeta = <SortMeta>{};
   public service: ICrudService;
   public rowMenu: MenuItem[];
+
+  @ViewChild('modalEf') modalEf: ModalEditFormComponent;
 
   constructor(private http: Http) {
   }
@@ -78,29 +76,21 @@ export class CrudTableComponent implements OnInit {
     ];
   }
 
-  loadingShow() {
-    this.loading = true;
-  }
-
-  loadingHide() {
-    this.loading = false;
-  }
-
   getItems() {
     if (!this.service.url) {
       return {};
     }
-    this.loadingShow();
+    this.loading = true;
     this.errors = null;
     this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
       .then(data => {
-        this.loadingHide();
+        this.loading = false;
         this.items = data.items;
         this.totalItems = data._meta.totalCount;
         this.itemsPerPage = data._meta.perPage;
       })
       .catch(error => {
-        this.loadingHide();
+        this.loading = false;
         this.errors = error;
       });
   }
@@ -110,82 +100,30 @@ export class CrudTableComponent implements OnInit {
     this.getItems();
   }
 
-  save() {
-    this.loadingShow();
-    this.errors = null;
-    if (this.newItem) {
-      this.service
-        .post(this.item)
-        .then(res => {
-          this.loadingHide();
-          this.item = res;
-          this.items.push(this.item);
-        })
-        .catch(error => {
-          this.loadingHide();
-          this.errors = error;
-        });
-    } else {
-      this.service
-        .put(this.item)
-        .then(res => {
-          this.loadingHide();
-          this.items[this.findSelectedItemIndex()] = res;
-        })
-        .catch(error => {
-          this.loadingHide();
-          this.errors = error;
-        });
-    }
-    this.childModal.hide();
-  }
-
-  delete() {
-    this.loadingShow();
-    this.errors = null;
-    this.service
-      .delete(this.item)
-      .then(res => {
-        this.loadingHide();
-        this.items.splice(this.findSelectedItemIndex(), 1);
-        this.item = null;
-        this.onDetailView = false;
-      })
-      .catch(error => {
-        this.loadingHide();
-        this.errors = error;
-      });
-    this.childModal.hide();
-  }
-
   cloneItem(item: any) {
     const clone = Object.assign({}, item);
     this.selectedItem = Object.assign({}, item);
     return clone;
   }
 
-  findSelectedItemIndex(): number {
-    const obj = this.items.find(x => JSON.stringify(x) === JSON.stringify(this.selectedItem));
+  findSelectedItemIndex(selectedItem: any): number {
+    const obj = this.items.find(x => JSON.stringify(x) === JSON.stringify(selectedItem));
     const index = this.items.indexOf(obj);
     return index;
   }
 
   createItem() {
-    this.newItem = true;
     this.item = {};
-    this.childModal.show();
+    this.modalEf.open();
   }
 
   updateItem(item: any) {
-    this.newItem = false;
     this.item = this.cloneItem(item);
-    this.childModal.show();
+    this.modalEf.open();
   }
 
   editItem(item: any) {
-    this.newItem = false;
     this.item = this.cloneItem(item);
-    this.save();
   }
 
   viewDetails(item: any) {
@@ -208,12 +146,33 @@ export class CrudTableComponent implements OnInit {
     this.getItems();
   }
 
-  modalTitle() {
-    return (this.newItem) ? 'Create' : 'Update';
-  }
-
   onSelectedRow(event) {
     this.selectedRowIndex = event;
   }
+
+  onSaved(event) {
+    this.items.push(event);
+  }
+
+  onUpdated(event) {
+    this.items[this.selectedRowIndex] = event;
+  }
+
+  onDeleted(event) {
+    if (event) {
+      this.items.splice(this.selectedRowIndex, 1);
+    }
+  }
+
+  onLoading(event) {
+    this.loading = event;
+  }
+
+  onErrors(event) {
+    this.errors = event;
+  }
+
+  save() {}
+  delete() {}
 
 }

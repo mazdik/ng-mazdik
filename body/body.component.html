@@ -9,7 +9,7 @@
         [columns]="columns"
         [row]="item"
         [rowIndex]="rowIndex"
-        [selectedRowIndex]="selectedRowIndex"
+        [(selectedRowIndex)]="selectedRowIndex"
         [actionColumnWidth]="actionColumnWidth"
         (editComplete)="editComplete.emit($event)"
         [actionMenu]="actionMenu"

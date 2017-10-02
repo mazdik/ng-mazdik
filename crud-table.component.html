@@ -21,23 +21,16 @@
   </app-datatable>
 </div>
 
-<app-modal #childModal [modalTitle]="modalTitle()">
-  <div class="app-modal-body">
-    <div *ngIf="item">
-      <row-form
-        [columns]="columns"
-        [item]="item"
-        [settings]="settings"
-        [isNew]="newItem">
-      </row-form>
-    </div>
-  </div>
-  <div class="app-modal-footer">
-    <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()">Delete</button>
-    <button type="button" class="btn btn-success" (click)="save()">Save</button>
-    <button type="button" class="btn btn-primary pull-right" (click)="childModal.hide()">Close</button>
-  </div>
-</app-modal>
+<modal-edit-form #modalEf
+  [columns]="columns"
+  [item]="item"
+  [settings]="settings"
+  (saved)="onSaved($event)"
+  (updated)="onUpdated($event)"
+  (deleted)="onDeleted($event)"
+  (loading)="onLoading($event)"
+  (errors)="onErrors($event)">
+</modal-edit-form>
 
 <detail-view *ngIf="onDetailView && item"
              [columns]="columns"
