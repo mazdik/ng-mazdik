@@ -30,7 +30,9 @@ export class RestlessService implements ICrudService {
     const headers = this.getAuthHeaders();
     let url = this.url;
     if (page > 1) {
-      url = url + '?page=' + page;
+      url = url + '?page=' + page + '&';
+    } else {
+      url = url + '?';
     }
     url = url + this.filterObject(filters, sortField, sortOrder);
     // const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortField, sortOrder);
@@ -154,7 +156,7 @@ export class RestlessService implements ICrudService {
     }
 
     if (Object.keys(filterObject).length !== 0) {
-      result = '?q=' + JSON.stringify(filterObject);
+      result = 'q=' + JSON.stringify(filterObject);
     }
     return result;
   }

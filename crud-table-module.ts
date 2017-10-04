@@ -53,7 +53,7 @@ import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.componen
     TreeTableNodeComponent,
     ModalEditFormComponent,
   ],
-  exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent],
+  exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent, ModalComponent],
   providers: [MainService]
 })
 export class CrudTableModule {
