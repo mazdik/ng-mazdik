@@ -10,28 +10,27 @@ import {ICrudService, Settings} from '../types/interfaces';
 
 @Injectable()
 export class MainService {
-  private static instance: ICrudService = null;
 
-  // Return the instance of the service
   public static getInstance(settings: Settings, http: Http): ICrudService {
-    if (MainService.instance === null) {
+    let instance: ICrudService
 
-      if (settings.type === 'yii') {
-        MainService.instance = new YiiService(http);
-      } else if (settings.type === 'ords') {
-        MainService.instance = new OrdsService(http);
-      } else if (settings.type === 'restless') {
-        MainService.instance = new RestlessService(http);
-      } else if (settings.type === 'demo') {
-        MainService.instance = new DemoService();
-      } else {
-        MainService.instance = new YiiService(http);
-      }
-      MainService.instance.url = settings.api;
-      MainService.instance.primaryKey = settings.primaryKey;
-      MainService.instance.settings = settings;
+    if (settings.type === 'yii') {
+      instance = new YiiService(http);
+    } else if (settings.type === 'ords') {
+      instance = new OrdsService(http);
+    } else if (settings.type === 'restless') {
+      instance = new RestlessService(http);
+    } else if (settings.type === 'demo') {
+      instance = new DemoService();
+    } else {
+      instance = new YiiService(http);
     }
-    return MainService.instance;
+
+    instance.url = settings.api;
+    instance.primaryKey = settings.primaryKey;
+    instance.settings = settings;
+
+    return instance;
   }
 
   constructor() {

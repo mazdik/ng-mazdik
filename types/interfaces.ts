@@ -52,16 +52,10 @@ export interface ICrudService {
   settings: Settings;
 
   getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
-
   getItem(id: number): Promise<any>;
-
-  save(item: any): Promise<any>;
-
   post(item: any): Promise<any>;
-
-  put(item: any);
-
-  delete(item: any);
+  put(item: any): Promise<any>;
+  delete(item: any): Promise<any>;
 }
 
 export interface SortMeta {

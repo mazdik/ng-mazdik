@@ -53,13 +53,6 @@ export class OrdsService implements ICrudService {
       .then(data => data.items[0]);
   }
 
-  save(item: any): Promise<any> {
-    if (item[this.primaryKey]) {
-      return this.put(item);
-    }
-    return this.post(item);
-  }
-
   // Add new
   post(item: any): Promise<any> {
     const headers = this.getAuthHeaders();
@@ -71,7 +64,7 @@ export class OrdsService implements ICrudService {
   }
 
   // Update existing
-  put(item: any) {
+  put(item: any): Promise<any> {
     const headers = this.getAuthHeaders();
     let url;
     if (Array.isArray(this.primaryKey)) {
@@ -90,7 +83,7 @@ export class OrdsService implements ICrudService {
       .catch(this.handleError);
   }
 
-  delete(item: any) {
+  delete(item: any): Promise<any> {
     const headers = this.getAuthHeaders();
     let url;
     if (Array.isArray(this.primaryKey)) {

@@ -74,13 +74,6 @@ export class DemoService implements ICrudService {
     return data.slice(start, end);
   }
 
-  save(item: any): Promise<any> {
-    if (item[this.primaryKey]) {
-      return this.put(item);
-    }
-    return this.post(item);
-  }
-
   // Add new
   post(item: any): Promise<any> {
     // this.data.items.push(item); // exist in component
@@ -91,7 +84,7 @@ export class DemoService implements ICrudService {
   }
 
   // Update existing
-  put(item: any) {
+  put(item: any): Promise<any> {
     // this.data.items[this.findSelectedItemIndex(item)] = item; // exist in component
     return new Promise((resolve) => {
       // Simulate server latency with 2 second delay
@@ -99,18 +92,12 @@ export class DemoService implements ICrudService {
     });
   }
 
-  delete(item: any) {
+  delete(item: any): Promise<any> {
     // this.data.items.splice(this.findSelectedItemIndex(item), 1); // exist in component
     return new Promise((resolve) => {
       // Simulate server latency with 2 second delay
       setTimeout(() => resolve(item), 1000);
     });
-  }
-
-  findSelectedItemIndex(item: any): number {
-    const obj = this.data.items.find(x => JSON.stringify(x) === JSON.stringify(item));
-    const index = this.data.items.indexOf(obj);
-    return index;
   }
 
 }

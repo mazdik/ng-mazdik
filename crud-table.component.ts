@@ -46,7 +46,7 @@ export class CrudTableComponent implements OnInit {
   public service: ICrudService;
   public rowMenu: MenuItem[];
 
-  @ViewChild('modalEf') modalEf: ModalEditFormComponent;
+  @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
   constructor(private http: Http) {
   }
@@ -114,12 +114,12 @@ export class CrudTableComponent implements OnInit {
 
   createItem() {
     this.item = {};
-    this.modalEf.open();
+    this.modalEditForm.open();
   }
 
   updateItem(item: any) {
     this.item = this.cloneItem(item);
-    this.modalEf.open();
+    this.modalEditForm.open();
   }
 
   editItem(item: any) {

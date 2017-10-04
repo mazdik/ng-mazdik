@@ -165,10 +165,12 @@ export class BodyCellComponent implements OnDestroy {
       } else {
         options = this.column.options;
       }
-      for (const el of options) {
-        if (el['id'] === value) {
-          name = el['name'];
-          break;
+      if (options) {
+        for (const el of options) {
+          if (el['id'] === value) {
+            name = el['name'];
+            break;
+          }
         }
       }
       return name;
