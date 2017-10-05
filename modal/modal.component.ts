@@ -20,7 +20,7 @@ export class ModalComponent {
     this.visible = true;
     setTimeout(() => {
       this.visibleAnimate = true;
-      this.modalRoot.nativeElement.focus()
+      this.modalRoot.nativeElement.focus();
     }, 1);
   }
 

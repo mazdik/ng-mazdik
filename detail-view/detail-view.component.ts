@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, PipeTransform} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
+import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
   selector: 'detail-view',
@@ -25,6 +26,9 @@ export class DetailViewComponent {
     const userPipe: PipeTransform = column.pipe;
     if (userPipe) {
       return userPipe.transform(value);
+    }
+    if (value) {
+      value = ColumnUtils.getOptionName(value, column);
     }
     return value;
   }

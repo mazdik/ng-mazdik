@@ -1,5 +1,6 @@
 import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
+import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
   selector: 'row-form',
@@ -101,19 +102,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   getOptions(column: Column) {
-    if (column.options) {
-      let options;
-      if (typeof column.options === 'function') {
-        options = column.options();
-      } else {
-        options = column.options;
-      }
-      if (column.dependsColumn) {
-        return options.filter((value) => value.parentId === this.item[column.dependsColumn]);
-      } else {
-        return options;
-      }
-    }
+    return ColumnUtils.getOptions(column, this.item);
   }
 
 }

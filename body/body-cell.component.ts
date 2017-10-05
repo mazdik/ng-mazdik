@@ -3,6 +3,7 @@ import {
   Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy, Renderer
 } from '@angular/core';
 import {Column} from '../types/interfaces';
+import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
   selector: 'datatable-body-cell',
@@ -69,7 +70,7 @@ export class BodyCellComponent implements OnDestroy {
       return userPipe.transform(val);
     }
     if (val !== undefined) {
-      val = this.getOptionName(val);
+      val = ColumnUtils.getOptionName(val, this.column);
       return val;
     }
     return '';
@@ -140,43 +141,8 @@ export class BodyCellComponent implements OnDestroy {
     }
   }
 
-  getOptions(column: Column, row: any) {
-    if (column.options) {
-      let options;
-      if (typeof column.options === 'function') {
-        options = column.options();
-      } else {
-        options = column.options;
-      }
-      if (column.dependsColumn) {
-        return options.filter((value) => value.parentId === row[column.dependsColumn]);
-      } else {
-        return options;
-      }
-    }
-  }
-
-  getOptionName(value) {
-    if (this.column.options) {
-      let name = null;
-      let options;
-      if (typeof this.column.options === 'function') {
-        options = this.column.options();
-      } else {
-        options = this.column.options;
-      }
-      if (options) {
-        for (const el of options) {
-          if (el['id'] === value) {
-            name = el['name'];
-            break;
-          }
-        }
-      }
-      return name;
-    } else {
-      return value;
-    }
+  getOptions(column: Column, row: any[]) {
+    return ColumnUtils.getOptions(column, row);
   }
 
 
