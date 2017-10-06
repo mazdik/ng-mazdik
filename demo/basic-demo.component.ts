@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {Column, Settings, ICrudService, DemoService} from '../index';
+import {Column, Settings, ICrudService} from '../index';
+import {DemoService} from './demo.service';
 
 @Component({
   selector: 'basic-demo',

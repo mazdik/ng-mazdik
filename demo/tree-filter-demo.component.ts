@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {ITreeNode, Column, Settings, Filter, ICrudService} from '../index';
-import {DemoService} from '../services/demo.service';
+import {DemoService} from './demo.service';
 
 @Component({
   selector: 'tree-filter-demo',

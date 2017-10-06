@@ -3,31 +3,9 @@
 Simple CRUD table component for Angular 2 using REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)  
 Supports Yii2 RESTful API, ORDS (Oracle REST Data Services), Flask-Restless
 
-### Configuration
-```typescript
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { CrudTableModule } from './crud-table';
-import { AppComponent } from './app.component';
-
-@NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule,
-        CrudTableModule
-    ],
-    bootstrap: [
-        AppComponent
-    ]
-})
-export class AppModule {}
-```
-
 ### Sample
 ```typescript
-import { Component }  from '@angular/core';
+import {Component}  from '@angular/core';
 import {Column, Settings, ICrudService, YiiService} from '../../shared/crud-table';
 import {Http} from '@angular/http';
 
@@ -159,3 +137,16 @@ You will need bootstrap styles
 * Column Resizing
 * Cascading Select (DropDown)
 * Tree table
+
+### Custom service
+```typescript
+interface ICrudService {
+  url: string;
+  primaryKey: any;
+  getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
+  getItem(id: number): Promise<any>;
+  post(item: any): Promise<any>;
+  put(item: any): Promise<any>;
+  delete(item: any): Promise<any>;
+}
+```
