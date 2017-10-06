@@ -13,17 +13,17 @@ function isInteger(value) {
   if (Number.isInteger) {
     return Number.isInteger(value);
   }
-  return typeof value === "number" &&
+  return typeof value === 'number' &&
     isFinite(value) &&
     Math.floor(value) === value;
-};
+}
 
 function isNaN(value) {
   if (Number.isNaN) {
     return Number.isNaN(value);
   }
   return value !== value;
-};
+}
 
 /**
  * If the given string is not a valid date, it defaults back to today
@@ -33,6 +33,7 @@ function isNaN(value) {
   providers: [NguiDatetime]
 })
 export class NguiDatetimePickerDirective implements OnInit, OnChanges {
+
   @Input('date-format') dateFormat: string;
   @Input('parse-format') parseFormat: string;
   @Input('date-only') dateOnly: boolean;
@@ -50,8 +51,8 @@ export class NguiDatetimePickerDirective implements OnInit, OnChanges {
   @Input('show-week-numbers') showWeekNumbers: boolean;
   @Input() formControlName: string;
   @Input('is-draggable') isDraggable: boolean = true;
-
   @Input('ngModel') ngModel: any;
+
   @Output('ngModelChange') ngModelChange = new EventEmitter();
   @Output('valueChanged') valueChanged$ = new EventEmitter();
   @Output('popupClosed') popupClosed$ = new EventEmitter();
@@ -120,12 +121,12 @@ export class NguiDatetimePickerDirective implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if (this.parent && this.formControlName) {
-      if (this.parent["form"]) {
-        this.ctrl = (<FormGroup>this.parent["form"]).get(this.formControlName);
-      } else if (this.parent["name"]) {
+      if (this.parent['form']) {
+        this.ctrl = (<FormGroup>this.parent['form']).get(this.formControlName);
+      } else if (this.parent['name']) {
         let formDir = this.parent.formDirective;
-        if (formDir instanceof FormGroupDirective && formDir.form.get(this.parent["name"])) {
-          this.ctrl = formDir.form.get(this.parent["name"]).get(this.formControlName);
+        if (formDir instanceof FormGroupDirective && formDir.form.get(this.parent['name'])) {
+          this.ctrl = formDir.form.get(this.parent['name']).get(this.formControlName);
         }
       }
       if (this.ctrl) {
@@ -372,10 +373,10 @@ export class NguiDatetimePickerDirective implements OnInit, OnChanges {
       return false; // block dragging
     }
     var style = window.getComputedStyle(event.target, null);
-    event.dataTransfer.setData("text/plain",
-      (parseInt(style.getPropertyValue("left"), 10) - event.clientX)
+    event.dataTransfer.setData('text/plain',
+      (parseInt(style.getPropertyValue('left'), 10) - event.clientX)
       + ','
-      + (parseInt(style.getPropertyValue("top"), 10) - event.clientY)
+      + (parseInt(style.getPropertyValue('top'), 10) - event.clientY)
     );
   }
 
@@ -385,7 +386,7 @@ export class NguiDatetimePickerDirective implements OnInit, OnChanges {
   }
 
   private drop = (event) => {
-    var offset = event.dataTransfer.getData("text/plain").split(',');
+    var offset = event.dataTransfer.getData('text/plain').split(',');
     this.nguiDatetimePickerEl.style.left = (event.clientX + parseInt(offset[0], 10)) + 'px';
     this.nguiDatetimePickerEl.style.top = (event.clientY + parseInt(offset[1], 10)) + 'px';
     this.nguiDatetimePickerEl.style.bottom = '';

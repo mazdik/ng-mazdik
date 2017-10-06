@@ -23,6 +23,9 @@ export class ModalEditFormComponent implements OnInit {
   @Input() set item(value) {
     this._item = value;
     this.newItem = this.isEmpty(value);
+    if (this.newItem) {
+      this._item = {};
+    }
   }
   get item() {
     return this._item;

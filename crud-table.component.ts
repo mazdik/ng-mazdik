@@ -16,6 +16,7 @@ export class CrudTableComponent implements OnInit {
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
+  @Output() dataChanged: EventEmitter<any> = new EventEmitter();
 
   @Input()
   set filters(val: any) {
@@ -78,7 +79,7 @@ export class CrudTableComponent implements OnInit {
 
   getItems() {
     if (!this.service.url) {
-      return {};
+      return;
     }
     this.loading = true;
     this.errors = null;
@@ -93,6 +94,11 @@ export class CrudTableComponent implements OnInit {
         this.loading = false;
         this.errors = error;
       });
+  }
+
+  clear() {
+    this.items = [];
+    this.totalItems = 0;
   }
 
   pageChanged(event: any): void {
@@ -152,15 +158,18 @@ export class CrudTableComponent implements OnInit {
 
   onSaved(event) {
     this.items.push(event);
+    this.dataChanged.emit(true);
   }
 
   onUpdated(event) {
     this.items[this.selectedRowIndex] = event;
+    this.dataChanged.emit(true);
   }
 
   onDeleted(event) {
     if (event) {
       this.items.splice(this.selectedRowIndex, 1);
+      this.dataChanged.emit(true);
     }
   }
 

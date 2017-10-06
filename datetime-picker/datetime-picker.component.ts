@@ -55,9 +55,8 @@ export class NguiDatetimePickerComponent {
   public disabledDatesInTime: number[];
   public locale = NguiDatetime.locale;
   public showYearSelector = false;
-
+  public timeSuffix: string;
   private _monthData: any;
-  private timeSuffix: string;
 
   public constructor(elementRef: ElementRef,
                      public nguiDatetime: NguiDatetime,
@@ -240,10 +239,10 @@ export class NguiDatetimePickerComponent {
   private convertHours(hours) {
     if (this.showAmPm) {
       this.timeSuffix = (hours >= 12) ? 'PM' : 'AM';
-      hours = (hours == 0) ? 12 : (hours > 12) ? hours - 12 : hours;
+      hours = (hours === 0) ? 12 : (hours > 12) ? hours - 12 : hours;
     } else {
       this.timeSuffix = null;
     }
-    return ("0" + hours).slice(-2);
+    return ('0' + hours).slice(-2);
   }
 }

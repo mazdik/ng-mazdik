@@ -8,4 +8,4 @@ export {
   NguiDatetimePickerComponent,
   NguiDatetimePickerDirective,
   NguiDatetimePickerModule
-}
+};

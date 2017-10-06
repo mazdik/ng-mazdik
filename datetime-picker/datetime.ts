@@ -1,6 +1,6 @@
-declare var moment: any;
+import {Injectable} from '@angular/core';
 
-import {Injectable} from "@angular/core";
+declare var moment: any;
 
 /**
  * Static variables that you can override
@@ -22,7 +22,7 @@ export class NguiDatetime {
     day: 'day',
     hour: 'hour',
     minute: 'minute',
-    currentTime: "current time"
+    currentTime: 'current time'
   };
 
   static days: number[] =
