@@ -1,6 +1,4 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {Http} from '@angular/http';
-import {MainService} from './services/main.service';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 
@@ -15,6 +13,7 @@ export class CrudTableComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
+  @Input() public service: ICrudService;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
 
@@ -44,16 +43,16 @@ export class CrudTableComponent implements OnInit {
   public currentPage: number = 1;
 
   public sortMeta: SortMeta = <SortMeta>{};
-  public service: ICrudService;
   public rowMenu: MenuItem[];
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
-  constructor(private http: Http) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.service = MainService.getInstance(this.settings, this.http);
+    this.service.url = this.settings.api;
+    this.service.primaryKey = this.settings.primaryKey;
     this.initRowMenu();
     this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
     if (this.settings.initLoad) {

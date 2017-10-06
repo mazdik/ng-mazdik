@@ -28,15 +28,25 @@ export class AppModule {}
 ### Sample
 ```typescript
 import { Component }  from '@angular/core';
+import {Column, Settings, ICrudService, YiiService} from '../../shared/crud-table';
+import {Http} from '@angular/http';
+
 
 @Component({
   selector: 'my-app',
-  template: `<crud-table [columns]="columns" [settings]="settings"></crud-table>`
+  template: `<crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`
 })
 
 export class PlayersComponent {
+  
+    public service: ICrudService;
+  
+    constructor(private http: Http) {
+      // YiiService | RestlessService | OrdsService | your custom service
+      this.service = new YiiService(this.http);
+    }
 
-    public columns: any[] = [
+    public columns: Column[] = [
         {
             title: 'Id', 
             name: 'id', 
@@ -115,11 +125,10 @@ export class PlayersComponent {
         }
     ];
 
-    public settings: any = {
+    public settings: Settings = {
         api: 'http://host3/players',
         crud: true,
         primaryKey: 'id',
-        type: 'yii', // ords or yii or restless (default yii)
         tableWidth: 820,
         scrollHeight: 380,
     };

@@ -49,8 +49,6 @@ export interface Settings {
 export interface ICrudService {
   url: string;
   primaryKey: any;
-  settings: Settings;
-
   getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
   getItem(id: number): Promise<any>;
   post(item: any): Promise<any>;

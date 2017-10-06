@@ -1,8 +1,6 @@
 import {Component, OnInit, Input, Output, ViewChild, EventEmitter} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {Column, Settings, ICrudService} from '../types/interfaces';
-import {Http} from '@angular/http';
-import {MainService} from '../services/main.service';
 
 @Component({
   selector: 'modal-edit-form',
@@ -13,6 +11,7 @@ export class ModalEditFormComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
+  @Input() public service: ICrudService;
 
   @Output() saved: EventEmitter<any> = new EventEmitter();
   @Output() updated: EventEmitter<any> = new EventEmitter();
@@ -32,16 +31,16 @@ export class ModalEditFormComponent implements OnInit {
   }
   private _item: any;
 
-  public service: ICrudService;
   public newItem: boolean;
   @ViewChild('childModal')
   public readonly childModal: ModalComponent;
 
-  constructor(private http: Http) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.service = MainService.getInstance(this.settings, this.http);
+    this.service.url = this.settings.api;
+    this.service.primaryKey = this.settings.primaryKey;
   }
 
   modalTitle() {

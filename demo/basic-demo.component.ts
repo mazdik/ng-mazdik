@@ -1,15 +1,18 @@
 import {Component} from '@angular/core';
-import {Column, Settings} from '../index';
+import {Column, Settings, ICrudService, DemoService} from '../index';
 
 @Component({
   selector: 'basic-demo',
   template: `
-    <crud-table [columns]="columns" [settings]="settings"></crud-table>`
+    <crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`
 })
 
 export class BasicDemoComponent {
 
+  public service: ICrudService;
+
   constructor() {
+    this.service = new DemoService();
   }
 
   public settings: Settings = {

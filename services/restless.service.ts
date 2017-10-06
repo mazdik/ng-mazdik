@@ -1,14 +1,13 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService, Settings} from '../types/interfaces';
+import {Filter, ICrudService} from '../types/interfaces';
 
 @Injectable()
 export class RestlessService implements ICrudService {
 
   public url: string;
   public primaryKey: any;
-  public settings: Settings;
 
   constructor(private http: Http) {
   }

@@ -22,7 +22,6 @@ import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
 import {NguiDatetimePickerModule} from './datetime-picker';
-import {MainService} from './services/main.service';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 
 @NgModule({
@@ -54,7 +53,7 @@ import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.componen
     ModalEditFormComponent,
   ],
   exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent, ModalComponent],
-  providers: [MainService]
+  providers: []
 })
 export class CrudTableModule {
 }

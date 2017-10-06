@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
-import {ITreeNode, Column, Settings, Filter} from '../index';
+import {ITreeNode, Column, Settings, Filter, ICrudService} from '../index';
+import {DemoService} from '../services/demo.service';
 
 @Component({
   selector: 'tree-filter-demo',
@@ -16,6 +17,7 @@ import {ITreeNode, Column, Settings, Filter} from '../index';
       [columns]="columns"
       [settings]="settings"
       [filters]="filters"
+      [service]="service"
       (filterChanged)="onFilterChanged($event)">
     </crud-table>`
 })
@@ -26,7 +28,10 @@ export class TreeFilterDemoComponent {
   @ViewChild('table') table: any;
   treeViewWidth: number = 150;
 
+  public service: ICrudService;
+
   constructor() {
+    this.service = new DemoService();
   }
 
   public columns: Column[] = [
