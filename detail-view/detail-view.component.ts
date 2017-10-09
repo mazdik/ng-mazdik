@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, PipeTransform} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, PipeTransform} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
 
@@ -7,7 +7,7 @@ import {ColumnUtils} from '../utils/column-utils';
   templateUrl: 'detail-view.component.html'
 })
 
-export class DetailViewComponent {
+export class DetailViewComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
@@ -20,6 +20,9 @@ export class DetailViewComponent {
   public edit: boolean = false;
 
   constructor() {
+  }
+
+  ngOnInit() {
   }
 
   format(value: any, column: Column) {

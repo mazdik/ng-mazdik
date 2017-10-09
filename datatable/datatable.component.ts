@@ -8,6 +8,8 @@ import {
   EventEmitter
 } from '@angular/core';
 import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
+import {ColumnUtils} from '../utils/column-utils';
+
 
 @Component({
   selector: 'app-datatable',
@@ -65,7 +67,7 @@ export class DatatableComponent implements OnInit {
     this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
     this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
 
-    this.letterWidth = this.getTextWidth('M', 'bold 14px arial');
+    this.letterWidth = ColumnUtils.getTextWidth('M', 'bold 14px arial');
     this.setColumnsDefaults(this.columns);
 
     this.scrollableColumns = [];
@@ -137,11 +139,16 @@ export class DatatableComponent implements OnInit {
       column.frozen = false;
     }
     if (!column.hasOwnProperty('type')) {
-      column.type = 'text';
+      if (column.hasOwnProperty('options')) {
+        column.type = 'dropdown';
+      } else {
+        column.type = 'text';
+      }
     }
     if (!column.hasOwnProperty('resizeable')) {
       column.resizeable = true;
     }
+
     return column;
   }
 
@@ -159,14 +166,6 @@ export class DatatableComponent implements OnInit {
       totalWidth = totalWidth + column.width;
     }
     return totalWidth + this.actionColumnWidth;
-  }
-
-  getTextWidth(text, font) {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
   }
 
   resizeColumn({column, newValue}: any) {
