@@ -25,7 +25,7 @@ export class ColumnUtils {
     }
   }
 
-  public static getOptions(column: Column, row: any[]) {
+  public static getOptions(column: Column, dependsValue: any) {
     if (column.options) {
       let options;
       if (typeof column.options === 'function') {
@@ -34,7 +34,7 @@ export class ColumnUtils {
         options = column.options;
       }
       if (column.dependsColumn) {
-        return options.filter((value) => value.parentId === row[column.dependsColumn]);
+        return options.filter((value) => value.parentId === dependsValue);
       } else {
         return options;
       }

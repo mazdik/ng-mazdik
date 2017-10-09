@@ -142,7 +142,7 @@ export class BodyCellComponent implements OnDestroy {
   }
 
   getOptions(column: Column, row: any[]) {
-    return ColumnUtils.getOptions(column, row);
+    return ColumnUtils.getOptions(column, row[column.dependsColumn]);
   }
 
 

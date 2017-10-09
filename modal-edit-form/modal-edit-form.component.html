@@ -1,12 +1,12 @@
 <app-modal #childModal [modalTitle]="modalTitle()">
   <div class="app-modal-body">
     <div *ngIf="item">
-      <row-form
+      <app-row-form
         [columns]="columns"
         [item]="item"
         [settings]="settings"
         [isNew]="newItem">
-      </row-form>
+      </app-row-form>
     </div>
   </div>
   <div class="app-modal-footer">

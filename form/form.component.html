@@ -1,8 +1,6 @@
-<div class="form-group" *ngFor="let column of columns" [ngClass]="{'has-error':hasError(column)}">
+<div *ngFor="let column of columns">
 
   <div *ngIf="elemEnabled(column)">
-
-    <label [attr.for]="column.name">{{column.title}}</label>
 
     <ng-template #cellTemplate
                  *ngIf="column.cellTemplate"
@@ -14,50 +12,34 @@
     </ng-template>
 
     <div *ngIf="!column.cellTemplate" [ngSwitch]="column.type">
-      <select class="form-control"
-              *ngSwitchCase="'dropdown'"
-              [(ngModel)]="item[column.name]"
-              (focus)="startValidate(column)"
-              [id]="column.name">
-        <option *ngFor="let opt of getOptions(column)" [value]="opt.id">{{opt.name}}</option>
-      </select>
 
-      <div *ngSwitchCase="'checkbox'">
-        <div class="checkbox" *ngFor="let o of getOptions(column)">
-          <label>
-            <input
-              [type]="column.type"
-              [(ngModel)]="item[column.name]"
-              [name]="column.name"
-              [value]="o.id"
-              [checked]="isSelectActive(column, o)"
-            >
-          </label>
-          <span>{{o.name ? o.name : o.id}}</span>
-        </div>
-      </div>
+      <app-form-dropdown
+        *ngSwitchCase="'dropdown'"
+        [column]="column"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]">
+      </app-form-dropdown>
 
-      <textarea class="form-control"
-                *ngSwitchCase="'textarea'"
-                [(ngModel)]="item[column.name]"
-                (focus)="startValidate(column)"
-                [id]="column.name">
-    </textarea>
+      <app-form-checkbox
+        *ngSwitchCase="'checkbox'"
+        [column]="column"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]">
+      </app-form-checkbox>
 
-      <div *ngSwitchCase="'radio'">
-        <div class="radio" *ngFor="let o of getOptions(column)">
-          <label>
-            <input
-              [type]="column.type"
-              [(ngModel)]="item[column.name]"
-              [name]="column.name"
-              [value]="o.id"
-              [checked]="item[column.name] === o.id"
-              (click)="item[column.name] = o.id"/>
-          </label>
-          <span>{{o.name ? o.name : o.id}}</span>
-        </div>
-      </div>
+      <app-form-radio
+        *ngSwitchCase="'radio'"
+        [column]="column"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]">
+      </app-form-radio>
+
+      <app-form-textarea
+        *ngSwitchCase="'textarea'"
+        [column]="column"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]">
+      </app-form-textarea>
 
       <input class="form-control"
              *ngSwitchCase="'date'"
@@ -65,17 +47,13 @@
              [(ngModel)]="item[column.name]"
              ngui-datetime-picker/>
 
-      <input type="text"
-             class="form-control"
-             *ngSwitchDefault
-             [(ngModel)]="item[column.name]"
-             [attr.placeholder]="column.title"
-             (focus)="startValidate(column)"
-             [id]="column.name"/>
-    </div>
+      <app-form-input-text
+        *ngSwitchDefault
+        [column]="column"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]">
+      </app-form-input-text>
 
-    <div class="help-block">
-      <span *ngFor="let err of errors(column)">{{err}}<br></span>
     </div>
 
   </div>

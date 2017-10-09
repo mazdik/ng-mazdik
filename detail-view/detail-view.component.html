@@ -21,11 +21,11 @@
   </table>
 
   <div class="detail-form" *ngIf="edit">
-    <row-form
+    <app-row-form
       [columns]="columns"
       [item]="item"
       [settings]="settings">
-    </row-form>
+    </app-row-form>
     <div class="form-group">
       <button type="button" class="btn btn-danger" (click)="deleteItem()">Delete</button>
       <div class="pull-right">
