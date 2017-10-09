@@ -30,7 +30,11 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  elemEnabled(name: string): boolean {
+  elemEnabled(column: Column): boolean {
+    if (column.formHidden) {
+      return false;
+    }
+    const name = column.name;
     if (Array.isArray(this.settings.primaryKey)) {
       if (!this.isNew) {
         return (this.settings.primaryKey.indexOf(name) === -1);

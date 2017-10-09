@@ -21,6 +21,7 @@ export interface Column {
   resizeable?: boolean;
   dependsColumn?: string;
   cellTemplate?: any;
+  formHidden?: boolean;
 }
 
 export interface FilterMetadata {
