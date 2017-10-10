@@ -2,6 +2,7 @@ import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {Column} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
 import {CustomValidator} from './custom-validator';
+import {FormService} from './form.service';
 
 
 @Component({
@@ -32,7 +33,6 @@ import {CustomValidator} from './custom-validator';
 export class RadioComponent implements OnInit {
 
   @Input() public column: Column;
-  @Input() public dependsValue: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
   @Input('value')
@@ -43,25 +43,49 @@ export class RadioComponent implements OnInit {
     }
   }
 
+  @Input()
+  set dependsValue(value) {
+    this._dependsValue = value;
+    this.setOptions();
+  }
+
   get model() {
     return this._model;
   }
 
+  get dependsValue() {
+    return this._dependsValue;
+  }
+
   private _model: any;
   private _options: any;
+  private _dependsValue: any;
   public beginValidate: boolean;
 
-  constructor(private validator: CustomValidator) {
+  constructor(private validator: CustomValidator, private formService: FormService) {
   }
 
   ngOnInit() {
   }
 
-  getOptions() {
-    if (!this._options) {
-      this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
+  setOptions() {
+    if (this._dependsValue) {
+      if (this.column.optionsUrl) {
+        this.formService.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
+          this._options = res;
+        });
+      }
+    } else {
+      this._options = null;
     }
-    return this._options;
+  }
+
+  getOptions() {
+    if (this.column.optionsUrl) {
+      return this._options;
+    } else {
+      return ColumnUtils.getOptions(this.column, this.dependsValue);
+    }
   }
 
   errors() {

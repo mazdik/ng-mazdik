@@ -37,22 +37,19 @@
       <app-form-textarea
         *ngSwitchCase="'textarea'"
         [column]="column"
-        [(value)]="item[column.name]"
-        [dependsValue]="item[column.dependsColumn]">
+        [(value)]="item[column.name]">
       </app-form-textarea>
 
       <app-form-calendar
         *ngSwitchCase="'date'"
         [column]="column"
-        [(value)]="item[column.name]"
-        [dependsValue]="item[column.dependsColumn]">
+        [(value)]="item[column.name]">
       </app-form-calendar>
 
       <app-form-input-text
         *ngSwitchDefault
         [column]="column"
-        [(value)]="item[column.name]"
-        [dependsValue]="item[column.dependsColumn]">
+        [(value)]="item[column.name]">
       </app-form-input-text>
 
     </div>

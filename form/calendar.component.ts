@@ -27,7 +27,6 @@ import {CustomValidator} from './custom-validator';
 export class CalendarComponent implements OnInit {
 
   @Input() public column: Column;
-  @Input() public dependsValue: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
   @Input('value')

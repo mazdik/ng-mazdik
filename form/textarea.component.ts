@@ -24,7 +24,6 @@ import {CustomValidator} from './custom-validator';
 export class TextareaComponent implements OnInit {
 
   @Input() public column: Column;
-  @Input() public dependsValue: any;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
 
   @Input('value')
