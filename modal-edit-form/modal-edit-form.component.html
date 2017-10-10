@@ -5,13 +5,14 @@
         [columns]="columns"
         [item]="item"
         [settings]="settings"
-        [isNew]="newItem">
+        [isNew]="newItem"
+        (valid)="formValid=$event">
       </app-row-form>
     </div>
   </div>
   <div class="app-modal-footer">
     <button type="button" class="btn btn-danger" *ngIf="!newItem" (click)="delete()">Delete</button>
-    <button type="button" class="btn btn-success" (click)="save()">Save</button>
+    <button type="button" class="btn btn-success" (click)="save()" [disabled]="!formValid">Save</button>
     <button type="button" class="btn btn-primary pull-right" (click)="close()">Close</button>
   </div>
 </app-modal>

@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
+import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
 
 @Component({
@@ -12,8 +12,10 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() public settings: Settings;
   @Input() public item: any;
   @Input() public isNew: boolean = true;
+  @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
+  private validElements: any = {};
 
   constructor() {
   }
@@ -42,6 +44,22 @@ export class FormComponent implements OnInit, OnDestroy {
       const pk = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : null;
       return (name !== pk);
     }
+  }
+
+  onValid(event: any, column: Column) {
+    this.validElements[column.name] = event;
+    this.isValid();
+  }
+
+  isValid() {
+    let result: boolean;
+    for (const key of Object.keys(this.validElements)) {
+      result = this.validElements[key];
+      if (!result) {
+        break;
+      }
+    }
+    this.valid.emit(result);
   }
 
 }

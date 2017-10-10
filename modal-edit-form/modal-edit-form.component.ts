@@ -34,6 +34,7 @@ export class ModalEditFormComponent implements OnInit {
   public newItem: boolean;
   @ViewChild('childModal')
   public readonly childModal: ModalComponent;
+  public formValid: boolean = true;
 
   constructor() {
   }

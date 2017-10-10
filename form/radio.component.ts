@@ -34,6 +34,7 @@ export class RadioComponent implements OnInit {
 
   @Input() public column: Column;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
   @Input('value')
   set model(value) {
@@ -95,7 +96,9 @@ export class RadioComponent implements OnInit {
   }
 
   hasError() {
-    return this.validator.hasError(this.column, this.model);
+    const hasError = this.validator.hasError(this.column, this.model);
+    this.valid.emit(!hasError);
+    return hasError;
   }
 
 }
