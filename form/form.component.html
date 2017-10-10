@@ -41,11 +41,12 @@
         [dependsValue]="item[column.dependsColumn]">
       </app-form-textarea>
 
-      <input class="form-control"
-             *ngSwitchCase="'date'"
-             required
-             [(ngModel)]="item[column.name]"
-             ngui-datetime-picker/>
+      <app-form-calendar
+        *ngSwitchCase="'date'"
+        [column]="column"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]">
+      </app-form-calendar>
 
       <app-form-input-text
         *ngSwitchDefault

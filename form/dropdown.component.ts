@@ -42,6 +42,7 @@ export class DropdownComponent implements OnInit {
   }
 
   private _model: any;
+  private _options: any;
   public beginValidate: boolean;
 
   constructor(private validator: CustomValidator) {
@@ -51,7 +52,10 @@ export class DropdownComponent implements OnInit {
   }
 
   getOptions() {
-    return ColumnUtils.getOptions(this.column, this.dependsValue);
+    if (!this._options) {
+      this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
+    }
+    return this._options;
   }
 
   errors() {

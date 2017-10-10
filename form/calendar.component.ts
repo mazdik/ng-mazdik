@@ -1,25 +1,21 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {Column} from '../types/interfaces';
-import {ColumnUtils} from '../utils/column-utils';
 import {CustomValidator} from './custom-validator';
 
 
 @Component({
-  selector: 'app-form-checkbox',
+  selector: 'app-form-calendar',
   template: `
     <div class="form-group" [ngClass]="{'has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
-      <div class="checkbox" *ngFor="let o of getOptions()">
-        <label>
-          <input
-            type="checkbox"
-            [(ngModel)]="model"
-            [name]="column.name"
-            [value]="o.id"
-            [checked]="isSelectActive(o)"/>
-        </label>
-        <span>{{o.name ? o.name : o.id}}</span>
+      <div class="form-group">
+        <div class='input-group date' style="width: 250px">
+          <input type='text' class="form-control" [(ngModel)]="model" ngui-datetime-picker />
+          <span class="input-group-addon">
+             <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
       </div>
 
       <div class="help-block">
@@ -28,7 +24,7 @@ import {CustomValidator} from './custom-validator';
     </div>
   `
 })
-export class CheckboxComponent implements OnInit {
+export class CalendarComponent implements OnInit {
 
   @Input() public column: Column;
   @Input() public dependsValue: any;
@@ -47,7 +43,6 @@ export class CheckboxComponent implements OnInit {
   }
 
   private _model: any;
-  private _options: any;
   public beginValidate: boolean;
 
   constructor(private validator: CustomValidator) {
@@ -55,14 +50,6 @@ export class CheckboxComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getOptions() {
-    if (!this._options) {
-      this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
-    }
-    return this._options;
-  }
-
 
   errors() {
     if (this.beginValidate) {
@@ -72,14 +59,6 @@ export class CheckboxComponent implements OnInit {
 
   hasError() {
     return this.validator.hasError(this.column, this.model);
-  }
-
-  isSelectActive(option) {
-    if (Array.isArray(this.model)) {
-      return this.model.find(a => a === option.id) ? true : false;
-    } else {
-      return this.model === option.id;
-    }
   }
 
 }

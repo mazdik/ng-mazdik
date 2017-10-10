@@ -28,7 +28,9 @@ import {CheckboxComponent} from './form/checkbox.component';
 import {RadioComponent} from './form/radio.component';
 import {InputTextComponent} from './form/input-text.component';
 import {TextareaComponent} from './form/textarea.component';
+import {CalendarComponent} from './form/calendar.component';
 import {CustomValidator} from './form/custom-validator';
+import {FormService} from './form/form.service';
 
 @NgModule({
   imports: [
@@ -62,9 +64,10 @@ import {CustomValidator} from './form/custom-validator';
     RadioComponent,
     InputTextComponent,
     TextareaComponent,
+    CalendarComponent,
   ],
   exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent, ModalComponent],
-  providers: [CustomValidator]
+  providers: [CustomValidator, FormService]
 })
 export class CrudTableModule {
 }
