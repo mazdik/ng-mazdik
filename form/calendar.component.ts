@@ -9,14 +9,7 @@ import {CustomValidator} from './custom-validator';
     <div class="form-group" [ngClass]="{'has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
-      <div class="form-group">
-        <div class='input-group date' style="width: 250px">
-          <input type='text' class="form-control" [(ngModel)]="model" ngui-datetime-picker />
-          <span class="input-group-addon">
-             <span class="glyphicon glyphicon-calendar"></span>
-          </span>
-        </div>
-      </div>
+      <input type="datetime-local" class="form-control" [(ngModel)]="model" />
 
       <div class="help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>

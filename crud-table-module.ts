@@ -21,7 +21,6 @@ import {TreeViewComponent} from './tree-view/tree-view.component';
 import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
-import {NguiDatetimePickerModule} from './datetime-picker';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {DropdownComponent} from './form/dropdown.component';
 import {CheckboxComponent} from './form/checkbox.component';
@@ -36,7 +35,6 @@ import {FormService} from './form/form.service';
   imports: [
     CommonModule,
     FormsModule,
-    NguiDatetimePickerModule,
   ],
   declarations: [
     CrudTableComponent,

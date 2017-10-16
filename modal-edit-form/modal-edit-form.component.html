@@ -1,6 +1,6 @@
 <app-modal #childModal [modalTitle]="modalTitle()">
   <div class="app-modal-body">
-    <div *ngIf="item">
+    <div *ngIf="childModal.visible">
       <app-row-form
         [columns]="columns"
         [item]="item"
