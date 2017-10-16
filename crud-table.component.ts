@@ -113,12 +113,6 @@ export class CrudTableComponent implements OnInit {
     return clone;
   }
 
-  findSelectedItemIndex(selectedItem: any): number {
-    const obj = this.items.find(x => JSON.stringify(x) === JSON.stringify(selectedItem));
-    const index = this.items.indexOf(obj);
-    return index;
-  }
-
   createItem() {
     this.item = {};
     this.modalEditForm.open();
@@ -181,8 +175,5 @@ export class CrudTableComponent implements OnInit {
   onErrors(event) {
     this.errors = event;
   }
-
-  save() {}
-  delete() {}
 
 }

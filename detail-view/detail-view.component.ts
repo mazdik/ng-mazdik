@@ -1,9 +1,9 @@
 import {Component, Input, Output, EventEmitter, OnInit, PipeTransform} from '@angular/core';
-import {Column, Settings} from '../types/interfaces';
+import {Column, Settings, ICrudService} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
-  selector: 'detail-view',
+  selector: 'app-detail-view',
   templateUrl: 'detail-view.component.html'
 })
 
@@ -11,13 +11,16 @@ export class DetailViewComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
+  @Input() public service: ICrudService;
   @Input() public item: any;
 
-  @Output() onSaveItem: EventEmitter<any> = new EventEmitter();
-  @Output() onDeleteItem: EventEmitter<any> = new EventEmitter();
+  @Output() updated: EventEmitter<any> = new EventEmitter();
+  @Output() deleted: EventEmitter<any> = new EventEmitter();
   @Output() onClose: EventEmitter<any> = new EventEmitter();
+  @Output() errors: EventEmitter<any> = new EventEmitter();
 
   public edit: boolean = false;
+  public loading: boolean = false;
 
   constructor() {
   }
@@ -49,13 +52,37 @@ export class DetailViewComponent implements OnInit {
   }
 
   saveItem() {
-    this.onSaveItem.emit(this.item);
-    this.edit = false;
+    this.loading = true;
+    this.service
+      .put(this.item)
+      .then(res => {
+        this.loading = false;
+        this.errors.emit(null);
+        this.updated.emit(res);
+        this.edit = false;
+      })
+      .catch(error => {
+        this.loading = false;
+        this.errors.emit(error);
+      });
   }
 
   deleteItem() {
-    this.onDeleteItem.emit(this.item);
-    this.onClose.emit(true);
+    this.loading = true;
+    this.service
+      .delete(this.item)
+      .then(res => {
+        this.loading = false;
+        this.errors.emit(null);
+        this.deleted.emit(true);
+        this.item = null;
+        this.onClose.emit(true);
+      })
+      .catch(error => {
+        this.loading = false;
+        this.errors.emit(error);
+      });
   }
+
 
 }

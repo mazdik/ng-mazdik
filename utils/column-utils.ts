@@ -49,5 +49,10 @@ export class ColumnUtils {
     return metrics.width;
   }
 
+  findSelectedIndex(selectedItem: any, items: any): number {
+    const obj = items.find(x => JSON.stringify(x) === JSON.stringify(selectedItem));
+    const index = items.indexOf(obj);
+    return index;
+  }
 
 }
