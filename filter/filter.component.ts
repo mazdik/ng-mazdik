@@ -51,11 +51,11 @@ export class FilterComponent implements OnInit {
       this.isVisible = true;
       if (this.column.options) {
         setTimeout(() => {
-          this.searchFilterInput.nativeElement.focus()
+          this.searchFilterInput.nativeElement.focus();
         }, 1);
       } else {
         setTimeout(() => {
-          this.filterInput.nativeElement.focus()
+          this.filterInput.nativeElement.focus();
         }, 1);
       }
     }

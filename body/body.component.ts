@@ -11,11 +11,18 @@ import {Column, MenuItem} from '../types/interfaces';
 export class BodyComponent {
 
   @Input() public columns: Column[];
-  @Input() public items: any;
   @Input() public actionColumnWidth: number;
   @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
+
+  @Input() set rows(val: any[]) {
+    this._rows = val;
+  }
+
+  get rows(): any[] {
+    return this._rows;
+  }
 
   @Input()
   @HostBinding('style.height')
@@ -36,6 +43,7 @@ export class BodyComponent {
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
 
   offsetY: number = 0;
+  _rows: any[];
   _bodyHeight: any;
 
   constructor() {
@@ -58,6 +66,5 @@ export class BodyComponent {
     this.offsetX = scrollXPos;
 
   }
-
 
 }

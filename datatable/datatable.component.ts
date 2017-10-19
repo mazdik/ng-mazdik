@@ -28,6 +28,7 @@ export class DatatableComponent implements OnInit {
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
   @Input() public loading: boolean = false;
+  @Input() public selectedRowIndex: number;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();
@@ -36,9 +37,7 @@ export class DatatableComponent implements OnInit {
 
   @ViewChild('selectFilter') selectFilter: any;
 
-  public selectedRowIndex: number;
   public sortMeta: SortMeta = <SortMeta>{};
-
   public scrollHeight: number;
   public tableWidth: number;
   public letterWidth: number = 10;
@@ -61,6 +60,7 @@ export class DatatableComponent implements OnInit {
       // TODO client side
       this.itemsCopy = Object.assign({}, this.items);
     }
+    this.setDefaultSelectedRowIndex();
   }
 
   initColumns(): void {
@@ -212,6 +212,13 @@ export class DatatableComponent implements OnInit {
     const start = (page - 1) * this.itemsPerPage;
     const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
+  }
+
+  setDefaultSelectedRowIndex() {
+    if (!this.selectedRowIndex) {
+      this.selectedRowIndex = 0;
+      this.selectedRowIndexChanged.emit(this.selectedRowIndex);
+    }
   }
 
 }

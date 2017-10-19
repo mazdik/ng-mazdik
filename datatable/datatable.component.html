@@ -21,12 +21,13 @@
   </datatable-header>
   <datatable-body
     [columns]="columns"
-    [items]="items"
+    [rows]="items"
     [bodyHeight]="scrollHeight"
     [actionColumnWidth]="actionColumnWidth"
     (editComplete)="onEditComplete($event)"
     [actionMenu]="rowMenu"
     [offsetX]="offsetX"
+    [selectedRowIndex]="selectedRowIndex"
     (scroll)="onBodyScroll($event)"
     (selectedRowIndexChange)="selectedRowIndexChanged.emit($event)">
   </datatable-body>

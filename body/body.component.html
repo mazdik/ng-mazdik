@@ -4,10 +4,10 @@
     [scrollbarH]="true"
     (scroll)="onBodyScroll($event)">
     <div class="datatable-row-wrapper"
-         *ngFor="let item of items; let rowIndex=index">
+         *ngFor="let row of rows; let rowIndex=index">
       <datatable-body-row
         [columns]="columns"
-        [row]="item"
+        [row]="row"
         [rowIndex]="rowIndex"
         [(selectedRowIndex)]="selectedRowIndex"
         [actionColumnWidth]="actionColumnWidth"
@@ -18,4 +18,9 @@
       </datatable-body-row>
     </div>
   </datatable-scroller>
+  <div
+    class="empty-row"
+    *ngIf="!rows?.length"
+    [innerHTML]="'No data found'">
+  </div>
 </div>

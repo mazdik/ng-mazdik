@@ -31,7 +31,6 @@ export class CrudTableComponent implements OnInit {
 
   public items: any[];
   public item: any;
-  public selectedItem: any;
   public selectedRowIndex: number;
   public errors: any;
   public onDetailView: boolean = false;
@@ -65,12 +64,12 @@ export class CrudTableComponent implements OnInit {
       {
         label: 'View',
         icon: 'glyphicon glyphicon-eye-open',
-        command: (event) => this.viewDetails(this.items[this.selectedRowIndex])
+        command: (event) => this.viewDetails()
       },
       {
         label: 'Update',
         icon: 'glyphicon glyphicon-pencil',
-        command: (event) => this.updateItem(this.items[this.selectedRowIndex]),
+        command: (event) => this.updateItem(),
         disabled: !this.settings.crud
       }
     ];
@@ -109,7 +108,6 @@ export class CrudTableComponent implements OnInit {
 
   cloneItem(item: any) {
     const clone = Object.assign({}, item);
-    this.selectedItem = Object.assign({}, item);
     return clone;
   }
 
@@ -118,7 +116,8 @@ export class CrudTableComponent implements OnInit {
     this.modalEditForm.open();
   }
 
-  updateItem(item: any) {
+  updateItem() {
+    const item = this.items[this.selectedRowIndex];
     this.item = this.cloneItem(item);
     this.modalEditForm.open();
   }
@@ -127,7 +126,8 @@ export class CrudTableComponent implements OnInit {
     this.item = this.cloneItem(item);
   }
 
-  viewDetails(item: any) {
+  viewDetails() {
+    const item = this.items[this.selectedRowIndex];
     this.errors = null;
     this.item = this.cloneItem(item);
     this.onDetailView = true;
