@@ -57,8 +57,7 @@ export class DatatableComponent implements OnInit {
     this.initColumns();
     this.initTableSize();
     if (this.settings.clientSide) {
-      // TODO client side
-      this.itemsCopy = Object.assign({}, this.items);
+      this.itemsCopy = this.items.slice(0);
     }
     this.setDefaultSelectedRowIndex();
   }
@@ -181,8 +180,8 @@ export class DatatableComponent implements OnInit {
     this.selectFilter.hide();
   }
 
-  filter(data: any, filters: Filter) {
-    let filteredData: Array<any> = data;
+  filter(data: any[], filters: Filter) {
+    let filteredData: any[] = data;
     for (const key in filters) {
       if (filters[key]['value']) {
         filteredData = filteredData.filter((item: any) => {
