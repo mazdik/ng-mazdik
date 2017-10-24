@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Column, Settings, Filter, MenuItem} from '../index';
+import {Column, Settings} from '../index';
 import {ITEMS} from './demo.items';
 
 @Component({
@@ -8,15 +8,13 @@ import {ITEMS} from './demo.items';
     <app-datatable
       [columns]="columns"
       [settings]="settings"
-      [items]="rows"
-      [filters]="filters">
+      [items]="rows">
     </app-datatable>
   `
 })
 
 export class DataTableDemoComponent implements OnInit {
 
-  public filters: Filter = {};
   public rows: any;
 
   constructor() {

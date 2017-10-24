@@ -23,7 +23,7 @@ export class DatatableComponent implements OnInit {
   @Input() public settings: Settings;
   @Input() public headerHeight: number = 30;
   @Input() public items: any;
-  @Input() public filters: Filter;
+  @Input() public filters: Filter = {};
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
@@ -118,6 +118,11 @@ export class DatatableComponent implements OnInit {
     } else {
       this.sortChanged.emit(this.sortMeta);
     }
+  }
+
+  onSelectRow(event) {
+    this.selectedRowIndex = event;
+    this.selectedRowIndexChanged.emit(this.selectedRowIndex);
   }
 
   showColumnMenu(event) {

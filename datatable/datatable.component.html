@@ -29,7 +29,7 @@
     [offsetX]="offsetX"
     [selectedRowIndex]="selectedRowIndex"
     (scroll)="onBodyScroll($event)"
-    (selectedRowIndexChange)="selectedRowIndexChanged.emit($event)">
+    (selectedRowIndexChange)="onSelectRow($event)">
   </datatable-body>
   <datatable-footer
     [totalItems]="totalItems"

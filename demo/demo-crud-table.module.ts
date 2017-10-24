@@ -9,6 +9,7 @@ import { BasicDemoComponent } from './basic-demo.component';
 import { TreeTableDemoComponent } from './tree-table-demo.component';
 import { TreeFilterDemoComponent } from './tree-filter-demo.component';
 import { DataTableDemoComponent } from './data-table-demo.component';
+import { MasterDetailDemoComponent } from './master-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { DataTableDemoComponent } from './data-table-demo.component';
     BasicDemoComponent,
     TreeTableDemoComponent,
     TreeFilterDemoComponent,
-    DataTableDemoComponent
+    DataTableDemoComponent,
+    MasterDetailDemoComponent
   ],
   imports: [
     BrowserModule,
