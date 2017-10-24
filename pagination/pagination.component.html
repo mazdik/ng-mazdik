@@ -5,7 +5,7 @@
 
     <a [class.disabled]="currentPage===1" href (click)="setPage(currentPage - 1, $event)">&lsaquo;</a>
 
-      <a *ngFor="let page of getPages()"
+      <a *ngFor="let page of pages"
          [ngClass]="{active:currentPage === page}"
          href (click)="setPage(page, $event)">
         {{page}}

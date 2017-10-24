@@ -12,9 +12,8 @@ export class FooterComponent {
   @Input() footerHeight: number;
   @Input() totalItems: number;
   @Input() itemsPerPage: number;
+  @Input() currentPage: number;
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
-
-  currentPage: number = 1;
 
   onPageChanged(event) {
     this.pageChanged.emit(event);

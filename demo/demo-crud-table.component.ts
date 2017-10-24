@@ -10,7 +10,7 @@ import {Component} from '@angular/core';
           <li><span (click)="state='table-base'" [ngClass]="{'active': state === 'table-base'}">Basic demo</span></li>
           <li><span (click)="state='tree-table-demo'" [ngClass]="{'active': state === 'tree-table-demo'}">Tree table demo</span></li>
           <li><span (click)="state='tree-filter-demo'" [ngClass]="{'active': state === 'tree-filter-demo'}">Tree filter demo</span></li>
-          <li><span (click)="state='data-table-demo'" [ngClass]="{'active': state === 'data-table-demo'}">Data-table demo</span></li>
+          <li><span (click)="state='data-table-demo'" [ngClass]="{'active': state === 'data-table-demo'}">Data table demo</span></li>
         </ul>
       </div>
       <div class="col-md-10">

@@ -6,7 +6,6 @@
        [ngStyle]="stylesByGroup()">
 
     <div class="datatable-body-cell"
-         *ngIf="enableAction"
          [ngStyle]="{'width.px': actionColumnWidth}">
 
       <ng-template ngFor let-action [ngForOf]="actionMenu">
@@ -16,6 +15,8 @@
           <span [ngClass]="action.icon"></span>
         </a>
       </ng-template>
+
+      <span *ngIf="!enableAction">{{rowIndex+1}}</span>
     </div>
 
     <datatable-body-cell

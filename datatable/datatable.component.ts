@@ -27,6 +27,7 @@ export class DatatableComponent implements OnInit {
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
+  @Input() public currentPage: number = 1;
   @Input() public loading: boolean = false;
   @Input() public selectedRowIndex: number;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
@@ -58,6 +59,7 @@ export class DatatableComponent implements OnInit {
     this.initTableSize();
     if (this.settings.clientSide) {
       this.itemsCopy = this.items.slice(0);
+      this.items = this.getItems();
     }
     this.setDefaultSelectedRowIndex();
   }
@@ -89,7 +91,8 @@ export class DatatableComponent implements OnInit {
 
   onPageChanged(event: any): void {
     if (this.settings.clientSide) {
-      this.items = this.page(this.items, event);
+      this.currentPage = event;
+      this.items = this.getItems();
     } else {
       this.pageChanged.emit(event);
     }
@@ -102,7 +105,7 @@ export class DatatableComponent implements OnInit {
   onFilter(event) {
     this.filters = event;
     if (this.settings.clientSide) {
-      this.items = this.filter(this.itemsCopy, this.filters);
+      this.items = this.getItems();
     } else {
       this.filterChanged.emit(this.filters);
     }
@@ -111,7 +114,7 @@ export class DatatableComponent implements OnInit {
   onSort(event) {
     this.sortMeta = event.sortMeta;
     if (this.settings.clientSide) {
-      this.items = this.sort(this.items, this.sortMeta.field, this.sortMeta.order);
+      this.items = this.getItems();
     } else {
       this.sortChanged.emit(this.sortMeta);
     }
@@ -155,8 +158,7 @@ export class DatatableComponent implements OnInit {
     if (!columns) {
       return;
     }
-    const result = columns.map(this.setColumnDefaults, this);
-    return result;
+    return columns.map(this.setColumnDefaults, this);
   }
 
   columnsTotalWidth(columns: Column[]): number {
@@ -207,7 +209,7 @@ export class DatatableComponent implements OnInit {
     });
   }
 
-  page(data: any, page: any): Array<any> {
+  pager(data: any, page: any): any[] {
     const start = (page - 1) * this.itemsPerPage;
     const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
@@ -218,6 +220,14 @@ export class DatatableComponent implements OnInit {
       this.selectedRowIndex = 0;
       this.selectedRowIndexChanged.emit(this.selectedRowIndex);
     }
+  }
+
+  getItems() {
+    let data = this.filter(this.itemsCopy, this.filters);
+    this.totalItems = data.length;
+    data = this.sort(data, this.sortMeta.field, this.sortMeta.order);
+    data = this.pager(data, this.currentPage);
+    return data;
   }
 
 }

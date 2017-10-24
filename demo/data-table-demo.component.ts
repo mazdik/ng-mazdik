@@ -9,9 +9,7 @@ import {ITEMS} from './demo.items';
       [columns]="columns"
       [settings]="settings"
       [items]="rows"
-      [filters]="filters"
-      [rowMenu]="rowMenu"
-      [totalItems]="total">
+      [filters]="filters">
     </app-datatable>
   `
 })
@@ -20,22 +18,12 @@ export class DataTableDemoComponent implements OnInit {
 
   public filters: Filter = {};
   public rows: any;
-  public total: number;
-  public rowMenu: MenuItem[];
 
   constructor() {
   }
 
   ngOnInit() {
     this.rows = ITEMS;
-    this.total = this.rows.length;
-    this.rowMenu = [
-      {
-        label: 'View',
-        icon: 'glyphicon glyphicon-eye-open',
-        command: (event) => null
-      }
-    ];
   }
 
   public settings: Settings = {
@@ -43,7 +31,7 @@ export class DataTableDemoComponent implements OnInit {
     crud: true,
     primaryKey: 'id',
     tableWidth: 820,
-    scrollHeight: 380,
+    scrollHeight: 250,
     clientSide: true,
   };
 

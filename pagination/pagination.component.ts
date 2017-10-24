@@ -10,34 +10,31 @@ export class PaginationComponent {
   protected _currentPage: number = 1;
   protected _itemsPerPage: number = 10;
   protected _totalItems: number = 0;
+  pages: any;
 
   @Output() pageChanged = new EventEmitter();
 
   @Input()
+  public set itemsPerPage(value: number) {
+    this._itemsPerPage = value;
+    this.pages = this.getPages();
+  }
+
   public get itemsPerPage(): number {
     return this._itemsPerPage;
   }
 
-  public set itemsPerPage(value: number) {
-    this._itemsPerPage = value;
-    this.setPage(this.currentPage);
+  @Input()
+  public set totalItems(value: number) {
+    this._totalItems = value;
+    this.pages = this.getPages();
   }
 
-  @Input()
   public get totalItems(): number {
     return this._totalItems;
   }
 
-  public set totalItems(value: number) {
-    this._totalItems = value;
-    this.setPage(this.currentPage);
-  }
-
   @Input()
-  public get currentPage(): number {
-    return this._currentPage;
-  }
-
   public set currentPage(value: number) {
     const _previous = this._currentPage;
     this._currentPage = (value > this.calculateTotalPages()) ? this.calculateTotalPages() : (value || 1);
@@ -45,8 +42,11 @@ export class PaginationComponent {
     if (_previous === this._currentPage || typeof _previous === 'undefined') {
       return;
     }
+    this.pages = this.getPages();
+  }
 
-    this.pageChanged.emit(this._currentPage);
+  public get currentPage(): number {
+    return this._currentPage;
   }
 
   public setPage(page: number, event ?: MouseEvent): void {
@@ -59,6 +59,7 @@ export class PaginationComponent {
       target.blur();
     }
     this.currentPage = page;
+    this.pageChanged.emit(this.currentPage);
   }
 
   public calculateTotalPages(): number {

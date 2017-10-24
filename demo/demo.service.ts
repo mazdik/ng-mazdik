@@ -28,7 +28,7 @@ export class DemoService implements ICrudService {
     };
     return new Promise((resolve) => {
       // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(result), 1000);
+      setTimeout(() => resolve(result), 250);
     });
   }
 
@@ -78,7 +78,7 @@ export class DemoService implements ICrudService {
     // this.data.items.push(item); // exist in component
     return new Promise((resolve) => {
       // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(item), 1000);
+      setTimeout(() => resolve(item), 250);
     });
   }
 
@@ -87,7 +87,7 @@ export class DemoService implements ICrudService {
     // this.data.items[this.findSelectedItemIndex(item)] = item; // exist in component
     return new Promise((resolve) => {
       // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(item), 1000);
+      setTimeout(() => resolve(item), 250);
     });
   }
 
@@ -95,7 +95,7 @@ export class DemoService implements ICrudService {
     // this.data.items.splice(this.findSelectedItemIndex(item), 1); // exist in component
     return new Promise((resolve) => {
       // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(item), 1000);
+      setTimeout(() => resolve(item), 250);
     });
   }
 
