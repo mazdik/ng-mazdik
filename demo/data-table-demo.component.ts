@@ -8,7 +8,7 @@ import {ITEMS} from './demo.items';
     <app-datatable
       [columns]="columns"
       [settings]="settings"
-      [items]="rows">
+      [rows]="rows">
     </app-datatable>
   `
 })

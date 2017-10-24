@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Column, Settings, Filter} from '../index';
+import {Column, Settings} from '../index';
 import {ITEMS} from './demo.items';
 import {RANK} from './demo.rank';
 import {INVENTORY} from './demo.inventory';
@@ -11,21 +11,23 @@ import {INVENTORY} from './demo.inventory';
       #tablePlayers
       [columns]="columnsPlayers"
       [settings]="settingsPlayers"
-      [items]="rowsPlayers"
+      [rows]="rowsPlayers"
       (filterChanged)="masterChanged($event)"
       (pageChanged)="masterChanged($event)"
       (sortChanged)="masterChanged($event)"
       (selectedRowIndexChanged)="masterChanged($event)">
     </app-datatable>
     <app-datatable
+      #tableRank
       [columns]="columnsRank"
       [settings]="settingsRank"
-      [items]="rowsRank">
+      [rows]="rowsRank">
     </app-datatable>
     <app-datatable
+      #tableInventory
       [columns]="columnsInventory"
       [settings]="settingsInventory"
-      [items]="rowsInventory">
+      [rows]="rowsInventory">
     </app-datatable>
   `
 })
@@ -35,9 +37,6 @@ export class MasterDetailDemoComponent implements OnInit {
   public rowsPlayers: any;
   public rowsRank: any;
   public rowsInventory: any;
-  public filterPlayers: Filter = {};
-  public filterRank: Filter = {};
-  public filterInventory: Filter = {};
 
   @ViewChild('tablePlayers') tablePlayers: any;
 
@@ -188,7 +187,13 @@ export class MasterDetailDemoComponent implements OnInit {
   }
 
   masterChanged(event) {
-    console.log(this.tablePlayers.items[this.tablePlayers.selectedRowIndex]);
+    const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
+    this.rowsRank = RANK.filter((value: any) => {
+      return value['player_id'] === masterId;
+    });
+    this.rowsInventory = INVENTORY.filter((value: any) => {
+      return value['itemOwner'] === masterId;
+    });
   }
 
 }

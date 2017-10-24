@@ -22,7 +22,6 @@ export class DatatableComponent implements OnInit {
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public headerHeight: number = 30;
-  @Input() public items: any;
   @Input() public filters: Filter = {};
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
@@ -35,6 +34,17 @@ export class DatatableComponent implements OnInit {
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
+
+  @Input() set rows(val: any[]) {
+    this._rows = val;
+    if (this.settings.clientSide) {
+      this.itemsCopy = (this.rows) ? this.rows.slice(0) : [];
+    }
+  }
+
+  get rows(): any[] {
+    return this._rows;
+  }
 
   @ViewChild('selectFilter') selectFilter: any;
 
@@ -50,6 +60,7 @@ export class DatatableComponent implements OnInit {
   scrollableColumnsWidth: number = 0;
   offsetX: number = 0;
   itemsCopy: any;
+  _rows: any[];
 
   constructor() {
   }
@@ -58,8 +69,7 @@ export class DatatableComponent implements OnInit {
     this.initColumns();
     this.initTableSize();
     if (this.settings.clientSide) {
-      this.itemsCopy = this.items.slice(0);
-      this.items = this.getItems();
+      this.rows = this.getItems();
     }
     this.setDefaultSelectedRowIndex();
   }
@@ -92,7 +102,7 @@ export class DatatableComponent implements OnInit {
   onPageChanged(event: any): void {
     if (this.settings.clientSide) {
       this.currentPage = event;
-      this.items = this.getItems();
+      this.rows = this.getItems();
     } else {
       this.pageChanged.emit(event);
     }
@@ -105,7 +115,7 @@ export class DatatableComponent implements OnInit {
   onFilter(event) {
     this.filters = event;
     if (this.settings.clientSide) {
-      this.items = this.getItems();
+      this.rows = this.getItems();
     } else {
       this.filterChanged.emit(this.filters);
     }
@@ -114,7 +124,7 @@ export class DatatableComponent implements OnInit {
   onSort(event) {
     this.sortMeta = event.sortMeta;
     if (this.settings.clientSide) {
-      this.items = this.getItems();
+      this.rows = this.getItems();
     } else {
       this.sortChanged.emit(this.sortMeta);
     }
