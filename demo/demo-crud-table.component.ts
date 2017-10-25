@@ -29,7 +29,7 @@ import {Component} from '@angular/core';
   `,
   styles: [
     '.demo-list {list-style: none; padding: 0; margin: 0;}',
-    '.demo-list span {cursor:pointer; color:#5b9bd5; display: block; padding: 8px 0px;}',
+    '.demo-list span {cursor:pointer; color:#5b9bd5; display: block; padding: 8px 3px;}',
     '.demo-list span:hover {background-color: #5b9bd5; color: white;}',
     '.demo-list span.active {background-color: #5b9bd5; color: white;}',
   ]

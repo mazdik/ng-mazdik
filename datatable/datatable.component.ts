@@ -22,7 +22,7 @@ export class DatatableComponent implements OnInit {
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public headerHeight: number = 30;
-  @Input() public filters: Filter = {};
+  @Input() public filters: Filter = <Filter>{};
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
@@ -38,6 +38,9 @@ export class DatatableComponent implements OnInit {
   @Input() set rows(val: any[]) {
     this._rows = val;
     if (this.settings.clientSide) {
+      this.filters = <Filter>{};
+      this.sortMeta = <SortMeta>{};
+      this.totalItems = this._rows.length;
       this.itemsCopy = (this.rows) ? this.rows.slice(0) : [];
     }
   }
@@ -69,7 +72,7 @@ export class DatatableComponent implements OnInit {
     this.initColumns();
     this.initTableSize();
     if (this.settings.clientSide) {
-      this.rows = this.getItems();
+      this._rows = this.getItems();
     }
     this.setDefaultSelectedRowIndex();
   }
@@ -102,7 +105,7 @@ export class DatatableComponent implements OnInit {
   onPageChanged(event: any): void {
     if (this.settings.clientSide) {
       this.currentPage = event;
-      this.rows = this.getItems();
+      this._rows = this.getItems();
     } else {
       this.pageChanged.emit(event);
     }
@@ -115,7 +118,8 @@ export class DatatableComponent implements OnInit {
   onFilter(event) {
     this.filters = event;
     if (this.settings.clientSide) {
-      this.rows = this.getItems();
+      this.currentPage = 1;
+      this._rows = this.getItems();
     } else {
       this.filterChanged.emit(this.filters);
     }
@@ -124,7 +128,7 @@ export class DatatableComponent implements OnInit {
   onSort(event) {
     this.sortMeta = event.sortMeta;
     if (this.settings.clientSide) {
-      this.rows = this.getItems();
+      this._rows = this.getItems();
     } else {
       this.sortChanged.emit(this.sortMeta);
     }
@@ -202,7 +206,7 @@ export class DatatableComponent implements OnInit {
     for (const key in filters) {
       if (filters[key]['value']) {
         filteredData = filteredData.filter((item: any) => {
-          if (item[key]) {
+          if (key in item) {
             return item[key].toString().match(filters[key]['value']);
           } else {
             return false;

@@ -11,9 +11,9 @@
         {{page}}
       </a>
 
-    <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(currentPage + 1, $event)">&rsaquo;</a>
+    <a [class.disabled]="currentPage===totalPages()" href (click)="setPage(currentPage + 1, $event)">&rsaquo;</a>
 
-    <a [class.disabled]="currentPage===calculateTotalPages()" href (click)="setPage(calculateTotalPages(), $event)">&raquo;</a>
+    <a [class.disabled]="currentPage===totalPages()" href (click)="setPage(totalPages(), $event)">&raquo;</a>
 
   </div>
 </ng-template>

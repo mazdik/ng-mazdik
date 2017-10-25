@@ -12,7 +12,10 @@
   display: none !important;
 }
 
-.datatable *, .datatable *:before, .datatable *:after {
+.datatable *,
+.datatable *:before,
+.datatable *:after {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -53,6 +56,12 @@
   text-overflow: ellipsis;
 }
 
+.datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .datatable .datatable-body-row,
 .datatable .datatable-header-inner {
   display: -webkit-box;
@@ -69,14 +78,10 @@
 
 .datatable .datatable-body-cell,
 .datatable .datatable-header-cell {
+  overflow-x: hidden;
   vertical-align: top;
   display: inline-block;
   line-height: 1.625;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
 
 .datatable .datatable-body-cell:focus,
@@ -91,6 +96,7 @@
 
 .datatable .datatable-row-left,
 .datatable .datatable-row-center,
+.datatable .datatable-row-group,
 .datatable .datatable-row-right {
   position: relative;
 }
@@ -112,7 +118,7 @@
   display: inline-block;
 }
 
-.datatable .datatable-header .datatable-header-cell .datatable-header-cell-wrapper {
+.datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {
   cursor: pointer;
 }
 
@@ -225,7 +231,8 @@
   list-style: none;
 }
 
-.datatable .datatable-footer .datatable-pager .pager li, .datatable .datatable-footer .datatable-pager .pager li a {
+.datatable .datatable-footer .datatable-pager .pager li,
+.datatable .datatable-footer .datatable-pager .pager li a {
   outline: none;
 }
 
@@ -237,14 +244,17 @@
 .datatable .datatable-footer .datatable-pager .pager li.disabled a {
   cursor: not-allowed;
 }
+
 /******/
 .datatable-header-cell {
   background-color: #5b9bd5;
   color: white;
 }
+
 .datatable-header-cell:hover {
   background-color: #337ab7;
 }
+
 .datatable-header-cell:hover .column-menu {
   visibility: visible;
 }
@@ -255,9 +265,10 @@
 
 .datatable .datatable-body-cell,
 .datatable .datatable-header-cell {
-  border-right: 1px solid rgba(0,0,0,.2);
-  border-bottom: 1px solid rgba(0,0,0,.2);
+  border-right: 1px solid rgba(0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
+
 /* Editing */
 .cell-data {
   overflow: hidden;
@@ -265,33 +276,41 @@
   text-overflow: ellipsis;
   display: block;
 }
+
 .cell-editor {
   display: none;
 }
+
 .cell-editing {
   padding: 0 1px;
 }
+
 .cell-editing .cell-data {
   display: none;
 }
+
 .cell-editing .cell-editor {
   display: block;
 }
-.cell-editor input{
+
+.cell-editor input {
   width: 100%;
   height: 100%;
   padding: 1px 3px;
 }
-.cell-editor select{
+
+.cell-editor select {
   width: 100%;
   height: 100%;
   padding: 1px 3px;
   cursor: pointer;
   background: #ffffff;
 }
+
 .row-selected {
   background-color: #ecf3ff;
 }
+
 .cell-selected {
   background-color: #b3c4c7;
 }

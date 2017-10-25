@@ -17,18 +17,23 @@ import {INVENTORY} from './demo.inventory';
       (sortChanged)="masterChanged($event)"
       (selectedRowIndexChanged)="masterChanged($event)">
     </app-datatable>
-    <app-datatable
-      #tableRank
-      [columns]="columnsRank"
-      [settings]="settingsRank"
-      [rows]="rowsRank">
-    </app-datatable>
-    <app-datatable
-      #tableInventory
-      [columns]="columnsInventory"
-      [settings]="settingsInventory"
-      [rows]="rowsInventory">
-    </app-datatable>
+    <div style="display:inline-block; vertical-align: top;">
+      <app-datatable
+        #tableInventory
+        [columns]="columnsInventory"
+        [settings]="settingsInventory"
+        [rows]="rowsInventory">
+      </app-datatable>
+    </div>
+    <div style="display:inline-block; width: 5px;"></div>
+    <div style="display:inline-block; vertical-align: top;">
+      <app-datatable
+        #tableRank
+        [columns]="columnsRank"
+        [settings]="settingsRank"
+        [rows]="rowsRank">
+      </app-datatable>
+    </div>
   `
 })
 
@@ -53,7 +58,7 @@ export class MasterDetailDemoComponent implements OnInit {
     api: null,
     crud: false,
     primaryKey: 'id',
-    tableWidth: 820,
+    tableWidth: 500,
     scrollHeight: 250,
     clientSide: true,
   };
@@ -62,7 +67,7 @@ export class MasterDetailDemoComponent implements OnInit {
     api: null,
     crud: false,
     primaryKey: 'id',
-    tableWidth: 820,
+    tableWidth: 600,
     scrollHeight: 250,
     clientSide: true,
   };
@@ -137,29 +142,29 @@ export class MasterDetailDemoComponent implements OnInit {
   ];
 
   public columnsRank: Column[] = [
-    {title: 'player_id', name: 'player_id'},
-    {title: 'daily_ap', name: 'daily_ap'},
-    {title: 'weekly_ap', name: 'weekly_ap'},
-    {title: 'ap', name: 'ap'},
-    {title: 'rank', name: 'rank'},
-    {title: 'top_ranking', name: 'top_ranking'},
-    {title: 'old_ranking', name: 'old_ranking'},
-    {title: 'daily_kill', name: 'old_ranking'},
-    {title: 'weekly_kill', name: 'weekly_kill'},
-    {title: 'all_kill', name: 'all_kill'},
-    {title: 'max_rank', name: 'max_rank'},
-    {title: 'last_kill', name: 'last_kill'},
-    {title: 'last_ap', name: 'last_ap'},
-    {title: 'last_update', name: 'last_update'}
+    {title: 'player_id', name: 'player_id', width: 100},
+    {title: 'daily_ap', name: 'daily_ap', width: 100},
+    {title: 'weekly_ap', name: 'weekly_ap', width: 100},
+    {title: 'ap', name: 'ap', width: 100},
+    {title: 'rank', name: 'rank', width: 100},
+    {title: 'top_ranking', name: 'top_ranking', width: 100},
+    {title: 'old_ranking', name: 'old_ranking', width: 100},
+    {title: 'daily_kill', name: 'old_ranking', width: 100},
+    {title: 'weekly_kill', name: 'weekly_kill', width: 100},
+    {title: 'all_kill', name: 'all_kill', width: 100},
+    {title: 'max_rank', name: 'max_rank', width: 100},
+    {title: 'last_kill', name: 'last_kill', width: 100},
+    {title: 'last_ap', name: 'last_ap', width: 100},
+    {title: 'last_update', name: 'last_update', width: 120}
   ];
 
   public columnsInventory: Column[] = [
-    {title: 'itemUniqueId', name: 'itemUniqueId'},
-    {title: 'itemId', name: 'itemId'},
-    {title: 'itemCount', name: 'itemCount'},
-    {title: 'itemColor', name: 'itemColor'},
-    {title: 'itemOwner', name: 'itemOwner'},
-    {title: 'itemCreator', name: 'itemCreator'},
+    {title: 'itemUniqueId', name: 'itemUniqueId', width: 100},
+    {title: 'itemId', name: 'itemId', width: 100},
+    {title: 'itemCount', name: 'itemCount', width: 100},
+    {title: 'itemColor', name: 'itemColor', width: 100},
+    {title: 'itemOwner', name: 'itemOwner', width: 100},
+    {title: 'itemCreator', name: 'itemCreator', width: 100},
     {title: 'itemCreationTime', name: 'itemCreationTime'},
     {title: 'itemExistTime', name: 'itemExistTime'},
     {title: 'itemTradeTime', name: 'itemTradeTime'},

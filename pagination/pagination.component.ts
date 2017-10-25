@@ -37,7 +37,7 @@ export class PaginationComponent {
   @Input()
   public set currentPage(value: number) {
     const _previous = this._currentPage;
-    this._currentPage = (value > this.calculateTotalPages()) ? this.calculateTotalPages() : (value || 1);
+    this._currentPage = (value > this.totalPages()) ? this.totalPages() : (value || 1);
 
     if (_previous === this._currentPage || typeof _previous === 'undefined') {
       return;
@@ -58,11 +58,13 @@ export class PaginationComponent {
       const target: any = event.target;
       target.blur();
     }
-    this.currentPage = page;
-    this.pageChanged.emit(this.currentPage);
+    if (page > 0 && page <= this.totalPages() && page !== this.currentPage) {
+      this.currentPage = page;
+      this.pageChanged.emit(this.currentPage);
+    }
   }
 
-  public calculateTotalPages(): number {
+  public totalPages(): number {
     const totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
     return Math.max(totalPages || 0, 1);
   }
@@ -71,7 +73,7 @@ export class PaginationComponent {
     const maxSize: number = 10;
     const pages: any[] = [];
     let startPage = 1;
-    const totalPages = this.calculateTotalPages();
+    const totalPages = this.totalPages();
     let endPage = totalPages;
     const isMaxSized = typeof maxSize !== 'undefined' && maxSize < totalPages;
 
