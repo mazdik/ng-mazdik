@@ -21,7 +21,7 @@
     </div>
 
     <datatable-body-cell
-      *ngFor="let column of frozenColumns; let colIndex = index"
+      *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
@@ -32,7 +32,7 @@
 
   <div class="datatable-row-center datatable-row-group">
     <datatable-body-cell
-      *ngFor="let column of scrollableColumns; let colIndex = index"
+      *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"

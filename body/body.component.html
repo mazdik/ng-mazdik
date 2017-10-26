@@ -4,7 +4,7 @@
     [scrollbarH]="true"
     (scroll)="onBodyScroll($event)">
     <div class="datatable-row-wrapper"
-         *ngFor="let row of rows; let rowIndex=index">
+         *ngFor="let row of rows; let rowIndex=index; trackBy: rowTrackingFn">
       <datatable-body-row
         [columns]="columns"
         [row]="row"

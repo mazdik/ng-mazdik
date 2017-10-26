@@ -71,4 +71,8 @@ export class BodyRowComponent implements OnInit {
     return styles;
   }
 
+  columnTrackingFn(index: number, column: any): any {
+    return column.name;
+  }
+
 }

@@ -15,6 +15,7 @@ export class BodyComponent {
   @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
+  @Input() trackByProp: string;
 
   @Input() set rows(val: any[]) {
     this._rows = val;
@@ -43,10 +44,19 @@ export class BodyComponent {
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
 
   offsetY: number = 0;
+  rowTrackingFn: any;
   _rows: any[];
   _bodyHeight: any;
 
   constructor() {
+    // declare fn here so we can get access to the `this` property
+    this.rowTrackingFn = function(index: number, row: any): any {
+      if (this.trackByProp) {
+        return row[this.trackByProp];
+      } else {
+        return index;
+      }
+    }.bind(this);
   }
 
   onBodyScroll(event: any): void {
