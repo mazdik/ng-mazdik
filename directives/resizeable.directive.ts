@@ -1,10 +1,10 @@
 import {
   Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit
 } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/fromEvent';
-import "rxjs/add/operator/takeUntil";
+import 'rxjs/add/operator/takeUntil';
 
 @Directive({
   selector: '[resizeable]',
@@ -37,9 +37,7 @@ export class ResizeableDirective implements OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this._destroySubscription();
-    }
+    this._destroySubscription();
   }
 
   onMouseup(): void {
@@ -61,11 +59,11 @@ export class ResizeableDirective implements OnDestroy, AfterViewInit {
       event.stopPropagation();
       this.resizing = true;
 
-      let mouseup = Observable.fromEvent(document, 'mouseup');
+      const mouseup = Observable.fromEvent(document, 'mouseup');
       this.subscription = mouseup
         .subscribe((ev: MouseEvent) => this.onMouseup());
 
-      let mouseMoveSub = Observable.fromEvent(document, 'mousemove')
+      const mouseMoveSub = Observable.fromEvent(document, 'mousemove')
         .takeUntil(mouseup)
         .subscribe((e: MouseEvent) => this.move(e, initialWidth, mouseDownScreenX));
 
@@ -86,8 +84,10 @@ export class ResizeableDirective implements OnDestroy, AfterViewInit {
   }
 
   private _destroySubscription() {
-    this.subscription.unsubscribe();
-    this.subscription = undefined;
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = undefined;
+    }
   }
 
 }

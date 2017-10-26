@@ -1,11 +1,6 @@
 import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  Output,
-  ViewEncapsulation,
-  EventEmitter
+  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation,
+  EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
@@ -16,6 +11,7 @@ import {ColumnUtils} from '../utils/column-utils';
   templateUrl: './datatable.component.html',
   styleUrls: ['./datatable.component.css'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatatableComponent implements OnInit {
 
@@ -35,7 +31,8 @@ export class DatatableComponent implements OnInit {
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
-  @Input() set rows(val: any[]) {
+  @Input()
+  set rows(val: any[]) {
     this._rows = val;
     if (this.settings.clientSide) {
       this.filters = <Filter>{};

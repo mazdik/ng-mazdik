@@ -1,6 +1,6 @@
 import {
   Component, Input, ElementRef, Output, EventEmitter, Renderer,
-  OnInit, OnDestroy, HostBinding
+  OnInit, OnDestroy, HostBinding, ChangeDetectionStrategy
 } from '@angular/core';
 
 @Component({
@@ -10,7 +10,8 @@ import {
   `,
   host: {
     class: 'datatable-scroll'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollerComponent implements OnInit, OnDestroy {
 

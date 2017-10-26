@@ -1,9 +1,9 @@
-import {Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 
 @Component({
   selector: 'datatable-body-row',
-  templateUrl: './body-row.component.html'
+  templateUrl: './body-row.component.html',
 })
 export class BodyRowComponent implements OnInit {
 

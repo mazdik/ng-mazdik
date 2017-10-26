@@ -1,5 +1,5 @@
 import {
-  Component, Input, Pipe, PipeTransform, HostBinding, ViewChild,
+  Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy,
   Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy, Renderer
 } from '@angular/core';
 import {Column} from '../types/interfaces';
@@ -10,7 +10,8 @@ import {ColumnUtils} from '../utils/column-utils';
   templateUrl: './body-cell.component.html',
   host: {
     class: 'datatable-body-cell'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCellComponent implements OnDestroy {
 
@@ -21,7 +22,7 @@ export class BodyCellComponent implements OnDestroy {
 
   public isFocused: boolean = false;
   public element: any;
-  @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
+  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
 
   @HostBinding('style.width.px')
   get width(): number {
