@@ -75,4 +75,8 @@ export class BodyRowComponent implements OnInit {
     return column.name;
   }
 
+  onCellEditComplete(event) {
+    // TODO
+  }
+
 }

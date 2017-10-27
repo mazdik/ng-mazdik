@@ -11,17 +11,19 @@
 
 <div class="cell-editor" *ngIf="column.editable">
   <select
+    #selectElement
     *ngIf="column.options"
     [(ngModel)]="row[column.name]"
     [id]="column.name"
-    (keydown)="onCellEditorKeydown($event, column, row, colIndex)"
+    (keydown)="onCellEditorKeydown($event)"
     (blur)="switchCellToViewMode()">
     <option *ngFor="let opt of getOptions(column, row)" [value]="opt.id">{{opt.name}}</option>
   </select>
 
   <input type="text"
+         #inputElement
          *ngIf="!column.options"
          [(ngModel)]="row[column.name]"
-         (keydown)="onCellEditorKeydown($event, column, row, colIndex)"
+         (keydown)="onCellEditorKeydown($event)"
          (blur)="switchCellToViewMode()"/>
 </div>

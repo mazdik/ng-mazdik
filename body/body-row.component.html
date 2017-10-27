@@ -25,7 +25,8 @@
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
-      [column]="column">
+      [column]="column"
+      (editComplete)="onCellEditComplete($event)">
     </datatable-body-cell>
 
   </div>
@@ -36,7 +37,8 @@
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
-      [column]="column">
+      [column]="column"
+      (editComplete)="onCellEditComplete($event)">>
     </datatable-body-cell>
   </div>
 

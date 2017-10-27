@@ -19,7 +19,6 @@ import {INVENTORY} from './demo.inventory';
     </app-datatable>
     <div style="display:inline-block; vertical-align: top;">
       <app-datatable
-        #tableInventory
         [columns]="columnsInventory"
         [settings]="settingsInventory"
         [rows]="rowsInventory">
@@ -28,7 +27,6 @@ import {INVENTORY} from './demo.inventory';
     <div style="display:inline-block; width: 5px;"></div>
     <div style="display:inline-block; vertical-align: top;">
       <app-datatable
-        #tableRank
         [columns]="columnsRank"
         [settings]="settingsRank"
         [rows]="rowsRank">

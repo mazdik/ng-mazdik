@@ -1,6 +1,6 @@
 import {
   Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
-  Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy, Renderer
+  Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy
 } from '@angular/core';
 import {Column} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
@@ -18,10 +18,18 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
+  @ViewChild('selectElement') selectElement: ElementRef;
+  @ViewChild('inputElement') inputElement: ElementRef;
 
   @HostBinding('class')
   get columnCssClasses(): any {
-    const cls = 'datatable-body-cell';
+    let cls = 'datatable-body-cell';
+    if (this.editing) {
+      cls += ' cell-editing';
+    }
+    if (this.isFocused || this.editing) {
+      cls += ' active';
+    }
     return cls;
   }
 
@@ -33,13 +41,14 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
   value: any;
   isFocused: boolean = false;
   element: any;
+  editing: boolean = false;
   cellContext: any = {
     row: this.row,
     value: this.value,
     column: this.column
   };
 
-  constructor(element: ElementRef, private cd: ChangeDetectorRef, private renderer: Renderer) {
+  constructor(element: ElementRef, private cd: ChangeDetectorRef) {
     this.element = element.nativeElement;
   }
 
@@ -91,42 +100,36 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
-    this.switchCellToEditMode(event, this.column);
+    this.switchCellToEditMode(this.column);
   }
 
-  switchCellToEditMode(event: any, column: Column) {
+  switchCellToEditMode(column: Column) {
     if (column.editable) {
-      this.renderer.setElementClass(this.element, 'cell-editing', true);
-      let focusable;
+      this.editing = true;
       if (column.options) {
-        focusable = this.element.querySelector('.cell-editor select');
+        setTimeout(() => this.selectElement.nativeElement.focus(), 50);
       } else {
-        focusable = this.element.querySelector('.cell-editor input');
-      }
-      if (focusable) {
-        setTimeout(() => this.renderer.invokeElementMethod(focusable, 'focus'), 50);
+        setTimeout(() => this.inputElement.nativeElement.focus(), 50);
       }
     }
   }
 
   switchCellToViewMode() {
-    this.renderer.setElementClass(this.element, 'cell-editing', false);
+    this.editing = false;
   }
 
-  onCellEditorKeydown(event: any, column: Column, item: any, colIndex: number) {
+  onCellEditorKeydown(event: any) {
+    const colIndex = this.colIndex;
     // enter
     if (event.keyCode === 13) {
-      this.editComplete.emit(item);
-      this.renderer.invokeElementMethod(event.target, 'blur');
+      this.editComplete.emit(this.value);
       this.switchCellToViewMode();
       event.preventDefault();
       // escape
     } else if (event.keyCode === 27) {
-      // this.onEditCancel.emit({column: column, data: rowData});
-      this.renderer.invokeElementMethod(event.target, 'blur');
       this.switchCellToViewMode();
       event.preventDefault();
-      // tab
+      // tab TODO
     } else if (event.keyCode === 9) {
       const currentCell = this.element;
       const row = currentCell.parentElement;
@@ -153,7 +156,7 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
       }
 
       if (targetCell) {
-        this.renderer.invokeElementMethod(targetCell, 'click');
+        targetCell.click();
         event.preventDefault();
       }
     }

@@ -25,6 +25,7 @@ export class DatatableComponent implements OnInit {
   @Input() public currentPage: number = 1;
   @Input() public loading: boolean = false;
   @Input() public selectedRowIndex: number;
+  @Input() trackByProp: string;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();

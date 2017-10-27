@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy, OnInit} from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 
 @Component({
@@ -8,7 +8,7 @@ import {Column, MenuItem} from '../types/interfaces';
     class: 'datatable-body'
   }
 })
-export class BodyComponent {
+export class BodyComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public actionColumnWidth: number;
@@ -57,6 +57,9 @@ export class BodyComponent {
         return index;
       }
     }.bind(this);
+  }
+
+  ngOnInit(): void {
   }
 
   onBodyScroll(event: any): void {

@@ -43,6 +43,7 @@ export class CrudTableComponent implements OnInit {
 
   public sortMeta: SortMeta = <SortMeta>{};
   public rowMenu: MenuItem[];
+  public trackByProp: string;
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
@@ -56,6 +57,9 @@ export class CrudTableComponent implements OnInit {
     this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
     if (this.settings.initLoad) {
       this.getItems();
+    }
+    if (!Array.isArray(this.settings.primaryKey)) {
+      this.trackByProp = this.settings.primaryKey;
     }
   }
 
