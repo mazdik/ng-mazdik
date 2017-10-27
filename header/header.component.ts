@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, HostBinding} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy} from '@angular/core';
 import {Column, Filter, SortMeta, Settings} from '../types/interfaces';
 
 @Component({
@@ -7,7 +7,8 @@ import {Column, Filter, SortMeta, Settings} from '../types/interfaces';
   styleUrls: ['header.component.css'],
   host: {
     class: 'datatable-header'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HeaderComponent implements OnInit {
@@ -146,6 +147,10 @@ export class HeaderComponent implements OnInit {
     const styles: any = {};
     styles.left = `${this.offsetX * -1}px`;
     return styles;
+  }
+
+  columnTrackingFn(index: number, column: any): any {
+    return column.name;
   }
 
 }

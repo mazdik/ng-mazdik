@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, HostBinding} from '@angular/core';
+import {Component, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy} from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 
 @Component({

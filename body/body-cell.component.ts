@@ -1,5 +1,5 @@
 import {
-  Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy,
+  Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy, DoCheck,
   Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy, Renderer
 } from '@angular/core';
 import {Column} from '../types/interfaces';
@@ -8,25 +8,75 @@ import {ColumnUtils} from '../utils/column-utils';
 @Component({
   selector: 'datatable-body-cell',
   templateUrl: './body-cell.component.html',
-  host: {
-    class: 'datatable-body-cell'
-  },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyCellComponent implements OnDestroy {
+export class BodyCellComponent implements OnDestroy, DoCheck {
 
   @Input() row: any;
   @Input() column: Column;
   @Input() colIndex: number;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  public isFocused: boolean = false;
-  public element: any;
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
+
+  @HostBinding('class')
+  get columnCssClasses(): any {
+    const cls = 'datatable-body-cell';
+    return cls;
+  }
 
   @HostBinding('style.width.px')
   get width(): number {
     return this.column.width;
+  }
+
+  value: any;
+  isFocused: boolean = false;
+  element: any;
+  cellContext: any = {
+    row: this.row,
+    value: this.value,
+    column: this.column
+  };
+
+  constructor(element: ElementRef, private renderer: Renderer) {
+    this.element = element.nativeElement;
+  }
+
+  ngDoCheck(): void {
+    this.checkValueUpdates();
+  }
+
+  ngOnDestroy(): void {
+    if (this.cellTemplate) {
+      this.cellTemplate.clear();
+    }
+  }
+
+  checkValueUpdates(): void {
+    let value = '';
+
+    if (!this.row || !this.column) {
+      value = '';
+    } else {
+      const val = this.row[this.column.name];
+      const userPipe: PipeTransform = this.column.pipe;
+
+      if (userPipe) {
+        value = userPipe.transform(val);
+      } else if (value !== undefined) {
+        value = val;
+      }
+    }
+
+    if (this.value !== value) {
+      this.value = value;
+      this.cellContext.value = value;
+      if (value !== null && value !== undefined) {
+        this.value = ColumnUtils.getOptionName(value, this.column);
+      }
+      /*this.cd.markForCheck();*/
+    }
   }
 
   @HostListener('focus')
@@ -39,42 +89,9 @@ export class BodyCellComponent implements OnDestroy {
     this.isFocused = false;
   }
 
-  @HostBinding('class')
-  get columnCssClasses(): any {
-    const cls = 'datatable-body-cell';
-    return cls;
-  }
-
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
     this.switchCellToEditMode(event, this.column);
-  }
-
-  constructor(element: ElementRef, private renderer: Renderer) {
-    this.element = element.nativeElement;
-  }
-
-  ngOnDestroy(): void {
-    if (this.cellTemplate) {
-      this.cellTemplate.clear();
-    }
-  }
-
-  get value(): any {
-    if (!this.row || !this.column) {
-      return '';
-    }
-    let val = this.row[this.column.name];
-    const userPipe: PipeTransform = this.column.pipe;
-
-    if (userPipe) {
-      return userPipe.transform(val);
-    }
-    if (val !== undefined) {
-      val = ColumnUtils.getOptionName(val, this.column);
-      return val;
-    }
-    return '';
   }
 
   switchCellToEditMode(event: any, column: Column) {
