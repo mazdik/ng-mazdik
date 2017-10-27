@@ -7,8 +7,7 @@ import {Column, Filter, SortMeta, Settings} from '../types/interfaces';
   styleUrls: ['header.component.css'],
   host: {
     class: 'datatable-header'
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  }
 })
 
 export class HeaderComponent implements OnInit {

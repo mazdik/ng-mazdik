@@ -1,5 +1,5 @@
 import {
-  Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy, DoCheck,
+  Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
   Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy, Renderer
 } from '@angular/core';
 import {Column} from '../types/interfaces';
@@ -39,7 +39,7 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
     column: this.column
   };
 
-  constructor(element: ElementRef, private renderer: Renderer) {
+  constructor(element: ElementRef, private cd: ChangeDetectorRef, private renderer: Renderer) {
     this.element = element.nativeElement;
   }
 
@@ -75,7 +75,7 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
       if (value !== null && value !== undefined) {
         this.value = ColumnUtils.getOptionName(value, this.column);
       }
-      /*this.cd.markForCheck();*/
+      this.cd.markForCheck();
     }
   }
 
