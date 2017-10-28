@@ -126,8 +126,18 @@ export class CrudTableComponent implements OnInit {
     this.modalEditForm.open();
   }
 
-  editItem(item: any) {
-    this.item = this.cloneItem(item);
+  onEditComplete(row: any) {
+    this.loading = true;
+    this.service
+      .put(row)
+      .then(res => {
+        this.loading = false;
+        this.errors = null;
+      })
+      .catch(error => {
+        this.loading = false;
+        this.errors = error;
+      });
   }
 
   viewDetails() {

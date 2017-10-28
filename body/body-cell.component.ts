@@ -122,7 +122,7 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
     const colIndex = this.colIndex;
     // enter
     if (event.keyCode === 13) {
-      this.editComplete.emit(this.value);
+      this.editComplete.emit(this.row);
       this.switchCellToViewMode();
       event.preventDefault();
       // escape

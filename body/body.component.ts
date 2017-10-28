@@ -80,4 +80,8 @@ export class BodyComponent implements OnInit {
 
   }
 
+  onEditComplete(event) {
+    this.editComplete.emit(event);
+  }
+
 }

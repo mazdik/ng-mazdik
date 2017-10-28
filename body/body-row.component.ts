@@ -16,6 +16,7 @@ export class BodyRowComponent implements OnInit {
   @Input() public rowIndex: number;
 
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
+  @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
@@ -76,7 +77,7 @@ export class BodyRowComponent implements OnInit {
   }
 
   onCellEditComplete(event) {
-    // TODO
+    this.editComplete.emit(event);
   }
 
 }

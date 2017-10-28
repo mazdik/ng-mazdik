@@ -11,7 +11,7 @@
         [rowIndex]="rowIndex"
         [(selectedRowIndex)]="selectedRowIndex"
         [actionColumnWidth]="actionColumnWidth"
-        (editComplete)="editComplete.emit($event)"
+        (editComplete)="onEditComplete($event)"
         [actionMenu]="actionMenu"
         [offsetX]="offsetX"
         (selectedRowIndexChange)="selectedRowIndexChange.emit($event)">
