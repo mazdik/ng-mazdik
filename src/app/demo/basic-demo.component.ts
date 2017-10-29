@@ -1,36 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {Column, Settings} from '../index';
-import {ITEMS} from './demo.items';
+import {Component} from '@angular/core';
+import {Http} from '@angular/http';
+import {Column, Settings, ICrudService} from '../../ng-crud-table';
+import {DemoService} from './demo.service';
 
 @Component({
-  selector: 'data-table-demo',
+  selector: 'basic-demo',
   template: `
-    <app-datatable
-      [columns]="columns"
-      [settings]="settings"
-      [rows]="rows">
-    </app-datatable>
-  `
+    <crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`
 })
 
-export class DataTableDemoComponent implements OnInit {
+export class BasicDemoComponent {
 
-  public rows: any;
+  public service: ICrudService;
 
-  constructor() {
-  }
-
-  ngOnInit() {
-    this.rows = ITEMS;
+  constructor(private http: Http) {
+    this.service = new DemoService(this.http);
   }
 
   public settings: Settings = {
-    api: null,
+    api: '/assets/players.json',
     crud: true,
     primaryKey: 'id',
     tableWidth: 820,
-    scrollHeight: 250,
-    clientSide: true,
+    scrollHeight: 380,
   };
 
   public columns: Column[] = [

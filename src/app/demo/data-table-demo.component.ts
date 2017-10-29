@@ -1,28 +1,30 @@
-import {Component} from '@angular/core';
-import {Column, Settings, ICrudService} from '../index';
-import {DemoService} from './demo.service';
+import {Component, OnInit} from '@angular/core';
+import {Http} from '@angular/http';
+import {Column, Settings} from '../../ng-crud-table';
+
 
 @Component({
-  selector: 'basic-demo',
+  selector: 'data-table-demo',
   template: `
-    <crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`
+    <app-datatable
+      [columns]="columns"
+      [settings]="settings"
+      [rows]="rows">
+    </app-datatable>
+  `
 })
 
-export class BasicDemoComponent {
+export class DataTableDemoComponent implements OnInit {
 
-  public service: ICrudService;
-
-  constructor() {
-    this.service = new DemoService();
-  }
+  public rows: any[] = [];
 
   public settings: Settings = {
-    api: 'http://host3/players',
+    api: null,
     crud: true,
     primaryKey: 'id',
-    type: 'demo', // ords or yii (default)
     tableWidth: 820,
-    scrollHeight: 380,
+    scrollHeight: 250,
+    clientSide: true,
   };
 
   public columns: Column[] = [
@@ -131,5 +133,14 @@ export class BasicDemoComponent {
     {title: 'Partner id', name: 'partner_id', editable: true, },
     {title: 'Deletion date', name: 'deletion_date', editable: true, },
   ];
+
+  constructor(private http: Http) {
+  }
+
+  ngOnInit() {
+    this.http.get('/assets/players.json').subscribe(data => {
+      this.rows = data.json();
+    });
+  }
 
 }

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { DemoCrudTableComponent } from './demo-crud-table.component';
-import { CrudTableModule } from '../crud-table-module';
+import { CrudTableModule } from '../../ng-crud-table';
 import { BasicDemoComponent } from './basic-demo.component';
 import { TreeTableDemoComponent } from './tree-table-demo.component';
 import { TreeFilterDemoComponent } from './tree-filter-demo.component';

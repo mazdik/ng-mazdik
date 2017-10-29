@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ITreeNode, Column} from '../index';
+import {ITreeNode, Column} from '../../ng-crud-table';
 
 @Component({
   selector: 'tree-table-demo',

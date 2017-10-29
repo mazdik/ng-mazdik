@@ -6,7 +6,7 @@ Supports Yii2 RESTful API, ORDS (Oracle REST Data Services), Flask-Restless
 ### Sample
 ```typescript
 import {Component}  from '@angular/core';
-import {Column, Settings, ICrudService, YiiService} from '../../shared/crud-table';
+import {Column, Settings, ICrudService, YiiService} from '../../shared/ng-crud-table';
 import {Http} from '@angular/http';
 
 

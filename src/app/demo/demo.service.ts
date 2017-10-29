@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../types/interfaces';
-import {ITEMS} from './demo.items';
+import {Filter, ICrudService} from '../../ng-crud-table';
 
 
 @Injectable()
@@ -11,25 +11,31 @@ export class DemoService implements ICrudService {
   public primaryKey: any;
 
   private itemsPerPage: number = 20;
-  private data: any = {
-    'items': ITEMS,
-    '_meta': {'totalCount': 18, 'pageCount': 1, 'currentPage': 1, 'perPage': this.itemsPerPage}
-  };
+
+  constructor(private http: Http) {
+  }
 
   getItems(page: number = 1, filters ?: Filter, sortField ?: string, sortOrder ?: number): Promise<any> {
-    const filteredData = this.filter(this.data.items, filters);
-    const sortedData = this.sort(filteredData, sortField, sortOrder);
-    const pageData = this.page(sortedData, page);
-    const totalCount = sortedData.length;
-    const pageCount = pageData.length;
-    const result = {
-      'items': pageData,
-      '_meta': {'totalCount': totalCount, 'pageCount': pageCount, 'currentPage': page, 'perPage': this.itemsPerPage}
-    };
-    return new Promise((resolve) => {
-      // Simulate server latency with 2 second delay
-      setTimeout(() => resolve(result), 250);
-    });
+    return this.http.get(this.url)
+      .toPromise()
+      .then(function (res) {
+        const rows: any[] = res.json() || [];
+        const filteredData = this.filter(rows, filters);
+        const sortedData = this.sort(filteredData, sortField, sortOrder);
+        const pageData = this.page(sortedData, page);
+        const totalCount = sortedData.length;
+        const pageCount = pageData.length;
+        const result = {
+          'items': pageData,
+          '_meta': {
+            'totalCount': totalCount,
+            'pageCount': pageCount,
+            'currentPage': page,
+            'perPage': this.itemsPerPage
+          }
+        };
+        return result;
+      }.bind(this));
   }
 
   getItem(id: number): Promise<any> {

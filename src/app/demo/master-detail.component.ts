@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Column, Settings} from '../index';
-import {ITEMS} from './demo.items';
-import {RANK} from './demo.rank';
-import {INVENTORY} from './demo.inventory';
+import {Column, Settings} from '../../ng-crud-table';
+import {Http} from '@angular/http';
+
 
 @Component({
   selector: 'master-detail-demo',
@@ -37,9 +36,9 @@ import {INVENTORY} from './demo.inventory';
 
 export class MasterDetailDemoComponent implements OnInit {
 
-  public rowsPlayers: any;
-  public rowsRank: any;
-  public rowsInventory: any;
+  public rowsPlayers: any[] = [];
+  public rowsRank: any[] = [];
+  public rowsInventory: any[] = [];
 
   @ViewChild('tablePlayers') tablePlayers: any;
 
@@ -180,23 +179,36 @@ export class MasterDetailDemoComponent implements OnInit {
     {title: 'sealEndTime', name: 'sealEndTime'}
   ];
 
-  constructor() {
+  private _rank: any[] = [];
+  private _inventory: any[] = [];
+
+  constructor(private http: Http) {
+
   }
 
   ngOnInit() {
-    this.rowsPlayers = ITEMS;
-    this.rowsRank = RANK;
-    this.rowsInventory = INVENTORY;
+    this.http.get('/assets/players.json').subscribe(data => {
+      this.rowsPlayers = data.json();
+    });
+    this.http.get('/assets/rank.json').subscribe(rank => {
+      this._rank = rank.json();
+    });
+    this.http.get('/assets/inventory.json').subscribe(inventory => {
+      this._inventory = inventory.json();
+    });
   }
 
   masterChanged(event) {
-    const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
-    this.rowsRank = RANK.filter((value: any) => {
-      return value['player_id'] === masterId;
-    });
-    this.rowsInventory = INVENTORY.filter((value: any) => {
-      return value['itemOwner'] === masterId;
-    });
+    if (this.tablePlayers.selectedRowIndex) {
+      const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
+
+      this.rowsRank = this._rank.filter((value: any) => {
+        return value['player_id'] === masterId;
+      });
+      this.rowsInventory = this._inventory.filter((value: any) => {
+        return value['itemOwner'] === masterId;
+      });
+    }
   }
 
 }

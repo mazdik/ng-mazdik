@@ -1,5 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
-import {ITreeNode, Column, Settings, Filter, ICrudService} from '../index';
+import {Http} from '@angular/http';
+import {ITreeNode, Column, Settings, Filter, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
 @Component({
@@ -30,8 +31,8 @@ export class TreeFilterDemoComponent {
 
   public service: ICrudService;
 
-  constructor() {
-    this.service = new DemoService();
+  constructor(private http: Http) {
+    this.service = new DemoService(this.http);
   }
 
   public columns: Column[] = [
@@ -96,10 +97,9 @@ export class TreeFilterDemoComponent {
   ];
 
   public settings: Settings = {
-    api: 'http://host3/players',
+    api: '/assets/players.json',
     crud: true,
     primaryKey: 'id',
-    type: 'demo', // ords or yii (default)
     tableWidth: 820,
     scrollHeight: 380
   };
