@@ -1,45 +1,39 @@
-<div class="datatable-body-row"
-     (click)="rowClick(rowIndex)"
-     [ngClass]="{'row-selected' : rowIndex === selectedRowIndex}">
+<div class="datatable-row-left datatable-row-group"
+     [ngStyle]="stylesByGroup()">
 
-  <div class="datatable-row-left datatable-row-group"
-       [ngStyle]="stylesByGroup()">
+  <div class="datatable-body-cell"
+       style="text-align: center;"
+       [ngStyle]="{'width.px': actionColumnWidth}">
 
-    <div class="datatable-body-cell"
-         style="text-align: center;"
-         [ngStyle]="{'width.px': actionColumnWidth}">
+    <ng-template ngFor let-action [ngForOf]="actionMenu">
+      <a *ngIf="!action.disabled"
+         title="{{action.label}}"
+         (click)="actionClick($event, action, rowIndex)">
+        <span [ngClass]="action.icon"></span>
+      </a>
+    </ng-template>
 
-      <ng-template ngFor let-action [ngForOf]="actionMenu">
-        <a *ngIf="!action.disabled"
-           title="{{action.label}}"
-           (click)="actionClick($event, action, rowIndex)">
-          <span [ngClass]="action.icon"></span>
-        </a>
-      </ng-template>
-
-      <span *ngIf="!enableAction">{{rowIndex+1}}</span>
-    </div>
-
-    <datatable-body-cell
-      *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
-      tabindex="-1"
-      [colIndex]="colIndex"
-      [row]="row"
-      [column]="column"
-      (editComplete)="onCellEditComplete($event)">
-    </datatable-body-cell>
-
+    <span *ngIf="!enableAction">{{rowIndex+1}}</span>
   </div>
 
-  <div class="datatable-row-center datatable-row-group">
-    <datatable-body-cell
-      *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
-      tabindex="-1"
-      [colIndex]="colIndex"
-      [row]="row"
-      [column]="column"
-      (editComplete)="onCellEditComplete($event)">>
-    </datatable-body-cell>
-  </div>
+  <datatable-body-cell
+    *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
+    tabindex="-1"
+    [colIndex]="colIndex"
+    [row]="row"
+    [column]="column"
+    (editComplete)="onCellEditComplete($event)">
+  </datatable-body-cell>
 
+</div>
+
+<div class="datatable-row-center datatable-row-group">
+  <datatable-body-cell
+    *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
+    tabindex="-1"
+    [colIndex]="colIndex"
+    [row]="row"
+    [column]="column"
+    (editComplete)="onCellEditComplete($event)">>
+  </datatable-body-cell>
 </div>

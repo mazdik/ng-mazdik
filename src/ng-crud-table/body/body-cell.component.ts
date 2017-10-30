@@ -1,6 +1,6 @@
 import {
-  Component, Input, PipeTransform, HostBinding, ViewChild, ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
-  Output, EventEmitter, HostListener, ElementRef, ViewContainerRef, OnDestroy
+  Component, Input, Output, EventEmitter, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
+  ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
 import {Column} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
@@ -10,14 +10,13 @@ import {ColumnUtils} from '../utils/column-utils';
   templateUrl: './body-cell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyCellComponent implements OnDestroy, DoCheck {
+export class BodyCellComponent implements DoCheck {
 
   @Input() row: any;
   @Input() column: Column;
   @Input() colIndex: number;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   @ViewChild('selectElement') selectElement: ElementRef;
   @ViewChild('inputElement') inputElement: ElementRef;
 
@@ -26,9 +25,6 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
     let cls = 'datatable-body-cell';
     if (this.editing) {
       cls += ' cell-editing';
-    }
-    if (this.isFocused || this.editing) {
-      cls += ' active';
     }
     return cls;
   }
@@ -39,27 +35,13 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
   }
 
   value: any;
-  isFocused: boolean = false;
-  element: any;
   editing: boolean = false;
-  cellContext: any = {
-    row: this.row,
-    value: this.value,
-    column: this.column
-  };
 
-  constructor(element: ElementRef, private cd: ChangeDetectorRef) {
-    this.element = element.nativeElement;
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
   }
 
   ngDoCheck(): void {
     this.checkValueUpdates();
-  }
-
-  ngOnDestroy(): void {
-    if (this.cellTemplate) {
-      this.cellTemplate.clear();
-    }
   }
 
   checkValueUpdates(): void {
@@ -80,22 +62,11 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
 
     if (this.value !== value) {
       this.value = value;
-      this.cellContext.value = value;
       if (value !== null && value !== undefined) {
         this.value = ColumnUtils.getOptionName(value, this.column);
       }
       this.cd.markForCheck();
     }
-  }
-
-  @HostListener('focus')
-  onFocus(): void {
-    this.isFocused = true;
-  }
-
-  @HostListener('blur')
-  onBlur(): void {
-    this.isFocused = false;
   }
 
   @HostListener('click', ['$event'])
@@ -131,7 +102,7 @@ export class BodyCellComponent implements OnDestroy, DoCheck {
       event.preventDefault();
       // tab TODO
     } else if (event.keyCode === 9) {
-      const currentCell = this.element;
+      const currentCell = this.element.nativeElement;
       const row = currentCell.parentElement;
       let targetCell;
 

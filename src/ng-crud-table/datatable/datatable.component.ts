@@ -3,7 +3,7 @@ import {
   EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
-import {DomUtils} from '../utils/dom-utils';
+import {ColumnUtils} from '../utils/column-utils';
 
 
 @Component({
@@ -53,7 +53,6 @@ export class DatatableComponent implements OnInit {
   public sortMeta: SortMeta = <SortMeta>{};
   public scrollHeight: number;
   public tableWidth: number;
-  public letterWidth: number = 10;
   public actionColumnWidth: number = 40;
 
   frozenColumns: Column[];
@@ -78,9 +77,7 @@ export class DatatableComponent implements OnInit {
   initColumns(): void {
     this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
     this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
-
-    this.letterWidth = DomUtils.getTextWidth('M', 'bold 14px arial');
-    this.setColumnsDefaults(this.columns);
+    ColumnUtils.setColumnDefaults(this.columns, this.settings);
 
     this.scrollableColumns = [];
     this.columns.forEach((column) => {
@@ -139,43 +136,6 @@ export class DatatableComponent implements OnInit {
 
   showColumnMenu(event) {
     this.selectFilter.show(200, event.top, event.left, event.column);
-  }
-
-  setColumnDefaults(column: Column): Column {
-    if (!column.hasOwnProperty('sortable') && this.settings.sortable) {
-      column.sortable = true;
-    }
-    if (!column.hasOwnProperty('filter') && this.settings.filter) {
-      column.filter = true;
-    }
-    if (!column.hasOwnProperty('width')) {
-      column.width = (column.name.length * this.letterWidth) + 50;
-      if (column.width < 150) {
-        column.width = 150;
-      }
-    }
-    if (!column.hasOwnProperty('frozen')) {
-      column.frozen = false;
-    }
-    if (!column.hasOwnProperty('type')) {
-      if (column.hasOwnProperty('options')) {
-        column.type = 'dropdown';
-      } else {
-        column.type = 'text';
-      }
-    }
-    if (!column.hasOwnProperty('resizeable')) {
-      column.resizeable = true;
-    }
-
-    return column;
-  }
-
-  setColumnsDefaults(columns: Column[]): Column[] {
-    if (!columns) {
-      return;
-    }
-    return columns.map(this.setColumnDefaults, this);
   }
 
   columnsTotalWidth(columns: Column[]): number {

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener} from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 
 @Component({
@@ -22,6 +22,15 @@ export class BodyRowComponent implements OnInit {
   public scrollableColumns: Column[] = [];
   public enableAction: boolean = false;
 
+  @HostBinding('class')
+  get cssClass() {
+    let cls = 'datatable-body-row';
+    if (this.rowIndex === this.selectedRowIndex) {
+      cls += ' row-selected';
+    }
+    return cls;
+  }
+
   constructor() {
   }
 
@@ -38,6 +47,11 @@ export class BodyRowComponent implements OnInit {
         }
       });
     }
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(event: MouseEvent): void {
+    this.rowClick(this.rowIndex);
   }
 
   rowClick(rowIndex: number) {

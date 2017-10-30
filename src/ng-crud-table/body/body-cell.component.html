@@ -1,13 +1,6 @@
-<span class="cell-data"
-      *ngIf="!column.cellTemplate"
-      title="{{value}}">
+<span class="cell-data" title="{{value}}">
   {{value}}
 </span>
-<ng-template #cellTemplate
-             *ngIf="column.cellTemplate"
-             [ngTemplateOutlet]="column.cellTemplate"
-             [ngTemplateOutletContext]="cellContext">
-</ng-template>
 
 <div class="cell-editor" *ngIf="column.editable">
   <select
