@@ -3,7 +3,7 @@ import {
   EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
-import {ColumnUtils} from '../utils/column-utils';
+import {DomUtils} from '../utils/dom-utils';
 
 
 @Component({
@@ -41,6 +41,7 @@ export class DatatableComponent implements OnInit {
       this.totalItems = this._rows.length;
       this.itemsCopy = (this.rows) ? this.rows.slice(0) : [];
     }
+    this.setDefaultSelectedRowIndex();
   }
 
   get rows(): any[] {
@@ -72,14 +73,13 @@ export class DatatableComponent implements OnInit {
     if (this.settings.clientSide) {
       this._rows = this.getItems();
     }
-    this.setDefaultSelectedRowIndex();
   }
 
   initColumns(): void {
     this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
     this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
 
-    this.letterWidth = ColumnUtils.getTextWidth('M', 'bold 14px arial');
+    this.letterWidth = DomUtils.getTextWidth('M', 'bold 14px arial');
     this.setColumnsDefaults(this.columns);
 
     this.scrollableColumns = [];

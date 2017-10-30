@@ -9,7 +9,8 @@ import {Column, Settings} from '../../ng-crud-table';
     <app-datatable
       [columns]="columns"
       [settings]="settings"
-      [rows]="rows">
+      [rows]="rows"
+      [loading]="loading">
     </app-datatable>
   `
 })
@@ -17,12 +18,13 @@ import {Column, Settings} from '../../ng-crud-table';
 export class DataTableDemoComponent implements OnInit {
 
   public rows: any[] = [];
+  public loading: boolean = false;
 
   public settings: Settings = {
     api: null,
     crud: true,
     primaryKey: 'id',
-    tableWidth: 820,
+    tableWidth: 1100,
     scrollHeight: 250,
     clientSide: true,
   };
@@ -138,8 +140,10 @@ export class DataTableDemoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.http.get('/assets/players.json').subscribe(data => {
       this.rows = data.json();
+      this.loading = false;
     });
   }
 

@@ -1,5 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy} from '@angular/core';
 import {Column, Filter, SortMeta, Settings} from '../types/interfaces';
+import {DomUtils} from '../utils/dom-utils';
+
 
 @Component({
   selector: 'datatable-header',
@@ -109,7 +111,7 @@ export class HeaderComponent implements OnInit {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
-    const rowHeight = this.getHeight(el.parentNode);
+    const rowHeight = DomUtils.getHeight(el.parentNode);
     top = top + rowHeight;
     // datatable-row-left + offsetLeft
     left = left + el.parentNode.offsetLeft;
@@ -119,13 +121,6 @@ export class HeaderComponent implements OnInit {
     left = left - windowScrollLeft;
 
     this.onShowColumnMenu.emit({'top': top, 'left': left, 'column': column});
-  }
-
-  getHeight(el): number {
-    let height = el.offsetHeight;
-    const style = getComputedStyle(el);
-    height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom) + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
-    return height;
   }
 
   onColumnResized(width: number, column: Column): void {

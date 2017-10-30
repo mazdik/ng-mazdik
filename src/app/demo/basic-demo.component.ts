@@ -21,7 +21,7 @@ export class BasicDemoComponent {
     api: '/assets/players.json',
     crud: true,
     primaryKey: 'id',
-    tableWidth: 820,
+    tableWidth: 1100,
     scrollHeight: 380,
   };
 

@@ -28,7 +28,8 @@ import {Http} from '@angular/http';
       <app-datatable
         [columns]="columnsRank"
         [settings]="settingsRank"
-        [rows]="rowsRank">
+        [rows]="rowsRank"
+        [loading]="loading">
       </app-datatable>
     </div>
   `
@@ -39,6 +40,7 @@ export class MasterDetailDemoComponent implements OnInit {
   public rowsPlayers: any[] = [];
   public rowsRank: any[] = [];
   public rowsInventory: any[] = [];
+  public loading: boolean = false;
 
   @ViewChild('tablePlayers') tablePlayers: any;
 
@@ -105,7 +107,7 @@ export class MasterDetailDemoComponent implements OnInit {
         {id: 'FEMALE', name: 'FEMALE'},
       ],
     },
-    {title: 'Exp', name: 'exp' },
+    {title: 'Exp', name: 'exp'},
     {title: 'Last online', name: 'last_online'},
     {title: 'Account name', name: 'account_name'},
     {title: 'Account id', name: 'account_id'},
@@ -189,17 +191,26 @@ export class MasterDetailDemoComponent implements OnInit {
   ngOnInit() {
     this.http.get('/assets/players.json').subscribe(data => {
       this.rowsPlayers = data.json();
-    });
-    this.http.get('/assets/rank.json').subscribe(rank => {
-      this._rank = rank.json();
-    });
-    this.http.get('/assets/inventory.json').subscribe(inventory => {
-      this._inventory = inventory.json();
+      const masterId = this.rowsPlayers[0]['id'];
+
+      this.http.get('/assets/rank.json').subscribe(rank => {
+        this._rank = rank.json();
+        this.rowsRank = this._rank.filter((value: any) => {
+          return value['player_id'] === masterId;
+        });
+      });
+      this.http.get('/assets/inventory.json').subscribe(inventory => {
+        this._inventory = inventory.json();
+        this.rowsInventory = this._inventory.filter((value: any) => {
+          return value['itemOwner'] === masterId;
+        });
+      });
+
     });
   }
 
   masterChanged(event) {
-    if (this.tablePlayers.selectedRowIndex) {
+    if (this.tablePlayers.rows.length > 0) {
       const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
 
       this.rowsRank = this._rank.filter((value: any) => {
@@ -209,6 +220,7 @@ export class MasterDetailDemoComponent implements OnInit {
         return value['itemOwner'] === masterId;
       });
     }
+
   }
 
 }
