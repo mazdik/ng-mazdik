@@ -1,11 +1,15 @@
-import {Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener} from '@angular/core';
+import {
+  Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener,
+  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+} from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 
 @Component({
   selector: 'datatable-body-row',
   templateUrl: './body-row.component.html',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyRowComponent implements OnInit {
+export class BodyRowComponent implements OnInit, DoCheck {
 
   @Input() public columns: Column[];
   @Input() public row: any;
@@ -21,6 +25,7 @@ export class BodyRowComponent implements OnInit {
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
   public enableAction: boolean = false;
+  private rowDiffer: KeyValueDiffer<{}, {}>;
 
   @HostBinding('class')
   get cssClass() {
@@ -31,7 +36,8 @@ export class BodyRowComponent implements OnInit {
     return cls;
   }
 
-  constructor() {
+  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
+    this.rowDiffer = this.differs.find({}).create();
   }
 
   ngOnInit() {
@@ -46,6 +52,12 @@ export class BodyRowComponent implements OnInit {
           this.scrollableColumns.push(column);
         }
       });
+    }
+  }
+
+  ngDoCheck(): void {
+    if (this.rowDiffer.diff(this.row)) {
+      this.cd.markForCheck();
     }
   }
 

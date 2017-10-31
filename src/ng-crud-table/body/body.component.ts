@@ -1,4 +1,7 @@
-import {Component, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter, HostBinding, OnInit,
+  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+} from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 
 @Component({
@@ -6,9 +9,10 @@ import {Column, MenuItem} from '../types/interfaces';
   templateUrl: './body.component.html',
   host: {
     class: 'datatable-body'
-  }
+  },
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyComponent implements OnInit {
+export class BodyComponent implements OnInit, DoCheck {
 
   @Input() public columns: Column[];
   @Input() public actionColumnWidth: number;
@@ -17,11 +21,12 @@ export class BodyComponent implements OnInit {
   @Input() public selectedRowIndex: number;
   @Input() trackByProp: string;
 
-  @Input() set rows(val: any[]) {
+  @Input()
+  set rows(val: any) {
     this._rows = val;
   }
 
-  get rows(): any[] {
+  get rows(): any {
     return this._rows;
   }
 
@@ -43,14 +48,16 @@ export class BodyComponent implements OnInit {
   @Output() scroll: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
 
+  private rowDiffer: KeyValueDiffer<{}, {}>;
   offsetY: number = 0;
   rowTrackingFn: any;
   _rows: any[];
   _bodyHeight: any;
 
-  constructor() {
+  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
+    this.rowDiffer = this.differs.find({}).create();
     // declare fn here so we can get access to the `this` property
-    this.rowTrackingFn = function(index: number, row: any): any {
+    this.rowTrackingFn = function (index: number, row: any): any {
       if (this.trackByProp) {
         return row[this.trackByProp];
       } else {
@@ -60,6 +67,12 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngDoCheck(): void {
+    if (this.rowDiffer.diff(this.rows)) {
+      this.cd.markForCheck();
+    }
   }
 
   onBodyScroll(event: any): void {

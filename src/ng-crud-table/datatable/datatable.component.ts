@@ -1,6 +1,6 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation,
-  EventEmitter, ChangeDetectionStrategy
+  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
+  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
@@ -13,7 +13,7 @@ import {ColumnUtils} from '../utils/column-utils';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatatableComponent implements OnInit {
+export class DatatableComponent implements OnInit, DoCheck {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
@@ -33,7 +33,7 @@ export class DatatableComponent implements OnInit {
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
   @Input()
-  set rows(val: any[]) {
+  set rows(val: any) {
     this._rows = val;
     if (this.settings.clientSide) {
       this.filters = <Filter>{};
@@ -44,7 +44,7 @@ export class DatatableComponent implements OnInit {
     this.setDefaultSelectedRowIndex();
   }
 
-  get rows(): any[] {
+  get rows(): any {
     return this._rows;
   }
 
@@ -54,6 +54,7 @@ export class DatatableComponent implements OnInit {
   public scrollHeight: number;
   public tableWidth: number;
   public actionColumnWidth: number = 40;
+  private rowDiffer: KeyValueDiffer<{}, {}>;
 
   frozenColumns: Column[];
   scrollableColumns: Column[];
@@ -63,7 +64,8 @@ export class DatatableComponent implements OnInit {
   itemsCopy: any;
   _rows: any[];
 
-  constructor() {
+  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
+    this.rowDiffer = this.differs.find({}).create();
   }
 
   ngOnInit() {
@@ -71,6 +73,12 @@ export class DatatableComponent implements OnInit {
     this.initTableSize();
     if (this.settings.clientSide) {
       this._rows = this.getItems();
+    }
+  }
+
+  ngDoCheck(): void {
+    if (this.rowDiffer.diff(this.rows)) {
+      this.cd.markForCheck();
     }
   }
 
