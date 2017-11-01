@@ -1,9 +1,10 @@
-import {Component, Output, EventEmitter, Input} from "@angular/core";
+import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from "@angular/core";
 
 @Component({
   selector: "pagination",
   templateUrl: 'pagination.component.html',
   styleUrls: ['./pagination.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent {
 

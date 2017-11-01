@@ -10,7 +10,7 @@ import {Column, MenuItem} from '../types/interfaces';
   host: {
     class: 'datatable-body'
   },
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyComponent implements OnInit, DoCheck {
 

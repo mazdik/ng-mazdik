@@ -9,7 +9,8 @@ import {DomUtils} from '../utils/dom-utils';
   styleUrls: ['header.component.css'],
   host: {
     class: 'datatable-header'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HeaderComponent implements OnInit {
@@ -83,7 +84,7 @@ export class HeaderComponent implements OnInit {
     if (this.filters[column.name] && this.filters[column.name].value) {
       length = this.filters[column.name].value.trim().length;
     }
-    return length > 0 ? true : false;
+    return length > 0;
   }
 
   filter(event) {

@@ -1,10 +1,11 @@
-import {Component, Input, Output, OnInit, EventEmitter, Pipe, ViewChild} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy, ViewChild} from '@angular/core';
 import {ISelectOption, Column, Filter} from '../types/interfaces';
 
 @Component({
   selector: 'ng-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterComponent implements OnInit {
 

@@ -1,11 +1,12 @@
-import {Component, Output, EventEmitter, Input} from '@angular/core';
+import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: 'datatable-footer',
   templateUrl: './footer.component.html',
   host: {
     class: 'datatable-footer'
-  }
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
 

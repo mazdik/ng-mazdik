@@ -109,9 +109,8 @@ export class DatatableComponent implements OnInit, DoCheck {
     if (this.settings.clientSide) {
       this.currentPage = event;
       this._rows = this.getItems();
-    } else {
-      this.pageChanged.emit(event);
     }
+    this.pageChanged.emit(event);
   }
 
   onEditComplete(event) {
@@ -119,22 +118,20 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   onFilter(event) {
-    this.filters = event;
+    this.filters = Object.assign({}, event);
     if (this.settings.clientSide) {
       this.currentPage = 1;
       this._rows = this.getItems();
-    } else {
-      this.filterChanged.emit(this.filters);
     }
+    this.filterChanged.emit(this.filters);
   }
 
   onSort(event) {
     this.sortMeta = event.sortMeta;
     if (this.settings.clientSide) {
       this._rows = this.getItems();
-    } else {
-      this.sortChanged.emit(this.sortMeta);
     }
+    this.sortChanged.emit(this.sortMeta);
   }
 
   onSelectRow(event) {
@@ -154,12 +151,13 @@ export class DatatableComponent implements OnInit, DoCheck {
     return totalWidth + this.actionColumnWidth;
   }
 
-  resizeColumn({column, newValue}: any) {
+  onResizeColumn({column, newValue}: any) {
     for (const col of this.columns) {
       if (col.name === column.name) {
         col.width = newValue;
       }
     }
+    this.columns = [...this.columns];
   }
 
   onBodyScroll(event: MouseEvent): void {
