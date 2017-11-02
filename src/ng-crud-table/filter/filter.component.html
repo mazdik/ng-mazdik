@@ -1,59 +1,71 @@
 <div class="selection"
-	#selectionSpan
-	[ngStyle]="{'top.px': top, 'left.px': left, 'width.px': width}"
-	(click)="onSelectContainerClick($event)"
-	(keydown.esc)="closeDropdown()"
-	(window:click)="onWindowClick()">
-	<div class="dropdown">
-	    <ul class="dropdown-menu" [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
-		<li class="dropdown-item">
-		    <div class="input-group input-group-sm">
-			<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
-			<input type="text" class="form-control" placeholder="Search..." #searchFilterInput [(ngModel)]="searchFilterText">
-			<span class="input-group-btn" *ngIf="searchFilterText.length > 0">
-			    <button class="btn btn-default" type="button" (click)="clearSearch()"><i class="glyphicon glyphicon-remove"></i></button>
-			</span>
-		    </div>
-		</li>
-		<li class="list-divider"></li>
-		<li *ngIf="selectionLimit !== 1" class="dropdown-item">
-		    <a href="javascript:;" role="menuitem" tabindex="-1" (click)="checkAll()">
-			<span style="width: 16px;" class="glyphicon glyphicon-ok"></span>
-			Select all
-		    </a>
-		</li>
-		<li class="dropdown-item">
-		    <a href="javascript:;" role="menuitem" tabindex="-1" (click)="uncheckAll()">
-			<span style="width: 16px;" class="glyphicon glyphicon-remove"></span>
-			Clear
-		    </a>
-		</li>
-		<li class="list-divider"></li>
-		<li class="dropdown-item"
-		*ngFor="let option of column.options | searchFilter:searchFilterText"
-		[ngClass]="{'active': isSelected(option)}"
-		(click)="setSelected(option.id)">
-		    <a href="javascript:;" role="menuitem" tabindex="-1">
-			<span style="width: 16px;" class="glyphicon" [class.glyphicon-ok]="isSelected(option)"></span>
-			{{ option.name }}
-		    </a>
-		</li>
-	    </ul>
-	    <ul class="dropdown-menu" [style.display]="(isVisible && !column.options) ? 'block' : 'none' " >
-	    	<li class="dropdown-item">
-	    		<div class="input-group input-group-sm">
-				<input type="text" class="form-control"
-					#filterInput
-				    [attr.placeholder]="column.name"
-				    *ngIf="column.filter"
-				    [value]="filters[column.name] ? filters[column.name].value : ''"
-				    (click)="onFilterInputClick($event)"
-				    (keyup)="onFilterKeyup($event.target.value, column.name, null)" />
-				    <span class="input-group-btn" *ngIf="(filters[column.name] && filters[column.name].value.length > 0)">
-				    	<button class="btn btn-default" type="button" (click)="uncheckAll()"><i class="glyphicon glyphicon-remove"></i></button>
-					</span>
-				</div>
-		    </li>
-		</ul>
-	</div>
+     #selectionSpan
+     [ngStyle]="{'top.px': top, 'left.px': left, 'width.px': width}"
+     (click)="onSelectContainerClick($event)"
+     (keydown.esc)="closeDropdown()"
+     (window:click)="onWindowClick()">
+  <div class="dropdown-filter">
+
+    <ul class="dropdown-filter-menu" [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
+      <li class="dropdown-menu-item">
+        <div class="InputAddOn">
+          <input type="text"
+                 class="InputAddOn-field"
+                 placeholder="Search..."
+                 #searchFilterInput
+                 [(ngModel)]="searchFilterText"/>
+          <button class="InputAddOn-item"
+                  type="button"
+                  *ngIf="searchFilterText.length > 0"
+                  (click)="clearSearch()">
+            <i class="icon icon-remove"></i>
+          </button>
+        </div>
+      </li>
+
+      <li *ngIf="selectionLimit !== 1"
+          class="dropdown-menu-item">
+        <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="checkAll()">
+          <i class="icon icon-ok"></i>&nbsp;&nbsp;Select all
+        </a>
+      </li>
+      <li class="dropdown-menu-item">
+        <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="uncheckAll()">
+          <i class="icon icon-remove"></i>&nbsp;&nbsp;Clear
+        </a>
+      </li>
+
+      <li class="list-divider"></li>
+      <li class="dropdown-menu-item"
+          *ngFor="let option of column.options | searchFilter:searchFilterText"
+          [ngClass]="{'active': isSelected(option)}"
+          (click)="setSelected(option.id)">
+        <a href="javascript:void(0)" role="menuitem" tabindex="-1">
+          <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
+        </a>
+      </li>
+    </ul>
+
+    <ul class="dropdown-filter-menu" [style.display]="(isVisible && !column.options) ? 'block' : 'none' ">
+      <li class="dropdown-menu-item">
+        <div class="InputAddOn">
+          <input type="text"
+                 class="InputAddOn-field"
+                 #filterInput
+                 [attr.placeholder]="column.name"
+                 *ngIf="column.filter"
+                 [value]="filters[column.name] ? filters[column.name].value : ''"
+                 (click)="onFilterInputClick($event)"
+                 (keyup)="onFilterKeyup($event, column.name, null)"/>
+          <button class="InputAddOn-item"
+                  *ngIf="(filters[column.name] && filters[column.name].value.length > 0)"
+                  type="button"
+                  (click)="uncheckAll()">
+            <i class="icon icon-remove"></i>
+          </button>
+        </div>
+      </li>
+    </ul>
+
+  </div>
 </div>
