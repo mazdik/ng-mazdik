@@ -21,6 +21,7 @@ export class DetailViewComponent implements OnInit {
 
   public edit: boolean = false;
   public loading: boolean = false;
+  public formValid: boolean = true;
 
   constructor() {
   }

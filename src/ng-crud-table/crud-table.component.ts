@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 
@@ -7,6 +7,7 @@ import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.componen
   selector: 'crud-table',
   templateUrl: './crud-table.component.html',
   styleUrls: ['./crud-table.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class CrudTableComponent implements OnInit {

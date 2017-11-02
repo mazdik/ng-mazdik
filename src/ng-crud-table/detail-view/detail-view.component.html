@@ -1,14 +1,14 @@
 <div class="detail-view" *ngIf="item">
   <p>
-    <button type="button" class="btn btn-primary" (click)="closeDetails()">Back</button>
+    <button type="button" class="button" (click)="closeDetails()">Back</button>
 
-    <a class="btn btn-warning pull-right"
+    <button class="button button4"
+       style="float: right;"
        *ngIf="settings.crud"
        (click)="toggleForm()"
-       [ngClass]="{'active': edit}"
-       title="Update">
-      <span class="glyphicon glyphicon-pencil"></span>
-    </a>
+       [ngClass]="{'active': edit}">
+      Edit
+    </button>
   </p>
 
   <table class="table table-striped table-bordered detail-view" *ngIf="!edit">
@@ -24,13 +24,14 @@
     <app-row-form
       [columns]="columns"
       [item]="item"
-      [settings]="settings">
+      [settings]="settings"
+      (valid)="formValid=$event">
     </app-row-form>
     <div class="form-group">
-      <button type="button" class="btn btn-danger" (click)="deleteItem()">Delete</button>
-      <div class="pull-right">
-        <button type="button" class="btn btn-success" (click)="saveItem()">Save</button>
-        <button type="button" class="btn btn-primary" (click)="closeForm()">Cancel</button>
+      <button type="button" class="button button3" (click)="deleteItem()">Delete</button>
+      <div style="float: right;">
+        <button type="button" class="button button1" (click)="saveItem()" [disabled]="!formValid">Save</button>
+        <button type="button" class="button" (click)="closeForm()">Cancel</button>
       </div>
     </div>
   </div>
