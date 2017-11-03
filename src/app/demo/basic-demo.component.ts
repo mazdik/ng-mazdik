@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {Column, Settings, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
@@ -13,7 +13,7 @@ export class BasicDemoComponent {
 
   public service: ICrudService;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.service = new DemoService(this.http);
   }
 

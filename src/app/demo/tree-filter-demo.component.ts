@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {ITreeNode, Column, Settings, Filter, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
@@ -31,7 +31,7 @@ export class TreeFilterDemoComponent {
 
   public service: ICrudService;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     this.service = new DemoService(this.http);
   }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import {Column, Settings} from '../../ng-crud-table';
 
 
@@ -17,7 +17,7 @@ import {Column, Settings} from '../../ng-crud-table';
 
 export class DataTableDemoComponent implements OnInit {
 
-  public rows: any[] = [];
+  public rows: any = [];
   public loading: boolean = false;
 
   public settings: Settings = {
@@ -136,13 +136,13 @@ export class DataTableDemoComponent implements OnInit {
     {title: 'Deletion date', name: 'deletion_date', editable: true, },
   ];
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
     this.loading = true;
     this.http.get('/assets/players.json').subscribe(data => {
-      this.rows = data.json();
+      this.rows = data;
       this.loading = false;
     });
   }

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, Headers} from '@angular/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../types/interfaces';
 
@@ -10,21 +10,14 @@ export class OrdsCustomService implements ICrudService {
   public primaryKey: any;
   public process: string;
 
-  constructor(private http: Http) {
-  }
-
-  getJsonHeaders() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return headers;
+  constructor(private http: HttpClient) {
   }
 
   getAuthHeaders() {
-    const headers = this.getJsonHeaders();
     const authToken = localStorage.getItem('auth_token');
-    if (authToken) {
-      headers.append('Authorization', `Bearer ${authToken}`);
-    }
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${authToken}`);
     return headers;
   }
 
@@ -59,7 +52,7 @@ export class OrdsCustomService implements ICrudService {
     return this.http
       .post(this.url + '/', JSON.stringify(item), {headers: headers})
       .toPromise()
-      .then(res => res.json())
+      .then(res => res)
       .catch(this.handleError);
   }
 
@@ -79,7 +72,7 @@ export class OrdsCustomService implements ICrudService {
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()
-      .then(res => res.json())
+      .then(res => res)
       .catch(this.handleError);
   }
 
@@ -101,8 +94,8 @@ export class OrdsCustomService implements ICrudService {
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    let body = res.json();
+  private extractData(res: any) {
+    let body = res;
     const count = (body.items[0] && body.items[0].row_cnt) ? body.items[0].row_cnt : 0;
     const limit = body.limit;
     const meta = {
@@ -113,20 +106,20 @@ export class OrdsCustomService implements ICrudService {
     return body;
   }
 
-  private handleError(response: Response | any) {
+  private handleError(response: any) {
     let errMsg: string;
     let errors: any;
     let fieldErrors: any;
-    if (response instanceof Response) {
-      const body = response.json() || '';
-      const err = body.error || JSON.stringify(body);
+    if (response instanceof HttpResponse) {
+      const body = response || '';
+      const err = body || JSON.stringify(body);
       errMsg = `${response.status} - ${response.statusText || ''} ${err}`;
     } else {
       errMsg = response.message ? response.message : response.toString();
     }
 
     if (response.status === 422) {
-      fieldErrors = response.json();
+      fieldErrors = response;
     }
     errors = {'errMsg': errMsg, 'fieldErrors': fieldErrors};
     console.error(response);

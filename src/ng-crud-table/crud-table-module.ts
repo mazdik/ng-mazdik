@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
 
 import {PaginationComponent} from './pagination/pagination.component';
 import {ModalComponent} from './modal/modal.component';
@@ -35,6 +36,7 @@ import {FormService} from './form/form.service';
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
   ],
   declarations: [
     CrudTableComponent,

@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../../ng-crud-table';
 
@@ -12,14 +12,14 @@ export class DemoService implements ICrudService {
 
   private itemsPerPage: number = 20;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
   getItems(page: number = 1, filters ?: Filter, sortField ?: string, sortOrder ?: number): Promise<any> {
     return this.http.get(this.url)
       .toPromise()
       .then(function (res) {
-        const rows: any[] = res.json() || [];
+        const rows: any[] = res || [];
         const filteredData = this.filter(rows, filters);
         const sortedData = this.sort(filteredData, sortField, sortOrder);
         const pageData = this.page(sortedData, page);

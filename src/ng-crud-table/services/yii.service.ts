@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Response, URLSearchParams, Headers} from '@angular/http';
+import {HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../types/interfaces';
 
@@ -9,19 +9,14 @@ export class YiiService implements ICrudService {
   public url: string;
   public primaryKey: any;
 
-  constructor(private http: Http) {
-  }
-
-  getJsonHeaders() {
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return headers;
+  constructor(private http: HttpClient) {
   }
 
   getAuthHeaders() {
-    const headers = this.getJsonHeaders();
     const authToken = localStorage.getItem('auth_token');
-    headers.append('Authorization', `Bearer ${authToken}`);
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Authorization', `Bearer ${authToken}`);
     return headers;
   }
 
@@ -48,7 +43,7 @@ export class YiiService implements ICrudService {
     return this.http
       .post(this.url, JSON.stringify(item), {headers: headers})
       .toPromise()
-      .then(res => res.json())
+      .then(res => res)
       .catch(this.handleError);
   }
 
@@ -68,7 +63,7 @@ export class YiiService implements ICrudService {
     return this.http
       .put(url, JSON.stringify(item), {headers: headers})
       .toPromise()
-      .then(res => res.json())
+      .then(res => res)
       .catch(this.handleError);
   }
 
@@ -90,25 +85,24 @@ export class YiiService implements ICrudService {
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body;
+  private extractData(res: any) {
+    return res;
   }
 
-  private handleError(response: Response | any) {
+  private handleError(response: any) {
     let errMsg: string;
     let errors: any;
     let fieldErrors: any;
-    if (response instanceof Response) {
-      const body = response.json() || '';
-      const err = body.error || JSON.stringify(body);
+    if (response instanceof HttpResponse) {
+      const body = response || '';
+      const err = body || JSON.stringify(body);
       errMsg = `${response.status} - ${response.statusText || ''} ${err}`;
     } else {
       errMsg = response.message ? response.message : response.toString();
     }
 
     if (response.status === 422) {
-      fieldErrors = response.json();
+      fieldErrors = response;
     }
     errors = {'errMsg': errMsg, 'fieldErrors': fieldErrors};
     console.error(response);
@@ -116,12 +110,8 @@ export class YiiService implements ICrudService {
   }
 
   private urlEncode(obj: Filter): string {
-    const urlSearchParams = new URLSearchParams();
-    for (const key in obj) {
-      if (obj[key]['value']) {
-        urlSearchParams.append(key, obj[key]['value']);
-      }
-    }
+    const urlSearchParams = Object.getOwnPropertyNames(obj)
+      .reduce((p, key) => p.set(key, obj[key]['value']), new HttpParams());
     const url = urlSearchParams.toString();
     return (url) ? '&' + url : '';
   }

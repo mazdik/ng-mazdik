@@ -1,35 +1,25 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class FormService {
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
-  getOptions(url: string, parentId: any): Promise<any[]> {
+  getOptions(url: string, parentId: any): Promise<any> {
     return this.http.get(url + '/' + parentId)
       .toPromise()
-      .then(response => this.extractData(response))
+      .then(response => {
+        return response;
+      })
       .catch(this.handleError);
   }
 
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || {};
-  }
-
-  private handleError(error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
+  private handleError(error: any) {
+    const errMsg = error.message ? error.message : error.toString();
+    console.error(error);
     return Promise.reject(errMsg);
   }
 
