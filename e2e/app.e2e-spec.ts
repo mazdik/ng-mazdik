@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('demo App', () => {
+describe('ng-crud-table App', () => {
   let page: AppPage;
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
-# Angular 2 CRUD table using REST backend
+# Angular 5 CRUD table using REST backend
 
-Simple CRUD table component for Angular 2 using REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)  
+Simple CRUD table component for Angular using REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)  
 Supports Yii2 RESTful API, ORDS (Oracle REST Data Services), Flask-Restless
 
 ### Sample
