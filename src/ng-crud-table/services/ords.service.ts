@@ -99,24 +99,10 @@ export class OrdsService implements ICrudService {
     return body;
   }
 
-  private handleError(response: any) {
-    let errMsg: string;
-    let errors: any;
-    let fieldErrors: any;
-    if (response instanceof HttpResponse) {
-      const body = response || '';
-      const err = body || JSON.stringify(body);
-      errMsg = `${response.status} - ${response.statusText || ''} ${err}`;
-    } else {
-      errMsg = response.message ? response.message : response.toString();
-    }
-
-    if (response.status === 422) {
-      fieldErrors = response;
-    }
-    errors = {'errMsg': errMsg, 'fieldErrors': fieldErrors};
-    console.error(response);
-    return Promise.reject(errors);
+  private handleError(error: any) {
+    const errMsg = error.message ? error.message : error.toString();
+    console.error(error);
+    return Promise.reject(errMsg);
   }
 
   private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {

@@ -20,3 +20,16 @@
   background-color: #5b9bd5;
   color: white;
 }
+
+.dt-row {
+  display: flex;
+}
+
+.dt-col-left {
+  width: 14%;
+  margin-right: 5px;
+}
+
+.dt-col-right {
+  width: 85%;
+}

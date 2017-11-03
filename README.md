@@ -1,13 +1,13 @@
 # Angular 5 CRUD table using REST backend
 
 Simple CRUD table component for Angular using REST backend and Bootstrap 3 CSS. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)  
-Supports Yii2 RESTful API, ORDS (Oracle REST Data Services), Flask-Restless
+The module contains services for: Yii2 RESTful API, ORDS (Oracle REST Data Services), Flask-Restless
 
 ### Sample
 ```typescript
 import {Component}  from '@angular/core';
 import {Column, Settings, ICrudService, YiiService} from '../../shared/ng-crud-table';
-import {Http} from '@angular/http';
+import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class PlayersComponent {
   
     public service: ICrudService;
   
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
       // YiiService | RestlessService | OrdsService | your custom service
       this.service = new YiiService(this.http);
     }

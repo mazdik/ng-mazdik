@@ -1,8 +1,13 @@
-<div class="alert" *ngIf="errors">{{errors.errMsg}}</div>
+<div class="datatable-alert" *ngIf="errors">{{errors}}</div>
 
-<p *ngIf="settings.crud" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-  <button type="button" class="button" (click)="createItem()">Create</button>
-</p>
+<button type="button"
+        class="button"
+        style="margin-bottom: 5px;"
+        *ngIf="settings.crud"
+        [style.display]="(!onDetailView) ? 'block' : 'none' "
+        (click)="createItem()">Create
+</button>
+
 <div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
   <app-datatable
     [columns]="columns"

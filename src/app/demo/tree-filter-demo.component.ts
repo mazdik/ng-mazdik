@@ -15,6 +15,7 @@ import {DemoService} from './demo.service';
     </tree-view>
     <crud-table
       #table
+      style="float: left;"
       [columns]="columns"
       [settings]="settings"
       [filters]="filters"
