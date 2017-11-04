@@ -189,17 +189,17 @@ export class MasterDetailDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('/assets/players.json').subscribe(data => {
+    this.http.get('assets/players.json').subscribe(data => {
       this.rowsPlayers = data;
       const masterId = this.rowsPlayers[0]['id'];
 
-      this.http.get('/assets/rank.json').subscribe(rank => {
+      this.http.get('assets/rank.json').subscribe(rank => {
         this._rank = rank;
         this.rowsRank = this._rank.filter((value: any) => {
           return value['player_id'] === masterId;
         });
       });
-      this.http.get('/assets/inventory.json').subscribe(inventory => {
+      this.http.get('assets/inventory.json').subscribe(inventory => {
         this._inventory = inventory;
         this.rowsInventory = this._inventory.filter((value: any) => {
           return value['itemOwner'] === masterId;

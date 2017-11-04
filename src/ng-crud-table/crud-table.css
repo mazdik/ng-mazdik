@@ -35,3 +35,18 @@
   color: white;
   margin-bottom: 15px;
 }
+
+.icon {
+  position: relative;
+  display: inline-block;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.icon-rightwards:before {
+  content: "\27A4";
+}
+
+.icon-pencil:before {
+  content: "\270E";
+}

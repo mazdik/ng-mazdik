@@ -4,7 +4,8 @@ import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
   selector: 'app-detail-view',
-  templateUrl: 'detail-view.component.html'
+  templateUrl: 'detail-view.component.html',
+  styleUrls: ['detail-view.component.css'],
 })
 
 export class DetailViewComponent implements OnInit {

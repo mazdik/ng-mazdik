@@ -70,18 +70,18 @@
   background-color: #e5e5e5;
 }
 
-.icon {
+.df-icon {
   position: relative;
   display: inline-block;
   font-style: normal;
   font-weight: bold;
 }
 
-.icon-ok:before {
+.df-icon-ok:before {
   content: "\2714";
 }
 
-.icon-remove:before {
+.df-icon-remove:before {
   content: "\2716";
 }
 

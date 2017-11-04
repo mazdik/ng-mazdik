@@ -6,11 +6,12 @@
        [ngStyle]="{'width.px': actionColumnWidth}">
 
     <ng-template ngFor let-action [ngForOf]="actionMenu">
-      <a *ngIf="!action.disabled"
-         title="{{action.label}}"
-         (click)="actionClick($event, action, rowIndex)">
-        <span [ngClass]="action.icon"></span>
-      </a>
+        <span class="row-menu"
+              [ngClass]="action.icon"
+              *ngIf="!action.disabled"
+              title="{{action.label}}"
+              (click)="actionClick($event, action, rowIndex)">
+        </span>
     </ng-template>
 
     <span *ngIf="!enableAction">{{rowIndex+1}}</span>

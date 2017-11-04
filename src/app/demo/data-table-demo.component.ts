@@ -141,7 +141,7 @@ export class DataTableDemoComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.http.get('/assets/players.json').subscribe(data => {
+    this.http.get('assets/players.json').subscribe(data => {
       this.rows = data;
       this.loading = false;
     });

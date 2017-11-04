@@ -98,7 +98,7 @@ export class TreeFilterDemoComponent {
   ];
 
   public settings: Settings = {
-    api: '/assets/players.json',
+    api: 'assets/players.json',
     crud: true,
     primaryKey: 'id',
     tableWidth: 820,

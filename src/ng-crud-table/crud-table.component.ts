@@ -68,12 +68,12 @@ export class CrudTableComponent implements OnInit {
     this.rowMenu = [
       {
         label: 'View',
-        icon: 'glyphicon glyphicon-eye-open',
+        icon: 'icon icon-rightwards',
         command: (event) => this.viewDetails()
       },
       {
         label: 'Update',
-        icon: 'glyphicon glyphicon-pencil',
+        icon: 'icon icon-pencil',
         command: (event) => this.updateItem(),
         disabled: !this.settings.crud
       }

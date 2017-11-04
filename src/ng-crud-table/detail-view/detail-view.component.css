@@ -1,0 +1,21 @@
+.detail-view table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.detail-view table, th, td {
+  border: 1px solid #ddd;
+}
+
+.detail-view table>tbody>tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+.detail-view th, td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  text-align: left;
+}

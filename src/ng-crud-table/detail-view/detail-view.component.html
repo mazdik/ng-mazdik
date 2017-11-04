@@ -1,17 +1,16 @@
 <div class="detail-view" *ngIf="item">
-  <p>
+  <div style="margin-bottom: 5px;">
     <button type="button" class="button" (click)="closeDetails()">Back</button>
 
     <button class="button button4"
        style="float: right;"
        *ngIf="settings.crud"
        (click)="toggleForm()"
-       [ngClass]="{'active': edit}">
-      Edit
+       [ngClass]="{'active': edit}">Edit
     </button>
-  </p>
+  </div>
 
-  <table class="table table-striped table-bordered detail-view" *ngIf="!edit">
+  <table *ngIf="!edit">
     <tbody>
     <tr *ngFor="let column of columns">
       <th>{{column.title}}</th>

@@ -18,7 +18,7 @@
                   type="button"
                   *ngIf="searchFilterText.length > 0"
                   (click)="clearSearch()">
-            <i class="icon icon-remove"></i>
+            <i class="df-icon df-icon-remove"></i>
           </button>
         </div>
       </li>
@@ -26,12 +26,12 @@
       <li *ngIf="selectionLimit !== 1"
           class="dropdown-menu-item">
         <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="checkAll()">
-          <i class="icon icon-ok"></i>&nbsp;&nbsp;Select all
+          <i class="df-icon df-icon-ok"></i>&nbsp;&nbsp;Select all
         </a>
       </li>
       <li class="dropdown-menu-item">
         <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="uncheckAll()">
-          <i class="icon icon-remove"></i>&nbsp;&nbsp;Clear
+          <i class="df-icon df-icon-remove"></i>&nbsp;&nbsp;Clear
         </a>
       </li>
 
@@ -41,7 +41,7 @@
           [ngClass]="{'active': isSelected(option)}"
           (click)="setSelected(option.id)">
         <a href="javascript:void(0)" role="menuitem" tabindex="-1">
-          <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
+          <i class="df-icon" [class.df-icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
         </a>
       </li>
     </ul>
@@ -61,7 +61,7 @@
                   *ngIf="(filters[column.name] && filters[column.name].value.length > 0)"
                   type="button"
                   (click)="uncheckAll()">
-            <i class="icon icon-remove"></i>
+            <i class="df-icon df-icon-remove"></i>
           </button>
         </div>
       </li>
