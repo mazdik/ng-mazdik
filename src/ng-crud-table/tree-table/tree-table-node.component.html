@@ -6,10 +6,11 @@
       <div class="datatable-body-cell"
            [ngStyle]="{'width.px': 250}">
 
-        <div class="treenode">
-          <i class="indicator glyphicon"
+        <div class="treenode"
+             style=" cursor: pointer;">
+          <i class="icon-node"
              [ngStyle]="{'padding-left.px': level*10}"
-             [ngClass]="{'glyphicon-folder-close': !isLeaf(node), 'glyphicon-folder-open': !isLeaf(node) && node.isExpanded}"
+             [ngClass]="{'icon-node': !isLeaf(node), 'icon-collapsed': !isLeaf(node) && node.isExpanded}"
              (click)="onExpand(node)">
           </i>
           <span class="treenode-content"

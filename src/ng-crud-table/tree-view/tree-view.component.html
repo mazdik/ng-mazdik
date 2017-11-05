@@ -1,7 +1,7 @@
 <ul class="tree-container">
   <li class="treenode" *ngFor="let node of nodes">
-    <i class="indicator glyphicon"
-       [ngClass]="{'glyphicon-folder-close': !isLeaf(node), 'glyphicon-folder-open': !isLeaf(node) && node.isExpanded}"
+    <i class="indicator icon-node"
+       [ngClass]="{'icon-node': !isLeaf(node), 'icon-collapsed': !isLeaf(node) && node.isExpanded}"
        (click)="onExpand(node)">
     </i>
 
