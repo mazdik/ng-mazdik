@@ -1,4 +1,5 @@
 import {Column, Settings} from '../types/interfaces';
+import {isUndefined} from "util";
 
 export class ColumnUtils {
 
@@ -45,15 +46,15 @@ export class ColumnUtils {
       } else {
         options = column.options;
       }
-      if (options) {
+      if (options && (value !== undefined || value !== null)) {
         for (const el of options) {
-          if (el['id'] === value) {
+          if (el['id'].toString() === value.toString()) {
             name = el['name'];
             break;
           }
         }
       }
-      return name;
+      return name || value;
     } else {
       return value;
     }

@@ -6,17 +6,17 @@ import {CustomValidator} from './custom-validator';
 @Component({
   selector: 'app-form-input-text',
   template: `
-    <div class="form-group" [ngClass]="{'has-error':hasError()}">
+    <div class="df-group"  [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
       <input type="text"
-             class="form-control"
+             class="df-control"
              [(ngModel)]="model"
              [attr.placeholder]="column.title"
              (focus)="beginValidate = true"
              [id]="column.name"/>
 
-      <div class="help-block">
+      <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
     </div>

@@ -8,10 +8,10 @@ import {FormService} from './form.service';
 @Component({
   selector: 'app-form-radio',
   template: `
-    <div class="form-group" [ngClass]="{'has-error':hasError()}">
+    <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
-      <div class="radio" *ngFor="let o of getOptions()">
+      <div class="df-radio" *ngFor="let o of getOptions()">
         <label>
           <input
             type="radio"
@@ -24,7 +24,7 @@ import {FormService} from './form.service';
         <span>{{o.name ? o.name : o.id}}</span>
       </div>
 
-      <div class="help-block">
+      <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
     </div>

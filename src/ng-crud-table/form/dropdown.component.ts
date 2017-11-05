@@ -8,10 +8,10 @@ import {FormService} from './form.service';
 @Component({
   selector: 'app-form-dropdown',
   template: `
-    <div class="form-group" [ngClass]="{'has-error':hasError()}">
+    <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
-      <select class="form-control"
+      <select class="df-control"
               [(ngModel)]="model"
               (focus)="beginValidate = true"
               [id]="column.name">
@@ -19,7 +19,7 @@ import {FormService} from './form.service';
         <option *ngFor="let opt of getOptions()" [ngValue]="opt.id">{{opt.name}}</option>
       </select>
 
-      <div class="help-block">
+      <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
     </div>

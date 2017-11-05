@@ -1,9 +1,11 @@
-import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter} from '@angular/core';
+import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {Column, Settings} from '../types/interfaces';
 
 @Component({
   selector: 'app-row-form',
-  templateUrl: 'form.component.html'
+  templateUrl: 'form.component.html',
+  styleUrls: ['form.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class FormComponent implements OnInit, OnDestroy {

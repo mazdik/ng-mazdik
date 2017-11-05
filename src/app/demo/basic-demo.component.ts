@@ -104,7 +104,15 @@ export class BasicDemoComponent {
     {title: 'Account name', name: 'account_name', editable: true, },
     {title: 'Account id', name: 'account_id', editable: true, },
     {title: 'Player class', name: 'player_class', editable: true, },
-    {title: 'Online', name: 'online', editable: true, },
+    {
+      title: 'Online',
+      name: 'online',
+      editable: true,
+      type: 'checkbox',
+      options: [
+        {id: 1, name: 'Online'}
+      ]
+    },
     {title: 'Cube size', name: 'cube_size', editable: true, },
     {title: 'Broker Kinah', name: 'brokerKinah', editable: true, },
     {title: 'Bind point', name: 'bind_point', editable: true, },
