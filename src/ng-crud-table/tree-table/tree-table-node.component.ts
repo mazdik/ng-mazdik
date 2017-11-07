@@ -12,6 +12,7 @@ export class TreeTableNodeComponent {
   @Input() public level: number = 0;
   @Input() public offsetX: number;
   @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+  @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   constructor() {
   }
@@ -31,6 +32,14 @@ export class TreeTableNodeComponent {
     const styles: any = {};
     styles.left = `${this.offsetX}px`;
     return styles;
+  }
+
+  columnTrackingFn(index: number, column: any): any {
+    return column.name;
+  }
+
+  onCellEditComplete(event) {
+    this.editComplete.emit(event);
   }
 
 }

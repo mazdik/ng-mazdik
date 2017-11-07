@@ -3,7 +3,7 @@ import {ITreeNode, Column} from '../../ng-crud-table';
 
 @Component({
   selector: 'tree-table-demo',
-  template: '<tree-table [nodes]="treeNodes" [columns]="columns"></tree-table>'
+  template: '<tree-table [nodes]="treeNodes" [columns]="columns" (editComplete)="onEditComplete($event)"></tree-table>'
 })
 export class TreeTableDemoComponent {
 
@@ -74,5 +74,9 @@ export class TreeTableDemoComponent {
         }],
     }
   ];
+
+  onEditComplete(event) {
+    console.log(event);
+  }
 
 }

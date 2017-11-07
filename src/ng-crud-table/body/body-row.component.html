@@ -17,24 +17,42 @@
     <span *ngIf="!enableAction">{{rowIndex+1}}</span>
   </div>
 
-  <datatable-body-cell
-    *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
-    tabindex="-1"
-    [colIndex]="colIndex"
-    [row]="row"
-    [column]="column"
-    (editComplete)="onCellEditComplete($event)">
-  </datatable-body-cell>
+  <ng-container *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn">
+    <datatable-body-cell
+      *ngIf="!column.editable"
+      tabindex="-1"
+      [colIndex]="colIndex"
+      [row]="row"
+      [column]="column">
+    </datatable-body-cell>
+    <datatable-body-cell-edit
+      *ngIf="column.editable"
+      tabindex="-1"
+      [colIndex]="colIndex"
+      [row]="row"
+      [column]="column"
+      (editComplete)="onCellEditComplete($event)">
+    </datatable-body-cell-edit>
+  </ng-container>
 
 </div>
 
 <div class="datatable-row-center datatable-row-group">
-  <datatable-body-cell
-    *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
-    tabindex="-1"
-    [colIndex]="colIndex"
-    [row]="row"
-    [column]="column"
-    (editComplete)="onCellEditComplete($event)">>
-  </datatable-body-cell>
+  <ng-container *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn">
+    <datatable-body-cell
+      *ngIf="!column.editable"
+      tabindex="-1"
+      [colIndex]="colIndex"
+      [row]="row"
+      [column]="column">
+    </datatable-body-cell>
+    <datatable-body-cell-edit
+      *ngIf="column.editable"
+      tabindex="-1"
+      [colIndex]="colIndex"
+      [row]="row"
+      [column]="column"
+      (editComplete)="onCellEditComplete($event)">
+    </datatable-body-cell-edit>
+  </ng-container>
 </div>
