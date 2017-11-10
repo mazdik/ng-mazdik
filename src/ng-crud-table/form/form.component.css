@@ -40,3 +40,7 @@
 {
   color: #a94442;
 }
+
+.df-wait, .df-wait *{
+  cursor: wait;
+}

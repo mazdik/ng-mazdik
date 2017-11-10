@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, HostBinding} from '@angular/core';
 import {Column, ICrudService} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
 import {CustomValidator} from './custom-validator';
@@ -57,6 +57,16 @@ export class DropdownComponent implements OnInit {
   private _options: any;
   private _dependsValue: any;
   public beginValidate: boolean;
+  public loading: boolean = false;
+
+  @HostBinding('class')
+  get cssClass() {
+    let cls = 'df-elem';
+    if (this.loading) {
+      cls += ' df-wait';
+    }
+    return cls;
+  }
 
   constructor(private validator: CustomValidator) {
   }
@@ -67,8 +77,12 @@ export class DropdownComponent implements OnInit {
   setOptions() {
     if (this._dependsValue) {
       if (this.column.optionsUrl && this.service.getOptions) {
+        this.loading = true;
         this.service.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
           this._options = res;
+          this.loading = false;
+        }).catch(error => {
+          this.loading = false;
         });
       }
     } else {

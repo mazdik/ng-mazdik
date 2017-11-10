@@ -106,10 +106,15 @@ export class DemoService implements ICrudService {
   }
 
   getOptions(url: string, parentId: any): Promise<any> {
-    return this.http.get(url + '/' + parentId)
+    return this.http.get(url)
       .toPromise()
-      .then(response => {
-        return response;
+      .then((response: any) => {
+        const result =  response.filter((value: any) => {
+          return value['parentId'] === parentId;
+        });
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(result), 1000);
+        });
       })
       .catch(this.handleError);
   }

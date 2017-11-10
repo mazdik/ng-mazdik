@@ -11,8 +11,8 @@
   padding: 8px 3px;
 }
 
-.demo-list span:hover {
-  background-color: #5b9bd5;
+.demo-list span:hover:not(.active) {
+  background-color: gray;
   color: white;
 }
 
@@ -20,6 +20,7 @@
   background-color: #5b9bd5;
   color: white;
 }
+
 
 .dt-row {
   display: flex;
