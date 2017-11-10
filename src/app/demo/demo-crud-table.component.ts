@@ -16,6 +16,8 @@ import {Component} from '@angular/core';
           </li>
           <li><span (click)="state='master-detail-demo'" [ngClass]="{'active': state === 'master-detail-demo'}">Master detail demo</span>
           </li>
+          <li><span (click)="state='modal-form-demo'" [ngClass]="{'active': state === 'modal-form-demo'}">Modal form demo</span>
+          </li>
         </ul>
       </div>
       <div class="dt-col-right">
@@ -24,6 +26,7 @@ import {Component} from '@angular/core';
         <tree-filter-demo *ngIf="state === 'tree-filter-demo'"></tree-filter-demo>
         <data-table-demo *ngIf="state === 'data-table-demo'"></data-table-demo>
         <master-detail-demo *ngIf="state === 'master-detail-demo'"></master-detail-demo>
+        <modal-form-demo *ngIf="state === 'modal-form-demo'"></modal-form-demo>
       </div>
     </div>
   `,

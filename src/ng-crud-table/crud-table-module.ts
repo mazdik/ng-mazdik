@@ -67,7 +67,7 @@ import {CustomValidator} from './form/custom-validator';
     TextareaComponent,
     CalendarComponent,
   ],
-  exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent, ModalComponent],
+  exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent, ModalComponent, ModalEditFormComponent],
   providers: [CustomValidator]
 })
 export class CrudTableModule {

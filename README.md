@@ -142,5 +142,6 @@ interface ICrudService {
   post(item: any): Promise<any>;
   put(item: any): Promise<any>;
   delete(item: any): Promise<any>;
+  getOptions?(url: string, parentId: any): Promise<any>;
 }
 ```
