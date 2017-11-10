@@ -105,4 +105,18 @@ export class DemoService implements ICrudService {
     });
   }
 
+  getOptions(url: string, parentId: any): Promise<any> {
+    return this.http.get(url + '/' + parentId)
+      .toPromise()
+      .then(response => {
+        return response;
+      })
+      .catch(this.handleError);
+  }
+
+  private handleError(error: any) {
+    const errMsg = error.message ? error.message : error.toString();
+    return Promise.reject(errMsg);
+  }
+
 }

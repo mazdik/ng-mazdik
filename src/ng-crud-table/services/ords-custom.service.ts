@@ -123,4 +123,13 @@ export class OrdsCustomService implements ICrudService {
     return JSON.stringify({params: filterObjects});
   }
 
+  getOptions(url: string, parentId: any): Promise<any> {
+    return this.http.get(url + '/' + parentId)
+      .toPromise()
+      .then(response => {
+        return response;
+      })
+      .catch(this.handleError);
+  }
+
 }

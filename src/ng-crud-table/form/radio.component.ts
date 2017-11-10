@@ -1,8 +1,7 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Column} from '../types/interfaces';
+import {Column, ICrudService} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
 import {CustomValidator} from './custom-validator';
-import {FormService} from './form.service';
 
 
 @Component({
@@ -33,6 +32,7 @@ import {FormService} from './form.service';
 export class RadioComponent implements OnInit {
 
   @Input() public column: Column;
+  @Input() public service: ICrudService;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
@@ -63,7 +63,7 @@ export class RadioComponent implements OnInit {
   private _dependsValue: any;
   public beginValidate: boolean;
 
-  constructor(private validator: CustomValidator, private formService: FormService) {
+  constructor(private validator: CustomValidator) {
   }
 
   ngOnInit() {
@@ -71,8 +71,8 @@ export class RadioComponent implements OnInit {
 
   setOptions() {
     if (this._dependsValue) {
-      if (this.column.optionsUrl) {
-        this.formService.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
+      if (this.column.optionsUrl && this.service.getOptions) {
+        this.service.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
           this._options = res;
         });
       }

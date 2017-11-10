@@ -116,4 +116,13 @@ export class YiiService implements ICrudService {
     }
   }
 
+  getOptions(url: string, parentId: any): Promise<any> {
+    return this.http.get(url + '/' + parentId)
+      .toPromise()
+      .then(response => {
+        return response;
+      })
+      .catch(this.handleError);
+  }
+
 }

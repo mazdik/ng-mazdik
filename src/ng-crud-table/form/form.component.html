@@ -18,7 +18,8 @@
         [column]="column"
         [(value)]="item[column.name]"
         [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)">
+        (valid)="onValid($event, column)"
+        [service]="service">
       </app-form-dropdown>
 
       <app-form-checkbox
@@ -26,7 +27,8 @@
         [column]="column"
         [(value)]="item[column.name]"
         [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)">
+        (valid)="onValid($event, column)"
+        [service]="service">
       </app-form-checkbox>
 
       <app-form-radio
@@ -34,7 +36,8 @@
         [column]="column"
         [(value)]="item[column.name]"
         [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)">
+        (valid)="onValid($event, column)"
+        [service]="service">
       </app-form-radio>
 
       <app-form-textarea

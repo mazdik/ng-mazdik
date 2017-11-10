@@ -1,5 +1,5 @@
 import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {Column, Settings} from '../types/interfaces';
+import {Column, Settings, ICrudService} from '../types/interfaces';
 
 @Component({
   selector: 'app-row-form',
@@ -14,6 +14,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() public settings: Settings;
   @Input() public item: any;
   @Input() public isNew: boolean = true;
+  @Input() public service: ICrudService;
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;

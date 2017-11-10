@@ -22,6 +22,7 @@
   <div class="detail-form" *ngIf="edit">
     <app-row-form
       [columns]="columns"
+      [service]="service"
       [item]="item"
       [settings]="settings"
       (valid)="formValid=$event">
