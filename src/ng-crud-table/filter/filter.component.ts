@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, OnInit, EventEmitter, ViewChild,
+  Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ISelectOption, Column, Filter} from '../types/interfaces';
@@ -15,7 +15,6 @@ export class FilterComponent implements OnInit {
   @Input() filters: Filter = {};
   @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('selectionSpan') selectionSpan: any;
   @ViewChild('searchFilterInput') searchFilterInput: any;
   @ViewChild('filterInput') filterInput: any;
 
@@ -32,10 +31,53 @@ export class FilterComponent implements OnInit {
   selectContainerClicked: boolean = false;
   filterTimeout: any;
 
+  @HostBinding('style.position') position = 'absolute';
+
+  @HostBinding('class')
+  get cssClass(): any {
+    const cls = 'datatable-filter';
+    return cls;
+  }
+
+  @HostBinding('style.left.px')
+  get getLeft(): number {
+    return this.left;
+  }
+
+  @HostBinding('style.top.px')
+  get getTop(): number {
+    return this.top;
+  }
+
+  @HostBinding('style.width.px')
+  get getWidth(): number {
+    return this.width;
+  }
+
   constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+  }
+
+  @HostListener('click', ['$event'])
+  onClick(event: MouseEvent): void {
+    this.onSelectContainerClick(event);
+  }
+
+  @HostListener('window:click', ['$event'])
+  onWindowsClick(event: MouseEvent): void {
+    this.onWindowClick();
+  }
+
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    const ESCAPE_KEYCODE = 27;
+    const keyCode = event.keyCode;
+
+    if (keyCode === ESCAPE_KEYCODE) {
+      this.closeDropdown();
+    }
   }
 
   clearSearch() {

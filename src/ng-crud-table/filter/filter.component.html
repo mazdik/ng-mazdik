@@ -1,71 +1,64 @@
-<div class="selection"
-     #selectionSpan
-     [ngStyle]="{'top.px': top, 'left.px': left, 'width.px': width}"
-     (click)="onSelectContainerClick($event)"
-     (keydown.esc)="closeDropdown()"
-     (window:click)="onWindowClick()">
-  <div class="dropdown-filter">
+<div class="dropdown-filter">
 
-    <ul class="dropdown-filter-menu" [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
-      <li class="dropdown-menu-item">
-        <div class="InputAddOn">
-          <input type="text"
-                 class="InputAddOn-field"
-                 placeholder="Search..."
-                 #searchFilterInput
-                 [(ngModel)]="searchFilterText"/>
-          <button class="InputAddOn-item"
-                  type="button"
-                  *ngIf="searchFilterText.length > 0"
-                  (click)="clearSearch()">
-            <i class="df-icon df-icon-remove"></i>
-          </button>
-        </div>
-      </li>
+  <ul class="dropdown-filter-menu" [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
+    <li class="dropdown-menu-item">
+      <div class="InputAddOn">
+        <input type="text"
+               class="InputAddOn-field"
+               placeholder="Search..."
+               #searchFilterInput
+               [(ngModel)]="searchFilterText"/>
+        <button class="InputAddOn-item"
+                type="button"
+                *ngIf="searchFilterText.length > 0"
+                (click)="clearSearch()">
+          <i class="df-icon df-icon-remove"></i>
+        </button>
+      </div>
+    </li>
 
-      <li *ngIf="selectionLimit !== 1"
-          class="dropdown-menu-item">
-        <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="checkAll()">
-          <i class="df-icon df-icon-ok"></i>&nbsp;&nbsp;Select all
-        </a>
-      </li>
-      <li class="dropdown-menu-item">
-        <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="uncheckAll()">
-          <i class="df-icon df-icon-remove"></i>&nbsp;&nbsp;Clear
-        </a>
-      </li>
+    <li *ngIf="selectionLimit !== 1"
+        class="dropdown-menu-item">
+      <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="checkAll()">
+        <i class="df-icon df-icon-ok"></i>&nbsp;&nbsp;Select all
+      </a>
+    </li>
+    <li class="dropdown-menu-item">
+      <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="uncheckAll()">
+        <i class="df-icon df-icon-remove"></i>&nbsp;&nbsp;Clear
+      </a>
+    </li>
 
-      <li class="list-divider"></li>
-      <li class="dropdown-menu-item"
-          *ngFor="let option of column.options | searchFilter:searchFilterText"
-          [ngClass]="{'active': isSelected(option)}"
-          (click)="setSelected(option.id)">
-        <a href="javascript:void(0)" role="menuitem" tabindex="-1">
-          <i class="df-icon" [class.df-icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
-        </a>
-      </li>
-    </ul>
+    <li class="list-divider"></li>
+    <li class="dropdown-menu-item"
+        *ngFor="let option of column.options | searchFilter:searchFilterText"
+        [ngClass]="{'active': isSelected(option)}"
+        (click)="setSelected(option.id)">
+      <a href="javascript:void(0)" role="menuitem" tabindex="-1">
+        <i class="df-icon" [class.df-icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
+      </a>
+    </li>
+  </ul>
 
-    <ul class="dropdown-filter-menu" [style.display]="(isVisible && !column.options) ? 'block' : 'none' ">
-      <li class="dropdown-menu-item">
-        <div class="InputAddOn">
-          <input type="text"
-                 class="InputAddOn-field"
-                 #filterInput
-                 [attr.placeholder]="column.name"
-                 *ngIf="column.filter"
-                 [value]="filters[column.name] ? filters[column.name].value : ''"
-                 (click)="onFilterInputClick($event)"
-                 (keyup)="onFilterKeyup($event, column.name, null)"/>
-          <button class="InputAddOn-item"
-                  *ngIf="(filters[column.name] && filters[column.name].value.length > 0)"
-                  type="button"
-                  (click)="uncheckAll()">
-            <i class="df-icon df-icon-remove"></i>
-          </button>
-        </div>
-      </li>
-    </ul>
+  <ul class="dropdown-filter-menu" [style.display]="(isVisible && !column.options) ? 'block' : 'none' ">
+    <li class="dropdown-menu-item">
+      <div class="InputAddOn">
+        <input type="text"
+               class="InputAddOn-field"
+               #filterInput
+               [attr.placeholder]="column.name"
+               *ngIf="column.filter"
+               [value]="filters[column.name] ? filters[column.name].value : ''"
+               (click)="onFilterInputClick($event)"
+               (keyup)="onFilterKeyup($event, column.name, null)"/>
+        <button class="InputAddOn-item"
+                *ngIf="(filters[column.name] && filters[column.name].value.length > 0)"
+                type="button"
+                (click)="uncheckAll()">
+          <i class="df-icon df-icon-remove"></i>
+        </button>
+      </div>
+    </li>
+  </ul>
 
-  </div>
 </div>
