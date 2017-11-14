@@ -6,7 +6,6 @@ import {DomUtils} from '../utils/dom-utils';
 @Component({
   selector: 'datatable-header',
   templateUrl: 'header.component.html',
-  styleUrls: ['header.component.css'],
   host: {
     class: 'datatable-header'
   },

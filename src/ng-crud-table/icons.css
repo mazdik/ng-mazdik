@@ -1,0 +1,59 @@
+.icon {
+  position: relative;
+  display: inline-block;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.icon-up:before {
+  content: "\2B06";
+}
+
+.icon-down:before {
+  content: "\2B07";
+}
+
+.icon-rightwards:before {
+  content: "\27A4";
+}
+
+.icon-pencil:before {
+  content: "\270E";
+}
+
+.icon-node:before {
+  content: "";
+  position: relative;
+  display: inline-block;
+  border-top: .5em solid;
+  border-right: .45em solid transparent;
+  border-left: .45em solid transparent;
+  top: -1px;
+  margin-right: 4px;
+  opacity: .75;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+.icon-node.icon-collapsed:before,
+.icon-node.icon-collapsing:before {
+  transform: rotate(-90deg);
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+
+.icon-filter:before,
+.icon-filter:after {
+  content: '';
+  pointer-events: none;
+}
+
+.icon-filter {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 7.5px solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  padding: 2.5px;
+  box-shadow: inset 0 7px;
+  margin: 9px 4px;
+}

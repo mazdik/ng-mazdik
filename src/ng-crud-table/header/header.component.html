@@ -11,7 +11,7 @@
          (resize)="onColumnResized($event, column)">
 
       <ng-template [ngIf]="colIndex == 0 && settings.filter">
-        <i class="icon icon-filter"
+        <i class="icon-filter"
            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
            (click)="clearAllFilters()"
            title="Clear all filters">
@@ -25,9 +25,10 @@
              [ngClass]="{'icon-down': (getSortOrder(column) == -1), 'icon-up': (getSortOrder(column) == 1)}">
           </i>
           </span>
-        <i (click)="showColumnMenu($event, column)"
+        <i *ngIf="column.filter"
+           (click)="showColumnMenu($event, column)"
            [ngClass]="{'is-filter': isFilter(column)}"
-           class="icon icon-filter column-menu">
+           class="icon-filter column-menu">
         </i>
       </ng-template>
     </div>
@@ -51,9 +52,10 @@
                [ngClass]="{'icon-down': (getSortOrder(column) == -1), 'icon-up': (getSortOrder(column) == 1)}">
             </i>
             </span>
-      <i (click)="showColumnMenu($event, column)"
+      <i *ngIf="column.filter"
+         (click)="showColumnMenu($event, column)"
          [ngClass]="{'is-filter': isFilter(column)}"
-         class="icon icon-filter column-menu">
+         class="icon-filter column-menu">
       </i>
     </div>
   </div>

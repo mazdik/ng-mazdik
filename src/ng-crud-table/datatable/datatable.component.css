@@ -269,6 +269,31 @@
   border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
+.column-title {
+  color: white;
+  padding: 2px;
+}
+
+.column-title:hover {
+  cursor: pointer;
+}
+
+.column-menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  visibility: hidden;
+}
+
+.column-menu:hover {
+  cursor: pointer;
+}
+
+.is-filter {
+  visibility: visible;
+}
+
 /* Editing */
 .cell-data {
   overflow: hidden;
@@ -279,6 +304,8 @@
 
 .cell-editor {
   display: none;
+  width: 100%;
+  height: 100%;
 }
 
 .cell-editing {
