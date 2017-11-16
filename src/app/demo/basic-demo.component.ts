@@ -1,15 +1,14 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
 @Component({
   selector: 'basic-demo',
-  template: `
-    <crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`
+  template: `<crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`,
 })
 
-export class BasicDemoComponent {
+export class BasicDemoComponent implements OnInit {
 
   public service: ICrudService;
 
@@ -139,5 +138,17 @@ export class BasicDemoComponent {
     {title: 'Partner id', name: 'partner_id', editable: true, },
     {title: 'Deletion date', name: 'deletion_date', editable: true, },
   ];
+
+  ngOnInit() {
+    this.columns[5]['cellClass'] = this.getCellClass;
+  }
+
+  getCellClass({row, column, value}): any {
+    return {
+      'cell-big-value': value > 1000000000,
+      'cell-middle-value': value > 1000000 && value < 1000000000,
+      'cell-zero-value': value === 0,
+    };
+  }
 
 }

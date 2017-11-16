@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'demo-crud-table',
@@ -18,6 +18,9 @@ import {Component} from '@angular/core';
           </li>
           <li><span (click)="state='modal-form-demo'" [ngClass]="{'active': state === 'modal-form-demo'}">Modal form demo</span>
           </li>
+          <li><span (click)="state='modal-data-table-demo'" [ngClass]="{'active': state === 'modal-data-table-demo'}">
+            Modal data table demo</span>
+          </li>
         </ul>
       </div>
       <div class="dt-col-right">
@@ -27,10 +30,12 @@ import {Component} from '@angular/core';
         <data-table-demo *ngIf="state === 'data-table-demo'"></data-table-demo>
         <master-detail-demo *ngIf="state === 'master-detail-demo'"></master-detail-demo>
         <modal-form-demo *ngIf="state === 'modal-form-demo'"></modal-form-demo>
+        <modal-data-table-demo *ngIf="state === 'modal-data-table-demo'"></modal-data-table-demo>
       </div>
     </div>
   `,
   styleUrls: ['./demo-crud-table.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DemoCrudTableComponent {
 

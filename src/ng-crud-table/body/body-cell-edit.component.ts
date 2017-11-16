@@ -23,6 +23,28 @@ export class BodyCellEditComponent implements DoCheck {
   @HostBinding('class')
   get columnCssClasses(): any {
     let cls = 'datatable-body-cell';
+    if (this.column.cellClass) {
+      if (typeof this.column.cellClass === 'string') {
+        cls += ' ' + this.column.cellClass;
+      } else if (typeof this.column.cellClass === 'function') {
+        const res = this.column.cellClass({
+          row: this.row,
+          column: this.column,
+          value: this.value ,
+        });
+
+        if (typeof res === 'string') {
+          cls += ' ' + res;
+        } else if (typeof res === 'object') {
+          const keys = Object.keys(res);
+          for (const k of keys) {
+            if (res[k] === true) {
+              cls += ` ${k}`;
+            }
+          }
+        }
+      }
+    }
     if (this.editing) {
       cls += ' cell-editing';
     }

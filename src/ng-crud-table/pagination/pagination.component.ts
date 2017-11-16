@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from "@angular/core";
+import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
   selector: "pagination",

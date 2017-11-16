@@ -34,3 +34,15 @@
 .dt-col-right {
   width: 85%;
 }
+
+.cell-big-value {
+  background-color: lightsalmon;
+}
+
+.cell-zero-value {
+  background-color: lightgreen;
+}
+
+.cell-middle-value {
+  background-color: lightblue;
+}

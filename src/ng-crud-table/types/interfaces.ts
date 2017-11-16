@@ -23,6 +23,7 @@ export interface Column {
   cellTemplate?: any;
   formHidden?: boolean;
   optionsUrl?: string;
+  cellClass?: any;
 }
 
 export interface FilterMetadata {

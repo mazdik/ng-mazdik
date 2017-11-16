@@ -1,49 +1,70 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Column, Settings} from '../../ng-crud-table';
+import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Column, Settings} from '../../ng-crud-table';
 
 
 @Component({
-  selector: 'master-detail-demo',
+  selector: 'modal-data-table-demo',
   template: `
     <app-datatable
-      #tablePlayers
-      [columns]="columnsPlayers"
-      [settings]="settingsPlayers"
-      [rows]="rowsPlayers"
-      (filterChanged)="masterChanged($event)"
-      (pageChanged)="masterChanged($event)"
-      (sortChanged)="masterChanged($event)"
-      (selectedRowIndexChanged)="masterChanged($event)">
+      [columns]="columns"
+      [settings]="settings"
+      [rows]="rows"
+      [loading]="loading">
     </app-datatable>
-    <div style="display:inline-block; vertical-align: top;">
-      <app-datatable
-        [columns]="columnsInventory"
-        [settings]="settingsInventory"
-        [rows]="rowsInventory">
-      </app-datatable>
-    </div>
-    <div style="display:inline-block; width: 5px;"></div>
-    <div style="display:inline-block; vertical-align: top;">
-      <app-datatable
-        [columns]="columnsRank"
-        [settings]="settingsRank"
-        [rows]="rowsRank">
-      </app-datatable>
-    </div>
+    <ng-template #template1 let-row="row" let-value="value">
+      <a (click)="onClickCell1($event, value, row)" href="#">
+        {{value}}
+      </a>
+    </ng-template>
+    <ng-template #template2 let-row="row" let-value="value">
+      <a (click)="onClickCell2($event, value, row)" href="#">
+        {{value}}
+      </a>
+    </ng-template>
+    <app-modal #rankModal [modalTitle]="'Rank'">
+      <div class="app-modal-body">
+        <div *ngIf="rankModal.visible">
+          <app-datatable
+            [columns]="columnsRank"
+            [settings]="settingsRank"
+            [rows]="rowsRank"
+            [loading]="loading">
+          </app-datatable>
+        </div>
+      </div>
+      <div class="app-modal-footer">
+      </div>
+    </app-modal>
+    <app-modal #inventoryModal [modalTitle]="'Rank'">
+      <div class="app-modal-body">
+        <div *ngIf="inventoryModal.visible">
+          <app-datatable
+            [columns]="columnsInventory"
+            [settings]="settingsInventory"
+            [rows]="rowsInventory">
+          </app-datatable>
+        </div>
+      </div>
+      <div class="app-modal-footer">
+      </div>
+    </app-modal>
   `
 })
 
-export class MasterDetailDemoComponent implements OnInit {
+export class ModalDataTableDemoComponent implements OnInit {
 
-  public rowsPlayers: any = [];
+  public rows: any = [];
+  public loading: boolean = false;
   public rowsRank: any = [];
   public rowsInventory: any = [];
-  public loading: boolean = false;
 
-  @ViewChild('tablePlayers') tablePlayers: any;
+  @ViewChild('template1') template1: TemplateRef<any>;
+  @ViewChild('template2') template2: TemplateRef<any>;
+  @ViewChild('rankModal') rankModal: any;
+  @ViewChild('inventoryModal') inventoryModal: any;
 
-  public settingsPlayers: Settings = {
+  public settings: Settings = {
     api: null,
     crud: true,
     primaryKey: 'id',
@@ -59,6 +80,7 @@ export class MasterDetailDemoComponent implements OnInit {
     tableWidth: 500,
     scrollHeight: 250,
     clientSide: true,
+    filter: false
   };
 
   public settingsInventory: Settings = {
@@ -68,23 +90,28 @@ export class MasterDetailDemoComponent implements OnInit {
     tableWidth: 600,
     scrollHeight: 250,
     clientSide: true,
+    filter: false
   };
 
-  public columnsPlayers: Column[] = [
+  public columns: Column[] = [
     {title: 'Id', name: 'id'},
     {title: 'Name', name: 'name'},
     {
       title: 'Race',
       name: 'race',
+      sortable: true,
+      filter: true,
       type: 'dropdown',
       options: [
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},
       ],
+      editable: true,
     },
     {
       title: 'Cascading Select',
       name: 'note',
+      editable: true,
       type: 'dropdown',
       options: [
         {id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS'},
@@ -100,43 +127,32 @@ export class MasterDetailDemoComponent implements OnInit {
     {
       title: 'Gender',
       name: 'gender',
+      sortable: true,
+      filter: true,
       type: 'radio',
       options: [
         {id: 'MALE', name: 'MALE'},
         {id: 'FEMALE', name: 'FEMALE'},
       ],
+      editable: true,
     },
-    {title: 'Exp', name: 'exp'},
-    {title: 'Last online', name: 'last_online'},
-    {title: 'Account name', name: 'account_name'},
-    {title: 'Account id', name: 'account_id'},
-    {title: 'Player class', name: 'player_class'},
-    {title: 'Online', name: 'online'},
-    {title: 'Cube size', name: 'cube_size'},
-    {title: 'Broker Kinah', name: 'brokerKinah'},
-    {title: 'Bind point', name: 'bind_point'},
-    {title: 'X', name: 'x'},
-    {title: 'Y', name: 'y'},
-    {title: 'Z', name: 'z'},
-    {title: 'Recoverexp', name: 'recoverexp'},
-    {title: 'Heading', name: 'heading'},
-    {title: 'World id', name: 'world_id'},
-    {title: 'Creation date', name: 'creation_date'},
-    {title: 'Stigma slot size', name: 'advanced_stigma_slot_size'},
-    {title: 'Warehouse size', name: 'warehouse_size'},
-    {title: 'Mailbox Letters', name: 'mailboxLetters'},
-    {title: 'Mailbox Un Read Letters', name: 'mailboxUnReadLetters'},
-    {title: 'Title id', name: 'title_id'},
-    {title: 'Repletion state', name: 'repletionstate'},
-    {title: 'Rebirth id', name: 'rebirth_id'},
-    {title: 'Member points', name: 'memberpoints'},
-    {title: 'Marry player id', name: 'marry_player_id'},
-    {title: 'Marry title', name: 'marrytitle'},
-    {title: 'Bg points', name: 'bg_points'},
-    {title: 'Personal rating', name: 'personal_rating'},
-    {title: 'Arena points', name: 'arena_points'},
-    {title: 'Partner id', name: 'partner_id'},
-    {title: 'Deletion date', name: 'deletion_date'},
+    {
+      title: 'Exp',
+      name: 'exp',
+      sortable: true,
+      filter: true,
+      type: 'number',
+      validation: {required: true, minLength: 2, maxLength: 10},
+      editable: true,
+    },
+    {
+      title: 'Last online',
+      name: 'last_online',
+      sortable: true,
+      filter: true,
+      type: 'date',
+      editable: true,
+    }
   ];
 
   public columnsRank: Column[] = [
@@ -184,42 +200,43 @@ export class MasterDetailDemoComponent implements OnInit {
   private _inventory: any = [];
 
   constructor(private http: HttpClient) {
-
   }
 
   ngOnInit() {
+    this.columns[0]['cellTemplate'] = this.template1;
+    this.columns[1]['cellTemplate'] = this.template2;
+
+    this.loading = true;
     this.http.get('assets/players.json').subscribe(data => {
-      this.rowsPlayers = data;
-      const masterId = this.rowsPlayers[0]['id'];
-
-      this.http.get('assets/rank.json').subscribe(rank => {
-        this._rank = rank;
-        this.rowsRank = this._rank.filter((value: any) => {
-          return value['player_id'] === masterId;
-        });
-      });
-      this.http.get('assets/inventory.json').subscribe(inventory => {
-        this._inventory = inventory;
-        this.rowsInventory = this._inventory.filter((value: any) => {
-          return value['itemOwner'] === masterId;
-        });
-      });
-
+      this.rows = data;
+      this.loading = false;
+    });
+    this.http.get('assets/rank.json').subscribe(rank => {
+      this._rank = rank;
+      this.rowsRank = rank;
+    });
+    this.http.get('assets/inventory.json').subscribe(inventory => {
+      this._inventory = inventory;
+      this.rowsInventory = inventory;
     });
   }
 
-  masterChanged(event) {
-    if (this.tablePlayers.rows.length > 0) {
-      const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
+  onClickCell1(event, value, row) {
+    event.preventDefault();
 
-      this.rowsRank = this._rank.filter((value: any) => {
-        return value['player_id'] === masterId;
-      });
-      this.rowsInventory = this._inventory.filter((value: any) => {
-        return value['itemOwner'] === masterId;
-      });
-    }
+    this.rowsRank = this._rank.filter((item: any) => {
+      return item['player_id'] === value;
+    });
+    this.rankModal.show();
+  }
 
+  onClickCell2(event, value, row) {
+    event.preventDefault();
+
+    this.rowsInventory = this._inventory.filter((item: any) => {
+      return item['itemOwner'] === row['id'];
+    });
+    this.inventoryModal.show();
   }
 
 }

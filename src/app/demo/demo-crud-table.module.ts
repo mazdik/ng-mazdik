@@ -10,7 +10,8 @@ import { TreeTableDemoComponent } from './tree-table-demo.component';
 import { TreeFilterDemoComponent } from './tree-filter-demo.component';
 import { DataTableDemoComponent } from './data-table-demo.component';
 import { MasterDetailDemoComponent } from './master-detail.component';
-import { ModalFormDemoComponent} from './modal-form-demo.component';
+import { ModalFormDemoComponent } from './modal-form-demo.component';
+import { ModalDataTableDemoComponent } from './modal-data-table-demo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ModalFormDemoComponent} from './modal-form-demo.component';
     TreeFilterDemoComponent,
     DataTableDemoComponent,
     MasterDetailDemoComponent,
-    ModalFormDemoComponent
+    ModalFormDemoComponent,
+    ModalDataTableDemoComponent
   ],
   imports: [
     BrowserModule,

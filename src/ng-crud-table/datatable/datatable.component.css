@@ -265,8 +265,8 @@
 
 .datatable .datatable-body-cell,
 .datatable .datatable-header-cell {
-  border-right: 1px solid rgba(0, 0, 0, .2);
-  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
 }
 
 .column-title {
