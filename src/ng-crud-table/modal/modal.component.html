@@ -1,21 +1,23 @@
-  <div class="ui-modal" tabindex="-1" role="dialog" 
-  		#modalRoot
-  		(click)="static ? hide() : 0" 
-  		(keydown.esc)="hide()" 
-  		[ngClass]="{'in': visibleAnimate}" 
-    	[ngStyle]="{'display': visible ? 'block' : 'none', 'opacity': visibleAnimate ? 1 : 0}">
-    <div class="ui-modal-dialog" (click)="preventClosing($event)">
-      <div class="ui-modal-content">
-        <div class="ui-modal-header">
-            <span class="ui-close" (click)="hide()">&times;</span>
-            <h3 class="ui-modal-title">{{modalTitle}}</h3>
-        </div>
-        <div class="ui-modal-body">
-          <ng-content select=".app-modal-body"></ng-content>
-        </div>
-        <div class="ui-modal-footer">
-          <ng-content select=".app-modal-footer"></ng-content>
-        </div>
-      </div>
+<div class="ui-modal-overlay"
+     [style.zIndex]="zIndex"
+     [ngStyle]="{'display': visible ? 'block' : 'none'}">
+</div>
+
+<div class="ui-modal" tabindex="-1" role="dialog"
+     #modalRoot
+     [ngStyle]="{'display': visible ? 'block' : 'none'}"
+     [style.width.px]="width"
+     [style.zIndex]="contentzIndex">
+  <div class="ui-modal-content">
+    <div class="ui-modal-header">
+      <span class="ui-close" (click)="hide()">&times;</span>
+      <h3 class="ui-modal-title">{{modalTitle}}</h3>
+    </div>
+    <div class="ui-modal-body">
+      <ng-content select=".app-modal-body"></ng-content>
+    </div>
+    <div class="ui-modal-footer">
+      <ng-content select=".app-modal-footer"></ng-content>
     </div>
   </div>
+</div>
