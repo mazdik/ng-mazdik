@@ -9,7 +9,9 @@
      [style.width.px]="width"
      [style.zIndex]="contentzIndex">
   <div class="ui-modal-content">
-    <div class="ui-modal-header">
+    <div class="ui-modal-header"
+         (mousedown)="initDrag($event)"
+         (mouseup)="endDrag($event)">
       <span class="ui-close" (click)="hide()">&times;</span>
       <h3 class="ui-modal-title">{{modalTitle}}</h3>
     </div>

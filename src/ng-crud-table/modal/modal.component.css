@@ -61,3 +61,10 @@
 .ui-modal-title {
   font-size: 18px;
 }
+
+.dragging {
+  cursor: move;
+  border-color: #66afe9;
+  outline: 0;
+  box-shadow: 0 4px 8px rgba(102,175,233,.6), 0 6px 20px rgba(0,0,0,.2);
+}
