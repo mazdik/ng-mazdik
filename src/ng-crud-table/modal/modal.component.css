@@ -13,7 +13,6 @@
   position: fixed;
   left: 0;
   top: 0;
-  min-width: 150px;
   max-width: 100%;
   outline: none;
   background-color: #fefefe;
@@ -22,32 +21,15 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.ui-modal-content {
-  position: relative;
-}
-
-/* The Close Button */
-.ui-close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.ui-close:hover,
-.ui-close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .ui-modal-header {
+  position: relative;
   padding: 2px 16px;
   background-color: #5b9bd5;
   color: white;
 }
 
 .ui-modal-body {
+  position: relative;
   padding: 2px 16px;
   max-height: calc(100vh - 200px);
   overflow-y: auto;
@@ -62,9 +44,57 @@
   font-size: 18px;
 }
 
+.ui-close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.ui-close:hover,
+.ui-close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .dragging {
   cursor: move;
   border-color: #66afe9;
   outline: 0;
   box-shadow: 0 4px 8px rgba(102,175,233,.6), 0 6px 20px rgba(0,0,0,.2);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.resizing {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.ui-resizable-se {
+  position:absolute;
+  cursor: se-resize;
+  height: 15px;
+  width: 15px;
+  right: 0;
+  bottom: 0;
+}
+
+.ui-resizable-e {
+  position:absolute;
+  cursor: e-resize;
+  height: 100%;
+  width: 7px;
+  right: -5px;
+  top: 0;
+}
+
+.ui-resizable-s {
+  position:absolute;
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
 }

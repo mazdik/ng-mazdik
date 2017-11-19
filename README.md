@@ -117,7 +117,7 @@ export class PlayersComponent {
 * Filtering
 * Sorting
 * Pagination
-* Modal
+* Modal (Draggable and Resizable)
 * Create/Update/Delete
 * Single row view
 * Loading indicator

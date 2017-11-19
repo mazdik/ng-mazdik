@@ -7,19 +7,28 @@
      #modalRoot
      [ngStyle]="{'display': visible ? 'block' : 'none'}"
      [style.width.px]="width"
+     [style.minWidth.px]="minWidth"
      [style.zIndex]="contentzIndex">
-  <div class="ui-modal-content">
     <div class="ui-modal-header"
-         (mousedown)="initDrag($event)"
-         (mouseup)="endDrag($event)">
+         (mousedown)="initDrag($event)">
       <span class="ui-close" (click)="hide()">&times;</span>
       <h3 class="ui-modal-title">{{modalTitle}}</h3>
     </div>
-    <div class="ui-modal-body">
+    <div class="ui-modal-body"
+         #modalBody>
       <ng-content select=".app-modal-body"></ng-content>
     </div>
     <div class="ui-modal-footer">
       <ng-content select=".app-modal-footer"></ng-content>
     </div>
-  </div>
+
+  <div class="ui-resizable-s"
+       [style.zIndex]="contentzIndex"
+       (mousedown)="initResizeS($event)"></div>
+  <div class="ui-resizable-e"
+       [style.zIndex]="contentzIndex"
+       (mousedown)="initResizeE($event)"></div>
+  <div class="ui-resizable-se"
+       [style.zIndex]="contentzIndex"
+       (mousedown)="initResizeSE($event)"></div>
 </div>

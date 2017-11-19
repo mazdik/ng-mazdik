@@ -10,13 +10,20 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() public modalTitle: string;
   @Input() width: any;
   @Input() zIndex: number = 900;
+
   @ViewChild('modalRoot') modalRoot: ElementRef;
+  @ViewChild('modalBody') modalBody: ElementRef;
 
   public visible: boolean = false;
   executePostDisplayActions: boolean;
   dragging: boolean;
+  resizingS: boolean;
+  resizingE: boolean;
+  resizingSE: boolean;
   lastPageX: number;
   lastPageY: number;
+  minWidth: number = 250;
+  minHeight: number = 250;
 
   constructor() { }
 
@@ -44,6 +51,13 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @HostListener('mousemove', ['$event'])
   onMousemove(event): void {
     this.onDrag(event);
+    this.onResize(event);
+  }
+
+  @HostListener('mouseup', ['$event'])
+  onMouseup(event): void {
+    this.endDrag(event);
+    this.endResize(event);
   }
 
   public show(): void {
@@ -107,6 +121,70 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   endDrag(event: MouseEvent) {
       this.dragging = false;
       this.modalRoot.nativeElement.classList.remove('dragging');
+  }
+
+  initResizeS(event: MouseEvent) {
+    this.resizingS = true;
+    this.lastPageX = event.pageX;
+    this.lastPageY = event.pageY;
+    this.modalRoot.nativeElement.classList.add('resizing');
+  }
+
+  initResizeE(event: MouseEvent) {
+    this.resizingE = true;
+    this.lastPageX = event.pageX;
+    this.lastPageY = event.pageY;
+    this.modalRoot.nativeElement.classList.add('resizing');
+  }
+
+  initResizeSE(event: MouseEvent) {
+    this.resizingSE = true;
+    this.lastPageX = event.pageX;
+    this.lastPageY = event.pageY;
+    this.modalRoot.nativeElement.classList.add('resizing');
+  }
+
+  onResize(event: MouseEvent) {
+    if (this.resizingS || this.resizingE || this.resizingSE) {
+      const deltaX = event.pageX - this.lastPageX;
+      const deltaY = event.pageY - this.lastPageY;
+      const containerWidth = this.modalRoot.nativeElement.offsetWidth;
+      const containerHeight = this.modalRoot.nativeElement.offsetHeight;
+      const contentHeight = this.modalBody.nativeElement.offsetHeight;
+      const newWidth = containerWidth + deltaX;
+      const newHeight = containerHeight + deltaY;
+
+      if (this.resizingSE || this.resizingE) {
+        if (newWidth > this.minWidth) {
+          this.modalRoot.nativeElement.style.width = newWidth + 'px';
+        }
+      }
+
+      if (this.resizingSE || this.resizingS) {
+        if (newHeight > this.minHeight) {
+          this.modalRoot.nativeElement.style.height = newHeight + 'px';
+          this.modalBody.nativeElement.style.height = contentHeight + deltaY + 'px';
+          this.modalBody.nativeElement.style.maxHeight = 'none';
+        }
+      }
+
+      this.lastPageX = event.pageX;
+      this.lastPageY = event.pageY;
+    }
+  }
+
+  endResize(event: MouseEvent) {
+    this.resizingS = false;
+    this.resizingE = false;
+    this.resizingSE = false;
+    this.modalRoot.nativeElement.classList.remove('resizing');
+  }
+
+  calcBodyHeight() {
+    const windowHeight = window.innerHeight;
+    if (this.modalRoot.nativeElement.offsetWidth > windowHeight) {
+      this.modalBody.nativeElement.style.height = (windowHeight * .75) + 'px';
+    }
   }
 
 }
