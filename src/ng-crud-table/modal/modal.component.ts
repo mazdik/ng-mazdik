@@ -3,7 +3,8 @@ import {Component, ElementRef, ViewChild, Input, OnInit, AfterViewChecked, HostL
 @Component({
   selector: 'app-modal',
   templateUrl: 'modal.component.html',
-  styleUrls: ['modal.component.css']
+  styleUrls: ['modal.component.css'],
+  host: {'class': 'app-modal'}
 })
 export class ModalComponent implements OnInit, AfterViewChecked {
 
@@ -25,7 +26,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   minWidth: number = 250;
   minHeight: number = 250;
 
-  constructor() {
+  constructor(private element: ElementRef) {
   }
 
   ngOnInit() {
@@ -45,9 +46,12 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.center();
   }
 
-  @HostListener('keydown.esc')
-  onKeyDown(): void {
+  @HostListener('keydown.esc', ['$event'])
+  onKeyDown(event): void {
+    event.preventDefault();
+    event.stopPropagation();
     this.hide();
+    this.focusLastModal();
   }
 
   @HostListener('mousemove', ['$event'])
@@ -199,6 +203,19 @@ export class ModalComponent implements OnInit, AfterViewChecked {
       }
     });
     return zIndex;
+  }
+
+  focusLastModal() {
+    const modal = this.findAncestor(this.element.nativeElement, 'app-modal');
+    if (modal && modal.children[1]) {
+      modal.children[1].focus();
+    }
+  }
+
+  findAncestor (el, cls) {
+    while ((el = el.parentElement) && !el.classList.contains(cls)) {
+    }
+    return el;
   }
 
 }
