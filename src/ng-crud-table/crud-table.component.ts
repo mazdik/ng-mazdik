@@ -15,6 +15,7 @@ export class CrudTableComponent implements OnInit {
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public service: ICrudService;
+  @Input() public zIndexModal: number;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
 

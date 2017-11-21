@@ -1,5 +1,5 @@
-<app-modal #childModal [modalTitle]="modalTitle()" [width]="500">
-  <div class="app-modal-body">
+<app-modal #childModal [modalTitle]="modalTitle()" [width]="500" [zIndex]="zIndex">
+  <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-row-form
         [columns]="columns"
@@ -10,10 +10,10 @@
         (valid)="formValid=$event">
       </app-row-form>
     </div>
-  </div>
-  <div class="app-modal-footer">
+  </ng-container>
+  <ng-container class="app-modal-footer">
     <button type="button" class="button button3" *ngIf="!newItem" (click)="delete()">Delete</button>
     <button type="button" class="button button1" (click)="save()" [disabled]="!formValid">Save</button>
     <button type="button" class="button" style="float: right;" (click)="close()">Close</button>
-  </div>
+  </ng-container>
 </app-modal>

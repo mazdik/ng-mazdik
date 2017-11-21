@@ -21,6 +21,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
           <li><span (click)="state='modal-data-table-demo'" [ngClass]="{'active': state === 'modal-data-table-demo'}">
             Modal data table demo</span>
           </li>
+          <li><span (click)="state='nested-modals-demo'" [ngClass]="{'active': state === 'nested-modals-demo'}">
+            Nested modals demo</span>
+          </li>
         </ul>
       </div>
       <div class="dt-col-right">
@@ -31,6 +34,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
         <master-detail-demo *ngIf="state === 'master-detail-demo'"></master-detail-demo>
         <modal-form-demo *ngIf="state === 'modal-form-demo'"></modal-form-demo>
         <modal-data-table-demo *ngIf="state === 'modal-data-table-demo'"></modal-data-table-demo>
+        <nested-modals-demo *ngIf="state === 'nested-modals-demo'"></nested-modals-demo>
       </div>
     </div>
   `,

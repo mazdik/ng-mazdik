@@ -23,31 +23,25 @@ import {Column, Settings} from '../../ng-crud-table';
       </a>
     </ng-template>
     <app-modal #rankModal [modalTitle]="'Rank'">
-      <div class="app-modal-body">
-        <div *ngIf="rankModal.visible">
-          <app-datatable
-            [columns]="columnsRank"
-            [settings]="settingsRank"
-            [rows]="rowsRank"
-            [loading]="loading">
-          </app-datatable>
-        </div>
-      </div>
-      <div class="app-modal-footer">
-      </div>
+      <ng-container class="app-modal-body" *ngIf="rankModal.visible">
+        <app-datatable
+          *ngIf="rankModal.visible"
+          [columns]="columnsRank"
+          [settings]="settingsRank"
+          [rows]="rowsRank"
+          [loading]="loading">
+        </app-datatable>
+      </ng-container>
     </app-modal>
-    <app-modal #inventoryModal [modalTitle]="'Rank'">
-      <div class="app-modal-body">
-        <div *ngIf="inventoryModal.visible">
-          <app-datatable
-            [columns]="columnsInventory"
-            [settings]="settingsInventory"
-            [rows]="rowsInventory">
-          </app-datatable>
-        </div>
-      </div>
-      <div class="app-modal-footer">
-      </div>
+    <app-modal #inventoryModal [modalTitle]="'Inventory'">
+      <ng-container class="app-modal-body">
+        <app-datatable
+          *ngIf="inventoryModal.visible"
+          [columns]="columnsInventory"
+          [settings]="settingsInventory"
+          [rows]="rowsInventory">
+        </app-datatable>
+      </ng-container>
     </app-modal>
   `
 })

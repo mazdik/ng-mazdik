@@ -12,6 +12,7 @@ import { DataTableDemoComponent } from './data-table-demo.component';
 import { MasterDetailDemoComponent } from './master-detail.component';
 import { ModalFormDemoComponent } from './modal-form-demo.component';
 import { ModalDataTableDemoComponent } from './modal-data-table-demo.component';
+import { NestedModalsDemoComponent} from './nested-modals-demo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ModalDataTableDemoComponent } from './modal-data-table-demo.component';
     DataTableDemoComponent,
     MasterDetailDemoComponent,
     ModalFormDemoComponent,
-    ModalDataTableDemoComponent
+    ModalDataTableDemoComponent,
+    NestedModalsDemoComponent
   ],
   imports: [
     BrowserModule,

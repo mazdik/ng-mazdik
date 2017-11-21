@@ -11,6 +11,7 @@ export class ModalEditFormComponent implements OnInit {
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public service: ICrudService;
+  @Input() zIndex: number;
 
   @Output() saved: EventEmitter<any> = new EventEmitter();
   @Output() updated: EventEmitter<any> = new EventEmitter();

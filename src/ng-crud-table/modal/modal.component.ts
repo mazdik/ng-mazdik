@@ -9,7 +9,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @Input() public modalTitle: string;
   @Input() width: any;
-  @Input() zIndex: number = 900;
+  @Input() zIndex: number = 0;
 
   @ViewChild('modalRoot') modalRoot: ElementRef;
   @ViewChild('modalBody') modalBody: ElementRef;
@@ -25,9 +25,11 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   minWidth: number = 250;
   minHeight: number = 250;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
+    this.zIndex = this.zIndex || 1100;
   }
 
   ngAfterViewChecked() {
@@ -97,10 +99,10 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   initDrag(event: MouseEvent) {
-      this.dragging = true;
-      this.lastPageX = event.pageX;
-      this.lastPageY = event.pageY;
-      this.modalRoot.nativeElement.classList.add('dragging');
+    this.dragging = true;
+    this.lastPageX = event.pageX;
+    this.lastPageY = event.pageY;
+    this.modalRoot.nativeElement.classList.add('dragging');
   }
 
   onDrag(event: MouseEvent) {
@@ -119,8 +121,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   endDrag(event: MouseEvent) {
-      this.dragging = false;
-      this.modalRoot.nativeElement.classList.remove('dragging');
+    this.dragging = false;
+    this.modalRoot.nativeElement.classList.remove('dragging');
   }
 
   initResizeS(event: MouseEvent) {
@@ -185,6 +187,18 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     if (this.modalRoot.nativeElement.offsetWidth > windowHeight) {
       this.modalBody.nativeElement.style.height = (windowHeight * .75) + 'px';
     }
+  }
+
+  getMaxModalIndex() {
+    let zIndex = 0;
+    const modals = document.querySelectorAll('.ui-modal-overlay');
+    [].forEach.call(modals, function (modal) {
+      const indexCurrent = parseInt(modal.style.zIndex, 10);
+      if (indexCurrent > zIndex) {
+        zIndex = indexCurrent;
+      }
+    });
+    return zIndex;
   }
 
 }
