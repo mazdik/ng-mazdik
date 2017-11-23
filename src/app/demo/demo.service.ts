@@ -79,20 +79,16 @@ export class DemoService implements ICrudService {
     return data.slice(start, end);
   }
 
-  // Add new
   post(item: any): Promise<any> {
     // this.data.items.push(item); // exist in component
     return new Promise((resolve) => {
-      // Simulate server latency with 2 second delay
       setTimeout(() => resolve(item), 250);
     });
   }
 
-  // Update existing
   put(item: any): Promise<any> {
     // this.data.items[this.findSelectedItemIndex(item)] = item; // exist in component
     return new Promise((resolve) => {
-      // Simulate server latency with 2 second delay
       setTimeout(() => resolve(item), 250);
     });
   }
@@ -100,7 +96,6 @@ export class DemoService implements ICrudService {
   delete(item: any): Promise<any> {
     // this.data.items.splice(this.findSelectedItemIndex(item), 1); // exist in component
     return new Promise((resolve) => {
-      // Simulate server latency with 2 second delay
       setTimeout(() => resolve(item), 250);
     });
   }

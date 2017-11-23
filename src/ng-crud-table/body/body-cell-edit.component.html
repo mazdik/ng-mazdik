@@ -9,14 +9,16 @@
     [(ngModel)]="row[column.name]"
     [id]="column.name"
     (keydown)="onCellEditorKeydown($event)"
+    (focus)="oldValue=row[column.name]"
     (blur)="switchCellToViewMode()">
     <option *ngFor="let opt of getOptions(column, row)" [value]="opt.id">{{opt.name}}</option>
   </select>
 
-  <input [attr.type]="column.type === 'date' ? 'datetime-local' : text"
+  <input [attr.type]="column.type === 'date' ? 'datetime-local' : 'text'"
          #inputElement
          *ngIf="!column.options"
          [(ngModel)]="row[column.name]"
          (keydown)="onCellEditorKeydown($event)"
+         (focus)="oldValue=row[column.name]"
          (blur)="switchCellToViewMode()"/>
 </div>

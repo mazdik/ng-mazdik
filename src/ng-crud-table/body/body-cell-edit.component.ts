@@ -58,6 +58,7 @@ export class BodyCellEditComponent implements DoCheck {
 
   value: any;
   editing: boolean = false;
+  oldValue: any;
 
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
   }
@@ -122,6 +123,8 @@ export class BodyCellEditComponent implements DoCheck {
     } else if (event.keyCode === 27) {
       this.switchCellToViewMode();
       event.preventDefault();
+      event.stopPropagation();
+      this.row[this.column.name] = this.oldValue;
       // tab TODO
     } else if (event.keyCode === 9) {
       const currentCell = this.element.nativeElement;

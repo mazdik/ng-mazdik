@@ -5,7 +5,12 @@ import {DemoService} from './demo.service';
 
 @Component({
   selector: 'basic-demo',
-  template: `<crud-table [columns]="columns" [settings]="settings" [service]="service"></crud-table>`,
+  template: `
+    <crud-table
+      [columns]="columns"
+      [settings]="settings"
+      [service]="service">
+    </crud-table>`
 })
 
 export class BasicDemoComponent implements OnInit {
@@ -100,9 +105,9 @@ export class BasicDemoComponent implements OnInit {
       type: 'date',
       editable: true,
     },
-    {title: 'Account name', name: 'account_name', editable: true, },
-    {title: 'Account id', name: 'account_id', editable: true, },
-    {title: 'Player class', name: 'player_class', editable: true, },
+    {title: 'Account name', name: 'account_name', editable: true},
+    {title: 'Account id', name: 'account_id', editable: true},
+    {title: 'Player class', name: 'player_class', editable: true},
     {
       title: 'Online',
       name: 'online',
@@ -112,31 +117,31 @@ export class BasicDemoComponent implements OnInit {
         {id: 1, name: 'Online'}
       ]
     },
-    {title: 'Cube size', name: 'cube_size', editable: true, },
-    {title: 'Broker Kinah', name: 'brokerKinah', editable: true, },
-    {title: 'Bind point', name: 'bind_point', editable: true, },
-    {title: 'X', name: 'x', editable: true, },
-    {title: 'Y', name: 'y', editable: true, },
-    {title: 'Z', name: 'z', editable: true, },
-    {title: 'Recoverexp', name: 'recoverexp', editable: true, },
-    {title: 'Heading', name: 'heading', editable: true, },
-    {title: 'World id', name: 'world_id', editable: true, },
+    {title: 'Cube size', name: 'cube_size', editable: true},
+    {title: 'Broker Kinah', name: 'brokerKinah', editable: true},
+    {title: 'Bind point', name: 'bind_point', editable: true},
+    {title: 'X', name: 'x', editable: true},
+    {title: 'Y', name: 'y', editable: true},
+    {title: 'Z', name: 'z', editable: true},
+    {title: 'Recoverexp', name: 'recoverexp', editable: true},
+    {title: 'Heading', name: 'heading', editable: true},
+    {title: 'World id', name: 'world_id', editable: true},
     {title: 'Creation date', name: 'creation_date', editable: true, type: 'date'},
-    {title: 'Stigma slot size', name: 'advanced_stigma_slot_size', editable: true, },
-    {title: 'Warehouse size', name: 'warehouse_size', editable: true, },
-    {title: 'Mailbox Letters', name: 'mailboxLetters', editable: true, },
-    {title: 'Mailbox Un Read Letters', name: 'mailboxUnReadLetters', editable: true, },
-    {title: 'Title id', name: 'title_id', editable: true, },
-    {title: 'Repletion state', name: 'repletionstate', editable: true, },
-    {title: 'Rebirth id', name: 'rebirth_id', editable: true, },
-    {title: 'Member points', name: 'memberpoints', editable: true, },
-    {title: 'Marry player id', name: 'marry_player_id', editable: true, },
-    {title: 'Marry title', name: 'marrytitle', editable: true, },
-    {title: 'Bg points', name: 'bg_points', editable: true, },
-    {title: 'Personal rating', name: 'personal_rating', editable: true, },
-    {title: 'Arena points', name: 'arena_points', editable: true, },
-    {title: 'Partner id', name: 'partner_id', editable: true, },
-    {title: 'Deletion date', name: 'deletion_date', editable: true, },
+    {title: 'Stigma slot size', name: 'advanced_stigma_slot_size', editable: true},
+    {title: 'Warehouse size', name: 'warehouse_size', editable: true},
+    {title: 'Mailbox Letters', name: 'mailboxLetters', editable: true},
+    {title: 'Mailbox Un Read Letters', name: 'mailboxUnReadLetters', editable: true},
+    {title: 'Title id', name: 'title_id', editable: true},
+    {title: 'Repletion state', name: 'repletionstate', editable: true},
+    {title: 'Rebirth id', name: 'rebirth_id', editable: true},
+    {title: 'Member points', name: 'memberpoints', editable: true},
+    {title: 'Marry player id', name: 'marry_player_id', editable: true},
+    {title: 'Marry title', name: 'marrytitle', editable: true},
+    {title: 'Bg points', name: 'bg_points', editable: true},
+    {title: 'Personal rating', name: 'personal_rating', editable: true},
+    {title: 'Arena points', name: 'arena_points', editable: true},
+    {title: 'Partner id', name: 'partner_id', editable: true},
+    {title: 'Deletion date', name: 'deletion_date', editable: true},
   ];
 
   ngOnInit() {
@@ -145,9 +150,9 @@ export class BasicDemoComponent implements OnInit {
 
   getCellClass({row, column, value}): any {
     return {
-      'cell-big-value': value > 1000000000,
-      'cell-middle-value': value > 1000000 && value < 1000000000,
-      'cell-zero-value': value === 0,
+      'cell-big-value': parseInt(value, 10) > 1000000000,
+      'cell-middle-value': parseInt(value, 10) > 1000000 && parseInt(value, 10) < 1000000000,
+      'cell-zero-value': parseInt(value, 10) === 0,
     };
   }
 
