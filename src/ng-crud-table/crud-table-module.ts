@@ -24,7 +24,7 @@ import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
-import {DropdownComponent} from './form/dropdown.component';
+import {SelectComponent} from './form/select.component';
 import {CheckboxComponent} from './form/checkbox.component';
 import {RadioComponent} from './form/radio.component';
 import {InputTextComponent} from './form/input-text.component';
@@ -60,7 +60,7 @@ import {CustomValidator} from './form/custom-validator';
     TreeTableComponent,
     TreeTableNodeComponent,
     ModalEditFormComponent,
-    DropdownComponent,
+    SelectComponent,
     CheckboxComponent,
     RadioComponent,
     InputTextComponent,

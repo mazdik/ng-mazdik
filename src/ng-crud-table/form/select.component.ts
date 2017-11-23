@@ -5,7 +5,7 @@ import {CustomValidator} from './custom-validator';
 
 
 @Component({
-  selector: 'app-form-dropdown',
+  selector: 'app-form-select',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
@@ -24,7 +24,7 @@ import {CustomValidator} from './custom-validator';
     </div>
   `
 })
-export class DropdownComponent implements OnInit {
+export class SelectComponent implements OnInit {
 
   @Input() public column: Column;
   @Input() public service: ICrudService;

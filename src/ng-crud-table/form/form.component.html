@@ -13,14 +13,14 @@
 
     <div *ngIf="!column.cellTemplate" [ngSwitch]="column.type">
 
-      <app-form-dropdown
-        *ngSwitchCase="'dropdown'"
+      <app-form-select
+        *ngSwitchCase="'select'"
         [column]="column"
         [(value)]="item[column.name]"
         [dependsValue]="item[column.dependsColumn]"
         (valid)="onValid($event, column)"
         [service]="service">
-      </app-form-dropdown>
+      </app-form-select>
 
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"

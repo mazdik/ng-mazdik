@@ -76,7 +76,7 @@ export class MasterDetailDemoComponent implements OnInit {
     {
       title: 'Race',
       name: 'race',
-      type: 'dropdown',
+      type: 'select',
       options: [
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},
@@ -85,7 +85,7 @@ export class MasterDetailDemoComponent implements OnInit {
     {
       title: 'Cascading Select',
       name: 'note',
-      type: 'dropdown',
+      type: 'select',
       options: [
         {id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS'},
         {id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS'},

@@ -62,7 +62,7 @@ export class ModalFormDemoComponent implements OnInit {
       name: 'race',
       sortable: true,
       filter: true,
-      type: 'dropdown',
+      type: 'select',
       options: [
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},
@@ -73,7 +73,7 @@ export class ModalFormDemoComponent implements OnInit {
       title: 'Cascading Select',
       name: 'note',
       editable: true,
-      type: 'dropdown',
+      type: 'select',
       optionsUrl: 'assets/options.json',
       dependsColumn: 'race',
     },

@@ -15,7 +15,7 @@ export interface Column {
   pipe?: PipeTransform;
   width?: number;
   frozen?: boolean;
-  type?: 'text' | 'password' | 'number' | 'dropdown' | 'radio' | 'checkbox' | 'textarea' | 'date';
+  type?: 'text' | 'password' | 'number' | 'select' | 'radio' | 'checkbox' | 'textarea' | 'date' | 'datetime-local';
   validation?: IValidation;
   editable?: boolean;
   resizeable?: boolean;

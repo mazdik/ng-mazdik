@@ -52,7 +52,7 @@ export class NestedModalsDemoComponent implements OnInit {
       name: 'race',
       sortable: true,
       filter: true,
-      type: 'dropdown',
+      type: 'select',
       options: [
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},
@@ -63,7 +63,7 @@ export class NestedModalsDemoComponent implements OnInit {
       title: 'Cascading Select',
       name: 'note',
       editable: true,
-      type: 'dropdown',
+      type: 'select',
       options: [
         {id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS'},
         {id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS'},

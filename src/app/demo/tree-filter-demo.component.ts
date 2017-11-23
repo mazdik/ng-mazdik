@@ -59,7 +59,7 @@ export class TreeFilterDemoComponent {
       name: 'race',
       sortable: true,
       filter: true,
-      type: 'dropdown',
+      type: 'select',
       options: [
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},

@@ -25,7 +25,7 @@ export class ColumnUtils {
       }
       if (!column.hasOwnProperty('type')) {
         if (column.hasOwnProperty('options')) {
-          column.type = 'dropdown';
+          column.type = 'select';
         } else {
           column.type = 'text';
         }
