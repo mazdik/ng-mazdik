@@ -74,7 +74,6 @@ export class ModalDataTableDemoComponent implements OnInit {
     tableWidth: 500,
     scrollHeight: 250,
     clientSide: true,
-    filter: false
   };
 
   public settingsInventory: Settings = {
@@ -84,7 +83,6 @@ export class ModalDataTableDemoComponent implements OnInit {
     tableWidth: 600,
     scrollHeight: 250,
     clientSide: true,
-    filter: false
   };
 
   public columns: Column[] = [

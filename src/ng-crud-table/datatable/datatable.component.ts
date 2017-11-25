@@ -41,7 +41,6 @@ export class DatatableComponent implements OnInit, DoCheck {
       this.totalItems = this._rows.length;
       this.itemsCopy = (this.rows) ? this.rows.slice(0) : [];
     }
-    this.setDefaultSelectedRowIndex();
   }
 
   get rows(): any {
@@ -196,13 +195,6 @@ export class DatatableComponent implements OnInit, DoCheck {
     const start = (page - 1) * this.itemsPerPage;
     const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
     return data.slice(start, end);
-  }
-
-  setDefaultSelectedRowIndex() {
-    if (!this.selectedRowIndex) {
-      this.selectedRowIndex = 0;
-      this.selectedRowIndexChanged.emit(this.selectedRowIndex);
-    }
   }
 
   getItems() {

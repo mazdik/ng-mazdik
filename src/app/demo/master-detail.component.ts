@@ -191,6 +191,7 @@ export class MasterDetailDemoComponent implements OnInit {
     this.http.get('assets/players.json').subscribe(data => {
       this.rowsPlayers = data;
       const masterId = this.rowsPlayers[0]['id'];
+      this.tablePlayers.selectedRowIndex = 0;
 
       this.http.get('assets/rank.json').subscribe(rank => {
         this._rank = rank;

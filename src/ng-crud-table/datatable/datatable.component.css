@@ -338,6 +338,10 @@
   background-color: #ecf3ff;
 }
 
+.row-selected .datatable-row-left {
+  background-color: #ecf3ff;
+}
+
 .cell-selected {
   background-color: #b3c4c7;
 }

@@ -18,6 +18,7 @@ export class CrudTableComponent implements OnInit {
   @Input() public zIndexModal: number;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
+  @Output() select: EventEmitter<any> = new EventEmitter();
 
   @Input()
   set filters(val: any) {
@@ -165,6 +166,7 @@ export class CrudTableComponent implements OnInit {
 
   onSelectedRow(event) {
     this.selectedRowIndex = event;
+    this.select.emit(this.items[this.selectedRowIndex]);
   }
 
   onSaved(event) {

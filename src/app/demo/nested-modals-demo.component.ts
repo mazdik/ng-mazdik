@@ -8,7 +8,13 @@ import {DemoService} from './demo.service';
   template: `
     <app-modal #modal [modalTitle]="'Data-table'">
       <ng-container class="app-modal-body">
-        <crud-table [columns]="columns" [settings]="settings" [service]="service" [zIndexModal]="1110"></crud-table>
+        <crud-table
+          [columns]="columns"
+          [settings]="settings"
+          [service]="service"
+          [zIndexModal]="1110"
+          (select)="onSelect($event)">
+        </crud-table>
       </ng-container>
     </app-modal>
     <button type="button"
@@ -129,6 +135,10 @@ export class NestedModalsDemoComponent implements OnInit {
 
   openModal() {
     this.modal.show();
+  }
+
+  onSelect(event) {
+    console.log(event);
   }
 
 }

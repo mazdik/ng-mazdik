@@ -2,13 +2,13 @@
 
   <ul class="dropdown-filter-menu" [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
     <li class="dropdown-menu-item">
-      <div class="InputAddOn">
+      <div class="input-addon">
         <input type="text"
-               class="InputAddOn-field"
+               class="input-addon-field"
                placeholder="Search..."
                #searchFilterInput
                [(ngModel)]="searchFilterText"/>
-        <button class="InputAddOn-item"
+        <button class="input-addon-item"
                 type="button"
                 *ngIf="searchFilterText.length > 0"
                 (click)="clearSearch()">
@@ -42,16 +42,16 @@
 
   <ul class="dropdown-filter-menu" [style.display]="(isVisible && !column.options) ? 'block' : 'none' ">
     <li class="dropdown-menu-item">
-      <div class="InputAddOn">
+      <div class="input-addon">
         <input type="text"
-               class="InputAddOn-field"
+               class="input-addon-field"
                #filterInput
                [attr.placeholder]="column.name"
                *ngIf="column.filter"
                [value]="filters[column.name] ? filters[column.name].value : ''"
                (click)="onFilterInputClick($event)"
                (keyup)="onFilterKeyup($event, column.name, null)"/>
-        <button class="InputAddOn-item"
+        <button class="input-addon-item"
                 *ngIf="(filters[column.name] && filters[column.name].value.length > 0)"
                 type="button"
                 (click)="uncheckAll()">

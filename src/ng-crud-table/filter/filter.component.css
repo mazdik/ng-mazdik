@@ -6,7 +6,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 11;
   display: none;
   float: left;
   min-width: 160px;
@@ -81,37 +81,41 @@
 }
 
 /* Input Add-ons */
-.InputAddOn {
+.input-addon {
   display: flex;
 }
 
-.InputAddOn-field {
+.input-addon-field {
   flex: 1;
 }
-.InputAddOn-field:not(:first-child) {
+.input-addon-field:not(:first-child) {
   border-left: 0;
 }
-.InputAddOn-field:not(:last-child) {
+.input-addon-field:not(:last-child) {
   border-right: 0;
 }
 
-.InputAddOn-item {
+.input-addon-item {
   background-color: rgba(147, 128, 108, 0.1);
   color: #666666;
   font: inherit;
   font-weight: normal;
 }
 
-.InputAddOn-field,
-.InputAddOn-item {
+.input-addon-field,
+.input-addon-item {
   border: 1px solid rgba(147, 128, 108, 0.25);
   padding: 6px 12px;
 }
-.InputAddOn-field:first-child,
-.InputAddOn-item:first-child {
+.input-addon-field:first-child,
+.input-addon-item:first-child {
   border-radius: 2px 0 0 2px;
 }
-.InputAddOn-field:last-child,
-.InputAddOn-item:last-child {
+.input-addon-field:last-child,
+.input-addon-item:last-child {
   border-radius: 0 2px 2px 0;
+}
+
+button.input-addon-item {
+  cursor: pointer;
 }
