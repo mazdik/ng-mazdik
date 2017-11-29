@@ -10,16 +10,16 @@ import {CustomValidator} from './custom-validator';
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
-      <div class="df-checkbox" *ngFor="let o of getOptions()">
-        <label>
+      <div *ngFor="let o of getOptions()">
+        <label class="checkcontainer">{{o.name ? o.name : o.id}}
           <input
             type="checkbox"
             [(ngModel)]="model"
             [name]="column.name"
             [value]="o.id"
             [checked]="isSelectActive(o)"/>
+          <span class="checkmark"></span>
         </label>
-        <span>{{o.name ? o.name : o.id}}</span>
       </div>
 
       <div class="df-help-block">

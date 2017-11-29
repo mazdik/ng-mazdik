@@ -10,8 +10,8 @@ import {CustomValidator} from './custom-validator';
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
 
-      <div class="df-radio" *ngFor="let o of getOptions()">
-        <label>
+      <div *ngFor="let o of getOptions()">
+        <label class="checkcontainer">{{o.name ? o.name : o.id}}
           <input
             type="radio"
             [(ngModel)]="model"
@@ -19,8 +19,8 @@ import {CustomValidator} from './custom-validator';
             [value]="o.id"
             [checked]="model === o.id"
             (click)="model = o.id"/>
+          <span class="radiobtn"></span>
         </label>
-        <span>{{o.name ? o.name : o.id}}</span>
       </div>
 
       <div class="df-help-block">
