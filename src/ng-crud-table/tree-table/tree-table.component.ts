@@ -13,7 +13,7 @@ export class TreeTableComponent implements OnInit {
   @Input() columns: Column[];
   @Input() public headerHeight: number = 30;
   @Input() public settings: Settings = <Settings> {};
-  @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+  @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   offsetX: number = 0;
@@ -43,6 +43,10 @@ export class TreeTableComponent implements OnInit {
 
   onCellEditComplete(event) {
     this.editComplete.emit(event);
+  }
+
+  onRequestNodes(event) {
+    this.requestNodes.emit(event);
   }
 
 }

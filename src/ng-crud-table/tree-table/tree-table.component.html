@@ -18,7 +18,8 @@
           [nodes]="nodes"
           [columns]="columns"
           [offsetX]="offsetX"
-          (editComplete)="onCellEditComplete($event)">
+          (editComplete)="onCellEditComplete($event)"
+          (requestNodes)="onRequestNodes($event)">
         </tree-table-node>
       </datatable-scroller>
     </div>

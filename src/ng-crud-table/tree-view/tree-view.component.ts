@@ -11,8 +11,8 @@ export class TreeViewComponent implements OnInit {
   @Input() nodes: ITreeNode[];
   @Input() selectedNode: ITreeNode;
 
-  @Output() onSelectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
-  @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+  @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
+  @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();
 
   constructor() {
   }
@@ -21,7 +21,7 @@ export class TreeViewComponent implements OnInit {
   }
 
   isLeaf(node: ITreeNode) {
-      return node.leaf === false ? false : !(node.children && node.children.length);
+    return node.leaf === false ? false : !(node.children && node.children.length);
   }
 
   isSelected(node: ITreeNode) {
@@ -31,19 +31,32 @@ export class TreeViewComponent implements OnInit {
   onSelectNode(node: ITreeNode) {
     if (this.selectedNode !== node) {
       this.selectedNode = node;
-      this.onSelectedChanged.emit(node);
+      this.selectedChanged.emit(node);
     }
   }
 
   onExpand(node: ITreeNode) {
-    node.isExpanded = !node.isExpanded;
-    if (node.isExpanded && (!node.children || node.children.length === 0)) {
-      this.onRequestNodes.emit(node);
+    node.expanded = !node.expanded;
+    if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
+      this.requestNodes.emit(node);
     }
   }
 
   onRequestLocal(node: ITreeNode) {
-    this.onRequestNodes.emit(node);
+    this.requestNodes.emit(node);
+  }
+
+  getIcon(node: ITreeNode) {
+    let icon: string;
+
+    if (node.icon) {
+      icon = node.icon;
+    } else if (!this.isLeaf(node) && node.expanded) {
+      icon = 'icon-node icon-collapsed';
+    } else if (!this.isLeaf(node)) {
+      icon = 'icon-node';
+    }
+    return 'indicator ' + icon;
   }
 
 }

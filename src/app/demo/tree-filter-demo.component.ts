@@ -7,11 +7,12 @@ import {DemoService} from './demo.service';
   selector: 'tree-filter-demo',
   template: `
     <tree-view style="float: left; overflow: auto;"
-               [ngStyle]="{'width.px': treeViewWidth, 'height.px': scrollHeight}"
+               [ngStyle]="{'width.px': treeViewWidth, 'height.px': settings.scrollHeight}"
                *ngIf="treeNodes"
                [nodes]="treeNodes"
                [selectedNode]="selectedNode"
-               (onSelectedChanged)="onSelectNode($event)">
+               (selectedChanged)="onSelectNode($event)"
+               (requestNodes)="onRequestNodes($event)">
     </tree-view>
     <crud-table
       #table
@@ -131,6 +132,7 @@ export class TreeFilterDemoComponent {
           id: 'MALE',
           name: 'MALE',
           data: {column: 'gender'},
+          leaf: false,
         },
         {
           id: 'FEMALE',
@@ -192,6 +194,23 @@ export class TreeFilterDemoComponent {
   onFilterChanged(event) {
     this.filters = event;
     this.syncNode();
+  }
+
+  onRequestNodes(node) {
+    if (node) {
+      node.children = [
+        {
+          id: 'MALE22',
+          name: 'MALE22',
+          data: {column: 'gender'},
+          leaf: false,
+        },
+        {
+          id: 'FEMALE22',
+          name: 'FEMALE22',
+          data: {column: 'gender'},
+        }];
+    }
   }
 
 }

@@ -8,9 +8,8 @@
 
         <div class="treenode"
              style=" cursor: pointer;">
-          <i class="icon-node"
+          <i [class]="getIcon(node)"
              [ngStyle]="{'padding-left.px': level*10}"
-             [ngClass]="{'icon-node': !isLeaf(node), 'icon-collapsed': !isLeaf(node) && node.isExpanded}"
              (click)="onExpand(node)">
           </i>
           <span class="treenode-content"
@@ -45,9 +44,10 @@
 
   <tree-table-node
     [nodes]="node.children"
-    *ngIf="node.children && node.isExpanded"
+    *ngIf="node.children && node.expanded"
     [columns]="columns"
-    [level]="level+1">
+    [level]="level+1"
+    (requestNodes)="onRequestLocal($event)">
   </tree-table-node>
 
 </div>

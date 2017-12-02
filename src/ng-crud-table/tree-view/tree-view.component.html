@@ -1,7 +1,6 @@
 <ul class="tree-container">
   <li class="treenode" *ngFor="let node of nodes">
-    <i class="indicator icon-node"
-       [ngClass]="{'icon-node': !isLeaf(node), 'icon-collapsed': !isLeaf(node) && node.isExpanded}"
+    <i [class]="getIcon(node)"
        (click)="onExpand(node)">
     </i>
 
@@ -15,9 +14,9 @@
     <tree-view
       [nodes]="node.children"
       [selectedNode]="selectedNode"
-      (onSelectedChanged)="onSelectNode($event)"
-      (onRequestNodes)="onRequestLocal($event)"
-      *ngIf="node.children && node.isExpanded">
+      (selectedChanged)="onSelectNode($event)"
+      (requestNodes)="onRequestLocal($event)"
+      *ngIf="node.children && node.expanded">
     </tree-view>
   </li>
 </ul>

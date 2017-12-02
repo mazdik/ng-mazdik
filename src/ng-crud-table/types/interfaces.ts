@@ -87,7 +87,8 @@ export interface ITreeNode {
   name: string;
   data: any;
   children?: ITreeNode[];
-  isExpanded?: boolean;
+  expanded?: boolean;
   leaf?: boolean;
   parent?: ITreeNode;
+  icon?: string;
 }

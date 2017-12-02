@@ -11,7 +11,7 @@ export class TreeTableNodeComponent {
   @Input() public columns: Column[];
   @Input() public level: number = 0;
   @Input() public offsetX: number;
-  @Output() onRequestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+  @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   constructor() {
@@ -22,10 +22,27 @@ export class TreeTableNodeComponent {
   }
 
   onExpand(node: ITreeNode) {
-    node.isExpanded = !node.isExpanded;
-    if (node.isExpanded && (!node.children || node.children.length === 0)) {
-      this.onRequestNodes.emit(node);
+    node.expanded = !node.expanded;
+    if (node.expanded && (!node.children || node.children.length === 0)) {
+      this.requestNodes.emit(node);
     }
+  }
+
+  onRequestLocal(node: ITreeNode) {
+    this.requestNodes.emit(node);
+  }
+
+  getIcon(node: ITreeNode) {
+    let icon: string;
+
+    if (node.icon) {
+      icon = node.icon;
+    } else if (!this.isLeaf(node) && node.expanded) {
+      icon = 'icon-node icon-collapsed';
+    } else if (!this.isLeaf(node)) {
+      icon = 'icon-node';
+    }
+    return 'indicator ' + icon;
   }
 
   stylesByGroup() {
