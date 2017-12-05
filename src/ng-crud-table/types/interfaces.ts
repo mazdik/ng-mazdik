@@ -92,3 +92,8 @@ export interface ITreeNode {
   parent?: ITreeNode;
   icon?: string;
 }
+
+export interface ITreeService {
+  url: string;
+  getNodes(node?: ITreeNode): Promise<ITreeNode[]>;
+}

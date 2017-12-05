@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {ITreeNode} from '../types/interfaces';
+import {ITreeNode, ITreeService} from '../types/interfaces';
 
 @Component({
   selector: 'tree-view',
@@ -8,11 +8,14 @@ import {ITreeNode} from '../types/interfaces';
 })
 export class TreeViewComponent implements OnInit {
 
-  @Input() nodes: ITreeNode[];
-  @Input() selectedNode: ITreeNode;
+  @Input() public nodes: ITreeNode[];
+  @Input() public selectedNode: ITreeNode;
+  @Input() public service: ITreeService;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+
+  loading: boolean = false;
 
   constructor() {
   }
@@ -39,6 +42,16 @@ export class TreeViewComponent implements OnInit {
     node.expanded = !node.expanded;
     if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
       this.requestNodes.emit(node);
+
+      if (this.service) {
+        this.loading = true;
+        this.service.getNodes(node).then(data => {
+          node.children = data;
+          this.loading = false;
+        }).catch(err => {
+          this.loading = false;
+        });
+      }
     }
   }
 
@@ -48,7 +61,9 @@ export class TreeViewComponent implements OnInit {
 
   getIcon(node: ITreeNode) {
     let icon: string;
-
+    if (this.loading) {
+      return 'icon-collapsing';
+    }
     if (node.icon) {
       icon = node.icon;
     } else if (!this.isLeaf(node) && node.expanded) {
@@ -56,7 +71,7 @@ export class TreeViewComponent implements OnInit {
     } else if (!this.isLeaf(node)) {
       icon = 'icon-node';
     }
-    return 'indicator ' + icon;
+    return icon;
   }
 
 }

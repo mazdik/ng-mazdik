@@ -13,6 +13,7 @@
 
     <tree-view
       [nodes]="node.children"
+      [service]="service"
       [selectedNode]="selectedNode"
       (selectedChanged)="onSelectNode($event)"
       (requestNodes)="onRequestLocal($event)"

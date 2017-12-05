@@ -1,40 +1,51 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ITreeNode, Column, Settings, Filter, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
+import {TreeDemoService} from './tree-demo.service';
 
 @Component({
   selector: 'tree-filter-demo',
   template: `
-    <tree-view style="float: left; overflow: auto;"
-               [ngStyle]="{'width.px': treeViewWidth, 'height.px': settings.scrollHeight}"
-               *ngIf="treeNodes"
-               [nodes]="treeNodes"
-               [selectedNode]="selectedNode"
-               (selectedChanged)="onSelectNode($event)"
-               (requestNodes)="onRequestNodes($event)">
-    </tree-view>
-    <crud-table
-      #table
-      style="float: left;"
-      [columns]="columns"
-      [settings]="settings"
-      [filters]="filters"
-      [service]="service"
-      (filterChanged)="onFilterChanged($event)">
-    </crud-table>`
+    <div style="display: flex;">
+      <tree-view style="overflow: auto;"
+                 [ngStyle]="{'width.px': 200, 'height.px': settings.scrollHeight + 70}"
+                 [nodes]="treeNodes"
+                 [service]="treeService"
+                 [selectedNode]="selectedNode"
+                 (selectedChanged)="onSelectNode($event)">
+      </tree-view>
+      <crud-table
+        #table
+        [columns]="columns"
+        [settings]="settings"
+        [filters]="filters"
+        [service]="service"
+        (filterChanged)="onFilterChanged($event)">
+      </crud-table>
+    </div>`
 })
-export class TreeFilterDemoComponent {
+export class TreeFilterDemoComponent implements OnInit {
+
+  public service: ICrudService;
+  public treeService: any;
+  public treeNodes: ITreeNode[] = [];
 
   selectedNode: ITreeNode;
   filters: Filter = {};
   @ViewChild('table') table: any;
-  treeViewWidth: number = 150;
-
-  public service: ICrudService;
 
   constructor(private http: HttpClient) {
     this.service = new DemoService(this.http);
+    this.treeService = new TreeDemoService(this.http);
+  }
+
+  ngOnInit() {
+    if (this.treeService) {
+      this.treeService.getNodes().then(data => {
+        this.treeNodes = data;
+      });
+    }
   }
 
   public columns: Column[] = [
@@ -106,42 +117,6 @@ export class TreeFilterDemoComponent {
     scrollHeight: 380
   };
 
-  public treeNodes: ITreeNode[] = [
-    {
-      id: 'ASMODIANS',
-      name: 'ASMODIANS',
-      data: {column: 'race'},
-      children: [
-        {
-          id: 'MALE',
-          name: 'MALE',
-          data: {column: 'gender'},
-        },
-        {
-          id: 'FEMALE',
-          name: 'FEMALE',
-          data: {column: 'gender'},
-        }],
-    },
-    {
-      id: 'ELYOS',
-      name: 'ELYOS',
-      data: {column: 'race'},
-      children: [
-        {
-          id: 'MALE',
-          name: 'MALE',
-          data: {column: 'gender'},
-          leaf: false,
-        },
-        {
-          id: 'FEMALE',
-          name: 'FEMALE',
-          data: {column: 'gender'},
-        }],
-    }
-  ];
-
   selectNode(node: ITreeNode) {
     if (node) {
       if (node.id) {
@@ -181,7 +156,9 @@ export class TreeFilterDemoComponent {
 
   syncNode() {
     if (Object.keys(this.filters).length === 0) {
-      this.selectedNode = null;
+      if (this.selectedNode) {
+        this.selectedNode = null;
+      }
     } else {
       for (const key in this.filters) {
         if (this.filters[key]['value']) {
@@ -194,23 +171,6 @@ export class TreeFilterDemoComponent {
   onFilterChanged(event) {
     this.filters = event;
     this.syncNode();
-  }
-
-  onRequestNodes(node) {
-    if (node) {
-      node.children = [
-        {
-          id: 'MALE22',
-          name: 'MALE22',
-          data: {column: 'gender'},
-          leaf: false,
-        },
-        {
-          id: 'FEMALE22',
-          name: 'FEMALE22',
-          data: {column: 'gender'},
-        }];
-    }
   }
 
 }
