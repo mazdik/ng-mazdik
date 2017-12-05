@@ -1,6 +1,6 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ITreeNode, Column, Settings, Filter, ICrudService} from '../../ng-crud-table';
+import {ITreeNode, ITreeService, Column, Settings, Filter, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {TreeDemoService} from './tree-demo.service';
 
@@ -27,9 +27,9 @@ import {TreeDemoService} from './tree-demo.service';
 })
 export class TreeFilterDemoComponent implements OnInit {
 
-  public service: ICrudService;
-  public treeService: any;
   public treeNodes: ITreeNode[] = [];
+  public service: ICrudService;
+  public treeService: ITreeService;
 
   selectedNode: ITreeNode;
   filters: Filter = {};

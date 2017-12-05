@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {ITreeNode, Column, Settings} from '../types/interfaces';
+import {ITreeNode, ITreeService, Column, Settings} from '../types/interfaces';
 
 @Component({
   selector: 'tree-table',
@@ -9,8 +9,9 @@ import {ITreeNode, Column, Settings} from '../types/interfaces';
 })
 export class TreeTableComponent implements OnInit {
 
-  @Input() nodes: ITreeNode[];
-  @Input() columns: Column[];
+  @Input() public nodes: ITreeNode[];
+  @Input() public service: ITreeService;
+  @Input() public columns: Column[];
   @Input() public headerHeight: number = 30;
   @Input() public settings: Settings = <Settings> {};
   @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();

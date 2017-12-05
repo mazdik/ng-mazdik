@@ -1,19 +1,22 @@
-import {Component} from '@angular/core';
-import {ITreeNode, Column} from '../../ng-crud-table';
+import {Component, OnInit} from '@angular/core';
+import {ITreeNode, ITreeService, Column} from '../../ng-crud-table';
+import {HttpClient} from '@angular/common/http';
+import {TreeDemoService} from './tree-demo.service';
 
 @Component({
   selector: 'tree-table-demo',
   template: `
     <tree-table
       [nodes]="treeNodes"
+      [service]="treeService"
       [columns]="columns"
       (editComplete)="onEditComplete($event)">
     </tree-table>`
 })
-export class TreeTableDemoComponent {
+export class TreeTableDemoComponent implements OnInit {
 
-  constructor() {
-  }
+  public treeNodes: ITreeNode[] = [];
+  public treeService: ITreeService;
 
   public columns: Column[] = [
     {
@@ -38,47 +41,17 @@ export class TreeTableDemoComponent {
     },
   ];
 
-  public treeNodes: ITreeNode[] = [
-    {
-      id: 'ASMODIANS',
-      name: 'ASMODIANS',
-      data: {column: 'race', cube_size: '1'},
-      children: [
-        {
-          id: 'MALE',
-          name: 'MALE',
-          data: {column: 'gender', cube_size: '12'},
-        },
-        {
-          id: 'FEMALE',
-          name: 'FEMALE',
-          data: {column: 'gender', cube_size: '13'},
-        }],
-    },
-    {
-      id: 'ELYOS',
-      name: 'ELYOS',
-      data: {column: 'race', cube_size: '2'},
-      children: [
-        {
-          id: 'MALE',
-          name: 'MALE',
-          data: {column: 'gender', cube_size: '21'},
-          children: [
-            {
-              id: 'ASD',
-              name: 'ASD',
-              data: {column: 'gender', cube_size: '21'},
-            }
-          ],
-        },
-        {
-          id: 'FEMALE',
-          name: 'FEMALE',
-          data: {column: 'gender', cube_size: '22'},
-        }],
+  constructor(private http: HttpClient) {
+    this.treeService = new TreeDemoService(this.http);
+  }
+
+  ngOnInit() {
+    if (this.treeService) {
+      this.treeService.getNodes().then(data => {
+        this.treeNodes = data;
+      });
     }
-  ];
+  }
 
   onEditComplete(event) {
     console.log(event);

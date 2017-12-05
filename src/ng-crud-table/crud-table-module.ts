@@ -20,6 +20,7 @@ import {ScrollerComponent} from './body/scroller.component';
 import {FooterComponent} from './footer/footer.component';
 import {DatatableComponent} from './datatable/datatable.component';
 import {TreeViewComponent} from './tree-view/tree-view.component';
+import {TreeViewNodeComponent} from './tree-view/tree-view-node.component';
 import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
@@ -57,6 +58,7 @@ import {CustomValidator} from './form/custom-validator';
     FooterComponent,
     DatatableComponent,
     TreeViewComponent,
+    TreeViewNodeComponent,
     TreeTableComponent,
     TreeTableNodeComponent,
     ModalEditFormComponent,

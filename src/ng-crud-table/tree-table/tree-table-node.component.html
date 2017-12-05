@@ -44,6 +44,7 @@
 
   <tree-table-node
     [nodes]="node.children"
+    [service]="service"
     *ngIf="node.children && node.expanded"
     [columns]="columns"
     [level]="level+1"

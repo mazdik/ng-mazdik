@@ -16,6 +16,7 @@
         (scroll)="onBodyScroll($event)">
         <tree-table-node
           [nodes]="nodes"
+          [service]="service"
           [columns]="columns"
           [offsetX]="offsetX"
           (editComplete)="onCellEditComplete($event)"
