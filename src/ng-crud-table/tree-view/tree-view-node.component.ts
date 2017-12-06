@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {ITreeNode, ITreeService} from '../types/interfaces';
+import {id} from '../utils/id';
 
 @Component({
   selector: 'tree-view-node',
@@ -30,14 +31,26 @@ import {ITreeNode, ITreeService} from '../types/interfaces';
 })
 export class TreeViewNodeComponent implements OnInit {
 
-  @Input() public node: ITreeNode;
+  @Input()
+  set node(val: ITreeNode) {
+    if (val && !val.$$id) {
+      val.$$id = id();
+    }
+    this._node = val;
+  }
+
+  get node(): ITreeNode {
+    return this._node;
+  }
+
   @Input() public selectedNode: ITreeNode;
   @Input() public service: ITreeService;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
-  @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+  @Output() requestNodes: EventEmitter<any> = new EventEmitter();
 
   loading: boolean = false;
+  private _node: ITreeNode;
 
   constructor() {
   }
@@ -63,13 +76,12 @@ export class TreeViewNodeComponent implements OnInit {
   onExpand(node: ITreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
-      this.requestNodes.emit(node);
-
       if (this.service) {
         this.loading = true;
         this.service.getNodes(node).then(data => {
           node.children = data;
           this.loading = false;
+          this.requestNodes.emit(node);
         }).catch(err => {
           this.loading = false;
         });

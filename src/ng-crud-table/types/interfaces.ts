@@ -91,6 +91,7 @@ export interface ITreeNode {
   leaf?: boolean;
   parent?: ITreeNode;
   icon?: string;
+  $$id?: string;
 }
 
 export interface ITreeService {

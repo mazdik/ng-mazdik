@@ -27,13 +27,12 @@ export class TreeTableNodeComponent {
   onExpand(node: ITreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
-      this.requestNodes.emit(node);
-
       if (this.service) {
         this.loading = true;
         this.service.getNodes(node).then(data => {
           node.children = data;
           this.loading = false;
+          this.requestNodes.emit(node);
         }).catch(err => {
           this.loading = false;
         });
