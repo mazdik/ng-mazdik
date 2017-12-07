@@ -27,12 +27,11 @@
 }
 
 .dt-col-left {
-  width: 14%;
+  width: 250px;
   margin-right: 5px;
 }
 
 .dt-col-right {
-  width: 85%;
 }
 
 .cell-big-value {

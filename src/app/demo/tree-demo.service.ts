@@ -12,7 +12,7 @@ export class TreeDemoService implements ITreeService {
   constructor(private http: HttpClient) {
   }
 
-  getNodes(node: ITreeNode): Promise<any> {
+  getNodes(node: ITreeNode): Promise<ITreeNode[]> {
     const children: ITreeNode[] = [
       {
         id: 'MALE22',
@@ -36,6 +36,12 @@ export class TreeDemoService implements ITreeService {
           return <ITreeNode[]>data;
         });
     }
+  }
+
+  searchNodes(name: string): Promise<any> {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(['ELYOS', 'MALE', 'LAZY']), 500);
+    });
   }
 
 }

@@ -1,19 +1,19 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {ITreeNode, ITreeService} from '../types/interfaces';
+import {FilterState} from '../types/enums';
 import {id} from '../utils/id';
 
 @Component({
   selector: 'tree-view-node',
   styleUrls: ['./tree-view.component.css'],
   template: `
-    <li class="treenode" *ngIf="node">
-      <i [class]="getIcon(node)"
+    <li *ngIf="node" [ngClass]="nodeClass()">
+      <i [ngClass]="getIcon(node)"
          (click)="onExpand(node)">
       </i>
-      <span class="treenode-content"
+      <span [ngClass]="nodeContentClass()"
             (click)="onSelectNode(node)"
-            (dblclick)="onExpand(node)"
-            [ngClass]="{'highlight': isSelected(node)}">
+            (dblclick)="onExpand(node)">
         {{node.name}}
       </span>
       <ul class="tree-container" *ngIf="node.children && node.expanded">
@@ -75,13 +75,18 @@ export class TreeViewNodeComponent implements OnInit {
 
   onExpand(node: ITreeNode) {
     node.expanded = !node.expanded;
-    if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
+    if (node.expanded) {
+      this.loadNode(node);
+    }
+  }
+
+  loadNode(node: ITreeNode) {
+    if ((!node.children || node.children.length === 0) && node.leaf === false) {
       if (this.service) {
         this.loading = true;
         this.service.getNodes(node).then(data => {
-          node.children = data;
           this.loading = false;
-          this.requestNodes.emit(node);
+          this.requestNodes.emit({'parentId': node.$$id, 'children': data});
         }).catch(err => {
           this.loading = false;
         });
@@ -93,7 +98,7 @@ export class TreeViewNodeComponent implements OnInit {
     this.requestNodes.emit(node);
   }
 
-  getIcon(node: ITreeNode) {
+  getIcon(node: ITreeNode): string {
     let icon: string;
     if (this.loading) {
       return 'icon-collapsing';
@@ -106,6 +111,27 @@ export class TreeViewNodeComponent implements OnInit {
       icon = 'icon-node';
     }
     return icon;
+  }
+
+  nodeClass(): string {
+    let cls: string = 'treenode';
+    if (this.node.$$filterState === FilterState.NOT_FOUND) {
+      cls += ' filter-not-found';
+    }
+    return cls;
+  }
+
+  nodeContentClass(): string {
+    let cls: string = 'treenode-content';
+    if (this.node.$$filterState === FilterState.FOUND) {
+      cls += ' filter-found';
+    } else if (this.node.$$filterState === FilterState.ON_FOUND_PATH) {
+      cls += ' filter-on-path';
+    }
+    if (this.isSelected(this.node)) {
+      cls += ' highlight';
+    }
+    return cls;
   }
 
 }

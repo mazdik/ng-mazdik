@@ -2,6 +2,7 @@
   height: 100%;
   margin: 0;
   white-space: nowrap;
+  padding-left: 25px;
 }
 
 .treenode-content {
@@ -20,12 +21,20 @@
   cursor: pointer;
 }
 
-.highlight {
+.treenode .highlight {
   border-color: #156090;
   background: #5b9bd5;
   color: #FFFFFF;
 }
 
-ul {
-  padding-left: 25px;
+.treenode .filter-found {
+  font-weight: bold;
+}
+
+.treenode .filter-on-path {
+  opacity: 0.5;
+}
+
+.treenode.filter-not-found {
+  display: none;
 }

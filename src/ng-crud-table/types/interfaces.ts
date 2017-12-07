@@ -92,9 +92,11 @@ export interface ITreeNode {
   parent?: ITreeNode;
   icon?: string;
   $$id?: string;
+  $$filterState?: number;
 }
 
 export interface ITreeService {
   url: string;
   getNodes(node?: ITreeNode): Promise<ITreeNode[]>;
+  searchNodes(name: string): Promise<any>;
 }
