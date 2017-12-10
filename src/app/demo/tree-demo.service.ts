@@ -15,17 +15,24 @@ export class TreeDemoService implements ITreeService {
   getNodes(node: ITreeNode): Promise<ITreeNode[]> {
     const children: ITreeNode[] = [
       {
-        id: 'MALE22',
-        name: 'MALE22',
+        id: 'MALE',
+        name: 'MALE',
         data: {column: 'gender'},
         leaf: false,
       },
       {
-        id: 'FEMALE22',
-        name: 'FEMALE22',
+        id: 'FEMALE',
+        name: 'FEMALE',
         data: {column: 'gender'},
       }];
     if (node) {
+      if (node.$$level) {
+        children[0].id = 'MALE' + node.$$level;
+        children[0].name = 'MALE' + node.$$level;
+        children[0].leaf = (node.$$level === 10);
+        children[1].id = 'FEMALE' + node.$$level;
+        children[1].name = 'FEMALE' + node.$$level;
+      }
       return new Promise((resolve) => {
         setTimeout(() => resolve(children), 500);
       });

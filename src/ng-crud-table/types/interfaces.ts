@@ -93,6 +93,7 @@ export interface ITreeNode {
   icon?: string;
   $$id?: string;
   $$filterState?: number;
+  $$level?: number;
 }
 
 export interface ITreeService {

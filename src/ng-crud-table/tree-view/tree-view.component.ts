@@ -29,6 +29,9 @@ export class TreeViewComponent implements OnInit {
         if (!node.$$id) {
           node.$$id = id();
         }
+        if (!node.$$level) {
+          node.$$level = 1;
+        }
       }
     }
     this._nodes = val;
@@ -64,29 +67,7 @@ export class TreeViewComponent implements OnInit {
   }
 
   doForAll(fn: (node: ITreeNode) => any) {
-    this.doForEach(this.nodes, fn);
-  }
-
-  doForEach(nodes: ITreeNode[], fn: (node: ITreeNode) => any) {
-    nodes.forEach((node: ITreeNode) => {
-      Promise.resolve(fn(node)).then(() => {
-        if (node.children) {
-          this.doForEach(node.children, fn);
-        }
-      });
-    });
-  }
-
-  expandAll() {
-    this.doForAll((node) => {
-      node.expanded = true;
-    });
-  }
-
-  collapseAll() {
-    this.doForAll((node) => {
-      node.expanded = false;
-    });
+    this.doForEach(this.nodes, fn).then();
   }
 
   addNode(nodeId: string, children: ITreeNode[]) {
@@ -98,6 +79,7 @@ export class TreeViewComponent implements OnInit {
   private _addNode(node: ITreeNode, nodeId: string, children: ITreeNode[]) {
     if (node.$$id === nodeId) {
       node.children = children;
+      this.setNodeChildDefaults(node);
       return true;
     } else if (node.children) {
       node.children.forEach((child) => {
@@ -162,6 +144,103 @@ export class TreeViewComponent implements OnInit {
     this.doForAll((node: ITreeNode) => {
       node.$$filterState = null;
     });
+  }
+
+  getNodeById(nodeId) {
+    const idStr = nodeId.toString();
+
+    return this.getNodeBy((node) => node.id.toString() === idStr);
+  }
+
+  getNodeBy(predicate, startNode = null) {
+    startNode = startNode || {'children': this.nodes};
+    if (!startNode.children) {
+      return null;
+    }
+
+    const found = startNode.children.find(predicate);
+
+    if (found) {
+      return found;
+    } else {
+      for (const child of startNode.children) {
+        const foundInChildren = this.getNodeBy(predicate, child);
+        if (foundInChildren) {
+          return foundInChildren;
+        }
+      }
+    }
+  }
+
+  setNodeChildDefaults(node: ITreeNode) {
+    if (node.children) {
+      for (const child of node.children) {
+        if (!child.$$id) {
+          child.$$id = id();
+        }
+        if (!child.$$level) {
+          child.$$level = node.$$level + 1;
+        }
+      }
+    }
+  }
+
+  getChildren(node: ITreeNode) {
+    if ((!node.children || node.children.length === 0) && node.leaf === false) {
+      return this.service.getNodes(node).then(data => {
+        node.children = data;
+        this.setNodeChildDefaults(node);
+        console.log(data);
+      });
+    } else {
+      return Promise.resolve();
+    }
+  }
+
+  doForEach(nodes: ITreeNode[], fn: (node: ITreeNode) => any) {
+    return Promise.all(nodes.map((node) => {
+      return Promise.resolve(fn(node)).then(() => {
+        if (node.children) {
+          return this.doForEach(node.children, fn);
+        }
+      });
+    }, this));
+  }
+
+  expandAll() {
+    this.doForEach(this.nodes, (node) => {
+      node.expanded = true;
+      this.setNodeChildDefaults(node);
+      return this.getChildren(node);
+    }).then();
+  }
+
+  collapseAll() {
+    this.doForEach(this.nodes, (node) => {
+      node.expanded = false;
+    }).then();
+  }
+
+  loadPath(path: any[]) {
+    if (path && path.length) {
+      return Promise.all(path.map((p) => {
+        return this.doForEach(this.nodes, (node) => {
+          console.log(node.id + ' ' + p);
+          if (node.id === p) {
+            this.setNodeChildDefaults(node);
+            return this.getChildren(node);
+          }
+        });
+      }, this));
+    }
+  }
+
+  filterServerSide(filterValue: string) {
+    if (this.service) {
+      this.service.searchNodes(filterValue).then(items => {
+        this.loadPath(items).then();
+      });
+    }
   }
 
 }

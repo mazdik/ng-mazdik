@@ -22,6 +22,7 @@ import {id} from '../utils/id';
           [node]="childNode"
           [service]="service"
           [selectedNode]="selectedNode"
+          [level]="node.$$level+1"
           (selectedChanged)="onSelectNode($event)"
           (requestNodes)="onRequestLocal($event)">
         </tree-view-node>
@@ -36,6 +37,9 @@ export class TreeViewNodeComponent implements OnInit {
     if (val && !val.$$id) {
       val.$$id = id();
     }
+    if (val && !val.$$level) {
+      val.$$level = this.level;
+    }
     this._node = val;
   }
 
@@ -45,6 +49,7 @@ export class TreeViewNodeComponent implements OnInit {
 
   @Input() public selectedNode: ITreeNode;
   @Input() public service: ITreeService;
+  @Input() public level: number = 0;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<any> = new EventEmitter();
