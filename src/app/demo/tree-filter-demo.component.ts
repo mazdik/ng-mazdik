@@ -13,7 +13,8 @@ import {TreeDemoService} from './tree-demo.service';
                  [nodes]="treeNodes"
                  [service]="treeService"
                  [selectedNode]="selectedNode"
-                 (selectedChanged)="onSelectNode($event)">
+                 (selectedChanged)="onSelectNode($event)"
+                 [serverSideFiltering]="true">
       </tree-view>
       <crud-table
         #table

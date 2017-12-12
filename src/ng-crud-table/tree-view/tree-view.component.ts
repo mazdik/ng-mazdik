@@ -7,6 +7,7 @@ import {id} from '../utils/id';
   selector: 'tree-view',
   styleUrls: ['./tree-view.component.css'],
   template: `
+    <i class="icon-collapsing" [style.visibility]="!loading ? 'hidden' : 'visible' "></i>
     <input #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
     <ul class="tree-container">
       <tree-view-node
@@ -43,6 +44,7 @@ export class TreeViewComponent implements OnInit {
 
   @Input() public selectedNode: ITreeNode;
   @Input() public service: ITreeService;
+  @Input() public serverSideFiltering: boolean;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<any> = new EventEmitter();
@@ -50,6 +52,7 @@ export class TreeViewComponent implements OnInit {
   private _nodes: ITreeNode[];
   @ViewChild('filterInput') filterInput: any;
   filterTimeout: any;
+  loading: boolean = false;
 
   constructor() {
   }
@@ -101,7 +104,11 @@ export class TreeViewComponent implements OnInit {
   }
 
   filterTree(filterValue: string) {
-    this.filterClientSide(filterValue);
+    if (this.serverSideFiltering) {
+      this.filterServerSide(filterValue);
+    } else {
+      this.filterClientSide(filterValue);
+    }
   }
 
   filterClientSide(filterValue: string) {
@@ -190,7 +197,6 @@ export class TreeViewComponent implements OnInit {
       return this.service.getNodes(node).then(data => {
         node.children = data;
         this.setNodeChildDefaults(node);
-        console.log(data);
       });
     } else {
       return Promise.resolve();
@@ -225,20 +231,32 @@ export class TreeViewComponent implements OnInit {
     if (path && path.length) {
       return Promise.all(path.map((p) => {
         return this.doForEach(this.nodes, (node) => {
-          console.log(node.id + ' ' + p);
           if (node.id === p) {
             this.setNodeChildDefaults(node);
             return this.getChildren(node);
           }
         });
-      }, this));
+      }, this)).then(() => {
+        path.shift();
+        return this.loadPath(path);
+      });
+    } else {
+      return Promise.resolve();
     }
   }
 
   filterServerSide(filterValue: string) {
+    if (!filterValue.trim()) {
+      this.clearSearchState();
+      return;
+    }
     if (this.service) {
+      this.loading = true;
       this.service.searchNodes(filterValue).then(items => {
-        this.loadPath(items).then();
+        this.loadPath(items).then(() => {
+          this.filterClientSide(filterValue);
+          this.loading = false;
+        });
       });
     }
   }
