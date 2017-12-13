@@ -32,6 +32,7 @@ import {InputTextComponent} from './form/input-text.component';
 import {TextareaComponent} from './form/textarea.component';
 import {CalendarComponent} from './form/calendar.component';
 import {CustomValidator} from './form/custom-validator';
+import {ContextMenuComponent} from './context-menu/context-menu.component';
 
 @NgModule({
   imports: [
@@ -68,8 +69,17 @@ import {CustomValidator} from './form/custom-validator';
     InputTextComponent,
     TextareaComponent,
     CalendarComponent,
+    ContextMenuComponent,
   ],
-  exports: [DatatableComponent, CrudTableComponent, TreeTableComponent, TreeViewComponent, ModalComponent, ModalEditFormComponent],
+  exports: [
+    DatatableComponent,
+    CrudTableComponent,
+    TreeTableComponent,
+    TreeViewComponent,
+    ModalComponent,
+    ModalEditFormComponent,
+    ContextMenuComponent
+  ],
   providers: [CustomValidator]
 })
 export class CrudTableModule {

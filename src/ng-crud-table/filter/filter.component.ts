@@ -62,12 +62,15 @@ export class FilterComponent implements OnInit {
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
-    this.onSelectContainerClick(event);
+    this.selectContainerClicked = true;
   }
 
   @HostListener('window:click', ['$event'])
-  onWindowsClick(event: MouseEvent): void {
-    this.onWindowClick();
+  onWindowClick(event: MouseEvent): void {
+    if (!this.selectContainerClicked) {
+      this.closeDropdown();
+    }
+    this.selectContainerClicked = false;
   }
 
   @HostListener('keydown', ['$event'])
@@ -152,17 +155,6 @@ export class FilterComponent implements OnInit {
 
   updateNumSelected() {
     this.numSelected = this.selectedOptions && this.selectedOptions.length || 0;
-  }
-
-  onSelectContainerClick(event: any) {
-    this.selectContainerClicked = true;
-  }
-
-  onWindowClick() {
-    if (!this.selectContainerClicked) {
-      this.closeDropdown();
-    }
-    this.selectContainerClicked = false;
   }
 
   show(width: number, top: number, left: number, column: Column) {
