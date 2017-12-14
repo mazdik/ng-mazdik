@@ -7,8 +7,10 @@ import {id} from '../utils/id';
   selector: 'tree-view',
   styleUrls: ['./tree-view.component.css'],
   template: `
-    <i class="icon-collapsing" [style.visibility]="!loading ? 'hidden' : 'visible' "></i>
-    <input #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
+    <div class="tree-filter">
+      <i class="icon-collapsing" [style.visibility]="!loading ? 'hidden' : 'visible' "></i>
+      <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
+    </div>
     <ul class="tree-container">
       <tree-view-node
         *ngFor="let node of nodes"

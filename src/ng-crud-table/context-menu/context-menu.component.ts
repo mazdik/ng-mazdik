@@ -69,6 +69,9 @@ export class ContextMenuComponent implements OnInit {
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
     this.selectContainerClicked = true;
+    if (this.isVisible && event.button !== 2) {
+      this.isVisible = false;
+    }
   }
 
   @HostListener('window:click', ['$event'])
@@ -76,7 +79,7 @@ export class ContextMenuComponent implements OnInit {
     if (!this.selectContainerClicked) {
       this.isVisible = false;
     }
-    this.selectContainerClicked = false;;
+    this.selectContainerClicked = false;
   }
 
   @HostListener('keydown.esc', ['$event'])
@@ -87,6 +90,24 @@ export class ContextMenuComponent implements OnInit {
   @HostListener('window:resize')
   onWindowResize(): void {
     this.isVisible = false;
+  }
+
+  itemClick(event, item: MenuItem) {
+    if (item.disabled) {
+      event.preventDefault();
+      return;
+    }
+
+    if (!item.url) {
+      event.preventDefault();
+    }
+
+    if (item.command) {
+      item.command({
+        originalEvent: event,
+        item: item
+      });
+    }
   }
 
 }

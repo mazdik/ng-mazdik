@@ -121,9 +121,9 @@ export class TreeFilterDemoComponent implements OnInit {
       });
     }
     this.items = [
-      {label: 'View Task', command: (event) => console.log(event)},
+      {label: 'View Task', command: (event) => console.log(this.selectedNode)},
       {label: 'Edit Task', command: (event) => console.log(event)},
-      {label: 'Delete Task', command: (event) => console.log(event)}
+      {label: 'Delete Task', command: (event) => console.log(event), disabled: true}
     ];
   }
 

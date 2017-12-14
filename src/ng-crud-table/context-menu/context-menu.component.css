@@ -36,6 +36,14 @@
   box-shadow: 0 0 2px #0a6aa1;
 }
 
+.context-menu .disabled a,
+.context-menu .disabled a:hover {
+  color: silver;
+  background-color: transparent;
+  border: 0;
+  box-shadow: 0 0 0;
+}
+
 .context-menu li > a > i {
   text-decoration: none;
   display: inline-block;
