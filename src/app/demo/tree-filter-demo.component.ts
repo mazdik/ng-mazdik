@@ -1,6 +1,6 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ITreeNode, ITreeService, Column, Settings, Filter, ICrudService} from '../../ng-crud-table';
+import {ITreeNode, ITreeService, Column, Settings, Filter, ICrudService, MenuItem} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {TreeDemoService} from './tree-demo.service';
 
@@ -9,12 +9,13 @@ import {TreeDemoService} from './tree-demo.service';
   template: `
     <div style="display: flex;">
       <tree-view style="overflow: auto;"
-                 [ngStyle]="{'width.px': 200, 'height.px': settings.scrollHeight + 70}"
+                 [ngStyle]="{'width.px': 250, 'height.px': settings.scrollHeight + 70}"
                  [nodes]="treeNodes"
                  [service]="treeService"
                  [selectedNode]="selectedNode"
                  (selectedChanged)="onSelectNode($event)"
-                 [serverSideFiltering]="true">
+                 [serverSideFiltering]="true"
+                 [contextMenu]="contextMenu">
       </tree-view>
       <crud-table
         #table
@@ -24,30 +25,11 @@ import {TreeDemoService} from './tree-demo.service';
         [service]="service"
         (filterChanged)="onFilterChanged($event)">
       </crud-table>
-    </div>`
+    </div>
+    <context-menu #contextMenu [items]="items"></context-menu>
+  `
 })
 export class TreeFilterDemoComponent implements OnInit {
-
-  public treeNodes: ITreeNode[] = [];
-  public service: ICrudService;
-  public treeService: ITreeService;
-
-  selectedNode: ITreeNode;
-  filters: Filter = {};
-  @ViewChild('table') table: any;
-
-  constructor(private http: HttpClient) {
-    this.service = new DemoService(this.http);
-    this.treeService = new TreeDemoService(this.http);
-  }
-
-  ngOnInit() {
-    if (this.treeService) {
-      this.treeService.getNodes().then(data => {
-        this.treeNodes = data;
-      });
-    }
-  }
 
   public columns: Column[] = [
     {
@@ -117,6 +99,33 @@ export class TreeFilterDemoComponent implements OnInit {
     tableWidth: 820,
     scrollHeight: 380
   };
+
+  public treeNodes: ITreeNode[] = [];
+  public service: ICrudService;
+  public treeService: ITreeService;
+
+  selectedNode: ITreeNode;
+  filters: Filter = {};
+  items: MenuItem[];
+  @ViewChild('table') table: any;
+
+  constructor(private http: HttpClient) {
+    this.service = new DemoService(this.http);
+    this.treeService = new TreeDemoService(this.http);
+  }
+
+  ngOnInit() {
+    if (this.treeService) {
+      this.treeService.getNodes().then(data => {
+        this.treeNodes = data;
+      });
+    }
+    this.items = [
+      {label: 'View Task', command: (event) => console.log(event)},
+      {label: 'Edit Task', command: (event) => console.log(event)},
+      {label: 'Delete Task', command: (event) => console.log(event)}
+    ];
+  }
 
   selectNode(node: ITreeNode) {
     if (node) {

@@ -1,4 +1,5 @@
-import {Component, OnInit, ViewChild, HostListener} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, HostListener} from '@angular/core';
+import {MenuItem} from '../types/interfaces';
 
 @Component({
   selector: 'context-menu',
@@ -6,6 +7,8 @@ import {Component, OnInit, ViewChild, HostListener} from '@angular/core';
   styleUrls: ['./context-menu.component.css']
 })
 export class ContextMenuComponent implements OnInit {
+
+  @Input() items: MenuItem[];
 
   @ViewChild('menu') menu: any;
   isVisible: boolean = false;

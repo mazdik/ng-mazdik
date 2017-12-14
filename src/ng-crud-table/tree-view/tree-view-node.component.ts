@@ -13,7 +13,8 @@ import {id} from '../utils/id';
       </i>
       <span [ngClass]="nodeContentClass()"
             (click)="onSelectNode(node)"
-            (dblclick)="onExpand(node)">
+            (dblclick)="onExpand(node)"
+            (contextmenu)="onNodeRightClick($event)">
         {{node.name}}
       </span>
       <ul class="tree-container" *ngIf="node.children && node.expanded">
@@ -24,7 +25,8 @@ import {id} from '../utils/id';
           [selectedNode]="selectedNode"
           [level]="node.$$level+1"
           (selectedChanged)="onSelectNode($event)"
-          (requestNodes)="onRequestLocal($event)">
+          (requestNodes)="onRequestLocal($event)"
+          (nodeRightClick)="onNodeRightClickLocal($event)">
         </tree-view-node>
       </ul>
     </li>
@@ -53,6 +55,7 @@ export class TreeViewNodeComponent implements OnInit {
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<any> = new EventEmitter();
+  @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
 
   loading: boolean = false;
   private _node: ITreeNode;
@@ -137,6 +140,15 @@ export class TreeViewNodeComponent implements OnInit {
       cls += ' highlight';
     }
     return cls;
+  }
+
+  onNodeRightClick(event: MouseEvent) {
+    this.onSelectNode(this.node);
+    this.nodeRightClick.emit({'event': event, 'node': this.node});
+  }
+
+  onNodeRightClickLocal(event) {
+    this.nodeRightClick.emit(event);
   }
 
 }

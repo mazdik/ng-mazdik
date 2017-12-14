@@ -1,40 +1,61 @@
 .context-menu {
   position: absolute;
   z-index: 11;
-  padding: 12px 0;
-  width: 240px;
-  background-color: #fff;
-  border: solid 1px #dfdfdf;
-  box-shadow: 1px 1px 2px #cfcfcf;
+  margin: 0;
+  padding: 2px;
+  background: #f5f5f5;
+  border: 1px solid #979797;
+  box-shadow: 2px 2px 2px #999999;
+
 }
 
-.context-menu--active {
-  display: block;
-}
-
-.context-menu__items {
+.context-menu ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.context-menu__item {
+.context-menu li {
   display: block;
-  margin-bottom: 4px;
 }
 
-.context-menu__item:last-child {
-  margin-bottom: 0;
-}
-
-.context-menu__link {
+.context-menu li > a {
   display: block;
-  padding: 4px 12px;
-  color: #0066aa;
+  padding: 0 2em 0 2em;
   text-decoration: none;
+  width: auto;
+  color: black;
+  white-space: nowrap;
+  line-height: 2.4em;
+  text-shadow: 1px 1px 0 white;
+  border-radius: 1px;
 }
 
-.context-menu__link:hover {
-  color: #fff;
-  background-color: #0066aa;
+.context-menu li > a:hover {
+  background-color: #e8eff7;
+  box-shadow: 0 0 2px #0a6aa1;
+}
+
+.context-menu li > a > i {
+  text-decoration: none;
+  display: inline-block;
+  width: 2.4em;
+  height: 2.4em;
+  background: transparent;
+  margin: 0 0 0 -2em;
+  vertical-align: top;
+  text-align: center;
+  line-height: 2.4em;
+}
+.context-menu li > a > i:empty {
+  width: 2.4em;
+  line-height: 2.4em;
+}
+.context-menu li > a .context-menu-sep {
+  display: inline-block;
+  width: 1px;
+  height: 2.4em;
+  background: white;
+  margin: 0 0.5em 0 0;
+  border-left: 1px solid #e2e3e3;
 }

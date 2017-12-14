@@ -1,15 +1,11 @@
 <nav #menu
      class="context-menu"
      [style.display]="(isVisible) ? 'block' : 'none' ">
-  <ul class="context-menu__items">
-    <li class="context-menu__item">
-      <a href="#" class="context-menu__link" data-action="View"><i class="fa fa-eye"></i> View Task</a>
-    </li>
-    <li class="context-menu__item">
-      <a href="#" class="context-menu__link" data-action="Edit"><i class="fa fa-edit"></i> Edit Task</a>
-    </li>
-    <li class="context-menu__item">
-      <a href="#" class="context-menu__link" data-action="Delete"><i class="fa fa-times"></i> Delete Task</a>
-    </li>
+  <ul>
+    <ng-template ngFor let-item [ngForOf]="items" let-i="index">
+      <li>
+        <a href="#"><i></i><span class="context-menu-sep">&nbsp;</span>{{item.label}}</a>
+      </li>
+    </ng-template>
   </ul>
 </nav>

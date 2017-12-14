@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild} from '@angular/core';
-import {ITreeNode, ITreeService} from '../types/interfaces';
+import {ITreeNode, ITreeService, MenuItem} from '../types/interfaces';
 import {FilterState} from '../types/enums';
 import {id} from '../utils/id';
 
@@ -16,7 +16,8 @@ import {id} from '../utils/id';
         [service]="service"
         [selectedNode]="selectedNode"
         (selectedChanged)="onSelectedChanged($event)"
-        (requestNodes)="onRequestNodes($event)">
+        (requestNodes)="onRequestNodes($event)"
+        (nodeRightClick)="onNodeRightClick($event)">
       </tree-view-node>
     </ul>
   `
@@ -45,6 +46,7 @@ export class TreeViewComponent implements OnInit {
   @Input() public selectedNode: ITreeNode;
   @Input() public service: ITreeService;
   @Input() public serverSideFiltering: boolean;
+  @Input() public contextMenu: any;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<any> = new EventEmitter();
@@ -258,6 +260,12 @@ export class TreeViewComponent implements OnInit {
           this.loading = false;
         });
       });
+    }
+  }
+
+  onNodeRightClick(event) {
+    if (this.contextMenu) {
+      this.contextMenu.show(event['event']);
     }
   }
 
