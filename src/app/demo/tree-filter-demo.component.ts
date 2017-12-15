@@ -9,8 +9,8 @@ import {TreeDemoService} from './tree-demo.service';
   template: `
     <div style="display: flex;">
       <tree-view style="overflow: auto;"
+                 #tree
                  [ngStyle]="{'width.px': 250, 'height.px': settings.scrollHeight + 70}"
-                 [nodes]="treeNodes"
                  [service]="treeService"
                  [selectedNode]="selectedNode"
                  (selectedChanged)="onSelectNode($event)"
@@ -100,7 +100,6 @@ export class TreeFilterDemoComponent implements OnInit {
     scrollHeight: 380
   };
 
-  public treeNodes: ITreeNode[] = [];
   public service: ICrudService;
   public treeService: ITreeService;
 
@@ -108,6 +107,7 @@ export class TreeFilterDemoComponent implements OnInit {
   filters: Filter = {};
   items: MenuItem[];
   @ViewChild('table') table: any;
+  @ViewChild('tree') tree: any;
 
   constructor(private http: HttpClient) {
     this.service = new DemoService(this.http);
@@ -115,11 +115,6 @@ export class TreeFilterDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.treeService) {
-      this.treeService.getNodes().then(data => {
-        this.treeNodes = data;
-      });
-    }
     this.items = [
       {label: 'View Task', command: (event) => console.log(this.selectedNode)},
       {label: 'Edit Task', command: (event) => console.log(event)},
@@ -155,8 +150,8 @@ export class TreeFilterDemoComponent implements OnInit {
   }
 
   setNode(field: string, value: string) {
-    if (this.treeNodes) {
-      for (const node of this.treeNodes) {
+    if (this.tree.nodes) {
+      for (const node of this.tree.nodes) {
         if (node.data['column'] === field && node.id === value) {
           this.selectedNode = node;
         }

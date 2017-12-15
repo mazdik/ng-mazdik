@@ -1,6 +1,6 @@
 <nav #menu
      class="context-menu"
-     [style.display]="(isVisible) ? 'block' : 'none' ">
+     [style.display]="(isVisible && items.length > 0) ? 'block' : 'none' ">
   <ul>
     <ng-template ngFor let-item [ngForOf]="items" let-i="index">
       <li [ngClass]="{'disabled':item.disabled}">

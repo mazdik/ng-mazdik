@@ -7,11 +7,12 @@
            [ngStyle]="{'width.px': 250}">
 
         <div class="treenode"
+             [ngStyle]="{'padding-left.px': level*10}"
              style=" cursor: pointer;">
           <i [class]="getIcon(node)"
-             [ngStyle]="{'padding-left.px': level*10}"
              (click)="onExpand(node)">
           </i>
+          <i *ngIf="node.icon" [ngClass]="node.icon"></i>
           <span class="treenode-content"
                 (dblclick)="onExpand(node)">
             {{node.name}}

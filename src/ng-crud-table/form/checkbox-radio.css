@@ -5,7 +5,6 @@
   padding-left: 35px;
   margin-bottom: 12px;
   cursor: pointer;
-  font-size: 17px;
   -webkit-user-select: none; /* Chrome, Opera, Safari */
   -moz-user-select: none; /* Firefox 2+ */
   -ms-user-select: none; /* IE 10+ */
@@ -26,6 +25,7 @@
   height: 25px;
   width: 25px;
   background-color: #eee;
+  border: 1px solid #5b9bd5;
 }
 
 /* On mouse-over, add a grey background color */
@@ -35,7 +35,7 @@
 
 /* When the checkbox is checked, add a blue background */
 .checkcontainer input:checked ~ .checkmark {
-  background-color: #2196F3;
+  background-color: #5b9bd5;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -81,7 +81,7 @@
 
 /* When the radio button is checked, add a blue background */
 .checkcontainer input:checked ~ .radiobtn{
-  background-color: #2196F3;
+  background-color: #5b9bd5;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */

@@ -7,7 +7,6 @@ import {TreeDemoService} from './tree-demo.service';
   selector: 'tree-table-demo',
   template: `
     <tree-table
-      [nodes]="treeNodes"
       [service]="treeService"
       [columns]="columns"
       (editComplete)="onEditComplete($event)">
@@ -15,7 +14,6 @@ import {TreeDemoService} from './tree-demo.service';
 })
 export class TreeTableDemoComponent implements OnInit {
 
-  public treeNodes: ITreeNode[] = [];
   public treeService: ITreeService;
 
   public columns: Column[] = [
@@ -46,11 +44,6 @@ export class TreeTableDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.treeService) {
-      this.treeService.getNodes().then(data => {
-        this.treeNodes = data;
-      });
-    }
   }
 
   onEditComplete(event) {

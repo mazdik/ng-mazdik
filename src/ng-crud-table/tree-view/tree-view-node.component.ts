@@ -11,6 +11,7 @@ import {id} from '../utils/id';
       <i [ngClass]="getIcon(node)"
          (click)="onExpand(node)">
       </i>
+      <i *ngIf="node.icon" [ngClass]="node.icon"></i>
       <span [ngClass]="nodeContentClass()"
             (click)="onSelectNode(node)"
             (dblclick)="onExpand(node)"
@@ -111,9 +112,7 @@ export class TreeViewNodeComponent implements OnInit {
     if (this.loading) {
       return 'icon-collapsing';
     }
-    if (node.icon) {
-      icon = node.icon;
-    } else if (!this.isLeaf(node) && node.expanded) {
+    if (!this.isLeaf(node) && node.expanded) {
       icon = 'icon-node icon-collapsed';
     } else if (!this.isLeaf(node)) {
       icon = 'icon-node';

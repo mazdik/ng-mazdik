@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild} from '@angular/core';
-import {ITreeNode, ITreeService, MenuItem} from '../types/interfaces';
+import {ITreeNode, ITreeService} from '../types/interfaces';
 import {FilterState} from '../types/enums';
 import {id} from '../utils/id';
 
@@ -49,6 +49,7 @@ export class TreeViewComponent implements OnInit {
   @Input() public service: ITreeService;
   @Input() public serverSideFiltering: boolean;
   @Input() public contextMenu: any;
+  @Input() filterDelay: number = 500;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<any> = new EventEmitter();
@@ -62,6 +63,11 @@ export class TreeViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.service && !this.nodes) {
+      this.service.getNodes().then(data => {
+        this.nodes = data;
+      });
+    }
   }
 
   onSelectedChanged(event) {
@@ -104,7 +110,7 @@ export class TreeViewComponent implements OnInit {
     this.filterTimeout = setTimeout(() => {
       this.filterTree(value);
       this.filterTimeout = null;
-    }, 300);
+    }, this.filterDelay);
   }
 
   filterTree(filterValue: string) {
@@ -154,6 +160,7 @@ export class TreeViewComponent implements OnInit {
   clearSearchState() {
     this.doForAll((node: ITreeNode) => {
       node.$$filterState = null;
+      node.expanded = false;
     });
   }
 

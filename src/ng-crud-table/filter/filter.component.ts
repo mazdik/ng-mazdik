@@ -13,6 +13,7 @@ import {ISelectOption, Column, Filter} from '../types/interfaces';
 export class FilterComponent implements OnInit {
 
   @Input() filters: Filter = {};
+  @Input() filterDelay: number = 500;
   @Output() onFilter: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('searchFilterInput') searchFilterInput: any;
@@ -189,7 +190,7 @@ export class FilterComponent implements OnInit {
     this.filterTimeout = setTimeout(() => {
       this.filter(value, field, matchMode);
       this.filterTimeout = null;
-    }, 300);
+    }, this.filterDelay);
   }
 
   filter(value, field, matchMode) {

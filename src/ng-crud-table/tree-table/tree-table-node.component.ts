@@ -49,9 +49,7 @@ export class TreeTableNodeComponent {
     if (this.loading) {
       return 'icon-collapsing';
     }
-    if (node.icon) {
-      icon = node.icon;
-    } else if (!this.isLeaf(node) && node.expanded) {
+    if (!this.isLeaf(node) && node.expanded) {
       icon = 'icon-node icon-collapsed';
     } else if (!this.isLeaf(node)) {
       icon = 'icon-node';

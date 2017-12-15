@@ -23,6 +23,11 @@ export class TreeTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.service && !this.nodes) {
+      this.service.getNodes().then(data => {
+        this.nodes = data;
+      });
+    }
     this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
     this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
     this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
