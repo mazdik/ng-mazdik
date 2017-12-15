@@ -53,5 +53,30 @@
 }
 
 .tree-filter {
-  margin: 1px;
+  margin: 1px 0 5px 0;
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-content i {
+  height: 40px;
+  width: 40px;
+}
+
+.tree-body {
+  overflow: auto;
+  max-height: calc(100% - 50px);
+}
+
+.tree-button {
+  background-color: #5b9bd5;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }

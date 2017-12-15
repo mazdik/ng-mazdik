@@ -8,14 +8,14 @@ import {TreeDemoService} from './tree-demo.service';
   selector: 'tree-filter-demo',
   template: `
     <div style="display: flex;">
-      <tree-view style="overflow: auto;"
-                 #tree
-                 [ngStyle]="{'width.px': 250, 'height.px': settings.scrollHeight + 70}"
-                 [service]="treeService"
-                 [selectedNode]="selectedNode"
-                 (selectedChanged)="onSelectNode($event)"
-                 [serverSideFiltering]="true"
-                 [contextMenu]="contextMenu">
+      <tree-view
+        #tree
+        [ngStyle]="{'width.px': 210, 'height.px': settings.scrollHeight + 70}"
+        [service]="treeService"
+        [selectedNode]="selectedNode"
+        (selectedChanged)="onSelectNode($event)"
+        [serverSideFiltering]="true"
+        [contextMenu]="contextMenu">
       </tree-view>
       <crud-table
         #table

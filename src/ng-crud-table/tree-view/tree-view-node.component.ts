@@ -24,7 +24,7 @@ import {id} from '../utils/id';
           [node]="childNode"
           [service]="service"
           [selectedNode]="selectedNode"
-          [level]="node.$$level+1"
+          [parentNode]="node"
           (selectedChanged)="onSelectNode($event)"
           (requestNodes)="onRequestLocal($event)"
           (nodeRightClick)="onNodeRightClickLocal($event)">
@@ -35,36 +35,30 @@ import {id} from '../utils/id';
 })
 export class TreeViewNodeComponent implements OnInit {
 
-  @Input()
-  set node(val: ITreeNode) {
-    if (val && !val.$$id) {
-      val.$$id = id();
-    }
-    if (val && !val.$$level) {
-      val.$$level = this.level;
-    }
-    this._node = val;
-  }
-
-  get node(): ITreeNode {
-    return this._node;
-  }
-
+  @Input() public node: ITreeNode;
+  @Input() public parentNode: ITreeNode;
   @Input() public selectedNode: ITreeNode;
   @Input() public service: ITreeService;
-  @Input() public level: number = 0;
 
   @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
   @Output() requestNodes: EventEmitter<any> = new EventEmitter();
   @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
 
   loading: boolean = false;
-  private _node: ITreeNode;
 
   constructor() {
   }
 
   ngOnInit() {
+    if (!this.node.$$id) {
+      this.node.$$id = id();
+    }
+    if (!this.node.$$level) {
+      this.node.$$level = (this.parentNode) ? this.parentNode.$$level + 1 : 0;
+    }
+    if (!this.node.parent) {
+      this.node.parent = this.parentNode;
+    }
   }
 
   isLeaf(node: ITreeNode) {

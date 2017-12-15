@@ -7,24 +7,52 @@ import {id} from '../utils/id';
   selector: 'tree-view',
   styleUrls: ['./tree-view.component.css'],
   template: `
-    <div class="tree-filter">
-      <i class="icon-collapsing" [style.visibility]="!loading ? 'hidden' : 'visible' "></i>
-      <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
+    <div class="tree-header">
+      <div class="tree-filter">
+        <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
+        <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
+      </div>
+      <button class="tree-button" (click)="collapseAll()"><i class="icon icon-return"></i></button>
+      <button class="tree-button" (click)="refresh()"><i class="icon icon-reload"></i></button>
     </div>
-    <ul class="tree-container">
-      <tree-view-node
-        *ngFor="let node of nodes"
-        [node]="node"
-        [service]="service"
-        [selectedNode]="selectedNode"
-        (selectedChanged)="onSelectedChanged($event)"
-        (requestNodes)="onRequestNodes($event)"
-        (nodeRightClick)="onNodeRightClick($event)">
-      </tree-view-node>
-    </ul>
+    <div class="tree-body">
+      <div *ngIf="loading" class="loading-content"><i class="icon-collapsing"></i></div>
+      <ul class="tree-container" style="padding-left: 0;">
+        <tree-view-node
+          *ngFor="let node of nodes"
+          [node]="node"
+          [service]="service"
+          [selectedNode]="selectedNode"
+          (selectedChanged)="onSelectedChanged($event)"
+          (requestNodes)="onRequestNodes($event)"
+          (nodeRightClick)="onNodeRightClick($event)">
+        </tree-view-node>
+      </ul>
+    </div>
   `
 })
 export class TreeViewComponent implements OnInit {
+
+  @Input() public selectedNode: ITreeNode;
+  @Input() public service: ITreeService;
+  @Input() public serverSideFiltering: boolean;
+  @Input() public contextMenu: any;
+  @Input() filterDelay: number = 500;
+  @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
+  @Output() requestNodes: EventEmitter<any> = new EventEmitter();
+  @ViewChild('filterInput') filterInput: any;
+  filterTimeout: any;
+  filterLoading: boolean = false;
+  loading: boolean = false;
+
+  constructor() {
+  }
+
+  private _nodes: ITreeNode[];
+
+  get nodes(): ITreeNode[] {
+    return this._nodes;
+  }
 
   @Input()
   set nodes(val: ITreeNode[]) {
@@ -41,31 +69,18 @@ export class TreeViewComponent implements OnInit {
     this._nodes = val;
   }
 
-  get nodes(): ITreeNode[] {
-    return this._nodes;
-  }
-
-  @Input() public selectedNode: ITreeNode;
-  @Input() public service: ITreeService;
-  @Input() public serverSideFiltering: boolean;
-  @Input() public contextMenu: any;
-  @Input() filterDelay: number = 500;
-
-  @Output() selectedChanged: EventEmitter<ITreeNode> = new EventEmitter<ITreeNode>();
-  @Output() requestNodes: EventEmitter<any> = new EventEmitter();
-
-  private _nodes: ITreeNode[];
-  @ViewChild('filterInput') filterInput: any;
-  filterTimeout: any;
-  loading: boolean = false;
-
-  constructor() {
-  }
-
   ngOnInit() {
-    if (this.service && !this.nodes) {
+    this.initGetNodes();
+  }
+
+  initGetNodes() {
+    if (this.service && !(this.nodes && this.nodes.length)) {
+      this.loading = true;
       this.service.getNodes().then(data => {
         this.nodes = data;
+        this.loading = false;
+      }).then(() => {
+        this.loading = false;
       });
     }
   }
@@ -199,6 +214,9 @@ export class TreeViewComponent implements OnInit {
         if (!child.$$level) {
           child.$$level = node.$$level + 1;
         }
+        if (!child.parent) {
+          child.parent = node;
+        }
       }
     }
   }
@@ -262,11 +280,11 @@ export class TreeViewComponent implements OnInit {
       return;
     }
     if (this.service) {
-      this.loading = true;
+      this.filterLoading = true;
       this.service.searchNodes(filterValue).then(items => {
         this.loadPath(items).then(() => {
           this.filterClientSide(filterValue);
-          this.loading = false;
+          this.filterLoading = false;
         });
       });
     }
@@ -276,6 +294,13 @@ export class TreeViewComponent implements OnInit {
     if (this.contextMenu) {
       this.contextMenu.show(event['event']);
     }
+  }
+
+  refresh() {
+    this.nodes = [];
+    this.initGetNodes();
+    this.selectedNode = null;
+    this.filterInput.nativeElement.value = null;
   }
 
 }
