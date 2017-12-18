@@ -11,11 +11,11 @@ import {id} from '../utils/id';
       <i [ngClass]="getIcon(node)"
          (click)="onExpand(node)">
       </i>
-      <i *ngIf="node.icon" [ngClass]="node.icon"></i>
       <span [ngClass]="nodeContentClass()"
             (click)="onSelectNode(node)"
             (dblclick)="onExpand(node)"
             (contextmenu)="onNodeRightClick($event)">
+        <i *ngIf="node.icon" [ngClass]="node.icon"></i>
         {{node.name}}
       </span>
       <ul class="tree-container" *ngIf="node.children && node.expanded">

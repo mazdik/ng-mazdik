@@ -6,14 +6,14 @@
       <div class="datatable-body-cell"
            [ngStyle]="{'width.px': 250}">
 
-        <div class="treenode"
+        <div class="datatable-tree-node"
              [ngStyle]="{'padding-left.px': level*10}"
              style=" cursor: pointer;">
           <i [class]="getIcon(node)"
              (click)="onExpand(node)">
           </i>
           <i *ngIf="node.icon" [ngClass]="node.icon"></i>
-          <span class="treenode-content"
+          <span class="datatable-tree-node-content"
                 (dblclick)="onExpand(node)">
             {{node.name}}
           </span>

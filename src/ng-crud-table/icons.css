@@ -21,24 +21,6 @@
   content: "\270E";
 }
 
-.icon-node:before {
-  content: "";
-  position: relative;
-  display: inline-block;
-  border-top: .5em solid;
-  border-right: .45em solid transparent;
-  border-left: .45em solid transparent;
-  top: -1px;
-  margin-right: 4px;
-  opacity: .75;
-  transition: all .3s cubic-bezier(.4,0,.2,1);
-}
-.icon-node.icon-collapsed:before,
-.icon-node.icon-collapsing:before {
-  transform: rotate(-90deg);
-  transition: all .3s cubic-bezier(.4,0,.2,1);
-}
-
 .icon-filter:before,
 .icon-filter:after {
   content: '';
@@ -56,29 +38,6 @@
   padding: 2.5px;
   box-shadow: inset 0 7px;
   margin: 9px 4px;
-}
-
-.icon-collapsing {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  display: inline-block;
-  border: 4px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 4px solid #3498db;
-  width: 18px;
-  height: 18px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
 }
 
 .icon-reload:before {

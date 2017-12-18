@@ -4,7 +4,7 @@ import {ITreeNode, ITreeService, Column, Settings} from '../types/interfaces';
 @Component({
   selector: 'tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../crud-table.css'],
+  styleUrls: ['../tree-view/tree-view.component.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TreeTableComponent implements OnInit {

@@ -82,14 +82,14 @@ export class CrudTableComponent implements OnInit {
     ];
   }
 
-  getItems() {
+  getItems(): Promise<any> | any {
     if (!this.service.url) {
       return;
     }
     this.loading = true;
     this.errors = null;
     this.onDetailView = false;
-    this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
+    return this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
       .then(data => {
         this.loading = false;
         this.items = data.items;

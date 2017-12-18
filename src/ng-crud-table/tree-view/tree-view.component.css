@@ -10,6 +10,9 @@
   display: inline-block;
   vertical-align: middle;
   padding: 0 .25em;
+  line-height: 24px;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .treenode {
@@ -26,6 +29,7 @@
   border-color: #156090;
   background: #5b9bd5;
   color: #FFFFFF;
+  border-radius: 2px;
 }
 
 .treenode .filter-found {
@@ -47,13 +51,9 @@
 }
 
 .tree-filter-input {
-  padding: 6px 12px;
+  padding: 3px 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
-}
-
-.tree-filter {
-  margin: 1px 0 5px 0;
 }
 
 .loading-content {
@@ -70,6 +70,44 @@
   max-height: calc(100% - 50px);
 }
 
+.icon-node:before {
+  content: "";
+  position: relative;
+  display: inline-block;
+  border-top: .5em solid;
+  border-right: .45em solid transparent;
+  border-left: .45em solid transparent;
+  top: -1px;
+  margin-right: 4px;
+  opacity: .75;
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  vertical-align: middle;
+}
+.icon-node.icon-collapsed:before,
+.icon-node.icon-collapsing:before {
+  transform: rotate(-90deg);
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+}
+
+.icon-collapsing {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #3498db;
+  width: 18px;
+  height: 18px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  vertical-align: middle;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
 .tree-button {
   background-color: #5b9bd5;
   border: none;
@@ -78,5 +116,11 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  padding: 3px 9px;
   cursor: pointer;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

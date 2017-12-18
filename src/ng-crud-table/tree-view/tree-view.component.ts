@@ -8,12 +8,10 @@ import {id} from '../utils/id';
   styleUrls: ['./tree-view.component.css'],
   template: `
     <div class="tree-header">
-      <div class="tree-filter">
-        <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
-        <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
-      </div>
       <button class="tree-button" (click)="collapseAll()"><i class="icon icon-return"></i></button>
       <button class="tree-button" (click)="refresh()"><i class="icon icon-reload"></i></button>
+      <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
+      <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
     </div>
     <div class="tree-body">
       <div *ngIf="loading" class="loading-content"><i class="icon-collapsing"></i></div>
