@@ -116,10 +116,6 @@ export class HeaderComponent implements OnInit {
     // datatable-row-left + offsetLeft
     left = left + el.parentNode.offsetLeft;
 
-    const doc = el.parentNode.parentNode.parentNode.parentNode;
-    const windowScrollLeft = (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
-    left = left - windowScrollLeft;
-
     this.onShowColumnMenu.emit({'top': top, 'left': left, 'column': column});
   }
 

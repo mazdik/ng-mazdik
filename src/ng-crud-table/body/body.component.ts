@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
+import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
   selector: 'datatable-body',
@@ -19,7 +20,8 @@ export class BodyComponent implements OnInit, DoCheck {
   @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
-  @Input() trackByProp: string;
+  @Input() public trackByProp: string;
+  @Input() public loading: boolean = false;
 
   @Input()
   set rows(val: any) {
@@ -53,6 +55,7 @@ export class BodyComponent implements OnInit, DoCheck {
   rowTrackingFn: any;
   _rows: any[];
   _bodyHeight: any;
+  columnsTotalWidth: number;
 
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
@@ -67,6 +70,7 @@ export class BodyComponent implements OnInit, DoCheck {
   }
 
   ngOnInit(): void {
+    this.columnsTotalWidth = ColumnUtils.getColumnsTotalWidth(this.columns) + this.actionColumnWidth;
   }
 
   ngDoCheck(): void {

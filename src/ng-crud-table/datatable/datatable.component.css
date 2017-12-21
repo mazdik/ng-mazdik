@@ -350,3 +350,7 @@
   color: #337ab7;
   cursor: pointer;
 }
+
+.empty-row {
+  padding: 0 0 5px 5px;
+}

@@ -20,7 +20,9 @@
   </datatable-scroller>
   <div
     class="empty-row"
-    *ngIf="!rows?.length">
-    No data found
+    *ngIf="!rows?.length"
+    [style.width.px]="columnsTotalWidth">
+    <ng-container *ngIf="loading">Loading...</ng-container>
+    <ng-container *ngIf="!loading">No data found</ng-container>
   </div>
 </div>

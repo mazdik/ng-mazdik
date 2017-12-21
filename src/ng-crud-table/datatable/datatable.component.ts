@@ -100,7 +100,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   initTableSize() {
-    this.tableWidth = this.settings.tableWidth || this.columnsTotalWidth(this.columns);
+    this.tableWidth = this.settings.tableWidth;
     this.scrollHeight = this.settings.scrollHeight;
   }
 
@@ -140,14 +140,6 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   showColumnMenu(event) {
     this.selectFilter.show(200, event.top, event.left, event.column);
-  }
-
-  columnsTotalWidth(columns: Column[]): number {
-    let totalWidth = 0;
-    for (const column of columns) {
-      totalWidth = totalWidth + column.width;
-    }
-    return totalWidth + this.actionColumnWidth;
   }
 
   onResizeColumn({column, newValue}: any) {
