@@ -32,6 +32,7 @@
 }
 
 .dt-col-right {
+  width: calc(100% - 255px);
 }
 
 .cell-big-value {

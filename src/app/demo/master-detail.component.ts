@@ -210,7 +210,7 @@ export class MasterDetailDemoComponent implements OnInit {
   }
 
   masterChanged(event) {
-    if (this.tablePlayers.rows.length > 0) {
+    if (this.tablePlayers.rows.length > 0 && this.tablePlayers.selectedRowIndex !== undefined) {
       const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
 
       this.rowsRank = this._rank.filter((value: any) => {
@@ -219,6 +219,9 @@ export class MasterDetailDemoComponent implements OnInit {
       this.rowsInventory = this._inventory.filter((value: any) => {
         return value['itemOwner'] === masterId;
       });
+    } else {
+      this.rowsRank = [];
+      this.rowsInventory = [];
     }
 
   }

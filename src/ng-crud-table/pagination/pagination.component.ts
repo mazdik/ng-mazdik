@@ -71,14 +71,13 @@ export class PaginationComponent {
   }
 
   public getPages(): any[] {
-    const maxSize: number = 10;
+    const maxSize: number = 5;
     const pages: any[] = [];
     let startPage = 1;
     const totalPages = this.totalPages();
     let endPage = totalPages;
-    const isMaxSized = typeof maxSize !== 'undefined' && maxSize < totalPages;
 
-    if (isMaxSized) {
+    if (maxSize < totalPages) {
       startPage = Math.max(this.currentPage - Math.floor(maxSize / 2), 1);
       endPage = startPage + maxSize - 1;
 

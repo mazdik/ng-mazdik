@@ -13,6 +13,7 @@
       <ng-template [ngIf]="colIndex == 0 && settings.filter">
         <i class="icon-filter"
            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
+           style="cursor: pointer;"
            (click)="clearAllFilters()"
            title="Clear all filters">
         </i>

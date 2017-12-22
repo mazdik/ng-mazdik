@@ -110,6 +110,7 @@ export class DatatableComponent implements OnInit, DoCheck {
       this._rows = this.getItems();
     }
     this.pageChanged.emit(event);
+    this.selectRow(0);
   }
 
   onEditComplete(event) {
@@ -123,6 +124,7 @@ export class DatatableComponent implements OnInit, DoCheck {
       this._rows = this.getItems();
     }
     this.filterChanged.emit(this.filters);
+    this.selectRow(0);
   }
 
   onSort(event) {
@@ -131,11 +133,20 @@ export class DatatableComponent implements OnInit, DoCheck {
       this._rows = this.getItems();
     }
     this.sortChanged.emit(this.sortMeta);
+    this.selectRow(0);
   }
 
-  onSelectRow(event) {
-    this.selectedRowIndex = event;
+  selectRow(rowIndex: number) {
+    if (this.rows && this.rows.length) {
+      this.selectedRowIndex = rowIndex;
+    } else {
+      this.selectedRowIndex = undefined;
+    }
     this.selectedRowIndexChanged.emit(this.selectedRowIndex);
+  }
+
+  onSelectRow(rowIndex: number) {
+    this.selectRow(rowIndex);
   }
 
   showColumnMenu(event) {
