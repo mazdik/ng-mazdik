@@ -41,8 +41,10 @@ export class SelectComponent implements OnInit {
 
   @Input()
   set dependsValue(value) {
-    this._dependsValue = value;
-    this.setOptions();
+    if (this._dependsValue !== value) {
+      this._dependsValue = value;
+      this.setDependsOptions();
+    }
   }
 
   get model() {
@@ -72,30 +74,40 @@ export class SelectComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.column.optionsUrl && !this.column.dependsColumn) {
+      this.loadOptions();
+    } else {
+      this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
+    }
   }
 
-  setOptions() {
-    if (this._dependsValue) {
-      if (this.column.optionsUrl && this.service.getOptions) {
-        this.loading = true;
-        this.service.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
-          this._options = res;
-          this.loading = false;
-        }).catch(error => {
-          this.loading = false;
-        });
+  setDependsOptions() {
+    if (this.dependsValue) {
+      if (this.column.optionsUrl) {
+        this.loadOptions();
+      } else {
+        this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
       }
     } else {
-      this._options = null;
+      this._options = [];
+    }
+  }
+
+  loadOptions() {
+    if (this.column.optionsUrl && this.service.getOptions) {
+      this.loading = true;
+      this.service.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
+        this._options = res;
+        this.loading = false;
+      }).catch(error => {
+        this._options = [];
+        this.loading = false;
+      });
     }
   }
 
   getOptions() {
-    if (this.column.optionsUrl) {
-      return this._options;
-    } else {
-      return ColumnUtils.getOptions(this.column, this.dependsValue);
-    }
+    return this._options;
   }
 
   errors() {
