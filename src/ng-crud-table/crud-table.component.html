@@ -4,28 +4,25 @@
         class="button"
         style="margin-bottom: 5px;"
         *ngIf="settings.crud"
-        [style.display]="(!onDetailView) ? 'block' : 'none' "
         (click)="createItem()">Create
 </button>
 
-<div class="grid-view" [style.display]="(!onDetailView) ? 'block' : 'none' ">
-  <app-datatable
-    [columns]="columns"
-    [settings]="settings"
-    [rows]="items"
-    [filters]="filters"
-    [rowMenu]="rowMenu"
-    [itemsPerPage]="itemsPerPage"
-    [totalItems]="totalItems"
-    [loading]="loading"
-    [trackByProp]="trackByProp"
-    (filterChanged)="onFilter($event)"
-    (pageChanged)="pageChanged($event)"
-    (sortChanged)="sort($event)"
-    (editComplete)="onEditComplete($event)"
-    (selectedRowIndexChanged)="onSelectedRow($event)">
-  </app-datatable>
-</div>
+<app-datatable
+  [columns]="columns"
+  [settings]="settings"
+  [rows]="items"
+  [filters]="filters"
+  [rowMenu]="rowMenu"
+  [itemsPerPage]="itemsPerPage"
+  [totalItems]="totalItems"
+  [loading]="loading"
+  [trackByProp]="trackByProp"
+  (filterChanged)="onFilter($event)"
+  (pageChanged)="pageChanged($event)"
+  (sortChanged)="sort($event)"
+  (editComplete)="onEditComplete($event)"
+  (selectedRowIndexChanged)="onSelectedRow($event)">
+</app-datatable>
 
 <modal-edit-form #modalEditForm
                  [columns]="columns"
@@ -33,20 +30,10 @@
                  [settings]="settings"
                  [service]="service"
                  [zIndex]="zIndexModal"
+                 [view]="detailView"
                  (saved)="onSaved($event)"
                  (updated)="onUpdated($event)"
                  (deleted)="onDeleted($event)"
                  (loading)="onLoading($event)"
                  (errors)="onErrors($event)">
 </modal-edit-form>
-
-<app-detail-view *ngIf="onDetailView"
-                 [columns]="columns"
-                 [item]="item"
-                 [settings]="settings"
-                 [service]="service"
-                 (onClose)="closeDetails()"
-                 (updated)="onUpdated($event)"
-                 (deleted)="onDeleted($event)"
-                 (errors)="onErrors($event)">
-</app-detail-view>

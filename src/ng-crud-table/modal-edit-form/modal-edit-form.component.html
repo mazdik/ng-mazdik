@@ -2,6 +2,7 @@
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-row-form
+        *ngIf="!view"
         [columns]="columns"
         [service]="service"
         [item]="item"
@@ -9,11 +10,36 @@
         [isNew]="newItem"
         (valid)="formValid=$event">
       </app-row-form>
+
+      <div class="detail-view" *ngIf="view">
+        <table>
+          <tbody>
+          <tr *ngFor="let column of columns">
+            <th>{{column.title}}</th>
+            <td>{{format(item[column.name], column)}}</td>
+          </tr>
+          </tbody>
+      </table>
+      </div>
+
     </div>
   </ng-container>
   <ng-container class="app-modal-footer">
-    <button type="button" class="button button3" *ngIf="!newItem" (click)="delete()">Delete</button>
-    <button type="button" class="button button1" (click)="save()" [disabled]="!formValid">Save</button>
-    <button type="button" class="button" style="float: right;" (click)="close()">Close</button>
+    <button type="button"
+            class="button button3"
+            *ngIf="!newItem && !view"
+            (click)="delete()">Delete
+    </button>
+    <button type="button"
+            class="button button1"
+            [style.visibility]="!view ? 'visible': 'hidden'"
+            (click)="save()"
+            [disabled]="!formValid">Save
+    </button>
+    <button type="button"
+            class="button"
+            style="float: right;"
+            (click)="close()">Close
+    </button>
   </ng-container>
 </app-modal>

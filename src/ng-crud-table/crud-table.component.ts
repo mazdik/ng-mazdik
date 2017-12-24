@@ -30,14 +30,13 @@ export class CrudTableComponent implements OnInit {
     return this._filters;
   }
 
-  _filters: Filter = {};
+  private _filters: Filter = {};
 
   public items: any[];
   public item: any;
   public selectedRowIndex: number;
   public errors: any;
-  public onDetailView: boolean = false;
-
+  public detailView: boolean = false;
   public loading: boolean = false;
 
   public itemsPerPage: number = 10;
@@ -88,7 +87,6 @@ export class CrudTableComponent implements OnInit {
     }
     this.loading = true;
     this.errors = null;
-    this.onDetailView = false;
     return this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
       .then(data => {
         this.loading = false;
@@ -105,7 +103,7 @@ export class CrudTableComponent implements OnInit {
   clear() {
     this.items = [];
     this.totalItems = 0;
-    this.onDetailView = false;
+    this.detailView = false;
   }
 
   pageChanged(event: any): void {
@@ -120,12 +118,14 @@ export class CrudTableComponent implements OnInit {
 
   createItem() {
     this.item = {};
+    this.detailView = false;
     this.modalEditForm.open();
   }
 
   updateItem() {
     const item = this.items[this.selectedRowIndex];
     this.item = this.cloneItem(item);
+    this.detailView = false;
     this.modalEditForm.open();
   }
 
@@ -147,11 +147,8 @@ export class CrudTableComponent implements OnInit {
     const item = this.items[this.selectedRowIndex];
     this.errors = null;
     this.item = this.cloneItem(item);
-    this.onDetailView = true;
-  }
-
-  closeDetails() {
-    this.onDetailView = false;
+    this.detailView = true;
+    this.modalEditForm.open();
   }
 
   onFilter(event) {

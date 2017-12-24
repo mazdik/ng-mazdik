@@ -1,17 +1,20 @@
-import {Component, OnInit, Input, Output, ViewChild, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, ViewChild, EventEmitter, PipeTransform} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {Column, Settings, ICrudService} from '../types/interfaces';
+import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
   selector: 'modal-edit-form',
-  templateUrl: './modal-edit-form.component.html'
+  templateUrl: './modal-edit-form.component.html',
+  styleUrls: ['modal-edit-form.component.css'],
 })
 export class ModalEditFormComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public settings: Settings;
   @Input() public service: ICrudService;
-  @Input() zIndex: number;
+  @Input() public zIndex: number;
+  @Input() public view: boolean;
 
   @Output() saved: EventEmitter<any> = new EventEmitter();
   @Output() updated: EventEmitter<any> = new EventEmitter();
@@ -45,7 +48,11 @@ export class ModalEditFormComponent implements OnInit {
   }
 
   modalTitle() {
-    return this.newItem ? 'Create' : 'Update';
+    if (!this.view) {
+      return this.newItem ? 'Create' : 'Update';
+    } else {
+      return 'Detail view';
+    }
   }
 
   save() {
@@ -112,7 +119,18 @@ export class ModalEditFormComponent implements OnInit {
     ) {
       return true;
     }
-    return Object.getOwnPropertyNames(obj).length === 0 ? true : false;
+    return (Object.getOwnPropertyNames(obj).length === 0);
+  }
+
+  format(value: any, column: Column) {
+    const userPipe: PipeTransform = column.pipe;
+    if (userPipe) {
+      return userPipe.transform(value);
+    }
+    if (value) {
+      value = ColumnUtils.getOptionName(value, column);
+    }
+    return value;
   }
 
 }
