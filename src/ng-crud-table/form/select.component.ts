@@ -13,9 +13,10 @@ import {CustomValidator} from './custom-validator';
       <select class="df-control"
               [(ngModel)]="model"
               (focus)="beginValidate = true"
-              [id]="column.name">
+              [id]="column.name"
+              (change)="onValueChange($event)">
         <option></option>
-        <option *ngFor="let opt of getOptions()" [ngValue]="opt.id">{{opt.name}}</option>
+        <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
       </select>
 
       <div class="df-help-block">
@@ -30,6 +31,7 @@ export class SelectComponent implements OnInit {
   @Input() public service: ICrudService;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
+  @Output() keyColumnChange: EventEmitter<any> = new EventEmitter();
 
   @Input('value')
   set model(value) {
@@ -120,6 +122,15 @@ export class SelectComponent implements OnInit {
     const hasError = this.validator.hasError(this.column, this.model);
     this.valid.emit(!hasError);
     return hasError;
+  }
+
+  onValueChange(event) {
+    if (this.column.keyColumn) {
+      this.keyColumnChange.emit({
+        'column': this.column.keyColumn,
+        'value': this.model
+      });
+    }
   }
 
 }

@@ -111,7 +111,8 @@ export class ModalFormDemoComponent implements OnInit {
       name: 'account_name',
       editable: true,
       type: 'select',
-      optionsUrl: 'assets/accounts.json'
+      optionsUrl: 'assets/accounts.json',
+      keyColumn: 'account_id',
     },
     {title: 'Account id', name: 'account_id', editable: true},
     {title: 'Player class', name: 'player_class', editable: true},

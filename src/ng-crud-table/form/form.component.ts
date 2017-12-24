@@ -65,4 +65,8 @@ export class FormComponent implements OnInit, OnDestroy {
     this.valid.emit(result);
   }
 
+  onKeyColumnChange(event) {
+    this.item[event.column] = event.value;
+  }
+
 }

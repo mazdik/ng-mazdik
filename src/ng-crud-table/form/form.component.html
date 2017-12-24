@@ -16,10 +16,11 @@
       <app-form-select
         *ngSwitchCase="'select'"
         [column]="column"
-        [(value)]="item[column.name]"
+        [(value)]="(column.keyColumn) ? this.item[column.keyColumn] : this.item[column.name]"
         [dependsValue]="item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="service">
+        [service]="service"
+        (keyColumnChange)="onKeyColumnChange($event)">
       </app-form-select>
 
       <app-form-checkbox

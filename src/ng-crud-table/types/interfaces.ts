@@ -24,6 +24,7 @@ export interface Column {
   formHidden?: boolean;
   optionsUrl?: string;
   cellClass?: any;
+  keyColumn?: string;
 }
 
 export interface FilterMetadata {
