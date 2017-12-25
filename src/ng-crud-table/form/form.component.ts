@@ -1,4 +1,14 @@
-import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  ViewChild,
+  ViewContainerRef,
+  OnInit,
+  OnDestroy,
+  EventEmitter,
+  ViewEncapsulation
+} from '@angular/core';
 import {Column, Settings, ICrudService} from '../types/interfaces';
 
 @Component({
@@ -17,7 +27,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() public service: ICrudService;
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
+  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
 
   constructor() {
@@ -37,15 +47,10 @@ export class FormComponent implements OnInit, OnDestroy {
       return false;
     }
     const name = column.name;
-    if (Array.isArray(this.settings.primaryKey)) {
-      if (!this.isNew) {
-        return (this.settings.primaryKey.indexOf(name) === -1);
-      } else {
-        return true;
-      }
+    if (this.settings.primaryKeys && this.settings.primaryKeys.length && !this.isNew) {
+      return (this.settings.primaryKeys.indexOf(name) === -1);
     } else {
-      const pk = (this.settings['primaryKey']) ? this.settings['primaryKey'].toLowerCase() : null;
-      return (name !== pk);
+      return true;
     }
   }
 

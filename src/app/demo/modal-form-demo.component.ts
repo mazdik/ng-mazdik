@@ -35,7 +35,7 @@ export class ModalFormDemoComponent implements OnInit {
   public settings: Settings = {
     api: 'assets/players.json',
     crud: true,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
   };
 
   public columns: Column[] = [
@@ -46,6 +46,7 @@ export class ModalFormDemoComponent implements OnInit {
       filter: true,
       frozen: true,
       width: 100,
+      formHidden: true,
     },
     {
       title: 'Name',
@@ -110,12 +111,21 @@ export class ModalFormDemoComponent implements OnInit {
       title: 'Account name',
       name: 'account_name',
       editable: true,
-      type: 'select',
+      type: 'select-popup',
       optionsUrl: 'assets/accounts.json',
       keyColumn: 'account_id',
     },
-    {title: 'Account id', name: 'account_id', editable: true},
-    {title: 'Player class', name: 'player_class', editable: true},
+    {
+      title: 'Account id',
+      name: 'account_id',
+      formHidden: true,
+      tableHidden: true,
+    },
+    {
+      title: 'Player class',
+      name: 'player_class',
+      editable: true
+    },
     {
       title: 'Online',
       name: 'online',

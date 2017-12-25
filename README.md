@@ -1,7 +1,7 @@
 # Angular 5 CRUD table using REST backend
 
 Simple CRUD table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng2-crud-table/">Demo</a>)  
-The module contains services for: Yii2 RESTful API, ORDS (Oracle REST Data Services), Flask-Restless
+The module contains services for: Yii2 RESTful (php) API, ORDS (Oracle REST Data Services), Flask-Restless (python)
 
 ### Sample
 ```typescript
@@ -32,6 +32,7 @@ export class PlayersComponent {
             filter: true, 
             frozen: true,
             resizeable: false,
+            formHidden: true,
         },
         {
             title: 'Name', 
@@ -100,13 +101,27 @@ export class PlayersComponent {
             filter: true,
             type: 'date',
             editable: true,
+        },
+        {
+          title: 'Account name',
+          name: 'account_name',
+          editable: true,
+          type: 'select-popup',
+          optionsUrl: 'assets/accounts.json',
+          keyColumn: 'account_id',
+        },
+        {
+          title: 'Account id',
+          name: 'account_id',
+          formHidden: true,
+          tableHidden: true,
         }
     ];
 
     public settings: Settings = {
         api: 'http://host3/players',
         crud: true,
-        primaryKey: 'id',
+        primaryKeys: ['id'],
         tableWidth: 820,
         scrollHeight: 380,
     };
@@ -136,12 +151,12 @@ export class PlayersComponent {
 ```typescript
 interface ICrudService {
   url: string;
-  primaryKey: any;
+  primaryKeys: string[];
   getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
-  getItem(id: number): Promise<any>;
-  post(item: any): Promise<any>;
-  put(item: any): Promise<any>;
-  delete(item: any): Promise<any>;
+  getItem(row: any): Promise<any>;
+  post(row: any): Promise<any>;
+  put(row: any): Promise<any>;
+  delete(row: any): Promise<any>;
   getOptions?(url: string, parentId: any): Promise<any>;
 }
 ```

@@ -29,7 +29,7 @@ export class NestedModalsDemoComponent implements OnInit {
   public settings: Settings = {
     api: 'assets/players.json',
     crud: true,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
     tableWidth: 1100,
     scrollHeight: 380,
   };
@@ -42,6 +42,7 @@ export class NestedModalsDemoComponent implements OnInit {
       filter: true,
       frozen: true,
       width: 100,
+      formHidden: true,
     },
     {
       title: 'Name',

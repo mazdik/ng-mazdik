@@ -8,7 +8,7 @@ import {Filter, ICrudService} from '../../ng-crud-table';
 export class DemoService implements ICrudService {
 
   public url: string;
-  public primaryKey: any;
+  public primaryKeys: any;
 
   private itemsPerPage: number = 20;
 
@@ -40,7 +40,7 @@ export class DemoService implements ICrudService {
 
   getItem(id: number): Promise<any> {
     const filterId = {
-      [this.primaryKey]: {value: id}
+      [this.primaryKeys]: {value: id}
     };
     return this.getItems(1, filterId)
       .then(data => data.items[0]);

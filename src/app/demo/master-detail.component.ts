@@ -46,7 +46,7 @@ export class MasterDetailDemoComponent implements OnInit {
   public settingsPlayers: Settings = {
     api: null,
     crud: true,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
     tableWidth: 1100,
     scrollHeight: 250,
     clientSide: true,
@@ -55,7 +55,7 @@ export class MasterDetailDemoComponent implements OnInit {
   public settingsRank: Settings = {
     api: null,
     crud: false,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
     tableWidth: 500,
     scrollHeight: 250,
     clientSide: true,
@@ -64,7 +64,7 @@ export class MasterDetailDemoComponent implements OnInit {
   public settingsInventory: Settings = {
     api: null,
     crud: false,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
     tableWidth: 600,
     scrollHeight: 250,
     clientSide: true,

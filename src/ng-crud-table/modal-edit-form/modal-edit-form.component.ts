@@ -44,7 +44,7 @@ export class ModalEditFormComponent implements OnInit {
 
   ngOnInit() {
     this.service.url = this.settings.api;
-    this.service.primaryKey = this.settings.primaryKey;
+    this.service.primaryKeys = this.settings.primaryKeys;
   }
 
   modalTitle() {

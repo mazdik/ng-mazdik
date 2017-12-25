@@ -37,7 +37,8 @@ export class TreeFilterDemoComponent implements OnInit {
       name: 'id',
       sortable: true,
       filter: true,
-      frozen: true
+      frozen: true,
+      formHidden: true,
     },
     {
       title: 'Name',
@@ -95,7 +96,7 @@ export class TreeFilterDemoComponent implements OnInit {
   public settings: Settings = {
     api: 'assets/players.json',
     crud: true,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
     tableWidth: 820,
     scrollHeight: 380
   };

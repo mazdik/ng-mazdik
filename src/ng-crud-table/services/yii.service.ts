@@ -7,7 +7,7 @@ import {Filter, ICrudService} from '../types/interfaces';
 export class YiiService implements ICrudService {
 
   public url: string;
-  public primaryKey: any;
+  public primaryKeys: string[];
 
   constructor(private http: HttpClient) {
   }
@@ -29,55 +29,54 @@ export class YiiService implements ICrudService {
       .catch(this.handleError);
   }
 
-  getItem(id: number): Promise<any> {
-    const filterId = {
-      [this.primaryKey]: {value: id}
-    };
-    return this.getItems(1, filterId)
+  getItem(row: any): Promise<any> {
+    const filters: Filter = {};
+    for (const key of this.primaryKeys) {
+      filters[key] = {value: row[key]};
+    }
+    return this.getItems(1, filters)
       .then(data => data.items[0]);
   }
 
-  // Add new
-  post(item: any): Promise<any> {
+  post(row: any): Promise<any> {
     const headers = this.getAuthHeaders();
     return this.http
-      .post(this.url, JSON.stringify(item), {headers: headers})
+      .post(this.url, JSON.stringify(row), {headers: headers})
       .toPromise()
       .then(res => res)
       .catch(this.handleError);
   }
 
-  // Update existing
-  put(item: any): Promise<any> {
+  put(row: any): Promise<any> {
     const headers = this.getAuthHeaders();
     let url;
-    if (Array.isArray(this.primaryKey)) {
+    if (Array.isArray(this.primaryKeys) && this.primaryKeys.length > 1) {
       url = this.url + '?';
-      for (const key of this.primaryKey) {
-        url += key + '=' + item[key] + '&';
+      for (const key of this.primaryKeys) {
+        url += key + '=' + row[key] + '&';
       }
       url = url.slice(0, -1);
     } else {
-      url = (this.primaryKey) ? `${this.url}/${item[this.primaryKey]}` : this.url;
+      url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
-      .put(url, JSON.stringify(item), {headers: headers})
+      .put(url, JSON.stringify(row), {headers: headers})
       .toPromise()
       .then(res => res)
       .catch(this.handleError);
   }
 
-  delete(item: any): Promise<any> {
+  delete(row: any): Promise<any> {
     const headers = this.getAuthHeaders();
     let url;
-    if (Array.isArray(this.primaryKey)) {
+    if (Array.isArray(this.primaryKeys) && this.primaryKeys.length > 1) {
       url = this.url + '?';
-      for (const key of this.primaryKey) {
-        url += key + '=' + item[key] + '&';
+      for (const key of this.primaryKeys) {
+        url += key + '=' + row[key] + '&';
       }
       url = url.slice(0, -1);
     } else {
-      url = (this.primaryKey) ? `${this.url}/${item[this.primaryKey]}` : this.url;
+      url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
       .delete(url, {headers: headers})

@@ -16,6 +16,7 @@ export class CrudTableComponent implements OnInit {
   @Input() public settings: Settings;
   @Input() public service: ICrudService;
   @Input() public zIndexModal: number;
+  @Input() public trackByProp: string;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
@@ -45,7 +46,6 @@ export class CrudTableComponent implements OnInit {
 
   public sortMeta: SortMeta = <SortMeta>{};
   public rowMenu: MenuItem[];
-  public trackByProp: string;
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
@@ -54,14 +54,14 @@ export class CrudTableComponent implements OnInit {
 
   ngOnInit() {
     this.service.url = this.settings.api;
-    this.service.primaryKey = this.settings.primaryKey;
+    this.service.primaryKeys = this.settings.primaryKeys;
     this.initRowMenu();
     this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
     if (this.settings.initLoad) {
       this.getItems();
     }
-    if (!Array.isArray(this.settings.primaryKey)) {
-      this.trackByProp = this.settings.primaryKey;
+    if (!this.trackByProp && this.settings.primaryKeys.length === 1) {
+      this.trackByProp = this.settings.primaryKeys[0];
     }
   }
 

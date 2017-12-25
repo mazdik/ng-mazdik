@@ -23,7 +23,7 @@ export class DataTableDemoComponent implements OnInit {
   public settings: Settings = {
     api: null,
     crud: true,
-    primaryKey: 'id',
+    primaryKeys: ['id'],
     tableWidth: 1100,
     scrollHeight: 250,
     clientSide: true,
@@ -37,6 +37,7 @@ export class DataTableDemoComponent implements OnInit {
       filter: true,
       frozen: true,
       width: 100,
+      formHidden: true,
     },
     {
       title: 'Name',
