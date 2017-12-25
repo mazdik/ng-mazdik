@@ -32,6 +32,8 @@ import {TextareaComponent} from './form/textarea.component';
 import {CalendarComponent} from './form/calendar.component';
 import {CustomValidator} from './form/custom-validator';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
+import {ModalSelectComponent} from './modal-select/modal-select.component';
+import {PopupSelectComponent} from './form/select-popup.component';
 
 @NgModule({
   imports: [
@@ -68,6 +70,8 @@ import {ContextMenuComponent} from './context-menu/context-menu.component';
     TextareaComponent,
     CalendarComponent,
     ContextMenuComponent,
+    ModalSelectComponent,
+    PopupSelectComponent,
   ],
   exports: [
     DatatableComponent,
@@ -76,7 +80,8 @@ import {ContextMenuComponent} from './context-menu/context-menu.component';
     TreeViewComponent,
     ModalComponent,
     ModalEditFormComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    PopupSelectComponent,
   ],
   providers: [CustomValidator]
 })

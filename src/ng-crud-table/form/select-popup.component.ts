@@ -5,27 +5,22 @@ import {CustomValidator} from './custom-validator';
 
 
 @Component({
-  selector: 'app-form-select',
+  selector: 'app-form-select-popup',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
-      <select class="df-control"
-              [(ngModel)]="model"
-              (focus)="beginValidate = true"
-              [id]="column.name"
-              (change)="onValueChange($event)">
-        <option></option>
-        <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
-      </select>
-
+      <modal-select [(value)]="model"
+                    [options]="getOptions()"
+                    (valueChange)="onValueChange($event)">
+      </modal-select>
       <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
     </div>
   `
 })
-export class SelectComponent implements OnInit {
+export class PopupSelectComponent implements OnInit {
 
   @Input() public column: Column;
   @Input() public service: ICrudService;

@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter, HostBinding} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {Column, ICrudService} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
 import {CustomValidator} from './custom-validator';
@@ -9,7 +9,7 @@ import {CustomValidator} from './custom-validator';
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
-
+      <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
         <label class="checkcontainer">{{o.name ? o.name : o.id}}
           <input
@@ -64,15 +64,6 @@ export class CheckboxComponent implements OnInit {
   private _dependsValue: any;
   public beginValidate: boolean;
   public loading: boolean = false;
-
-  @HostBinding('class')
-  get cssClass() {
-    let cls = 'df-elem';
-    if (this.loading) {
-      cls += ' df-wait';
-    }
-    return cls;
-  }
 
   constructor(private validator: CustomValidator) {
   }

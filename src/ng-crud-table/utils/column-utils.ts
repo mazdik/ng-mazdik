@@ -84,7 +84,9 @@ export class ColumnUtils {
   public static getColumnsTotalWidth(columns: Column[]): number {
     let totalWidth = 0;
     for (const column of columns) {
-      totalWidth = totalWidth + column.width;
+      if (!column.tableHidden) {
+        totalWidth = totalWidth + column.width;
+      }
     }
     return totalWidth;
   }

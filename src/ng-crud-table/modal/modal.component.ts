@@ -11,6 +11,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() public modalTitle: string;
   @Input() width: any;
   @Input() zIndex: number = 0;
+  @Input() autoZIndex: boolean;
 
   @ViewChild('modalRoot') modalRoot: ElementRef;
   @ViewChild('modalBody') modalBody: ElementRef;
@@ -30,7 +31,11 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    this.zIndex = this.zIndex || 1100;
+    if (this.autoZIndex) {
+      this.zIndex = this.getMaxModalIndex() + 1;
+    } else {
+      this.zIndex = this.zIndex || 1100;
+    }
   }
 
   ngAfterViewChecked() {
@@ -212,7 +217,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  findAncestor (el, cls) {
+  findAncestor(el, cls) {
     while ((el = el.parentElement) && !el.classList.contains(cls)) {
     }
     return el;

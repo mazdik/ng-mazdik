@@ -46,10 +46,12 @@ export class BodyRowComponent implements OnInit, DoCheck {
     }
     if (this.columns) {
       this.columns.forEach((column) => {
-        if (column.frozen) {
-          this.frozenColumns.push(column);
-        } else {
-          this.scrollableColumns.push(column);
+        if (!column.tableHidden) {
+          if (column.frozen) {
+            this.frozenColumns.push(column);
+          } else {
+            this.scrollableColumns.push(column);
+          }
         }
       });
     }

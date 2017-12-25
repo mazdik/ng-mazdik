@@ -171,8 +171,12 @@ export class CrudTableComponent implements OnInit {
     this.dataChanged.emit(true);
   }
 
-  onUpdated(event) {
-    this.items[this.selectedRowIndex] = event;
+  onUpdated(event: any) {
+    Object.keys(event).forEach(function(k){
+      if (k in this.items[this.selectedRowIndex]) {
+        this.items[this.selectedRowIndex][k] = event[k];
+      }
+    }.bind(this));
     this.dataChanged.emit(true);
   }
 

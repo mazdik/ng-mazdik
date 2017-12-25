@@ -124,7 +124,8 @@ export class OrdsCustomService implements ICrudService {
   }
 
   getOptions(url: string, parentId: any): Promise<any> {
-    return this.http.get(url + '/' + parentId)
+    url = (parentId !== undefined) ? url + '/' + parentId : url;
+    return this.http.get(url)
       .toPromise()
       .then(response => {
         return response;

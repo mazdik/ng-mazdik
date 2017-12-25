@@ -88,13 +88,15 @@ export class DatatableComponent implements OnInit, DoCheck {
 
     this.scrollableColumns = [];
     this.columns.forEach((column) => {
-      if (column.frozen) {
-        this.frozenColumns = this.frozenColumns || [];
-        this.frozenColumns.push(column);
-        this.frozenWidth = this.frozenWidth + column.width;
-      } else {
-        this.scrollableColumns.push(column);
-        this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
+      if (!column.tableHidden) {
+        if (column.frozen) {
+          this.frozenColumns = this.frozenColumns || [];
+          this.frozenColumns.push(column);
+          this.frozenWidth = this.frozenWidth + column.width;
+        } else {
+          this.scrollableColumns.push(column);
+          this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
+        }
       }
     });
   }

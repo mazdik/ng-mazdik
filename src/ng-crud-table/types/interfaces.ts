@@ -15,13 +15,14 @@ export interface Column {
   pipe?: PipeTransform;
   width?: number;
   frozen?: boolean;
-  type?: 'text' | 'password' | 'number' | 'select' | 'radio' | 'checkbox' | 'textarea' | 'date' | 'datetime-local';
+  type?: 'text' | 'password' | 'number' | 'select' | 'radio' | 'checkbox' | 'textarea' | 'date' | 'datetime-local' | 'select-popup';
   validation?: IValidation;
   editable?: boolean;
   resizeable?: boolean;
   dependsColumn?: string;
   cellTemplate?: any;
   formHidden?: boolean;
+  tableHidden?: boolean;
   optionsUrl?: string;
   cellClass?: any;
   keyColumn?: string;

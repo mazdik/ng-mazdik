@@ -23,6 +23,16 @@
         (keyColumnChange)="onKeyColumnChange($event)">
       </app-form-select>
 
+      <app-form-select-popup
+        *ngSwitchCase="'select-popup'"
+        [column]="column"
+        [(value)]="(column.keyColumn) ? this.item[column.keyColumn] : this.item[column.name]"
+        [dependsValue]="item[column.dependsColumn]"
+        (valid)="onValid($event, column)"
+        [service]="service"
+        (keyColumnChange)="onKeyColumnChange($event)">
+      </app-form-select-popup>
+
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"
         [column]="column"

@@ -1,0 +1,44 @@
+.select-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.select-list span {
+  cursor: pointer;
+  color: #5b9bd5;
+  display: block;
+  padding: 4px 3px;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.select-list span:hover:not(.active) {
+  background-color: #5b9bd5;
+  color: white;
+}
+
+.select-list span.active {
+  background-color: #5b9bd5;
+  color: white;
+}
+
+.select-header {
+  margin-top: 3px;
+}
+
+.select-header > input {
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.select-page-count {
+  flex: 1 1 20%;
+}
+
+.select-pagination {
+  flex: 1 1 80%;
+  text-align: right;
+}

@@ -50,10 +50,12 @@ export class HeaderComponent implements OnInit {
       });
 
       this.columns.forEach((column) => {
-        if (column.frozen) {
-          this.frozenColumns.push(column);
-        } else {
-          this.scrollableColumns.push(column);
+        if (!column.tableHidden) {
+          if (column.frozen) {
+            this.frozenColumns.push(column);
+          } else {
+            this.scrollableColumns.push(column);
+          }
         }
       });
     }
