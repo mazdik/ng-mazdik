@@ -60,7 +60,7 @@ export class CrudTableComponent implements OnInit {
     if (this.settings.initLoad) {
       this.getItems();
     }
-    if (!this.trackByProp && this.settings.primaryKeys.length === 1) {
+    if (!this.trackByProp && this.settings.primaryKeys && this.settings.primaryKeys.length === 1) {
       this.trackByProp = this.settings.primaryKeys[0];
     }
   }
