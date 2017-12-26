@@ -1,42 +1,42 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "name": "admin"
   },
   {
-    "id": "2",
+    "id": 2,
     "name": "jeka10"
   },
   {
-    "id": "11",
+    "id": 11,
     "name": "batusai87"
   },
   {
-    "id": "13",
+    "id": 13,
     "name": "domiann"
   },
   {
-    "id": "14",
+    "id": 14,
     "name": "domian"
   },
   {
-    "id": "15",
+    "id": 15,
     "name": "domiannn"
   },
   {
-    "id": "18",
+    "id": 18,
     "name": "karta1"
   },
   {
-    "id": "19",
+    "id": 19,
     "name": "berserk"
   },
   {
-    "id": "24",
+    "id": 24,
     "name": "assassins142"
   },
   {
-    "id": "26",
+    "id": 26,
     "name": "qwerty696"
   }
 ]

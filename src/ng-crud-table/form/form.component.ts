@@ -76,7 +76,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   isDisabled(column: Column) {
     if (column.keyColumn && !this.isNew) {
-      return (this.settings.primaryKeys.indexOf(column.name) === -1);
+      return (this.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
     } else {
       return false;
     }
