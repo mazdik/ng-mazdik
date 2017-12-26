@@ -8,14 +8,13 @@ import {CustomValidator} from './custom-validator';
   template: `
     <div class="df-group"  [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
-
       <input type="text"
              class="df-control"
              [(ngModel)]="model"
              [attr.placeholder]="column.title"
              (focus)="beginValidate = true"
-             [id]="column.name"/>
-
+             [id]="column.name"
+             [disabled]="disabled"/>
       <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
@@ -25,6 +24,7 @@ import {CustomValidator} from './custom-validator';
 export class InputTextComponent implements OnInit {
 
   @Input() public column: Column;
+  @Input() public disabled: boolean;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 

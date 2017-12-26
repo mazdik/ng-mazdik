@@ -18,11 +18,11 @@ import {CustomValidator} from './custom-validator';
             [name]="column.name"
             [value]="o.id"
             [checked]="model === o.id"
-            (click)="model = o.id"/>
+            (click)="model = o.id"
+            [disabled]="disabled"/>
           <span class="radiobtn"></span>
         </label>
       </div>
-
       <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
@@ -32,6 +32,7 @@ import {CustomValidator} from './custom-validator';
 export class RadioComponent implements OnInit {
 
   @Input() public column: Column;
+  @Input() public disabled: boolean;
   @Input() public service: ICrudService;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();

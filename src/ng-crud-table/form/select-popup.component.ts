@@ -12,6 +12,7 @@ import {CustomValidator} from './custom-validator';
       <i class="icon-collapsing" *ngIf="loading"></i>
       <modal-select [(value)]="model"
                     [options]="getOptions()"
+                    [disabled]="disabled"
                     (valueChange)="onValueChange($event)">
       </modal-select>
       <div class="df-help-block">
@@ -23,6 +24,7 @@ import {CustomValidator} from './custom-validator';
 export class PopupSelectComponent implements OnInit {
 
   @Input() public column: Column;
+  @Input() public disabled: boolean;
   @Input() public service: ICrudService;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();

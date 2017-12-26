@@ -124,3 +124,7 @@
   padding: 3px 9px;
   cursor: pointer;
 }
+
+.tree-header {
+  padding-top: 3px;
+}

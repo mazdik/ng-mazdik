@@ -1,4 +1,4 @@
-import {Component, ElementRef, ViewChild, Input, OnInit, AfterViewChecked, HostListener} from '@angular/core';
+import {Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, HostListener, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -12,6 +12,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() width: any;
   @Input() zIndex: number = 0;
   @Input() autoZIndex: boolean;
+
+  @Output() close: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modalRoot') modalRoot: ElementRef;
   @ViewChild('modalBody') modalBody: ElementRef;
@@ -56,7 +58,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     event.preventDefault();
     event.stopPropagation();
     this.hide();
-    this.focusLastModal();
   }
 
   @HostListener('mousemove', ['$event'])
@@ -81,6 +82,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   public hide(): void {
     this.visible = false;
+    this.close.emit();
+    this.focusLastModal();
   }
 
   get contentzIndex(): number {

@@ -17,6 +17,7 @@ export class CrudTableComponent implements OnInit {
   @Input() public service: ICrudService;
   @Input() public zIndexModal: number;
   @Input() public trackByProp: string;
+  @Input() public refreshRowOnSave: boolean;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
@@ -63,6 +64,7 @@ export class CrudTableComponent implements OnInit {
     if (!this.trackByProp && this.settings.primaryKeys && this.settings.primaryKeys.length === 1) {
       this.trackByProp = this.settings.primaryKeys[0];
     }
+    this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
   }
 
   initRowMenu() {
@@ -81,10 +83,7 @@ export class CrudTableComponent implements OnInit {
     ];
   }
 
-  getItems(): Promise<any> | any {
-    if (!this.service.url) {
-      return;
-    }
+  getItems(): Promise<any> {
     this.loading = true;
     this.errors = null;
     return this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
@@ -111,11 +110,6 @@ export class CrudTableComponent implements OnInit {
     this.getItems();
   }
 
-  cloneItem(item: any) {
-    const clone = Object.assign({}, item);
-    return clone;
-  }
-
   createItem() {
     this.item = {};
     this.detailView = false;
@@ -124,7 +118,7 @@ export class CrudTableComponent implements OnInit {
 
   updateItem() {
     const item = this.items[this.selectedRowIndex];
-    this.item = this.cloneItem(item);
+    this.item = Object.assign({}, item);
     this.detailView = false;
     this.modalEditForm.open();
   }
@@ -146,7 +140,7 @@ export class CrudTableComponent implements OnInit {
   viewDetails() {
     const item = this.items[this.selectedRowIndex];
     this.errors = null;
-    this.item = this.cloneItem(item);
+    this.item = Object.assign({}, item);
     this.detailView = true;
     this.modalEditForm.open();
   }
@@ -167,16 +161,24 @@ export class CrudTableComponent implements OnInit {
   }
 
   onSaved(event) {
-    this.items.push(event);
+    if (this.refreshRowOnSave) {
+      this.refreshRow(event, true);
+    } else {
+      this.items.push(event);
+    }
     this.dataChanged.emit(true);
   }
 
   onUpdated(event: any) {
-    Object.keys(event).forEach(function(k){
-      if (k in this.items[this.selectedRowIndex]) {
-        this.items[this.selectedRowIndex][k] = event[k];
-      }
-    }.bind(this));
+    if (this.refreshRowOnSave) {
+      this.refreshSelectedRow();
+    } else {
+      Object.keys(event).forEach(function (k) {
+        if (k in this.items[this.selectedRowIndex]) {
+          this.items[this.selectedRowIndex][k] = event[k];
+        }
+      }.bind(this));
+    }
     this.dataChanged.emit(true);
   }
 
@@ -193,6 +195,28 @@ export class CrudTableComponent implements OnInit {
 
   onErrors(event) {
     this.errors = event;
+  }
+
+  refreshRow(row: any, isNew: boolean) {
+    this.loading = true;
+    this.errors = null;
+    this.service.getItem(row)
+      .then(data => {
+        this.loading = false;
+        if (isNew) {
+          this.items.push(data);
+        } else {
+          this.items[this.selectedRowIndex] = data;
+        }
+      })
+      .catch(error => {
+        this.loading = false;
+        this.errors = error;
+      });
+  }
+
+  refreshSelectedRow() {
+    this.refreshRow(this.items[this.selectedRowIndex], false);
   }
 
 }

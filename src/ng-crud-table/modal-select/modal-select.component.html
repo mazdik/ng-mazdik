@@ -3,6 +3,7 @@
        readonly="readonly"
        value="{{selectedName}}"
        placeholder="Select"
+       [disabled]="disabled"
        (click)="open()">
 <input type="hidden" [(ngModel)]="model">
 

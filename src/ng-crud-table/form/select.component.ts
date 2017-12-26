@@ -14,11 +14,10 @@ import {CustomValidator} from './custom-validator';
               [(ngModel)]="model"
               (focus)="beginValidate = true"
               [id]="column.name"
-              (change)="onValueChange($event)">
-        <option></option>
+              (change)="onValueChange($event)"
+              [disabled]="disabled">
         <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
       </select>
-
       <div class="df-help-block">
         <span *ngFor="let err of errors()">{{err}}<br></span>
       </div>
@@ -28,6 +27,7 @@ import {CustomValidator} from './custom-validator';
 export class SelectComponent implements OnInit {
 
   @Input() public column: Column;
+  @Input() public disabled: boolean;
   @Input() public service: ICrudService;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
