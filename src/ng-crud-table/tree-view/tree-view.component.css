@@ -89,42 +89,6 @@
   transition: all .3s cubic-bezier(.4,0,.2,1);
 }
 
-.icon-collapsing {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  display: inline-block;
-  border: 4px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 4px solid #3498db;
-  width: 18px;
-  height: 18px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-  vertical-align: middle;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.tree-button {
-  background-color: #5b9bd5;
-  border: none;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  padding: 3px 9px;
-  cursor: pointer;
-}
-
 .tree-header {
   padding-top: 3px;
 }

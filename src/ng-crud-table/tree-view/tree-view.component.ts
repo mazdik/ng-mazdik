@@ -1,15 +1,16 @@
-import {Component, Input, Output, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {ITreeNode, ITreeService} from '../types/interfaces';
 import {FilterState} from '../types/enums';
 import {id} from '../utils/id';
 
 @Component({
   selector: 'tree-view',
-  styleUrls: ['./tree-view.component.css'],
+  styleUrls: ['./tree-view.component.css', '../styles/spinners.css', '../styles/buttons.css'],
+  encapsulation: ViewEncapsulation.None,
   template: `
     <div class="tree-header">
-      <button class="tree-button" (click)="collapseAll()"><i class="icon icon-return"></i></button>
-      <button class="tree-button" (click)="refresh()"><i class="icon icon-reload"></i></button>
+      <button class="button button-sm" (click)="collapseAll()"><i class="icon icon-return"></i></button>
+      <button class="button button-sm" (click)="refresh()"><i class="icon icon-reload"></i></button>
       <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
       <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
     </div>

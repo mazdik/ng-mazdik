@@ -5,7 +5,6 @@ import {id} from '../utils/id';
 
 @Component({
   selector: 'tree-view-node',
-  styleUrls: ['./tree-view.component.css'],
   template: `
     <li *ngIf="node" [ngClass]="nodeClass()">
       <i [ngClass]="getIcon(node)"

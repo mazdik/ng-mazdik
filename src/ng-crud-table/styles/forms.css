@@ -35,28 +35,6 @@
   color: #a94442;
 }
 
-.icon-collapsing {
-  box-sizing: border-box;
-  display: inline-block;
-  border: 4px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 4px solid #3498db;
-  width: 18px;
-  height: 18px;
-  animation: spin 2s linear infinite;
-  vertical-align: middle;
-}
-
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
 .df-control[disabled], .df-control[readonly] {
   background-color: #eee;
   opacity: 1;
