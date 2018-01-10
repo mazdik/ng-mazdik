@@ -99,7 +99,7 @@ export class RestlessService implements ICrudService {
     let body = res;
     const meta = {
       'totalCount': body.num_results,
-      'perPage': 10
+      'perPage': body.limit || 10
     };
     const items = (body.objects) ? body.objects : body;
     body = {'items': items, '_meta': meta};

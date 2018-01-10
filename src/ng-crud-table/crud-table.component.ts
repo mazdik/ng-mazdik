@@ -6,7 +6,7 @@ import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.componen
 @Component({
   selector: 'crud-table',
   templateUrl: './crud-table.component.html',
-  styleUrls: ['crud-table.css', 'icons.css'],
+  styleUrls: ['styles/buttons.css', 'styles/icons.css', 'styles/alerts.css'],
   encapsulation: ViewEncapsulation.None,
 })
 

@@ -6,7 +6,7 @@ import {ColumnUtils} from '../utils/column-utils';
 @Component({
   selector: 'modal-edit-form',
   templateUrl: './modal-edit-form.component.html',
-  styleUrls: ['modal-edit-form.component.css'],
+  styleUrls: ['../styles/tables.css'],
 })
 export class ModalEditFormComponent implements OnInit {
 

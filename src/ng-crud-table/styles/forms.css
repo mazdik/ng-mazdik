@@ -1,19 +1,14 @@
 .df-control {
   display: block;
   width: 100%;
-  height: 34px;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
   color: #555;
   background-color: #fff;
-  background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
@@ -25,7 +20,6 @@
 .df-has-error .df-control:focus {
   outline: 0;
   border-color: #843534;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px #ce8483;
 }
 
@@ -42,7 +36,6 @@
 }
 
 .icon-collapsing {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: inline-block;
   border: 4px solid #f3f3f3;
@@ -50,7 +43,6 @@
   border-top: 4px solid #3498db;
   width: 18px;
   height: 18px;
-  -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
   vertical-align: middle;
 }
@@ -72,4 +64,8 @@
 
 .df-control[disabled] {
   cursor: not-allowed;
+}
+
+.form-group {
+  margin-bottom: 1rem;
 }
