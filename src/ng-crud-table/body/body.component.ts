@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, HostBinding, OnInit,
-  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+  ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {Column, MenuItem} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
@@ -13,7 +13,7 @@ import {ColumnUtils} from '../utils/column-utils';
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyComponent implements OnInit, DoCheck {
+export class BodyComponent implements OnInit {
 
   @Input() public columns: Column[];
   @Input() public actionColumnWidth: number;
@@ -50,19 +50,17 @@ export class BodyComponent implements OnInit, DoCheck {
   @Output() scroll: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
 
-  private rowDiffer: KeyValueDiffer<{}, {}>;
   offsetY: number = 0;
   rowTrackingFn: any;
   _rows: any[];
   _bodyHeight: any;
   columnsTotalWidth: number;
 
-  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
-    this.rowDiffer = this.differs.find({}).create();
+  constructor(private cd: ChangeDetectorRef) {
     // declare fn here so we can get access to the `this` property
     this.rowTrackingFn = function (index: number, row: any): any {
       if (this.trackByProp) {
-        return row[this.trackByProp];
+        return `${index}-${this.trackByProp}`;
       } else {
         return index;
       }
@@ -71,12 +69,6 @@ export class BodyComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.columnsTotalWidth = ColumnUtils.getColumnsTotalWidth(this.columns) + this.actionColumnWidth;
-  }
-
-  ngDoCheck(): void {
-    if (this.rowDiffer.diff(this.rows)) {
-      this.cd.markForCheck();
-    }
   }
 
   onBodyScroll(event: any): void {
