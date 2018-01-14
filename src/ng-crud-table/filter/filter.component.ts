@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener,
+  Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener, ViewEncapsulation,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ISelectOption, Column, Filter} from '../types/interfaces';
@@ -7,8 +7,9 @@ import {ISelectOption, Column, Filter} from '../types/interfaces';
 @Component({
   selector: 'ng-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./filter.component.css', '../styles/index.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class FilterComponent implements OnInit {
 

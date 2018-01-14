@@ -5,13 +5,22 @@ import {id} from '../utils/id';
 
 @Component({
   selector: 'tree-view',
-  styleUrls: ['./tree-view.component.css', '../styles/spinners.css', '../styles/buttons.css'],
+  styleUrls: ['./tree-view.component.css', '../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
   template: `
     <div class="tree-header">
       <button class="button button-sm" (click)="collapseAll()"><i class="icon icon-return"></i></button>
       <button class="button button-sm" (click)="refresh()"><i class="icon icon-reload"></i></button>
-      <input class="tree-filter-input" #filterInput type="text" placeholder="Search" (keyup)="onFilterKeyup($event)">
+      <div class="clearable-input tree-filter-input">
+        <input type="text"
+               class="df-control"
+               placeholder="Search"
+               #filterInput
+               [(ngModel)]="searchFilterText"
+               (keyup)="onFilterKeyup()">
+        <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "
+              (click)="onClickClearSearch()">&times;</span>
+      </div>
       <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
     </div>
     <div class="tree-body">
@@ -43,6 +52,7 @@ export class TreeViewComponent implements OnInit {
   filterTimeout: any;
   filterLoading: boolean = false;
   loading: boolean = false;
+  searchFilterText: any;
 
   constructor() {
   }
@@ -115,14 +125,13 @@ export class TreeViewComponent implements OnInit {
     }
   }
 
-  onFilterKeyup(event) {
-    const value = event.target.value;
+  onFilterKeyup() {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
 
     this.filterTimeout = setTimeout(() => {
-      this.filterTree(value);
+      this.filterTree(this.searchFilterText);
       this.filterTimeout = null;
     }, this.filterDelay);
   }
@@ -300,6 +309,11 @@ export class TreeViewComponent implements OnInit {
     this.initGetNodes();
     this.selectedNode = null;
     this.filterInput.nativeElement.value = null;
+  }
+
+  onClickClearSearch() {
+    this.searchFilterText = '';
+    this.onFilterKeyup();
   }
 
 }

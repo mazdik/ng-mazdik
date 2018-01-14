@@ -1,9 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation} from '@angular/core';
 
 @Component({
   selector: 'modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: ['modal-select.component.css']
+  styleUrls: ['modal-select.component.css', '../styles/index.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class ModalSelectComponent implements OnInit {
@@ -154,6 +155,11 @@ export class ModalSelectComponent implements OnInit {
       });
       return (item) ? item['name'] : '';
     }
+  }
+
+  onClickClearSearch() {
+    this.searchFilterText = '';
+    this.onFilterKeyup();
   }
 
 }

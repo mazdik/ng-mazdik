@@ -10,10 +10,15 @@
 <app-modal #modal [modalTitle]="'Search Dialog'" [width]="400" [zIndex]="zIndex" [autoZIndex]="true">
   <ng-container class="app-modal-body">
     <div class="select-header">
-      <input type="text"
-             placeholder="Search..."
-             [(ngModel)]="searchFilterText"
-             (keyup)="onFilterKeyup()">
+      <div class="clearable-input">
+        <input type="text"
+               class="df-control"
+               placeholder="Search..."
+               [(ngModel)]="searchFilterText"
+               (keyup)="onFilterKeyup()">
+        <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "
+              (click)="onClickClearSearch()">&times;</span>
+      </div>
     </div>
     <ul class="select-list">
       <li *ngFor="let option of options">

@@ -1,0 +1,19 @@
+.clearable-input {
+  position: relative;
+}
+.clearable-input > input {
+  padding-right: 1.4em;
+}
+.clearable-input > span {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  font-size: 1.6em;
+  padding: 0 0.2em;
+  cursor: pointer;
+}
+.clearable-input > input::-ms-clear {
+  display: none;
+}

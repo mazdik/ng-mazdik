@@ -1,8 +1,6 @@
 .spinner {
   position: absolute;
-  top: 40%;
   top: calc(50% - 30px);
-  left: 40%;
   left: calc(50% - 30px);
   z-index: 1000;
 }
@@ -11,7 +9,6 @@
   box-sizing: border-box;
   height: 60px;
   width: 60px;
-  border: 0px solid #5b9bd5;
   border-radius: 50%;
   box-shadow: 0 -20px 0 24px #5b9bd5 inset;
   animation: rotate 1s infinite linear;

@@ -26,14 +26,6 @@
   margin-top: 3px;
 }
 
-.select-header > input {
-  display: block;
-  width: 100%;
-  border: 1px solid #ccc;
-  padding: 6px 12px;
-  border-radius: 4px;
-}
-
 .select-page-count {
   flex: 1 1 20%;
 }

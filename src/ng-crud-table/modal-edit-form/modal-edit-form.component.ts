@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, ViewChild, EventEmitter, PipeTransform} from '@angular/core';
+import {Component, OnInit, Input, Output, ViewChild, EventEmitter, PipeTransform, ViewEncapsulation} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {Column, Settings, ICrudService} from '../types/interfaces';
 import {ColumnUtils} from '../utils/column-utils';
@@ -6,7 +6,8 @@ import {ColumnUtils} from '../utils/column-utils';
 @Component({
   selector: 'modal-edit-form',
   templateUrl: './modal-edit-form.component.html',
-  styleUrls: ['../styles/tables.css'],
+  styleUrls: ['../styles/index.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalEditFormComponent implements OnInit {
 

@@ -2,30 +2,26 @@
 
   <ul class="dropdown-filter-menu" [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
     <li class="dropdown-menu-item">
-      <div class="input-addon">
+      <div class="clearable-input">
         <input type="text"
-               class="input-addon-field"
+               class="df-control"
                placeholder="Search..."
                #searchFilterInput
                [(ngModel)]="searchFilterText"/>
-        <button class="input-addon-item"
-                type="button"
-                *ngIf="searchFilterText.length > 0"
-                (click)="clearSearch()">
-          <i class="df-icon df-icon-remove"></i>
-        </button>
+        <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
+              (click)="clearSearch()">&times;</span>
       </div>
     </li>
 
     <li *ngIf="selectionLimit !== 1"
         class="dropdown-menu-item">
       <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="checkAll()">
-        <i class="df-icon df-icon-ok"></i>&nbsp;&nbsp;Select all
+        <i class="icon icon-ok"></i>&nbsp;&nbsp;Select all
       </a>
     </li>
     <li class="dropdown-menu-item">
       <a href="javascript:void(0)" role="menuitem" tabindex="-1" (click)="uncheckAll()">
-        <i class="df-icon df-icon-remove"></i>&nbsp;&nbsp;Clear
+        <i class="icon icon-remove"></i>&nbsp;&nbsp;Clear
       </a>
     </li>
 
@@ -35,28 +31,24 @@
         [ngClass]="{'active': isSelected(option)}"
         (click)="setSelected(option.id)">
       <a href="javascript:void(0)" role="menuitem" tabindex="-1">
-        <i class="df-icon" [class.df-icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
+        <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
       </a>
     </li>
   </ul>
 
   <ul class="dropdown-filter-menu" [style.display]="(isVisible && !column.options) ? 'block' : 'none' ">
     <li class="dropdown-menu-item">
-      <div class="input-addon">
+      <div class="clearable-input">
         <input type="text"
-               class="input-addon-field"
+               class="df-control"
                #filterInput
                [attr.placeholder]="column.name"
                *ngIf="column.filter"
                [value]="filters[column.name] ? filters[column.name].value : ''"
                (click)="onFilterInputClick($event)"
                (keyup)="onFilterKeyup($event, column.name, null)"/>
-        <button class="input-addon-item"
-                *ngIf="(filters[column.name] && filters[column.name].value.length > 0)"
-                type="button"
-                (click)="uncheckAll()">
-          <i class="df-icon df-icon-remove"></i>
-        </button>
+        <span [style.display]="(filters[column.name] && filters[column.name].value.length > 0) ? 'block' : 'none' "
+              (click)="uncheckAll()">&times;</span>
       </div>
     </li>
   </ul>

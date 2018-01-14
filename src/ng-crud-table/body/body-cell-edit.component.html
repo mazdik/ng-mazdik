@@ -1,8 +1,8 @@
-<span class="cell-data" title="{{value}}">
+<span class="cell-data" *ngIf="!editing" title="{{value}}">
   {{value}}
 </span>
 
-<div class="cell-editor" *ngIf="column.editable">
+<div class="cell-editor" *ngIf="column.editable && editing">
   <select
     #selectElement
     *ngIf="column.options"

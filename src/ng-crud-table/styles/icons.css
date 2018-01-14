@@ -47,3 +47,11 @@
 .icon-return:before {
   content: "\21b5";
 }
+
+.icon-ok:before {
+  content: "\2714";
+}
+
+.icon-remove:before {
+  content: "\2716";
+}

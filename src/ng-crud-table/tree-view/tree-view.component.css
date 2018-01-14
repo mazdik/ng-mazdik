@@ -51,9 +51,9 @@
 }
 
 .tree-filter-input {
-  padding: 3px 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 80%;
+  display: inline-block;
+  margin: 2px 0;
 }
 
 .loading-content {

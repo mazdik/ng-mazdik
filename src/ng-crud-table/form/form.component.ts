@@ -14,7 +14,7 @@ import {Column, Settings, ICrudService} from '../types/interfaces';
 @Component({
   selector: 'app-row-form',
   templateUrl: 'form.component.html',
-  styleUrls: ['../styles/forms.css', '../styles/checkbox-radio.css', '../styles/spinners.css'],
+  styleUrls: ['../styles/forms.css', '../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 
