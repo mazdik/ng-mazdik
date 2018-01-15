@@ -8,59 +8,15 @@
   left: 0;
   z-index: 11;
   display: none;
-  float: left;
+  height: auto;
+  overflow-y: auto;
+  padding: 3px;
   min-width: 160px;
-  padding: 5px 0;
+  max-height: 200px;
   margin: 2px 0 0;
-  font-size: 14px;
-  text-align: left;
-  list-style: none;
   background-color: #fff;
-  -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid #ccc;
   border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-}
-
-.dropdown-filter-menu {
-  height: auto;
-  overflow-y: auto;
-  max-height: 200px;
-  padding: 3px;
-}
-
-.dropdown-filter-menu > li > a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: 400;
-  line-height: 1.42857143;
-  color: #333;
-  white-space: nowrap;
-  text-decoration: none;
-}
-
-.dropdown-filter-menu > li > a:focus,
-.dropdown-filter-menu > li > a:hover {
-  color: #262626;
-  text-decoration: none;
-  background-color: #f5f5f5;
-}
-
-.dropdown-filter-menu > .active > a,
-.dropdown-filter-menu > .active > a:focus,
-.dropdown-filter-menu > .active > a:hover {
-  color: #fff;
-  text-decoration: none;
-  background-color: #337ab7;
-  outline: 0;
-}
-
-.list-divider {
-  height: 1px;
-  margin: 3px 0;
-  overflow: hidden;
-  background-color: #e5e5e5;
 }

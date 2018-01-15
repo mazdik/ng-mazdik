@@ -1,26 +1,6 @@
-.demo-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.demo-list span {
-  cursor: pointer;
-  color: #5b9bd5;
-  display: block;
+.list-menu.lg li > span {
   padding: 8px 3px;
 }
-
-.demo-list span:hover:not(.active) {
-  background-color: gray;
-  color: white;
-}
-
-.demo-list span.active {
-  background-color: #5b9bd5;
-  color: white;
-}
-
 
 .dt-row {
   display: flex;

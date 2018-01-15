@@ -1,29 +1,5 @@
-.select-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.select-list span {
-  cursor: pointer;
-  color: #5b9bd5;
-  display: block;
-  padding: 4px 3px;
-  border-bottom: 1px solid #F0F0F0;
-}
-
-.select-list span:hover:not(.active) {
-  background-color: #5b9bd5;
-  color: white;
-}
-
-.select-list span.active {
-  background-color: #5b9bd5;
-  color: white;
-}
-
 .select-header {
-  margin-top: 3px;
+  margin: 3px 0;
 }
 
 .select-page-count {

@@ -1,5 +1,4 @@
-<input type="text"
-       class="df-control"
+<input class="df-control"
        readonly="readonly"
        value="{{selectedName}}"
        placeholder="Select"
@@ -11,8 +10,7 @@
   <ng-container class="app-modal-body">
     <div class="select-header">
       <div class="clearable-input">
-        <input type="text"
-               class="df-control"
+        <input class="df-control"
                placeholder="Search..."
                [(ngModel)]="searchFilterText"
                (keyup)="onFilterKeyup()">
@@ -20,7 +18,7 @@
               (click)="onClickClearSearch()">&times;</span>
       </div>
     </div>
-    <ul class="select-list">
+    <ul class="list-menu">
       <li *ngFor="let option of options">
           <span (click)="setSelected(option)"
                 [ngClass]="{'active': isSelected(option)}">
@@ -28,6 +26,7 @@
           </span>
       </li>
     </ul>
+    <div class="list-divider"></div>
     <ng-template [ngIf]="totalItems > 0">
         <span class="select-page-count">
           {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
