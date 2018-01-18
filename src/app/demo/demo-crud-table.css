@@ -8,11 +8,11 @@
 
 .dt-col-left {
   width: 250px;
-  margin-right: 5px;
 }
 
 .dt-col-right {
   width: calc(100% - 255px);
+  padding-left: 5px;
 }
 
 .cell-big-value {
@@ -25,4 +25,17 @@
 
 .cell-middle-value {
   background-color: lightblue;
+}
+
+.title {
+  display: block;
+  background-color: #5b9bd5;
+  color: #ffffff;
+  padding: 10px;
+  margin: 0 -5px 10px 0;
+}
+
+.title a {
+  text-decoration: none;
+  color: #ffffff;
 }

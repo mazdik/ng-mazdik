@@ -3,11 +3,11 @@ import {Component, ViewEncapsulation} from '@angular/core';
 @Component({
   selector: 'demo-crud-table',
   template: `
-    <h2 style="color: #5b9bd5">Demo crud data table</h2>
     <div class="dt-row">
       <div class="dt-col-left">
+        <h3 class="title">Demo crud data table</h3>
         <ul class="list-menu lg">
-          <li><span (click)="state='table-base'" [ngClass]="{'active': state === 'table-base'}">Basic demo</span></li>
+          <li><span (click)="state='basic-demo'" [ngClass]="{'active': state === 'basic-demo'}">Basic demo</span></li>
           <li><span (click)="state='tree-table-demo'" [ngClass]="{'active': state === 'tree-table-demo'}">Tree table demo</span>
           </li>
           <li><span (click)="state='tree-filter-demo'" [ngClass]="{'active': state === 'tree-filter-demo'}">Tree filter demo</span>
@@ -27,7 +27,8 @@ import {Component, ViewEncapsulation} from '@angular/core';
         </ul>
       </div>
       <div class="dt-col-right">
-        <basic-demo *ngIf="state === 'table-base'"></basic-demo>
+        <h3 class="title"><a [attr.href]="getSourceLink()" target="_blank">Source</a></h3>
+        <basic-demo *ngIf="state === 'basic-demo'"></basic-demo>
         <tree-table-demo *ngIf="state === 'tree-table-demo'"></tree-table-demo>
         <tree-filter-demo *ngIf="state === 'tree-filter-demo'"></tree-filter-demo>
         <data-table-demo *ngIf="state === 'data-table-demo'"></data-table-demo>
@@ -43,6 +44,11 @@ import {Component, ViewEncapsulation} from '@angular/core';
 })
 export class DemoCrudTableComponent {
 
-  public state: string = 'table-base';
+  public state: string = 'basic-demo';
+
+  getSourceLink() {
+    const link: string = 'https://github.com/mazdik/ng-crud-table/blob/master/src/app/demo/';
+    return link + this.state + '.component.ts';
+  }
 
 }

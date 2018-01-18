@@ -6,6 +6,18 @@ export interface ISelectOption {
   parentId?: any;
 }
 
+export type ColumnType =
+  'text'
+  | 'password'
+  | 'number'
+  | 'select'
+  | 'radio'
+  | 'checkbox'
+  | 'textarea'
+  | 'date'
+  | 'datetime-local'
+  | 'select-popup';
+
 export interface Column {
   title: string;
   name: string;
@@ -15,7 +27,7 @@ export interface Column {
   pipe?: PipeTransform;
   width?: number;
   frozen?: boolean;
-  type?: 'text' | 'password' | 'number' | 'select' | 'radio' | 'checkbox' | 'textarea' | 'date' | 'datetime-local' | 'select-popup';
+  type?: ColumnType;
   validation?: IValidation;
   editable?: boolean;
   resizeable?: boolean;
