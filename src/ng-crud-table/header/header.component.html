@@ -3,14 +3,14 @@
   <div class="datatable-row-left">
     <div class="datatable-header-cell"
          *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
-         [ngStyle]="{'width.px': column.width, 'height.px': headerHeight, 'line-height.px': headerHeight}"
+         [ngStyle]="{'width.px': column.width, 'height.px': table.headerHeight, 'line-height.px': table.headerHeight}"
          resizeable
          [resizeEnabled]="column.resizeable"
-         [minWidth]="minWidthColumn"
-         [maxWidth]="maxWidthColumn"
+         [minWidth]="table.minWidthColumn"
+         [maxWidth]="table.maxWidthColumn"
          (resize)="onColumnResized($event, column)">
 
-      <ng-template [ngIf]="colIndex == 0 && settings.filter">
+      <ng-template [ngIf]="colIndex == 0 && table.settings.filter">
         <i class="icon-filter"
            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
            style="cursor: pointer;"
@@ -38,12 +38,12 @@
   <div class="datatable-row-center"
        [ngStyle]="stylesByGroup()">
     <div class="datatable-header-cell"
-         *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
-         [ngStyle]="{'width.px': column.width, 'height.px': headerHeight, 'line-height.px': headerHeight}"
+         *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
+         [ngStyle]="{'width.px': column.width, 'height.px': table.headerHeight, 'line-height.px': table.headerHeight}"
          resizeable
          [resizeEnabled]="column.resizeable"
-         [minWidth]="minWidthColumn"
-         [maxWidth]="maxWidthColumn"
+         [minWidth]="table.minWidthColumn"
+         [maxWidth]="table.maxWidthColumn"
          (resize)="onColumnResized($event, column)">
 
             <span class="column-title" (click)="sort($event, column)">

@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, ViewChild, EventEmitter, PipeTransform, ViewEncapsulation} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {Column, Settings, ICrudService} from '../types/interfaces';
+import {Column, Settings, ICrudService} from '../types';
 import {ColumnUtils} from '../utils/column-utils';
 
 @Component({

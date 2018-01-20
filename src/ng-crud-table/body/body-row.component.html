@@ -3,7 +3,7 @@
 
   <div class="datatable-body-cell"
        style="text-align: center;"
-       [ngStyle]="{'width.px': actionColumnWidth}">
+       [ngStyle]="{'width.px': table.actionColumnWidth}">
 
     <ng-template ngFor let-action [ngForOf]="actionMenu">
         <span class="row-menu"
@@ -17,7 +17,7 @@
     <span *ngIf="!enableAction">{{rowIndex+1}}</span>
   </div>
 
-  <ng-container *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn">
+  <ng-container *ngFor="let column of table.frozenColumns; let colIndex = index; trackBy: columnTrackingFn">
     <datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
@@ -38,7 +38,7 @@
 </div>
 
 <div class="datatable-row-center datatable-row-group">
-  <ng-container *ngFor="let column of scrollableColumns; let colIndex = index; trackBy: columnTrackingFn">
+  <ng-container *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: columnTrackingFn">
     <datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"

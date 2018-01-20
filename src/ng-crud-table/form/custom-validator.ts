@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Column} from '../types/interfaces';
+import {Column} from '../types';
 
 @Injectable()
 export class CustomValidator {

@@ -1,4 +1,4 @@
-import {EventEmitter, PipeTransform} from '@angular/core';
+import {EventEmitter} from '@angular/core';
 
 export interface ISelectOption {
   id: any;
@@ -18,28 +18,6 @@ export type ColumnType =
   | 'datetime-local'
   | 'select-popup';
 
-export interface Column {
-  title: string;
-  name: string;
-  sortable?: boolean;
-  filter?: boolean;
-  options?: ISelectOption[];
-  pipe?: PipeTransform;
-  width?: number;
-  frozen?: boolean;
-  type?: ColumnType;
-  validation?: IValidation;
-  editable?: boolean;
-  resizeable?: boolean;
-  dependsColumn?: string;
-  cellTemplate?: any;
-  formHidden?: boolean;
-  tableHidden?: boolean;
-  optionsUrl?: string;
-  cellClass?: any;
-  keyColumn?: string;
-}
-
 export interface FilterMetadata {
   value?: any;
   matchMode?: string;
@@ -51,7 +29,6 @@ export interface Filter {
 
 export interface Settings {
   api: string;
-  process?: string;
   crud: boolean;
   primaryKeys?: string[];
   type?: string;

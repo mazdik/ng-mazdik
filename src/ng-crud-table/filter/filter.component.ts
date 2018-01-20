@@ -2,7 +2,7 @@ import {
   Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener, ViewEncapsulation,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ISelectOption, Column, Filter} from '../types/interfaces';
+import {ISelectOption, ColumnModel, Filter} from '../types';
 
 @Component({
   selector: 'ng-filter',
@@ -23,7 +23,7 @@ export class FilterComponent implements OnInit {
   left: number;
   top: number;
   width: number;
-  column: Column = <Column> {};
+  column: ColumnModel = <ColumnModel> {};
   selectionLimit: number = 1;
   selectedOptions: any[];
   columnsSelectedOptions: any[] = [];
@@ -159,7 +159,7 @@ export class FilterComponent implements OnInit {
     this.numSelected = this.selectedOptions && this.selectedOptions.length || 0;
   }
 
-  show(width: number, top: number, left: number, column: Column) {
+  show(width: number, top: number, left: number, column: ColumnModel) {
     this.column = column;
     this.selectedOptions = this.columnsSelectedOptions[column.name];
     this.selectContainerClicked = true;

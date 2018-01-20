@@ -1,6 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {ITreeNode, ITreeService} from '../types/interfaces';
-import {FilterState} from '../types/enums';
+import {ITreeNode, ITreeService, FilterState} from '../types';
 import {id} from '../utils/id';
 
 @Component({

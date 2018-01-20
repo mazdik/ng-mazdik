@@ -1,6 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy} from '@angular/core';
-import {Column, Filter, SortMeta, Settings} from '../types/interfaces';
+import {Filter, SortMeta} from '../types';
 import {DomUtils} from '../utils/dom-utils';
+import {ColumnModel} from '../models/column.model';
+import {DataTable} from '../models/data-table';
 
 
 @Component({
@@ -14,12 +16,10 @@ import {DomUtils} from '../utils/dom-utils';
 
 export class HeaderComponent implements OnInit {
 
-  @Input() public columns: Column[];
+  @Input() public table: DataTable;
   @Input() public filters: Filter = {};
   @Input() public sortMeta: SortMeta;
-  @Input() public actionColumnWidth: number;
   @Input() offsetX: number;
-  @Input() public settings: Settings;
 
   @Output() onSort: EventEmitter<any> = new EventEmitter();
   @Output() onFilter: EventEmitter<any> = new EventEmitter();
@@ -27,41 +27,27 @@ export class HeaderComponent implements OnInit {
   @Output() onClearAllFilters: EventEmitter<any> = new EventEmitter();
   @Output() onResize: EventEmitter<any> = new EventEmitter();
 
-  @HostBinding('style.height.px')
-  @Input() headerHeight: number;
-
-  public minWidthColumn: number = 50;
-  public maxWidthColumn: number = 500;
-  frozenColumns: Column[] = [];
-  scrollableColumns: Column[] = [];
+  frozenColumns: ColumnModel[] = [];
 
   constructor() {
   }
 
   ngOnInit() {
-    if (this.columns) {
-      /* action column */
-      this.frozenColumns.push(<Column>{
+    if (this.table.columns) {
+      this.frozenColumns = [...this.table.frozenColumns];
+      const actionColumn: ColumnModel = new ColumnModel({
         title: '',
         name: '',
         sortable: false,
         filter: false,
-        width: this.actionColumnWidth
+        resizeable: false,
+        width: this.table.actionColumnWidth
       });
-
-      this.columns.forEach((column) => {
-        if (!column.tableHidden) {
-          if (column.frozen) {
-            this.frozenColumns.push(column);
-          } else {
-            this.scrollableColumns.push(column);
-          }
-        }
-      });
+      this.frozenColumns.unshift(actionColumn);
     }
   }
 
-  sort(event, column: Column) {
+  sort(event, column: ColumnModel) {
     if (!column.sortable) {
       return;
     }
@@ -72,7 +58,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  getSortOrder(column: Column) {
+  getSortOrder(column: ColumnModel) {
     let order = 0;
     if (this.sortMeta.field && this.sortMeta.field === column.name) {
       order = this.sortMeta.order;
@@ -80,7 +66,7 @@ export class HeaderComponent implements OnInit {
     return order;
   }
 
-  isFilter(column: Column): boolean {
+  isFilter(column: ColumnModel): boolean {
     let length = 0;
     if (this.filters[column.name] && this.filters[column.name].value) {
       length = this.filters[column.name].value.trim().length;
@@ -109,7 +95,7 @@ export class HeaderComponent implements OnInit {
     return !empty;
   }
 
-  showColumnMenu(event, column: Column) {
+  showColumnMenu(event, column: ColumnModel) {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
@@ -121,14 +107,14 @@ export class HeaderComponent implements OnInit {
     this.onShowColumnMenu.emit({'top': top, 'left': left, 'column': column});
   }
 
-  onColumnResized(width: number, column: Column): void {
+  onColumnResized(width: number, column: ColumnModel): void {
 
-    if (width <= this.minWidthColumn) {
-      width = this.minWidthColumn;
-    } else if (width >= this.maxWidthColumn) {
-      width = this.maxWidthColumn;
+    if (width <= this.table.minWidthColumn) {
+      width = this.table.minWidthColumn;
+    } else if (width >= this.table.maxWidthColumn) {
+      width = this.table.maxWidthColumn;
     }
-
+    this.table.setColumnWidth(column, width);
     this.onResize.emit({
       column: column,
       newValue: width

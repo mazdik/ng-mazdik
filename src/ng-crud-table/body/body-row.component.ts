@@ -2,18 +2,18 @@ import {
   Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {Column, MenuItem} from '../types/interfaces';
+import {MenuItem} from '../types';
+import {DataTable} from '../models/data-table';
 
 @Component({
   selector: 'datatable-body-row',
   templateUrl: './body-row.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyRowComponent implements OnInit, DoCheck {
 
-  @Input() public columns: Column[];
+  @Input() public table: DataTable;
   @Input() public row: any;
-  @Input() public actionColumnWidth: number;
   @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
@@ -22,8 +22,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  public frozenColumns: Column[] = [];
-  public scrollableColumns: Column[] = [];
   public enableAction: boolean = false;
   private rowDiffer: KeyValueDiffer<{}, {}>;
 
@@ -43,17 +41,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   ngOnInit() {
     if (this.actionMenu) {
       this.enableAction = true;
-    }
-    if (this.columns) {
-      this.columns.forEach((column) => {
-        if (!column.tableHidden) {
-          if (column.frozen) {
-            this.frozenColumns.push(column);
-          } else {
-            this.scrollableColumns.push(column);
-          }
-        }
-      });
     }
   }
 

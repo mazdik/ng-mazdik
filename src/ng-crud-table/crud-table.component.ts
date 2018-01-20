@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types/interfaces';
+import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 
 

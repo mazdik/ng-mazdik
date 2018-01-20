@@ -2,8 +2,8 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {Column, Filter, Settings, SortMeta, MenuItem} from '../types/interfaces';
-import {ColumnUtils} from '../utils/column-utils';
+import {Column, Filter, Settings, SortMeta, MenuItem} from '../types';
+import {DataTable} from '../models/data-table';
 
 
 @Component({
@@ -15,9 +15,6 @@ import {ColumnUtils} from '../utils/column-utils';
 })
 export class DatatableComponent implements OnInit, DoCheck {
 
-  @Input() public columns: Column[];
-  @Input() public settings: Settings;
-  @Input() public headerHeight: number = 30;
   @Input() public filters: Filter = <Filter>{};
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
@@ -31,6 +28,26 @@ export class DatatableComponent implements OnInit, DoCheck {
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
+
+  @Input()
+  set columns(val: Column[]) {
+    this._columns = val;
+    this.table.createColumns(this._columns);
+  }
+
+  get columns(): Column[] {
+    return this._columns;
+  }
+
+  @Input()
+  set settings(val: Settings) {
+    this._settings = val;
+    this.table.setSettings(this._settings);
+  }
+
+  get settings(): Settings {
+    return this._settings;
+  }
 
   @Input()
   set rows(val: any) {
@@ -50,26 +67,21 @@ export class DatatableComponent implements OnInit, DoCheck {
   @ViewChild('selectFilter') selectFilter: any;
 
   public sortMeta: SortMeta = <SortMeta>{};
-  public scrollHeight: number;
-  public tableWidth: number;
-  public actionColumnWidth: number = 40;
+  public table: DataTable;
   private rowDiffer: KeyValueDiffer<{}, {}>;
+  private _columns: Column[];
+  private _settings: Settings;
+  private _rows: any[];
 
-  frozenColumns: Column[];
-  scrollableColumns: Column[];
-  frozenWidth: number = 0;
-  scrollableColumnsWidth: number = 0;
   offsetX: number = 0;
   itemsCopy: any;
-  _rows: any[];
 
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
+    this.table = new DataTable();
   }
 
   ngOnInit() {
-    this.initColumns();
-    this.initTableSize();
     if (this.settings.clientSide) {
       this._rows = this.getItems();
     }
@@ -79,31 +91,6 @@ export class DatatableComponent implements OnInit, DoCheck {
     if (this.rowDiffer.diff(this.rows)) {
       this.cd.markForCheck();
     }
-  }
-
-  initColumns(): void {
-    this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
-    this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
-    ColumnUtils.setColumnDefaults(this.columns, this.settings);
-
-    this.scrollableColumns = [];
-    this.columns.forEach((column) => {
-      if (!column.tableHidden) {
-        if (column.frozen) {
-          this.frozenColumns = this.frozenColumns || [];
-          this.frozenColumns.push(column);
-          this.frozenWidth = this.frozenWidth + column.width;
-        } else {
-          this.scrollableColumns.push(column);
-          this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
-        }
-      }
-    });
-  }
-
-  initTableSize() {
-    this.tableWidth = this.settings.tableWidth;
-    this.scrollHeight = this.settings.scrollHeight;
   }
 
   onPageChanged(event: any): void {
@@ -153,15 +140,6 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   showColumnMenu(event) {
     this.selectFilter.show(200, event.top, event.left, event.column);
-  }
-
-  onResizeColumn({column, newValue}: any) {
-    for (const col of this.columns) {
-      if (col.name === column.name) {
-        col.width = newValue;
-      }
-    }
-    this.columns = [...this.columns];
   }
 
   onBodyScroll(event: MouseEvent): void {

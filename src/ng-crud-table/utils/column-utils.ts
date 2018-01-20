@@ -1,40 +1,6 @@
-import {Column, Settings} from '../types/interfaces';
+import {Column} from '../types';
 
 export class ColumnUtils {
-
-  public static setColumnDefaults(columns: Column[], settings: Settings): Column[] {
-    if (!columns) {
-      return;
-    }
-    for (const column of columns) {
-      if (!column.hasOwnProperty('sortable') && settings.sortable) {
-        column.sortable = true;
-      }
-      if (!column.hasOwnProperty('filter') && settings.filter) {
-        column.filter = true;
-      }
-      if (!column.hasOwnProperty('width')) {
-        column.width = (column.name.length * 10) + 50;
-        if (column.width < 150) {
-          column.width = 150;
-        }
-      }
-      if (!column.hasOwnProperty('frozen')) {
-        column.frozen = false;
-      }
-      if (!column.hasOwnProperty('type')) {
-        if (column.hasOwnProperty('options')) {
-          column.type = 'select';
-        } else {
-          column.type = 'text';
-        }
-      }
-      if (!column.hasOwnProperty('resizeable')) {
-        column.resizeable = true;
-      }
-    }
-    return columns;
-  }
 
   public static getOptionName(value: any, column: Column) {
     if (column.options) {
@@ -73,22 +39,6 @@ export class ColumnUtils {
         return options;
       }
     }
-  }
-
-  public static findSelectedIndex(selectedItem: any, items: any): number {
-    const obj = items.find(x => JSON.stringify(x) === JSON.stringify(selectedItem));
-    const index = items.indexOf(obj);
-    return index;
-  }
-
-  public static getColumnsTotalWidth(columns: Column[]): number {
-    let totalWidth = 0;
-    for (const column of columns) {
-      if (!column.tableHidden) {
-        totalWidth = totalWidth + column.width;
-      }
-    }
-    return totalWidth;
   }
 
 }

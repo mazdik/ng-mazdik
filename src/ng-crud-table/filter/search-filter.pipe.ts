@@ -1,5 +1,5 @@
 import {PipeTransform, Pipe} from '@angular/core';
-import {ISelectOption} from '../types/interfaces';
+import {ISelectOption} from '../types';
 
 @Pipe({
   name: 'searchFilter'

@@ -6,11 +6,10 @@
     <div class="datatable-row-wrapper"
          *ngFor="let row of rows; let rowIndex=index; trackBy: rowTrackingFn">
       <datatable-body-row
-        [columns]="columns"
+        [table]="table"
         [row]="row"
         [rowIndex]="rowIndex"
         [(selectedRowIndex)]="selectedRowIndex"
-        [actionColumnWidth]="actionColumnWidth"
         (editComplete)="onEditComplete($event)"
         [actionMenu]="actionMenu"
         [offsetX]="offsetX"
@@ -21,7 +20,7 @@
   <div
     class="empty-row"
     *ngIf="!rows?.length"
-    [style.width.px]="columnsTotalWidth">
+    [style.width.px]="table.columnsTotalWidth">
     <ng-container *ngIf="loading">Loading...</ng-container>
     <ng-container *ngIf="!loading">No data found</ng-container>
   </div>

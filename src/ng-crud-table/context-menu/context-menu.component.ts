@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ViewChild, HostListener} from '@angular/core';
-import {MenuItem} from '../types/interfaces';
+import {MenuItem} from '../types';
 
 @Component({
   selector: 'context-menu',

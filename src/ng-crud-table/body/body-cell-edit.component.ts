@@ -2,7 +2,7 @@ import {
   Component, Input, Output, EventEmitter, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
-import {Column} from '../types/interfaces';
+import {ColumnModel} from '../models/column.model';
 import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
@@ -13,7 +13,7 @@ import {ColumnUtils} from '../utils/column-utils';
 export class BodyCellEditComponent implements DoCheck {
 
   @Input() row: any;
-  @Input() column: Column;
+  @Input() column: ColumnModel;
   @Input() colIndex: number;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
@@ -97,7 +97,7 @@ export class BodyCellEditComponent implements DoCheck {
     this.switchCellToEditMode(this.column);
   }
 
-  switchCellToEditMode(column: Column) {
+  switchCellToEditMode(column: ColumnModel) {
     if (column.editable) {
       this.editing = true;
       if (column.options) {
@@ -158,7 +158,7 @@ export class BodyCellEditComponent implements DoCheck {
     }
   }
 
-  getOptions(column: Column, row: any[]) {
+  getOptions(column: ColumnModel, row: any[]) {
     return ColumnUtils.getOptions(column, row[column.dependsColumn]);
   }
 

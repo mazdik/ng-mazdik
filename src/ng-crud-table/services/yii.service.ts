@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../types/interfaces';
+import {Filter, ICrudService} from '../types';
 
 @Injectable()
 export class YiiService implements ICrudService {

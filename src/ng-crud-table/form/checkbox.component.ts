@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Column, ICrudService} from '../types/interfaces';
+import {Column, ICrudService} from '../types';
 import {ColumnUtils} from '../utils/column-utils';
 import {CustomValidator} from './custom-validator';
 

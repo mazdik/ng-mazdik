@@ -1,9 +1,8 @@
 import {
-  Component, Input, Output, EventEmitter, HostBinding, OnInit,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy
 } from '@angular/core';
-import {Column, MenuItem} from '../types/interfaces';
-import {ColumnUtils} from '../utils/column-utils';
+import {MenuItem} from '../types';
+import {DataTable} from '../models/data-table';
 
 @Component({
   selector: 'datatable-body',
@@ -11,12 +10,11 @@ import {ColumnUtils} from '../utils/column-utils';
   host: {
     class: 'datatable-body'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyComponent implements OnInit {
 
-  @Input() public columns: Column[];
-  @Input() public actionColumnWidth: number;
+  @Input() public table: DataTable;
   @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
@@ -32,20 +30,6 @@ export class BodyComponent implements OnInit {
     return this._rows;
   }
 
-  @Input()
-  @HostBinding('style.height')
-  set bodyHeight(val) {
-    if (val) {
-      this._bodyHeight = val + 'px';
-    } else {
-      this._bodyHeight = 'auto';
-    }
-  }
-
-  get bodyHeight() {
-    return this._bodyHeight;
-  }
-
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() scroll: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
@@ -53,10 +37,8 @@ export class BodyComponent implements OnInit {
   offsetY: number = 0;
   rowTrackingFn: any;
   _rows: any[];
-  _bodyHeight: any;
-  columnsTotalWidth: number;
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor() {
     // declare fn here so we can get access to the `this` property
     this.rowTrackingFn = function (index: number, row: any): any {
       if (this.trackByProp) {
@@ -67,8 +49,16 @@ export class BodyComponent implements OnInit {
     }.bind(this);
   }
 
+  @HostBinding('style.height')
+  get bodyHeight() {
+    if (this.table.scrollHeight) {
+      return this.table.scrollHeight + 'px';
+    } else {
+      return 'auto';
+    }
+  }
+
   ngOnInit(): void {
-    this.columnsTotalWidth = ColumnUtils.getColumnsTotalWidth(this.columns) + this.actionColumnWidth;
   }
 
   onBodyScroll(event: any): void {

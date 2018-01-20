@@ -1,5 +1,5 @@
 <div class="datatable fixed-header fixed-row scroll-horz"
-     [ngStyle]="{'width.px': tableWidth}">
+     [ngStyle]="{'width.px': table.tableWidth}">
   <loading-indicator [isLoading]="loading"></loading-indicator>
   <ng-filter
     #selectFilter
@@ -7,23 +7,17 @@
     (onFilter)="onFilter($event)">
   </ng-filter>
   <datatable-header
-    [columns]="columns"
+    [table]="table"
     [filters]="filters"
     [sortMeta]="sortMeta"
     (onSort)="onSort($event)"
     (onShowColumnMenu)="showColumnMenu($event)"
-    [actionColumnWidth]="actionColumnWidth"
     (onClearAllFilters)="selectFilter.clearAllFilters()"
-    (onResize)="onResizeColumn($event)"
-    [offsetX]="offsetX"
-    [headerHeight]="headerHeight"
-    [settings]="settings">
+    [offsetX]="offsetX">
   </datatable-header>
   <datatable-body
-    [columns]="columns"
+    [table]="table"
     [rows]="rows"
-    [bodyHeight]="scrollHeight"
-    [actionColumnWidth]="actionColumnWidth"
     (editComplete)="onEditComplete($event)"
     [actionMenu]="rowMenu"
     [offsetX]="offsetX"

@@ -9,7 +9,7 @@ import {
   EventEmitter,
   ViewEncapsulation
 } from '@angular/core';
-import {Column, Settings, ICrudService} from '../types/interfaces';
+import {Column, Settings, ICrudService} from '../types';
 
 @Component({
   selector: 'app-row-form',

@@ -1,11 +1,7 @@
 <div class="datatable fixed-header fixed-row scroll-horz">
   <datatable-header
-    [columns]="columns"
-    [actionColumnWidth]="250"
-    (onResize)="resizeColumn($event)"
-    [offsetX]="offsetX"
-    [headerHeight]="headerHeight"
-    [settings]="settings">
+    [table]="table"
+    [offsetX]="offsetX">
   </datatable-header>
 
   <div class="datatable-body">
@@ -17,7 +13,7 @@
         <tree-table-node
           [nodes]="nodes"
           [service]="service"
-          [columns]="columns"
+          [columns]="table.columns"
           [offsetX]="offsetX"
           (editComplete)="onCellEditComplete($event)"
           (requestNodes)="onRequestNodes($event)">

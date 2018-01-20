@@ -2,7 +2,7 @@ import {
   Component, Input, PipeTransform, HostBinding,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
-import {Column} from '../types/interfaces';
+import {ColumnModel} from '../models/column.model';
 import {ColumnUtils} from '../utils/column-utils';
 
 @Component({
@@ -24,14 +24,14 @@ export class BodyCellComponent implements DoCheck {
 
   @Input() colIndex: number;
 
-  @Input() set column(column: Column) {
+  @Input() set column(column: ColumnModel) {
     this._column = column;
     this.cellContext.column = column;
     this.checkValueUpdates();
     this.cd.markForCheck();
   }
 
-  get column(): Column {
+  get column(): ColumnModel {
     return this._column;
   }
 
@@ -86,7 +86,7 @@ export class BodyCellComponent implements DoCheck {
     value: this.value,
     column: this.column,
   };
-  private _column: Column;
+  private _column: ColumnModel;
   private _row: any;
 
   constructor(private cd: ChangeDetectorRef) {
