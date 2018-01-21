@@ -9,7 +9,7 @@ import {
   EventEmitter,
   ViewEncapsulation
 } from '@angular/core';
-import {Column, Settings, ICrudService} from '../types';
+import {ColumnModel, ICrudService, DataTable} from '../types';
 
 @Component({
   selector: 'app-row-form',
@@ -20,8 +20,7 @@ import {Column, Settings, ICrudService} from '../types';
 
 export class FormComponent implements OnInit, OnDestroy {
 
-  @Input() public columns: Column[];
-  @Input() public settings: Settings;
+  @Input() public table: DataTable;
   @Input() public item: any;
   @Input() public isNew: boolean = true;
   @Input() public service: ICrudService;
@@ -42,19 +41,19 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  elemEnabled(column: Column): boolean {
+  elemEnabled(column: ColumnModel): boolean {
     if (column.formHidden) {
       return false;
     }
     const name = column.name;
-    if (this.settings.primaryKeys && this.settings.primaryKeys.length && !this.isNew) {
-      return (this.settings.primaryKeys.indexOf(name) === -1);
+    if (this.table.settings.primaryKeys && this.table.settings.primaryKeys.length && !this.isNew) {
+      return (this.table.settings.primaryKeys.indexOf(name) === -1);
     } else {
       return true;
     }
   }
 
-  onValid(event: any, column: Column) {
+  onValid(event: any, column: ColumnModel) {
     this.validElements[column.name] = event;
     this.isValid();
   }
@@ -74,9 +73,9 @@ export class FormComponent implements OnInit, OnDestroy {
     this.item[event.column] = event.value;
   }
 
-  isDisabled(column: Column) {
+  isDisabled(column: ColumnModel) {
     if (column.keyColumn && !this.isNew) {
-      return (this.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
+      return (this.table.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
     } else {
       return false;
     }

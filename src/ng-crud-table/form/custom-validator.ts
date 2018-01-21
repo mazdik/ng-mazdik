@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Column} from '../types';
+import {ColumnModel} from '../types';
 
 @Injectable()
 export class CustomValidator {
 
-  private setErrors(column: Column, value: any) {
+  private setErrors(column: ColumnModel, value: any) {
     const temp = [];
     if (!column.validation) {
       return temp;
@@ -26,7 +26,7 @@ export class CustomValidator {
     return temp;
   }
 
-  private pattern(column: Column, value: any): string {
+  private pattern(column: ColumnModel, value: any): string {
     const pattern: string | RegExp = column.validation.pattern;
     let regex: RegExp;
     let regexStr: string;
@@ -40,11 +40,11 @@ export class CustomValidator {
     return regex.test(value) ? null : `${column.title} must match this pattern: ${regexStr}.`;
   }
 
-  errors(column: Column, value: any) {
+  errors(column: ColumnModel, value: any) {
       return this.setErrors(column, value);
   }
 
-  hasError(column: Column, value: any) {
+  hasError(column: ColumnModel, value: any) {
     return (this.errors(column, value)) ? this.errors(column, value).length > 0 : false;
   }
 

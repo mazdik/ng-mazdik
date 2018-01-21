@@ -2,13 +2,13 @@ import {
   Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {MenuItem} from '../types';
-import {DataTable} from '../models/data-table';
+import {DataTable, MenuItem} from '../types';
+
 
 @Component({
   selector: 'datatable-body-row',
   templateUrl: './body-row.component.html',
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyRowComponent implements OnInit, DoCheck {
 

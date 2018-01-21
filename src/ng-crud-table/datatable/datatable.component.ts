@@ -2,8 +2,7 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {Column, Filter, Settings, SortMeta, MenuItem} from '../types';
-import {DataTable} from '../models/data-table';
+import {DataTable, Filter, SortMeta, MenuItem} from '../types';
 
 
 @Component({
@@ -15,6 +14,7 @@ import {DataTable} from '../models/data-table';
 })
 export class DatatableComponent implements OnInit, DoCheck {
 
+  @Input() public table: DataTable;
   @Input() public filters: Filter = <Filter>{};
   @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
@@ -22,7 +22,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   @Input() public currentPage: number = 1;
   @Input() public loading: boolean = false;
   @Input() public selectedRowIndex: number;
-  @Input() trackByProp: string;
+  @Input() public trackByProp: string;
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();
@@ -30,33 +30,13 @@ export class DatatableComponent implements OnInit, DoCheck {
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
   @Input()
-  set columns(val: Column[]) {
-    this._columns = val;
-    this.table.createColumns(this._columns);
-  }
-
-  get columns(): Column[] {
-    return this._columns;
-  }
-
-  @Input()
-  set settings(val: Settings) {
-    this._settings = val;
-    this.table.setSettings(this._settings);
-  }
-
-  get settings(): Settings {
-    return this._settings;
-  }
-
-  @Input()
   set rows(val: any) {
     this._rows = val;
-    if (this.settings.clientSide) {
+    if (this.table.settings.clientSide) {
       this.filters = <Filter>{};
       this.sortMeta = <SortMeta>{};
       this.totalItems = this._rows.length;
-      this.itemsCopy = (this.rows) ? this.rows.slice(0) : [];
+      this.rowsCopy = (this.rows) ? this.rows.slice(0) : [];
     }
   }
 
@@ -67,22 +47,18 @@ export class DatatableComponent implements OnInit, DoCheck {
   @ViewChild('selectFilter') selectFilter: any;
 
   public sortMeta: SortMeta = <SortMeta>{};
-  public table: DataTable;
-  private rowDiffer: KeyValueDiffer<{}, {}>;
-  private _columns: Column[];
-  private _settings: Settings;
-  private _rows: any[];
+  public offsetX: number = 0;
+  public rowsCopy: any;
 
-  offsetX: number = 0;
-  itemsCopy: any;
+  private rowDiffer: KeyValueDiffer<{}, {}>;
+  private _rows: any[];
 
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
-    this.table = new DataTable();
   }
 
   ngOnInit() {
-    if (this.settings.clientSide) {
+    if (this.table.settings.clientSide) {
       this._rows = this.getItems();
     }
   }
@@ -94,7 +70,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   onPageChanged(event: any): void {
-    if (this.settings.clientSide) {
+    if (this.table.settings.clientSide) {
       this.currentPage = event;
       this._rows = this.getItems();
     }
@@ -108,7 +84,7 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   onFilter(event) {
     this.filters = Object.assign({}, event);
-    if (this.settings.clientSide) {
+    if (this.table.settings.clientSide) {
       this.currentPage = 1;
       this._rows = this.getItems();
     }
@@ -118,7 +94,7 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   onSort(event) {
     this.sortMeta = event.sortMeta;
-    if (this.settings.clientSide) {
+    if (this.table.settings.clientSide) {
       this._rows = this.getItems();
     }
     this.sortChanged.emit(this.sortMeta);
@@ -181,7 +157,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   getItems() {
-    let data = this.filter(this.itemsCopy, this.filters);
+    let data = this.filter(this.rowsCopy, this.filters);
     this.totalItems = data.length;
     data = this.sort(data, this.sortMeta.field, this.sortMeta.order);
     data = this.pager(data, this.currentPage);

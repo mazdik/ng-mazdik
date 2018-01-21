@@ -2,8 +2,8 @@ import {
   Component, Input, PipeTransform, HostBinding,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
-import {ColumnModel} from '../models/column.model';
-import {ColumnUtils} from '../utils/column-utils';
+import {ColumnModel} from '../types';
+
 
 @Component({
   selector: 'datatable-body-cell',
@@ -116,7 +116,7 @@ export class BodyCellComponent implements DoCheck {
       this.value = value;
       this.cellContext.value = value;
       if (value !== null && value !== undefined) {
-        this.value = ColumnUtils.getOptionName(value, this.column);
+        this.value = this.column.getOptionName(value);
       }
       this.cd.markForCheck();
     }

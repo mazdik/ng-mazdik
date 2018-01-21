@@ -2,8 +2,8 @@ import {
   Component, Input, Output, EventEmitter, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
-import {ColumnModel} from '../models/column.model';
-import {ColumnUtils} from '../utils/column-utils';
+import {ColumnModel} from '../types';
+
 
 @Component({
   selector: 'datatable-body-cell-edit',
@@ -86,7 +86,7 @@ export class BodyCellEditComponent implements DoCheck {
     if (this.value !== value) {
       this.value = value;
       if (value !== null && value !== undefined) {
-        this.value = ColumnUtils.getOptionName(value, this.column);
+        this.value = this.column.getOptionName(value);
       }
       this.cd.markForCheck();
     }
@@ -158,8 +158,8 @@ export class BodyCellEditComponent implements DoCheck {
     }
   }
 
-  getOptions(column: ColumnModel, row: any[]) {
-    return ColumnUtils.getOptions(column, row[column.dependsColumn]);
+  getOptions(row: any[]) {
+    return this.column.getOptions(row[this.column.dependsColumn]);
   }
 
 

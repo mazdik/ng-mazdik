@@ -1,8 +1,8 @@
 import {
   Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy
 } from '@angular/core';
-import {MenuItem} from '../types';
-import {DataTable} from '../models/data-table';
+import {DataTable, MenuItem} from '../types';
+
 
 @Component({
   selector: 'datatable-body',
@@ -10,7 +10,7 @@ import {DataTable} from '../models/data-table';
   host: {
     class: 'datatable-body'
   },
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyComponent implements OnInit {
 
@@ -73,10 +73,8 @@ export class BodyComponent implements OnInit {
         offsetX: scrollXPos
       });
     }
-
     this.offsetY = scrollYPos;
     this.offsetX = scrollXPos;
-
   }
 
   onEditComplete(event) {

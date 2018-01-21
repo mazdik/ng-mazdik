@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Column, Settings} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 
 
@@ -8,8 +8,7 @@ import {HttpClient} from '@angular/common/http';
   template: `
     <app-datatable
       #tablePlayers
-      [columns]="columnsPlayers"
-      [settings]="settingsPlayers"
+      [table]="dtPlayers"
       [rows]="rowsPlayers"
       (filterChanged)="masterChanged($event)"
       (pageChanged)="masterChanged($event)"
@@ -18,16 +17,14 @@ import {HttpClient} from '@angular/common/http';
     </app-datatable>
     <div style="display:inline-block; vertical-align: top;">
       <app-datatable
-        [columns]="columnsInventory"
-        [settings]="settingsInventory"
+        [table]="dtInventory"
         [rows]="rowsInventory">
       </app-datatable>
     </div>
     <div style="display:inline-block; width: 5px;"></div>
     <div style="display:inline-block; vertical-align: top;">
       <app-datatable
-        [columns]="columnsRank"
-        [settings]="settingsRank"
+        [table]="dtRank"
         [rows]="rowsRank">
       </app-datatable>
     </div>
@@ -36,6 +33,9 @@ import {HttpClient} from '@angular/common/http';
 
 export class MasterDetailDemoComponent implements OnInit {
 
+  public dtPlayers: DataTable;
+  public dtInventory: DataTable;
+  public dtRank: DataTable;
   public rowsPlayers: any = [];
   public rowsRank: any = [];
   public rowsInventory: any = [];
@@ -184,7 +184,9 @@ export class MasterDetailDemoComponent implements OnInit {
   private _inventory: any = [];
 
   constructor(private http: HttpClient) {
-
+    this.dtPlayers = new DataTable(this.columnsPlayers, this.settingsPlayers);
+    this.dtInventory = new DataTable(this.columnsInventory, this.settingsInventory);
+    this.dtRank = new DataTable(this.columnsRank, this.settingsRank);
   }
 
   ngOnInit() {
@@ -210,9 +212,11 @@ export class MasterDetailDemoComponent implements OnInit {
   }
 
   masterChanged(event) {
-    if (this.tablePlayers.rows.length > 0 && this.tablePlayers.selectedRowIndex !== undefined) {
-      const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
+    if (this.tablePlayers.rows.length > 0 &&
+      this.tablePlayers.selectedRowIndex !== undefined &&
+      this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]) {
 
+      const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
       this.rowsRank = this._rank.filter((value: any) => {
         return value['player_id'] === masterId;
       });

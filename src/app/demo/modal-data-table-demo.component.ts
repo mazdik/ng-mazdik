@@ -1,14 +1,13 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-crud-table';
 
 
 @Component({
   selector: 'modal-data-table-demo',
   template: `
     <app-datatable
-      [columns]="columns"
-      [settings]="settings"
+      [table]="dtPlayers"
       [rows]="rows"
       [loading]="loading">
     </app-datatable>
@@ -26,8 +25,7 @@ import {Column, Settings} from '../../ng-crud-table';
       <ng-container class="app-modal-body" *ngIf="rankModal.visible">
         <app-datatable
           *ngIf="rankModal.visible"
-          [columns]="columnsRank"
-          [settings]="settingsRank"
+          [table]="dtRank"
           [rows]="rowsRank"
           [loading]="loading">
         </app-datatable>
@@ -37,8 +35,7 @@ import {Column, Settings} from '../../ng-crud-table';
       <ng-container class="app-modal-body">
         <app-datatable
           *ngIf="inventoryModal.visible"
-          [columns]="columnsInventory"
-          [settings]="settingsInventory"
+          [table]="dtInventory"
           [rows]="rowsInventory">
         </app-datatable>
       </ng-container>
@@ -48,6 +45,9 @@ import {Column, Settings} from '../../ng-crud-table';
 
 export class ModalDataTableDemoComponent implements OnInit {
 
+  public dtPlayers: DataTable;
+  public dtInventory: DataTable;
+  public dtRank: DataTable;
   public rows: any = [];
   public loading: boolean = false;
   public rowsRank: any = [];
@@ -58,7 +58,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   @ViewChild('rankModal') rankModal: any;
   @ViewChild('inventoryModal') inventoryModal: any;
 
-  public settings: Settings = {
+  public settingsPlayers: Settings = {
     api: null,
     crud: true,
     primaryKeys: ['id'],
@@ -85,7 +85,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     clientSide: true,
   };
 
-  public columns: Column[] = [
+  public columnsPlayers: Column[] = [
     {title: 'Id', name: 'id'},
     {title: 'Name', name: 'name'},
     {
@@ -192,11 +192,14 @@ export class ModalDataTableDemoComponent implements OnInit {
   private _inventory: any = [];
 
   constructor(private http: HttpClient) {
+    this.dtPlayers = new DataTable(this.columnsPlayers, this.settingsPlayers);
+    this.dtInventory = new DataTable(this.columnsInventory, this.settingsInventory);
+    this.dtRank = new DataTable(this.columnsRank, this.settingsRank);
   }
 
   ngOnInit() {
-    this.columns[0]['cellTemplate'] = this.template1;
-    this.columns[1]['cellTemplate'] = this.template2;
+    this.columnsPlayers[0]['cellTemplate'] = this.template1;
+    this.columnsPlayers[1]['cellTemplate'] = this.template2;
 
     this.loading = true;
     this.http.get('assets/players.json').subscribe(data => {

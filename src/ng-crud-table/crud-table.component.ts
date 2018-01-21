@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
+import {DataTable} from './models/data-table';
 
 
 @Component({
@@ -12,8 +13,6 @@ import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.componen
 
 export class CrudTableComponent implements OnInit {
 
-  @Input() public columns: Column[];
-  @Input() public settings: Settings;
   @Input() public service: ICrudService;
   @Input() public zIndexModal: number;
   @Input() public trackByProp: string;
@@ -21,6 +20,26 @@ export class CrudTableComponent implements OnInit {
   @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
+
+  @Input()
+  set columns(val: Column[]) {
+    this._columns = val;
+    this.table.createColumns(this._columns);
+  }
+
+  get columns(): Column[] {
+    return this._columns;
+  }
+
+  @Input()
+  set settings(val: Settings) {
+    this._settings = val;
+    this.table.setSettings(this._settings);
+  }
+
+  get settings(): Settings {
+    return this._settings;
+  }
 
   @Input()
   set filters(val: any) {
@@ -31,8 +50,6 @@ export class CrudTableComponent implements OnInit {
   get filters(): any {
     return this._filters;
   }
-
-  private _filters: Filter = {};
 
   public items: any[];
   public item: any;
@@ -47,10 +64,16 @@ export class CrudTableComponent implements OnInit {
 
   public sortMeta: SortMeta = <SortMeta>{};
   public rowMenu: MenuItem[];
+  public table: DataTable;
+
+  private _filters: Filter = {};
+  private _columns: Column[];
+  private _settings: Settings;
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
   constructor() {
+    this.table = new DataTable();
   }
 
   ngOnInit() {

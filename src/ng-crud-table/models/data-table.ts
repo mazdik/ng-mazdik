@@ -17,7 +17,7 @@ export class DataTable {
   public scrollHeight: number;
   public tableWidth: number;
 
-  constructor() {
+  constructor(columns?: Column[], settings?: Settings) {
     this.settings = {
       api: null,
       crud: false,
@@ -25,6 +25,12 @@ export class DataTable {
       filter: true,
       initLoad: true
     };
+    if (columns) {
+      this.createColumns(columns);
+    }
+    if (settings) {
+      this.setSettings(settings);
+    }
   }
 
   createColumns(columns: Column[]) {

@@ -1,8 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter, HostBinding, ChangeDetectionStrategy} from '@angular/core';
-import {Filter, SortMeta} from '../types';
+import {Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
+import {ColumnModel, DataTable, Filter, SortMeta} from '../types';
 import {DomUtils} from '../utils/dom-utils';
-import {ColumnModel} from '../models/column.model';
-import {DataTable} from '../models/data-table';
 
 
 @Component({

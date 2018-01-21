@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Column} from '../types';
+import {ColumnModel} from '../types';
 import {CustomValidator} from './custom-validator';
 
 
@@ -23,7 +23,7 @@ import {CustomValidator} from './custom-validator';
 })
 export class InputTextComponent implements OnInit {
 
-  @Input() public column: Column;
+  @Input() public column: ColumnModel;
   @Input() public disabled: boolean;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();

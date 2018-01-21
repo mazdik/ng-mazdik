@@ -8,8 +8,7 @@
 </button>
 
 <app-datatable
-  [columns]="columns"
-  [settings]="settings"
+  [table]="table"
   [rows]="items"
   [filters]="filters"
   [rowMenu]="rowMenu"
@@ -25,9 +24,8 @@
 </app-datatable>
 
 <modal-edit-form #modalEditForm
-                 [columns]="columns"
+                 [table]="table"
                  [item]="item"
-                 [settings]="settings"
                  [service]="service"
                  [zIndex]="zIndexModal"
                  [view]="detailView"

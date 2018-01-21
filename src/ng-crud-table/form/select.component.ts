@@ -1,6 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Column, ICrudService} from '../types';
-import {ColumnUtils} from '../utils/column-utils';
+import {ColumnModel, ICrudService} from '../types';
 import {CustomValidator} from './custom-validator';
 
 
@@ -26,7 +25,7 @@ import {CustomValidator} from './custom-validator';
 })
 export class SelectComponent implements OnInit {
 
-  @Input() public column: Column;
+  @Input() public column: ColumnModel;
   @Input() public disabled: boolean;
   @Input() public service: ICrudService;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
@@ -70,7 +69,7 @@ export class SelectComponent implements OnInit {
     if (this.column.optionsUrl && !this.column.dependsColumn) {
       this.loadOptions();
     } else {
-      this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
+      this._options = this.column.getOptions(this.dependsValue);
     }
   }
 
@@ -79,7 +78,7 @@ export class SelectComponent implements OnInit {
       if (this.column.optionsUrl) {
         this.loadOptions();
       } else {
-        this._options = ColumnUtils.getOptions(this.column, this.dependsValue);
+        this._options = this.column.getOptions(this.dependsValue);
       }
     } else {
       this._options = [];

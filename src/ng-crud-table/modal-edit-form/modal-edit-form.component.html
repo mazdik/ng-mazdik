@@ -3,10 +3,9 @@
     <div *ngIf="childModal.visible">
       <app-row-form
         *ngIf="!view"
-        [columns]="columns"
+        [table]="table"
         [service]="service"
         [item]="item"
-        [settings]="settings"
         [isNew]="newItem"
         (valid)="formValid=$event">
       </app-row-form>
@@ -14,7 +13,7 @@
       <div class="detail-view" *ngIf="view">
         <table>
           <tbody>
-          <tr *ngFor="let column of columns">
+          <tr *ngFor="let column of table.columns">
             <th>{{column.title}}</th>
             <td>{{format(item[column.name], column)}}</td>
           </tr>

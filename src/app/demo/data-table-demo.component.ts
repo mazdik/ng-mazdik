@@ -1,14 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-crud-table';
 
 
 @Component({
   selector: 'data-table-demo',
   template: `
     <app-datatable
-      [columns]="columns"
-      [settings]="settings"
+      [table]="table"
       [rows]="rows"
       [loading]="loading">
     </app-datatable>
@@ -17,6 +16,7 @@ import {Column, Settings} from '../../ng-crud-table';
 
 export class DataTableDemoComponent implements OnInit {
 
+  public table: DataTable;
   public rows: any = [];
   public loading: boolean = false;
 
@@ -138,6 +138,7 @@ export class DataTableDemoComponent implements OnInit {
   ];
 
   constructor(private http: HttpClient) {
+    this.table = new DataTable(this.columns, this.settings);
   }
 
   ngOnInit() {
