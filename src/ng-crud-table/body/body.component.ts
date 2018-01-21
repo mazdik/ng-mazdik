@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy
 } from '@angular/core';
-import {DataTable, MenuItem} from '../types';
+import {DataTable} from '../types';
 
 
 @Component({
@@ -15,7 +15,6 @@ import {DataTable, MenuItem} from '../types';
 export class BodyComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
   @Input() public trackByProp: string;

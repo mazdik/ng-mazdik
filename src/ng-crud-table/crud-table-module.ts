@@ -24,13 +24,14 @@ import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
+import {InputComponent} from './form/input.component';
+import {InputOptionComponent} from './form/input-option.component';
 import {SelectComponent} from './form/select.component';
 import {CheckboxComponent} from './form/checkbox.component';
 import {RadioComponent} from './form/radio.component';
 import {InputTextComponent} from './form/input-text.component';
 import {TextareaComponent} from './form/textarea.component';
 import {CalendarComponent} from './form/calendar.component';
-import {CustomValidator} from './form/custom-validator';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
@@ -63,6 +64,8 @@ import {PopupSelectComponent} from './form/select-popup.component';
     TreeTableComponent,
     TreeTableNodeComponent,
     ModalEditFormComponent,
+    InputComponent,
+    InputOptionComponent,
     SelectComponent,
     CheckboxComponent,
     RadioComponent,
@@ -83,7 +86,7 @@ import {PopupSelectComponent} from './form/select-popup.component';
     ContextMenuComponent,
     PopupSelectComponent,
   ],
-  providers: [CustomValidator]
+  providers: []
 })
 export class CrudTableModule {
 }

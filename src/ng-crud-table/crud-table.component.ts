@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {Column, Filter, Settings, ICrudService, SortMeta, MenuItem} from './types';
+import {Column, Filter, Settings, ICrudService, SortMeta} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {DataTable} from './models/data-table';
 
@@ -63,7 +63,6 @@ export class CrudTableComponent implements OnInit {
   public currentPage: number = 1;
 
   public sortMeta: SortMeta = <SortMeta>{};
-  public rowMenu: MenuItem[];
   public table: DataTable;
 
   private _filters: Filter = {};
@@ -91,7 +90,7 @@ export class CrudTableComponent implements OnInit {
   }
 
   initRowMenu() {
-    this.rowMenu = [
+    this.table.actionMenu = [
       {
         label: 'View',
         icon: 'icon icon-rightwards',

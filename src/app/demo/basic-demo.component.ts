@@ -46,7 +46,7 @@ export class BasicDemoComponent implements OnInit {
       filter: true,
       frozen: true,
       width: 200,
-      validation: {pattern: '^[a-zA-Z ]+$'},
+      validation: {required: true, pattern: '^[a-zA-Z ]+$'},
       editable: true,
     },
     {

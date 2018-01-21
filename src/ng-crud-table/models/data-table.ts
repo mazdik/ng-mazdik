@@ -1,4 +1,4 @@
-import {Column, Settings} from '../types';
+import {Column, Settings, MenuItem} from '../types';
 import {ColumnModel} from './column.model';
 
 export class DataTable {
@@ -16,6 +16,7 @@ export class DataTable {
   public maxWidthColumn: number = 500;
   public scrollHeight: number;
   public tableWidth: number;
+  public actionMenu: MenuItem[];
 
   constructor(columns?: Column[], settings?: Settings) {
     this.settings = {

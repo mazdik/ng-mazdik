@@ -2,7 +2,7 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Filter, SortMeta, MenuItem} from '../types';
+import {DataTable, Filter, SortMeta} from '../types';
 
 
 @Component({
@@ -16,7 +16,6 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   @Input() public table: DataTable;
   @Input() public filters: Filter = <Filter>{};
-  @Input() public rowMenu: MenuItem[];
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
   @Input() public currentPage: number = 1;

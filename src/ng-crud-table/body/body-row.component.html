@@ -5,7 +5,7 @@
        style="text-align: center;"
        [ngStyle]="{'width.px': table.actionColumnWidth}">
 
-    <ng-template ngFor let-action [ngForOf]="actionMenu">
+    <ng-template ngFor let-action [ngForOf]="table.actionMenu">
         <span class="row-menu"
               [ngClass]="action.icon"
               *ngIf="!action.disabled"
@@ -14,7 +14,7 @@
         </span>
     </ng-template>
 
-    <span *ngIf="!enableAction">{{rowIndex+1}}</span>
+    <span *ngIf="!table.actionMenu">{{rowIndex+1}}</span>
   </div>
 
   <ng-container *ngFor="let column of table.frozenColumns; let colIndex = index; trackBy: columnTrackingFn">

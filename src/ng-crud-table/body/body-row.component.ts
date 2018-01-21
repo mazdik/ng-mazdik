@@ -14,7 +14,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
 
   @Input() public table: DataTable;
   @Input() public row: any;
-  @Input() public actionMenu: MenuItem[];
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
   @Input() public rowIndex: number;
@@ -22,7 +21,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  public enableAction: boolean = false;
   private rowDiffer: KeyValueDiffer<{}, {}>;
 
   @HostBinding('class')
@@ -39,9 +37,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    if (this.actionMenu) {
-      this.enableAction = true;
-    }
   }
 
   ngDoCheck(): void {
