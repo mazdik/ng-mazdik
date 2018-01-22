@@ -2,7 +2,7 @@ import {
   Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener, ViewEncapsulation,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ISelectOption, ColumnModel, Filter} from '../types';
+import {DataTable, ColumnModel, ISelectOption, Filter} from '../types';
 
 @Component({
   selector: 'ng-filter',
@@ -13,8 +13,9 @@ import {ISelectOption, ColumnModel, Filter} from '../types';
 })
 export class FilterComponent implements OnInit {
 
-  @Input() filters: Filter = {};
-  @Input() filterDelay: number = 500;
+  @Input() public table: DataTable;
+  @Input() public filters: Filter = {};
+  @Input() public filterDelay: number = 500;
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('searchFilterInput') searchFilterInput: any;

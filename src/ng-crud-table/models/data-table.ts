@@ -19,13 +19,7 @@ export class DataTable {
   public actionMenu: MenuItem[];
 
   constructor(columns?: Column[], settings?: Settings) {
-    this.settings = {
-      api: null,
-      crud: false,
-      sortable: true,
-      filter: true,
-      initLoad: true
-    };
+    this.defaultSettings();
     if (columns) {
       this.createColumns(columns);
     }
@@ -56,11 +50,35 @@ export class DataTable {
     });
   }
 
+  defaultSettings() {
+    this.settings = {
+      api: null,
+      crud: false,
+      sortable: true,
+      filter: true,
+      initLoad: true,
+      messages: {
+        empty: 'No data to display',
+        loading: 'Loading...',
+        clearFilters: 'Clear all filters',
+        create: 'Create',
+        delete: 'Delete',
+        save: 'Save',
+        close: 'Close',
+        titleCreate: 'Create',
+        titleUpdate: 'Update',
+        titleDetailView: 'Detail view',
+        search: 'Search...',
+        selectAll: 'Select all',
+        clear: 'Clear',
+      }
+    };
+  }
+
   setSettings(settings: Settings) {
-    this.settings = settings;
-    this.settings.sortable = (this.settings.hasOwnProperty('sortable')) ? this.settings.sortable : true;
-    this.settings.filter = (this.settings.hasOwnProperty('filter')) ? this.settings.filter : true;
-    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
+    const messages = Object.assign({}, this.settings.messages, settings.messages);
+    Object.assign(this.settings, settings, {messages: messages});
+
     /* disable all sorts */
     if (this.settings.sortable === false) {
       for (const col of this.columns) {

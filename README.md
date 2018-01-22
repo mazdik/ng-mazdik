@@ -124,6 +124,10 @@ export class PlayersComponent {
         primaryKeys: ['id'],
         tableWidth: 820,
         scrollHeight: 380,
+        messages: {
+          titleDetailView: 'Player details',
+          titleCreate: 'Create a new player'
+        }
     };
 }
 ```

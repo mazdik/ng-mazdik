@@ -3,6 +3,7 @@
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <ng-filter
     #selectFilter
+    [table]="table"
     [filters]="filters"
     (filterChanged)="onFilter($event)">
   </ng-filter>

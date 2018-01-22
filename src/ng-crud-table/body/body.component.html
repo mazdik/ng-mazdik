@@ -20,7 +20,7 @@
     class="empty-row"
     *ngIf="!rows?.length"
     [style.width.px]="table.columnsTotalWidth">
-    <ng-container *ngIf="loading">Loading...</ng-container>
-    <ng-container *ngIf="!loading">No data found</ng-container>
+    <ng-container *ngIf="loading">{{table.settings.messages.loading}}</ng-container>
+    <ng-container *ngIf="!loading">{{table.settings.messages.empty}}</ng-container>
   </div>
 </div>

@@ -15,7 +15,7 @@
            [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
            style="cursor: pointer;"
            (click)="clearAllFilters()"
-           title="Clear all filters">
+           [title]="table.settings.messages.clearFilters">
         </i>
       </ng-template>
       <ng-template [ngIf]="colIndex > 0">

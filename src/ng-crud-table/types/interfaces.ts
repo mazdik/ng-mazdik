@@ -38,6 +38,7 @@ export interface Settings {
   filter?: boolean;
   initLoad?: boolean;
   clientSide?: boolean;
+  messages?: Message;
 }
 
 export interface ICrudService {
@@ -91,4 +92,20 @@ export interface ITreeService {
   url: string;
   getNodes(node?: ITreeNode): Promise<ITreeNode[]>;
   searchNodes(name: string): Promise<any>;
+}
+
+export interface Message {
+  empty?: string;
+  loading?: string;
+  clearFilters?: string;
+  create?: string;
+  delete?: string;
+  save?: string;
+  close?: string;
+  titleCreate?: string;
+  titleUpdate?: string;
+  titleDetailView?: string;
+  search?: string;
+  selectAll?: string;
+  clear?: string;
 }

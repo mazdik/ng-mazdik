@@ -4,7 +4,7 @@
         class="button"
         style="margin-bottom: 5px;"
         *ngIf="settings.crud"
-        (click)="createItem()">Create
+        (click)="createItem()">{{table.settings.messages.create}}
 </button>
 
 <app-datatable

@@ -50,9 +50,9 @@ export class ModalEditFormComponent implements OnInit {
 
   modalTitle() {
     if (!this.view) {
-      return this.newItem ? 'Create' : 'Update';
+      return this.newItem ? this.table.settings.messages.titleCreate : this.table.settings.messages.titleUpdate;
     } else {
-      return 'Detail view';
+      return this.table.settings.messages.titleDetailView;
     }
   }
 

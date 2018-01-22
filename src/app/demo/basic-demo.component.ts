@@ -27,6 +27,10 @@ export class BasicDemoComponent implements OnInit {
     primaryKeys: ['id'],
     tableWidth: 1100,
     scrollHeight: 380,
+    messages: {
+      titleDetailView: 'Player details',
+      titleCreate: 'Create a new player'
+    }
   };
 
   public columns: Column[] = [

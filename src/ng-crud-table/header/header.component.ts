@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   @Input() public table: DataTable;
   @Input() public filters: Filter = {};
   @Input() public sortMeta: SortMeta;
-  @Input() offsetX: number;
+  @Input() public offsetX: number;
 
   @Output() sort: EventEmitter<any> = new EventEmitter();
   @Output() showColumnMenu: EventEmitter<any> = new EventEmitter();

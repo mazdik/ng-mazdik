@@ -4,7 +4,7 @@
        [style.display]="(isVisible && column.options) ? 'block' : 'none' ">
     <div class="clearable-input">
       <input class="df-control"
-             placeholder="Search..."
+             placeholder="{{table.settings.messages.search}}"
              #searchFilterInput
              [(ngModel)]="searchFilterText"/>
       <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
@@ -14,12 +14,12 @@
     <ul class="list-menu">
       <li *ngIf="selectionLimit !== 1">
       <span (click)="checkAll()">
-        <i class="icon icon-ok"></i>&nbsp;&nbsp;Select all
+        <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.settings.messages.selectAll}}
       </span>
       </li>
       <li>
       <span (click)="uncheckAll()">
-        <i class="icon icon-remove"></i>&nbsp;&nbsp;Clear
+        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.settings.messages.clear}}
       </span>
       </li>
 
