@@ -15,7 +15,7 @@ export class FilterComponent implements OnInit {
 
   @Input() filters: Filter = {};
   @Input() filterDelay: number = 500;
-  @Output() onFilter: EventEmitter<any> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('searchFilterInput') searchFilterInput: any;
   @ViewChild('filterInput') filterInput: any;
@@ -201,7 +201,7 @@ export class FilterComponent implements OnInit {
       delete this.filters[field];
     }
 
-    this.onFilter.emit(this.filters);
+    this.filterChanged.emit(this.filters);
     this.updateNumSelected();
     this.columnsSelectedOptions[field] = this.selectedOptions;
   }
@@ -221,7 +221,7 @@ export class FilterComponent implements OnInit {
     this.filters = {};
     this.selectedOptions = [];
     this.columnsSelectedOptions = [];
-    this.onFilter.emit(this.filters);
+    this.filterChanged.emit(this.filters);
   }
 
   setColumnSelectedOption(value, field, matchMode) {

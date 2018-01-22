@@ -28,9 +28,9 @@
     </ul>
     <div class="list-divider"></div>
     <ng-template [ngIf]="totalItems > 0">
-        <span class="select-page-count">
-          {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
-        </span>
+      <span class="select-page-count">
+        {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
+      </span>
       <pagination class="select-pagination"
                   [totalItems]="totalItems"
                   [itemsPerPage]="itemsPerPage"

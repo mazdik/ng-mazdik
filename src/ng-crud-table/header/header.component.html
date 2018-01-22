@@ -19,7 +19,7 @@
         </i>
       </ng-template>
       <ng-template [ngIf]="colIndex > 0">
-          <span class="column-title" (click)="sort($event, column)">
+          <span class="column-title" (click)="onSort($event, column)">
           {{column.title}}
           <i class="icon"
              *ngIf="column.sortable"
@@ -27,7 +27,7 @@
           </i>
           </span>
         <i *ngIf="column.filter"
-           (click)="showColumnMenu($event, column)"
+           (click)="clickColumnMenu($event, column)"
            [ngClass]="{'is-filter': isFilter(column)}"
            class="icon-filter column-menu">
         </i>
@@ -46,7 +46,7 @@
          [maxWidth]="table.maxWidthColumn"
          (resize)="onColumnResized($event, column)">
 
-            <span class="column-title" (click)="sort($event, column)">
+            <span class="column-title" (click)="onSort($event, column)">
             {{column.title}}
             <i class="icon"
                *ngIf="column.sortable"
@@ -54,7 +54,7 @@
             </i>
             </span>
       <i *ngIf="column.filter"
-         (click)="showColumnMenu($event, column)"
+         (click)="clickColumnMenu($event, column)"
          [ngClass]="{'is-filter': isFilter(column)}"
          class="icon-filter column-menu">
       </i>

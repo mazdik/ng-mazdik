@@ -8,7 +8,7 @@ import {DataTable, Filter, SortMeta} from '../types';
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
-  styleUrls: ['./datatable.component.css'],
+  styleUrls: ['./datatable.component.css', '../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

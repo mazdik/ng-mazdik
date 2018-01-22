@@ -10,7 +10,6 @@ import {FilterComponent} from './filter/filter.component';
 import {SearchFilterPipe} from './filter/search-filter.pipe';
 import {FormComponent} from './form/form.component';
 import {CrudTableComponent} from './crud-table.component';
-import {LoadingIndicatorComponent} from './loading-indicator/loading-indicator.component';
 import {BodyComponent} from './body/body.component';
 import {BodyRowComponent} from './body/body-row.component';
 import {BodyCellComponent} from './body/body-cell.component';
@@ -50,7 +49,6 @@ import {PopupSelectComponent} from './form/select-popup.component';
     FilterComponent,
     FormComponent,
     SearchFilterPipe,
-    LoadingIndicatorComponent,
     BodyComponent,
     BodyRowComponent,
     BodyCellComponent,

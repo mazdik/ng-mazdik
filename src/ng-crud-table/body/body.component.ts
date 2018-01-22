@@ -15,19 +15,11 @@ import {DataTable} from '../types';
 export class BodyComponent implements OnInit {
 
   @Input() public table: DataTable;
+  @Input() public rows: any;
   @Input() public offsetX: number;
   @Input() public selectedRowIndex: number;
   @Input() public trackByProp: string;
   @Input() public loading: boolean = false;
-
-  @Input()
-  set rows(val: any) {
-    this._rows = val;
-  }
-
-  get rows(): any {
-    return this._rows;
-  }
 
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() scroll: EventEmitter<any> = new EventEmitter();
@@ -35,7 +27,6 @@ export class BodyComponent implements OnInit {
 
   offsetY: number = 0;
   rowTrackingFn: any;
-  _rows: any[];
 
   constructor() {
     // declare fn here so we can get access to the `this` property

@@ -19,11 +19,9 @@ export class HeaderComponent implements OnInit {
   @Input() public sortMeta: SortMeta;
   @Input() offsetX: number;
 
-  @Output() onSort: EventEmitter<any> = new EventEmitter();
-  @Output() onFilter: EventEmitter<any> = new EventEmitter();
-  @Output() onShowColumnMenu: EventEmitter<any> = new EventEmitter();
-  @Output() onClearAllFilters: EventEmitter<any> = new EventEmitter();
-  @Output() onResize: EventEmitter<any> = new EventEmitter();
+  @Output() sort: EventEmitter<any> = new EventEmitter();
+  @Output() showColumnMenu: EventEmitter<any> = new EventEmitter();
+  @Output() clearFilters: EventEmitter<any> = new EventEmitter();
 
   frozenColumns: ColumnModel[] = [];
 
@@ -45,13 +43,13 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  sort(event, column: ColumnModel) {
+  onSort(event, column: ColumnModel) {
     if (!column.sortable) {
       return;
     }
     this.sortMeta.order = (this.sortMeta.field === column.name) ? this.sortMeta.order * -1 : 1;
     this.sortMeta.field = column.name;
-    this.onSort.emit({
+    this.sort.emit({
       sortMeta: this.sortMeta
     });
   }
@@ -72,14 +70,9 @@ export class HeaderComponent implements OnInit {
     return length > 0;
   }
 
-  filter(event) {
-    this.filters = event;
-    this.onFilter.emit(this.filters);
-  }
-
   clearAllFilters() {
     this.filters = {};
-    this.onClearAllFilters.emit(true);
+    this.clearFilters.emit(true);
   }
 
   hasFilter() {
@@ -93,7 +86,7 @@ export class HeaderComponent implements OnInit {
     return !empty;
   }
 
-  showColumnMenu(event, column: ColumnModel) {
+  clickColumnMenu(event, column: ColumnModel) {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
@@ -102,21 +95,16 @@ export class HeaderComponent implements OnInit {
     // datatable-row-left + offsetLeft
     left = left + el.parentNode.offsetLeft;
 
-    this.onShowColumnMenu.emit({'top': top, 'left': left, 'column': column});
+    this.showColumnMenu.emit({'top': top, 'left': left, 'column': column});
   }
 
   onColumnResized(width: number, column: ColumnModel): void {
-
     if (width <= this.table.minWidthColumn) {
       width = this.table.minWidthColumn;
     } else if (width >= this.table.maxWidthColumn) {
       width = this.table.maxWidthColumn;
     }
     this.table.setColumnWidth(column, width);
-    this.onResize.emit({
-      column: column,
-      newValue: width
-    });
   }
 
   stylesByGroup() {

@@ -1,18 +1,18 @@
 <div class="datatable fixed-header fixed-row scroll-horz"
      [ngStyle]="{'width.px': table.tableWidth}">
-  <loading-indicator [isLoading]="loading"></loading-indicator>
+  <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <ng-filter
     #selectFilter
     [filters]="filters"
-    (onFilter)="onFilter($event)">
+    (filterChanged)="onFilter($event)">
   </ng-filter>
   <datatable-header
     [table]="table"
     [filters]="filters"
     [sortMeta]="sortMeta"
-    (onSort)="onSort($event)"
-    (onShowColumnMenu)="showColumnMenu($event)"
-    (onClearAllFilters)="selectFilter.clearAllFilters()"
+    (sort)="onSort($event)"
+    (showColumnMenu)="showColumnMenu($event)"
+    (clearFilters)="selectFilter.clearAllFilters()"
     [offsetX]="offsetX">
   </datatable-header>
   <datatable-body
