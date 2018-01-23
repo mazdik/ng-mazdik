@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {Column, Filter, Settings, ICrudService, SortMeta} from './types';
+import {Column, Settings, ICrudService} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {DataTable} from './models/data-table';
 
@@ -17,7 +17,7 @@ export class CrudTableComponent implements OnInit {
   @Input() public zIndexModal: number;
   @Input() public trackByProp: string;
   @Input() public refreshRowOnSave: boolean;
-  @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
   @Output() dataChanged: EventEmitter<any> = new EventEmitter();
   @Output() select: EventEmitter<any> = new EventEmitter();
 
@@ -41,6 +41,7 @@ export class CrudTableComponent implements OnInit {
     return this._settings;
   }
 
+  public table: DataTable;
   public items: any[];
   public item: any;
   public selectedRowIndex: number;
@@ -51,9 +52,6 @@ export class CrudTableComponent implements OnInit {
   public itemsPerPage: number = 10;
   public totalItems: number = 0;
   public currentPage: number = 1;
-
-  public sortMeta: SortMeta = <SortMeta>{};
-  public table: DataTable;
 
   private _columns: Column[];
   private _settings: Settings;
@@ -67,15 +65,15 @@ export class CrudTableComponent implements OnInit {
   ngOnInit() {
     this.service.url = this.settings.api;
     this.service.primaryKeys = this.settings.primaryKeys;
-    this.initRowMenu();
     this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
-    if (this.settings.initLoad) {
-      this.getItems();
-    }
     if (!this.trackByProp && this.settings.primaryKeys && this.settings.primaryKeys.length === 1) {
       this.trackByProp = this.settings.primaryKeys[0];
     }
     this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
+    this.initRowMenu();
+    if (this.settings.initLoad) {
+      this.getItems().then();
+    }
   }
 
   initRowMenu() {
@@ -97,7 +95,7 @@ export class CrudTableComponent implements OnInit {
   getItems(): Promise<any> {
     this.loading = true;
     this.errors = null;
-    return this.service.getItems(this.currentPage, this.table.filters, this.sortMeta.field, this.sortMeta.order)
+    return this.service.getItems(this.currentPage, this.table.filters, this.table.sortMeta.field, this.table.sortMeta.order)
       .then(data => {
         this.loading = false;
         this.items = data.items;
@@ -157,13 +155,11 @@ export class CrudTableComponent implements OnInit {
   }
 
   onFilter(event) {
-    this.table.filters = event;
     this.getItems().then();
   }
 
   sort(event) {
-    this.sortMeta = event;
-    this.getItems();
+    this.getItems().then();
   }
 
   onSelectedRow(event) {

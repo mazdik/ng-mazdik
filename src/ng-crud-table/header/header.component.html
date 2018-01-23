@@ -23,7 +23,7 @@
           {{column.title}}
           <i class="icon"
              *ngIf="column.sortable"
-             [ngClass]="{'icon-down': (getSortOrder(column) == -1), 'icon-up': (getSortOrder(column) == 1)}">
+             [ngClass]="getSortOrderIcon(column)">
           </i>
           </span>
         <i *ngIf="column.filter"
@@ -50,7 +50,7 @@
             {{column.title}}
             <i class="icon"
                *ngIf="column.sortable"
-               [ngClass]="{'icon-down': (getSortOrder(column) == -1), 'icon-up': (getSortOrder(column) == 1)}">
+               [ngClass]="getSortOrderIcon(column)">
             </i>
             </span>
       <i *ngIf="column.filter"

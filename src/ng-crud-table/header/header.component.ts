@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ColumnModel, DataTable, SortMeta} from '../types';
+import {ColumnModel, DataTable} from '../types';
 import {DomUtils} from '../utils/dom-utils';
 
 
@@ -14,7 +14,6 @@ import {DomUtils} from '../utils/dom-utils';
 export class HeaderComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Input() public sortMeta: SortMeta;
   @Input() public offsetX: number;
 
   @Output() sort: EventEmitter<any> = new EventEmitter();
@@ -45,19 +44,20 @@ export class HeaderComponent implements OnInit {
     if (!column.sortable) {
       return;
     }
-    this.sortMeta.order = (this.sortMeta.field === column.name) ? this.sortMeta.order * -1 : 1;
-    this.sortMeta.field = column.name;
+    this.table.setSortOrder(column);
     this.sort.emit({
-      sortMeta: this.sortMeta
+      sortMeta: this.table.sortMeta
     });
   }
 
-  getSortOrder(column: ColumnModel) {
-    let order = 0;
-    if (this.sortMeta.field && this.sortMeta.field === column.name) {
-      order = this.sortMeta.order;
+  getSortOrderIcon(column: ColumnModel) {
+    let icon: string = '';
+    if (this.table.getSortOrder(column) === -1) {
+      icon = 'icon-down';
+    } else if (this.table.getSortOrder(column) === 1) {
+      icon = 'icon-up';
     }
-    return order;
+    return icon;
   }
 
   clearAllFilters() {

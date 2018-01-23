@@ -1,4 +1,4 @@
-import {Column, Settings, MenuItem, Filter} from '../types';
+import {Column, Settings, MenuItem, Filter, SortMeta} from '../types';
 import {ColumnModel} from './column.model';
 
 export class DataTable {
@@ -18,6 +18,7 @@ export class DataTable {
   public tableWidth: number;
   public actionMenu: MenuItem[];
   public filters: Filter = <Filter>{};
+  public sortMeta: SortMeta = <SortMeta>{};
 
   constructor(columns?: Column[], settings?: Settings) {
     this.defaultSettings();
@@ -93,6 +94,9 @@ export class DataTable {
       }
     }
     this.tableWidth = this.settings.tableWidth;
+    if (!this.tableWidth && this.columnsTotalWidth < 800) {
+      this.tableWidth = this.columnsTotalWidth;
+    }
     this.scrollHeight = this.settings.scrollHeight;
   }
 
@@ -135,6 +139,19 @@ export class DataTable {
 
   getFilterValue(column: ColumnModel) {
     return this.filters[column.name] ? this.filters[column.name].value : '';
+  }
+
+  setSortOrder(column: ColumnModel) {
+    this.sortMeta.order = (this.sortMeta.field === column.name) ? this.sortMeta.order * -1 : 1;
+    this.sortMeta.field = column.name;
+  }
+
+  getSortOrder(column: ColumnModel) {
+    let order = 0;
+    if (this.sortMeta.field && this.sortMeta.field === column.name) {
+      order = this.sortMeta.order;
+    }
+    return order;
   }
 
 }

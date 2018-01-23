@@ -29,12 +29,13 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   @Input()
   set rows(val: any) {
-    this._rows = val;
     if (this.table.settings.clientSide) {
       this.table.filters = <Filter>{};
-      this.sortMeta = <SortMeta>{};
-      this.totalItems = this._rows.length;
-      this.rowsCopy = (this.rows) ? this.rows.slice(0) : [];
+      this.table.sortMeta = <SortMeta>{};
+      this.rowsCopy = (val) ? val.slice(0) : [];
+      this._rows = this.getItems();
+    } else {
+      this._rows = val;
     }
   }
 
@@ -44,7 +45,6 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   @ViewChild('selectFilter') selectFilter: any;
 
-  public sortMeta: SortMeta = <SortMeta>{};
   public offsetX: number = 0;
   public rowsCopy: any;
 
@@ -56,9 +56,6 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    if (this.table.settings.clientSide) {
-      this._rows = this.getItems();
-    }
   }
 
   ngDoCheck(): void {
@@ -90,11 +87,10 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   onSort(event) {
-    this.sortMeta = event.sortMeta;
     if (this.table.settings.clientSide) {
       this._rows = this.getItems();
     }
-    this.sortChanged.emit(this.sortMeta);
+    this.sortChanged.emit(this.table.sortMeta);
     this.selectRow(0);
   }
 
@@ -156,7 +152,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   getItems() {
     let data = this.filter(this.rowsCopy, this.table.filters);
     this.totalItems = data.length;
-    data = this.sort(data, this.sortMeta.field, this.sortMeta.order);
+    data = this.sort(data, this.table.sortMeta.field, this.table.sortMeta.order);
     data = this.pager(data, this.currentPage);
     return data;
   }
