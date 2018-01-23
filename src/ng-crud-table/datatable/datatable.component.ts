@@ -15,7 +15,6 @@ import {DataTable, Filter, SortMeta} from '../types';
 export class DatatableComponent implements OnInit, DoCheck {
 
   @Input() public table: DataTable;
-  @Input() public filters: Filter = <Filter>{};
   @Input() public itemsPerPage: number = 10;
   @Input() public totalItems: number = 0;
   @Input() public currentPage: number = 1;
@@ -32,7 +31,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   set rows(val: any) {
     this._rows = val;
     if (this.table.settings.clientSide) {
-      this.filters = <Filter>{};
+      this.table.filters = <Filter>{};
       this.sortMeta = <SortMeta>{};
       this.totalItems = this._rows.length;
       this.rowsCopy = (this.rows) ? this.rows.slice(0) : [];
@@ -82,12 +81,11 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   onFilter(event) {
-    this.filters = Object.assign({}, event);
     if (this.table.settings.clientSide) {
       this.currentPage = 1;
       this._rows = this.getItems();
     }
-    this.filterChanged.emit(this.filters);
+    this.filterChanged.emit(this.table.filters);
     this.selectRow(0);
   }
 
@@ -156,7 +154,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   getItems() {
-    let data = this.filter(this.rowsCopy, this.filters);
+    let data = this.filter(this.rowsCopy, this.table.filters);
     this.totalItems = data.length;
     data = this.sort(data, this.sortMeta.field, this.sortMeta.order);
     data = this.pager(data, this.currentPage);

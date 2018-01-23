@@ -1,5 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {ColumnModel, DataTable, Filter, SortMeta} from '../types';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {ColumnModel, DataTable, SortMeta} from '../types';
 import {DomUtils} from '../utils/dom-utils';
 
 
@@ -8,14 +8,12 @@ import {DomUtils} from '../utils/dom-utils';
   templateUrl: 'header.component.html',
   host: {
     class: 'datatable-header'
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  }
 })
 
 export class HeaderComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Input() public filters: Filter = {};
   @Input() public sortMeta: SortMeta;
   @Input() public offsetX: number;
 
@@ -62,28 +60,9 @@ export class HeaderComponent implements OnInit {
     return order;
   }
 
-  isFilter(column: ColumnModel): boolean {
-    let length = 0;
-    if (this.filters[column.name] && this.filters[column.name].value) {
-      length = this.filters[column.name].value.trim().length;
-    }
-    return length > 0;
-  }
-
   clearAllFilters() {
-    this.filters = {};
+    this.table.filters = {};
     this.clearFilters.emit(true);
-  }
-
-  hasFilter() {
-    let empty = true;
-    for (const prop in this.filters) {
-      if (this.filters.hasOwnProperty(prop)) {
-        empty = false;
-        break;
-      }
-    }
-    return !empty;
   }
 
   clickColumnMenu(event, column: ColumnModel) {

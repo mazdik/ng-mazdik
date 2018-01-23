@@ -40,10 +40,10 @@
              #filterInput
              [attr.placeholder]="column.name"
              *ngIf="column.filter"
-             [value]="filters[column.name] ? filters[column.name].value : ''"
+             [value]="table.getFilterValue(column)"
              (click)="onFilterInputClick($event)"
              (keyup)="onFilterKeyup($event, column.name, null)"/>
-      <span [style.display]="(filters[column.name] && filters[column.name].value.length > 0) ? 'block' : 'none' "
+      <span [style.display]="table.isFilter(column) ? 'block' : 'none' "
             (click)="uncheckAll()">&times;</span>
     </div>
   </div>

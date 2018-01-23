@@ -4,12 +4,10 @@
   <ng-filter
     #selectFilter
     [table]="table"
-    [filters]="filters"
     (filterChanged)="onFilter($event)">
   </ng-filter>
   <datatable-header
     [table]="table"
-    [filters]="filters"
     [sortMeta]="sortMeta"
     (sort)="onSort($event)"
     (showColumnMenu)="showColumnMenu($event)"

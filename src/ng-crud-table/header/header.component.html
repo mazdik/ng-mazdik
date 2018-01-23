@@ -12,7 +12,7 @@
 
       <ng-template [ngIf]="colIndex == 0 && table.settings.filter">
         <i class="icon-filter"
-           [style.visibility]="(!hasFilter()) ? 'hidden' : 'visible' "
+           [style.visibility]="(!table.hasFilter()) ? 'hidden' : 'visible' "
            style="cursor: pointer;"
            (click)="clearAllFilters()"
            [title]="table.settings.messages.clearFilters">
@@ -28,7 +28,7 @@
           </span>
         <i *ngIf="column.filter"
            (click)="clickColumnMenu($event, column)"
-           [ngClass]="{'is-filter': isFilter(column)}"
+           [ngClass]="{'is-filter': table.isFilter(column)}"
            class="icon-filter column-menu">
         </i>
       </ng-template>
@@ -55,7 +55,7 @@
             </span>
       <i *ngIf="column.filter"
          (click)="clickColumnMenu($event, column)"
-         [ngClass]="{'is-filter': isFilter(column)}"
+         [ngClass]="{'is-filter': table.isFilter(column)}"
          class="icon-filter column-menu">
       </i>
     </div>

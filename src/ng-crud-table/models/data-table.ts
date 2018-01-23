@@ -1,4 +1,4 @@
-import {Column, Settings, MenuItem} from '../types';
+import {Column, Settings, MenuItem, Filter} from '../types';
 import {ColumnModel} from './column.model';
 
 export class DataTable {
@@ -17,6 +17,7 @@ export class DataTable {
   public scrollHeight: number;
   public tableWidth: number;
   public actionMenu: MenuItem[];
+  public filters: Filter = <Filter>{};
 
   constructor(columns?: Column[], settings?: Settings) {
     this.defaultSettings();
@@ -111,6 +112,29 @@ export class DataTable {
       }
     }
     this.columnsTotalWidth = totalWidth + this.actionColumnWidth;
+  }
+
+  isFilter(column: ColumnModel): boolean {
+    let length = 0;
+    if (this.filters[column.name] && this.filters[column.name].value) {
+      length = this.filters[column.name].value.trim().length;
+    }
+    return length > 0;
+  }
+
+  hasFilter() {
+    let empty = true;
+    for (const prop in this.filters) {
+      if (this.filters.hasOwnProperty(prop)) {
+        empty = false;
+        break;
+      }
+    }
+    return !empty;
+  }
+
+  getFilterValue(column: ColumnModel) {
+    return this.filters[column.name] ? this.filters[column.name].value : '';
   }
 
 }

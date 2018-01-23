@@ -1,20 +1,17 @@
 import {
-  Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener, ViewEncapsulation,
+  Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnModel, ISelectOption, Filter} from '../types';
+import {DataTable, ColumnModel, ISelectOption} from '../types';
 
 @Component({
   selector: 'ng-filter',
   templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css', '../styles/index.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class FilterComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Input() public filters: Filter = {};
   @Input() public filterDelay: number = 500;
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
 
@@ -197,12 +194,12 @@ export class FilterComponent implements OnInit {
 
   filter(value, field, matchMode) {
     if (!this.isFilterBlank(value)) {
-      this.filters[field] = {value: value, matchMode: matchMode};
-    } else if (this.filters[field]) {
-      delete this.filters[field];
+      this.table.filters[field] = {value: value, matchMode: matchMode};
+    } else if (this.table.filters[field]) {
+      delete this.table.filters[field];
     }
 
-    this.filterChanged.emit(this.filters);
+    this.filterChanged.emit(this.table.filters);
     this.updateNumSelected();
     this.columnsSelectedOptions[field] = this.selectedOptions;
   }
@@ -219,10 +216,10 @@ export class FilterComponent implements OnInit {
   }
 
   clearAllFilters() {
-    this.filters = {};
+    this.table.filters = {};
     this.selectedOptions = [];
     this.columnsSelectedOptions = [];
-    this.filterChanged.emit(this.filters);
+    this.filterChanged.emit(this.table.filters);
   }
 
   setColumnSelectedOption(value, field, matchMode) {

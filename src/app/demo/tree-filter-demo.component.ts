@@ -21,7 +21,6 @@ import {TreeDemoService} from './tree-demo.service';
         #table
         [columns]="columns"
         [settings]="settings"
-        [filters]="filters"
         [service]="service"
         (filterChanged)="onFilterChanged($event)">
       </crud-table>
@@ -105,9 +104,8 @@ export class TreeFilterDemoComponent implements OnInit {
   public treeService: ITreeService;
 
   selectedNode: ITreeNode;
-  filters: Filter = {};
   items: MenuItem[];
-  @ViewChild('table') table: any;
+  @ViewChild('table') dt: any;
   @ViewChild('tree') tree: any;
 
   constructor(private http: HttpClient) {
@@ -126,9 +124,9 @@ export class TreeFilterDemoComponent implements OnInit {
   selectNode(node: ITreeNode) {
     if (node) {
       if (node.id) {
-        this.filters[node.data['column']] = {value: node.id, matchMode: null};
-      } else if (this.filters[node.data['column']]) {
-        delete this.filters[node.data['column']];
+        this.dt.table.filters[node.data['column']] = {value: node.id, matchMode: null};
+      } else if (this.dt.table.filters[node.data['column']]) {
+        delete this.dt.table.filters[node.data['column']];
       }
 
       if (node.parent) {
@@ -142,12 +140,12 @@ export class TreeFilterDemoComponent implements OnInit {
     this.selectNode(node);
     if (node.children) {
       for (const childNode of node.children) {
-        if (this.filters[childNode.data['column']]) {
-          delete this.filters[childNode.data['column']];
+        if (this.dt.table.filters[childNode.data['column']]) {
+          delete this.dt.table.filters[childNode.data['column']];
         }
       }
     }
-    this.table.getItems();
+    this.dt.getItems();
   }
 
   setNode(field: string, value: string) {
@@ -161,21 +159,21 @@ export class TreeFilterDemoComponent implements OnInit {
   }
 
   syncNode() {
-    if (Object.keys(this.filters).length === 0) {
+    if (Object.keys(this.dt.table.filters).length === 0) {
       if (this.selectedNode) {
         this.selectedNode = null;
       }
     } else {
-      for (const key in this.filters) {
-        if (this.filters[key]['value']) {
-          this.setNode(key, this.filters[key]['value']);
+      for (const key in this.dt.table.filters) {
+        if (this.dt.table.filters[key]['value']) {
+          this.setNode(key, this.dt.table.filters[key]['value']);
         }
       }
     }
   }
 
   onFilterChanged(event) {
-    this.filters = event;
+    this.dt.table.filters = event;
     this.syncNode();
   }
 

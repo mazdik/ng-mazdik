@@ -41,16 +41,6 @@ export class CrudTableComponent implements OnInit {
     return this._settings;
   }
 
-  @Input()
-  set filters(val: any) {
-    this._filters = val;
-    this.filterChanged.emit(this._filters);
-  }
-
-  get filters(): any {
-    return this._filters;
-  }
-
   public items: any[];
   public item: any;
   public selectedRowIndex: number;
@@ -65,7 +55,6 @@ export class CrudTableComponent implements OnInit {
   public sortMeta: SortMeta = <SortMeta>{};
   public table: DataTable;
 
-  private _filters: Filter = {};
   private _columns: Column[];
   private _settings: Settings;
 
@@ -108,7 +97,7 @@ export class CrudTableComponent implements OnInit {
   getItems(): Promise<any> {
     this.loading = true;
     this.errors = null;
-    return this.service.getItems(this.currentPage, this.filters, this.sortMeta.field, this.sortMeta.order)
+    return this.service.getItems(this.currentPage, this.table.filters, this.sortMeta.field, this.sortMeta.order)
       .then(data => {
         this.loading = false;
         this.items = data.items;
@@ -168,8 +157,8 @@ export class CrudTableComponent implements OnInit {
   }
 
   onFilter(event) {
-    this.filters = event;
-    this.getItems();
+    this.table.filters = event;
+    this.getItems().then();
   }
 
   sort(event) {

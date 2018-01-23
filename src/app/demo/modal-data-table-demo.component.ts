@@ -198,8 +198,8 @@ export class ModalDataTableDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.columnsPlayers[0]['cellTemplate'] = this.template1;
-    this.columnsPlayers[1]['cellTemplate'] = this.template2;
+    this.dtPlayers.columns[0]['cellTemplate'] = this.template1;
+    this.dtPlayers.columns[1]['cellTemplate'] = this.template2;
 
     this.loading = true;
     this.http.get('assets/players.json').subscribe(data => {
