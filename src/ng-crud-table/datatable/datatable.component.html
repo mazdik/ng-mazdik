@@ -1,11 +1,11 @@
 <div class="datatable fixed-header fixed-row scroll-horz"
      [ngStyle]="{'width.px': table.tableWidth}">
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
-  <ng-filter
+  <app-filter
     #selectFilter
     [table]="table"
     (filterChanged)="onFilter($event)">
-  </ng-filter>
+  </app-filter>
   <datatable-header
     [table]="table"
     (sort)="onSort($event)"

@@ -3,9 +3,11 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, ColumnModel, ISelectOption} from '../types';
+import {isBlank} from '../utils/util';
+
 
 @Component({
-  selector: 'ng-filter',
+  selector: 'app-filter',
   templateUrl: './filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -16,7 +18,6 @@ export class FilterComponent implements OnInit {
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('searchFilterInput') searchFilterInput: any;
-  @ViewChild('filterInput') filterInput: any;
 
   left: number;
   top: number;
@@ -26,10 +27,9 @@ export class FilterComponent implements OnInit {
   selectedOptions: any[];
   columnsSelectedOptions: any[] = [];
   numSelected: number = 0;
-  isVisible: boolean = false;
+  isVisible: boolean;
   searchFilterText: string = '';
-  selectContainerClicked: boolean = false;
-  filterTimeout: any;
+  selectContainerClicked: boolean;
 
   @HostBinding('style.position') position = 'absolute';
 
@@ -97,10 +97,6 @@ export class FilterComponent implements OnInit {
       if (this.column.options) {
         setTimeout(() => {
           this.searchFilterInput.nativeElement.focus();
-        }, 1);
-      } else {
-        setTimeout(() => {
-          this.filterInput.nativeElement.focus();
         }, 1);
       }
     }
@@ -176,24 +172,8 @@ export class FilterComponent implements OnInit {
     this.closeDropdown();
   }
 
-  onFilterInputClick(event) {
-    event.stopPropagation();
-  }
-
-  onFilterKeyup(event, field, matchMode) {
-    const value = event.target.value;
-    if (this.filterTimeout) {
-      clearTimeout(this.filterTimeout);
-    }
-
-    this.filterTimeout = setTimeout(() => {
-      this.filter(value, field, matchMode);
-      this.filterTimeout = null;
-    }, this.filterDelay);
-  }
-
   filter(value, field, matchMode) {
-    if (!this.isFilterBlank(value)) {
+    if (!isBlank(value)) {
       this.table.filters[field] = {value: value, matchMode: matchMode};
     } else if (this.table.filters[field]) {
       delete this.table.filters[field];
@@ -204,17 +184,6 @@ export class FilterComponent implements OnInit {
     this.columnsSelectedOptions[field] = this.selectedOptions;
   }
 
-  isFilterBlank(filter: any): boolean {
-    if (filter !== null && filter !== undefined) {
-      if ((typeof filter === 'string' && filter.trim().length === 0) || (filter instanceof Array && filter.length === 0)) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return true;
-  }
-
   clearAllFilters() {
     this.table.filters = {};
     this.selectedOptions = [];
@@ -222,16 +191,12 @@ export class FilterComponent implements OnInit {
     this.filterChanged.emit(this.table.filters);
   }
 
-  setColumnSelectedOption(value, field, matchMode) {
-    this.selectedOptions = this.columnsSelectedOptions[field];
-    if (value) {
-      this.selectedOptions = [];
-      this.selectedOptions.push(value);
-    } else {
-      this.selectedOptions = [];
-    }
-    this.updateNumSelected();
-    this.columnsSelectedOptions[field] = this.selectedOptions;
+  onFilterChanged() {
+    this.filterChanged.emit(this.table.filters);
+  }
+
+  onFilterClose() {
+    this.toggleDropdown();
   }
 
 }
