@@ -8,7 +8,7 @@
 
 <app-modal #modal [modalTitle]="'Search Dialog'" [width]="400" [zIndex]="zIndex" [autoZIndex]="true">
   <ng-container class="app-modal-body">
-    <div class="select-header">
+    <div class="select-header" style="margin: 3px 0;">
       <div class="clearable-input">
         <input class="df-control"
                placeholder="Search..."
@@ -28,10 +28,11 @@
     </ul>
     <div class="list-divider"></div>
     <ng-template [ngIf]="totalItems > 0">
-      <span class="select-page-count">
+      <span class="select-page-count" style="flex: 1 1 20%;">
         {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
       </span>
       <pagination class="select-pagination"
+                  style="flex: 1 1 80%; text-align: right;"
                   [totalItems]="totalItems"
                   [itemsPerPage]="itemsPerPage"
                   [currentPage]="currentPage"

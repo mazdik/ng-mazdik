@@ -3,7 +3,7 @@ import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsula
 @Component({
   selector: 'modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: ['modal-select.component.css', '../styles/index.css'],
+  styleUrls: ['../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 

@@ -36,7 +36,6 @@ import {CalendarComponent} from './form/calendar.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
-import {DatatableService} from './services/datatable.service';
 
 @NgModule({
   imports: [
@@ -89,7 +88,7 @@ import {DatatableService} from './services/datatable.service';
     ContextMenuComponent,
     PopupSelectComponent,
   ],
-  providers: [DatatableService]
+  providers: []
 })
 export class CrudTableModule {
 }
