@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'modal-select',
+  selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
   styleUrls: ['../styles/index.css'],
   encapsulation: ViewEncapsulation.None,

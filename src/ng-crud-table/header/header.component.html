@@ -19,7 +19,7 @@
         </i>
       </ng-template>
       <ng-template [ngIf]="colIndex > 0">
-          <span class="column-title" (click)="onSort($event, column)">
+          <span class="column-title" (click)="onSort(column)">
           {{column.title}}
           <i class="icon"
              *ngIf="column.sortable"

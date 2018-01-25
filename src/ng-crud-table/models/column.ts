@@ -11,7 +11,7 @@ export class Column {
   public options?: ISelectOption[];
   public pipe?: PipeTransform;
   public width?: number = null;
-  public frozen?: boolean = false;
+  public frozen?: boolean;
   public type?: ColumnType;
   public validation?: IValidation;
   public editable?: boolean;
@@ -23,5 +23,6 @@ export class Column {
   public optionsUrl?: string;
   public cellClass?: any;
   public keyColumn?: string;
+  public selectionLimit?: number = 1;
 
 }

@@ -1,5 +1,6 @@
 import {Column, Settings, MenuItem, Filter, SortMeta} from '../types';
 import {ColumnModel} from './column.model';
+import {isBlank} from '../utils/util';
 
 export class DataTable {
 
@@ -19,6 +20,8 @@ export class DataTable {
   public actionMenu: MenuItem[];
   public filters: Filter = <Filter>{};
   public sortMeta: SortMeta = <SortMeta>{};
+  public columnMenuWidth: number = 200;
+  public filterDelay: number = 500;
 
   constructor(columns?: Column[], settings?: Settings) {
     this.defaultSettings();
@@ -119,11 +122,7 @@ export class DataTable {
   }
 
   isFilter(column: ColumnModel): boolean {
-    let length = 0;
-    if (this.filters[column.name] && this.filters[column.name].value) {
-      length = this.filters[column.name].value.trim().length;
-    }
-    return length > 0;
+    return !isBlank(this.filters[column.name]);
   }
 
   hasFilter() {
@@ -135,6 +134,14 @@ export class DataTable {
       }
     }
     return !empty;
+  }
+
+  setFilter(value: any, field: string, matchMode: string) {
+    if (!isBlank(value)) {
+      this.filters[field] = {value: value, matchMode: matchMode};
+    } else if (this.filters[field]) {
+      delete this.filters[field];
+    }
   }
 
   getFilterValue(column: ColumnModel) {

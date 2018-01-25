@@ -13,7 +13,6 @@ import {DataTable, ColumnModel} from '../types';
 export class FilterComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Input() public filterDelay: number = 500;
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
 
   left: number;
@@ -92,10 +91,10 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  show(width: number, top: number, left: number, column: ColumnModel) {
+  show(top: number, left: number, column: ColumnModel) {
     this.column = column;
     this.selectContainerClicked = true;
-    this.width = width;
+    this.width = this.table.columnMenuWidth;
     if (this.top === top && this.left === left) {
       this.toggleDropdown();
     } else {
@@ -108,11 +107,6 @@ export class FilterComponent implements OnInit {
 
   hide() {
     this.closeDropdown();
-  }
-
-  clearAllFilters() {
-    this.table.filters = {};
-    this.filterChanged.emit(this.table.filters);
   }
 
   onFilterChanged() {

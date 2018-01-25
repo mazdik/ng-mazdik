@@ -10,7 +10,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {DataTable, ColumnModel, ISelectOption} from '../types';
-import {isBlank} from '../utils/util';
 
 
 @Component({
@@ -26,7 +25,7 @@ import {isBlank} from '../utils/util';
     </div>
 
     <ul class="list-menu">
-      <li *ngIf="selectionLimit !== 1">
+      <li *ngIf="column.selectionLimit !== 1">
       <span (click)="checkAll()">
         <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.settings.messages.selectAll}}
       </span>
@@ -58,7 +57,6 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('searchFilterInput') searchFilterInput: any;
 
-  selectionLimit: number = 1;
   selectedOptions: any;
   searchFilterText: string = '';
 
@@ -89,7 +87,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     if (index > -1) {
       this.selectedOptions.splice(index, 1);
     } else {
-      if (this.selectionLimit === 0 || this.selectedOptions.length < this.selectionLimit) {
+      if (this.column.selectionLimit === 0 || this.selectedOptions.length < this.column.selectionLimit) {
         this.selectedOptions.push(value);
       } else {
         this.selectedOptions.push(value);
@@ -121,13 +119,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   filter(value, field, matchMode) {
-    if (!isBlank(value)) {
-      // [0] todo multi
-      this.table.filters[field] = {value: value[0], matchMode: matchMode};
-    } else if (this.table.filters[field]) {
-      delete this.table.filters[field];
-    }
-
+    this.table.setFilter(value, field, matchMode);
     this.filterChanged.emit(this.table.filters);
   }
 

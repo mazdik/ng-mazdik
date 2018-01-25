@@ -77,7 +77,7 @@ export class DatatableComponent implements OnInit, DoCheck {
     this.editComplete.emit(event);
   }
 
-  onFilter(event) {
+  onFilter() {
     if (this.table.settings.clientSide) {
       this.currentPage = 1;
       this._rows = this.getItems();
@@ -86,7 +86,7 @@ export class DatatableComponent implements OnInit, DoCheck {
     this.selectRow(0);
   }
 
-  onSort(event) {
+  onSort() {
     if (this.table.settings.clientSide) {
       this._rows = this.getItems();
     }
@@ -108,7 +108,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   showColumnMenu(event) {
-    this.selectFilter.show(200, event.top, event.left, event.column);
+    this.selectFilter.show(event.top, event.left, event.column);
   }
 
   onBodyScroll(event: MouseEvent): void {

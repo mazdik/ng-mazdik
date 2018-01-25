@@ -4,15 +4,15 @@
   <app-filter
     #selectFilter
     [table]="table"
-    (filterChanged)="onFilter($event)">
+    (filterChanged)="onFilter()">
   </app-filter>
-  <datatable-header
+  <app-datatable-header
     [table]="table"
-    (sort)="onSort($event)"
+    (sort)="onSort()"
     (showColumnMenu)="showColumnMenu($event)"
-    (clearFilters)="selectFilter.clearAllFilters()"
+    (clearFilters)="onFilter()"
     [offsetX]="offsetX">
-  </datatable-header>
+  </app-datatable-header>
   <datatable-body
     [table]="table"
     [rows]="rows"

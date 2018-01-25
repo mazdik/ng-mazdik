@@ -10,7 +10,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {DataTable, ColumnModel} from '../types';
-import {isBlank} from '../utils/util';
 
 
 @Component({
@@ -32,7 +31,6 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() public table: DataTable;
   @Input() public column: ColumnModel;
-  @Input() public filterDelay: number = 500;
   @Input() public isOpen: boolean;
 
   @ViewChild('searchFilterInput') searchFilterInput: any;
@@ -69,16 +67,11 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.filterTimeout = setTimeout(() => {
       this.filter(value, field, matchMode);
       this.filterTimeout = null;
-    }, this.filterDelay);
+    }, this.table.filterDelay);
   }
 
   filter(value, field, matchMode) {
-    if (!isBlank(value)) {
-      this.table.filters[field] = {value: value, matchMode: matchMode};
-    } else if (this.table.filters[field]) {
-      delete this.table.filters[field];
-    }
-
+    this.table.setFilter(value, field, matchMode);
     this.filterChanged.emit(this.table.filters);
   }
 

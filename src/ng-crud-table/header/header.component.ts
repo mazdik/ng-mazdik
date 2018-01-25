@@ -1,14 +1,11 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, HostBinding} from '@angular/core';
 import {ColumnModel, DataTable} from '../types';
-import {DomUtils} from '../utils/dom-utils';
+import {getHeight} from '../utils/dom-utils';
 
 
 @Component({
-  selector: 'datatable-header',
+  selector: 'app-datatable-header',
   templateUrl: 'header.component.html',
-  host: {
-    class: 'datatable-header'
-  }
 })
 
 export class HeaderComponent implements OnInit {
@@ -19,6 +16,8 @@ export class HeaderComponent implements OnInit {
   @Output() sort: EventEmitter<any> = new EventEmitter();
   @Output() showColumnMenu: EventEmitter<any> = new EventEmitter();
   @Output() clearFilters: EventEmitter<any> = new EventEmitter();
+
+  @HostBinding('class') cssClass = 'datatable-header';
 
   frozenColumns: ColumnModel[] = [];
 
@@ -40,7 +39,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  onSort(event, column: ColumnModel) {
+  onSort(column: ColumnModel) {
     if (!column.sortable) {
       return;
     }
@@ -69,7 +68,7 @@ export class HeaderComponent implements OnInit {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
-    const rowHeight = DomUtils.getHeight(el.parentNode);
+    const rowHeight = getHeight(el.parentNode);
     top = top + rowHeight;
     // datatable-row-left + offsetLeft
     left = left + el.parentNode.offsetLeft;

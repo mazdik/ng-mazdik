@@ -41,7 +41,7 @@ export class PlayersComponent {
             filter: true, 
             frozen: true, 
             width: 250,
-            validation: { pattern: '^[a-zA-Z ]+$' },
+            validation: { required: true, pattern: '^[a-zA-Z ]+$' },
             editable: true,
             resizeable: false,
         },
