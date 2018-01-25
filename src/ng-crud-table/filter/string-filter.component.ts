@@ -1,17 +1,25 @@
-import {Component, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 import {DataTable, ColumnModel} from '../types';
 import {isBlank} from '../utils/util';
 
 
 @Component({
   selector: 'app-string-filter',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="clearable-input">
       <input class="df-control"
-             #filterInput
+             #searchFilterInput
              [attr.placeholder]="column.name"
-             *ngIf="column.filter"
              [value]="table.getFilterValue(column)"
              (click)="onFilterInputClick($event)"
              (keyup)="onFilterKeyup($event, column.name, null)"/>
@@ -20,31 +28,33 @@ import {isBlank} from '../utils/util';
     </div>
   `,
 })
-export class StringFilterComponent {
+export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() public table: DataTable;
-  @Input() public column: ColumnModel = <ColumnModel> {};
+  @Input() public column: ColumnModel;
   @Input() public filterDelay: number = 500;
+  @Input() public isOpen: boolean;
 
-  @Input()
-  set isVisible(val: boolean) {
-    this._isVisible = val;
-    if (this._isVisible) {
-      this.setFocus();
-    }
-  }
-
-  get isVisible(): boolean {
-    return this._isVisible;
-  }
+  @ViewChild('searchFilterInput') searchFilterInput: any;
 
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
   @Output() filterClose: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('filterInput') filterInput: any;
-
   filterTimeout: any;
-  _isVisible: boolean;
+
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.setFocus();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.setFocus();
+  }
 
   onFilterInputClick(event) {
     event.stopPropagation();
@@ -78,9 +88,11 @@ export class StringFilterComponent {
   }
 
   setFocus() {
-    setTimeout(() => {
-      this.filterInput.nativeElement.focus();
-    }, 1);
+    if (this.searchFilterInput) {
+      setTimeout(() => {
+        this.searchFilterInput.nativeElement.focus();
+      }, 1);
+    }
   }
 
 }

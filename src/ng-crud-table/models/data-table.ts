@@ -138,7 +138,7 @@ export class DataTable {
   }
 
   getFilterValue(column: ColumnModel) {
-    return this.filters[column.name] ? this.filters[column.name].value : '';
+    return this.filters[column.name] ? this.filters[column.name].value : null;
   }
 
   setSortOrder(column: ColumnModel) {

@@ -1,9 +1,8 @@
 import {
-  Component, Input, Output, OnInit, EventEmitter, ViewChild, HostBinding, HostListener,
+  Component, Input, Output, OnInit, EventEmitter, HostBinding, HostListener,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnModel, ISelectOption} from '../types';
-import {isBlank} from '../utils/util';
+import {DataTable, ColumnModel} from '../types';
 
 
 @Component({
@@ -17,18 +16,11 @@ export class FilterComponent implements OnInit {
   @Input() public filterDelay: number = 500;
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('searchFilterInput') searchFilterInput: any;
-
   left: number;
   top: number;
   width: number;
   column: ColumnModel = <ColumnModel> {};
-  selectionLimit: number = 1;
-  selectedOptions: any[];
-  columnsSelectedOptions: any[] = [];
-  numSelected: number = 0;
   isVisible: boolean;
-  searchFilterText: string = '';
   selectContainerClicked: boolean;
 
   @HostBinding('style.position') position = 'absolute';
@@ -83,10 +75,6 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  clearSearch() {
-    this.searchFilterText = '';
-  }
-
   toggleDropdown() {
     this.isVisible ? this.closeDropdown() : this.openDropdown();
   }
@@ -94,68 +82,18 @@ export class FilterComponent implements OnInit {
   openDropdown() {
     if (!this.isVisible && this.column.filter) {
       this.isVisible = true;
-      if (this.column.options) {
-        setTimeout(() => {
-          this.searchFilterInput.nativeElement.focus();
-        }, 1);
-      }
     }
   }
 
   closeDropdown() {
     if (this.isVisible) {
-      this.clearSearch();
       this.isVisible = false;
       this.cd.markForCheck();
     }
   }
 
-  setSelectedOptions(value: any) {
-    if (!this.selectedOptions) {
-      this.selectedOptions = [];
-    }
-    const index = this.selectedOptions.indexOf(value);
-    if (index > -1) {
-      this.selectedOptions.splice(index, 1);
-    } else {
-      if (this.selectionLimit === 0 || this.selectedOptions.length < this.selectionLimit) {
-        this.selectedOptions.push(value);
-      } else {
-        this.selectedOptions.push(value);
-        this.selectedOptions.shift();
-      }
-    }
-  }
-
-  setSelected(value: any) {
-    this.setSelectedOptions(value);
-    this.filter(this.selectedOptions[0], this.column.name, null); // [0] todo multi
-    this.toggleDropdown();
-  }
-
-  checkAll() {
-    this.selectedOptions = this.column.options.map(option => option.id);
-    this.filter(this.selectedOptions[0], this.column.name, null); // [0] todo multi
-    this.toggleDropdown();
-  }
-
-  uncheckAll() {
-    this.selectedOptions = [];
-    this.filter(this.selectedOptions[0], this.column.name, null); // [0] todo multi
-    this.toggleDropdown();
-  }
-
-  isSelected(option: ISelectOption): boolean {
-    return this.selectedOptions && this.selectedOptions.indexOf(option.id) > -1;
-  }
-
-  updateNumSelected() {
-    this.numSelected = this.selectedOptions && this.selectedOptions.length || 0;
-  }
-
   show(width: number, top: number, left: number, column: ColumnModel) {
     this.column = column;
-    this.selectedOptions = this.columnsSelectedOptions[column.name];
     this.selectContainerClicked = true;
     this.width = width;
     if (this.top === top && this.left === left) {
@@ -172,22 +110,8 @@ export class FilterComponent implements OnInit {
     this.closeDropdown();
   }
 
-  filter(value, field, matchMode) {
-    if (!isBlank(value)) {
-      this.table.filters[field] = {value: value, matchMode: matchMode};
-    } else if (this.table.filters[field]) {
-      delete this.table.filters[field];
-    }
-
-    this.filterChanged.emit(this.table.filters);
-    this.updateNumSelected();
-    this.columnsSelectedOptions[field] = this.selectedOptions;
-  }
-
   clearAllFilters() {
     this.table.filters = {};
-    this.selectedOptions = [];
-    this.columnsSelectedOptions = [];
     this.filterChanged.emit(this.table.filters);
   }
 

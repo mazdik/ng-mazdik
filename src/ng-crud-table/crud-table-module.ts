@@ -9,6 +9,7 @@ import {HeaderComponent} from './header/header.component';
 import {FilterComponent} from './filter/filter.component';
 import {SearchFilterPipe} from './filter/search-filter.pipe';
 import {StringFilterComponent} from './filter/string-filter.component';
+import {ListFilterComponent} from './filter/list-filter.component';
 import {FormComponent} from './form/form.component';
 import {CrudTableComponent} from './crud-table.component';
 import {BodyComponent} from './body/body.component';
@@ -35,6 +36,7 @@ import {CalendarComponent} from './form/calendar.component';
 import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
+import {DatatableService} from './services/datatable.service';
 
 @NgModule({
   imports: [
@@ -50,6 +52,7 @@ import {PopupSelectComponent} from './form/select-popup.component';
     FilterComponent,
     SearchFilterPipe,
     StringFilterComponent,
+    ListFilterComponent,
     FormComponent,
     BodyComponent,
     BodyRowComponent,
@@ -86,7 +89,7 @@ import {PopupSelectComponent} from './form/select-popup.component';
     ContextMenuComponent,
     PopupSelectComponent,
   ],
-  providers: []
+  providers: [DatatableService]
 })
 export class CrudTableModule {
 }
