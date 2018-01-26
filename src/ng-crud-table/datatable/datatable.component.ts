@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, Filter, SortMeta} from '../types';
+import {FilterService} from '../services/filter.service';
 
 
 @Component({
@@ -51,7 +52,9 @@ export class DatatableComponent implements OnInit, DoCheck {
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private _rows: any[];
 
-  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
+  constructor(private differs: KeyValueDiffers,
+              private cd: ChangeDetectorRef,
+              private filterService: FilterService) {
     this.rowDiffer = this.differs.find({}).create();
   }
 
@@ -116,22 +119,6 @@ export class DatatableComponent implements OnInit, DoCheck {
     this.selectFilter.hide();
   }
 
-  filter(data: any[], filters: Filter) {
-    let filteredData: any[] = data;
-    for (const key in filters) {
-      if (filters[key]['value']) {
-        filteredData = filteredData.filter((item: any) => {
-          if (key in item) {
-            return item[key].toString().match(filters[key]['value']);
-          } else {
-            return false;
-          }
-        });
-      }
-    }
-    return filteredData;
-  }
-
   sort(data: any, sortField ?: string, sortOrder ?: number) {
     return data.sort((previous: any, current: any) => {
       if (previous[sortField] > current[sortField]) {
@@ -150,7 +137,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   getItems() {
-    let data = this.filter(this.rowsCopy, this.table.filters);
+    let data = this.filterService.filter(this.rowsCopy, this.table.filters);
     this.totalItems = data.length;
     data = this.sort(data, this.table.sortMeta.field, this.table.sortMeta.order);
     data = this.pager(data, this.currentPage);

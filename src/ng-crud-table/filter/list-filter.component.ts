@@ -10,7 +10,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {DataTable, ColumnModel, ISelectOption} from '../types';
-
+import {FilterService} from '../services/filter.service';
 
 @Component({
   selector: 'app-list-filter',
@@ -73,6 +73,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.setFocus();
     this.clearSearch();
+    this.selectedOptions = this.table.getFilterValue(this.column);
   }
 
   clearSearch() {
@@ -98,19 +99,19 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   setSelected(value: any) {
     this.setSelectedOptions(value);
-    this.filter(this.selectedOptions, this.column.name, null);
+    this.filter(this.selectedOptions, this.column.name);
     this.filterClose.emit(true);
   }
 
   checkAll() {
     this.selectedOptions = this.column.options.map(option => option.id);
-    this.filter(this.selectedOptions, this.column.name, null);
+    this.filter(this.selectedOptions, this.column.name);
     this.filterClose.emit(true);
   }
 
   uncheckAll() {
     this.selectedOptions = [];
-    this.filter(null, this.column.name, null);
+    this.filter(this.selectedOptions, this.column.name);
     this.filterClose.emit(true);
   }
 
@@ -118,8 +119,9 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     return this.selectedOptions && this.selectedOptions.indexOf(option.id) > -1;
   }
 
-  filter(value, field, matchMode) {
-    this.table.setFilter(value, field, matchMode);
+  filter(value: any[], field: string) {
+    const mode = value.length ? FilterService.IN_RANGE : FilterService.EQUALS;
+    this.table.setFilter(value, field, mode);
     this.filterChanged.emit(this.table.filters);
   }
 

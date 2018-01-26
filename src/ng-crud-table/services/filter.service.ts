@@ -1,6 +1,8 @@
+import {Injectable} from '@angular/core';
 import {Filter} from '../types';
 
-export class BaseFilter {
+@Injectable()
+export class FilterService {
 
   public static EQUALS = 'equals'; // =
   public static NOT_EQUAL = 'notEqual'; // !=
@@ -33,12 +35,18 @@ export class BaseFilter {
 
   comparator(matchMode: string, value: any, filter: any) {
     switch (matchMode) {
-      case BaseFilter.EQUALS:
+      case FilterService.EQUALS:
         return this.equals(value, filter);
-      case BaseFilter.NOT_EQUAL:
+      case FilterService.NOT_EQUAL:
         return this.notEquals(value, filter);
-      case BaseFilter.IN_RANGE:
+      case FilterService.IN_RANGE:
         return this.in(value, filter);
+      case FilterService.CONTAINS:
+        return this.contains(value, filter);
+      case FilterService.STARTS_WITH:
+        return this.startsWith(value, filter);
+      case FilterService.ENDS_WITH:
+        return this.endsWith(value, filter);
       default:
         return this.equals(value, filter);
     }
