@@ -87,7 +87,7 @@ export class TreeFilterDemoComponent implements OnInit {
       name: 'last_online',
       sortable: true,
       filter: true,
-      type: 'date',
+      type: 'datetime-local',
       editable: true,
     }
   ];

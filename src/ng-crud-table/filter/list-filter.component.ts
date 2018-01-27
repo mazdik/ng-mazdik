@@ -1,13 +1,6 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  AfterViewInit,
-  OnChanges,
-  SimpleChanges,
-  ViewChild
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
+  OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
 import {DataTable, ColumnModel, ISelectOption} from '../types';
 import {FilterService} from '../services/filter.service';
@@ -18,7 +11,7 @@ import {FilterService} from '../services/filter.service';
     <div class="clearable-input">
       <input class="df-control"
              placeholder="{{table.settings.messages.search}}"
-             #searchFilterInput
+             #filterInput
              [(ngModel)]="searchFilterText"/>
       <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
             (click)="clearSearch()">&times;</span>
@@ -51,11 +44,10 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: ColumnModel;
   @Input() public isOpen: boolean;
-
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
   @Output() filterClose: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('searchFilterInput') searchFilterInput: any;
+  @ViewChild('filterInput') filterInput: any;
 
   selectedOptions: any;
   searchFilterText: string = '';
@@ -126,9 +118,9 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setFocus() {
-    if (this.searchFilterInput) {
+    if (this.filterInput) {
       setTimeout(() => {
-        this.searchFilterInput.nativeElement.focus();
+        this.filterInput.nativeElement.focus();
       }, 1);
     }
   }

@@ -64,7 +64,7 @@
       </app-form-textarea>
 
       <app-form-calendar
-        *ngSwitchCase="'date'"
+        *ngSwitchCase="(column.type ==='date' || column.type ==='datetime-local') ? column.type : ''"
         [column]="column"
         [(value)]="item[column.name]"
         (valid)="onValid($event, column)"

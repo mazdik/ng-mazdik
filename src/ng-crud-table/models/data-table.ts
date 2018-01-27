@@ -76,6 +76,17 @@ export class DataTable {
         search: 'Search...',
         selectAll: 'Select all',
         clear: 'Clear',
+        equals: 'Equals',
+        notEqual: 'Does not equal',
+        lessThan: 'Is less than',
+        lessThanOrEqual: 'Is less than or equal to',
+        greaterThan: 'Is greater than',
+        greaterThanOrEqual: 'Is greater than or equal to',
+        inRange: 'In range',
+        contains: 'Contains',
+        notContains: 'Does not contain',
+        startsWith: 'Begins with',
+        endsWith: 'Ends with'
       }
     };
   }
@@ -146,6 +157,10 @@ export class DataTable {
 
   getFilterValue(column: ColumnModel) {
     return this.filters[column.name] ? this.filters[column.name].value : null;
+  }
+
+  getFilterMatchMode(column: ColumnModel) {
+    return this.filters[column.name] ? this.filters[column.name].matchMode : null;
   }
 
   setSortOrder(column: ColumnModel) {

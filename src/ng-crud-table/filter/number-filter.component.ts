@@ -7,16 +7,11 @@ import {FilterService} from '../services/filter.service';
 
 
 @Component({
-  selector: 'app-string-filter',
+  selector: 'app-number-filter',
   template: `
-    <select class="df-control sm"
-            style="margin-bottom: 8px;"
-            [(ngModel)]="matchMode"
-            (change)="onModeChange()">
-      <option *ngFor="let opt of stringOperators" [value]="opt.value">{{opt.text}}</option>
-    </select>
     <div class="clearable-input">
       <input class="df-control"
+             type="number"
              #filterInput
              [attr.placeholder]="column.name"
              [value]="table.getFilterValue(column)"
@@ -27,7 +22,7 @@ import {FilterService} from '../services/filter.service';
     </div>
   `,
 })
-export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
+export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() public table: DataTable;
   @Input() public column: ColumnModel;
@@ -38,21 +33,12 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('filterInput') filterInput: any;
 
   filterTimeout: any;
-  stringOperators: any[];
-  matchMode: string = FilterService.STARTS_WITH;
+  matchMode: string = FilterService.EQUALS;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.stringOperators = [
-      {value: FilterService.EQUALS, text: this.table.settings.messages.equals},
-      {value: FilterService.NOT_EQUAL, text: this.table.settings.messages.notEqual},
-      {value: FilterService.STARTS_WITH, text: this.table.settings.messages.startsWith},
-      {value: FilterService.ENDS_WITH, text: this.table.settings.messages.endsWith},
-      {value: FilterService.CONTAINS, text: this.table.settings.messages.contains},
-      {value: FilterService.NOT_CONTAINS, text: this.table.settings.messages.notContains}
-    ];
   }
 
   ngAfterViewInit() {
@@ -61,7 +47,6 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.setFocus();
-    this.matchMode = this.table.getFilterMatchMode(this.column) || this.matchMode;
   }
 
   onFilterInputClick(event) {
@@ -95,13 +80,6 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
       setTimeout(() => {
         this.filterInput.nativeElement.focus();
       }, 1);
-    }
-  }
-
-  onModeChange() {
-    const val = this.filterInput.nativeElement.value;
-    if (val) {
-      this.filter(val);
     }
   }
 

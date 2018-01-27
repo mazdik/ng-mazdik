@@ -108,4 +108,15 @@ export interface Message {
   search?: string;
   selectAll?: string;
   clear?: string;
+  equals?: string;
+  notEqual?: string;
+  lessThan?: string;
+  lessThanOrEqual?: string;
+  greaterThan?: string;
+  greaterThanOrEqual?: string;
+  inRange?: string;
+  contains?: string;
+  notContains?: string;
+  startsWith?: string;
+  endsWith?: string;
 }

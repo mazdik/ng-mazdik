@@ -14,7 +14,7 @@
     <option *ngFor="let opt of getOptions(row)" [value]="opt.id">{{opt.name}}</option>
   </select>
 
-  <input [attr.type]="column.type === 'date' ? 'datetime-local' : 'text'"
+  <input [attr.type]="(column.type ==='date' || column.type ==='datetime-local') ? column.type : 'text'"
          #inputElement
          *ngIf="!column.options"
          [(ngModel)]="row[column.name]"

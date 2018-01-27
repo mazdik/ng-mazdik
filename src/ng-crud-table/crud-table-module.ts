@@ -10,6 +10,8 @@ import {FilterComponent} from './filter/filter.component';
 import {SearchFilterPipe} from './filter/search-filter.pipe';
 import {StringFilterComponent} from './filter/string-filter.component';
 import {ListFilterComponent} from './filter/list-filter.component';
+import {NumberFilterComponent} from './filter/number-filter.component';
+import {DateFilterComponent} from './filter/date-filter.component';
 import {FormComponent} from './form/form.component';
 import {CrudTableComponent} from './crud-table.component';
 import {BodyComponent} from './body/body.component';
@@ -53,6 +55,8 @@ import {FilterService} from './services/filter.service';
     SearchFilterPipe,
     StringFilterComponent,
     ListFilterComponent,
+    NumberFilterComponent,
+    DateFilterComponent,
     FormComponent,
     BodyComponent,
     BodyRowComponent,

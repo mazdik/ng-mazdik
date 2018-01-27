@@ -43,6 +43,8 @@ export class FilterService {
         return this.in(value, filter);
       case FilterService.CONTAINS:
         return this.contains(value, filter);
+      case FilterService.NOT_CONTAINS:
+        return !this.contains(value, filter);
       case FilterService.STARTS_WITH:
         return this.startsWith(value, filter);
       case FilterService.ENDS_WITH:

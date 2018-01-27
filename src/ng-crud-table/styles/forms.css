@@ -12,6 +12,10 @@
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+.df-control.sm {
+  padding: 3px 9px;
+}
+
 .df-has-error .df-control
 {
   border-color: #a94442;

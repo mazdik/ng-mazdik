@@ -7,8 +7,8 @@ import {InputComponent} from './input.component';
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
       <label [attr.for]="column.name">{{column.title}}</label>
-      <input type="datetime-local"
-             class="df-control"
+      <input class="df-control"
+             [attr.type]="column.type"
              [(ngModel)]="model"
              [disabled]="disabled"/>
       <div class="df-help-block">

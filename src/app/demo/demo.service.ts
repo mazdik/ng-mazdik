@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../../ng-crud-table';
+import {FilterService} from '../../ng-crud-table/services/filter.service';
 
 
 @Injectable()
@@ -11,8 +12,10 @@ export class DemoService implements ICrudService {
   public primaryKeys: any;
 
   private itemsPerPage: number = 20;
+  private filterService: FilterService;
 
   constructor(private http: HttpClient) {
+    this.filterService = new FilterService();
   }
 
   getItems(page: number = 1, filters ?: Filter, sortField ?: string, sortOrder ?: number): Promise<any> {
@@ -20,7 +23,7 @@ export class DemoService implements ICrudService {
       .toPromise()
       .then(function (res) {
         const rows: any[] = res || [];
-        const filteredData = this.filter(rows, filters);
+        const filteredData = this.filterService.filter(rows, filters);
         const sortedData = this.sort(filteredData, sortField, sortOrder);
         const pageData = this.page(sortedData, page);
         const totalCount = sortedData.length;
@@ -44,22 +47,6 @@ export class DemoService implements ICrudService {
     };
     return this.getItems(1, filterId)
       .then(data => data.items[0]);
-  }
-
-  filter(data: any, filters: Filter) {
-    let filteredData: Array<any> = data;
-    for (const key in filters) {
-      if (filters[key]['value']) {
-        filteredData = filteredData.filter((item: any) => {
-          if (item[key]) {
-            return item[key].toString().match(filters[key]['value']);
-          } else {
-            return false;
-          }
-        });
-      }
-    }
-    return filteredData;
   }
 
   sort(data: any, sortField ?: string, sortOrder ?: number) {
