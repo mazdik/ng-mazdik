@@ -22,7 +22,7 @@ export class FilterService {
   filter(data: any[], filters: Filter) {
     let filteredRows: any[] = data;
     for (const key in filters) {
-      if (filters[key].value) {
+      if (filters[key]) {
         filteredRows = filteredRows.filter((row: any) => {
           if (key in row) {
             return this.compare(filters[key].matchMode, row[key], filters[key].value, filters[key].valueTo);
@@ -175,10 +175,10 @@ export class FilterService {
 
   inRange(value, from, to): boolean {
     if (isBlank(from)) {
-      return true;
+      return this.lessThan(value, to);
     }
     if (isBlank(to)) {
-      return true;
+      return this.greaterThan(value, from);
     }
     if (isBlank(value)) {
       return false;

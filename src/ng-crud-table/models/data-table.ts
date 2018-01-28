@@ -147,9 +147,9 @@ export class DataTable {
     return !empty;
   }
 
-  setFilter(value: any, field: string, matchMode: string) {
-    if (!isBlank(value)) {
-      this.filters[field] = {value: value, matchMode: matchMode};
+  setFilter(value: any, field: string, matchMode: string, valueTo?: any) {
+    if (!isBlank(value) || !isBlank(valueTo)) {
+      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo};
     } else if (this.filters[field]) {
       delete this.filters[field];
     }
@@ -157,6 +157,10 @@ export class DataTable {
 
   getFilterValue(column: ColumnModel) {
     return this.filters[column.name] ? this.filters[column.name].value : null;
+  }
+
+  getFilterValueTo(column: ColumnModel) {
+    return this.filters[column.name] ? this.filters[column.name].valueTo : null;
   }
 
   getFilterMatchMode(column: ColumnModel) {
