@@ -112,7 +112,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   filter(value: any[], field: string) {
-    const mode = value.length ? FilterService.IN_RANGE : FilterService.EQUALS;
+    const mode = value.length ? FilterService.IN : FilterService.EQUALS;
     this.table.setFilter(value, field, mode);
     this.filterChanged.emit(this.table.filters);
   }

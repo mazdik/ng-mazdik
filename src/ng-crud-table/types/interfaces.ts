@@ -21,6 +21,7 @@ export type ColumnType =
 export interface FilterMetadata {
   value?: any;
   matchMode?: string;
+  valueTo?: any;
 }
 
 export interface Filter {

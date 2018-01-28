@@ -9,14 +9,19 @@ import {FilterService} from '../services/filter.service';
 @Component({
   selector: 'app-number-filter',
   template: `
+    <select class="df-control sm"
+            style="margin-bottom: 8px;"
+            [(ngModel)]="matchMode"
+            (change)="onModeChange()">
+      <option *ngFor="let opt of numberOperators" [value]="opt.value">{{opt.text}}</option>
+    </select>
     <div class="clearable-input">
       <input class="df-control"
              type="number"
              #filterInput
              [attr.placeholder]="column.name"
              [value]="table.getFilterValue(column)"
-             (click)="onFilterInputClick($event)"
-             (keyup)="onFilterKeyup($event)"/>
+             (input)="onFilterInput($event)"/>
       <span [style.display]="table.isFilter(column) ? 'block' : 'none' "
             (click)="uncheckAll()">&times;</span>
     </div>
@@ -34,11 +39,20 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filterTimeout: any;
   matchMode: string = FilterService.EQUALS;
+  numberOperators: any[];
 
   constructor() {
   }
 
   ngOnInit() {
+    this.numberOperators = [
+      {value: FilterService.EQUALS, text: this.table.settings.messages.equals},
+      {value: FilterService.NOT_EQUAL, text: this.table.settings.messages.notEqual},
+      {value: FilterService.GREATER_THAN, text: this.table.settings.messages.greaterThan},
+      {value: FilterService.GREATER_THAN_OR_EQUAL, text: this.table.settings.messages.greaterThanOrEqual},
+      {value: FilterService.LESS_THAN, text: this.table.settings.messages.lessThan},
+      {value: FilterService.LESS_THAN_OR_EQUAL, text: this.table.settings.messages.lessThanOrEqual}
+    ];
   }
 
   ngAfterViewInit() {
@@ -49,11 +63,7 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.setFocus();
   }
 
-  onFilterInputClick(event) {
-    event.stopPropagation();
-  }
-
-  onFilterKeyup(event) {
+  onFilterInput(event) {
     const value = event.target.value;
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
@@ -80,6 +90,13 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
       setTimeout(() => {
         this.filterInput.nativeElement.focus();
       }, 1);
+    }
+  }
+
+  onModeChange() {
+    const val = this.filterInput.nativeElement.value;
+    if (val) {
+      this.filter(val);
     }
   }
 

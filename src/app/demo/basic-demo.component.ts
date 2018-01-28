@@ -80,6 +80,7 @@ export class BasicDemoComponent implements OnInit {
         {id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS'},
       ],
       dependsColumn: 'race',
+      selectionLimit: 5,
     },
     {
       title: 'Gender',

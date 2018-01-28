@@ -15,8 +15,7 @@ import {FilterService} from '../services/filter.service';
              [attr.type]="column.type"
              [attr.placeholder]="column.name"
              [value]="table.getFilterValue(column)"
-             (click)="onFilterInputClick($event)"
-             (keyup)="onFilterKeyup($event)"/>
+             (input)="onFilterInput($event)"/>
       <span [style.display]="table.isFilter(column) ? 'block' : 'none' "
             (click)="uncheckAll()">&times;</span>
     </div>
@@ -49,11 +48,7 @@ export class DateFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.setFocus();
   }
 
-  onFilterInputClick(event) {
-    event.stopPropagation();
-  }
-
-  onFilterKeyup(event) {
+  onFilterInput(event) {
     const value = event.target.value;
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
