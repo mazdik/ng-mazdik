@@ -114,10 +114,15 @@ export class DataTable {
     this.scrollHeight = this.settings.scrollHeight;
   }
 
-  setColumnWidth(column: ColumnModel, newValue: number) {
+  setColumnWidth(column: ColumnModel, width: number) {
+    if (width <= this.minWidthColumn) {
+      width = this.minWidthColumn;
+    } else if (width >= this.maxWidthColumn) {
+      width = this.maxWidthColumn;
+    }
     for (const col of this.columns) {
       if (col.name === column.name) {
-        col.width = newValue;
+        col.width = width;
       }
     }
   }

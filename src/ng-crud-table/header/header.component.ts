@@ -77,11 +77,6 @@ export class HeaderComponent implements OnInit {
   }
 
   onColumnResized(width: number, column: ColumnModel): void {
-    if (width <= this.table.minWidthColumn) {
-      width = this.table.minWidthColumn;
-    } else if (width >= this.table.maxWidthColumn) {
-      width = this.table.maxWidthColumn;
-    }
     this.table.setColumnWidth(column, width);
   }
 
