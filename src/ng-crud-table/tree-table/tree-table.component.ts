@@ -4,7 +4,7 @@ import {DataTable} from '../models/data-table';
 
 
 @Component({
-  selector: 'tree-table',
+  selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
   styleUrls: ['../tree-view/tree-view.component.css'],
   encapsulation: ViewEncapsulation.None,

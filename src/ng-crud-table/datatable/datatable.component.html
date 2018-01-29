@@ -13,7 +13,7 @@
     (clearFilters)="onFilter()"
     [offsetX]="offsetX">
   </app-datatable-header>
-  <datatable-body
+  <app-datatable-body
     [table]="table"
     [rows]="rows"
     (editComplete)="onEditComplete($event)"
@@ -23,11 +23,11 @@
     [loading]="loading"
     (scroll)="onBodyScroll($event)"
     (selectedRowIndexChange)="onSelectRow($event)">
-  </datatable-body>
-  <datatable-footer
+  </app-datatable-body>
+  <app-datatable-footer
     [totalItems]="totalItems"
     [itemsPerPage]="itemsPerPage"
     [currentPage]="currentPage"
     (pageChanged)="onPageChanged($event)">
-  </datatable-footer>
+  </app-datatable-footer>
 </div>

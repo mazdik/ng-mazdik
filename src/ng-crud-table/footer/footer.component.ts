@@ -1,11 +1,8 @@
-import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding} from '@angular/core';
 
 @Component({
-  selector: 'datatable-footer',
+  selector: 'app-datatable-footer',
   templateUrl: './footer.component.html',
-  host: {
-    class: 'datatable-footer'
-  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
@@ -15,6 +12,8 @@ export class FooterComponent {
   @Input() itemsPerPage: number;
   @Input() currentPage: number;
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
+
+  @HostBinding('class') cssClass = 'datatable-footer';
 
   onPageChanged(event) {
     this.pageChanged.emit(event);

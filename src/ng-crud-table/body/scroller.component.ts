@@ -4,13 +4,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'datatable-scroller',
+  selector: 'app-datatable-scroller',
   template: `
     <ng-content></ng-content>
   `,
-  host: {
-    class: 'datatable-scroll'
-  },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollerComponent implements OnInit, OnDestroy {
@@ -25,6 +22,8 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   @Input() scrollWidth: number;
 
   @Output() scroll: EventEmitter<any> = new EventEmitter();
+
+  @HostBinding('class') cssClass = 'datatable-scroll';
 
   scrollYPos: number = 0;
   scrollXPos: number = 0;

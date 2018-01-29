@@ -5,11 +5,8 @@ import {DataTable} from '../types';
 
 
 @Component({
-  selector: 'datatable-body',
+  selector: 'app-datatable-body',
   templateUrl: './body.component.html',
-  host: {
-    class: 'datatable-body'
-  },
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyComponent implements OnInit {
@@ -24,6 +21,8 @@ export class BodyComponent implements OnInit {
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() scroll: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
+
+  @HostBinding('class') cssClass = 'datatable-body';
 
   offsetY: number = 0;
   rowTrackingFn: any;

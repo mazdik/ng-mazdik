@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../types';
 
@@ -114,12 +114,8 @@ export class OrdsService implements ICrudService {
     }
 
     for (const key in obj) {
-      if (obj[key]['value'] && obj[key]['value'].trim()) {
-        if (typeof obj[key]['value'] === 'string') { // TODO
-          filterObject[key] = {'$like': obj[key]['value'] + '%25'};
-        } else {
-          filterObject[key] = {'$eq': obj[key]['value']};
-        }
+      if (obj[key] && obj[key].value) {
+        filterObject[key] = {'$eq': Array.isArray(obj[key].value) ? obj[key].value[0] : obj[key].value};
       }
     }
 

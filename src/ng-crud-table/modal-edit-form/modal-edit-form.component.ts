@@ -4,7 +4,7 @@ import {ColumnModel, ICrudService, DataTable} from '../types';
 
 
 @Component({
-  selector: 'modal-edit-form',
+  selector: 'app-modal-edit-form',
   templateUrl: './modal-edit-form.component.html',
   styleUrls: ['../styles/index.css'],
   encapsulation: ViewEncapsulation.None,

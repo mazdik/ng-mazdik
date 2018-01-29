@@ -23,33 +23,33 @@
 
     <div class="datatable-row-center datatable-row-group">
       <ng-container *ngFor="let column of columns; let colIndex = index; trackBy: columnTrackingFn">
-        <datatable-body-cell
+        <app-datatable-body-cell
           *ngIf="!column.editable"
           tabindex="-1"
           [colIndex]="colIndex"
           [row]="node.data"
           [column]="column">
-        </datatable-body-cell>
-        <datatable-body-cell-edit
+        </app-datatable-body-cell>
+        <app-datatable-body-cell-edit
           *ngIf="column.editable"
           tabindex="-1"
           [colIndex]="colIndex"
           [row]="node.data"
           [column]="column"
           (editComplete)="onCellEditComplete($event)">
-        </datatable-body-cell-edit>
+        </app-datatable-body-cell-edit>
       </ng-container>
     </div>
 
   </div>
 
-  <tree-table-node
+  <app-tree-table-node
     [nodes]="node.children"
     [service]="service"
     *ngIf="node.children && node.expanded"
     [columns]="columns"
     [level]="level+1"
     (requestNodes)="onRequestLocal($event)">
-  </tree-table-node>
+  </app-tree-table-node>
 
 </div>

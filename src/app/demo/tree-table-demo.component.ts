@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {ITreeNode, ITreeService, Column} from '../../ng-crud-table';
+import {ITreeService, Column} from '../../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 import {TreeDemoService} from './tree-demo.service';
 
 @Component({
-  selector: 'tree-table-demo',
+  selector: 'app-tree-table-demo',
   template: `
-    <tree-table
+    <app-tree-table
       [service]="treeService"
       [columns]="columns"
       (editComplete)="onEditComplete($event)">
-    </tree-table>`
+    </app-tree-table>`
 })
 export class TreeTableDemoComponent implements OnInit {
 

@@ -1,7 +1,7 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 @Component({
-  selector: 'demo-crud-table',
+  selector: 'app-demo-crud-table',
   template: `
     <div class="dt-row">
       <div class="dt-col-left">
@@ -28,14 +28,14 @@ import {Component, ViewEncapsulation} from '@angular/core';
       </div>
       <div class="dt-col-right">
         <h3 class="title"><a [attr.href]="getSourceLink()" target="_blank">Source</a></h3>
-        <basic-demo *ngIf="state === 'basic-demo'"></basic-demo>
-        <tree-table-demo *ngIf="state === 'tree-table-demo'"></tree-table-demo>
-        <tree-filter-demo *ngIf="state === 'tree-filter-demo'"></tree-filter-demo>
-        <data-table-demo *ngIf="state === 'data-table-demo'"></data-table-demo>
-        <master-detail-demo *ngIf="state === 'master-detail-demo'"></master-detail-demo>
-        <modal-form-demo *ngIf="state === 'modal-form-demo'"></modal-form-demo>
-        <modal-data-table-demo *ngIf="state === 'modal-data-table-demo'"></modal-data-table-demo>
-        <nested-modals-demo *ngIf="state === 'nested-modals-demo'"></nested-modals-demo>
+        <app-basic-demo *ngIf="state === 'basic-demo'"></app-basic-demo>
+        <app-tree-table-demo *ngIf="state === 'tree-table-demo'"></app-tree-table-demo>
+        <app-tree-filter-demo *ngIf="state === 'tree-filter-demo'"></app-tree-filter-demo>
+        <app-data-table-demo *ngIf="state === 'data-table-demo'"></app-data-table-demo>
+        <app-master-detail-demo *ngIf="state === 'master-detail-demo'"></app-master-detail-demo>
+        <app-modal-form-demo *ngIf="state === 'modal-form-demo'"></app-modal-form-demo>
+        <app-modal-data-table-demo *ngIf="state === 'modal-data-table-demo'"></app-modal-data-table-demo>
+        <app-nested-modals-demo *ngIf="state === 'nested-modals-demo'"></app-nested-modals-demo>
       </div>
     </div>
   `,

@@ -4,7 +4,7 @@
     <div class="datatable-header-cell"
          *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
          [ngStyle]="{'width.px': column.width, 'height.px': table.headerHeight, 'line-height.px': table.headerHeight}"
-         resizeable
+         appResizeable
          [resizeEnabled]="column.resizeable"
          [minWidth]="table.minWidthColumn"
          [maxWidth]="table.maxWidthColumn"
@@ -40,7 +40,7 @@
     <div class="datatable-header-cell"
          *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
          [ngStyle]="{'width.px': column.width, 'height.px': table.headerHeight, 'line-height.px': table.headerHeight}"
-         resizeable
+         appResizeable
          [resizeEnabled]="column.resizeable"
          [minWidth]="table.minWidthColumn"
          [maxWidth]="table.maxWidthColumn"

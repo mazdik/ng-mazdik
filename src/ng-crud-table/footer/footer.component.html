@@ -8,12 +8,12 @@
     </div>
 
     <div class="datatable-pager">
-      <pagination
+      <app-pagination
         [totalItems]="totalItems"
         [itemsPerPage]="itemsPerPage"
         [currentPage]="currentPage"
         (pageChanged)="onPageChanged($event)">
-      </pagination>
+      </app-pagination>
     </div>
   </ng-template>
 </div>

@@ -3,7 +3,7 @@ import {ITreeNode, ITreeService, FilterState} from '../types';
 import {id} from '../utils/id';
 
 @Component({
-  selector: 'tree-view-node',
+  selector: 'app-tree-view-node',
   template: `
     <li *ngIf="node" [ngClass]="nodeClass()">
       <i [ngClass]="getIcon(node)"
@@ -17,7 +17,7 @@ import {id} from '../utils/id';
         {{node.name}}
       </span>
       <ul class="tree-container" *ngIf="node.children && node.expanded">
-        <tree-view-node
+        <app-tree-view-node
           *ngFor="let childNode of node.children"
           [node]="childNode"
           [service]="service"
@@ -26,7 +26,7 @@ import {id} from '../utils/id';
           (selectedChanged)="onSelectNode($event)"
           (requestNodes)="onRequestLocal($event)"
           (nodeRightClick)="onNodeRightClickLocal($event)">
-        </tree-view-node>
+        </app-tree-view-node>
       </ul>
     </li>
   `

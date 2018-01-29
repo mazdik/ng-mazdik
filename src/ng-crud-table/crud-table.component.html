@@ -21,15 +21,16 @@
   (selectedRowIndexChanged)="onSelectedRow($event)">
 </app-datatable>
 
-<modal-edit-form #modalEditForm
-                 [table]="table"
-                 [item]="item"
-                 [service]="service"
-                 [zIndex]="zIndexModal"
-                 [view]="detailView"
-                 (saved)="onSaved($event)"
-                 (updated)="onUpdated($event)"
-                 (deleted)="onDeleted($event)"
-                 (loading)="onLoading($event)"
-                 (errors)="onErrors($event)">
-</modal-edit-form>
+<app-modal-edit-form
+  #modalEditForm
+  [table]="table"
+  [item]="item"
+  [service]="service"
+  [zIndex]="zIndexModal"
+  [view]="detailView"
+  (saved)="onSaved($event)"
+  (updated)="onUpdated($event)"
+  (deleted)="onDeleted($event)"
+  (loading)="onLoading($event)"
+  (errors)="onErrors($event)">
+</app-modal-edit-form>

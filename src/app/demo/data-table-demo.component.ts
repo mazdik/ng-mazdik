@@ -4,7 +4,7 @@ import {Column, Settings, DataTable} from '../../ng-crud-table';
 
 
 @Component({
-  selector: 'data-table-demo',
+  selector: 'app-data-table-demo',
   template: `
     <app-datatable
       [table]="table"

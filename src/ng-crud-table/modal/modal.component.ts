@@ -1,10 +1,12 @@
-import {Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, HostListener, EventEmitter} from '@angular/core';
+import {
+  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked,
+  HostListener, HostBinding, EventEmitter
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
   templateUrl: 'modal.component.html',
-  styleUrls: ['modal.component.css'],
-  host: {'class': 'app-modal'}
+  styleUrls: ['modal.component.css']
 })
 export class ModalComponent implements OnInit, AfterViewChecked {
 
@@ -17,6 +19,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @ViewChild('modalRoot') modalRoot: ElementRef;
   @ViewChild('modalBody') modalBody: ElementRef;
+
+  @HostBinding('class') cssClass = 'app-modal';
 
   public visible: boolean = false;
   executePostDisplayActions: boolean;

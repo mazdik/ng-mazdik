@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../types';
 
@@ -126,8 +126,12 @@ export class RestlessService implements ICrudService {
     }
 
     for (const key in obj) {
-      if (obj[key]['value'] && obj[key]['value']) {
-        filters.push({'name': key, 'op': 'eq', 'val': obj[key]['value']});
+      if (obj[key] && obj[key].value) {
+        filters.push({
+          'name': key,
+          'op': 'eq',
+          'val': Array.isArray(obj[key].value) ? obj[key].value[0] : obj[key].value
+        });
       }
     }
 

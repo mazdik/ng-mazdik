@@ -4,13 +4,13 @@ import {Column, Settings, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
 @Component({
-  selector: 'basic-demo',
+  selector: 'app-basic-demo',
   template: `
-    <crud-table
+    <app-crud-table
       [columns]="columns"
       [settings]="settings"
       [service]="service">
-    </crud-table>`
+    </app-crud-table>`
 })
 
 export class BasicDemoComponent implements OnInit {

@@ -1,5 +1,5 @@
 import {
-  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit
+  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit, HostBinding
 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -7,10 +7,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/takeUntil';
 
 @Directive({
-  selector: '[resizeable]',
-  host: {
-    '[class.resizeable]': 'resizeEnabled'
-  }
+  selector: '[appResizeable]'
 })
 export class ResizeableDirective implements OnDestroy, AfterViewInit {
 
@@ -38,6 +35,11 @@ export class ResizeableDirective implements OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this._destroySubscription();
+  }
+
+  @HostBinding('class')
+  get cssClass() {
+    return this.resizeEnabled ? 'resizeable' : '';
   }
 
   onMouseup(): void {

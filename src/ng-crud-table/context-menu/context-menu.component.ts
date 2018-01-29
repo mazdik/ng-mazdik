@@ -2,7 +2,7 @@ import {Component, OnInit, Input, ViewChild, HostListener} from '@angular/core';
 import {MenuItem} from '../types';
 
 @Component({
-  selector: 'context-menu',
+  selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
   styleUrls: ['./context-menu.component.css']
 })

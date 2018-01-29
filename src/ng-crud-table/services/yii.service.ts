@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../types';
 
@@ -96,7 +96,7 @@ export class YiiService implements ICrudService {
 
   private urlEncode(obj: Filter): string {
     const urlSearchParams = Object.getOwnPropertyNames(obj)
-      .reduce((p, key) => p.set(key, obj[key]['value']), new HttpParams());
+      .reduce((p, key) => p.set(key, Array.isArray(obj[key].value) ? obj[key].value[0] : obj[key].value), new HttpParams());
     const url = urlSearchParams.toString();
     return (url) ? '&' + url : '';
   }

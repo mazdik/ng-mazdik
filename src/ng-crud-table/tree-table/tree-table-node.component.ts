@@ -3,7 +3,7 @@ import {ITreeNode, ITreeService} from '../types';
 import {ColumnModel} from '../models/column.model';
 
 @Component({
-  selector: 'tree-table-node',
+  selector: 'app-tree-table-node',
   templateUrl: './tree-table-node.component.html',
 })
 export class TreeTableNodeComponent {

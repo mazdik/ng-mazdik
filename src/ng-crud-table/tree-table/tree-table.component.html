@@ -6,19 +6,19 @@
 
   <div class="datatable-body">
     <div class="datatable-selection">
-      <datatable-scroller
+      <app-datatable-scroller
         [scrollbarV]="true"
         [scrollbarH]="true"
         (scroll)="onBodyScroll($event)">
-        <tree-table-node
+        <app-tree-table-node
           [nodes]="nodes"
           [service]="service"
           [columns]="table.columns"
           [offsetX]="offsetX"
           (editComplete)="onCellEditComplete($event)"
           (requestNodes)="onRequestNodes($event)">
-        </tree-table-node>
-      </datatable-scroller>
+        </app-tree-table-node>
+      </app-datatable-scroller>
     </div>
   </div>
 

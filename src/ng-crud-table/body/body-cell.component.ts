@@ -6,7 +6,7 @@ import {ColumnModel} from '../types';
 
 
 @Component({
-  selector: 'datatable-body-cell',
+  selector: 'app-datatable-body-cell',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span

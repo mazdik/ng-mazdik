@@ -6,7 +6,7 @@ import {DataTable, MenuItem} from '../types';
 
 
 @Component({
-  selector: 'datatable-body-row',
+  selector: 'app-datatable-body-row',
   templateUrl: './body-row.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })

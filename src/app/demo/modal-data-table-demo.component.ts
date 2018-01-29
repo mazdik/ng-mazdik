@@ -4,7 +4,7 @@ import {Column, Settings, DataTable} from '../../ng-crud-table';
 
 
 @Component({
-  selector: 'modal-data-table-demo',
+  selector: 'app-modal-data-table-demo',
   template: `
     <app-datatable
       [table]="dtPlayers"

@@ -1,11 +1,11 @@
 <div class="datatable-selection">
-  <datatable-scroller
+  <app-datatable-scroller
     [scrollbarV]="true"
     [scrollbarH]="true"
     (scroll)="onBodyScroll($event)">
     <div class="datatable-row-wrapper"
          *ngFor="let row of rows; let rowIndex=index; trackBy: rowTrackingFn">
-      <datatable-body-row
+      <app-datatable-body-row
         [table]="table"
         [row]="row"
         [rowIndex]="rowIndex"
@@ -13,9 +13,9 @@
         (editComplete)="onEditComplete($event)"
         [offsetX]="offsetX"
         (selectedRowIndexChange)="selectedRowIndexChange.emit($event)">
-      </datatable-body-row>
+      </app-datatable-body-row>
     </div>
-  </datatable-scroller>
+  </app-datatable-scroller>
   <div
     class="empty-row"
     *ngIf="!rows?.length"

@@ -1,14 +1,14 @@
 import {Component, ViewChild, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ITreeNode, ITreeService, Column, Settings, Filter, ICrudService, MenuItem} from '../../ng-crud-table';
+import {ITreeNode, ITreeService, Column, Settings, ICrudService, MenuItem} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {TreeDemoService} from './tree-demo.service';
 
 @Component({
-  selector: 'tree-filter-demo',
+  selector: 'app-tree-filter-demo',
   template: `
     <div style="display: flex;">
-      <tree-view
+      <app-tree-view
         #tree
         [ngStyle]="{'width.px': 210, 'height.px': settings.scrollHeight + 70}"
         [service]="treeService"
@@ -16,16 +16,16 @@ import {TreeDemoService} from './tree-demo.service';
         (selectedChanged)="onSelectNode($event)"
         [serverSideFiltering]="true"
         [contextMenu]="contextMenu">
-      </tree-view>
-      <crud-table
+      </app-tree-view>
+      <app-crud-table
         #table
         [columns]="columns"
         [settings]="settings"
         [service]="service"
         (filterChanged)="onFilterChanged($event)">
-      </crud-table>
+      </app-crud-table>
     </div>
-    <context-menu #contextMenu [items]="items"></context-menu>
+    <app-context-menu #contextMenu [items]="items"></app-context-menu>
   `
 })
 export class TreeFilterDemoComponent implements OnInit {

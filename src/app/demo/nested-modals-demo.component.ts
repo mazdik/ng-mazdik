@@ -4,17 +4,17 @@ import {Column, Settings, ICrudService} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
 @Component({
-  selector: 'nested-modals-demo',
+  selector: 'app-nested-modals-demo',
   template: `
     <app-modal #modal [modalTitle]="'Data-table'">
       <ng-container class="app-modal-body">
-        <crud-table
+        <app-crud-table
           [columns]="columns"
           [settings]="settings"
           [service]="service"
           [zIndexModal]="1110"
           (select)="onSelect($event)">
-        </crud-table>
+        </app-crud-table>
       </ng-container>
     </app-modal>
     <button type="button"

@@ -5,7 +5,7 @@ import {DataTable} from './models/data-table';
 
 
 @Component({
-  selector: 'crud-table',
+  selector: 'app-crud-table',
   templateUrl: './crud-table.component.html',
   styleUrls: ['./styles/index.css'],
   encapsulation: ViewEncapsulation.None,

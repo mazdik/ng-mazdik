@@ -3,7 +3,7 @@ import {ITreeNode, ITreeService, FilterState} from '../types';
 import {id} from '../utils/id';
 
 @Component({
-  selector: 'tree-view',
+  selector: 'app-tree-view',
   styleUrls: ['./tree-view.component.css', '../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
   template: `
@@ -25,7 +25,7 @@ import {id} from '../utils/id';
     <div class="tree-body">
       <div *ngIf="loading" class="loading-content"><i class="icon-collapsing"></i></div>
       <ul class="tree-container" style="padding-left: 0;">
-        <tree-view-node
+        <app-tree-view-node
           *ngFor="let node of nodes"
           [node]="node"
           [service]="service"
@@ -33,7 +33,7 @@ import {id} from '../utils/id';
           (selectedChanged)="onSelectedChanged($event)"
           (requestNodes)="onRequestNodes($event)"
           (nodeRightClick)="onNodeRightClick($event)">
-        </tree-view-node>
+        </app-tree-view-node>
       </ul>
     </div>
   `

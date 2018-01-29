@@ -1,7 +1,7 @@
 import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: "pagination",
+  selector: 'app-pagination',
   templateUrl: 'pagination.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

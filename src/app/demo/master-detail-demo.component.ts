@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 
 
 @Component({
-  selector: 'master-detail-demo',
+  selector: 'app-master-detail-demo',
   template: `
     <app-datatable
       #tablePlayers

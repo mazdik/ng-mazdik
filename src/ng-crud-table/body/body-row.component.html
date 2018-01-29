@@ -18,41 +18,41 @@
   </div>
 
   <ng-container *ngFor="let column of table.frozenColumns; let colIndex = index; trackBy: columnTrackingFn">
-    <datatable-body-cell
+    <app-datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
       [column]="column">
-    </datatable-body-cell>
-    <datatable-body-cell-edit
+    </app-datatable-body-cell>
+    <app-datatable-body-cell-edit
       *ngIf="column.editable"
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
       [column]="column"
       (editComplete)="onCellEditComplete($event)">
-    </datatable-body-cell-edit>
+    </app-datatable-body-cell-edit>
   </ng-container>
 
 </div>
 
 <div class="datatable-row-center datatable-row-group">
   <ng-container *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: columnTrackingFn">
-    <datatable-body-cell
+    <app-datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
       [column]="column">
-    </datatable-body-cell>
-    <datatable-body-cell-edit
+    </app-datatable-body-cell>
+    <app-datatable-body-cell-edit
       *ngIf="column.editable"
       tabindex="-1"
       [colIndex]="colIndex"
       [row]="row"
       [column]="column"
       (editComplete)="onCellEditComplete($event)">
-    </datatable-body-cell-edit>
+    </app-datatable-body-cell-edit>
   </ng-container>
 </div>

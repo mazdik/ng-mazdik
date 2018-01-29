@@ -5,17 +5,17 @@ import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-edit-form.component';
 
 @Component({
-  selector: 'modal-form-demo',
+  selector: 'app-modal-form-demo',
   template: `
-    <modal-edit-form #modalEditForm
-                     [table]="table"
-                     [item]="item"
-                     [service]="service"
-                     (saved)="onSaved($event)"
-                     (updated)="onUpdated($event)"
-                     (deleted)="onDeleted($event)"
-                     (errors)="onErrors($event)">
-    </modal-edit-form>
+    <app-modal-edit-form #modalEditForm
+                         [table]="table"
+                         [item]="item"
+                         [service]="service"
+                         (saved)="onSaved($event)"
+                         (updated)="onUpdated($event)"
+                         (deleted)="onDeleted($event)"
+                         (errors)="onErrors($event)">
+    </app-modal-edit-form>
     <button type="button"
             class="button"
             (click)="createItem()">Create
