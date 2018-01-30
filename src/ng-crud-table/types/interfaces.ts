@@ -22,6 +22,7 @@ export interface FilterMetadata {
   value?: any;
   matchMode?: string;
   valueTo?: any;
+  type?: string;
 }
 
 export interface Filter {

@@ -152,9 +152,9 @@ export class DataTable {
     return !empty;
   }
 
-  setFilter(value: any, field: string, matchMode: string, valueTo?: any) {
+  setFilter(value: any, field: string, matchMode: string, valueTo?: any, type?: string) {
     if (!isBlank(value) || !isBlank(valueTo)) {
-      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo};
+      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: type};
     } else if (this.filters[field]) {
       delete this.filters[field];
     }

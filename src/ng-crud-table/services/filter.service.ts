@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Filter} from '../types';
+import {Filter, FilterMetadata} from '../types';
 import {isBlank} from '../utils/util';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class FilterService {
       if (filters[key]) {
         filteredRows = filteredRows.filter((row: any) => {
           if (key in row) {
-            return this.compare(filters[key].matchMode, row[key], filters[key].value, filters[key].valueTo);
+            return this.compare(row[key], filters[key]);
           } else {
             return false;
           }
@@ -35,34 +35,66 @@ export class FilterService {
     return filteredRows;
   }
 
-  compare(matchMode: string, value: any, filter: any, filterTo: any) {
-    switch (matchMode) {
-      case FilterService.EQUALS:
-        return this.equals(value, filter);
-      case FilterService.NOT_EQUAL:
-        return this.notEquals(value, filter);
-      case FilterService.IN_RANGE:
-        return this.inRange(value, filter, filterTo);
-      case FilterService.IN:
-        return this.in(value, filter);
-      case FilterService.CONTAINS:
-        return this.contains(value, filter);
-      case FilterService.NOT_CONTAINS:
-        return !this.contains(value, filter);
-      case FilterService.STARTS_WITH:
-        return this.startsWith(value, filter);
-      case FilterService.ENDS_WITH:
-        return this.endsWith(value, filter);
-      case FilterService.LESS_THAN:
-        return this.lessThan(value, filter);
-      case FilterService.LESS_THAN_OR_EQUAL:
-        return this.lessThanOrEqual(value, filter);
-      case FilterService.GREATER_THAN:
-        return this.greaterThan(value, filter);
-      case FilterService.GREATER_THAN_OR_EQUAL:
-        return this.greaterThanOrEqual(value, filter);
-      default:
-        return this.equals(value, filter);
+  compare(value: any, filter: FilterMetadata) {
+    if (filter.type === 'date') {
+      let filterValue;
+      let filterValueTo;
+      if (!isBlank(value)) {
+        value = new Date(value);
+      }
+      if (!isBlank(filter.value)) {
+        filterValue = new Date(filter.value);
+      }
+      if (!isBlank(filter.valueTo)) {
+        filterValueTo = new Date(filter.valueTo);
+      }
+      switch (filter.matchMode) {
+        case FilterService.EQUALS:
+          return this.dateEquals(value, filterValue);
+        case FilterService.NOT_EQUAL:
+          return !this.equals(value, filterValue);
+        case FilterService.IN_RANGE:
+          return this.inRange(value, filterValue, filterValueTo);
+        case FilterService.LESS_THAN:
+          return this.lessThan(value, filterValue);
+        case FilterService.LESS_THAN_OR_EQUAL:
+          return this.lessThanOrEqual(value, filterValue);
+        case FilterService.GREATER_THAN:
+          return this.greaterThan(value, filterValue);
+        case FilterService.GREATER_THAN_OR_EQUAL:
+          return this.greaterThanOrEqual(value, filterValue);
+        default:
+          return this.dateEquals(value, filterValue);
+      }
+    } else {
+      switch (filter.matchMode) {
+        case FilterService.EQUALS:
+          return this.equals(value, filter.value);
+        case FilterService.NOT_EQUAL:
+          return !this.equals(value, filter.value);
+        case FilterService.IN_RANGE:
+          return this.inRange(value, filter.value, filter.valueTo);
+        case FilterService.IN:
+          return this.in(value, filter.value);
+        case FilterService.CONTAINS:
+          return this.contains(value, filter.value);
+        case FilterService.NOT_CONTAINS:
+          return !this.contains(value, filter.value);
+        case FilterService.STARTS_WITH:
+          return this.startsWith(value, filter.value);
+        case FilterService.ENDS_WITH:
+          return this.endsWith(value, filter.value);
+        case FilterService.LESS_THAN:
+          return this.lessThan(value, filter.value);
+        case FilterService.LESS_THAN_OR_EQUAL:
+          return this.lessThanOrEqual(value, filter.value);
+        case FilterService.GREATER_THAN:
+          return this.greaterThan(value, filter.value);
+        case FilterService.GREATER_THAN_OR_EQUAL:
+          return this.greaterThanOrEqual(value, filter.value);
+        default:
+          return this.equals(value, filter.value);
+      }
     }
   }
 
@@ -74,16 +106,6 @@ export class FilterService {
       return false;
     }
     return value.toString().toLowerCase() === filter.toString().toLowerCase();
-  }
-
-  notEquals(value, filter): boolean {
-    if (isBlank(filter)) {
-      return false;
-    }
-    if (isBlank(value)) {
-      return true;
-    }
-    return value.toString().toLowerCase() !== filter.toString().toLowerCase();
   }
 
   in(value, filter: any[]): boolean {
@@ -184,6 +206,18 @@ export class FilterService {
       return false;
     }
     return value > from && value < to;
+  }
+
+  dateEquals(value, filter): boolean {
+    if (isBlank(filter)) {
+      return true;
+    }
+    if (isBlank(value)) {
+      return false;
+    }
+    const dt1 = new Date(value).setSeconds(0, 0);
+    const dt2 = new Date(filter).setSeconds(0, 0);
+    return dt1 === dt2;
   }
 
 }

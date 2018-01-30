@@ -95,6 +95,7 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   uncheckAll() {
+    this.valueTo = null;
     this.filter(null);
     this.filterClose.emit(true);
   }
