@@ -24,8 +24,6 @@ export class DataTableDemoComponent implements OnInit {
     api: null,
     crud: true,
     primaryKeys: ['id'],
-    tableWidth: 1100,
-    scrollHeight: 250,
     clientSide: true,
   };
 

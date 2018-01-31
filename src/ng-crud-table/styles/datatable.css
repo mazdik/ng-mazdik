@@ -71,8 +71,6 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-flow: row;
-  -o-flex-flow: row;
   flex-flow: row;
 }
 
@@ -81,7 +79,6 @@
   overflow-x: hidden;
   vertical-align: top;
   display: inline-block;
-  line-height: 1.625;
 }
 
 .datatable .datatable-body-cell:focus,
@@ -249,6 +246,10 @@
 .datatable-header-cell {
   background-color: #5b9bd5;
   color: white;
+  user-select: none;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 3px;
 }
 
 .datatable-header-cell:hover {
@@ -263,6 +264,12 @@
   background-color: white;
 }
 
+.datatable-body-cell {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 3px;
+}
+
 .datatable .datatable-body-cell,
 .datatable .datatable-header-cell {
   border-right: 1px solid #c6c6c6;
@@ -271,7 +278,6 @@
 
 .column-title {
   color: white;
-  padding: 2px;
 }
 
 .column-title:hover {
@@ -280,8 +286,9 @@
 
 .column-menu {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 50%;
+  right: 10px; /* - resize-handle */
+  margin-top: -6px; /* (height + padding)/2 */
   text-align: right;
   visibility: hidden;
 }
@@ -294,12 +301,10 @@
   visibility: visible;
 }
 
-/* Editing */
 .cell-data {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  display: block;
 }
 
 .cell-editor {
@@ -309,7 +314,7 @@
 }
 
 .cell-editing {
-  padding: 0 1px;
+  padding: 0;
 }
 
 .cell-editing .cell-data {
@@ -320,16 +325,16 @@
   display: block;
 }
 
-.cell-editor input {
-  width: 100%;
-  height: 100%;
-  padding: 1px 3px;
-}
-
+.cell-editor input,
 .cell-editor select {
   width: 100%;
   height: 100%;
-  padding: 1px 3px;
+  padding: 0 3px;
+  outline: 0;
+  border: 1px solid green;
+}
+
+.cell-editor select {
   cursor: pointer;
   background: #ffffff;
 }

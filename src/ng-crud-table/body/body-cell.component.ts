@@ -9,10 +9,9 @@ import {ColumnModel} from '../types';
   selector: 'app-datatable-body-cell',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span
-      *ngIf="!column.cellTemplate"
-      class="cell-data" title="{{value}}">{{value}}
-    </span>
+    <div class="cell-data" *ngIf="!column.cellTemplate" title="{{value}}">
+      {{value}}
+    </div>
     <ng-template #cellTemplate
                  *ngIf="column.cellTemplate"
                  [ngTemplateOutlet]="column.cellTemplate"
@@ -24,7 +23,8 @@ export class BodyCellComponent implements DoCheck {
 
   @Input() colIndex: number;
 
-  @Input() set column(column: ColumnModel) {
+  @Input()
+  set column(column: ColumnModel) {
     this._column = column;
     this.cellContext.column = column;
     this.checkValueUpdates();
@@ -35,7 +35,8 @@ export class BodyCellComponent implements DoCheck {
     return this._column;
   }
 
-  @Input() set row(row: any) {
+  @Input()
+  set row(row: any) {
     this._row = row;
     this.cellContext.row = row;
     this.checkValueUpdates();
@@ -57,7 +58,7 @@ export class BodyCellComponent implements DoCheck {
         const res = this.column.cellClass({
           row: this.row,
           column: this.column,
-          value: this.value ,
+          value: this.value,
         });
 
         if (typeof res === 'string') {

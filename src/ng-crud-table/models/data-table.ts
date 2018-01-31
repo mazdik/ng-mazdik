@@ -6,7 +6,6 @@ export class DataTable {
 
   public settings: Settings;
   public columns: ColumnModel[] = [];
-  public headerHeight: number = 30;
   public actionColumnWidth: number = 40;
   public columnsTotalWidth: number;
   public frozenColumns: ColumnModel[] = [];

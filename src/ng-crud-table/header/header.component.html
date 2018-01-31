@@ -3,7 +3,7 @@
   <div class="datatable-row-left">
     <div class="datatable-header-cell"
          *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
-         [ngStyle]="{'width.px': column.width, 'height.px': table.headerHeight, 'line-height.px': table.headerHeight}"
+         [ngStyle]="{'width.px': column.width}"
          appResizeable
          [resizeEnabled]="column.resizeable"
          [minWidth]="table.minWidthColumn"
@@ -39,14 +39,14 @@
        [ngStyle]="stylesByGroup()">
     <div class="datatable-header-cell"
          *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
-         [ngStyle]="{'width.px': column.width, 'height.px': table.headerHeight, 'line-height.px': table.headerHeight}"
+         [ngStyle]="{'width.px': column.width}"
          appResizeable
          [resizeEnabled]="column.resizeable"
          [minWidth]="table.minWidthColumn"
          [maxWidth]="table.maxWidthColumn"
          (resize)="onColumnResized($event, column)">
 
-            <span class="column-title" (click)="onSort($event, column)">
+            <span class="column-title" (click)="onSort(column)">
             {{column.title}}
             <i class="icon"
                *ngIf="column.sortable"
