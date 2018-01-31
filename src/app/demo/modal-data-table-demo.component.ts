@@ -70,7 +70,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     api: null,
     crud: false,
     primaryKeys: ['id'],
-    tableWidth: 500,
+    tableWidth: 900,
     scrollHeight: 250,
     clientSide: true,
   };
@@ -79,7 +79,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     api: null,
     crud: false,
     primaryKeys: ['id'],
-    tableWidth: 600,
+    tableWidth: 900,
     scrollHeight: 250,
     clientSide: true,
   };

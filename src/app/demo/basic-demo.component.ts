@@ -25,7 +25,7 @@ export class BasicDemoComponent implements OnInit {
     api: 'assets/players.json',
     crud: true,
     primaryKeys: ['id'],
-    tableWidth: 1150,
+    tableWidth: 1100,
     scrollHeight: 380,
     messages: {
       titleDetailView: 'Player details',

@@ -11,22 +11,14 @@
       (filterChanged)="onFilterChanged()"
       (filterClose)="onFilterClose()">
     </app-list-filter>
-    <app-number-filter
-      *ngIf="!column.options && column.type ==='number'"
+    <app-range-filter
+      *ngIf="!column.options && (column.type ==='number' || column.type ==='date' || column.type ==='datetime-local')"
       [table]="table"
       [column]="column"
       [isOpen]="isVisible"
       (filterChanged)="onFilterChanged()"
       (filterClose)="onFilterClose()">
-    </app-number-filter>
-    <app-date-filter
-      *ngIf="!column.options && (column.type ==='date' || column.type ==='datetime-local')"
-      [table]="table"
-      [column]="column"
-      [isOpen]="isVisible"
-      (filterChanged)="onFilterChanged()"
-      (filterClose)="onFilterClose()">
-    </app-date-filter>
+    </app-range-filter>
     <app-string-filter
       *ngIf="!column.options && column.type !=='number' && column.type !=='date' && column.type !=='datetime-local'"
       [table]="table"

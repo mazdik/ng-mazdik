@@ -7,23 +7,23 @@ import {FilterService} from '../services/filter.service';
 
 
 @Component({
-  selector: 'app-number-filter',
+  selector: 'app-range-filter',
   template: `
     <select class="df-control sm"
             style="margin-bottom: 8px;"
             [(ngModel)]="matchMode"
             (change)="onModeChange()">
-      <option *ngFor="let opt of numberOperators" [value]="opt.value">{{opt.text}}</option>
+      <option *ngFor="let opt of operators" [value]="opt.value">{{opt.text}}</option>
     </select>
     <input class="df-control"
-           type="number"
            #filterInput
+           [attr.type]="column.type"
            [attr.placeholder]="isRangeFilter() ? '>' : column.name"
            [value]="table.getFilterValue(column)"
            (input)="onFilterInput()"/>
     <input class="df-control"
            style="margin-top: 8px;"
-           type="number"
+           [attr.type]="column.type"
            [attr.placeholder]="'<'"
            *ngIf="isRangeFilter()"
            [(ngModel)]="valueTo"
@@ -34,10 +34,16 @@ import {FilterService} from '../services/filter.service';
         <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.settings.messages.clear}}
       </span>
       </li>
+      <ng-template [ngIf]="(column.type ==='date' || column.type ==='datetime-local')">
+        <li (click)="lastDate('year')"><span>{{table.settings.messages.lastYear}}</span></li>
+        <li (click)="lastDate('month')"><span>{{table.settings.messages.lastMonth}}</span></li>
+        <li (click)="lastDate('day')"><span>{{table.settings.messages.lastDay}}</span></li>
+        <li (click)="lastDate('hour')"><span>{{table.settings.messages.lastHour}}</span></li>
+      </ng-template>
     </ul>
   `,
 })
-export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
+export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() public table: DataTable;
   @Input() public column: ColumnModel;
@@ -49,14 +55,14 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filterTimeout: any;
   matchMode: string = FilterService.EQUALS;
-  numberOperators: any[];
+  operators: any[];
   valueTo: any;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.numberOperators = [
+    this.operators = [
       {value: FilterService.EQUALS, text: this.table.settings.messages.equals},
       {value: FilterService.NOT_EQUAL, text: this.table.settings.messages.notEqual},
       {value: FilterService.GREATER_THAN, text: this.table.settings.messages.greaterThan},
@@ -90,7 +96,7 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   filter(value) {
-    this.table.setFilter(value, this.column.name, this.matchMode, this.valueTo);
+    this.table.setFilter(value, this.column.name, this.matchMode, this.valueTo, this.column.type);
     this.filterChanged.emit(this.table.filters);
   }
 
@@ -118,5 +124,24 @@ export class NumberFilterComponent implements OnInit, AfterViewInit, OnChanges {
   isRangeFilter() {
     return this.matchMode === FilterService.IN_RANGE;
   }
+
+  lastDate(name: string) {
+    let dt: Date;
+    if (name === 'year') {
+      dt = new Date();
+      dt.setMonth(dt.getMonth() - 12);
+    } else if (name === 'month') {
+      dt = new Date();
+      dt.setMonth(dt.getMonth() - 1);
+    } else if (name === 'day') {
+      dt = new Date(Date.now() + -1 * 24 * 3600 * 1000);
+    } else if (name === 'hour') {
+      dt = new Date(Date.now() + -1 * 3600 * 1000);
+    }
+    this.matchMode = FilterService.GREATER_THAN_OR_EQUAL;
+    this.filter(dt.toISOString().slice(0, 19));
+    this.filterClose.emit(true);
+  }
+
 
 }

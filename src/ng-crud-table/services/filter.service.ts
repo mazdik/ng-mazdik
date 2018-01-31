@@ -36,7 +36,7 @@ export class FilterService {
   }
 
   compare(value: any, filter: FilterMetadata) {
-    if (filter.type === 'date') {
+    if (filter.type === 'date' || filter.type === 'datetime-local') {
       let filterValue;
       let filterValueTo;
       if (!isBlank(value)) {

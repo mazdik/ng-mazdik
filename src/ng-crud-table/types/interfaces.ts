@@ -121,4 +121,8 @@ export interface Message {
   notContains?: string;
   startsWith?: string;
   endsWith?: string;
+  lastYear?: string;
+  lastMonth?: string;
+  lastDay?: string;
+  lastHour?: string;
 }

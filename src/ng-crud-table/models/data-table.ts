@@ -85,7 +85,11 @@ export class DataTable {
         contains: 'Contains',
         notContains: 'Does not contain',
         startsWith: 'Begins with',
-        endsWith: 'Ends with'
+        endsWith: 'Ends with',
+        lastYear: 'Last Year',
+        lastMonth: 'Last Month',
+        lastDay: 'Last Day',
+        lastHour: 'Last Hour'
       }
     };
   }
