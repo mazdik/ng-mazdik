@@ -49,10 +49,6 @@ export class CrudTableComponent implements OnInit {
   public detailView: boolean = false;
   public loading: boolean = false;
 
-  public itemsPerPage: number = 10;
-  public totalItems: number = 0;
-  public currentPage: number = 1;
-
   private _columns: ColumnBase[];
   private _settings: Settings;
 
@@ -95,12 +91,13 @@ export class CrudTableComponent implements OnInit {
   getItems(): Promise<any> {
     this.loading = true;
     this.errors = null;
-    return this.service.getItems(this.currentPage, this.table.filters, this.table.sortMeta.field, this.table.sortMeta.order)
+    return this.service
+      .getItems(this.table.pager.current, this.table.filters, this.table.sortMeta.field, this.table.sortMeta.order)
       .then(data => {
         this.loading = false;
         this.items = data.items;
-        this.totalItems = data._meta.totalCount;
-        this.itemsPerPage = data._meta.perPage;
+        this.table.pager.total = data._meta.totalCount;
+        this.table.pager.perPage = data._meta.perPage;
       })
       .catch(error => {
         this.loading = false;
@@ -110,12 +107,12 @@ export class CrudTableComponent implements OnInit {
 
   clear() {
     this.items = [];
-    this.totalItems = 0;
+    this.table.pager.total = 0;
     this.detailView = false;
   }
 
   pageChanged(event: any): void {
-    this.currentPage = event;
+    this.table.pager.current = event;
     this.getItems();
   }
 

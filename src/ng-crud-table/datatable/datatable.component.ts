@@ -16,9 +16,6 @@ import {FilterService} from '../services/filter.service';
 export class DatatableComponent implements OnInit, DoCheck {
 
   @Input() public table: DataTable;
-  @Input() public itemsPerPage: number = 10;
-  @Input() public totalItems: number = 0;
-  @Input() public currentPage: number = 1;
   @Input() public loading: boolean = false;
   @Input() public selectedRowIndex: number;
   @Input() public trackByProp: string;
@@ -69,7 +66,7 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   onPageChanged(event: any): void {
     if (this.table.settings.clientSide) {
-      this.currentPage = event;
+      this.table.pager.current = event;
       this._rows = this.getItems();
     }
     this.pageChanged.emit(event);
@@ -81,8 +78,8 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   onFilter() {
+    this.table.pager.current = 1;
     if (this.table.settings.clientSide) {
-      this.currentPage = 1;
       this._rows = this.getItems();
     }
     this.filterChanged.emit(this.table.filters);
@@ -119,28 +116,11 @@ export class DatatableComponent implements OnInit, DoCheck {
     this.selectFilter.hide();
   }
 
-  sort(data: any, sortField ?: string, sortOrder ?: number) {
-    return data.sort((previous: any, current: any) => {
-      if (previous[sortField] > current[sortField]) {
-        return sortOrder === -1 ? -1 : 1;
-      } else if (previous[sortField] < current[sortField]) {
-        return sortOrder === 1 ? -1 : 1;
-      }
-      return 0;
-    });
-  }
-
-  pager(data: any, page: any): any[] {
-    const start = (page - 1) * this.itemsPerPage;
-    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
-    return data.slice(start, end);
-  }
-
   getItems() {
     let data = this.filterService.filter(this.rowsCopy, this.table.filters);
-    this.totalItems = data.length;
-    data = this.sort(data, this.table.sortMeta.field, this.table.sortMeta.order);
-    data = this.pager(data, this.currentPage);
+    this.table.pager.total = data.length;
+    data = this.table.sorter.sort(data, this.table.sortMeta.field, this.table.sortMeta.order);
+    data = this.table.pager.pager(data);
     return data;
   }
 

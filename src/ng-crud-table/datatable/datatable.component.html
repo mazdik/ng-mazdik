@@ -25,9 +25,7 @@
     (selectedRowIndexChange)="onSelectRow($event)">
   </app-datatable-body>
   <app-datatable-footer
-    [totalItems]="totalItems"
-    [itemsPerPage]="itemsPerPage"
-    [currentPage]="currentPage"
+    [table]="table"
     (pageChanged)="onPageChanged($event)">
   </app-datatable-footer>
 </div>

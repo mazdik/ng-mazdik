@@ -1,16 +1,17 @@
-<div class="datatable-footer-inner"
-  [style.height.px]="footerHeight">
+<div class="datatable-footer-inner">
 
-  <ng-template [ngIf]="totalItems > 0">
+  <ng-template [ngIf]="table.pager.total > 0">
     <div class="page-count">
-      <span class="page-range">{{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}</span>
+      <span class="page-range">
+        {{(table.pager.perPage * (table.pager.current - 1)) + 1}} - {{table.pager.rowCount()}} of {{table.pager.total}}
+      </span>
     </div>
 
     <div class="datatable-pager">
       <app-pagination
-        [totalItems]="totalItems"
-        [itemsPerPage]="itemsPerPage"
-        [currentPage]="currentPage"
+        [totalItems]="table.pager.total"
+        [itemsPerPage]="table.pager.perPage"
+        [currentPage]="table.pager.current"
         (pageChanged)="onPageChanged($event)">
       </app-pagination>
     </div>

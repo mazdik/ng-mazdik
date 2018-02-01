@@ -3,6 +3,8 @@ import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
 import {isBlank} from '../utils/util';
+import {DataPager} from './data-pager';
+import {DataSort} from './data-sort';
 
 export class DataTable {
 
@@ -23,9 +25,14 @@ export class DataTable {
   public sortMeta: SortMeta = <SortMeta>{};
   public columnMenuWidth: number = 200;
   public filterDelay: number = 500;
+  public pager: DataPager;
+  public sorter: DataSort;
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);
+    this.pager = new DataPager();
+    this.sorter = new DataSort();
+
     if (columns) {
       this.createColumns(columns);
     }
