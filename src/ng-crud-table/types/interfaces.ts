@@ -29,20 +29,6 @@ export interface Filter {
   [s: string]: FilterMetadata;
 }
 
-export interface Settings {
-  api: string;
-  crud: boolean;
-  primaryKeys?: string[];
-  type?: string;
-  tableWidth?: number;
-  scrollHeight?: number;
-  sortable?: boolean;
-  filter?: boolean;
-  initLoad?: boolean;
-  clientSide?: boolean;
-  messages?: Message;
-}
-
 export interface ICrudService {
   url: string;
   primaryKeys: string[];
@@ -94,35 +80,4 @@ export interface ITreeService {
   url: string;
   getNodes(node?: ITreeNode): Promise<ITreeNode[]>;
   searchNodes(name: string): Promise<any>;
-}
-
-export interface Message {
-  empty?: string;
-  loading?: string;
-  clearFilters?: string;
-  create?: string;
-  delete?: string;
-  save?: string;
-  close?: string;
-  titleCreate?: string;
-  titleUpdate?: string;
-  titleDetailView?: string;
-  search?: string;
-  selectAll?: string;
-  clear?: string;
-  equals?: string;
-  notEqual?: string;
-  lessThan?: string;
-  lessThanOrEqual?: string;
-  greaterThan?: string;
-  greaterThanOrEqual?: string;
-  inRange?: string;
-  contains?: string;
-  notContains?: string;
-  startsWith?: string;
-  endsWith?: string;
-  lastYear?: string;
-  lastMonth?: string;
-  lastDay?: string;
-  lastHour?: string;
 }

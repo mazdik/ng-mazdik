@@ -1,5 +1,6 @@
-import {Column, Settings, MenuItem, Filter, SortMeta} from '../types';
+import {Column, MenuItem, Filter, SortMeta} from '../types';
 import {ColumnModel} from './column.model';
+import {Settings} from './settings';
 import {isBlank} from '../utils/util';
 
 export class DataTable {
@@ -23,7 +24,7 @@ export class DataTable {
   public filterDelay: number = 500;
 
   constructor(columns?: Column[], settings?: Settings) {
-    this.defaultSettings();
+    this.settings = new Settings(settings);
     if (columns) {
       this.createColumns(columns);
     }
@@ -52,46 +53,6 @@ export class DataTable {
         }
       }
     });
-  }
-
-  defaultSettings() {
-    this.settings = {
-      api: null,
-      crud: false,
-      sortable: true,
-      filter: true,
-      initLoad: true,
-      messages: {
-        empty: 'No data to display',
-        loading: 'Loading...',
-        clearFilters: 'Clear all filters',
-        create: 'Create',
-        delete: 'Delete',
-        save: 'Save',
-        close: 'Close',
-        titleCreate: 'Create',
-        titleUpdate: 'Update',
-        titleDetailView: 'Detail view',
-        search: 'Search...',
-        selectAll: 'Select all',
-        clear: 'Clear',
-        equals: 'Equals',
-        notEqual: 'Does not equal',
-        lessThan: 'Is less than',
-        lessThanOrEqual: 'Is less than or equal to',
-        greaterThan: 'Is greater than',
-        greaterThanOrEqual: 'Is greater than or equal to',
-        inRange: 'In range',
-        contains: 'Contains',
-        notContains: 'Does not contain',
-        startsWith: 'Begins with',
-        endsWith: 'Ends with',
-        lastYear: 'Last Year',
-        lastMonth: 'Last Month',
-        lastDay: 'Last Day',
-        lastHour: 'Last Hour'
-      }
-    };
   }
 
   setSettings(settings: Settings) {

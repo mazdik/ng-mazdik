@@ -43,6 +43,7 @@ export class NestedModalsDemoComponent implements OnInit {
       frozen: true,
       width: 100,
       formHidden: true,
+      type: 'number',
     },
     {
       title: 'Name',

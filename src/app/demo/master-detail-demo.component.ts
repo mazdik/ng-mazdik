@@ -71,7 +71,7 @@ export class MasterDetailDemoComponent implements OnInit {
   };
 
   public columnsPlayers: Column[] = [
-    {title: 'Id', name: 'id'},
+    {title: 'Id', name: 'id', type: 'number'},
     {title: 'Name', name: 'name'},
     {
       title: 'Race',

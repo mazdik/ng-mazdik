@@ -38,6 +38,7 @@ export class TreeFilterDemoComponent implements OnInit {
       filter: true,
       frozen: true,
       formHidden: true,
+      type: 'number',
     },
     {
       title: 'Name',

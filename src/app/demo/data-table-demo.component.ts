@@ -36,6 +36,7 @@ export class DataTableDemoComponent implements OnInit {
       frozen: true,
       width: 100,
       formHidden: true,
+      type: 'number',
     },
     {
       title: 'Name',
