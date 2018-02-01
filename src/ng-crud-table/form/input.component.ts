@@ -1,6 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {ColumnModel} from '../types';
-
+import {Column} from '../models/column';
 
 @Component({
   selector: 'app-form-input',
@@ -8,7 +7,7 @@ import {ColumnModel} from '../types';
 })
 export class InputComponent implements OnInit {
 
-  @Input() public column: ColumnModel;
+  @Input() public column: Column;
   @Input() public disabled: boolean;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();

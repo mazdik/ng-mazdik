@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {ITreeNode, ITreeService} from '../types';
-import {ColumnModel} from '../models/column.model';
+import {Column} from '../models/column';
 
 @Component({
   selector: 'app-tree-table-node',
@@ -10,7 +10,7 @@ export class TreeTableNodeComponent {
 
   @Input() public nodes: ITreeNode[];
   @Input() public service: ITreeService;
-  @Input() public columns: ColumnModel[];
+  @Input() public columns: Column[];
   @Input() public level: number = 0;
   @Input() public offsetX: number;
   @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();

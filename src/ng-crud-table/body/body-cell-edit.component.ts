@@ -2,8 +2,7 @@ import {
   Component, Input, Output, EventEmitter, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
-import {ColumnModel} from '../types';
-
+import {Column} from '../models/column';
 
 @Component({
   selector: 'app-datatable-body-cell-edit',
@@ -13,7 +12,7 @@ import {ColumnModel} from '../types';
 export class BodyCellEditComponent implements DoCheck {
 
   @Input() row: any;
-  @Input() column: ColumnModel;
+  @Input() column: Column;
   @Input() colIndex: number;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
@@ -97,7 +96,7 @@ export class BodyCellEditComponent implements DoCheck {
     this.switchCellToEditMode(this.column);
   }
 
-  switchCellToEditMode(column: ColumnModel) {
+  switchCellToEditMode(column: Column) {
     if (column.editable) {
       this.editing = true;
       if (column.options) {

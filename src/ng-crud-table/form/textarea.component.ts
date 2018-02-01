@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {InputComponent} from './input.component';
 
-
 @Component({
   selector: 'app-form-textarea',
   template: `

@@ -2,7 +2,6 @@ import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {ICrudService} from '../types';
 import {InputComponent} from './input.component';
 
-
 @Component({
   selector: 'app-form-input-option',
   template: ``

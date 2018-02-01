@@ -2,8 +2,8 @@ import {
   Component, Input, Output, OnInit, EventEmitter, HostBinding, HostListener,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnModel} from '../types';
-
+import {DataTable} from '../models/data-table';
+import {Column} from '../models/column';
 
 @Component({
   selector: 'app-filter',
@@ -18,7 +18,7 @@ export class FilterComponent implements OnInit {
   left: number;
   top: number;
   width: number;
-  column: ColumnModel = <ColumnModel> {};
+  column: Column = <Column> {};
   isVisible: boolean;
   selectContainerClicked: boolean;
 
@@ -91,7 +91,7 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  show(top: number, left: number, column: ColumnModel) {
+  show(top: number, left: number, column: Column) {
     this.column = column;
     this.selectContainerClicked = true;
     this.width = this.table.columnMenuWidth;

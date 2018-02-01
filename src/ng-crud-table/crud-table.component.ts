@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {Column, Settings, ICrudService} from './types';
+import {Settings, ICrudService} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {DataTable} from './models/data-table';
-
+import {ColumnBase} from './models/column-base';
 
 @Component({
   selector: 'app-crud-table',
@@ -22,12 +22,12 @@ export class CrudTableComponent implements OnInit {
   @Output() select: EventEmitter<any> = new EventEmitter();
 
   @Input()
-  set columns(val: Column[]) {
+  set columns(val: ColumnBase[]) {
     this._columns = val;
     this.table.createColumns(this._columns);
   }
 
-  get columns(): Column[] {
+  get columns(): ColumnBase[] {
     return this._columns;
   }
 
@@ -53,7 +53,7 @@ export class CrudTableComponent implements OnInit {
   public totalItems: number = 0;
   public currentPage: number = 1;
 
-  private _columns: Column[];
+  private _columns: ColumnBase[];
   private _settings: Settings;
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;

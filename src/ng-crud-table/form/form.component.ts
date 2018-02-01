@@ -9,7 +9,9 @@ import {
   EventEmitter,
   ViewEncapsulation
 } from '@angular/core';
-import {ColumnModel, ICrudService, DataTable} from '../types';
+import {ICrudService} from '../types';
+import {DataTable} from '../models/data-table';
+import {Column} from '../models/column';
 
 @Component({
   selector: 'app-row-form',
@@ -41,7 +43,7 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  elemEnabled(column: ColumnModel): boolean {
+  elemEnabled(column: Column): boolean {
     if (column.formHidden) {
       return false;
     }
@@ -53,7 +55,7 @@ export class FormComponent implements OnInit, OnDestroy {
     }
   }
 
-  onValid(event: any, column: ColumnModel) {
+  onValid(event: any, column: Column) {
     this.validElements[column.name] = event;
     this.isValid();
   }
@@ -73,7 +75,7 @@ export class FormComponent implements OnInit, OnDestroy {
     this.item[event.column] = event.value;
   }
 
-  isDisabled(column: ColumnModel) {
+  isDisabled(column: Column) {
     if (column.keyColumn && !this.isNew) {
       return (this.table.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
     } else {

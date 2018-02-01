@@ -1,7 +1,8 @@
 import {Component, OnInit, Input, Output, ViewChild, EventEmitter, PipeTransform, ViewEncapsulation} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {ColumnModel, ICrudService, DataTable} from '../types';
-
+import {ICrudService} from '../types';
+import {DataTable} from '../models/data-table';
+import {Column} from '../models/column';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -123,7 +124,7 @@ export class ModalEditFormComponent implements OnInit {
     return (Object.getOwnPropertyNames(obj).length === 0);
   }
 
-  format(value: any, column: ColumnModel) {
+  format(value: any, column: Column) {
     const userPipe: PipeTransform = column.pipe;
     if (userPipe) {
       return userPipe.transform(value);

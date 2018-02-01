@@ -1,16 +1,17 @@
-import {Column, MenuItem, Filter, SortMeta} from '../types';
-import {ColumnModel} from './column.model';
+import {MenuItem, Filter, SortMeta} from '../types';
+import {ColumnBase} from './column-base';
+import {Column} from './column';
 import {Settings} from './settings';
 import {isBlank} from '../utils/util';
 
 export class DataTable {
 
   public settings: Settings;
-  public columns: ColumnModel[] = [];
+  public columns: Column[] = [];
   public actionColumnWidth: number = 40;
   public columnsTotalWidth: number;
-  public frozenColumns: ColumnModel[] = [];
-  public scrollableColumns: ColumnModel[] = [];
+  public frozenColumns: Column[] = [];
+  public scrollableColumns: Column[] = [];
   public frozenWidth: number = 0;
   public scrollableColumnsWidth: number = 0;
   public minWidthColumn: number = 50;
@@ -23,7 +24,7 @@ export class DataTable {
   public columnMenuWidth: number = 200;
   public filterDelay: number = 500;
 
-  constructor(columns?: Column[], settings?: Settings) {
+  constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);
     if (columns) {
       this.createColumns(columns);
@@ -33,9 +34,9 @@ export class DataTable {
     }
   }
 
-  createColumns(columns: Column[]) {
+  createColumns(columns: ColumnBase[]) {
     for (const column of columns) {
-      this.columns.push(new ColumnModel(column));
+      this.columns.push(new Column(column));
     }
     this.initColumns();
     this.calcColumnsTotalWidth();
@@ -78,7 +79,7 @@ export class DataTable {
     this.scrollHeight = this.settings.scrollHeight;
   }
 
-  setColumnWidth(column: ColumnModel, width: number) {
+  setColumnWidth(column: Column, width: number) {
     if (width <= this.minWidthColumn) {
       width = this.minWidthColumn;
     } else if (width >= this.maxWidthColumn) {
@@ -101,7 +102,7 @@ export class DataTable {
     this.columnsTotalWidth = totalWidth + this.actionColumnWidth;
   }
 
-  isFilter(column: ColumnModel): boolean {
+  isFilter(column: Column): boolean {
     return !isBlank(this.filters[column.name]);
   }
 
@@ -124,24 +125,24 @@ export class DataTable {
     }
   }
 
-  getFilterValue(column: ColumnModel) {
+  getFilterValue(column: Column) {
     return this.filters[column.name] ? this.filters[column.name].value : null;
   }
 
-  getFilterValueTo(column: ColumnModel) {
+  getFilterValueTo(column: Column) {
     return this.filters[column.name] ? this.filters[column.name].valueTo : null;
   }
 
-  getFilterMatchMode(column: ColumnModel) {
+  getFilterMatchMode(column: Column) {
     return this.filters[column.name] ? this.filters[column.name].matchMode : null;
   }
 
-  setSortOrder(column: ColumnModel) {
+  setSortOrder(column: Column) {
     this.sortMeta.order = (this.sortMeta.field === column.name) ? this.sortMeta.order * -1 : 1;
     this.sortMeta.field = column.name;
   }
 
-  getSortOrder(column: ColumnModel) {
+  getSortOrder(column: Column) {
     let order = 0;
     if (this.sortMeta.field && this.sortMeta.field === column.name) {
       order = this.sortMeta.order;

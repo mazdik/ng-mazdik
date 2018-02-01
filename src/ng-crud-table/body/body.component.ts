@@ -1,8 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy
 } from '@angular/core';
-import {DataTable} from '../types';
-
+import {DataTable} from '../models/data-table';
 
 @Component({
   selector: 'app-datatable-body',

@@ -2,8 +2,8 @@ import {
   Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, MenuItem} from '../types';
-
+import {MenuItem} from '../types';
+import {DataTable} from '../models/data-table';
 
 @Component({
   selector: 'app-datatable-body-row',

@@ -2,9 +2,9 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Filter, SortMeta} from '../types';
+import {Filter, SortMeta} from '../types';
+import {DataTable} from '../models/data-table';
 import {FilterService} from '../services/filter.service';
-
 
 @Component({
   selector: 'app-datatable',

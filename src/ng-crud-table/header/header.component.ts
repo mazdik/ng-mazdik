@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, HostBinding} from '@angular/core';
-import {ColumnModel, DataTable} from '../types';
+import {DataTable} from '../models/data-table';
+import {Column} from '../models/column';
 import {getHeight} from '../utils/dom-utils';
-
 
 @Component({
   selector: 'app-datatable-header',
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   @HostBinding('class') cssClass = 'datatable-header';
 
-  frozenColumns: ColumnModel[] = [];
+  frozenColumns: Column[] = [];
 
   constructor() {
   }
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     if (this.table.columns) {
       this.frozenColumns = [...this.table.frozenColumns];
-      const actionColumn: ColumnModel = new ColumnModel({
+      const actionColumn: Column = new Column({
         title: '',
         name: '',
         sortable: false,
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  onSort(column: ColumnModel) {
+  onSort(column: Column) {
     if (!column.sortable) {
       return;
     }
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  getSortOrderIcon(column: ColumnModel) {
+  getSortOrderIcon(column: Column) {
     let icon: string = '';
     if (this.table.getSortOrder(column) === -1) {
       icon = 'icon-down';
@@ -64,7 +64,7 @@ export class HeaderComponent implements OnInit {
     this.clearFilters.emit(true);
   }
 
-  clickColumnMenu(event, column: ColumnModel) {
+  clickColumnMenu(event, column: Column) {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
@@ -76,7 +76,7 @@ export class HeaderComponent implements OnInit {
     this.showColumnMenu.emit({'top': top, 'left': left, 'column': column});
   }
 
-  onColumnResized(width: number, column: ColumnModel): void {
+  onColumnResized(width: number, column: Column): void {
     this.table.setColumnWidth(column, width);
   }
 

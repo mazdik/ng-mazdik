@@ -2,9 +2,9 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
-import {DataTable, ColumnModel} from '../types';
+import {DataTable} from '../models/data-table';
+import {Column} from '../models/column';
 import {FilterService} from '../services/filter.service';
-
 
 @Component({
   selector: 'app-string-filter',
@@ -29,7 +29,7 @@ import {FilterService} from '../services/filter.service';
 export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() public table: DataTable;
-  @Input() public column: ColumnModel;
+  @Input() public column: Column;
   @Input() public isOpen: boolean;
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
   @Output() filterClose: EventEmitter<any> = new EventEmitter();

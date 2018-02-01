@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {InputOptionComponent} from './input-option.component';
 
-
 @Component({
   selector: 'app-form-select-popup',
   template: `
