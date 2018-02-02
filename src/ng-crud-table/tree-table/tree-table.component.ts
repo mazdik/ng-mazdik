@@ -6,7 +6,7 @@ import {ColumnBase} from '../models/column-base';
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../tree-view/tree-view.component.css'],
+  styleUrls: ['../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TreeTableComponent implements OnInit {

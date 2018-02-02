@@ -20,8 +20,6 @@ import {BodyCellEditComponent} from './body/body-cell-edit.component';
 import {ScrollerComponent} from './body/scroller.component';
 import {FooterComponent} from './footer/footer.component';
 import {DatatableComponent} from './datatable/datatable.component';
-import {TreeViewComponent} from './tree-view/tree-view.component';
-import {TreeViewNodeComponent} from './tree-view/tree-view-node.component';
 import {ResizeableDirective} from './directives/resizeable.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
@@ -34,7 +32,6 @@ import {RadioComponent} from './form/radio.component';
 import {InputTextComponent} from './form/input-text.component';
 import {TextareaComponent} from './form/textarea.component';
 import {CalendarComponent} from './form/calendar.component';
-import {ContextMenuComponent} from './context-menu/context-menu.component';
 import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
 import {FilterService} from './services/filter.service';
@@ -64,8 +61,6 @@ import {FilterService} from './services/filter.service';
     ScrollerComponent,
     FooterComponent,
     DatatableComponent,
-    TreeViewComponent,
-    TreeViewNodeComponent,
     TreeTableComponent,
     TreeTableNodeComponent,
     ModalEditFormComponent,
@@ -77,7 +72,6 @@ import {FilterService} from './services/filter.service';
     InputTextComponent,
     TextareaComponent,
     CalendarComponent,
-    ContextMenuComponent,
     ModalSelectComponent,
     PopupSelectComponent,
   ],
@@ -85,10 +79,8 @@ import {FilterService} from './services/filter.service';
     DatatableComponent,
     CrudTableComponent,
     TreeTableComponent,
-    TreeViewComponent,
     ModalComponent,
     ModalEditFormComponent,
-    ContextMenuComponent,
     PopupSelectComponent,
   ],
   providers: [FilterService]

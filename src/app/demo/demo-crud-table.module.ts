@@ -7,7 +7,6 @@ import { DemoCrudTableComponent } from './demo-crud-table.component';
 import { CrudTableModule } from '../../ng-crud-table';
 import { BasicDemoComponent } from './basic-demo.component';
 import { TreeTableDemoComponent } from './tree-table-demo.component';
-import { TreeFilterDemoComponent } from './tree-filter-demo.component';
 import { DataTableDemoComponent } from './data-table-demo.component';
 import { MasterDetailDemoComponent } from './master-detail-demo.component';
 import { ModalFormDemoComponent } from './modal-form-demo.component';
@@ -19,7 +18,6 @@ import { NestedModalsDemoComponent} from './nested-modals-demo.component';
     DemoCrudTableComponent,
     BasicDemoComponent,
     TreeTableDemoComponent,
-    TreeFilterDemoComponent,
     DataTableDemoComponent,
     MasterDetailDemoComponent,
     ModalFormDemoComponent,

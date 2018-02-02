@@ -1,23 +1,11 @@
-import {
-  Component,
-  Input,
-  Output,
-  ViewChild,
-  ViewContainerRef,
-  OnInit,
-  OnDestroy,
-  EventEmitter,
-  ViewEncapsulation
-} from '@angular/core';
+import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter} from '@angular/core';
 import {ICrudService} from '../types';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
 
 @Component({
   selector: 'app-row-form',
-  templateUrl: 'form.component.html',
-  styleUrls: ['../styles/index.css'],
-  encapsulation: ViewEncapsulation.None,
+  templateUrl: 'form.component.html'
 })
 
 export class FormComponent implements OnInit, OnDestroy {

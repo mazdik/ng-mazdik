@@ -10,8 +10,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
           <li><span (click)="state='basic-demo'" [ngClass]="{'active': state === 'basic-demo'}">Basic demo</span></li>
           <li><span (click)="state='tree-table-demo'" [ngClass]="{'active': state === 'tree-table-demo'}">Tree table demo</span>
           </li>
-          <li><span (click)="state='tree-filter-demo'" [ngClass]="{'active': state === 'tree-filter-demo'}">Tree filter demo</span>
-          </li>
           <li><span (click)="state='data-table-demo'" [ngClass]="{'active': state === 'data-table-demo'}">Data table demo</span>
           </li>
           <li><span (click)="state='master-detail-demo'" [ngClass]="{'active': state === 'master-detail-demo'}">Master detail demo</span>
@@ -30,7 +28,6 @@ import {Component, ViewEncapsulation} from '@angular/core';
         <h3 class="title"><a [attr.href]="getSourceLink()" target="_blank">Source</a></h3>
         <app-basic-demo *ngIf="state === 'basic-demo'"></app-basic-demo>
         <app-tree-table-demo *ngIf="state === 'tree-table-demo'"></app-tree-table-demo>
-        <app-tree-filter-demo *ngIf="state === 'tree-filter-demo'"></app-tree-filter-demo>
         <app-data-table-demo *ngIf="state === 'data-table-demo'"></app-data-table-demo>
         <app-master-detail-demo *ngIf="state === 'master-detail-demo'"></app-master-detail-demo>
         <app-modal-form-demo *ngIf="state === 'modal-form-demo'"></app-modal-form-demo>
