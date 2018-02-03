@@ -11,14 +11,17 @@ export class DataFilter {
   public static GREATER_THAN_OR_EQUAL = 'greaterThanOrEqual'; // >=
   public static IN_RANGE = 'inRange'; // 3-7
   public static IN = 'in'; // in
-
   public static CONTAINS = 'contains'; // like lower(%val%);
   public static NOT_CONTAINS = 'notContains'; // not like lower(%val%);
   public static STARTS_WITH = 'startsWith'; // like val%;
   public static ENDS_WITH = 'endsWith'; // like %val;
 
-  filter(data: any[], filters: Filter) {
+  public filters: Filter = <Filter>{};
+
+  filter(data: any[]) {
+    const filters = this.filters;
     let filteredRows: any[] = data;
+
     for (const key in filters) {
       if (filters[key]) {
         filteredRows = filteredRows.filter((row: any) => {
@@ -216,6 +219,46 @@ export class DataFilter {
     const dt1 = new Date(value).setSeconds(0, 0);
     const dt2 = new Date(filter).setSeconds(0, 0);
     return dt1 === dt2;
+  }
+
+  clear() {
+    this.filters = <Filter>{};
+  }
+
+
+  isFilter(columnName: string): boolean {
+    return !isBlank(this.filters[columnName]);
+  }
+
+  hasFilter() {
+    let empty = true;
+    for (const prop in this.filters) {
+      if (this.filters.hasOwnProperty(prop)) {
+        empty = false;
+        break;
+      }
+    }
+    return !empty;
+  }
+
+  setFilter(value: any, field: string, matchMode: string, valueTo?: any, type?: string) {
+    if (!isBlank(value) || !isBlank(valueTo)) {
+      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: type};
+    } else if (this.filters[field]) {
+      delete this.filters[field];
+    }
+  }
+
+  getFilterValue(columnName: string) {
+    return this.filters[columnName] ? this.filters[columnName].value : null;
+  }
+
+  getFilterValueTo(columnName: string) {
+    return this.filters[columnName] ? this.filters[columnName].valueTo : null;
+  }
+
+  getFilterMatchMode(columnName: string) {
+    return this.filters[columnName] ? this.filters[columnName].matchMode : null;
   }
 
 }

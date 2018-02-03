@@ -1,8 +1,7 @@
-import {MenuItem, Filter} from '../types';
+import {MenuItem} from '../types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
-import {isBlank} from '../utils/util';
 import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
@@ -22,7 +21,6 @@ export class DataTable {
   public scrollHeight: number;
   public tableWidth: number;
   public actionMenu: MenuItem[];
-  public filters: Filter = <Filter>{};
   public columnMenuWidth: number = 200;
   public filterDelay: number = 500;
   public pager: DataPager;
@@ -113,49 +111,14 @@ export class DataTable {
     this.columnsTotalWidth = totalWidth + this.actionColumnWidth;
   }
 
-  isFilter(column: Column): boolean {
-    return !isBlank(this.filters[column.name]);
-  }
-
-  hasFilter() {
-    let empty = true;
-    for (const prop in this.filters) {
-      if (this.filters.hasOwnProperty(prop)) {
-        empty = false;
-        break;
-      }
-    }
-    return !empty;
-  }
-
-  setFilter(value: any, field: string, matchMode: string, valueTo?: any, type?: string) {
-    if (!isBlank(value) || !isBlank(valueTo)) {
-      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: type};
-    } else if (this.filters[field]) {
-      delete this.filters[field];
-    }
-  }
-
-  getFilterValue(column: Column) {
-    return this.filters[column.name] ? this.filters[column.name].value : null;
-  }
-
-  getFilterValueTo(column: Column) {
-    return this.filters[column.name] ? this.filters[column.name].valueTo : null;
-  }
-
-  getFilterMatchMode(column: Column) {
-    return this.filters[column.name] ? this.filters[column.name].matchMode : null;
-  }
-
   setLocalRows(data: any[]) {
-    this.filters = <Filter>{};
+    this.dataFilter.clear();
     this.sorter.clear();
     this.localRows = (data) ? data.slice(0) : [];
   }
 
   getLocalRows() {
-    let data = this.dataFilter.filter(this.localRows, this.filters);
+    let data = this.dataFilter.filter(this.localRows);
     this.pager.total = data.length;
     data = this.sorter.sort(data);
     data = this.pager.pager(data);

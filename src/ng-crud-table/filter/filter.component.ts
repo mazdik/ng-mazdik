@@ -13,7 +13,7 @@ import {Column} from '../models/column';
 export class FilterComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
 
   left: number;
   top: number;
@@ -110,7 +110,7 @@ export class FilterComponent implements OnInit {
   }
 
   onFilterChanged() {
-    this.filterChanged.emit(this.table.filters);
+    this.filterChanged.emit(true);
   }
 
   onFilterClose() {

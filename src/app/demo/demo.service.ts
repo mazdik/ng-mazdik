@@ -22,7 +22,8 @@ export class DemoService implements ICrudService {
       .toPromise()
       .then(function (res) {
         const rows: any[] = res || [];
-        const filteredData = this.filterService.filter(rows, filters);
+        this.filterService.filters = filters;
+        const filteredData = this.filterService.filter(rows);
         const sortedData = this.sort(filteredData, sortField, sortOrder);
         const pageData = this.page(sortedData, page);
         const totalCount = sortedData.length;

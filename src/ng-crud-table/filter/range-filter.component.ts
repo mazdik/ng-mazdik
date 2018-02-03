@@ -19,7 +19,7 @@ import {DataFilter} from '../models/data-filter';
            #filterInput
            [attr.type]="column.type"
            [attr.placeholder]="isRangeFilter() ? '>' : column.name"
-           [value]="table.getFilterValue(column)"
+           [value]="table.dataFilter.getFilterValue(column.name)"
            (input)="onFilterInput()"/>
     <input class="df-control"
            style="margin-top: 8px;"
@@ -48,8 +48,8 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: Column;
   @Input() public isOpen: boolean;
-  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
-  @Output() filterClose: EventEmitter<any> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
 
@@ -57,6 +57,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   matchMode: string = DataFilter.EQUALS;
   operators: any[];
   valueTo: any;
+  type: string;
 
   constructor() {
   }
@@ -79,8 +80,8 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.setFocus();
-    this.matchMode = this.table.getFilterMatchMode(this.column) || this.matchMode;
-    this.valueTo = this.table.getFilterValueTo(this.column);
+    this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.matchMode;
+    this.valueTo = this.table.dataFilter.getFilterValueTo(this.column.name);
   }
 
   onFilterInput() {
@@ -96,8 +97,8 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   filter(value) {
-    this.table.setFilter(value, this.column.name, this.matchMode, this.valueTo, this.column.type);
-    this.filterChanged.emit(this.table.filters);
+    this.table.dataFilter.setFilter(value, this.column.name, this.matchMode, this.valueTo, this.column.type);
+    this.filterChanged.emit(true);
   }
 
   uncheckAll() {

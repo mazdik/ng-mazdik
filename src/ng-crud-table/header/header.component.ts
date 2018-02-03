@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
   }
 
   clearAllFilters() {
-    this.table.filters = {};
+    this.table.dataFilter.clear();
     this.clearFilters.emit(true);
   }
 

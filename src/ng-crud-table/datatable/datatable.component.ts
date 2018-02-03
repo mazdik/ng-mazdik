@@ -74,7 +74,7 @@ export class DatatableComponent implements OnInit, DoCheck {
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.filterChanged.emit(this.table.filters);
+    this.filterChanged.emit(this.table.dataFilter.filters);
     this.selectRow(0);
   }
 

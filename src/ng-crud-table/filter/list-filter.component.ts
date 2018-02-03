@@ -46,8 +46,8 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: Column;
   @Input() public isOpen: boolean;
-  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
-  @Output() filterClose: EventEmitter<any> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
 
@@ -67,7 +67,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.setFocus();
     this.clearSearch();
-    this.selectedOptions = this.table.getFilterValue(this.column);
+    this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name);
   }
 
   clearSearch() {
@@ -115,8 +115,8 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filter(value: any[], field: string) {
     const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
-    this.table.setFilter(value, field, mode);
-    this.filterChanged.emit(this.table.filters);
+    this.table.dataFilter.setFilter(value, field, mode);
+    this.filterChanged.emit(true);
   }
 
   setFocus() {

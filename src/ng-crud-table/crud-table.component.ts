@@ -92,7 +92,7 @@ export class CrudTableComponent implements OnInit {
     this.loading = true;
     this.errors = null;
     return this.service
-      .getItems(this.table.pager.current, this.table.filters, this.table.sorter.sortMeta.field, this.table.sorter.sortMeta.order)
+      .getItems(this.table.pager.current, this.table.dataFilter.filters, this.table.sorter.sortMeta.field, this.table.sorter.sortMeta.order)
       .then(data => {
         this.loading = false;
         this.items = data.items;

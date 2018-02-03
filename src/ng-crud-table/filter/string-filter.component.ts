@@ -19,9 +19,9 @@ import {DataFilter} from '../models/data-filter';
       <input class="df-control"
              #filterInput
              [attr.placeholder]="column.name"
-             [value]="table.getFilterValue(column)"
+             [value]="table.dataFilter.getFilterValue(column.name)"
              (input)="onFilterInput($event)"/>
-      <span [style.display]="table.isFilter(column) ? 'block' : 'none' "
+      <span [style.display]="table.dataFilter.isFilter(column.name) ? 'block' : 'none' "
             (click)="uncheckAll()">&times;</span>
     </div>
   `,
@@ -31,8 +31,8 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: Column;
   @Input() public isOpen: boolean;
-  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
-  @Output() filterClose: EventEmitter<any> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
 
@@ -60,7 +60,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.setFocus();
-    this.matchMode = this.table.getFilterMatchMode(this.column) || this.matchMode;
+    this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.matchMode;
   }
 
   onFilterInput(event) {
@@ -76,8 +76,8 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   filter(value) {
-    this.table.setFilter(value, this.column.name, this.matchMode);
-    this.filterChanged.emit(this.table.filters);
+    this.table.dataFilter.setFilter(value, this.column.name, this.matchMode);
+    this.filterChanged.emit(true);
   }
 
   uncheckAll() {
