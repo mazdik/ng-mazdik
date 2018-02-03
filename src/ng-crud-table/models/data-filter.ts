@@ -1,9 +1,7 @@
-import {Injectable} from '@angular/core';
 import {Filter, FilterMetadata} from '../types';
 import {isBlank} from '../utils/util';
 
-@Injectable()
-export class FilterService {
+export class DataFilter {
 
   public static EQUALS = 'equals'; // ==
   public static NOT_EQUAL = 'notEqual'; // !=
@@ -49,48 +47,48 @@ export class FilterService {
         filterValueTo = new Date(filter.valueTo);
       }
       switch (filter.matchMode) {
-        case FilterService.EQUALS:
+        case DataFilter.EQUALS:
           return this.dateEquals(value, filterValue);
-        case FilterService.NOT_EQUAL:
+        case DataFilter.NOT_EQUAL:
           return !this.equals(value, filterValue);
-        case FilterService.IN_RANGE:
+        case DataFilter.IN_RANGE:
           return this.inRange(value, filterValue, filterValueTo);
-        case FilterService.LESS_THAN:
+        case DataFilter.LESS_THAN:
           return this.lessThan(value, filterValue);
-        case FilterService.LESS_THAN_OR_EQUAL:
+        case DataFilter.LESS_THAN_OR_EQUAL:
           return this.lessThanOrEqual(value, filterValue);
-        case FilterService.GREATER_THAN:
+        case DataFilter.GREATER_THAN:
           return this.greaterThan(value, filterValue);
-        case FilterService.GREATER_THAN_OR_EQUAL:
+        case DataFilter.GREATER_THAN_OR_EQUAL:
           return this.greaterThanOrEqual(value, filterValue);
         default:
           return this.dateEquals(value, filterValue);
       }
     } else {
       switch (filter.matchMode) {
-        case FilterService.EQUALS:
+        case DataFilter.EQUALS:
           return this.equals(value, filter.value);
-        case FilterService.NOT_EQUAL:
+        case DataFilter.NOT_EQUAL:
           return !this.equals(value, filter.value);
-        case FilterService.IN_RANGE:
+        case DataFilter.IN_RANGE:
           return this.inRange(value, filter.value, filter.valueTo);
-        case FilterService.IN:
+        case DataFilter.IN:
           return this.in(value, filter.value);
-        case FilterService.CONTAINS:
+        case DataFilter.CONTAINS:
           return this.contains(value, filter.value);
-        case FilterService.NOT_CONTAINS:
+        case DataFilter.NOT_CONTAINS:
           return !this.contains(value, filter.value);
-        case FilterService.STARTS_WITH:
+        case DataFilter.STARTS_WITH:
           return this.startsWith(value, filter.value);
-        case FilterService.ENDS_WITH:
+        case DataFilter.ENDS_WITH:
           return this.endsWith(value, filter.value);
-        case FilterService.LESS_THAN:
+        case DataFilter.LESS_THAN:
           return this.lessThan(value, filter.value);
-        case FilterService.LESS_THAN_OR_EQUAL:
+        case DataFilter.LESS_THAN_OR_EQUAL:
           return this.lessThanOrEqual(value, filter.value);
-        case FilterService.GREATER_THAN:
+        case DataFilter.GREATER_THAN:
           return this.greaterThan(value, filter.value);
-        case FilterService.GREATER_THAN_OR_EQUAL:
+        case DataFilter.GREATER_THAN_OR_EQUAL:
           return this.greaterThanOrEqual(value, filter.value);
         default:
           return this.equals(value, filter.value);

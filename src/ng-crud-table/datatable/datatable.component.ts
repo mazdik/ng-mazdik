@@ -2,9 +2,7 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {Filter, SortMeta} from '../types';
 import {DataTable} from '../models/data-table';
-import {FilterService} from '../services/filter.service';
 
 @Component({
   selector: 'app-datatable',
@@ -19,7 +17,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   @Input() public loading: boolean = false;
   @Input() public selectedRowIndex: number;
   @Input() public trackByProp: string;
-  @Output() filterChanged: EventEmitter<Filter> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
   @Output() sortChanged: EventEmitter<any> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
@@ -28,10 +26,8 @@ export class DatatableComponent implements OnInit, DoCheck {
   @Input()
   set rows(val: any) {
     if (this.table.settings.clientSide) {
-      this.table.filters = <Filter>{};
-      this.table.sortMeta = <SortMeta>{};
-      this.rowsCopy = (val) ? val.slice(0) : [];
-      this._rows = this.getItems();
+      this.table.setLocalRows(val);
+      this._rows = this.table.getLocalRows();
     } else {
       this._rows = val;
     }
@@ -44,14 +40,11 @@ export class DatatableComponent implements OnInit, DoCheck {
   @ViewChild('selectFilter') selectFilter: any;
 
   public offsetX: number = 0;
-  public rowsCopy: any;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private _rows: any[];
 
-  constructor(private differs: KeyValueDiffers,
-              private cd: ChangeDetectorRef,
-              private filterService: FilterService) {
+  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
   }
 
@@ -67,7 +60,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   onPageChanged(event: any): void {
     if (this.table.settings.clientSide) {
       this.table.pager.current = event;
-      this._rows = this.getItems();
+      this._rows = this.table.getLocalRows();
     }
     this.pageChanged.emit(event);
     this.selectRow(0);
@@ -80,7 +73,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   onFilter() {
     this.table.pager.current = 1;
     if (this.table.settings.clientSide) {
-      this._rows = this.getItems();
+      this._rows = this.table.getLocalRows();
     }
     this.filterChanged.emit(this.table.filters);
     this.selectRow(0);
@@ -88,7 +81,7 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   onSort() {
     if (this.table.settings.clientSide) {
-      this._rows = this.getItems();
+      this._rows = this.table.getLocalRows();
     }
     this.sortChanged.emit(this.table.sortMeta);
     this.selectRow(0);
@@ -114,14 +107,6 @@ export class DatatableComponent implements OnInit, DoCheck {
   onBodyScroll(event: MouseEvent): void {
     this.offsetX = event.offsetX;
     this.selectFilter.hide();
-  }
-
-  getItems() {
-    let data = this.filterService.filter(this.rowsCopy, this.table.filters);
-    this.table.pager.total = data.length;
-    data = this.table.sorter.sort(data, this.table.sortMeta.field, this.table.sortMeta.order);
-    data = this.table.pager.pager(data);
-    return data;
   }
 
 }

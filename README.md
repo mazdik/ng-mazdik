@@ -146,7 +146,7 @@ export class PlayersComponent {
 * Frozen columns
 * Dynamic forms with validation
 * Editable
-* Tree view (Lazy Loading, client/server side filtering, context menu)
+* Localization
 * Column Resizing
 * Cascading Select (DropDown)
 * Tree table

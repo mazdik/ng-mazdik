@@ -5,6 +5,7 @@ import {Settings} from './settings';
 import {isBlank} from '../utils/util';
 import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
+import {DataFilter} from './data-filter';
 
 export class DataTable {
 
@@ -27,11 +28,14 @@ export class DataTable {
   public filterDelay: number = 500;
   public pager: DataPager;
   public sorter: DataSort;
+  public dataFilter: DataFilter;
+  public localRows: any[];
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);
     this.pager = new DataPager();
     this.sorter = new DataSort();
+    this.dataFilter = new DataFilter();
 
     if (columns) {
       this.createColumns(columns);
@@ -155,6 +159,20 @@ export class DataTable {
       order = this.sortMeta.order;
     }
     return order;
+  }
+
+  setLocalRows(data: any[]) {
+    this.filters = <Filter>{};
+    this.sortMeta = <SortMeta>{};
+    this.localRows = (data) ? data.slice(0) : [];
+  }
+
+  getLocalRows() {
+    let data = this.dataFilter.filter(this.localRows, this.filters);
+    this.pager.total = data.length;
+    data = this.sorter.sort(data, this.sortMeta.field, this.sortMeta.order);
+    data = this.pager.pager(data);
+    return data;
   }
 
 }

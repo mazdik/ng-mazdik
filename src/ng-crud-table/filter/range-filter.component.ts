@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
-import {FilterService} from '../services/filter.service';
+import {DataFilter} from '../models/data-filter';
 
 @Component({
   selector: 'app-range-filter',
@@ -54,7 +54,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('filterInput') filterInput: any;
 
   filterTimeout: any;
-  matchMode: string = FilterService.EQUALS;
+  matchMode: string = DataFilter.EQUALS;
   operators: any[];
   valueTo: any;
 
@@ -63,13 +63,13 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit() {
     this.operators = [
-      {value: FilterService.EQUALS, text: this.table.settings.messages.equals},
-      {value: FilterService.NOT_EQUAL, text: this.table.settings.messages.notEqual},
-      {value: FilterService.GREATER_THAN, text: this.table.settings.messages.greaterThan},
-      {value: FilterService.GREATER_THAN_OR_EQUAL, text: this.table.settings.messages.greaterThanOrEqual},
-      {value: FilterService.LESS_THAN, text: this.table.settings.messages.lessThan},
-      {value: FilterService.LESS_THAN_OR_EQUAL, text: this.table.settings.messages.lessThanOrEqual},
-      {value: FilterService.IN_RANGE, text: this.table.settings.messages.inRange}
+      {value: DataFilter.EQUALS, text: this.table.settings.messages.equals},
+      {value: DataFilter.NOT_EQUAL, text: this.table.settings.messages.notEqual},
+      {value: DataFilter.GREATER_THAN, text: this.table.settings.messages.greaterThan},
+      {value: DataFilter.GREATER_THAN_OR_EQUAL, text: this.table.settings.messages.greaterThanOrEqual},
+      {value: DataFilter.LESS_THAN, text: this.table.settings.messages.lessThan},
+      {value: DataFilter.LESS_THAN_OR_EQUAL, text: this.table.settings.messages.lessThanOrEqual},
+      {value: DataFilter.IN_RANGE, text: this.table.settings.messages.inRange}
     ];
   }
 
@@ -122,7 +122,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   isRangeFilter() {
-    return this.matchMode === FilterService.IN_RANGE;
+    return this.matchMode === DataFilter.IN_RANGE;
   }
 
   lastDate(name: string) {
@@ -138,7 +138,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     } else if (name === 'hour') {
       dt = new Date(Date.now() + -1 * 3600 * 1000);
     }
-    this.matchMode = FilterService.GREATER_THAN_OR_EQUAL;
+    this.matchMode = DataFilter.GREATER_THAN_OR_EQUAL;
     this.filter(dt.toISOString().slice(0, 19));
     this.filterClose.emit(true);
   }

@@ -5,7 +5,7 @@ import {
 import {ISelectOption} from '../types';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
-import {FilterService} from '../services/filter.service';
+import {DataFilter} from '../models/data-filter';
 
 @Component({
   selector: 'app-list-filter',
@@ -114,7 +114,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   filter(value: any[], field: string) {
-    const mode = value.length ? FilterService.IN : FilterService.EQUALS;
+    const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
     this.table.setFilter(value, field, mode);
     this.filterChanged.emit(this.table.filters);
   }

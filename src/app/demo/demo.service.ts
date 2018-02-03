@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import {Filter, ICrudService} from '../../ng-crud-table';
-import {FilterService} from '../../ng-crud-table/services/filter.service';
-
+import {DataFilter} from '../../ng-crud-table/models/data-filter';
 
 @Injectable()
 export class DemoService implements ICrudService {
@@ -12,10 +11,10 @@ export class DemoService implements ICrudService {
   public primaryKeys: any;
 
   private itemsPerPage: number = 20;
-  private filterService: FilterService;
+  private filterService: DataFilter;
 
   constructor(private http: HttpClient) {
-    this.filterService = new FilterService();
+    this.filterService = new DataFilter();
   }
 
   getItems(page: number = 1, filters ?: Filter, sortField ?: string, sortOrder ?: number): Promise<any> {

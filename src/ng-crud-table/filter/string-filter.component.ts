@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
-import {FilterService} from '../services/filter.service';
+import {DataFilter} from '../models/data-filter';
 
 @Component({
   selector: 'app-string-filter',
@@ -37,7 +37,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('filterInput') filterInput: any;
 
   filterTimeout: any;
-  matchMode: string = FilterService.STARTS_WITH;
+  matchMode: string = DataFilter.STARTS_WITH;
   stringOperators: any[];
 
   constructor() {
@@ -45,12 +45,12 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit() {
     this.stringOperators = [
-      {value: FilterService.EQUALS, text: this.table.settings.messages.equals},
-      {value: FilterService.NOT_EQUAL, text: this.table.settings.messages.notEqual},
-      {value: FilterService.STARTS_WITH, text: this.table.settings.messages.startsWith},
-      {value: FilterService.ENDS_WITH, text: this.table.settings.messages.endsWith},
-      {value: FilterService.CONTAINS, text: this.table.settings.messages.contains},
-      {value: FilterService.NOT_CONTAINS, text: this.table.settings.messages.notContains}
+      {value: DataFilter.EQUALS, text: this.table.settings.messages.equals},
+      {value: DataFilter.NOT_EQUAL, text: this.table.settings.messages.notEqual},
+      {value: DataFilter.STARTS_WITH, text: this.table.settings.messages.startsWith},
+      {value: DataFilter.ENDS_WITH, text: this.table.settings.messages.endsWith},
+      {value: DataFilter.CONTAINS, text: this.table.settings.messages.contains},
+      {value: DataFilter.NOT_CONTAINS, text: this.table.settings.messages.notContains}
     ];
   }
 
