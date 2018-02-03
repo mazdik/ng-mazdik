@@ -30,6 +30,7 @@ export class DataTable {
   public sorter: DataSort;
   public dataFilter: DataFilter;
   public localRows: any[];
+  public selectedRowIndex: number;
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);

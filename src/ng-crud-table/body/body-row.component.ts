@@ -15,7 +15,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @Input() public table: DataTable;
   @Input() public row: any;
   @Input() public offsetX: number;
-  @Input() public selectedRowIndex: number;
   @Input() public rowIndex: number;
 
   @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
@@ -26,7 +25,7 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @HostBinding('class')
   get cssClass() {
     let cls = 'datatable-body-row';
-    if (this.rowIndex === this.selectedRowIndex) {
+    if (this.rowIndex === this.table.selectedRowIndex) {
       cls += ' row-selected';
     }
     return cls;
@@ -51,13 +50,13 @@ export class BodyRowComponent implements OnInit, DoCheck {
   }
 
   rowClick(rowIndex: number) {
-    this.selectedRowIndex = rowIndex;
-    this.selectedRowIndexChange.emit(this.selectedRowIndex);
+    this.table.selectedRowIndex = rowIndex;
+    this.selectedRowIndexChange.emit(this.table.selectedRowIndex);
   }
 
   actionClick(event, item: MenuItem, rowIndex: number) {
-    this.selectedRowIndex = rowIndex;
-    this.selectedRowIndexChange.emit(this.selectedRowIndex);
+    this.table.selectedRowIndex = rowIndex;
+    this.selectedRowIndexChange.emit(this.table.selectedRowIndex);
 
     if (!item.url) {
       event.preventDefault();

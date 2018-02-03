@@ -15,7 +15,6 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   @Input() public table: DataTable;
   @Input() public loading: boolean = false;
-  @Input() public selectedRowIndex: number;
   @Input() public trackByProp: string;
   @Output() filterChanged: EventEmitter<any> = new EventEmitter();
   @Output() pageChanged: EventEmitter<any> = new EventEmitter();
@@ -89,11 +88,11 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   selectRow(rowIndex: number) {
     if (this.rows && this.rows.length) {
-      this.selectedRowIndex = rowIndex;
+      this.table.selectedRowIndex = rowIndex;
     } else {
-      this.selectedRowIndex = undefined;
+      this.table.selectedRowIndex = undefined;
     }
-    this.selectedRowIndexChanged.emit(this.selectedRowIndex);
+    this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
   }
 
   onSelectRow(rowIndex: number) {

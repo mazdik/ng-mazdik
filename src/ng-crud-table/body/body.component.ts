@@ -13,7 +13,6 @@ export class BodyComponent implements OnInit {
   @Input() public table: DataTable;
   @Input() public rows: any;
   @Input() public offsetX: number;
-  @Input() public selectedRowIndex: number;
   @Input() public trackByProp: string;
   @Input() public loading: boolean = false;
 

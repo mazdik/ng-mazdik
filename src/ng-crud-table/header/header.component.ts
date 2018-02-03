@@ -50,11 +50,13 @@ export class HeaderComponent implements OnInit {
   }
 
   getSortOrderIcon(column: Column) {
-    let icon: string = '';
+    let icon: string;
     if (this.table.getSortOrder(column) === -1) {
       icon = 'icon-down';
     } else if (this.table.getSortOrder(column) === 1) {
       icon = 'icon-up';
+    } else {
+      icon = '';
     }
     return icon;
   }
