@@ -5,11 +5,11 @@
   font-weight: bold;
 }
 
-.icon-up:before {
+.icon.asc:before {
   content: "\2B06";
 }
 
-.icon-down:before {
+.icon.desc:before {
   content: "\2B07";
 }
 

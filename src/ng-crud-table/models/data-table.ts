@@ -1,4 +1,4 @@
-import {MenuItem, Filter, SortMeta} from '../types';
+import {MenuItem, Filter} from '../types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
@@ -23,7 +23,6 @@ export class DataTable {
   public tableWidth: number;
   public actionMenu: MenuItem[];
   public filters: Filter = <Filter>{};
-  public sortMeta: SortMeta = <SortMeta>{};
   public columnMenuWidth: number = 200;
   public filterDelay: number = 500;
   public pager: DataPager;
@@ -149,29 +148,16 @@ export class DataTable {
     return this.filters[column.name] ? this.filters[column.name].matchMode : null;
   }
 
-  setSortOrder(column: Column) {
-    this.sortMeta.order = (this.sortMeta.field === column.name) ? this.sortMeta.order * -1 : 1;
-    this.sortMeta.field = column.name;
-  }
-
-  getSortOrder(column: Column) {
-    let order = 0;
-    if (this.sortMeta.field && this.sortMeta.field === column.name) {
-      order = this.sortMeta.order;
-    }
-    return order;
-  }
-
   setLocalRows(data: any[]) {
     this.filters = <Filter>{};
-    this.sortMeta = <SortMeta>{};
+    this.sorter.clear();
     this.localRows = (data) ? data.slice(0) : [];
   }
 
   getLocalRows() {
     let data = this.dataFilter.filter(this.localRows, this.filters);
     this.pager.total = data.length;
-    data = this.sorter.sort(data, this.sortMeta.field, this.sortMeta.order);
+    data = this.sorter.sort(data);
     data = this.pager.pager(data);
     return data;
   }

@@ -82,7 +82,7 @@ export class DatatableComponent implements OnInit, DoCheck {
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.sortChanged.emit(this.table.sortMeta);
+    this.sortChanged.emit(this.table.sorter.sortMeta);
     this.selectRow(0);
   }
 

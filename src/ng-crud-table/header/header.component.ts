@@ -43,22 +43,8 @@ export class HeaderComponent implements OnInit {
     if (!column.sortable) {
       return;
     }
-    this.table.setSortOrder(column);
-    this.sort.emit({
-      sortMeta: this.table.sortMeta
-    });
-  }
-
-  getSortOrderIcon(column: Column) {
-    let icon: string;
-    if (this.table.getSortOrder(column) === -1) {
-      icon = 'icon-down';
-    } else if (this.table.getSortOrder(column) === 1) {
-      icon = 'icon-up';
-    } else {
-      icon = '';
-    }
-    return icon;
+    this.table.sorter.setOrder(column.name);
+    this.sort.emit(this.table.sorter.sortMeta);
   }
 
   clearAllFilters() {
