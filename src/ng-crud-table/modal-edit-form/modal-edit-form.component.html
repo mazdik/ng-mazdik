@@ -3,19 +3,19 @@
     <div *ngIf="childModal.visible">
       <app-row-form
         *ngIf="!view"
-        [table]="table"
-        [service]="service"
-        [item]="item"
-        [isNew]="newItem"
+        [table]="crudTable.table"
+        [service]="crudTable.service"
+        [item]="crudTable.item"
+        [isNew]="crudTable.isNewItem"
         (valid)="formValid=$event">
       </app-row-form>
 
       <div class="detail-view" *ngIf="view">
         <table>
           <tbody>
-          <tr *ngFor="let column of table.columns">
+          <tr *ngFor="let column of crudTable.table.columns">
             <th>{{column.title}}</th>
-            <td>{{format(item[column.name], column)}}</td>
+            <td>{{format(crudTable.item[column.name], column)}}</td>
           </tr>
           </tbody>
       </table>
@@ -26,19 +26,19 @@
   <ng-container class="app-modal-footer">
     <button type="button"
             class="button button3"
-            *ngIf="!newItem && !view"
-            (click)="delete()">{{table.settings.messages.delete}}
+            *ngIf="!crudTable.isNewItem && !view"
+            (click)="delete()">{{crudTable.table.settings.messages.delete}}
     </button>
     <button type="button"
             class="button button1"
             [style.visibility]="!view ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!formValid">{{table.settings.messages.save}}
+            [disabled]="!formValid">{{crudTable.table.settings.messages.save}}
     </button>
     <button type="button"
             class="button"
             style="float: right;"
-            (click)="close()">{{table.settings.messages.close}}
+            (click)="close()">{{crudTable.table.settings.messages.close}}
     </button>
   </ng-container>
 </app-modal>

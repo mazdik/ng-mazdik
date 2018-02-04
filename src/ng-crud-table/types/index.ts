@@ -3,3 +3,4 @@ export {ColumnBase as Column} from '../models/column-base';
 export {DataTable} from '../models/data-table';
 export {Settings} from '../models/settings';
 export {Message} from '../models/message';
+export {CrudTable} from '../models/crud-table';

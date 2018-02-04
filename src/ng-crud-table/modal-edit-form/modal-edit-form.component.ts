@@ -1,8 +1,16 @@
-import {Component, OnInit, Input, Output, ViewChild, EventEmitter, PipeTransform, ViewEncapsulation} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  ViewChild,
+  EventEmitter,
+  PipeTransform,
+  ViewEncapsulation
+} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {ICrudService} from '../types';
-import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
+import {CrudTable} from '../models/crud-table';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -12,95 +20,78 @@ import {Column} from '../models/column';
 })
 export class ModalEditFormComponent implements OnInit {
 
-  @Input() public table: DataTable;
-  @Input() public service: ICrudService;
+  @Input() public crudTable: CrudTable;
   @Input() public zIndex: number;
   @Input() public view: boolean;
 
   @Output() saved: EventEmitter<any> = new EventEmitter();
   @Output() updated: EventEmitter<any> = new EventEmitter();
   @Output() deleted: EventEmitter<any> = new EventEmitter();
-  @Output() loading: EventEmitter<any> = new EventEmitter();
-  @Output() errors: EventEmitter<any> = new EventEmitter();
-
-  @Input() set item(value) {
-    this._item = value;
-    this.newItem = this.isEmpty(value);
-    if (this.newItem) {
-      this._item = {};
-    }
-  }
-  get item() {
-    return this._item;
-  }
 
   @ViewChild('childModal')
 
   public readonly childModal: ModalComponent;
   public formValid: boolean = true;
-  public newItem: boolean;
-  private _item: any;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.service.url = this.table.settings.api;
-    this.service.primaryKeys = this.table.settings.primaryKeys;
   }
 
   modalTitle() {
     if (!this.view) {
-      return this.newItem ? this.table.settings.messages.titleCreate : this.table.settings.messages.titleUpdate;
+      return this.crudTable.isNewItem ? this.crudTable.table.settings.messages.titleCreate :
+        this.crudTable.table.settings.messages.titleUpdate;
     } else {
-      return this.table.settings.messages.titleDetailView;
+      return this.crudTable.table.settings.messages.titleDetailView;
     }
   }
 
   save() {
-    this.loading.emit(true);
-    if (this.newItem) {
-      this.service
-        .post(this.item)
+    this.crudTable.loading = true;
+    if (this.crudTable.isNewItem) {
+      this.crudTable.service
+        .post(this.crudTable.item)
         .then(res => {
-          this.loading.emit(false);
-          this.errors.emit(null);
+          this.crudTable.loading = false;
+          this.crudTable.errors = null;
           this.saved.emit(res);
-          this.item = res;
+          this.crudTable.item = res;
         })
         .catch(error => {
-          this.loading.emit(false);
-          this.errors.emit(error);
+          this.crudTable.loading = false;
+          this.crudTable.errors = error;
         });
     } else {
-      this.service
-        .put(this.item)
+      this.crudTable.service
+        .put(this.crudTable.item)
         .then(res => {
-          this.loading.emit(false);
-          this.errors.emit(null);
+          this.crudTable.loading = false;
+          this.crudTable.errors = null;
           this.updated.emit(res);
         })
         .catch(error => {
-          this.loading.emit(false);
-          this.errors.emit(error);
+          this.crudTable.loading = false;
+          this.crudTable.errors = error;
         });
     }
     this.childModal.hide();
   }
 
   delete() {
-    this.loading.emit(true);
-    this.service
-      .delete(this.item)
+    this.crudTable.loading = true;
+    this.crudTable.service
+      .delete(this.crudTable.item)
       .then(res => {
-        this.loading.emit(false);
-        this.errors.emit(null);
+        this.crudTable.loading = false;
+        this.crudTable.errors = null;
         this.deleted.emit(true);
-        this.item = null;
+        this.crudTable.item = null;
       })
       .catch(error => {
-        this.loading.emit(false);
-        this.errors.emit(error);
+        this.crudTable.loading = false;
+        this.crudTable.errors = error;
       });
     this.childModal.hide();
   }
@@ -111,17 +102,6 @@ export class ModalEditFormComponent implements OnInit {
 
   public close() {
     this.childModal.hide();
-  }
-
-  isEmpty(obj) {
-    if (obj === null ||
-      obj === undefined ||
-      Array.isArray(obj) ||
-      typeof obj !== 'object'
-    ) {
-      return true;
-    }
-    return (Object.getOwnPropertyNames(obj).length === 0);
   }
 
   format(value: any, column: Column) {

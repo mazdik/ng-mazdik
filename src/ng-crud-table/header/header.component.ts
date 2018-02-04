@@ -13,9 +13,9 @@ export class HeaderComponent implements OnInit {
   @Input() public table: DataTable;
   @Input() public offsetX: number;
 
-  @Output() sort: EventEmitter<any> = new EventEmitter();
+  @Output() sort: EventEmitter<boolean> = new EventEmitter();
   @Output() showColumnMenu: EventEmitter<any> = new EventEmitter();
-  @Output() clearFilters: EventEmitter<any> = new EventEmitter();
+  @Output() clearFilters: EventEmitter<boolean> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-header';
 
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
       return;
     }
     this.table.sorter.setOrder(column.name);
-    this.sort.emit(this.table.sorter.sortMeta);
+    this.sort.emit(true);
   }
 
   clearAllFilters() {

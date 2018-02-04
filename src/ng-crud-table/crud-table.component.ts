@@ -3,6 +3,7 @@ import {Settings, ICrudService} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {DataTable} from './models/data-table';
 import {ColumnBase} from './models/column-base';
+import {CrudTable} from './models/crud-table';
 
 @Component({
   selector: 'app-crud-table',
@@ -42,12 +43,9 @@ export class CrudTableComponent implements OnInit {
   }
 
   public table: DataTable;
-  public items: any[];
-  public item: any;
+  public crudTable: CrudTable;
   public selectedRowIndex: number;
-  public errors: any;
   public detailView: boolean = false;
-  public loading: boolean = false;
 
   private _columns: ColumnBase[];
   private _settings: Settings;
@@ -59,16 +57,14 @@ export class CrudTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.url = this.settings.api;
-    this.service.primaryKeys = this.settings.primaryKeys;
-    this.settings.initLoad = (this.settings.initLoad !== undefined) ? this.settings.initLoad : true;
+    this.crudTable = new CrudTable(this.table, this.service);
     if (!this.trackByProp && this.settings.primaryKeys && this.settings.primaryKeys.length === 1) {
       this.trackByProp = this.settings.primaryKeys[0];
     }
     this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
     this.initRowMenu();
-    if (this.settings.initLoad) {
-      this.getItems().then();
+    if (this.table.settings.initLoad) {
+      this.crudTable.getItems().then();
     }
   }
 
@@ -88,86 +84,71 @@ export class CrudTableComponent implements OnInit {
     ];
   }
 
-  getItems(): Promise<any> {
-    this.loading = true;
-    this.errors = null;
-    return this.service
-      .getItems(this.table.pager.current, this.table.dataFilter.filters, this.table.sorter.sortMeta)
-      .then(data => {
-        this.loading = false;
-        this.items = data.items;
-        this.table.pager.total = data._meta.totalCount;
-        this.table.pager.perPage = data._meta.perPage;
-      })
-      .catch(error => {
-        this.loading = false;
-        this.errors = error;
-      });
-  }
-
   clear() {
-    this.items = [];
+    this.crudTable.items = [];
     this.table.pager.total = 0;
     this.detailView = false;
   }
 
   createItem() {
-    this.item = {};
+    this.crudTable.item = {};
+    this.crudTable.isNewItem = true;
     this.detailView = false;
     this.modalEditForm.open();
   }
 
   updateItem() {
-    const item = this.items[this.selectedRowIndex];
-    this.item = Object.assign({}, item);
+    const item = this.crudTable.items[this.selectedRowIndex];
+    this.crudTable.item = Object.assign({}, item);
+    this.crudTable.isNewItem = false;
     this.detailView = false;
     this.modalEditForm.open();
   }
 
   onEditComplete(row: any) {
-    this.loading = true;
+    this.crudTable.loading = true;
     this.service
       .put(row)
       .then(res => {
-        this.loading = false;
-        this.errors = null;
+        this.crudTable.loading = false;
+        this.crudTable.errors = null;
       })
       .catch(error => {
-        this.loading = false;
-        this.errors = error;
+        this.crudTable.loading = false;
+        this.crudTable.errors = error;
       });
   }
 
   viewDetails() {
-    const item = this.items[this.selectedRowIndex];
-    this.errors = null;
-    this.item = Object.assign({}, item);
+    const item = this.crudTable.items[this.selectedRowIndex];
+    this.crudTable.errors = null;
+    this.crudTable.item = Object.assign({}, item);
     this.detailView = true;
     this.modalEditForm.open();
   }
 
   onFilter() {
-    this.getItems().then();
+    this.crudTable.getItems().then();
   }
 
   onPageChanged() {
-    this.getItems().then();
+    this.crudTable.getItems().then();
   }
 
   onSort() {
-    this.getItems().then();
+    this.crudTable.getItems().then();
   }
 
   onSelectedRow(event) {
     this.selectedRowIndex = event;
-    this.select.emit(this.items[this.selectedRowIndex]);
+    this.select.emit(this.crudTable.items[this.selectedRowIndex]);
   }
 
   onSaved(event) {
     if (this.refreshRowOnSave) {
       this.refreshRow(event, true);
     } else {
-      this.items.push(event);
+      this.crudTable.items.push(event);
     }
     this.dataChanged.emit(true);
   }
@@ -177,8 +158,8 @@ export class CrudTableComponent implements OnInit {
       this.refreshSelectedRow();
     } else {
       Object.keys(event).forEach(function (k) {
-        if (k in this.items[this.selectedRowIndex]) {
-          this.items[this.selectedRowIndex][k] = event[k];
+        if (k in this.crudTable.items[this.selectedRowIndex]) {
+          this.crudTable.items[this.selectedRowIndex][k] = event[k];
         }
       }.bind(this));
     }
@@ -187,39 +168,31 @@ export class CrudTableComponent implements OnInit {
 
   onDeleted(event) {
     if (event) {
-      this.items.splice(this.selectedRowIndex, 1);
+      this.crudTable.items.splice(this.selectedRowIndex, 1);
       this.dataChanged.emit(true);
     }
   }
 
-  onLoading(event) {
-    this.loading = event;
-  }
-
-  onErrors(event) {
-    this.errors = event;
-  }
-
   refreshRow(row: any, isNew: boolean) {
-    this.loading = true;
-    this.errors = null;
+    this.crudTable.loading = true;
+    this.crudTable.errors = null;
     this.service.getItem(row)
       .then(data => {
-        this.loading = false;
+        this.crudTable.loading = false;
         if (isNew) {
-          this.items.push(data);
+          this.crudTable.items.push(data);
         } else {
-          this.items[this.selectedRowIndex] = data;
+          this.crudTable.items[this.selectedRowIndex] = data;
         }
       })
       .catch(error => {
-        this.loading = false;
-        this.errors = error;
+        this.crudTable.loading = false;
+        this.crudTable.errors = error;
       });
   }
 
   refreshSelectedRow() {
-    this.refreshRow(this.items[this.selectedRowIndex], false);
+    this.refreshRow(this.crudTable.items[this.selectedRowIndex], false);
   }
 
 }

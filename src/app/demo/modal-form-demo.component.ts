@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, ICrudService, DataTable} from '../../ng-crud-table';
+import {Column, Settings, ICrudService, DataTable, CrudTable} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-edit-form.component';
 
@@ -8,13 +8,9 @@ import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-
   selector: 'app-modal-form-demo',
   template: `
     <app-modal-edit-form #modalEditForm
-                         [table]="table"
-                         [item]="item"
-                         [service]="service"
+                         [crudTable]="crudTable"
                          (saved)="onSaved($event)"
-                         (updated)="onUpdated($event)"
-                         (deleted)="onDeleted($event)"
-                         (errors)="onErrors($event)">
+                         (updated)="onUpdated($event)">
     </app-modal-edit-form>
     <button type="button"
             class="button"
@@ -31,6 +27,7 @@ export class ModalFormDemoComponent implements OnInit {
 
   public table: DataTable;
   public service: ICrudService;
+  public crudTable: CrudTable;
 
   public settings: Settings = {
     api: 'assets/players.json',
@@ -138,7 +135,6 @@ export class ModalFormDemoComponent implements OnInit {
     }
   ];
 
-  item: any;
   _item: any = {
     'id': 96491,
     'name': 'Defunct',
@@ -173,10 +169,11 @@ export class ModalFormDemoComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.table = new DataTable(this.columns, this.settings);
     this.service = new DemoService(this.http);
+    this.crudTable = new CrudTable(this.table, this.service);
   }
 
   ngOnInit() {
-    this.item = Object.assign({}, this._item);
+    this.crudTable.item = Object.assign({}, this._item);
   }
 
   onSaved(event) {
@@ -187,23 +184,13 @@ export class ModalFormDemoComponent implements OnInit {
     console.log(event);
   }
 
-  onDeleted(event) {
-    console.log(event);
-  }
-
-  onErrors(event) {
-    if (event) {
-      console.log(event);
-    }
-  }
-
   createItem() {
-    this.item = {};
+    this.crudTable.item = {};
     this.modalEditForm.open();
   }
 
   updateItem() {
-    this.item = Object.assign({}, this._item);
+    this.crudTable.item = Object.assign({}, this._item);
     this.modalEditForm.open();
   }
 

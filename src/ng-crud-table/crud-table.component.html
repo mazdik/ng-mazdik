@@ -1,4 +1,4 @@
-<div class="df-alert df-alert-danger" *ngIf="errors">{{errors}}</div>
+<div class="df-alert df-alert-danger" *ngIf="this.crudTable.errors">{{this.crudTable.errors}}</div>
 
 <button type="button"
         class="button"
@@ -9,8 +9,8 @@
 
 <app-datatable
   [table]="table"
-  [rows]="items"
-  [loading]="loading"
+  [rows]="crudTable.items"
+  [loading]="this.crudTable.loading"
   [trackByProp]="trackByProp"
   (filterChanged)="onFilter()"
   (pageChanged)="onPageChanged()"
@@ -21,14 +21,10 @@
 
 <app-modal-edit-form
   #modalEditForm
-  [table]="table"
-  [item]="item"
-  [service]="service"
+  [crudTable]="crudTable"
   [zIndex]="zIndexModal"
   [view]="detailView"
   (saved)="onSaved($event)"
   (updated)="onUpdated($event)"
-  (deleted)="onDeleted($event)"
-  (loading)="onLoading($event)"
-  (errors)="onErrors($event)">
+  (deleted)="onDeleted($event)">
 </app-modal-edit-form>

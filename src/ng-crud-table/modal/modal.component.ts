@@ -11,11 +11,11 @@ import {
 export class ModalComponent implements OnInit, AfterViewChecked {
 
   @Input() public modalTitle: string;
-  @Input() width: any;
-  @Input() zIndex: number = 0;
-  @Input() autoZIndex: boolean;
+  @Input() public width: any;
+  @Input() public zIndex: number = 0;
+  @Input() public autoZIndex: boolean;
 
-  @Output() close: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('modalRoot') modalRoot: ElementRef;
   @ViewChild('modalBody') modalBody: ElementRef;
@@ -86,7 +86,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   public hide(): void {
     this.visible = false;
-    this.close.emit();
+    this.close.emit(true);
     this.focusLastModal();
   }
 
