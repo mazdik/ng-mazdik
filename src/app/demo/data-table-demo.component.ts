@@ -25,6 +25,7 @@ export class DataTableDemoComponent implements OnInit {
     crud: true,
     primaryKeys: ['id'],
     clientSide: true,
+    multipleSort: true,
   };
 
   public columns: Column[] = [

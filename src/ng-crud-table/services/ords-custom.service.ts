@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../types';
+import {Filter, SortMeta, ICrudService} from '../types';
 
 @Injectable()
 export class OrdsCustomService implements ICrudService {
@@ -21,7 +21,7 @@ export class OrdsCustomService implements ICrudService {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
+  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
     const headers = this.getAuthHeaders();
     const url = this.url;
     filters = this.filterObject(filters);
@@ -29,8 +29,8 @@ export class OrdsCustomService implements ICrudService {
       process: this.process,
       limit: 25,
       page: page,
-      sort_field: sortField,
-      sort: sortOrder,
+      sort_field: (sortMeta && sortMeta.length) ? sortMeta[0].field : null,
+      sort: (sortMeta && sortMeta.length) ? sortMeta[0].order : null,
       filters: filters
     }, {headers: headers})
       .toPromise()

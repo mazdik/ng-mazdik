@@ -125,6 +125,7 @@ export class PlayersComponent {
         primaryKeys: ['id'],
         tableWidth: 820,
         scrollHeight: 380,
+        multipleSort: true,
         messages: {
           titleDetailView: 'Player details',
           titleCreate: 'Create a new player'
@@ -135,7 +136,7 @@ export class PlayersComponent {
 
 ## Features
 * Filtering
-* Sorting
+* Sorting (Multiple columns)
 * Pagination
 * Modal (Draggable and Resizable)
 * Create/Update/Delete
@@ -157,7 +158,7 @@ export class PlayersComponent {
 interface ICrudService {
   url: string;
   primaryKeys: string[];
-  getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
+  getItems(page: number, filters?: Filter, sortMeta?: SortMeta[]): Promise<any>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;
   put(row: any): Promise<any>;

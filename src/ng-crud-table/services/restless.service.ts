@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../types';
+import {Filter, SortMeta, ICrudService} from '../types';
 
 @Injectable()
 export class RestlessService implements ICrudService {
@@ -20,7 +20,7 @@ export class RestlessService implements ICrudService {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
+  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
     const headers = this.getAuthHeaders();
     let url = this.url;
     if (page > 1) {
@@ -30,9 +30,9 @@ export class RestlessService implements ICrudService {
         url = url + '&page=' + page;
       }
     }
-    if (this.filterObject(filters, sortField, sortOrder)) {
+    if (this.filterObject(filters, sortMeta)) {
       url += (url.indexOf('?') === -1) ? '?' : '&';
-      url = url + this.filterObject(filters, sortField, sortOrder);
+      url = url + this.filterObject(filters, sortMeta);
     }
     return this.http.get(url, {headers: headers})
       .toPromise()
@@ -112,13 +112,15 @@ export class RestlessService implements ICrudService {
     return Promise.reject(errMsg);
   }
 
-  private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {
+  private filterObject(obj: Filter, sortMeta?: SortMeta[]): string {
     const filters = [];
     let orderby = {};
     let result = '';
     const filterObject = {};
 
-    if (sortField && sortOrder) {
+    if (sortMeta && sortMeta.length) {
+      const sortField: string = sortMeta[0].field;
+      const sortOrder: number = sortMeta[0].order;
       const direction = sortOrder > 0 ? 'asc' : (sortOrder < 0 ? 'desc' : null);
       if (direction) {
         orderby = [{'field': sortField, 'direction': direction}];

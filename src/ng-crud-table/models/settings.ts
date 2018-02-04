@@ -11,6 +11,7 @@ export class Settings {
   public filter?: boolean = true;
   public initLoad?: boolean = true;
   public clientSide?: boolean;
+  public multipleSort?: boolean;
   public messages?: Message;
 
   constructor(init: Partial<Settings>) {

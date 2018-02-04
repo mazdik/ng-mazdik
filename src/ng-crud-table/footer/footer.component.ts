@@ -9,13 +9,13 @@ import {DataTable} from '../models/data-table';
 export class FooterComponent {
 
   @Input() public table: DataTable;
-  @Output() pageChanged: EventEmitter<any> = new EventEmitter();
+  @Output() pageChanged: EventEmitter<boolean> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-footer';
 
   onPageChanged(event) {
-    this.pageChanged.emit(event);
     this.table.pager.current = event;
+    this.pageChanged.emit(true);
   }
 
 }

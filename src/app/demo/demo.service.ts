@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../../ng-crud-table';
+import {Filter, SortMeta, ICrudService} from '../../ng-crud-table';
 import {DataFilter} from '../../ng-crud-table/models/data-filter';
+import {DataSort} from '../../ng-crud-table/models/data-sort';
 
 @Injectable()
 export class DemoService implements ICrudService {
@@ -11,20 +12,23 @@ export class DemoService implements ICrudService {
   public primaryKeys: any;
 
   private itemsPerPage: number = 20;
-  private filterService: DataFilter;
+  private dataFilter: DataFilter;
+  private dataSort: DataSort;
 
   constructor(private http: HttpClient) {
-    this.filterService = new DataFilter();
+    this.dataFilter = new DataFilter();
+    this.dataSort = new DataSort();
   }
 
-  getItems(page: number = 1, filters ?: Filter, sortField ?: string, sortOrder ?: number): Promise<any> {
+  getItems(page: number = 1, filters ?: Filter, sortMeta?: SortMeta[]): Promise<any> {
     return this.http.get(this.url)
       .toPromise()
       .then(function (res) {
         const rows: any[] = res || [];
-        this.filterService.filters = filters;
-        const filteredData = this.filterService.filter(rows);
-        const sortedData = this.sort(filteredData, sortField, sortOrder);
+        this.dataFilter.filters = filters;
+        const filteredData = this.dataFilter.filterRows(rows);
+        this.dataSort.sortMeta = sortMeta;
+        const sortedData = this.dataSort.sortRows(filteredData);
         const pageData = this.page(sortedData, page);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
@@ -47,17 +51,6 @@ export class DemoService implements ICrudService {
     };
     return this.getItems(1, filterId)
       .then(data => data.items[0]);
-  }
-
-  sort(data: any, sortField ?: string, sortOrder ?: number) {
-    return data.sort((previous: any, current: any) => {
-      if (previous[sortField] > current[sortField]) {
-        return sortOrder === -1 ? -1 : 1;
-      } else if (previous[sortField] < current[sortField]) {
-        return sortOrder === 1 ? -1 : 1;
-      }
-      return 0;
-    });
   }
 
   page(data: any, page: any): Array<any> {

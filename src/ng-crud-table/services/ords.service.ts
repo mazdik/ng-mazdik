@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../types';
+import {Filter, SortMeta, ICrudService} from '../types';
 
 @Injectable()
 export class OrdsService implements ICrudService {
@@ -20,13 +20,13 @@ export class OrdsService implements ICrudService {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
+  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
     const headers = this.getAuthHeaders();
     let url = this.url + '/';
     if (page > 1) {
       url = url + '/?offset=' + page;
     }
-    url = url + this.filterObject(filters, sortField, sortOrder);
+    url = url + this.filterObject(filters, sortMeta);
     return this.http.get(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
@@ -104,12 +104,14 @@ export class OrdsService implements ICrudService {
     return Promise.reject(errMsg);
   }
 
-  private filterObject(obj: Filter, sortField?: string, sortOrder?: number): string {
+  private filterObject(obj: Filter, sortMeta?: SortMeta[]): string {
     const filterObject = {};
     let orderby = {};
     let result = '';
 
-    if (sortField && sortOrder) {
+    if (sortMeta && sortMeta.length) {
+      const sortField: string = sortMeta[0].field;
+      const sortOrder: number = sortMeta[0].order;
       orderby = {[sortField]: sortOrder};
     }
 

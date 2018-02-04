@@ -32,7 +32,7 @@ export interface Filter {
 export interface ICrudService {
   url: string;
   primaryKeys: string[];
-  getItems(page: number, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any>;
+  getItems(page: number, filters?: Filter, sortMeta?: SortMeta[]): Promise<any>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;
   put(row: any): Promise<any>;

@@ -92,7 +92,7 @@ export class CrudTableComponent implements OnInit {
     this.loading = true;
     this.errors = null;
     return this.service
-      .getItems(this.table.pager.current, this.table.dataFilter.filters, this.table.sorter.sortMeta.field, this.table.sorter.sortMeta.order)
+      .getItems(this.table.pager.current, this.table.dataFilter.filters, this.table.sorter.sortMeta)
       .then(data => {
         this.loading = false;
         this.items = data.items;
@@ -109,11 +109,6 @@ export class CrudTableComponent implements OnInit {
     this.items = [];
     this.table.pager.total = 0;
     this.detailView = false;
-  }
-
-  pageChanged(event: any): void {
-    this.table.pager.current = event;
-    this.getItems();
   }
 
   createItem() {
@@ -151,11 +146,15 @@ export class CrudTableComponent implements OnInit {
     this.modalEditForm.open();
   }
 
-  onFilter(event) {
+  onFilter() {
     this.getItems().then();
   }
 
-  sort(event) {
+  onPageChanged() {
+    this.getItems().then();
+  }
+
+  onSort() {
     this.getItems().then();
   }
 

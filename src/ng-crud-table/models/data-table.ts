@@ -34,7 +34,7 @@ export class DataTable {
     this.pager = new DataPager();
     this.sorter = new DataSort();
     this.dataFilter = new DataFilter();
-
+    this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
     }
@@ -86,6 +86,7 @@ export class DataTable {
       this.tableWidth = this.columnsTotalWidth;
     }
     this.scrollHeight = this.settings.scrollHeight;
+    this.sorter.multiple = this.settings.multipleSort;
   }
 
   setColumnWidth(column: Column, width: number) {
@@ -118,9 +119,9 @@ export class DataTable {
   }
 
   getLocalRows() {
-    let data = this.dataFilter.filter(this.localRows);
+    let data = this.dataFilter.filterRows(this.localRows);
     this.pager.total = data.length;
-    data = this.sorter.sort(data);
+    data = this.sorter.sortRows(data);
     data = this.pager.pager(data);
     return data;
   }

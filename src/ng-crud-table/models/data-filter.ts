@@ -18,7 +18,7 @@ export class DataFilter {
 
   public filters: Filter = <Filter>{};
 
-  filter(data: any[]) {
+  filterRows(data: any[]) {
     const filters = this.filters;
     let filteredRows: any[] = data;
 

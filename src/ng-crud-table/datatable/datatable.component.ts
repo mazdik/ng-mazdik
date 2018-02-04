@@ -16,9 +16,9 @@ export class DatatableComponent implements OnInit, DoCheck {
   @Input() public table: DataTable;
   @Input() public loading: boolean = false;
   @Input() public trackByProp: string;
-  @Output() filterChanged: EventEmitter<any> = new EventEmitter();
-  @Output() pageChanged: EventEmitter<any> = new EventEmitter();
-  @Output() sortChanged: EventEmitter<any> = new EventEmitter();
+  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() pageChanged: EventEmitter<boolean> = new EventEmitter();
+  @Output() sortChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
@@ -56,12 +56,11 @@ export class DatatableComponent implements OnInit, DoCheck {
     }
   }
 
-  onPageChanged(event: any): void {
+  onPageChanged(): void {
     if (this.table.settings.clientSide) {
-      this.table.pager.current = event;
       this._rows = this.table.getLocalRows();
     }
-    this.pageChanged.emit(event);
+    this.pageChanged.emit(true);
     this.selectRow(0);
   }
 
@@ -74,7 +73,7 @@ export class DatatableComponent implements OnInit, DoCheck {
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.filterChanged.emit(this.table.dataFilter.filters);
+    this.filterChanged.emit(true);
     this.selectRow(0);
   }
 
@@ -82,7 +81,7 @@ export class DatatableComponent implements OnInit, DoCheck {
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.sortChanged.emit(this.table.sorter.sortMeta);
+    this.sortChanged.emit(true);
     this.selectRow(0);
   }
 

@@ -2,44 +2,61 @@ import {SortMeta} from '../types';
 
 export class DataSort {
 
-  public static SINGLE = 'single';
-  public static MULTIPLE = 'multiple';
-  public type: string;
-  public sortMeta: SortMeta = <SortMeta>{};
+  public multiple: boolean;
+  public sortMeta: SortMeta[] = [];
 
   constructor() {
-    this.type = DataSort.SINGLE;
   }
 
   setOrder(columnName: string) {
-    this.sortMeta.order = (this.sortMeta.field === columnName) ? this.sortMeta.order * -1 : 1;
-    this.sortMeta.field = columnName;
+    const index = this.sortMeta.findIndex((x: SortMeta) => x.field === columnName);
+    if (index === -1) {
+      if (!this.multiple) {
+        this.sortMeta = [];
+      }
+      this.sortMeta.push(<SortMeta>{field: columnName, order: 1});
+    } else if (this.sortMeta[index].order === 1) {
+      this.sortMeta[index].order = -1;
+    } else if (this.sortMeta[index].order === -1) {
+      this.sortMeta.splice(index, 1);
+    }
   }
 
   getOrder(columnName: string) {
-    let order = 0;
-    if (this.sortMeta.field && this.sortMeta.field === columnName) {
-      order = this.sortMeta.order;
-    }
-    return order;
+    const meta = this.findSortMeta(columnName);
+    return (meta) ? meta.order : 0;
   }
 
-  sort(data: any[]) {
-    const sortField = this.sortMeta.field;
-    const sortOrder = this.sortMeta.order;
+  findSortMeta(columnName: string): SortMeta {
+    return this.sortMeta.find((meta: SortMeta) => meta.field === columnName);
+  }
 
-    return data.sort((previous: any, current: any) => {
-      if (previous[sortField] > current[sortField]) {
-        return sortOrder === -1 ? -1 : 1;
-      } else if (previous[sortField] < current[sortField]) {
-        return sortOrder === 1 ? -1 : 1;
-      }
-      return 0;
+  sortRows(data: any[]): any[] {
+    if (!data) {
+      return [];
+    }
+    if (!this.sortMeta || !this.sortMeta.length) {
+      return data;
+    }
+    return data.sort((previous, current) => {
+      return this.multiSort(previous, current, this.sortMeta, 0);
     });
   }
 
+  multiSort(previous: any, current: any, meta: SortMeta[], index: number) {
+    const value1 = previous[meta[index].field];
+    const value2 = current[meta[index].field];
+    const result = (value1 < value2) ? -1 : 1;
+
+    if (value1 === value2) {
+      return (meta.length - 1) > (index) ? (this.multiSort(previous, current, meta, index + 1)) : 0;
+    }
+
+    return (meta[index].order * result);
+  }
+
   clear() {
-    this.sortMeta = <SortMeta>{};
+    this.sortMeta = [];
   }
 
   getDirection(columnName: string) {

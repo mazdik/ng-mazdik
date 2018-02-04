@@ -12,9 +12,9 @@
   [rows]="items"
   [loading]="loading"
   [trackByProp]="trackByProp"
-  (filterChanged)="onFilter($event)"
-  (pageChanged)="pageChanged($event)"
-  (sortChanged)="sort($event)"
+  (filterChanged)="onFilter()"
+  (pageChanged)="onPageChanged()"
+  (sortChanged)="onSort()"
   (editComplete)="onEditComplete($event)"
   (selectedRowIndexChanged)="onSelectedRow($event)">
 </app-datatable>

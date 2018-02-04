@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, ICrudService} from '../types';
+import {Filter, SortMeta, ICrudService} from '../types';
 
 @Injectable()
 export class YiiService implements ICrudService {
@@ -20,9 +20,9 @@ export class YiiService implements ICrudService {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortField?: string, sortOrder?: number): Promise<any> {
+  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
     const headers = this.getAuthHeaders();
-    const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortField, sortOrder);
+    const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortMeta);
     return this.http.get(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
@@ -101,18 +101,20 @@ export class YiiService implements ICrudService {
     return (url) ? '&' + url : '';
   }
 
-  private urlSort(sortField: string, sortOrder: number): string {
-    if (sortField) {
-      if (sortOrder > 0) {
-        return '&sort=' + sortField;
-      } else if (sortOrder < 0) {
-        return '&sort=-' + sortField;
-      } else {
-        return '';
+  private urlSort(sortMeta?: SortMeta[]): string {
+    let result: string = '';
+    if (sortMeta && sortMeta.length) {
+      result += '&sort=';
+      for (const meta of sortMeta) {
+        if (meta.order > 0) {
+          result += '' + meta.field + ',';
+        } else if (meta.order < 0) {
+          result += '-' + meta.field + ',';
+        }
       }
-    } else {
-      return '';
+      result = result.replace(/,+$/, '');
     }
+    return result;
   }
 
   getOptions(url: string, parentId: any): Promise<any> {
