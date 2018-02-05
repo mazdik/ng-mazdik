@@ -2,23 +2,20 @@
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-row-form
-        *ngIf="!view"
-        [table]="crudTable.table"
-        [service]="crudTable.service"
-        [item]="crudTable.item"
-        [isNew]="crudTable.isNewItem"
-        (valid)="formValid=$event">
+        *ngIf="!crudTable.detailView"
+        [crudTable]="crudTable">
       </app-row-form>
 
-      <div class="detail-view" *ngIf="view">
+      <div class="detail-view"
+           *ngIf="crudTable.detailView">
         <table>
           <tbody>
           <tr *ngFor="let column of crudTable.table.columns">
             <th>{{column.title}}</th>
-            <td>{{format(crudTable.item[column.name], column)}}</td>
+            <td>{{format(column)}}</td>
           </tr>
           </tbody>
-      </table>
+        </table>
       </div>
 
     </div>
@@ -26,14 +23,14 @@
   <ng-container class="app-modal-footer">
     <button type="button"
             class="button button3"
-            *ngIf="!crudTable.isNewItem && !view"
+            *ngIf="!crudTable.isNewItem && !crudTable.detailView"
             (click)="delete()">{{crudTable.table.settings.messages.delete}}
     </button>
     <button type="button"
             class="button button1"
-            [style.visibility]="!view ? 'visible': 'hidden'"
+            [style.visibility]="!crudTable.detailView ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!formValid">{{crudTable.table.settings.messages.save}}
+            [disabled]="!crudTable.formValid">{{crudTable.table.settings.messages.save}}
     </button>
     <button type="button"
             class="button"

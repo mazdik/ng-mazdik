@@ -39,7 +39,6 @@ export class MasterDetailDemoComponent implements OnInit {
   public rowsPlayers: any = [];
   public rowsRank: any = [];
   public rowsInventory: any = [];
-  public loading: boolean = false;
 
   @ViewChild('tablePlayers') tablePlayers: any;
 
@@ -211,12 +210,12 @@ export class MasterDetailDemoComponent implements OnInit {
     });
   }
 
-  masterChanged(event) {
+  masterChanged() {
     if (this.tablePlayers.rows.length > 0 &&
-      this.tablePlayers.selectedRowIndex !== undefined &&
-      this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]) {
+      this.dtPlayers.selectedRowIndex !== undefined &&
+      this.tablePlayers.rows[this.dtPlayers.selectedRowIndex]) {
 
-      const masterId = this.tablePlayers.rows[this.tablePlayers.selectedRowIndex]['id'];
+      const masterId = this.tablePlayers.rows[this.dtPlayers.selectedRowIndex]['id'];
       this.rowsRank = this._rank.filter((value: any) => {
         return value['player_id'] === masterId;
       });
@@ -227,7 +226,6 @@ export class MasterDetailDemoComponent implements OnInit {
       this.rowsRank = [];
       this.rowsInventory = [];
     }
-
   }
 
 }

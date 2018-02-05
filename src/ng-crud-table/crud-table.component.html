@@ -4,13 +4,13 @@
         class="button"
         style="margin-bottom: 5px;"
         *ngIf="settings.crud"
-        (click)="createItem()">{{table.settings.messages.create}}
+        (click)="createAction()">{{table.settings.messages.create}}
 </button>
 
 <app-datatable
   [table]="table"
   [rows]="crudTable.items"
-  [loading]="this.crudTable.loading"
+  [loading]="crudTable.loading"
   [trackByProp]="trackByProp"
   (filterChanged)="onFilter()"
   (pageChanged)="onPageChanged()"
@@ -22,9 +22,5 @@
 <app-modal-edit-form
   #modalEditForm
   [crudTable]="crudTable"
-  [zIndex]="zIndexModal"
-  [view]="detailView"
-  (saved)="onSaved($event)"
-  (updated)="onUpdated($event)"
-  (deleted)="onDeleted($event)">
+  [zIndex]="zIndexModal">
 </app-modal-edit-form>

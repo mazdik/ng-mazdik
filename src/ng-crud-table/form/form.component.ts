@@ -1,6 +1,5 @@
-import {Component, Input, Output, ViewChild, ViewContainerRef, OnInit, OnDestroy, EventEmitter} from '@angular/core';
-import {ICrudService} from '../types';
-import {DataTable} from '../models/data-table';
+import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
+import {CrudTable} from '../models/crud-table';
 import {Column} from '../models/column';
 
 @Component({
@@ -10,11 +9,7 @@ import {Column} from '../models/column';
 
 export class FormComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
-  @Input() public item: any;
-  @Input() public isNew: boolean = true;
-  @Input() public service: ICrudService;
-  @Output() valid: EventEmitter<boolean> = new EventEmitter();
+  @Input() public crudTable: CrudTable;
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
@@ -36,8 +31,10 @@ export class FormComponent implements OnInit, OnDestroy {
       return false;
     }
     const name = column.name;
-    if (this.table.settings.primaryKeys && this.table.settings.primaryKeys.length && !this.isNew) {
-      return (this.table.settings.primaryKeys.indexOf(name) === -1);
+    if (this.crudTable.table.settings.primaryKeys &&
+      this.crudTable.table.settings.primaryKeys.length &&
+      !this.crudTable.isNewItem) {
+      return (this.crudTable.table.settings.primaryKeys.indexOf(name) === -1);
     } else {
       return true;
     }
@@ -56,16 +53,16 @@ export class FormComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    this.valid.emit(result);
+    this.crudTable.formValid = result;
   }
 
   onKeyColumnChange(event) {
-    this.item[event.column] = event.value;
+    this.crudTable.item[event.column] = event.value;
   }
 
   isDisabled(column: Column) {
-    if (column.keyColumn && !this.isNew) {
-      return (this.table.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
+    if (column.keyColumn && !this.crudTable.isNewItem) {
+      return (this.crudTable.table.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
     } else {
       return false;
     }
