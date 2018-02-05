@@ -1,9 +1,10 @@
 import {ICrudService} from '../types';
-import {DataTable} from '../models/data-table';
+import {DataTable} from './data-table';
+import {ColumnBase} from './column-base';
+import {Settings} from './settings';
 
-export class CrudTable {
+export class CrudTable extends DataTable {
 
-  public table: DataTable;
   public service: ICrudService;
   public errors: any;
   public loading: boolean;
@@ -15,28 +16,27 @@ export class CrudTable {
   public selectedRowIndex: number;
   public refreshRowOnSave: boolean;
 
-  constructor(table: DataTable, service: ICrudService) {
-    this.table = table;
-    this.service = service;
-    this.initService();
-    this.refreshRowOnSave = this.table.columns.some(x => x.keyColumn !== undefined);
+  constructor(columns?: ColumnBase[], settings?: Settings) {
+    super(columns, settings);
+    this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
   }
 
-  initService() {
-    this.service.url = this.table.settings.api;
-    this.service.primaryKeys = this.table.settings.primaryKeys;
+  setService(service: ICrudService) {
+    this.service = service;
+    this.service.url = this.settings.api;
+    this.service.primaryKeys = this.settings.primaryKeys;
   }
 
   getItems(): Promise<any> {
     this.loading = true;
     this.errors = null;
     return this.service
-      .getItems(this.table.pager.current, this.table.dataFilter.filters, this.table.sorter.sortMeta)
+      .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta)
       .then(data => {
         this.loading = false;
         this.items = data.items;
-        this.table.pager.total = data._meta.totalCount;
-        this.table.pager.perPage = data._meta.perPage;
+        this.pager.total = data._meta.totalCount;
+        this.pager.perPage = data._meta.perPage;
       })
       .catch(error => {
         this.loading = false;

@@ -31,10 +31,10 @@ export class FormComponent implements OnInit, OnDestroy {
       return false;
     }
     const name = column.name;
-    if (this.crudTable.table.settings.primaryKeys &&
-      this.crudTable.table.settings.primaryKeys.length &&
+    if (this.crudTable.settings.primaryKeys &&
+      this.crudTable.settings.primaryKeys.length &&
       !this.crudTable.isNewItem) {
-      return (this.crudTable.table.settings.primaryKeys.indexOf(name) === -1);
+      return (this.crudTable.settings.primaryKeys.indexOf(name) === -1);
     } else {
       return true;
     }
@@ -62,7 +62,7 @@ export class FormComponent implements OnInit, OnDestroy {
 
   isDisabled(column: Column) {
     if (column.keyColumn && !this.crudTable.isNewItem) {
-      return (this.crudTable.table.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
+      return (this.crudTable.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
     } else {
       return false;
     }

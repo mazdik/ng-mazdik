@@ -10,7 +10,7 @@
            *ngIf="crudTable.detailView">
         <table>
           <tbody>
-          <tr *ngFor="let column of crudTable.table.columns">
+          <tr *ngFor="let column of crudTable.columns">
             <th>{{column.title}}</th>
             <td>{{format(column)}}</td>
           </tr>
@@ -24,18 +24,18 @@
     <button type="button"
             class="button button3"
             *ngIf="!crudTable.isNewItem && !crudTable.detailView"
-            (click)="delete()">{{crudTable.table.settings.messages.delete}}
+            (click)="delete()">{{crudTable.settings.messages.delete}}
     </button>
     <button type="button"
             class="button button1"
             [style.visibility]="!crudTable.detailView ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!crudTable.formValid">{{crudTable.table.settings.messages.save}}
+            [disabled]="!crudTable.formValid">{{crudTable.settings.messages.save}}
     </button>
     <button type="button"
             class="button"
             style="float: right;"
-            (click)="close()">{{crudTable.table.settings.messages.close}}
+            (click)="close()">{{crudTable.settings.messages.close}}
     </button>
   </ng-container>
 </app-modal>

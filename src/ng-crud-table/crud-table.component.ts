@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {Settings, ICrudService} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
-import {DataTable} from './models/data-table';
 import {ColumnBase} from './models/column-base';
 import {CrudTable} from './models/crud-table';
 
@@ -22,7 +21,7 @@ export class CrudTableComponent implements OnInit {
   @Input()
   set columns(val: ColumnBase[]) {
     this._columns = val;
-    this.table.createColumns(this._columns);
+    this.crudTable.createColumns(this._columns);
   }
 
   get columns(): ColumnBase[] {
@@ -32,14 +31,13 @@ export class CrudTableComponent implements OnInit {
   @Input()
   set settings(val: Settings) {
     this._settings = val;
-    this.table.setSettings(this._settings);
+    this.crudTable.setSettings(this._settings);
   }
 
   get settings(): Settings {
     return this._settings;
   }
 
-  public table: DataTable;
   public crudTable: CrudTable;
 
   private _columns: ColumnBase[];
@@ -48,29 +46,29 @@ export class CrudTableComponent implements OnInit {
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
   constructor() {
-    this.table = new DataTable();
+    this.crudTable = new CrudTable();
   }
 
   ngOnInit() {
-    this.crudTable = new CrudTable(this.table, this.service);
+    this.crudTable.setService(this.service);
     if (!this.trackByProp && this.settings.primaryKeys && this.settings.primaryKeys.length === 1) {
       this.trackByProp = this.settings.primaryKeys[0];
     }
     this.initRowMenu();
-    if (this.table.settings.initLoad) {
+    if (this.crudTable.settings.initLoad) {
       this.crudTable.getItems().then();
     }
   }
 
   initRowMenu() {
-    this.table.actionMenu = [
+    this.crudTable.actionMenu = [
       {
-        label: this.table.settings.messages.titleDetailView,
+        label: this.crudTable.settings.messages.titleDetailView,
         icon: 'icon icon-rightwards',
         command: (event) => this.viewAction()
       },
       {
-        label: this.table.settings.messages.titleUpdate,
+        label: this.crudTable.settings.messages.titleUpdate,
         icon: 'icon icon-pencil',
         command: (event) => this.updateAction(),
         disabled: !this.settings.crud
@@ -80,7 +78,7 @@ export class CrudTableComponent implements OnInit {
 
   clear() {
     this.crudTable.items = [];
-    this.table.pager.total = 0;
+    this.crudTable.pager.total = 0;
     this.crudTable.detailView = false;
   }
 

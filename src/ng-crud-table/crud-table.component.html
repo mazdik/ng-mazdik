@@ -4,11 +4,11 @@
         class="button"
         style="margin-bottom: 5px;"
         *ngIf="settings.crud"
-        (click)="createAction()">{{table.settings.messages.create}}
+        (click)="createAction()">{{crudTable.settings.messages.create}}
 </button>
 
 <app-datatable
-  [table]="table"
+  [table]="crudTable"
   [rows]="crudTable.items"
   [loading]="crudTable.loading"
   [trackByProp]="trackByProp"

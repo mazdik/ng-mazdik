@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, ICrudService, DataTable, CrudTable} from '../../ng-crud-table';
+import {Column, Settings, ICrudService, CrudTable} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-edit-form.component';
 
@@ -25,7 +25,6 @@ import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-
 
 export class ModalFormDemoComponent implements OnInit {
 
-  public table: DataTable;
   public service: ICrudService;
   public crudTable: CrudTable;
 
@@ -167,9 +166,9 @@ export class ModalFormDemoComponent implements OnInit {
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
   constructor(private http: HttpClient) {
-    this.table = new DataTable(this.columns, this.settings);
+    this.crudTable = new CrudTable(this.columns, this.settings);
     this.service = new DemoService(this.http);
-    this.crudTable = new CrudTable(this.table, this.service);
+    this.crudTable.setService(this.service);
   }
 
   ngOnInit() {

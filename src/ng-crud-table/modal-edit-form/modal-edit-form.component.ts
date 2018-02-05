@@ -22,10 +22,10 @@ export class ModalEditFormComponent implements OnInit {
 
   modalTitle() {
     if (!this.crudTable.detailView) {
-      return this.crudTable.isNewItem ? this.crudTable.table.settings.messages.titleCreate :
-        this.crudTable.table.settings.messages.titleUpdate;
+      return this.crudTable.isNewItem ? this.crudTable.settings.messages.titleCreate :
+        this.crudTable.settings.messages.titleUpdate;
     } else {
-      return this.crudTable.table.settings.messages.titleDetailView;
+      return this.crudTable.settings.messages.titleDetailView;
     }
   }
 
