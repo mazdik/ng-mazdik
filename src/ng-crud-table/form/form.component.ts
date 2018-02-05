@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
-import {CrudTable} from '../models/crud-table';
+import {DataManager} from '../models/data-manager';
 import {Column} from '../models/column';
 
 @Component({
@@ -9,7 +9,7 @@ import {Column} from '../models/column';
 
 export class FormComponent implements OnInit, OnDestroy {
 
-  @Input() public crudTable: CrudTable;
+  @Input() public dataManager: DataManager;
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
@@ -31,10 +31,10 @@ export class FormComponent implements OnInit, OnDestroy {
       return false;
     }
     const name = column.name;
-    if (this.crudTable.settings.primaryKeys &&
-      this.crudTable.settings.primaryKeys.length &&
-      !this.crudTable.isNewItem) {
-      return (this.crudTable.settings.primaryKeys.indexOf(name) === -1);
+    if (this.dataManager.settings.primaryKeys &&
+      this.dataManager.settings.primaryKeys.length &&
+      !this.dataManager.isNewItem) {
+      return (this.dataManager.settings.primaryKeys.indexOf(name) === -1);
     } else {
       return true;
     }
@@ -53,16 +53,16 @@ export class FormComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    this.crudTable.formValid = result;
+    this.dataManager.formValid = result;
   }
 
   onKeyColumnChange(event) {
-    this.crudTable.item[event.column] = event.value;
+    this.dataManager.item[event.column] = event.value;
   }
 
   isDisabled(column: Column) {
-    if (column.keyColumn && !this.crudTable.isNewItem) {
-      return (this.crudTable.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
+    if (column.keyColumn && !this.dataManager.isNewItem) {
+      return (this.dataManager.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
     } else {
       return false;
     }

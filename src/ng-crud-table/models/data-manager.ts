@@ -3,7 +3,7 @@ import {DataTable} from './data-table';
 import {ColumnBase} from './column-base';
 import {Settings} from './settings';
 
-export class CrudTable extends DataTable {
+export class DataManager extends DataTable {
 
   public service: ICrudService;
   public errors: any;
@@ -13,11 +13,14 @@ export class CrudTable extends DataTable {
   public isNewItem: boolean;
   public detailView: boolean;
   public formValid: boolean = true;
-  public selectedRowIndex: number;
   public refreshRowOnSave: boolean;
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     super(columns, settings);
+  }
+
+  createColumns(columns: ColumnBase[]) {
+    super.createColumns(columns);
     this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
   }
 
@@ -162,6 +165,16 @@ export class CrudTable extends DataTable {
     const item = this.items[this.selectedRowIndex];
     this.item = Object.assign({}, item);
     this.isNewItem = false;
+  }
+
+  getSelectedRow() {
+    return this.items[this.selectedRowIndex];
+  }
+
+  clear() {
+    this.items = [];
+    this.pager.total = 0;
+    this.detailView = false;
   }
 
 }

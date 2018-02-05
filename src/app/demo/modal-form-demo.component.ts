@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, ICrudService, CrudTable} from '../../ng-crud-table';
+import {Column, Settings, ICrudService, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-edit-form.component';
 
@@ -8,7 +8,7 @@ import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-
   selector: 'app-modal-form-demo',
   template: `
     <app-modal-edit-form #modalEditForm
-                         [crudTable]="crudTable"
+                         [dataManager]="dataManager"
                          (saved)="onSaved($event)"
                          (updated)="onUpdated($event)">
     </app-modal-edit-form>
@@ -26,7 +26,7 @@ import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-
 export class ModalFormDemoComponent implements OnInit {
 
   public service: ICrudService;
-  public crudTable: CrudTable;
+  public dataManager: DataManager;
 
   public settings: Settings = {
     api: 'assets/players.json',
@@ -166,13 +166,13 @@ export class ModalFormDemoComponent implements OnInit {
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
   constructor(private http: HttpClient) {
-    this.crudTable = new CrudTable(this.columns, this.settings);
+    this.dataManager = new DataManager(this.columns, this.settings);
     this.service = new DemoService(this.http);
-    this.crudTable.setService(this.service);
+    this.dataManager.setService(this.service);
   }
 
   ngOnInit() {
-    this.crudTable.item = Object.assign({}, this._item);
+    this.dataManager.item = Object.assign({}, this._item);
   }
 
   onSaved(event) {
@@ -184,12 +184,12 @@ export class ModalFormDemoComponent implements OnInit {
   }
 
   createItem() {
-    this.crudTable.item = {};
+    this.dataManager.clearItem();
     this.modalEditForm.open();
   }
 
   updateItem() {
-    this.crudTable.item = Object.assign({}, this._item);
+    this.dataManager.item = Object.assign({}, this._item);
     this.modalEditForm.open();
   }
 

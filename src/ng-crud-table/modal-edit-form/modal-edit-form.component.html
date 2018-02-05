@@ -2,15 +2,15 @@
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-row-form
-        *ngIf="!crudTable.detailView"
-        [crudTable]="crudTable">
+        *ngIf="!dataManager.detailView"
+        [dataManager]="dataManager">
       </app-row-form>
 
       <div class="detail-view"
-           *ngIf="crudTable.detailView">
+           *ngIf="dataManager.detailView">
         <table>
           <tbody>
-          <tr *ngFor="let column of crudTable.columns">
+          <tr *ngFor="let column of dataManager.columns">
             <th>{{column.title}}</th>
             <td>{{format(column)}}</td>
           </tr>
@@ -23,19 +23,19 @@
   <ng-container class="app-modal-footer">
     <button type="button"
             class="button button3"
-            *ngIf="!crudTable.isNewItem && !crudTable.detailView"
-            (click)="delete()">{{crudTable.settings.messages.delete}}
+            *ngIf="!dataManager.isNewItem && !dataManager.detailView"
+            (click)="delete()">{{dataManager.settings.messages.delete}}
     </button>
     <button type="button"
             class="button button1"
-            [style.visibility]="!crudTable.detailView ? 'visible': 'hidden'"
+            [style.visibility]="!dataManager.detailView ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!crudTable.formValid">{{crudTable.settings.messages.save}}
+            [disabled]="!dataManager.formValid">{{dataManager.settings.messages.save}}
     </button>
     <button type="button"
             class="button"
             style="float: right;"
-            (click)="close()">{{crudTable.settings.messages.close}}
+            (click)="close()">{{dataManager.settings.messages.close}}
     </button>
   </ng-container>
 </app-modal>

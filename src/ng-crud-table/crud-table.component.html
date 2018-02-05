@@ -1,26 +1,26 @@
-<div class="df-alert df-alert-danger" *ngIf="this.crudTable.errors">{{this.crudTable.errors}}</div>
+<div class="df-alert df-alert-danger" *ngIf="this.dataManager.errors">{{this.dataManager.errors}}</div>
 
 <button type="button"
         class="button"
         style="margin-bottom: 5px;"
         *ngIf="settings.crud"
-        (click)="createAction()">{{crudTable.settings.messages.create}}
+        (click)="createAction()">{{dataManager.settings.messages.create}}
 </button>
 
 <app-datatable
-  [table]="crudTable"
-  [rows]="crudTable.items"
-  [loading]="crudTable.loading"
+  [table]="dataManager"
+  [rows]="dataManager.items"
+  [loading]="dataManager.loading"
   [trackByProp]="trackByProp"
   (filterChanged)="onFilter()"
   (pageChanged)="onPageChanged()"
   (sortChanged)="onSort()"
   (editComplete)="onEditComplete($event)"
-  (selectedRowIndexChanged)="onSelectedRow($event)">
+  (selectedRowIndexChanged)="onSelectedRow()">
 </app-datatable>
 
 <app-modal-edit-form
   #modalEditForm
-  [crudTable]="crudTable"
+  [dataManager]="dataManager"
   [zIndex]="zIndexModal">
 </app-modal-edit-form>

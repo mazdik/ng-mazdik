@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, ViewChild, PipeTransform} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {Column} from '../models/column';
-import {CrudTable} from '../models/crud-table';
+import {DataManager} from '../models/data-manager';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -9,7 +9,7 @@ import {CrudTable} from '../models/crud-table';
 })
 export class ModalEditFormComponent implements OnInit {
 
-  @Input() public crudTable: CrudTable;
+  @Input() public dataManager: DataManager;
   @Input() public zIndex: number;
 
   @ViewChild('childModal') childModal: ModalComponent;
@@ -21,21 +21,21 @@ export class ModalEditFormComponent implements OnInit {
   }
 
   modalTitle() {
-    if (!this.crudTable.detailView) {
-      return this.crudTable.isNewItem ? this.crudTable.settings.messages.titleCreate :
-        this.crudTable.settings.messages.titleUpdate;
+    if (!this.dataManager.detailView) {
+      return this.dataManager.isNewItem ? this.dataManager.settings.messages.titleCreate :
+        this.dataManager.settings.messages.titleUpdate;
     } else {
-      return this.crudTable.settings.messages.titleDetailView;
+      return this.dataManager.settings.messages.titleDetailView;
     }
   }
 
   save() {
-    this.crudTable.saveRow();
+    this.dataManager.saveRow();
     this.childModal.hide();
   }
 
   delete() {
-    this.crudTable.deleteRow();
+    this.dataManager.deleteRow();
     this.childModal.hide();
   }
 
@@ -48,7 +48,7 @@ export class ModalEditFormComponent implements OnInit {
   }
 
   format(column: Column) {
-    let value = this.crudTable.item[column.name];
+    let value = this.dataManager.item[column.name];
     const userPipe: PipeTransform = column.pipe;
     if (userPipe) {
       return userPipe.transform(value);

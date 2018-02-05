@@ -1,4 +1,4 @@
-<div *ngFor="let column of crudTable.columns">
+<div *ngFor="let column of dataManager.columns">
 
   <div *ngIf="elemEnabled(column)">
 
@@ -16,10 +16,10 @@
       <app-form-select
         *ngSwitchCase="'select'"
         [column]="column"
-        [(value)]="(column.keyColumn) ? crudTable.item[column.keyColumn] : crudTable.item[column.name]"
-        [dependsValue]="crudTable.item[column.dependsColumn]"
+        [(value)]="(column.keyColumn) ? dataManager.item[column.keyColumn] : dataManager.item[column.name]"
+        [dependsValue]="dataManager.item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="crudTable.service"
+        [service]="dataManager.service"
         (keyColumnChange)="onKeyColumnChange($event)"
         [disabled]="isDisabled(column)">
       </app-form-select>
@@ -27,10 +27,10 @@
       <app-form-select-popup
         *ngSwitchCase="'select-popup'"
         [column]="column"
-        [(value)]="(column.keyColumn) ? crudTable.item[column.keyColumn] : crudTable.item[column.name]"
-        [dependsValue]="crudTable.item[column.dependsColumn]"
+        [(value)]="(column.keyColumn) ? dataManager.item[column.keyColumn] : dataManager.item[column.name]"
+        [dependsValue]="dataManager.item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="crudTable.service"
+        [service]="dataManager.service"
         (keyColumnChange)="onKeyColumnChange($event)"
         [disabled]="isDisabled(column)">
       </app-form-select-popup>
@@ -38,27 +38,27 @@
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"
         [column]="column"
-        [(value)]="crudTable.item[column.name]"
-        [dependsValue]="crudTable.item[column.dependsColumn]"
+        [(value)]="dataManager.item[column.name]"
+        [dependsValue]="dataManager.item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="crudTable.service"
+        [service]="dataManager.service"
         [disabled]="isDisabled(column)">
       </app-form-checkbox>
 
       <app-form-radio
         *ngSwitchCase="'radio'"
         [column]="column"
-        [(value)]="crudTable.item[column.name]"
-        [dependsValue]="crudTable.item[column.dependsColumn]"
+        [(value)]="dataManager.item[column.name]"
+        [dependsValue]="dataManager.item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="crudTable.service"
+        [service]="dataManager.service"
         [disabled]="isDisabled(column)">
       </app-form-radio>
 
       <app-form-textarea
         *ngSwitchCase="'textarea'"
         [column]="column"
-        [(value)]="crudTable.item[column.name]"
+        [(value)]="dataManager.item[column.name]"
         (valid)="onValid($event, column)"
         [disabled]="isDisabled(column)">
       </app-form-textarea>
@@ -66,7 +66,7 @@
       <app-form-calendar
         *ngSwitchCase="(column.type ==='date' || column.type ==='datetime-local') ? column.type : ''"
         [column]="column"
-        [(value)]="crudTable.item[column.name]"
+        [(value)]="dataManager.item[column.name]"
         (valid)="onValid($event, column)"
         [disabled]="isDisabled(column)">
       </app-form-calendar>
@@ -74,7 +74,7 @@
       <app-form-input-text
         *ngSwitchDefault
         [column]="column"
-        [(value)]="crudTable.item[column.name]"
+        [(value)]="dataManager.item[column.name]"
         (valid)="onValid($event, column)"
         [disabled]="isDisabled(column)">
       </app-form-input-text>
