@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {Settings, ICrudService} from './types';
+import {ICrudService, Filter} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
+import {Settings} from './models/settings';
 import {ColumnBase} from './models/column-base';
 import {DataManager} from './models/data-manager';
 
@@ -44,6 +45,14 @@ export class CrudTableComponent implements OnInit {
   private _settings: Settings;
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
+
+  set filters(val: Filter) {
+    this.dataManager.dataFilter.filters = val;
+  }
+
+  get filters(): Filter {
+    return this.dataManager.dataFilter.filters;
+  }
 
   constructor() {
     this.dataManager = new DataManager();
@@ -113,6 +122,18 @@ export class CrudTableComponent implements OnInit {
 
   onSelectedRow() {
     this.select.emit(this.dataManager.getSelectedRow());
+  }
+
+  refresh() {
+    this.dataManager.getItems().then();
+  }
+
+  clear() {
+    this.dataManager.clear();
+  }
+
+  refreshSelectedRow() {
+    this.dataManager.refreshSelectedRow();
   }
 
 }
