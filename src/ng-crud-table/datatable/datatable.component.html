@@ -3,14 +3,11 @@
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <app-filter
     #selectFilter
-    [table]="table"
-    (filterChanged)="onFilter()">
+    [table]="table">
   </app-filter>
   <app-datatable-header
     [table]="table"
-    (sort)="onSort()"
     (showColumnMenu)="showColumnMenu($event)"
-    (clearFilters)="onFilter()"
     [offsetX]="offsetX">
   </app-datatable-header>
   <app-datatable-body

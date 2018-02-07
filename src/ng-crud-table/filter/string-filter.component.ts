@@ -31,7 +31,6 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: Column;
   @Input() public isOpen: boolean;
-  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
@@ -77,7 +76,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filter(value) {
     this.table.dataFilter.setFilter(value, this.column.name, this.matchMode);
-    this.filterChanged.emit(true);
+    this.table.dataService.onFilter();
   }
 
   uncheckAll() {

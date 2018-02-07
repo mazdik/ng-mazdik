@@ -41,13 +41,13 @@ export class DataFilter {
       let filterValue;
       let filterValueTo;
       if (!isBlank(value)) {
-        value = new Date(value);
+        value = new Date(value).setSeconds(0, 0);
       }
       if (!isBlank(filter.value)) {
-        filterValue = new Date(filter.value);
+        filterValue = new Date(filter.value).setSeconds(0, 0);
       }
       if (!isBlank(filter.valueTo)) {
-        filterValueTo = new Date(filter.valueTo);
+        filterValueTo = new Date(filter.valueTo).setSeconds(0, 0);
       }
       switch (filter.matchMode) {
         case DataFilter.EQUALS:

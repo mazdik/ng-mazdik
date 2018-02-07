@@ -1,6 +1,5 @@
 import {
-  Component, Input, Output, OnInit, EventEmitter, HostBinding, HostListener,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
@@ -13,7 +12,6 @@ import {Column} from '../models/column';
 export class FilterComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
 
   left: number;
   top: number;
@@ -107,10 +105,6 @@ export class FilterComponent implements OnInit {
 
   hide() {
     this.closeDropdown();
-  }
-
-  onFilterChanged() {
-    this.filterChanged.emit(true);
   }
 
   onFilterClose() {

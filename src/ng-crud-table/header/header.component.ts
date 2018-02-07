@@ -13,9 +13,7 @@ export class HeaderComponent implements OnInit {
   @Input() public table: DataTable;
   @Input() public offsetX: number;
 
-  @Output() sort: EventEmitter<boolean> = new EventEmitter();
   @Output() showColumnMenu: EventEmitter<any> = new EventEmitter();
-  @Output() clearFilters: EventEmitter<boolean> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-header';
 
@@ -44,12 +42,12 @@ export class HeaderComponent implements OnInit {
       return;
     }
     this.table.sorter.setOrder(column.name);
-    this.sort.emit(true);
+    this.table.dataService.onSort();
   }
 
   clearAllFilters() {
     this.table.dataFilter.clear();
-    this.clearFilters.emit(true);
+    this.table.dataService.onFilter();
   }
 
   clickColumnMenu(event, column: Column) {

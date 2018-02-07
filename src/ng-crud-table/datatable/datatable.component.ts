@@ -39,7 +39,9 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   @ViewChild('selectFilter') selectFilter: any;
 
   public offsetX: number = 0;
-  subscription: Subscription;
+  subSelection: Subscription;
+  subFilter: Subscription;
+  subSort: Subscription;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private _rows: any[];
@@ -49,8 +51,14 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.table.dataService.selectionSource$.subscribe(() => {
+    this.subSelection = this.table.dataService.selectionSource$.subscribe(() => {
       this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
+    });
+    this.subFilter = this.table.dataService.filterSource$.subscribe(() => {
+      this.onFilter();
+    });
+    this.subSort = this.table.dataService.sortSource$.subscribe(() => {
+      this.onSort();
     });
   }
 
@@ -61,8 +69,14 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
+    if (this.subSelection) {
+      this.subSelection.unsubscribe();
+    }
+    if (this.subFilter) {
+      this.subFilter.unsubscribe();
+    }
+    if (this.subSort) {
+      this.subSort.unsubscribe();
     }
   }
 

@@ -48,7 +48,6 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: Column;
   @Input() public isOpen: boolean;
-  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
@@ -98,7 +97,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filter(value) {
     this.table.dataFilter.setFilter(value, this.column.name, this.matchMode, this.valueTo, this.column.type);
-    this.filterChanged.emit(true);
+    this.table.dataService.onFilter();
   }
 
   uncheckAll() {
@@ -140,7 +139,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
       dt = new Date(Date.now() + -1 * 3600 * 1000);
     }
     this.matchMode = DataFilter.GREATER_THAN_OR_EQUAL;
-    this.filter(dt.toISOString().slice(0, 19));
+    this.filter(dt.toISOString().slice(0, 16));
     this.filterClose.emit(true);
   }
 

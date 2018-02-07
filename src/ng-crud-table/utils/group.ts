@@ -8,10 +8,10 @@ function getStringValues(item: any, keys: any[]) {
 
 export function groupBy(array: any[], keys: any[]) {
   const groups = {};
-  array.forEach(function (o) {
-    const group = getStringValues(o, keys);
+  array.forEach(function (row) {
+    const group = getStringValues(row, keys);
     groups[group] = groups[group] || [];
-    groups[group].push(o);
+    groups[group].push(row);
   });
   return groups;
 }

@@ -46,7 +46,6 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() public table: DataTable;
   @Input() public column: Column;
   @Input() public isOpen: boolean;
-  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
@@ -116,7 +115,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   filter(value: any[], field: string) {
     const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
     this.table.dataFilter.setFilter(value, field, mode);
-    this.filterChanged.emit(true);
+    this.table.dataService.onFilter();
   }
 
   setFocus() {
