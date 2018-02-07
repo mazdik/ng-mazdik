@@ -16,7 +16,6 @@ export class CrudTableComponent implements OnInit {
 
   @Input() public service: DataSource;
   @Input() public zIndexModal: number;
-  @Input() public trackByProp: string;
   @Output() select: EventEmitter<any> = new EventEmitter();
 
   @Input()
@@ -60,9 +59,6 @@ export class CrudTableComponent implements OnInit {
 
   ngOnInit() {
     this.dataManager.setService(this.service);
-    if (!this.trackByProp && this.settings.primaryKeys && this.settings.primaryKeys.length === 1) {
-      this.trackByProp = this.settings.primaryKeys[0];
-    }
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
       this.dataManager.getItems().then();

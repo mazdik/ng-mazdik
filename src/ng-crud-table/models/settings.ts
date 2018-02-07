@@ -13,6 +13,7 @@ export class Settings {
   public clientSide?: boolean;
   public multipleSort?: boolean;
   public messages?: Message;
+  public trackByProp?: string;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

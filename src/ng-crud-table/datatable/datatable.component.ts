@@ -14,8 +14,7 @@ import {DataTable} from '../models/data-table';
 export class DatatableComponent implements OnInit, DoCheck {
 
   @Input() public table: DataTable;
-  @Input() public loading: boolean = false;
-  @Input() public trackByProp: string;
+  @Input() public loading: boolean;
   @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() pageChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() sortChanged: EventEmitter<boolean> = new EventEmitter();
