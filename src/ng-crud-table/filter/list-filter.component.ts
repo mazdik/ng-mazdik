@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
-import {ISelectOption} from '../types';
+import {SelectOption} from '../types';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
 import {DataFilter} from '../models/data-filter';
@@ -109,7 +109,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.filterClose.emit(true);
   }
 
-  isSelected(option: ISelectOption): boolean {
+  isSelected(option: SelectOption): boolean {
     return this.selectedOptions && this.selectedOptions.indexOf(option.id) > -1;
   }
 

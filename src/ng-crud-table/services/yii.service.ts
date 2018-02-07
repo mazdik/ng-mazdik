@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, SortMeta, ICrudService} from '../types';
+import {Filter, SortMeta, DataSource} from '../types';
 
 @Injectable()
-export class YiiService implements ICrudService {
+export class YiiService implements DataSource {
 
   public url: string;
   public primaryKeys: string[];

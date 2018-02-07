@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {ICrudService, Filter} from './types';
+import {DataSource, Filter} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {Settings} from './models/settings';
 import {ColumnBase} from './models/column-base';
@@ -14,7 +14,7 @@ import {DataManager} from './models/data-manager';
 
 export class CrudTableComponent implements OnInit {
 
-  @Input() public service: ICrudService;
+  @Input() public service: DataSource;
   @Input() public zIndexModal: number;
   @Input() public trackByProp: string;
   @Output() select: EventEmitter<any> = new EventEmitter();

@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {ICrudService} from '../types';
+import {DataSource} from '../types';
 import {InputComponent} from './input.component';
 
 @Component({
@@ -8,7 +8,7 @@ import {InputComponent} from './input.component';
 })
 export class InputOptionComponent extends InputComponent implements OnInit {
 
-  @Input() public service: ICrudService;
+  @Input() public service: DataSource;
   @Output() keyColumnChange: EventEmitter<any> = new EventEmitter();
 
   @Input()

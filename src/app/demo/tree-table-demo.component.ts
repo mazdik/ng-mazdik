@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ITreeService, Column} from '../../ng-crud-table';
+import {TreeDataSource, Column} from '../../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 import {TreeDemoService} from './tree-demo.service';
 
@@ -14,7 +14,7 @@ import {TreeDemoService} from './tree-demo.service';
 })
 export class TreeTableDemoComponent implements OnInit {
 
-  public treeService: ITreeService;
+  public treeService: TreeDataSource;
 
   public columns: Column[] = [
     {

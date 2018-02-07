@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, ICrudService} from '../../ng-crud-table';
+import {Column, Settings, DataSource} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
 @Component({
@@ -127,7 +127,7 @@ export class NestedModalsDemoComponent implements OnInit {
   ];
   @ViewChild('modal') modal: any;
 
-  public service: ICrudService;
+  public service: DataSource;
 
   constructor(private http: HttpClient) {
     this.service = new DemoService(this.http);

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, ICrudService} from '../../ng-crud-table';
+import {Column, Settings, DataSource} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 
 @Component({
@@ -15,7 +15,7 @@ import {DemoService} from './demo.service';
 
 export class BasicDemoComponent implements OnInit {
 
-  public service: ICrudService;
+  public service: DataSource;
 
   constructor(private http: HttpClient) {
     this.service = new DemoService(this.http);

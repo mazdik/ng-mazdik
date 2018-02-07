@@ -1,6 +1,6 @@
 import {EventEmitter} from '@angular/core';
 
-export interface ISelectOption {
+export interface SelectOption {
   id: any;
   name: string;
   parentId?: any;
@@ -29,7 +29,7 @@ export interface Filter {
   [s: string]: FilterMetadata;
 }
 
-export interface ICrudService {
+export interface DataSource {
   url: string;
   primaryKeys: string[];
   getItems(page: number, filters?: Filter, sortMeta?: SortMeta[]): Promise<any>;
@@ -45,7 +45,7 @@ export interface SortMeta {
   order: number;
 }
 
-export interface IValidation {
+export interface Validation {
   required?: boolean;
   minLength?: number;
   maxLength?: number;
@@ -62,22 +62,22 @@ export interface MenuItem {
   disabled?: boolean;
 }
 
-export interface ITreeNode {
+export interface TreeNode {
   id: string;
   name: string;
   data: any;
-  children?: ITreeNode[];
+  children?: TreeNode[];
   expanded?: boolean;
   leaf?: boolean;
-  parent?: ITreeNode;
+  parent?: TreeNode;
   icon?: string;
   $$id?: string;
   $$filterState?: number;
   $$level?: number;
 }
 
-export interface ITreeService {
+export interface TreeDataSource {
   url: string;
-  getNodes(node?: ITreeNode): Promise<ITreeNode[]>;
+  getNodes(node?: TreeNode): Promise<TreeNode[]>;
   searchNodes(name: string): Promise<any>;
 }

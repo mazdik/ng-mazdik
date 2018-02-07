@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, ICrudService, DataManager} from '../../ng-crud-table';
+import {Column, Settings, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-edit-form.component';
 
@@ -25,7 +25,7 @@ import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-
 
 export class ModalFormDemoComponent implements OnInit {
 
-  public service: ICrudService;
+  public service: DataSource;
   public dataManager: DataManager;
 
   public settings: Settings = {

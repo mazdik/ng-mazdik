@@ -1,11 +1,11 @@
-import {ICrudService} from '../types';
+import {DataSource} from '../types';
 import {DataTable} from './data-table';
 import {ColumnBase} from './column-base';
 import {Settings} from './settings';
 
 export class DataManager extends DataTable {
 
-  public service: ICrudService;
+  public service: DataSource;
   public errors: any;
   public loading: boolean;
   public items: any[];
@@ -24,7 +24,7 @@ export class DataManager extends DataTable {
     this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
   }
 
-  setService(service: ICrudService) {
+  setService(service: DataSource) {
     this.service = service;
     this.service.url = this.settings.api;
     this.service.primaryKeys = this.settings.primaryKeys;

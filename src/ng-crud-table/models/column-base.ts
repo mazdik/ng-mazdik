@@ -1,5 +1,5 @@
 import {PipeTransform} from '@angular/core';
-import {ISelectOption, IValidation, ColumnType} from '../types';
+import {SelectOption, Validation, ColumnType} from '../types';
 
 export class ColumnBase {
 
@@ -7,12 +7,12 @@ export class ColumnBase {
   public name: string;
   public sortable?: boolean = true;
   public filter?: boolean = true;
-  public options?: ISelectOption[];
+  public options?: SelectOption[];
   public pipe?: PipeTransform;
   public width?: number = null;
   public frozen?: boolean;
   public type?: ColumnType;
-  public validation?: IValidation;
+  public validation?: Validation;
   public editable?: boolean;
   public resizeable?: boolean = true;
   public dependsColumn?: string;

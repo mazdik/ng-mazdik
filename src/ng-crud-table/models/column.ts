@@ -1,6 +1,6 @@
 import {ColumnBase} from './column-base';
 import {getUid} from '../utils/id';
-import {ISelectOption} from '../types';
+import {SelectOption} from '../types';
 
 export class Column extends ColumnBase {
 
@@ -29,9 +29,9 @@ export class Column extends ColumnBase {
     }
   }
 
-  getOptions(dependsValue?: any): ISelectOption[] {
+  getOptions(dependsValue?: any): SelectOption[] {
     if (this.options) {
-      let options: ISelectOption[];
+      let options: SelectOption[];
       if (typeof this.options === 'function') {
         options = this.options();
       } else {
@@ -49,10 +49,10 @@ export class Column extends ColumnBase {
     if (!this.options) {
       return value;
     }
-    const options: ISelectOption[] = this.getOptions();
+    const options: SelectOption[] = this.getOptions();
     let name;
     if (options && (value !== undefined || value !== null)) {
-      const el: ISelectOption = options.find(o => {
+      const el: SelectOption = options.find(o => {
         return o.id.toString() === value.toString();
       });
       name = (el) ? el.name : null;

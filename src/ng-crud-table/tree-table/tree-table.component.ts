@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {ITreeNode, ITreeService, Settings} from '../types';
+import {TreeNode, TreeDataSource, Settings} from '../types';
 import {DataTable} from '../models/data-table';
 import {ColumnBase} from '../models/column-base';
 
@@ -11,9 +11,9 @@ import {ColumnBase} from '../models/column-base';
 })
 export class TreeTableComponent implements OnInit {
 
-  @Input() public nodes: ITreeNode[];
-  @Input() public service: ITreeService;
-  @Output() requestNodes: EventEmitter<ITreeNode> = new EventEmitter();
+  @Input() public nodes: TreeNode[];
+  @Input() public service: TreeDataSource;
+  @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   @Input()

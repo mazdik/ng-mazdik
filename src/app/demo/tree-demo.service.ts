@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {ITreeNode, ITreeService} from '../../ng-crud-table';
+import {TreeNode, TreeDataSource} from '../../ng-crud-table';
 
 
 @Injectable()
-export class TreeDemoService implements ITreeService {
+export class TreeDemoService implements TreeDataSource {
 
   public url: string = 'assets/tree.json';
 
   constructor(private http: HttpClient) {
   }
 
-  getNodes(node: ITreeNode): Promise<ITreeNode[]> {
-    const children: ITreeNode[] = [
+  getNodes(node: TreeNode): Promise<TreeNode[]> {
+    const children: TreeNode[] = [
       {
         id: 'MALE',
         name: 'MALE',
@@ -40,7 +40,7 @@ export class TreeDemoService implements ITreeService {
       return this.http.get(this.url)
         .toPromise()
         .then(function (data) {
-          return <ITreeNode[]>data;
+          return <TreeNode[]>data;
         });
     }
   }

@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
-import {Filter, SortMeta, ICrudService} from '../../ng-crud-table';
+import {Filter, SortMeta, DataSource} from '../../ng-crud-table';
 import {DataFilter} from '../../ng-crud-table/models/data-filter';
 import {DataSort} from '../../ng-crud-table/models/data-sort';
 
 @Injectable()
-export class DemoService implements ICrudService {
+export class DemoService implements DataSource {
 
   public url: string;
   public primaryKeys: any;

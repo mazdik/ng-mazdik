@@ -6,7 +6,7 @@ The module contains services for: Yii2 RESTful (php) API, ORDS (Oracle REST Data
 ### Sample
 ```typescript
 import {Component}  from '@angular/core';
-import {Column, Settings, ICrudService, YiiService} from '../ng-crud-table';
+import {Column, Settings, DataSource, YiiService} from '../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 
 
@@ -17,7 +17,7 @@ import {HttpClient} from '@angular/common/http';
 
 export class PlayersComponent {
   
-    public service: ICrudService;
+    public service: DataSource;
   
     constructor(private http: HttpClient) {
       // YiiService | RestlessService | OrdsService | your custom service
@@ -155,7 +155,7 @@ export class PlayersComponent {
 
 ### Custom service
 ```typescript
-interface ICrudService {
+interface DataSource {
   url: string;
   primaryKeys: string[];
   getItems(page: number, filters?: Filter, sortMeta?: SortMeta[]): Promise<any>;
