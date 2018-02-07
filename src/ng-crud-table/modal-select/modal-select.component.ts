@@ -1,10 +1,8 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: ['../styles/index.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class ModalSelectComponent implements OnInit {

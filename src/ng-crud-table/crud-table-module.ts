@@ -80,7 +80,6 @@ import {PopupSelectComponent} from './form/select-popup.component';
     TreeTableComponent,
     ModalComponent,
     ModalEditFormComponent,
-    PopupSelectComponent,
   ],
   providers: []
 })

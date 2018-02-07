@@ -1,8 +1,9 @@
 import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
-  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {DataTable} from '../models/data-table';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable',
@@ -11,7 +12,7 @@ import {DataTable} from '../models/data-table';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatatableComponent implements OnInit, DoCheck {
+export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public loading: boolean;
@@ -38,6 +39,7 @@ export class DatatableComponent implements OnInit, DoCheck {
   @ViewChild('selectFilter') selectFilter: any;
 
   public offsetX: number = 0;
+  subscription: Subscription;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private _rows: any[];
@@ -47,11 +49,20 @@ export class DatatableComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
+    this.subscription = this.table.dataService.selectionSource$.subscribe(() => {
+      this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
+    });
   }
 
   ngDoCheck(): void {
     if (this.rowDiffer.diff(this.rows)) {
       this.cd.markForCheck();
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
@@ -86,15 +97,10 @@ export class DatatableComponent implements OnInit, DoCheck {
 
   selectRow(rowIndex: number) {
     if (this.rows && this.rows.length) {
-      this.table.selectedRowIndex = rowIndex;
+      this.table.selectRow(rowIndex);
     } else {
-      this.table.selectedRowIndex = undefined;
+      this.table.selectRow(null);
     }
-    this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
-  }
-
-  onSelectRow(rowIndex: number) {
-    this.selectRow(rowIndex);
   }
 
   showColumnMenu(event) {

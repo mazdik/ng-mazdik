@@ -17,7 +17,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @Input() public offsetX: number;
   @Input() public rowIndex: number;
 
-  @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
@@ -50,13 +49,11 @@ export class BodyRowComponent implements OnInit, DoCheck {
   }
 
   rowClick(rowIndex: number) {
-    this.table.selectedRowIndex = rowIndex;
-    this.selectedRowIndexChange.emit(this.table.selectedRowIndex);
+    this.table.selectRow(rowIndex);
   }
 
   actionClick(event, item: MenuItem, rowIndex: number) {
-    this.table.selectedRowIndex = rowIndex;
-    this.selectedRowIndexChange.emit(this.table.selectedRowIndex);
+    this.table.selectRow(rowIndex);
 
     if (!item.url) {
       event.preventDefault();

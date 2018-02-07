@@ -13,7 +13,7 @@ import {HttpClient} from '@angular/common/http';
       (filterChanged)="masterChanged($event)"
       (pageChanged)="masterChanged($event)"
       (sortChanged)="masterChanged($event)"
-      (selectedRowIndexChanged)="masterChanged($event)">
+      (selectedRowIndexChanged)="masterChanged()">
     </app-datatable>
     <div style="display:inline-block; vertical-align: top;">
       <app-datatable

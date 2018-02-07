@@ -15,7 +15,6 @@ export class BodyComponent implements OnInit {
 
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() scroll: EventEmitter<any> = new EventEmitter();
-  @Output() selectedRowIndexChange: EventEmitter<number> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-body';
 

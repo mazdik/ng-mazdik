@@ -5,6 +5,7 @@ import {Settings} from './settings';
 import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
+import {DataService} from './data-service';
 
 export class DataTable {
 
@@ -26,6 +27,7 @@ export class DataTable {
   public pager: DataPager;
   public sorter: DataSort;
   public dataFilter: DataFilter;
+  public dataService: DataService;
   public localRows: any[];
   public selectedRowIndex: number;
 
@@ -34,6 +36,7 @@ export class DataTable {
     this.pager = new DataPager();
     this.sorter = new DataSort();
     this.dataFilter = new DataFilter();
+    this.dataService = new DataService();
     this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
@@ -124,6 +127,11 @@ export class DataTable {
     data = this.sorter.sortRows(data);
     data = this.pager.pager(data);
     return data;
+  }
+
+  selectRow(rowIndex: number) {
+    this.selectedRowIndex = rowIndex;
+    this.dataService.onSelectionChange();
   }
 
 }
