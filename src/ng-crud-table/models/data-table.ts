@@ -17,8 +17,6 @@ export class DataTable {
   public scrollableColumns: Column[] = [];
   public frozenWidth: number = 0;
   public scrollableColumnsWidth: number = 0;
-  public minWidthColumn: number = 50;
-  public maxWidthColumn: number = 500;
   public scrollHeight: number;
   public tableWidth: number;
   public actionMenu: MenuItem[];
@@ -30,6 +28,7 @@ export class DataTable {
   public dataService: DataService;
   public localRows: any[];
   public selectedRowIndex: number;
+  public rows: any[];
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);
@@ -92,19 +91,6 @@ export class DataTable {
     this.sorter.multiple = this.settings.multipleSort;
   }
 
-  setColumnWidth(column: Column, width: number) {
-    if (width <= this.minWidthColumn) {
-      width = this.minWidthColumn;
-    } else if (width >= this.maxWidthColumn) {
-      width = this.maxWidthColumn;
-    }
-    for (const col of this.columns) {
-      if (col.name === column.name) {
-        col.width = width;
-      }
-    }
-  }
-
   calcColumnsTotalWidth() {
     let totalWidth = 0;
     for (const column of this.columns) {
@@ -130,7 +116,11 @@ export class DataTable {
   }
 
   selectRow(rowIndex: number) {
-    this.selectedRowIndex = rowIndex;
+    if (this.rows && this.rows.length) {
+      this.selectedRowIndex = rowIndex;
+    } else {
+      this.selectedRowIndex = null;
+    }
     this.dataService.onSelectionChange();
   }
 

@@ -23,14 +23,14 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   set rows(val: any) {
     if (this.table.settings.clientSide) {
       this.table.setLocalRows(val);
-      this._rows = this.table.getLocalRows();
+      this.table.rows = this.table.getLocalRows();
     } else {
-      this._rows = val;
+      this.table.rows = val;
     }
   }
 
   get rows(): any {
-    return this._rows;
+    return this.table.rows;
   }
 
   @ViewChild('selectFilter') selectFilter: any;
@@ -38,7 +38,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   public offsetX: number = 0;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
-  private _rows: any[];
   private subscriptions: Subscription[] = [];
 
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
@@ -79,9 +78,9 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.table.dataService.onPage();
 
     if (this.table.settings.clientSide) {
-      this._rows = this.table.getLocalRows();
+      this.table.rows = this.table.getLocalRows();
     }
-    this.selectRow(0);
+    this.table.selectRow(0);
   }
 
   onEditComplete(event) {
@@ -91,28 +90,20 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   onFilter() {
     this.table.pager.current = 1;
     if (this.table.settings.clientSide) {
-      this._rows = this.table.getLocalRows();
+      this.table.rows = this.table.getLocalRows();
     }
-    this.selectRow(0);
+    this.table.selectRow(0);
   }
 
   onSort() {
     if (this.table.settings.clientSide) {
-      this._rows = this.table.getLocalRows();
+      this.table.rows = this.table.getLocalRows();
     }
-    this.selectRow(0);
+    this.table.selectRow(0);
   }
 
   onSelectedRow() {
     this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
-  }
-
-  selectRow(rowIndex: number) {
-    if (this.rows && this.rows.length) {
-      this.table.selectRow(rowIndex);
-    } else {
-      this.table.selectRow(null);
-    }
   }
 
   showColumnMenu(event) {

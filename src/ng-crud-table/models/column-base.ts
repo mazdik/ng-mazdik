@@ -23,5 +23,7 @@ export class ColumnBase {
   public cellClass?: any;
   public keyColumn?: string;
   public selectionLimit?: number = 1;
+  public minWidth: number = 50;
+  public maxWidth: number = 500;
 
 }

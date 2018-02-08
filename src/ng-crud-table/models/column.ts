@@ -99,4 +99,13 @@ export class Column extends ColumnBase {
     return regex.test(value) ? null : `${this.title} must match this pattern: ${regexStr}.`;
   }
 
+  setWidth(width: number) {
+    if (width <= this.minWidth) {
+      width = this.minWidth;
+    } else if (width >= this.maxWidth) {
+      width = this.maxWidth;
+    }
+    this.width = width;
+  }
+
 }

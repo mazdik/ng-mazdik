@@ -6,9 +6,9 @@
          [ngStyle]="{'width.px': column.width}"
          appResizeable
          [resizeEnabled]="column.resizeable"
-         [minWidth]="table.minWidthColumn"
-         [maxWidth]="table.maxWidthColumn"
-         (resize)="onColumnResized($event, column)">
+         [minWidth]="column.minWidth"
+         [maxWidth]="column.maxWidth"
+         (resize)="column.setWidth($event)">
 
       <ng-template [ngIf]="colIndex == 0 && table.settings.filter">
         <i class="icon-filter"
@@ -42,9 +42,9 @@
          [ngStyle]="{'width.px': column.width}"
          appResizeable
          [resizeEnabled]="column.resizeable"
-         [minWidth]="table.minWidthColumn"
-         [maxWidth]="table.maxWidthColumn"
-         (resize)="onColumnResized($event, column)">
+         [minWidth]="column.minWidth"
+         [maxWidth]="column.maxWidth"
+         (resize)="column.setWidth($event)">
 
             <span class="column-title" (click)="onSort(column)">
             {{column.title}}

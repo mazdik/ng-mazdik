@@ -4,7 +4,7 @@
     [scrollbarH]="true"
     (scroll)="onBodyScroll($event)">
     <div class="datatable-row-wrapper"
-         *ngFor="let row of rows; let rowIndex=index; trackBy: rowTrackingFn">
+         *ngFor="let row of table.rows; let rowIndex=index; trackBy: rowTrackingFn">
       <app-datatable-body-row
         [table]="table"
         [row]="row"
@@ -15,7 +15,7 @@
   </app-datatable-scroller>
   <div
     class="empty-row"
-    *ngIf="!rows?.length"
+    *ngIf="!table.rows?.length"
     [style.width.px]="table.columnsTotalWidth">
     <ng-container *ngIf="loading">{{table.settings.messages.loading}}</ng-container>
     <ng-container *ngIf="!loading">{{table.settings.messages.empty}}</ng-container>

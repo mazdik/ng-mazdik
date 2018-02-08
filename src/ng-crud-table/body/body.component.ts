@@ -9,7 +9,6 @@ import {DataTable} from '../models/data-table';
 export class BodyComponent implements OnInit {
 
   @Input() public table: DataTable;
-  @Input() public rows: any;
   @Input() public offsetX: number;
   @Input() public loading: boolean = false;
 

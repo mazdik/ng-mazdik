@@ -62,10 +62,6 @@ export class HeaderComponent implements OnInit {
     this.showColumnMenu.emit({'top': top, 'left': left, 'column': column});
   }
 
-  onColumnResized(width: number, column: Column): void {
-    this.table.setColumnWidth(column, width);
-  }
-
   stylesByGroup() {
     const styles: any = {};
     styles.left = `${this.offsetX * -1}px`;
