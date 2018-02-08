@@ -1,8 +1,9 @@
 import {
-  Component, Input, Output, EventEmitter, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
+  Component, Input, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
 import {Column} from '../models/column';
+import {DataTable} from '../models/data-table';
 
 @Component({
   selector: 'app-datatable-body-cell-edit',
@@ -11,10 +12,10 @@ import {Column} from '../models/column';
 })
 export class BodyCellEditComponent implements DoCheck {
 
-  @Input() row: any;
-  @Input() column: Column;
-  @Input() colIndex: number;
-  @Output() editComplete: EventEmitter<any> = new EventEmitter();
+  @Input() public table: DataTable;
+  @Input() public row: any;
+  @Input() public column: Column;
+  @Input() public colIndex: number;
 
   @ViewChild('selectElement') selectElement: ElementRef;
   @ViewChild('inputElement') inputElement: ElementRef;
@@ -115,7 +116,7 @@ export class BodyCellEditComponent implements DoCheck {
     const colIndex = this.colIndex;
     // enter
     if (event.keyCode === 13) {
-      this.editComplete.emit(this.row);
+      this.table.dataService.onEdit(this.row);
       this.switchCellToViewMode();
       event.preventDefault();
       // escape

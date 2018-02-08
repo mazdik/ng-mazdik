@@ -10,12 +10,7 @@
 <app-datatable
   [table]="dataManager"
   [rows]="dataManager.items"
-  [loading]="dataManager.loading"
-  (filterChanged)="onFilter()"
-  (pageChanged)="onPageChanged()"
-  (sortChanged)="onSort()"
-  (editComplete)="onEditComplete($event)"
-  (selectedRowIndexChanged)="onSelectedRow()">
+  [loading]="dataManager.loading">
 </app-datatable>
 
 <app-modal-edit-form

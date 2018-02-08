@@ -33,6 +33,7 @@
         <app-datatable-body-cell-edit
           *ngIf="column.editable"
           tabindex="-1"
+          [table]="table"
           [colIndex]="colIndex"
           [row]="node.data"
           [column]="column"

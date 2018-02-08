@@ -13,13 +13,11 @@
   <app-datatable-body
     [table]="table"
     [rows]="rows"
-    (editComplete)="onEditComplete($event)"
     [offsetX]="offsetX"
     [loading]="loading"
     (scroll)="onBodyScroll($event)">
   </app-datatable-body>
   <app-datatable-footer
-    [table]="table"
-    (pageChanged)="onPageChanged()">
+    [table]="table">
   </app-datatable-footer>
 </div>

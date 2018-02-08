@@ -11,6 +11,7 @@
         [scrollbarH]="true"
         (scroll)="onBodyScroll($event)">
         <app-tree-table-node
+          [table]="table"
           [nodes]="nodes"
           [service]="service"
           [columns]="table.columns"

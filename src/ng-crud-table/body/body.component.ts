@@ -13,7 +13,6 @@ export class BodyComponent implements OnInit {
   @Input() public offsetX: number;
   @Input() public loading: boolean = false;
 
-  @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() scroll: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-body';
@@ -56,10 +55,6 @@ export class BodyComponent implements OnInit {
     }
     this.offsetY = scrollYPos;
     this.offsetX = scrollXPos;
-  }
-
-  onEditComplete(event) {
-    this.editComplete.emit(event);
   }
 
 }

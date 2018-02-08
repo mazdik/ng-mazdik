@@ -39,27 +39,36 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   @ViewChild('selectFilter') selectFilter: any;
 
   public offsetX: number = 0;
-  subSelection: Subscription;
-  subFilter: Subscription;
-  subSort: Subscription;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private _rows: any[];
+  private subscriptions: Subscription[] = [];
 
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
   }
 
   ngOnInit() {
-    this.subSelection = this.table.dataService.selectionSource$.subscribe(() => {
-      this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
+    const subSelection = this.table.dataService.selectionSource$.subscribe(() => {
+      this.onSelectedRow();
     });
-    this.subFilter = this.table.dataService.filterSource$.subscribe(() => {
+    const subFilter = this.table.dataService.filterSource$.subscribe(() => {
       this.onFilter();
     });
-    this.subSort = this.table.dataService.sortSource$.subscribe(() => {
+    const subSort = this.table.dataService.sortSource$.subscribe(() => {
       this.onSort();
     });
+    const subPage = this.table.dataService.pageSource$.subscribe(() => {
+      this.onPageChanged();
+    });
+    const editPage = this.table.dataService.editSource$.subscribe((row) => {
+      this.onEditComplete(row);
+    });
+    this.subscriptions.push(subSelection);
+    this.subscriptions.push(subFilter);
+    this.subscriptions.push(subSort);
+    this.subscriptions.push(subPage);
+    this.subscriptions.push(editPage);
   }
 
   ngDoCheck(): void {
@@ -69,15 +78,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.subSelection) {
-      this.subSelection.unsubscribe();
-    }
-    if (this.subFilter) {
-      this.subFilter.unsubscribe();
-    }
-    if (this.subSort) {
-      this.subSort.unsubscribe();
-    }
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   onPageChanged(): void {
@@ -107,6 +108,10 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     }
     this.sortChanged.emit(true);
     this.selectRow(0);
+  }
+
+  onSelectedRow() {
+    this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
   }
 
   selectRow(rowIndex: number) {

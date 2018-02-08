@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, HostBinding, HostListener,
+  Component, OnInit, Input, EventEmitter, HostBinding, HostListener,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {MenuItem} from '../types';
@@ -16,8 +16,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @Input() public row: any;
   @Input() public offsetX: number;
   @Input() public rowIndex: number;
-
-  @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
 
@@ -80,10 +78,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
 
   columnTrackingFn(index: number, column: any): any {
     return column.name;
-  }
-
-  onCellEditComplete(event) {
-    this.editComplete.emit(event);
   }
 
 }

@@ -28,10 +28,10 @@
     <app-datatable-body-cell-edit
       *ngIf="column.editable"
       tabindex="-1"
+      [table]="table"
       [colIndex]="colIndex"
       [row]="row"
-      [column]="column"
-      (editComplete)="onCellEditComplete($event)">
+      [column]="column">
     </app-datatable-body-cell-edit>
   </ng-container>
 
@@ -49,10 +49,10 @@
     <app-datatable-body-cell-edit
       *ngIf="column.editable"
       tabindex="-1"
+      [table]="table"
       [colIndex]="colIndex"
       [row]="row"
-      [column]="column"
-      (editComplete)="onCellEditComplete($event)">
+      [column]="column">
     </app-datatable-body-cell-edit>
   </ng-container>
 </div>

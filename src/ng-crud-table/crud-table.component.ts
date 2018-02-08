@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {DataSource, Filter} from './types';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
 import {Settings} from './models/settings';
 import {ColumnBase} from './models/column-base';
 import {DataManager} from './models/data-manager';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-crud-table',
@@ -12,7 +13,7 @@ import {DataManager} from './models/data-manager';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class CrudTableComponent implements OnInit {
+export class CrudTableComponent implements OnInit, OnDestroy {
 
   @Input() public service: DataSource;
   @Input() public zIndexModal: number;
@@ -42,6 +43,7 @@ export class CrudTableComponent implements OnInit {
 
   private _columns: ColumnBase[];
   private _settings: Settings;
+  private subscriptions: Subscription[] = [];
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
@@ -63,6 +65,31 @@ export class CrudTableComponent implements OnInit {
     if (this.dataManager.settings.initLoad) {
       this.dataManager.getItems().then();
     }
+
+    const subSelection = this.dataManager.dataService.selectionSource$.subscribe(() => {
+      this.onSelectedRow();
+    });
+    const subFilter = this.dataManager.dataService.filterSource$.subscribe(() => {
+      this.onFilter();
+    });
+    const subSort = this.dataManager.dataService.sortSource$.subscribe(() => {
+      this.onSort();
+    });
+    const subPage = this.dataManager.dataService.pageSource$.subscribe(() => {
+      this.onPageChanged();
+    });
+    const editPage = this.dataManager.dataService.editSource$.subscribe((row) => {
+      this.onEditComplete(row);
+    });
+    this.subscriptions.push(subSelection);
+    this.subscriptions.push(subFilter);
+    this.subscriptions.push(subSort);
+    this.subscriptions.push(subPage);
+    this.subscriptions.push(editPage);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   initRowMenu() {

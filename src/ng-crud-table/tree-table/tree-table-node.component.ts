@@ -1,6 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {TreeNode, TreeDataSource} from '../types';
 import {Column} from '../models/column';
+import {DataTable} from '../models/data-table';
 
 @Component({
   selector: 'app-tree-table-node',
@@ -8,6 +9,7 @@ import {Column} from '../models/column';
 })
 export class TreeTableNodeComponent {
 
+  @Input() public table: DataTable;
   @Input() public nodes: TreeNode[];
   @Input() public service: TreeDataSource;
   @Input() public columns: Column[];
