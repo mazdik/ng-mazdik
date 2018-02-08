@@ -16,9 +16,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public loading: boolean;
-  @Output() filterChanged: EventEmitter<boolean> = new EventEmitter();
-  @Output() pageChanged: EventEmitter<boolean> = new EventEmitter();
-  @Output() sortChanged: EventEmitter<boolean> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
@@ -58,16 +55,12 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     const subSort = this.table.dataService.sortSource$.subscribe(() => {
       this.onSort();
     });
-    const subPage = this.table.dataService.pageSource$.subscribe(() => {
-      this.onPageChanged();
-    });
     const editPage = this.table.dataService.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
-    this.subscriptions.push(subPage);
     this.subscriptions.push(editPage);
   }
 
@@ -81,11 +74,13 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onPageChanged(): void {
+  onPageChanged(page: number): void {
+    this.table.pager.current = page;
+    this.table.dataService.onPage();
+
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.pageChanged.emit(true);
     this.selectRow(0);
   }
 
@@ -98,7 +93,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.filterChanged.emit(true);
     this.selectRow(0);
   }
 
@@ -106,7 +100,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     if (this.table.settings.clientSide) {
       this._rows = this.table.getLocalRows();
     }
-    this.sortChanged.emit(true);
     this.selectRow(0);
   }
 
