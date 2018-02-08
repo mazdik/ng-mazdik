@@ -10,9 +10,6 @@ import {HttpClient} from '@angular/common/http';
       #tablePlayers
       [table]="dtPlayers"
       [rows]="rowsPlayers"
-      (filterChanged)="masterChanged($event)"
-      (pageChanged)="masterChanged($event)"
-      (sortChanged)="masterChanged($event)"
       (selectedRowIndexChanged)="masterChanged()">
     </app-datatable>
     <div style="display:inline-block; vertical-align: top;">
@@ -134,7 +131,6 @@ export class MasterDetailDemoComponent implements OnInit {
     {title: 'Bg points', name: 'bg_points'},
     {title: 'Personal rating', name: 'personal_rating'},
     {title: 'Arena points', name: 'arena_points'},
-    {title: 'Partner id', name: 'partner_id'},
     {title: 'Deletion date', name: 'deletion_date'},
   ];
 

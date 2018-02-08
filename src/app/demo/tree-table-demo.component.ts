@@ -37,6 +37,16 @@ export class TreeTableDemoComponent implements OnInit {
       editable: true,
       width: 250,
     },
+    {
+      title: 'Exp',
+      name: 'exp',
+      sortable: false,
+      filter: false,
+      frozen: false,
+      resizeable: true,
+      editable: true,
+      width: 250,
+    }
   ];
 
   constructor(private http: HttpClient) {

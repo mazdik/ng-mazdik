@@ -4,7 +4,8 @@
     "name": "ASMODIANS",
     "data": {
       "column": "race",
-      "cube_size": "1"
+      "cube_size": "1",
+      "exp": 777777
     },
     "children": [
       {
@@ -12,7 +13,8 @@
         "name": "MALE",
         "data": {
           "column": "gender",
-          "cube_size": "12"
+          "cube_size": "12",
+          "exp": 7347
         }
       },
       {
@@ -20,7 +22,8 @@
         "name": "FEMALE",
         "data": {
           "column": "gender",
-          "cube_size": "13"
+          "cube_size": "13",
+          "exp": 7347
         }
       }
     ]
@@ -30,7 +33,8 @@
     "name": "ELYOS",
     "data": {
       "column": "race",
-      "cube_size": "2"
+      "cube_size": "2",
+      "exp": 999999
     },
     "children": [
       {
@@ -38,7 +42,8 @@
         "name": "MALE",
         "data": {
           "column": "gender",
-          "cube_size": "21"
+          "cube_size": "21",
+          "exp": 7347
         },
         "children": [
           {
@@ -47,7 +52,8 @@
             "leaf": false,
             "data": {
               "column": "gender",
-              "cube_size": "21"
+              "cube_size": "21",
+              "exp": 7347
             }
           }
         ]
@@ -55,7 +61,12 @@
       {
         "id": "FEMALE",
         "name": "FEMALE",
-        "data": {"column": "gender", "cube_size": "22"}
-      }]
+        "data": {
+          "column": "gender",
+          "cube_size": "22",
+          "exp": 7347
+        }
+      }
+    ]
   }
 ]

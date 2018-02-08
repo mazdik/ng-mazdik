@@ -133,7 +133,6 @@ export class DataTableDemoComponent implements OnInit {
     {title: 'Bg points', name: 'bg_points', editable: true, },
     {title: 'Personal rating', name: 'personal_rating', editable: true, },
     {title: 'Arena points', name: 'arena_points', editable: true, },
-    {title: 'Partner id', name: 'partner_id', editable: true, },
     {title: 'Deletion date', name: 'deletion_date', editable: true, },
   ];
 
