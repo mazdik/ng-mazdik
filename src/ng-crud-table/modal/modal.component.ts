@@ -12,8 +12,10 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @Input() public modalTitle: string;
   @Input() public width: any;
-  @Input() public zIndex: number = 0;
+  @Input() public zIndex: number;
   @Input() public autoZIndex: boolean;
+  @Input() public minWidth: number = 260;
+  @Input() public minHeight: number = 260;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
@@ -22,7 +24,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @HostBinding('class') cssClass = 'app-modal';
 
-  public visible: boolean = false;
+  visible: boolean;
   executePostDisplayActions: boolean;
   dragging: boolean;
   resizingS: boolean;
@@ -30,8 +32,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   resizingSE: boolean;
   lastPageX: number;
   lastPageY: number;
-  minWidth: number = 250;
-  minHeight: number = 250;
 
   constructor(private element: ElementRef) {
   }
