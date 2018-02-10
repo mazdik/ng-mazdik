@@ -19,21 +19,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
-  @Input()
-  set rows(val: any) {
-    if (this.table.settings.clientSide) {
-      this.table.setLocalRows(val);
-      this.table.getLocalRows();
-    } else {
-      this.table.rows = val;
-      this.table.updateRowGroupMetadata();
-    }
-  }
-
-  get rows(): any {
-    return this.table.rows;
-  }
-
   @ViewChild('selectFilter') selectFilter: any;
 
   public offsetX: number = 0;
@@ -65,7 +50,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngDoCheck(): void {
-    if (this.rowDiffer.diff(this.rows)) {
+    if (this.rowDiffer.diff(this.table.rows)) {
       this.cd.markForCheck();
     }
   }

@@ -8,7 +8,6 @@ import {Column, Settings, DataTable} from '../../ng-crud-table';
   template: `
     <app-datatable
       [table]="dtPlayers"
-      [rows]="rows"
       [loading]="loading">
     </app-datatable>
     <ng-template #template1 let-row="row" let-value="value">
@@ -26,7 +25,6 @@ import {Column, Settings, DataTable} from '../../ng-crud-table';
         <app-datatable
           *ngIf="rankModal.visible"
           [table]="dtRank"
-          [rows]="rowsRank"
           [loading]="loading">
         </app-datatable>
       </ng-container>
@@ -35,8 +33,7 @@ import {Column, Settings, DataTable} from '../../ng-crud-table';
       <ng-container class="app-modal-body">
         <app-datatable
           *ngIf="inventoryModal.visible"
-          [table]="dtInventory"
-          [rows]="rowsInventory">
+          [table]="dtInventory">
         </app-datatable>
       </ng-container>
     </app-modal>
@@ -48,10 +45,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   public dtPlayers: DataTable;
   public dtInventory: DataTable;
   public dtRank: DataTable;
-  public rows: any = [];
   public loading: boolean = false;
-  public rowsRank: any = [];
-  public rowsInventory: any = [];
 
   @ViewChild('template1') template1: TemplateRef<any>;
   @ViewChild('template2') template2: TemplateRef<any>;
@@ -202,23 +196,23 @@ export class ModalDataTableDemoComponent implements OnInit {
 
     this.loading = true;
     this.http.get('assets/players.json').subscribe(data => {
-      this.rows = data;
+      this.dtPlayers.rows = data;
       this.loading = false;
     });
     this.http.get('assets/rank.json').subscribe(rank => {
       this._rank = rank;
-      this.rowsRank = rank;
+      this.dtRank.rows = rank;
     });
     this.http.get('assets/inventory.json').subscribe(inventory => {
       this._inventory = inventory;
-      this.rowsInventory = inventory;
+      this.dtInventory.rows = inventory;
     });
   }
 
   onClickCell1(event, value, row) {
     event.preventDefault();
 
-    this.rowsRank = this._rank.filter((item: any) => {
+    this.dtRank.rows = this._rank.filter((item: any) => {
       return item['player_id'] === value;
     });
     this.rankModal.show();
@@ -227,7 +221,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   onClickCell2(event, value, row) {
     event.preventDefault();
 
-    this.rowsInventory = this._inventory.filter((item: any) => {
+    this.dtInventory.rows = this._inventory.filter((item: any) => {
       return item['itemOwner'] === row['id'];
     });
     this.inventoryModal.show();

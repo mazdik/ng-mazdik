@@ -29,8 +29,23 @@ export class DataTable {
   public dataService: DataService;
   public localRows: any[];
   public selectedRowIndex: number;
-  public rows: any[];
   public rowGroupMetadata: any;
+
+  set rows(val: any) {
+    if (this.settings.clientSide) {
+      this.setLocalRows(val);
+      this.getLocalRows();
+    } else {
+      this._rows = val;
+      this.updateRowGroupMetadata();
+    }
+  }
+
+  get rows(): any {
+    return this._rows;
+  }
+
+  private _rows: any[];
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);
@@ -106,6 +121,7 @@ export class DataTable {
   setLocalRows(data: any[]) {
     this.dataFilter.clear();
     this.sorter.clear();
+    this.pager.current = 1;
     this.localRows = (data) ? data.slice(0) : [];
   }
 
@@ -115,7 +131,7 @@ export class DataTable {
       this.pager.total = data.length;
       this.setSortMetaGroup();
       data = this.sorter.sortRows(data);
-      this.rows = this.pager.pager(data);
+      this._rows = this.pager.pager(data);
       this.updateRowGroupMetadata();
     }
   }
@@ -141,7 +157,6 @@ export class DataTable {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       this.rowGroupMetadata = groupMetaData(this.rows, this.settings.groupRowsBy);
     }
-    console.log(this.rowGroupMetadata);
   }
 
 }

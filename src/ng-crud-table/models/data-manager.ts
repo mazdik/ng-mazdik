@@ -8,7 +8,6 @@ export class DataManager extends DataTable {
   public service: DataSource;
   public errors: any;
   public loading: boolean;
-  public items: any[];
   public item: any;
   public isNewItem: boolean;
   public detailView: boolean;
@@ -33,11 +32,12 @@ export class DataManager extends DataTable {
   getItems(): Promise<any> {
     this.loading = true;
     this.errors = null;
+    this.setSortMetaGroup();
     return this.service
       .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta)
       .then(data => {
         this.loading = false;
-        this.items = data.items;
+        this.rows = data.items;
         this.pager.total = data._meta.totalCount;
         this.pager.perPage = data._meta.perPage;
       })
@@ -100,7 +100,7 @@ export class DataManager extends DataTable {
     if (this.refreshRowOnSave) {
       this.refreshRow(result, true);
     } else {
-      this.items.push(result);
+      this.rows.push(result);
     }
   }
 
@@ -108,17 +108,17 @@ export class DataManager extends DataTable {
     if (this.refreshRowOnSave) {
       this.refreshSelectedRow();
     } else {
-      Object.keys(result).forEach(function (k) {
-        if (k in this.items[this.selectedRowIndex]) {
-          this.items[this.selectedRowIndex][k] = result[k];
+      for (const key of Object.keys(result)) {
+        if (key in this.rows[this.selectedRowIndex]) {
+          this.rows[this.selectedRowIndex][key] = result[key];
         }
-      }.bind(this));
+      }
     }
   }
 
   afterDelete(result: boolean) {
     if (result) {
-      this.items.splice(this.selectedRowIndex, 1);
+      this.rows.splice(this.selectedRowIndex, 1);
     }
   }
 
@@ -129,9 +129,9 @@ export class DataManager extends DataTable {
       .then(data => {
         this.loading = false;
         if (isNew) {
-          this.items.push(data);
+          this.rows.push(data);
         } else {
-          this.items[this.selectedRowIndex] = data;
+          this.rows[this.selectedRowIndex] = data;
         }
       })
       .catch(error => {
@@ -141,7 +141,7 @@ export class DataManager extends DataTable {
   }
 
   refreshSelectedRow() {
-    this.refreshRow(this.items[this.selectedRowIndex], false);
+    this.refreshRow(this.rows[this.selectedRowIndex], false);
   }
 
   saveRow() {
@@ -162,17 +162,17 @@ export class DataManager extends DataTable {
   }
 
   setItem() {
-    const item = this.items[this.selectedRowIndex];
+    const item = this.rows[this.selectedRowIndex];
     this.item = Object.assign({}, item);
     this.isNewItem = false;
   }
 
   getSelectedRow() {
-    return this.items[this.selectedRowIndex];
+    return this.rows[this.selectedRowIndex];
   }
 
   clear() {
-    this.items = [];
+    this.rows = [];
     this.pager.total = 0;
     this.detailView = false;
   }

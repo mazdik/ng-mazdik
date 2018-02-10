@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Column, Settings, DataTable} from '../../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 
@@ -7,23 +7,15 @@ import {HttpClient} from '@angular/common/http';
   selector: 'app-master-detail-demo',
   template: `
     <app-datatable
-      #tablePlayers
       [table]="dtPlayers"
-      [rows]="rowsPlayers"
       (selectedRowIndexChanged)="masterChanged()">
     </app-datatable>
     <div style="display:inline-block; vertical-align: top;">
-      <app-datatable
-        [table]="dtInventory"
-        [rows]="rowsInventory">
-      </app-datatable>
+      <app-datatable [table]="dtInventory"></app-datatable>
     </div>
     <div style="display:inline-block; width: 5px;"></div>
     <div style="display:inline-block; vertical-align: top;">
-      <app-datatable
-        [table]="dtRank"
-        [rows]="rowsRank">
-      </app-datatable>
+      <app-datatable [table]="dtRank"></app-datatable>
     </div>
   `
 })
@@ -33,11 +25,6 @@ export class MasterDetailDemoComponent implements OnInit {
   public dtPlayers: DataTable;
   public dtInventory: DataTable;
   public dtRank: DataTable;
-  public rowsPlayers: any = [];
-  public rowsRank: any = [];
-  public rowsInventory: any = [];
-
-  @ViewChild('tablePlayers') tablePlayers: any;
 
   public settingsPlayers: Settings = {
     api: null,
@@ -186,19 +173,19 @@ export class MasterDetailDemoComponent implements OnInit {
 
   ngOnInit() {
     this.http.get('assets/players.json').subscribe(data => {
-      this.rowsPlayers = data;
-      const masterId = this.rowsPlayers[0]['id'];
-      this.tablePlayers.selectedRowIndex = 0;
+      this.dtPlayers.rows = data;
+      const masterId = this.dtPlayers.rows[0]['id'];
+      this.dtPlayers.selectedRowIndex = 0;
 
       this.http.get('assets/rank.json').subscribe(rank => {
         this._rank = rank;
-        this.rowsRank = this._rank.filter((value: any) => {
+        this.dtRank.rows = this._rank.filter((value: any) => {
           return value['player_id'] === masterId;
         });
       });
       this.http.get('assets/inventory.json').subscribe(inventory => {
         this._inventory = inventory;
-        this.rowsInventory = this._inventory.filter((value: any) => {
+        this.dtInventory.rows = this._inventory.filter((value: any) => {
           return value['itemOwner'] === masterId;
         });
       });
@@ -207,20 +194,20 @@ export class MasterDetailDemoComponent implements OnInit {
   }
 
   masterChanged() {
-    if (this.tablePlayers.rows.length > 0 &&
+    if (this.dtPlayers.rows.length > 0 &&
       this.dtPlayers.selectedRowIndex !== undefined &&
-      this.tablePlayers.rows[this.dtPlayers.selectedRowIndex]) {
+      this.dtPlayers.rows[this.dtPlayers.selectedRowIndex]) {
 
-      const masterId = this.tablePlayers.rows[this.dtPlayers.selectedRowIndex]['id'];
-      this.rowsRank = this._rank.filter((value: any) => {
+      const masterId = this.dtPlayers.rows[this.dtPlayers.selectedRowIndex]['id'];
+      this.dtRank.rows = this._rank.filter((value: any) => {
         return value['player_id'] === masterId;
       });
-      this.rowsInventory = this._inventory.filter((value: any) => {
+      this.dtInventory.rows = this._inventory.filter((value: any) => {
         return value['itemOwner'] === masterId;
       });
     } else {
-      this.rowsRank = [];
-      this.rowsInventory = [];
+      this.dtRank.rows = [];
+      this.dtInventory.rows = [];
     }
   }
 
