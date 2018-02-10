@@ -6,6 +6,7 @@ import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
 import {DataService} from './data-service';
+import {groupMetaData} from '../utils/group';
 
 export class DataTable {
 
@@ -29,6 +30,7 @@ export class DataTable {
   public localRows: any[];
   public selectedRowIndex: number;
   public rows: any[];
+  public rowGroupMetadata: any;
 
   constructor(columns?: ColumnBase[], settings?: Settings) {
     this.settings = new Settings(settings);
@@ -107,12 +109,15 @@ export class DataTable {
     this.localRows = (data) ? data.slice(0) : [];
   }
 
-  getLocalRows() {
-    let data = this.dataFilter.filterRows(this.localRows);
-    this.pager.total = data.length;
-    data = this.sorter.sortRows(data);
-    data = this.pager.pager(data);
-    return data;
+  getLocalRows(): void {
+    if (this.localRows) {
+      let data = this.dataFilter.filterRows(this.localRows);
+      this.pager.total = data.length;
+      this.setSortMetaGroup();
+      data = this.sorter.sortRows(data);
+      this.rows = this.pager.pager(data);
+      this.updateRowGroupMetadata();
+    }
   }
 
   selectRow(rowIndex: number) {
@@ -122,6 +127,21 @@ export class DataTable {
       this.selectedRowIndex = null;
     }
     this.dataService.onSelectionChange();
+  }
+
+  setSortMetaGroup() {
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      this.settings.groupRowsBy.forEach(columnName => {
+        this.sorter.sortMeta.push({field: columnName, order: 1});
+      });
+    }
+  }
+
+  updateRowGroupMetadata() {
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      this.rowGroupMetadata = groupMetaData(this.rows, this.settings.groupRowsBy);
+    }
+    console.log(this.rowGroupMetadata);
   }
 
 }

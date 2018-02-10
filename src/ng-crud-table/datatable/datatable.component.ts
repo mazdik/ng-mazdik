@@ -23,9 +23,10 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   set rows(val: any) {
     if (this.table.settings.clientSide) {
       this.table.setLocalRows(val);
-      this.table.rows = this.table.getLocalRows();
+      this.table.getLocalRows();
     } else {
       this.table.rows = val;
+      this.table.updateRowGroupMetadata();
     }
   }
 
@@ -78,7 +79,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.table.dataService.onPage();
 
     if (this.table.settings.clientSide) {
-      this.table.rows = this.table.getLocalRows();
+      this.table.getLocalRows();
     }
     this.table.selectRow(0);
   }
@@ -90,14 +91,14 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   onFilter() {
     this.table.pager.current = 1;
     if (this.table.settings.clientSide) {
-      this.table.rows = this.table.getLocalRows();
+      this.table.getLocalRows();
     }
     this.table.selectRow(0);
   }
 
   onSort() {
     if (this.table.settings.clientSide) {
-      this.table.rows = this.table.getLocalRows();
+      this.table.getLocalRows();
     }
     this.table.selectRow(0);
   }

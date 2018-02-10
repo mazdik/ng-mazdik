@@ -14,6 +14,7 @@ export class Settings {
   public multipleSort?: boolean;
   public messages?: Message;
   public trackByProp?: string;
+  public groupRowsBy?: string[];
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

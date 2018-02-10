@@ -29,3 +29,25 @@ var arr = [
 ];
 groupBy(arr, ['shape', 'color']);
 */
+
+export function groupMetaData(array: any[], keys: any[]) {
+  const groupMetadata = {};
+  if (array) {
+    for (let i = 0; i < array.length; i++) {
+      const row = array[i];
+      const group = getStringValues(row, keys);
+      if (i === 0) {
+        groupMetadata[group] = {index: 0, size: 1};
+      } else {
+        const previousRow = array[i - 1];
+        const previousRowGroup = getStringValues(previousRow, keys);
+        if (group === previousRowGroup) {
+          groupMetadata[group].size++;
+        } else {
+          groupMetadata[group] = {index: i, size: 1};
+        }
+      }
+    }
+  }
+  return groupMetadata;
+}
