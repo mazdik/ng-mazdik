@@ -8,10 +8,6 @@
   -webkit-transform: translate3d(0, 0, 0);
 }
 
-.datatable [hidden] {
-  display: none !important;
-}
-
 .datatable *,
 .datatable *:before,
 .datatable *:after {
@@ -358,4 +354,13 @@
 
 .empty-row {
   padding: 0 0 5px 5px;
+}
+
+.datatable-group-header {
+  background: #f5f5f5;
+  border-bottom: solid 1px #D9D8D9;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 3px;
+  color: grey;
 }

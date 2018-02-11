@@ -1,4 +1,4 @@
-function getStringValues(item: any, keys: any[]) {
+export function groupStringValues(item: any, keys: any[]) {
   const values = [];
   keys.forEach(key => {
     values.push(item[key]);
@@ -9,7 +9,7 @@ function getStringValues(item: any, keys: any[]) {
 export function groupBy(array: any[], keys: any[]) {
   const groups = {};
   array.forEach(function (row) {
-    const group = getStringValues(row, keys);
+    const group = groupStringValues(row, keys);
     groups[group] = groups[group] || [];
     groups[group].push(row);
   });
@@ -35,12 +35,12 @@ export function groupMetaData(array: any[], keys: any[]) {
   if (array) {
     for (let i = 0; i < array.length; i++) {
       const row = array[i];
-      const group = getStringValues(row, keys);
+      const group = groupStringValues(row, keys);
       if (i === 0) {
         groupMetadata[group] = {index: 0, size: 1};
       } else {
         const previousRow = array[i - 1];
-        const previousRowGroup = getStringValues(previousRow, keys);
+        const previousRowGroup = groupStringValues(previousRow, keys);
         if (group === previousRowGroup) {
           groupMetadata[group].size++;
         } else {

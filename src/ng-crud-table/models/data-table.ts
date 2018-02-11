@@ -6,7 +6,7 @@ import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
 import {DataService} from './data-service';
-import {groupMetaData} from '../utils/group';
+import {groupMetaData, groupStringValues} from '../utils/group';
 
 export class DataTable {
 
@@ -71,6 +71,9 @@ export class DataTable {
   }
 
   initColumns(): void {
+    this.frozenColumns = [];
+    this.scrollableColumns = [];
+
     this.columns.forEach((column) => {
       if (!column.tableHidden) {
         if (column.frozen) {
@@ -106,6 +109,8 @@ export class DataTable {
     }
     this.scrollHeight = this.settings.scrollHeight;
     this.sorter.multiple = this.settings.multipleSort;
+    this.hideRowGroupColumns();
+    this.initColumns();
   }
 
   calcColumnsTotalWidth() {
@@ -156,6 +161,34 @@ export class DataTable {
   updateRowGroupMetadata() {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       this.rowGroupMetadata = groupMetaData(this.rows, this.settings.groupRowsBy);
+    }
+  }
+
+  getRowGroupName(row: any) {
+    return groupStringValues(row, this.settings.groupRowsBy);
+  }
+
+  getRowGroupSize(row: any) {
+    const group = groupStringValues(row, this.settings.groupRowsBy);
+    return this.rowGroupMetadata[group].size;
+  }
+
+  isRowGroup(row: any, rowIndex: number) {
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      const group = groupStringValues(row, this.settings.groupRowsBy);
+      return this.rowGroupMetadata[group].index === rowIndex;
+    } else {
+      return false;
+    }
+  }
+
+  hideRowGroupColumns() {
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      this.columns.forEach((column, index) => {
+        if (this.settings.groupRowsBy.indexOf(column.name) >= 0) {
+          this.columns[index].tableHidden = true;
+        }
+      });
     }
   }
 

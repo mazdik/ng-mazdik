@@ -136,22 +136,23 @@ export class PlayersComponent {
 
 ## Features
 * Filtering
-* Sorting (Multiple columns)
+* Sorting (multiple columns)
 * Pagination
-* Modal (Draggable and Resizable)
+* Modal (draggable and resizable)
 * Create/Update/Delete (composite primary keys)
 * Single row view
 * Loading indicator
-* MultiSelect
+* Multiple select
 * Scrolling with fixed header horizontally and vertically
 * Frozen columns
 * Dynamic forms with validation
 * Editable
 * Localization
 * Column Resizing
-* Cascading Select (DropDown)
+* Cascading Select (client/server side dynamic cascading dropdown forms)
 * Tree table
 * No external dependencies
+* Row Grouping (multiple columns)
 
 ### Custom service
 ```typescript
