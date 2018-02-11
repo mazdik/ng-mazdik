@@ -10,7 +10,7 @@ export class Settings {
   public sortable?: boolean = true;
   public filter?: boolean = true;
   public initLoad?: boolean = true;
-  public clientSide?: boolean;
+  public clientSide?: boolean = true;
   public multipleSort?: boolean;
   public messages?: Message;
   public trackByProp?: string;

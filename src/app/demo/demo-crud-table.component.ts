@@ -7,20 +7,26 @@ import {Component, ViewEncapsulation} from '@angular/core';
       <div class="dt-col-left">
         <h3 class="title">Demo crud data table</h3>
         <ul class="list-menu lg">
-          <li><span (click)="state='basic-demo'" [ngClass]="{'active': state === 'basic-demo'}">Basic demo</span></li>
-          <li><span (click)="state='tree-table-demo'" [ngClass]="{'active': state === 'tree-table-demo'}">Tree table demo</span>
+          <li><span (click)="state='basic-demo'" [ngClass]="{'active': state === 'basic-demo'}">Basic</span></li>
+          <li><span (click)="state='tree-table-demo'" [ngClass]="{'active': state === 'tree-table-demo'}">Tree table</span>
           </li>
-          <li><span (click)="state='data-table-demo'" [ngClass]="{'active': state === 'data-table-demo'}">Data table demo</span>
+          <li><span (click)="state='data-table-demo'" [ngClass]="{'active': state === 'data-table-demo'}">Data table</span>
           </li>
-          <li><span (click)="state='master-detail-demo'" [ngClass]="{'active': state === 'master-detail-demo'}">Master detail demo</span>
+          <li><span (click)="state='master-detail-demo'" [ngClass]="{'active': state === 'master-detail-demo'}">Master detail</span>
           </li>
-          <li><span (click)="state='modal-form-demo'" [ngClass]="{'active': state === 'modal-form-demo'}">Modal form demo</span>
+          <li><span (click)="state='modal-form-demo'" [ngClass]="{'active': state === 'modal-form-demo'}">Modal form</span>
           </li>
           <li><span (click)="state='modal-data-table-demo'" [ngClass]="{'active': state === 'modal-data-table-demo'}">
-            Modal data table demo</span>
+            Modal data table</span>
           </li>
           <li><span (click)="state='nested-modals-demo'" [ngClass]="{'active': state === 'nested-modals-demo'}">
-            Nested modals demo</span>
+            Nested modals</span>
+          </li>
+          <li><span (click)="state='row-group-demo'" [ngClass]="{'active': state === 'row-group-demo'}">
+            Row group</span>
+          </li>
+          <li><span (click)="state='row-group-multiple-demo'" [ngClass]="{'active': state === 'row-group-multiple-demo'}">
+            Row group multiple</span>
           </li>
         </ul>
       </div>
@@ -33,6 +39,8 @@ import {Component, ViewEncapsulation} from '@angular/core';
         <app-modal-form-demo *ngIf="state === 'modal-form-demo'"></app-modal-form-demo>
         <app-modal-data-table-demo *ngIf="state === 'modal-data-table-demo'"></app-modal-data-table-demo>
         <app-nested-modals-demo *ngIf="state === 'nested-modals-demo'"></app-nested-modals-demo>
+        <app-row-group-demo *ngIf="state === 'row-group-demo'"></app-row-group-demo>
+        <app-row-group-multiple-demo *ngIf="state === 'row-group-multiple-demo'"></app-row-group-multiple-demo>
       </div>
     </div>
   `,

@@ -20,17 +20,16 @@ import {DataFilter} from '../models/data-filter';
     </div>
 
     <ul class="list-menu">
-      <li *ngIf="column.selectionLimit !== 1">
-      <span (click)="checkAll()">
-        <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.settings.messages.selectAll}}
-      </span>
-      </li>
       <li>
       <span (click)="uncheckAll()">
         <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.settings.messages.clear}}
       </span>
       </li>
-
+      <li *ngIf="column.selectionLimit !== 1">
+      <span (click)="checkAll()">
+        <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.settings.messages.selectAll}}
+      </span>
+      </li>
       <li class="list-divider"></li>
       <li *ngFor="let option of column.options | searchFilter:searchFilterText">
       <span [ngClass]="{'active': isSelected(option)}"

@@ -12,6 +12,8 @@ import { MasterDetailDemoComponent } from './master-detail-demo.component';
 import { ModalFormDemoComponent } from './modal-form-demo.component';
 import { ModalDataTableDemoComponent } from './modal-data-table-demo.component';
 import { NestedModalsDemoComponent} from './nested-modals-demo.component';
+import { RowGroupDemoComponent } from './row-group-demo.component';
+import { RowGroupMultipleDemoComponent} from './row-group-multiple-demo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { NestedModalsDemoComponent} from './nested-modals-demo.component';
     MasterDetailDemoComponent,
     ModalFormDemoComponent,
     ModalDataTableDemoComponent,
-    NestedModalsDemoComponent
+    NestedModalsDemoComponent,
+    RowGroupDemoComponent,
+    RowGroupMultipleDemoComponent
   ],
   imports: [
     BrowserModule,

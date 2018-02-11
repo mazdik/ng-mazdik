@@ -33,6 +33,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   set settings(val: Settings) {
     this._settings = val;
     this.dataManager.setSettings(this._settings);
+    this.dataManager.settings.clientSide = false;
   }
 
   get settings(): Settings {

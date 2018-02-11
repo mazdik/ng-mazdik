@@ -152,6 +152,7 @@ export class DataTable {
 
   setSortMetaGroup() {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      this.sorter.multiple = true;
       this.settings.groupRowsBy.forEach(columnName => {
         this.sorter.sortMeta.push({field: columnName, order: 1});
       });
