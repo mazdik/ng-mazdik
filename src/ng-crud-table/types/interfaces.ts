@@ -1,5 +1,3 @@
-import {EventEmitter} from '@angular/core';
-
 export interface SelectOption {
   id: any;
   name: string;
@@ -55,10 +53,9 @@ export interface Validation {
 export interface MenuItem {
   label?: string;
   icon?: string;
-  command?: (event?: any) => void;
+  command?: string;
   url?: string;
   routerLink?: any;
-  eventEmitter?: EventEmitter<any>;
   disabled?: boolean;
 }
 

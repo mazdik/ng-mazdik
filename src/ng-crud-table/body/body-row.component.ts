@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, EventEmitter, HostBinding, HostListener,
+  Component, OnInit, Input, HostBinding, HostListener,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {MenuItem} from '../types';
@@ -8,7 +8,7 @@ import {DataTable} from '../models/data-table';
 @Component({
   selector: 'app-datatable-body-row',
   templateUrl: './body-row.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyRowComponent implements OnInit, DoCheck {
 
@@ -50,24 +50,9 @@ export class BodyRowComponent implements OnInit, DoCheck {
     this.table.selectRow(rowIndex);
   }
 
-  actionClick(event, item: MenuItem, rowIndex: number) {
+  actionClick(event, menuItem: MenuItem, rowIndex: number) {
     this.table.selectRow(rowIndex);
-
-    if (!item.url) {
-      event.preventDefault();
-    }
-
-    if (item.command) {
-      if (!item.eventEmitter) {
-        item.eventEmitter = new EventEmitter();
-        item.eventEmitter.subscribe(item.command);
-      }
-
-      item.eventEmitter.emit({
-        originalEvent: event,
-        item: item
-      });
-    }
+    this.table.dataService.onRowMenuSource({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
   }
 
   stylesByGroup() {

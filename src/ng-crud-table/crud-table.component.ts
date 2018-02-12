@@ -82,11 +82,15 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const editPage = this.dataManager.dataService.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
+    const rowMenu = this.dataManager.dataService.rowMenuSource$.subscribe((data) => {
+      this.onRowMenu(data);
+    });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
     this.subscriptions.push(editPage);
+    this.subscriptions.push(rowMenu);
   }
 
   ngOnDestroy() {
@@ -98,15 +102,23 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       {
         label: this.dataManager.settings.messages.titleDetailView,
         icon: 'icon icon-rightwards',
-        command: (event) => this.viewAction()
+        command: 'view'
       },
       {
         label: this.dataManager.settings.messages.titleUpdate,
         icon: 'icon icon-pencil',
-        command: (event) => this.updateAction(),
+        command: 'update',
         disabled: !this.settings.crud
       }
     ];
+  }
+
+  onRowMenu(data: any) {
+    if (data.menuItem.command === 'view') {
+      this.viewAction();
+    } else if (data.menuItem.command === 'update') {
+      this.updateAction();
+    }
   }
 
   createAction() {

@@ -10,7 +10,7 @@ export class BodyComponent implements OnInit {
 
   @Input() public table: DataTable;
   @Input() public offsetX: number;
-  @Input() public loading: boolean = false;
+  @Input() public loading: boolean;
 
   @Output() scroll: EventEmitter<any> = new EventEmitter();
 
