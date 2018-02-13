@@ -1,7 +1,5 @@
 <div class="datatable-selection">
   <app-datatable-scroller
-    [scrollbarV]="true"
-    [scrollbarH]="true"
     (scroll)="onBodyScroll($event)">
     <div class="datatable-row-wrapper"
          *ngFor="let row of table.rows; let rowIndex=index; trackBy: rowTrackingFn">

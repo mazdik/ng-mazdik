@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, HostBinding} from '@angular/core';
+import {Component, OnInit, Input, HostBinding} from '@angular/core';
 import {DataTable} from '../models/data-table';
 import {Column} from '../models/column';
 import {getHeight} from '../utils/dom-utils';
@@ -12,8 +12,6 @@ export class HeaderComponent implements OnInit {
 
   @Input() public table: DataTable;
   @Input() public offsetX: number;
-
-  @Output() showColumnMenu: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-header';
 
@@ -59,7 +57,7 @@ export class HeaderComponent implements OnInit {
     // datatable-row-left + offsetLeft
     left = left + el.parentNode.offsetLeft;
 
-    this.showColumnMenu.emit({'top': top, 'left': left, 'column': column});
+    this.table.dataService.onColumnMenuClick({'top': top, 'left': left, 'column': column});
   }
 
   stylesByGroup() {

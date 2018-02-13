@@ -12,9 +12,6 @@ import {
 })
 export class ScrollerComponent implements OnInit, OnDestroy {
 
-  @Input() scrollbarV: boolean = false;
-  @Input() scrollbarH: boolean = false;
-
   @HostBinding('style.height.px')
   @Input() scrollHeight: number;
 
@@ -29,25 +26,18 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   scrollXPos: number = 0;
   prevScrollYPos: number = 0;
   prevScrollXPos: number = 0;
-  element: any;
-  parentElement: any;
+  parentElement: HTMLElement;
 
-  constructor(element: ElementRef) {
-    this.element = element.nativeElement;
+  constructor(private element: ElementRef) {
   }
 
   ngOnInit(): void {
-    // manual bind so we don't always listen
-    if (this.scrollbarV || this.scrollbarH) {
-      this.parentElement = this.element.parentElement.parentElement;
-      this.parentElement.addEventListener('scroll', this.onScrolled.bind(this));
-    }
+    this.parentElement = this.element.nativeElement.parentElement.parentElement;
+    this.parentElement.addEventListener('scroll', this.onScrolled.bind(this));
   }
 
   ngOnDestroy(): void {
-    if (this.scrollbarV || this.scrollbarH) {
-      this.parentElement.removeEventListener('scroll', this.onScrolled.bind(this));
-    }
+    this.parentElement.removeEventListener('scroll', this.onScrolled.bind(this));
   }
 
   setOffset(offsetY: number): void {
@@ -60,8 +50,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     const dom: Element = <Element>event.currentTarget;
     this.scrollYPos = dom.scrollTop;
     this.scrollXPos = dom.scrollLeft;
-
-    requestAnimationFrame(this.updateOffset.bind(this));
+    this.updateOffset();
   }
 
   updateOffset(): void {

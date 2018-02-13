@@ -43,10 +43,14 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     const editPage = this.table.dataService.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
+    const columnMenu = this.table.dataService.columnMenuSource$.subscribe((data) => {
+      this.showColumnMenu(data);
+    });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(editPage);
+    this.subscriptions.push(columnMenu);
   }
 
   ngDoCheck(): void {

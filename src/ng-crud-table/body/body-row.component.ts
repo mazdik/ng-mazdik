@@ -52,7 +52,7 @@ export class BodyRowComponent implements OnInit, DoCheck {
 
   actionClick(event, menuItem: MenuItem, rowIndex: number) {
     this.table.selectRow(rowIndex);
-    this.table.dataService.onRowMenuSource({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
+    this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
   }
 
   stylesByGroup() {
