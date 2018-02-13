@@ -1,3 +1,5 @@
+import {isBlank} from './util';
+
 export function groupStringValues(item: any, keys: any[]) {
   const values = [];
   keys.forEach(key => {
@@ -16,21 +18,7 @@ export function groupBy(array: any[], keys: any[]) {
   return groups;
 }
 
-/*
-var arr = [
-  { shape: 'square', color: 'red', used: 1, instances: 1 },
-  { shape: 'square', color: 'red', used: 2, instances: 1 },
-  { shape: 'circle', color: 'blue', used: 0, instances: 0 },
-  { shape: 'square', color: 'blue', used: 4, instances: 4 },
-  { shape: 'circle', color: 'red', used: 1, instances: 1 },
-  { shape: 'circle', color: 'red', used: 1, instances: 0 },
-  { shape: 'square', color: 'red', used: 4, instances: 4 },
-  { shape: 'square', color: 'red', used: 2, instances: 2 }
-];
-groupBy(arr, ['shape', 'color']);
-*/
-
-export function groupMetaData(array: any[], keys: any[]) {
+export function groupMetaData(array: any[], keys: any[], aggregates?: any[]) {
   const groupMetadata = {};
   if (array) {
     for (let i = 0; i < array.length; i++) {
@@ -38,14 +26,56 @@ export function groupMetaData(array: any[], keys: any[]) {
       const group = groupStringValues(row, keys);
       if (i === 0) {
         groupMetadata[group] = {index: 0, size: 1};
+        groupMetadata[group] = summaryIterator(groupMetadata[group], row, aggregates);
       } else {
         const previousRow = array[i - 1];
         const previousRowGroup = groupStringValues(previousRow, keys);
         if (group === previousRowGroup) {
           groupMetadata[group].size++;
+          groupMetadata[group] = summaryIterator(groupMetadata[group], row, aggregates);
         } else {
           groupMetadata[group] = {index: i, size: 1};
+          groupMetadata[group] = summaryIterator(groupMetadata[group], row, aggregates);
         }
+      }
+    }
+    Object.keys(groupMetadata).forEach(function(key) {
+      groupMetadata[key] = average(groupMetadata[key], aggregates);
+    });
+  }
+  return groupMetadata;
+}
+
+export function summaryIterator(groupMetadata: any, currentRow: any, aggregates?: any[]) {
+  if (aggregates && aggregates.length) {
+    for (const agg of aggregates) {
+      const previousValue = (groupMetadata[agg.field]) ? groupMetadata[agg.field] : null;
+      groupMetadata[agg.field] = aggregate(previousValue, currentRow[agg.field], agg.type);
+    }
+  }
+  return groupMetadata;
+}
+
+export function aggregate(previousValue: any, currentValue: any, aggregateType: string) {
+  if (aggregateType === 'sum' || aggregateType === 'average') {
+    return parseFloat(previousValue || 0) + parseFloat(currentValue);
+  } else if (aggregateType === 'max') {
+    return (parseFloat(previousValue || 0) < parseFloat(currentValue)) ? currentValue : previousValue;
+  } else if (aggregateType === 'min') {
+    if (previousValue === null) {
+      return currentValue;
+    }
+    return (parseFloat(previousValue) > parseFloat(currentValue)) ? currentValue : previousValue;
+  } else if (aggregateType === 'count') {
+    return previousValue + (isBlank(currentValue) ? 0 : 1);
+  }
+}
+
+export function average(groupMetadata: any, aggregates?: any[]) {
+  if (aggregates && aggregates.length) {
+    for (const agg of aggregates) {
+      if (agg.type === 'average') {
+        groupMetadata[agg.field] = groupMetadata[agg.field] / groupMetadata.size;
       }
     }
   }
