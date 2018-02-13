@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import 'rxjs/add/operator/toPromise';
 import {Filter, SortMeta, DataSource} from '../types';
 
 @Injectable()

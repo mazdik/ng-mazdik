@@ -60,7 +60,6 @@ export class ModalDataTableDemoComponent implements OnInit {
     crud: true,
     primaryKeys: ['id'],
     tableWidth: 1100,
-    clientSide: true,
   };
 
   public settingsRank: Settings = {
@@ -69,7 +68,6 @@ export class ModalDataTableDemoComponent implements OnInit {
     primaryKeys: ['id'],
     tableWidth: 900,
     scrollHeight: 250,
-    clientSide: true,
   };
 
   public settingsInventory: Settings = {
@@ -78,7 +76,6 @@ export class ModalDataTableDemoComponent implements OnInit {
     primaryKeys: ['id'],
     tableWidth: 900,
     scrollHeight: 250,
-    clientSide: true,
   };
 
   private _rank: any = [];

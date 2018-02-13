@@ -4,13 +4,13 @@ import {Column, Settings, DataTable} from '../../ng-crud-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
-  selector: 'app-data-table-demo',
+  selector: 'app-multiple-sort-demo',
   template: `
     <app-datatable [table]="table" [loading]="loading"></app-datatable>
   `
 })
 
-export class DataTableDemoComponent implements OnInit {
+export class MultipleSortDemoComponent implements OnInit {
 
   public table: DataTable;
   public columns: Column[];
@@ -20,11 +20,15 @@ export class DataTableDemoComponent implements OnInit {
     api: null,
     crud: true,
     primaryKeys: ['id'],
-    clientSide: true,
+    multipleSort: true,
   };
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
+    for (const column of this.columns) {
+      column.editable = false;
+    }
+
     this.table = new DataTable(this.columns, this.settings);
   }
 

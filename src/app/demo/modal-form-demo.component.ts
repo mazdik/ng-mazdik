@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../ng-crud-table/modal-edit-form/modal-edit-form.component';
+import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-modal-form-demo',
@@ -27,6 +28,7 @@ export class ModalFormDemoComponent implements OnInit {
 
   public service: DataSource;
   public dataManager: DataManager;
+  public columns: Column[];
 
   public settings: Settings = {
     api: 'assets/players.json',
@@ -34,107 +36,9 @@ export class ModalFormDemoComponent implements OnInit {
     primaryKeys: ['id'],
   };
 
-  public columns: Column[] = [
-    {
-      title: 'Id',
-      name: 'id',
-      sortable: true,
-      filter: true,
-      frozen: true,
-      width: 100,
-      formHidden: true,
-      type: 'number',
-    },
-    {
-      title: 'Name',
-      name: 'name',
-      sortable: true,
-      filter: true,
-      frozen: true,
-      width: 200,
-      validation: {required: true, pattern: '^[a-zA-Z ]+$'},
-      editable: true,
-    },
-    {
-      title: 'Race',
-      name: 'race',
-      sortable: true,
-      filter: true,
-      type: 'select',
-      options: [
-        {id: 'ASMODIANS', name: 'ASMODIANS'},
-        {id: 'ELYOS', name: 'ELYOS'},
-      ],
-      editable: true,
-    },
-    {
-      title: 'Cascading Select',
-      name: 'note',
-      editable: true,
-      type: 'select',
-      optionsUrl: 'assets/options.json',
-      dependsColumn: 'race',
-    },
-    {
-      title: 'Gender',
-      name: 'gender',
-      sortable: true,
-      filter: true,
-      type: 'radio',
-      options: [
-        {id: 'MALE', name: 'MALE'},
-        {id: 'FEMALE', name: 'FEMALE'},
-      ],
-      editable: true,
-    },
-    {
-      title: 'Exp',
-      name: 'exp',
-      sortable: true,
-      filter: true,
-      type: 'number',
-      validation: {required: true, minLength: 2, maxLength: 10},
-      editable: true,
-    },
-    {
-      title: 'Last online',
-      name: 'last_online',
-      sortable: true,
-      filter: true,
-      type: 'datetime-local',
-      editable: true,
-    },
-    {
-      title: 'Account name',
-      name: 'account_name',
-      editable: true,
-      type: 'select-popup',
-      optionsUrl: 'assets/accounts.json',
-      keyColumn: 'account_id',
-    },
-    {
-      title: 'Account id',
-      name: 'account_id',
-      formHidden: true,
-      tableHidden: true,
-    },
-    {
-      title: 'Player class',
-      name: 'player_class',
-      editable: true
-    },
-    {
-      title: 'Online',
-      name: 'online',
-      editable: true,
-      type: 'checkbox',
-      options: [
-        {id: 1, name: 'Online'}
-      ]
-    }
-  ];
+  @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
-  _item: any = {
+  private _item: any = {
     'id': 96491,
     'name': 'Defunct',
     'account_id': 19,
@@ -150,7 +54,6 @@ export class ModalFormDemoComponent implements OnInit {
     'race': 'ASMODIANS',
     'player_class': 'CLERIC',
     'creation_date': '2013-04-14T14:49',
-    'deletion_date': null,
     'last_online': '2013-04-14T22:51:14',
     'cube_size': 0,
     'advanced_stigma_slot_size': 0,
@@ -163,9 +66,18 @@ export class ModalFormDemoComponent implements OnInit {
     'online': 1
   };
 
-  @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
-
   constructor(private http: HttpClient) {
+    this.columns = getColumnsPlayers();
+    this.columns[3].options = null;
+    this.columns[3].optionsUrl = 'assets/options.json';
+
+    this.columns[8].type = 'select-popup';
+    this.columns[8].optionsUrl = 'assets/accounts.json';
+    this.columns[8].keyColumn = 'account_id';
+
+    this.columns[9].formHidden = true;
+    this.columns[9].tableHidden = true;
+
     this.dataManager = new DataManager(this.columns, this.settings);
     this.service = new DemoService(this.http);
     this.dataManager.setService(this.service);

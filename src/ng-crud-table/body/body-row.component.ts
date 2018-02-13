@@ -8,7 +8,7 @@ import {DataTable} from '../models/data-table';
 @Component({
   selector: 'app-datatable-body-row',
   templateUrl: './body-row.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyRowComponent implements OnInit, DoCheck {
 

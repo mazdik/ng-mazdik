@@ -33,9 +33,7 @@ export class MasterDetailDemoComponent implements OnInit {
     api: null,
     crud: true,
     primaryKeys: ['id'],
-    tableWidth: 1100,
     scrollHeight: 250,
-    clientSide: true,
   };
 
   public settingsRank: Settings = {
@@ -44,7 +42,6 @@ export class MasterDetailDemoComponent implements OnInit {
     primaryKeys: ['id'],
     tableWidth: 500,
     scrollHeight: 250,
-    clientSide: true,
   };
 
   public settingsInventory: Settings = {
@@ -53,7 +50,6 @@ export class MasterDetailDemoComponent implements OnInit {
     primaryKeys: ['id'],
     tableWidth: 600,
     scrollHeight: 250,
-    clientSide: true,
   };
 
   private _rank: any = [];
