@@ -2,7 +2,7 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
-import {DataTable} from '../models/data-table';
+import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({

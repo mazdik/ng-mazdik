@@ -1,6 +1,7 @@
-export * from './interfaces';
-export {ColumnBase as Column} from '../models/column-base';
-export {DataTable} from '../models/data-table';
-export {Settings} from '../models/settings';
-export {Message} from '../models/message';
-export {DataManager} from '../models/data-manager';
+export * from './type';
+export * from './interface';
+export {ColumnBase as Column} from '../base/column-base';
+export {DataTable} from '../base/data-table';
+export {Settings} from '../base/settings';
+export {Message} from '../base/message';
+export {DataManager} from '../base/data-manager';

@@ -1,8 +1,8 @@
 import {
   Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable} from '../models/data-table';
-import {Column} from '../models/column';
+import {DataTable} from '../base/data-table';
+import {Column} from '../base/column';
 
 @Component({
   selector: 'app-filter',

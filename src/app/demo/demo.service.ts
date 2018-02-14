@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Filter, SortMeta, DataSource} from '../../ng-crud-table';
-import {DataFilter} from '../../ng-crud-table/models/data-filter';
-import {DataSort} from '../../ng-crud-table/models/data-sort';
+import {DataFilter} from '../../ng-crud-table/base/data-filter';
+import {DataSort} from '../../ng-crud-table/base/data-sort';
 
 @Injectable()
 export class DemoService implements DataSource {

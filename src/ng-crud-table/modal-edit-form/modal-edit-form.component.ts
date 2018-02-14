@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, ViewChild, PipeTransform} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {Column} from '../models/column';
-import {DataManager} from '../models/data-manager';
+import {Column} from '../base/column';
+import {DataManager} from '../base/data-manager';
 
 @Component({
   selector: 'app-modal-edit-form',

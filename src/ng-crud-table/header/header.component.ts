@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, HostBinding} from '@angular/core';
-import {DataTable} from '../models/data-table';
-import {Column} from '../models/column';
-import {getHeight} from '../utils/dom-utils';
+import {DataTable} from '../base/data-table';
+import {Column} from '../base/column';
+import {getHeight} from '../base/util';
 
 @Component({
   selector: 'app-datatable-header',

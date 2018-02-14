@@ -6,7 +6,7 @@ import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
 import {DataService} from './data-service';
-import {groupMetaData, groupStringValues} from '../utils/group';
+import {DataAggregation} from './data-aggregation';
 
 export class DataTable {
 
@@ -27,6 +27,7 @@ export class DataTable {
   public sorter: DataSort;
   public dataFilter: DataFilter;
   public dataService: DataService;
+  public dataAggregation: DataAggregation;
   public localRows: any[];
   public selectedRowIndex: number;
   public rowGroupMetadata: any;
@@ -53,6 +54,7 @@ export class DataTable {
     this.sorter = new DataSort();
     this.dataFilter = new DataFilter();
     this.dataService = new DataService();
+    this.dataAggregation = new DataAggregation();
     this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
@@ -65,6 +67,9 @@ export class DataTable {
   createColumns(columns: ColumnBase[]) {
     for (const column of columns) {
       this.columns.push(new Column(column));
+      if (column.aggregation) {
+        this.dataAggregation.aggregates.push({field: column.name, type: column.aggregation});
+      }
     }
     this.initColumns();
     this.calcColumnsTotalWidth();
@@ -161,22 +166,22 @@ export class DataTable {
 
   updateRowGroupMetadata() {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      this.rowGroupMetadata = groupMetaData(this.rows, this.settings.groupRowsBy);
+      this.rowGroupMetadata = this.dataAggregation.groupMetaData(this.rows, this.settings.groupRowsBy);
     }
   }
 
   getRowGroupName(row: any) {
-    return groupStringValues(row, this.settings.groupRowsBy);
+    return this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
   }
 
   getRowGroupSize(row: any) {
-    const group = groupStringValues(row, this.settings.groupRowsBy);
+    const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
     return this.rowGroupMetadata[group].size;
   }
 
   isRowGroup(row: any, rowIndex: number) {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      const group = groupStringValues(row, this.settings.groupRowsBy);
+      const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
       return this.rowGroupMetadata[group].index === rowIndex;
     } else {
       return false;

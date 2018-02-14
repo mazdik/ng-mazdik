@@ -1,20 +1,10 @@
+import {AggregateType} from './type';
+
 export interface SelectOption {
   id: any;
   name: string;
   parentId?: any;
 }
-
-export type ColumnType =
-  'text'
-  | 'password'
-  | 'number'
-  | 'select'
-  | 'radio'
-  | 'checkbox'
-  | 'textarea'
-  | 'date'
-  | 'datetime-local'
-  | 'select-popup';
 
 export interface FilterMetadata {
   value?: any;
@@ -77,4 +67,9 @@ export interface TreeDataSource {
   url: string;
   getNodes(node?: TreeNode): Promise<TreeNode[]>;
   searchNodes(name: string): Promise<any>;
+}
+
+export  interface AggregateMeta {
+  field: string;
+  type: AggregateType;
 }

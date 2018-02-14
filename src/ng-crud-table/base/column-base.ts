@@ -1,5 +1,5 @@
 import {PipeTransform} from '@angular/core';
-import {SelectOption, Validation, ColumnType} from '../types';
+import {SelectOption, Validation, ColumnType, AggregateType} from '../types';
 
 export class ColumnBase {
 
@@ -25,5 +25,6 @@ export class ColumnBase {
   public selectionLimit?: number = 1;
   public minWidth?: number = 50;
   public maxWidth?: number = 500;
+  public aggregation?: AggregateType;
 
 }

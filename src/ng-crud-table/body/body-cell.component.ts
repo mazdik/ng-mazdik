@@ -2,7 +2,7 @@ import {
   Component, Input, PipeTransform, HostBinding,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
-import {Column} from '../models/column';
+import {Column} from '../base/column';
 
 @Component({
   selector: 'app-datatable-body-cell',

@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {MenuItem} from '../types';
-import {DataTable} from '../models/data-table';
+import {DataTable} from '../base/data-table';
 
 @Component({
   selector: 'app-datatable-body-row',

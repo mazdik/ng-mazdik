@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Column} from '../models/column';
+import {Column} from '../base/column';
 
 @Component({
   selector: 'app-form-input',

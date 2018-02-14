@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
 import {TreeNode, TreeDataSource, Settings} from '../types';
-import {DataTable} from '../models/data-table';
-import {ColumnBase} from '../models/column-base';
+import {DataTable} from '../base/data-table';
+import {ColumnBase} from '../base/column-base';
 
 @Component({
   selector: 'app-tree-table',

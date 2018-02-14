@@ -1,5 +1,5 @@
 import {ColumnBase} from './column-base';
-import {getUid} from '../utils/id';
+import {getUid} from './util';
 import {SelectOption} from '../types';
 
 export class Column extends ColumnBase {

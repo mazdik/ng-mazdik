@@ -36,7 +36,7 @@ export class BasicDemoComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.columns[5]['cellClass'] = this.getCellClass;
+    this.columns[5].cellClass = this.getCellClass;
   }
 
   getCellClass({row, column, value}): any {
