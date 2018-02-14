@@ -22,7 +22,6 @@ export class DataTable {
   public tableWidth: number;
   public actionMenu: MenuItem[];
   public columnMenuWidth: number = 200;
-  public filterDelay: number = 500;
   public pager: DataPager;
   public sorter: DataSort;
   public dataFilter: DataFilter;

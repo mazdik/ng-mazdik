@@ -2,9 +2,8 @@ import {Message} from './message';
 
 export class Settings {
   public api: string;
-  public crud: boolean = false;
+  public crud: boolean;
   public primaryKeys?: string[];
-  public type?: string;
   public tableWidth?: number;
   public scrollHeight?: number;
   public sortable?: boolean = true;
@@ -15,6 +14,7 @@ export class Settings {
   public messages?: Message;
   public trackByProp?: string;
   public groupRowsBy?: string[];
+  public filterDelay?: number = 500;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

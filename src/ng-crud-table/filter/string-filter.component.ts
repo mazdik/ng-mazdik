@@ -71,7 +71,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.filterTimeout = setTimeout(() => {
       this.filter(value);
       this.filterTimeout = null;
-    }, this.table.filterDelay);
+    }, this.table.settings.filterDelay);
   }
 
   filter(value) {
