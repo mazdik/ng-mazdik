@@ -25,8 +25,10 @@ export class DemoService implements DataSource {
       .then(function (res) {
         const rows: any[] = res || [];
         this.dataFilter.filters = filters;
-        this.dataFilter.isGlobal = !!(globalFilterValue);
-        this.dataFilter.globalFilterValue = globalFilterValue;
+        if (Object.keys(filters).length === 0 && globalFilterValue) {
+          this.dataFilter.isGlobal = true;
+          this.dataFilter.globalFilterValue = globalFilterValue;
+        }
         const filteredData = this.dataFilter.filterRows(rows);
         this.dataSort.sortMeta = sortMeta;
         const sortedData = this.dataSort.sortRows(filteredData);

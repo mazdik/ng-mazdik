@@ -35,6 +35,9 @@ import {Component, ViewEncapsulation} from '@angular/core';
                     [ngClass]="{'active': state === 'row-group-multiple-demo'}">
             Row group multiple</span>
           </li>
+          <li><span (click)="state='global-filter-demo'"
+                    [ngClass]="{'active': state === 'global-filter-demo'}">Global filtering</span>
+          </li>
         </ul>
       </div>
       <div class="dt-col-right">
@@ -49,6 +52,7 @@ import {Component, ViewEncapsulation} from '@angular/core';
         <app-multiple-sort-demo *ngIf="state === 'multiple-sort-demo'"></app-multiple-sort-demo>
         <app-row-group-demo *ngIf="state === 'row-group-demo'"></app-row-group-demo>
         <app-row-group-multiple-demo *ngIf="state === 'row-group-multiple-demo'"></app-row-group-multiple-demo>
+        <app-global-filter-demo *ngIf="state === 'global-filter-demo'"></app-global-filter-demo>
       </div>
     </div>
   `,

@@ -145,6 +145,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onFilter() {
+    this.dataManager.dataFilter.globalFilterValue = null;
     this.dataManager.getItems().then();
   }
 

@@ -1,5 +1,5 @@
 import {ColumnBase} from './column-base';
-import {getUid} from './util';
+import {getUid, isBlank} from './util';
 import {SelectOption} from '../types';
 
 export class Column extends ColumnBase {
@@ -51,7 +51,7 @@ export class Column extends ColumnBase {
     }
     const options: SelectOption[] = this.getOptions();
     let name;
-    if (options && (value !== undefined || value !== null)) {
+    if (options && !isBlank(value)) {
       const el: SelectOption = options.find(o => {
         return o.id.toString() === value.toString();
       });

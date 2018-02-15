@@ -1,4 +1,3 @@
-import {PipeTransform} from '@angular/core';
 import {SelectOption, Validation, ColumnType, AggregateType} from '../types';
 
 export class ColumnBase {
@@ -8,7 +7,6 @@ export class ColumnBase {
   public sortable?: boolean = true;
   public filter?: boolean = true;
   public options?: SelectOption[];
-  public pipe?: PipeTransform;
   public width?: number = null;
   public frozen?: boolean;
   public type?: ColumnType;

@@ -254,7 +254,7 @@ export class DataFilter {
         break;
       }
     }
-    return !empty;
+    return !empty || this.globalFilterValue;
   }
 
   setFilter(value: any, field: string, matchMode: string, valueTo?: any, type?: string) {

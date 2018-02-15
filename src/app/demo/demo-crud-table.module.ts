@@ -14,7 +14,8 @@ import { ModalDataTableDemoComponent } from './modal-data-table-demo.component';
 import { NestedModalsDemoComponent} from './nested-modals-demo.component';
 import { MultipleSortDemoComponent } from './multiple-sort-demo.component';
 import { RowGroupDemoComponent } from './row-group-demo.component';
-import { RowGroupMultipleDemoComponent} from './row-group-multiple-demo.component';
+import { RowGroupMultipleDemoComponent } from './row-group-multiple-demo.component';
+import { GlobalFilterDemoComponent } from './global-filter-demo.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RowGroupMultipleDemoComponent} from './row-group-multiple-demo.componen
     NestedModalsDemoComponent,
     MultipleSortDemoComponent,
     RowGroupDemoComponent,
-    RowGroupMultipleDemoComponent
+    RowGroupMultipleDemoComponent,
+    GlobalFilterDemoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import {
-  Component, Input, PipeTransform, HostBinding, HostListener, ElementRef, ViewChild,
+  Component, Input, HostBinding, HostListener, ElementRef, ViewChild,
   ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
 } from '@angular/core';
 import {Column} from '../base/column';
@@ -30,7 +30,7 @@ export class BodyCellEditComponent implements DoCheck {
         const res = this.column.cellClass({
           row: this.row,
           column: this.column,
-          value: this.value ,
+          value: this.value,
         });
 
         if (typeof res === 'string') {
@@ -74,11 +74,7 @@ export class BodyCellEditComponent implements DoCheck {
       value = '';
     } else {
       const val = this.row[this.column.name];
-      const userPipe: PipeTransform = this.column.pipe;
-
-      if (userPipe) {
-        value = userPipe.transform(val);
-      } else if (value !== undefined) {
+      if (value !== undefined) {
         value = val;
       }
     }

@@ -1,6 +1,5 @@
-import {Component, OnInit, Input, ViewChild, PipeTransform} from '@angular/core';
+import {Component, OnInit, Input, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {Column} from '../base/column';
 import {DataManager} from '../base/data-manager';
 
 @Component({
@@ -45,18 +44,6 @@ export class ModalEditFormComponent implements OnInit {
 
   public close() {
     this.childModal.hide();
-  }
-
-  format(column: Column) {
-    let value = this.dataManager.item[column.name];
-    const userPipe: PipeTransform = column.pipe;
-    if (userPipe) {
-      return userPipe.transform(value);
-    }
-    if (value) {
-      value = column.getOptionName(value);
-    }
-    return value;
   }
 
 }
