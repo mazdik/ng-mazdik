@@ -20,7 +20,7 @@ export class OrdsCustomService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
     const headers = this.getAuthHeaders();
     const url = this.url;
     filters = this.filterObject(filters);
@@ -42,7 +42,7 @@ export class OrdsCustomService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    return this.getItems(1, filters)
+    return this.getItems(1, filters, null)
       .then(data => data.items[0]);
   }
 

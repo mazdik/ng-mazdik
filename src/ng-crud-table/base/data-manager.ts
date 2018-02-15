@@ -33,8 +33,9 @@ export class DataManager extends DataTable {
     this.loading = true;
     this.errors = null;
     this.setSortMetaGroup();
+    const globalFilterValue = this.dataFilter.isGlobal ? this.dataFilter.globalFilterValue : null;
     return this.service
-      .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta)
+      .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, globalFilterValue)
       .then(data => {
         this.loading = false;
         this.rows = data.items;

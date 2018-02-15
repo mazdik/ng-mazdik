@@ -17,8 +17,14 @@ export class DataFilter {
   public static ENDS_WITH = 'endsWith'; // like %val;
 
   public filters: Filter = <Filter>{};
+  public globalFilterValue: string;
+  public isGlobal: boolean;
 
   filterRows(data: any[]) {
+    if (this.isGlobal) {
+      this.isGlobal = false;
+      return this.globalFilterRows(data);
+    }
     const filters = this.filters;
     let filteredRows: any[] = data;
 
@@ -34,6 +40,16 @@ export class DataFilter {
       }
     }
     return filteredRows;
+  }
+
+  globalFilterRows(data: any[]) {
+    if (this.globalFilterValue) {
+      return data.filter(item => Object.keys(item).map((key) => {
+        return this.startsWith(item[key], this.globalFilterValue);
+      }).includes(true));
+    } else {
+      return data;
+    }
   }
 
   compare(value: any, filter: FilterMetadata) {

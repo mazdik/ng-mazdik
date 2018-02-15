@@ -19,7 +19,7 @@ export class YiiService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
     const headers = this.getAuthHeaders();
     const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortMeta);
     return this.http.get(url, {headers: headers})
@@ -33,7 +33,7 @@ export class YiiService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    return this.getItems(1, filters)
+    return this.getItems(1, filters, null)
       .then(data => data.items[0]);
   }
 

@@ -1,11 +1,28 @@
 <div class="df-alert df-alert-danger" *ngIf="this.dataManager.errors">{{this.dataManager.errors}}</div>
 
-<button type="button"
-        class="button"
-        style="margin-bottom: 5px;"
-        *ngIf="settings.crud"
-        (click)="createAction()">{{dataManager.settings.messages.create}}
-</button>
+<div class="df-row df-group">
+  <div class="df-col">
+    <button type="button"
+            class="button"
+            *ngIf="settings.crud"
+            (click)="createAction()">{{dataManager.settings.messages.create}}
+    </button>
+  </div>
+  <div class="df-col" style="width: 300px;" *ngIf="dataManager.settings.globalFilter">
+    <div class="df-input-group">
+      <input class="df-control"
+             [attr.placeholder]="dataManager.settings.messages.search"
+             [(ngModel)]="dataManager.dataFilter.globalFilterValue"
+             (keypress)="onKeyPressGlobalSearch($event)">
+      <div class="df-input-group-append">
+        <button type="button"
+                class="button"
+                (click)="onClickGlobalSearch()">{{dataManager.settings.messages.go}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <app-datatable
   [table]="dataManager"

@@ -21,6 +21,14 @@
   border-color: #a94442;
 }
 
+.df-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
 .df-has-error .df-control:focus {
   outline: 0;
   border-color: #843534;
@@ -50,4 +58,16 @@
 
 .df-group {
   margin-bottom: 1rem;
+}
+
+.df-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.df-col {
+  padding-right: 5px;
+  padding-left: 5px;
 }

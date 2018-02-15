@@ -32,7 +32,8 @@ export class BasicDemoComponent implements OnInit {
     messages: {
       titleDetailView: 'Player details',
       titleCreate: 'Create a new player'
-    }
+    },
+    globalFilter: true
   };
 
   ngOnInit() {

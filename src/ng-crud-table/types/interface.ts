@@ -20,7 +20,7 @@ export interface Filter {
 export interface DataSource {
   url: string;
   primaryKeys: string[];
-  getItems(page: number, filters?: Filter, sortMeta?: SortMeta[]): Promise<any>;
+  getItems(page: number, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;
   put(row: any): Promise<any>;

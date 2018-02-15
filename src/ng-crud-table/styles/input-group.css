@@ -1,0 +1,36 @@
+.df-input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.df-input-group .df-control:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.df-input-group .df-control {
+  position: relative;
+  width: 1%;
+  margin-bottom: 0;
+  flex: 1 1 auto;
+}
+
+.df-input-group .df-control:focus {
+  box-shadow: none;
+}
+
+.df-input-group-append, .df-input-group-prepend {
+  display: flex;
+  align-items: center;
+}
+
+.df-input-group-append {
+  margin-left: -1px;
+}
+
+.df-input-group-prepend {
+  margin-right: -1px;
+}

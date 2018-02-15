@@ -172,4 +172,18 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.dataManager.refreshSelectedRow();
   }
 
+  onClickGlobalSearch() {
+    this.dataManager.dataFilter.isGlobal = true;
+    this.dataManager.dataFilter.clear();
+    this.dataManager.getItems().then();
+  }
+
+  onKeyPressGlobalSearch(event: KeyboardEvent) {
+    if (event.which === 13) {
+      this.dataManager.dataFilter.isGlobal = true;
+      this.dataManager.dataFilter.clear();
+      this.dataManager.getItems().then();
+    }
+  }
+
 }

@@ -19,7 +19,7 @@ export class RestlessService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters?: Filter, sortMeta?: SortMeta[]): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
     const headers = this.getAuthHeaders();
     let url = this.url;
     if (page > 1) {
@@ -44,7 +44,7 @@ export class RestlessService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    return this.getItems(1, filters)
+    return this.getItems(1, filters, null)
       .then(data => data.items[0]);
   }
 

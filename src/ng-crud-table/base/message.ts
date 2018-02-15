@@ -28,6 +28,7 @@ export class Message {
   public lastMonth?: string;
   public lastDay?: string;
   public lastHour?: string;
+  public go?: string;
 
   constructor() {
     this.empty = 'No data to display';
@@ -58,6 +59,7 @@ export class Message {
     this.lastMonth = 'Last Month';
     this.lastDay = 'Last Day';
     this.lastHour = 'Last Hour';
+    this.go = 'Go';
   }
 
 }

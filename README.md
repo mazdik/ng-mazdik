@@ -135,7 +135,7 @@ export class PlayersComponent {
 ```
 
 ## Features
-* Filtering
+* Filtering (column filters and an optional global filter)
 * Sorting (multiple columns)
 * Pagination
 * Modal (draggable and resizable)
@@ -159,7 +159,7 @@ export class PlayersComponent {
 interface DataSource {
   url: string;
   primaryKeys: string[];
-  getItems(page: number, filters?: Filter, sortMeta?: SortMeta[]): Promise<any>;
+  getItems(page: number, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;
   put(row: any): Promise<any>;

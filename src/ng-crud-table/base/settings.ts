@@ -15,6 +15,7 @@ export class Settings {
   public trackByProp?: string;
   public groupRowsBy?: string[];
   public filterDelay?: number = 500;
+  public globalFilter?: boolean;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

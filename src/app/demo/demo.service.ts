@@ -19,12 +19,14 @@ export class DemoService implements DataSource {
     this.dataSort = new DataSort();
   }
 
-  getItems(page: number = 1, filters ?: Filter, sortMeta?: SortMeta[]): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
     return this.http.get(this.url)
       .toPromise()
       .then(function (res) {
         const rows: any[] = res || [];
         this.dataFilter.filters = filters;
+        this.dataFilter.isGlobal = !!(globalFilterValue);
+        this.dataFilter.globalFilterValue = globalFilterValue;
         const filteredData = this.dataFilter.filterRows(rows);
         this.dataSort.sortMeta = sortMeta;
         const sortedData = this.dataSort.sortRows(filteredData);
@@ -48,7 +50,7 @@ export class DemoService implements DataSource {
     const filterId = {
       [this.primaryKeys]: {value: id}
     };
-    return this.getItems(1, filterId)
+    return this.getItems(1, filterId, null)
       .then(data => data.items[0]);
   }
 
@@ -83,7 +85,7 @@ export class DemoService implements DataSource {
     return this.http.get(url)
       .toPromise()
       .then((response: any) => {
-        const result =  response.filter((value: any) => {
+        const result = response.filter((value: any) => {
           return value['parentId'] === parentId;
         });
         return new Promise((resolve) => {
