@@ -5,6 +5,10 @@ export class DataAggregation {
 
   public aggregates: AggregateMeta[] = [];
 
+  get enabled() {
+    return (this.aggregates && this.aggregates.length);
+  }
+
   groupStringValues(item: any, keys: any[]) {
     const values = [];
     keys.forEach(key => {
@@ -52,7 +56,7 @@ export class DataAggregation {
   }
 
   summaryIterator(groupMetadata: any, currentRow: any) {
-    if (this.aggregates && this.aggregates.length) {
+    if (this.enabled) {
       for (const agg of this.aggregates) {
         const previousValue = (groupMetadata[agg.field]) ? groupMetadata[agg.field] : null;
         groupMetadata[agg.field] = this.aggregate(previousValue, currentRow[agg.field], agg.type);
@@ -77,14 +81,36 @@ export class DataAggregation {
   }
 
   average(groupMetadata: any) {
-    if (this.aggregates && this.aggregates.length) {
+    if (this.enabled) {
       for (const agg of this.aggregates) {
         if (agg.type === 'average') {
           groupMetadata[agg.field] = groupMetadata[agg.field] / groupMetadata.size;
+          groupMetadata[agg.field] = parseFloat(groupMetadata[agg.field]).toFixed(5);
         }
       }
     }
     return groupMetadata;
+  }
+
+  grandTotal(array: any[]) {
+    let total: any = {};
+    if (array && this.enabled) {
+      total.size = array.length;
+      for (let i = 0; i < total.size; i++) {
+        const row = array[i];
+        if (i === 0) {
+          for (const agg of this.aggregates) {
+            total[agg.field] = this.aggregate(null, row[agg.field], agg.type);
+          }
+        } else {
+          for (const agg of this.aggregates) {
+            total[agg.field] = this.aggregate(total[agg.field], row[agg.field], agg.type);
+          }
+        }
+      }
+      total = this.average(total);
+    }
+    return total;
   }
 
 }

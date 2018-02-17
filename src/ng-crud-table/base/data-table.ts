@@ -30,6 +30,7 @@ export class DataTable {
   public localRows: any[];
   public selectedRowIndex: number;
   public rowGroupMetadata: any;
+  public grandTotalRow: any;
 
   set rows(val: any) {
     if (this.settings.clientSide) {
@@ -167,6 +168,9 @@ export class DataTable {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       this.rowGroupMetadata = this.dataAggregation.groupMetaData(this.rows, this.settings.groupRowsBy);
     }
+    if (this.dataAggregation.enabled) {
+      this.grandTotalRow = this.dataAggregation.grandTotal(this.rows);
+    }
   }
 
   getRowGroupName(row: any) {
@@ -185,6 +189,24 @@ export class DataTable {
     } else {
       return false;
     }
+  }
+
+  isRowGroupSummary(row: any, rowIndex: number) {
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length && this.dataAggregation.aggregates.length) {
+      const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
+      const lastRowIndex = (this.rowGroupMetadata[group].index + this.rowGroupMetadata[group].size) - 1;
+      return lastRowIndex === rowIndex;
+    } else {
+      return false;
+    }
+  }
+
+  getRowGroupSummary(row: any) {
+    const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
+    const summaryRow = Object.assign({}, this.rowGroupMetadata[group]);
+    delete summaryRow.index;
+    delete summaryRow.size;
+    return summaryRow;
   }
 
   hideRowGroupColumns() {

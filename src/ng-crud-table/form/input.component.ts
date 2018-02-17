@@ -26,7 +26,7 @@ export class InputComponent implements OnInit {
   }
 
   public errors: any[] = [];
-  public loading: boolean = false;
+  public loading: boolean;
 
   private _model: any;
 

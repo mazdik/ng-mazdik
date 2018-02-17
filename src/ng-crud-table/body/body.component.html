@@ -7,9 +7,7 @@
       <div class="datatable-body-row datatable-group-header"
            *ngIf="table.isRowGroup(row, rowIndex)">
         <div class="datatable-row-left datatable-row-group" [style.left.px]="offsetX">
-          <div style="background-color: #f5f5f5">
-            <b>{{table.getRowGroupName(row)}}</b> ({{table.getRowGroupSize(row)}})
-          </div>
+          {{table.getRowGroupName(row)}} ({{table.getRowGroupSize(row)}})
         </div>
         <div class="datatable-row-center datatable-row-group"></div>
       </div>
@@ -20,7 +18,22 @@
         [rowIndex]="rowIndex"
         [offsetX]="offsetX">
       </app-datatable-body-row>
+
+      <app-datatable-summary-row
+        *ngIf="table.isRowGroupSummary(row, rowIndex)"
+        [table]="table"
+        [row]="table.getRowGroupSummary(row)"
+        [offsetX]="offsetX">
+      </app-datatable-summary-row>
     </div>
+
+    <app-datatable-summary-row
+      *ngIf="table.dataAggregation.enabled"
+      [table]="table"
+      [row]="table.grandTotalRow"
+      [offsetX]="offsetX">
+    </app-datatable-summary-row>
+
   </app-datatable-scroller>
   <div class="empty-row"
        *ngIf="!table.rows?.length"

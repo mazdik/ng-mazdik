@@ -153,6 +153,7 @@ export class PlayersComponent {
 * Tree table
 * No external dependencies
 * Row Grouping (multiple columns)
+* Summary Row (aggregation on a column)
 
 ### Custom service
 ```typescript

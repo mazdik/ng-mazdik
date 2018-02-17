@@ -48,7 +48,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   public columnsPlayers: Column[];
   public columnsRank: Column[];
   public columnsInventory: Column[];
-  public loading: boolean = false;
+  public loading: boolean;
 
   @ViewChild('template1') template1: TemplateRef<any>;
   @ViewChild('template2') template2: TemplateRef<any>;

@@ -56,9 +56,9 @@ export class BodyCellEditComponent implements DoCheck {
     return this.column.width;
   }
 
-  value: any;
-  editing: boolean = false;
-  oldValue: any;
+  public value: any;
+  public editing: boolean;
+  public oldValue: any;
 
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
   }

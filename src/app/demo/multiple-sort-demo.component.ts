@@ -14,7 +14,7 @@ export class MultipleSortDemoComponent implements OnInit {
 
   public table: DataTable;
   public columns: Column[];
-  public loading: boolean = false;
+  public loading: boolean;
 
   public settings: Settings = {
     api: null,

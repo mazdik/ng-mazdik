@@ -33,6 +33,7 @@ import {TextareaComponent} from './form/textarea.component';
 import {CalendarComponent} from './form/calendar.component';
 import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
+import {SummaryRowComponent} from './body/summary-row.component';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import {PopupSelectComponent} from './form/select-popup.component';
     CalendarComponent,
     ModalSelectComponent,
     PopupSelectComponent,
+    SummaryRowComponent,
   ],
   exports: [
     DatatableComponent,
