@@ -21,6 +21,7 @@ export class DataTableDemoComponent implements OnInit {
     crud: true,
     primaryKeys: ['id'],
     clientSide: true,
+    setWidthColumnOnMove: true
   };
 
   constructor(private http: HttpClient) {

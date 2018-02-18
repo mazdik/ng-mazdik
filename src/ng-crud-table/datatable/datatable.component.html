@@ -1,4 +1,4 @@
-<div class="datatable fixed-header fixed-row scroll-horz"
+<div #container class="datatable fixed-header fixed-row scroll-horz"
      [ngStyle]="{'width.px': table.tableWidth}">
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <app-filter
@@ -16,7 +16,7 @@
     (scroll)="onBodyScroll($event)">
   </app-datatable-body>
 
-  <div class="datatable-footer">
+  <div #footer class="datatable-footer">
     <div class="datatable-footer-inner" *ngIf="table.pager.total > 0">
       <div class="page-count">
           <span class="page-range">
@@ -33,5 +33,5 @@
       </div>
     </div>
   </div>
-
+  <div #resizeHelper class="column-resizer-helper"></div>
 </div>

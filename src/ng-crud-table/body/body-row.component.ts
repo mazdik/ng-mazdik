@@ -35,10 +35,16 @@ export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnInit(): void {
-    const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+    if (this.table.settings.setWidthColumnOnMove) {
+      const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+        this.cd.markForCheck();
+      });
+      this.subscriptions.push(subColumnResize);
+    }
+    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    this.subscriptions.push(subColumnResize);
+    this.subscriptions.push(subColumnResizeEnd);
   }
 
   ngDoCheck(): void {

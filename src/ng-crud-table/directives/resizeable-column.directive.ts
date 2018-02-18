@@ -18,20 +18,18 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
   element: HTMLElement;
   subscription: Subscription;
   resizing: boolean;
+  newWidth: number;
 
   constructor(element: ElementRef, private renderer: Renderer2) {
     this.element = element.nativeElement;
   }
 
   ngAfterViewInit(): void {
-    const renderer2 = this.renderer;
-    const node = renderer2.createElement('span');
     if (this.column.resizeable) {
-      renderer2.addClass(node, 'resize-handle');
-    } else {
-      renderer2.addClass(node, 'resize-handle--not-resizable');
+      const node = this.renderer.createElement('span');
+      this.renderer.addClass(node, 'resize-handle');
+      this.renderer.appendChild(this.element, node);
     }
-    renderer2.appendChild(this.element, node);
   }
 
   ngOnDestroy(): void {
@@ -48,8 +46,8 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
 
     if (this.subscription && !this.subscription.closed) {
       this._destroySubscription();
-      this.column.setWidth(this.element.clientWidth);
-      this.table.dataService.onResize();
+      this.column.setWidth(this.newWidth);
+      this.table.dataService.onResizeEnd();
     }
   }
 
@@ -77,13 +75,17 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
 
   move(event: MouseEvent, initialWidth: number, mouseDownScreenX: number): void {
     const movementX = event.screenX - mouseDownScreenX;
-    const newWidth = initialWidth + movementX;
+    this.newWidth = initialWidth + movementX;
 
-    const overMinWidth = !this.column.minWidth || newWidth >= this.column.minWidth;
-    const underMaxWidth = !this.column.maxWidth || newWidth <= this.column.maxWidth;
+    const overMinWidth = !this.column.minWidth || this.newWidth >= this.column.minWidth;
+    const underMaxWidth = !this.column.maxWidth || this.newWidth <= this.column.maxWidth;
 
     if (overMinWidth && underMaxWidth) {
-      this.element.style.width = `${newWidth}px`;
+      if (this.table.settings.setWidthColumnOnMove) {
+        this.element.style.width = `${this.newWidth}px`;
+        this.column.setWidth(this.newWidth);
+      }
+      this.table.dataService.onResize(event);
     }
   }
 

@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter,
+  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
@@ -20,6 +20,9 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
   @ViewChild('selectFilter') selectFilter: any;
+  @ViewChild('resizeHelper') resizeHelper: ElementRef;
+  @ViewChild('container') containerViewChild: ElementRef;
+  @ViewChild('footer') footerViewChild: ElementRef;
 
   public offsetX: number = 0;
 
@@ -46,11 +49,19 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     const subColumnMenu = this.table.dataService.columnMenuSource$.subscribe((data) => {
       this.showColumnMenu(data);
     });
+    const subColumnResize = this.table.dataService.resizeSource$.subscribe((event) => {
+      this.onColumnResize(event);
+    });
+    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
+      this.onColumnResizeEnd();
+    });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subEdit);
     this.subscriptions.push(subColumnMenu);
+    this.subscriptions.push(subColumnResize);
+    this.subscriptions.push(subColumnResizeEnd);
   }
 
   ngDoCheck(): void {
@@ -104,6 +115,22 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   onBodyScroll(event: MouseEvent): void {
     this.offsetX = event.offsetX;
     this.selectFilter.hide();
+  }
+
+  onColumnResize(event) {
+    if (!this.table.settings.setWidthColumnOnMove) {
+      const rect = this.containerViewChild.nativeElement.getBoundingClientRect();
+      const containerLeft = rect.left + document.body.scrollLeft;
+      const height = this.containerViewChild.nativeElement.offsetHeight - this.footerViewChild.nativeElement.offsetHeight;
+      this.resizeHelper.nativeElement.style.height = height + 'px';
+      this.resizeHelper.nativeElement.style.top = 0 + 'px';
+      this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
+      this.resizeHelper.nativeElement.style.display = 'block';
+    }
+  }
+
+  onColumnResizeEnd() {
+    this.resizeHelper.nativeElement.style.display = 'none';
   }
 
 }

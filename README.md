@@ -1,7 +1,7 @@
 # Angular 5 CRUD table using REST backend
 
 Simple CRUD table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
-The module contains services for: Yii2 RESTful (php) API, ORDS (Oracle REST Data Services), Flask-Restless (python)
+The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
 
 ### Sample
 ```typescript

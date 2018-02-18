@@ -45,6 +45,7 @@
   </div>
 
   <app-tree-table-node
+    [table]="table"
     [nodes]="node.children"
     [service]="service"
     *ngIf="node.children && node.expanded"

@@ -27,13 +27,19 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+    if (this.table.settings.setWidthColumnOnMove) {
+      const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+        this.cd.markForCheck();
+      });
+      this.subscriptions.push(subColumnResize);
+    }
+    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     const subRows = this.table.dataService.rowsSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    this.subscriptions.push(subColumnResize);
+    this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subRows);
   }
 

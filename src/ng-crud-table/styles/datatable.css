@@ -378,3 +378,11 @@
   color: grey;
   font-weight: bold;
 }
+
+.column-resizer-helper {
+  width: 2px;
+  position: absolute;
+  z-index: 10;
+  display: none;
+  background: green;
+}
