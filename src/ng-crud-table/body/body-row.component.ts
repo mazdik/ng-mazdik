@@ -1,16 +1,17 @@
 import {
-  Component, OnInit, Input, HostBinding, HostListener,
+  Component, OnInit, Input, HostBinding, HostListener, OnDestroy,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {MenuItem} from '../types';
 import {DataTable} from '../base/data-table';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable-body-row',
   templateUrl: './body-row.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyRowComponent implements OnInit, DoCheck {
+export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public row: any;
@@ -18,6 +19,7 @@ export class BodyRowComponent implements OnInit, DoCheck {
   @Input() public rowIndex: number;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
+  private subscriptions: Subscription[] = [];
 
   @HostBinding('class')
   get cssClass() {
@@ -32,13 +34,21 @@ export class BodyRowComponent implements OnInit, DoCheck {
     this.rowDiffer = this.differs.find({}).create();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subColumnResize);
   }
 
   ngDoCheck(): void {
     if (this.rowDiffer.diff(this.row)) {
       this.cd.markForCheck();
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('click', ['$event'])
@@ -59,10 +69,6 @@ export class BodyRowComponent implements OnInit, DoCheck {
     const styles: any = {};
     styles.left = `${this.offsetX}px`;
     return styles;
-  }
-
-  columnTrackingFn(index: number, column: any): any {
-    return column.name;
   }
 
 }

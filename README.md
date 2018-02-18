@@ -148,8 +148,8 @@ export class PlayersComponent {
 * Dynamic forms with validation
 * Editable
 * Localization
-* Column Resizing
-* Cascading Select (client/server side dynamic cascading dropdown forms)
+* Column resizing
+* Cascading select (client/server side dynamic drop-down lists)
 * Tree table
 * No external dependencies
 * Row Grouping (multiple columns)

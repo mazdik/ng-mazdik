@@ -79,18 +79,18 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const subPage = this.dataManager.dataService.pageSource$.subscribe(() => {
       this.onPageChanged();
     });
-    const editPage = this.dataManager.dataService.editSource$.subscribe((row) => {
+    const subEdit = this.dataManager.dataService.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
-    const rowMenu = this.dataManager.dataService.rowMenuSource$.subscribe((data) => {
+    const subRowMenu = this.dataManager.dataService.rowMenuSource$.subscribe((data) => {
       this.onRowMenu(data);
     });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
-    this.subscriptions.push(editPage);
-    this.subscriptions.push(rowMenu);
+    this.subscriptions.push(subEdit);
+    this.subscriptions.push(subRowMenu);
   }
 
   ngOnDestroy() {

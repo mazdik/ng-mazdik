@@ -231,4 +231,8 @@ export class DataTable {
     return this.formatValueView(this.rows[this.selectedRowIndex], column);
   }
 
+  columnTrackingFn(index: number, column: Column): any {
+    return column.name;
+  }
+
 }

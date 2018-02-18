@@ -66,10 +66,6 @@ export class TreeTableNodeComponent {
     return styles;
   }
 
-  columnTrackingFn(index: number, column: any): any {
-    return column.name;
-  }
-
   onCellEditComplete(event) {
     this.editComplete.emit(event);
   }

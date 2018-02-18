@@ -1,12 +1,15 @@
-import {Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
+} from '@angular/core';
 import {DataTable} from '../base/data-table';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable-body',
   templateUrl: './body.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyComponent implements OnInit {
+export class BodyComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public offsetX: number;
@@ -18,8 +21,9 @@ export class BodyComponent implements OnInit {
 
   offsetY: number = 0;
   rowTrackingFn: any;
+  private subscriptions: Subscription[] = [];
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
     // declare fn here so we can get access to the `this` property
     this.rowTrackingFn = function (index: number, row: any): any {
       if (this.table.settings.trackByProp) {
@@ -40,6 +44,14 @@ export class BodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subRows);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   onBodyScroll(event: any): void {

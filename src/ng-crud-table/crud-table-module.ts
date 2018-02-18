@@ -19,7 +19,7 @@ import {BodyCellComponent} from './body/body-cell.component';
 import {BodyCellEditComponent} from './body/body-cell-edit.component';
 import {ScrollerComponent} from './body/scroller.component';
 import {DatatableComponent} from './datatable/datatable.component';
-import {ResizeableDirective} from './directives/resizeable.directive';
+import {ResizeableColumnDirective} from './directives/resizeable-column.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
 import {ModalEditFormComponent} from './modal-edit-form/modal-edit-form.component';
@@ -56,7 +56,7 @@ import {SummaryRowComponent} from './body/summary-row.component';
     BodyRowComponent,
     BodyCellComponent,
     BodyCellEditComponent,
-    ResizeableDirective,
+    ResizeableColumnDirective,
     ScrollerComponent,
     DatatableComponent,
     TreeTableComponent,

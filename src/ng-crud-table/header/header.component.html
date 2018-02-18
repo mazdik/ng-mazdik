@@ -2,13 +2,11 @@
 
   <div class="datatable-row-left">
     <div class="datatable-header-cell"
-         *ngFor="let column of frozenColumns; let colIndex = index; trackBy: columnTrackingFn"
+         *ngFor="let column of frozenColumns; let colIndex = index; trackBy: table.columnTrackingFn"
          [ngStyle]="{'width.px': column.width}"
-         appResizeable
-         [resizeEnabled]="column.resizeable"
-         [minWidth]="column.minWidth"
-         [maxWidth]="column.maxWidth"
-         (resize)="column.setWidth($event)">
+         appResizeableColumn
+         [table]="table"
+         [column]="column">
 
       <ng-template [ngIf]="colIndex == 0 && table.settings.filter">
         <i class="icon-filter"
@@ -38,13 +36,11 @@
   <div class="datatable-row-center"
        [ngStyle]="stylesByGroup()">
     <div class="datatable-header-cell"
-         *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: columnTrackingFn"
+         *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: table.columnTrackingFn"
          [ngStyle]="{'width.px': column.width}"
-         appResizeable
-         [resizeEnabled]="column.resizeable"
-         [minWidth]="column.minWidth"
-         [maxWidth]="column.maxWidth"
-         (resize)="column.setWidth($event)">
+         appResizeableColumn
+         [table]="table"
+         [column]="column">
 
             <span class="column-title" (click)="onSort(column)">
             {{column.title}}

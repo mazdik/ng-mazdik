@@ -9,6 +9,8 @@ export class DataService {
   private editSource = new Subject<any>();
   private rowMenuSource = new Subject<any>();
   private columnMenuSource = new Subject<any>();
+  private resizeSource = new Subject();
+  private rowsSource = new Subject();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -17,6 +19,8 @@ export class DataService {
   editSource$ = this.editSource.asObservable();
   rowMenuSource$ = this.rowMenuSource.asObservable();
   columnMenuSource$ = this.columnMenuSource.asObservable();
+  resizeSource$ = this.resizeSource.asObservable();
+  rowsSource$ = this.rowsSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -44,6 +48,14 @@ export class DataService {
 
   onColumnMenuClick(data: any) {
     this.columnMenuSource.next(data);
+  }
+
+  onResize() {
+    this.resizeSource.next();
+  }
+
+  onRows() {
+    this.rowsSource.next();
   }
 
 }

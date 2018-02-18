@@ -66,8 +66,4 @@ export class HeaderComponent implements OnInit {
     return styles;
   }
 
-  columnTrackingFn(index: number, column: any): any {
-    return column.name;
-  }
-
 }

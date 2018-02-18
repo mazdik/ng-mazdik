@@ -1,21 +1,21 @@
 import {
-  Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, DoCheck,
-  KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+  Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable-summary-row',
   templateUrl: './summary-row.component.html',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SummaryRowComponent implements OnInit, DoCheck {
+export class SummaryRowComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public row: any;
   @Input() public offsetX: number;
 
-  private rowDiffer: KeyValueDiffer<{}, {}>;
+  private subscriptions: Subscription[] = [];
 
   @HostBinding('class')
   get cssClass() {
@@ -23,27 +23,28 @@ export class SummaryRowComponent implements OnInit, DoCheck {
     return cls;
   }
 
-  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
-    this.rowDiffer = this.differs.find({}).create();
+  constructor(private cd: ChangeDetectorRef) {
   }
 
-  ngOnInit() {
-  }
-
-  ngDoCheck(): void {
-    if (this.rowDiffer.diff(this.row)) {
+  ngOnInit(): void {
+    const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
       this.cd.markForCheck();
-    }
+    });
+    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subColumnResize);
+    this.subscriptions.push(subRows);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   stylesByGroup() {
     const styles: any = {};
     styles.left = `${this.offsetX}px`;
     return styles;
-  }
-
-  columnTrackingFn(index: number, column: any): any {
-    return column.name;
   }
 
 }

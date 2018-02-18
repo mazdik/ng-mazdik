@@ -22,7 +22,7 @@
     </div>
 
     <div class="datatable-row-center datatable-row-group">
-      <ng-container *ngFor="let column of columns; let colIndex = index; trackBy: columnTrackingFn">
+      <ng-container *ngFor="let column of columns; let colIndex = index; trackBy: table.columnTrackingFn">
         <app-datatable-body-cell
           *ngIf="!column.editable"
           tabindex="-1"
