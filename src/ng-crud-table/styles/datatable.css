@@ -386,3 +386,11 @@
   display: none;
   background: green;
 }
+
+.datatable-unselectable .datatable-header-cell:hover {
+  background-color: #5b9bd5;
+}
+
+.datatable-unselectable .datatable-header-cell:hover .column-menu {
+  visibility: hidden;
+}

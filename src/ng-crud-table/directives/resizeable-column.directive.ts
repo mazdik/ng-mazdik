@@ -60,6 +60,7 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
     if (isHandle) {
       event.stopPropagation();
       this.resizing = true;
+      this.table.dataService.onResizeBegin();
 
       const mouseup = fromEvent(document, 'mouseup');
       this.subscription = mouseup

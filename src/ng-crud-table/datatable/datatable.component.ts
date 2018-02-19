@@ -49,6 +49,9 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     const subColumnMenu = this.table.dataService.columnMenuSource$.subscribe((data) => {
       this.showColumnMenu(data);
     });
+    const subColumnBeginResize = this.table.dataService.resizeBeginSource$.subscribe(() => {
+      this.onColumnResizeBegin();
+    });
     const subColumnResize = this.table.dataService.resizeSource$.subscribe((event) => {
       this.onColumnResize(event);
     });
@@ -60,6 +63,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.push(subSort);
     this.subscriptions.push(subEdit);
     this.subscriptions.push(subColumnMenu);
+    this.subscriptions.push(subColumnBeginResize);
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
   }
@@ -117,6 +121,10 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.selectFilter.hide();
   }
 
+  onColumnResizeBegin() {
+    this.containerViewChild.nativeElement.classList.add('datatable-unselectable');
+  }
+
   onColumnResize(event) {
     if (!this.table.settings.setWidthColumnOnMove) {
       const rect = this.containerViewChild.nativeElement.getBoundingClientRect();
@@ -131,6 +139,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
 
   onColumnResizeEnd() {
     this.resizeHelper.nativeElement.style.display = 'none';
+    this.containerViewChild.nativeElement.classList.remove('datatable-unselectable');
   }
 
 }

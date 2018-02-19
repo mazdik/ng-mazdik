@@ -9,6 +9,7 @@ export class DataService {
   private editSource = new Subject<any>();
   private rowMenuSource = new Subject<any>();
   private columnMenuSource = new Subject<any>();
+  private resizeBeginSource = new Subject();
   private resizeSource = new Subject<any>();
   private resizeEndSource = new Subject();
   private rowsSource = new Subject();
@@ -20,6 +21,7 @@ export class DataService {
   editSource$ = this.editSource.asObservable();
   rowMenuSource$ = this.rowMenuSource.asObservable();
   columnMenuSource$ = this.columnMenuSource.asObservable();
+  resizeBeginSource$ = this.resizeBeginSource.asObservable();
   resizeSource$ = this.resizeSource.asObservable();
   resizeEndSource$ = this.resizeEndSource.asObservable();
   rowsSource$ = this.rowsSource.asObservable();
@@ -50,6 +52,10 @@ export class DataService {
 
   onColumnMenuClick(data: any) {
     this.columnMenuSource.next(data);
+  }
+
+  onResizeBegin() {
+    this.resizeBeginSource.next();
   }
 
   onResize(data: any) {
