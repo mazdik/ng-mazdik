@@ -1,15 +1,16 @@
 import {
-  Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
 
@@ -20,13 +21,8 @@ export class FilterComponent implements OnInit {
   isVisible: boolean;
   selectContainerClicked: boolean;
 
+  @HostBinding('class') cssClass = 'datatable-filter';
   @HostBinding('style.position') position = 'absolute';
-
-  @HostBinding('class')
-  get cssClass(): any {
-    const cls = 'datatable-filter';
-    return cls;
-  }
 
   @HostBinding('style.left.px')
   get getLeft(): number {
@@ -43,10 +39,24 @@ export class FilterComponent implements OnInit {
     return this.width;
   }
 
+  private subscriptions: Subscription[] = [];
+
   constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    const subColumnMenu = this.table.dataService.columnMenuSource$.subscribe((event) => {
+      this.show(event.top, event.left, event.column);
+    });
+    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+      this.hide();
+    });
+    this.subscriptions.push(subColumnMenu);
+    this.subscriptions.push(subScroll);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('click', ['$event'])

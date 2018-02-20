@@ -13,6 +13,7 @@ export class DataService {
   private resizeSource = new Subject<any>();
   private resizeEndSource = new Subject();
   private rowsSource = new Subject();
+  private scrollSource = new Subject<any>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -25,6 +26,7 @@ export class DataService {
   resizeSource$ = this.resizeSource.asObservable();
   resizeEndSource$ = this.resizeEndSource.asObservable();
   rowsSource$ = this.rowsSource.asObservable();
+  scrollSource$ = this.scrollSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -68,6 +70,10 @@ export class DataService {
 
   onRows() {
     this.rowsSource.next();
+  }
+
+  onScroll(data: any) {
+    this.scrollSource.next(data);
   }
 
 }

@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
+  Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
@@ -12,14 +12,10 @@ import {Subscription} from 'rxjs/Subscription';
 export class BodyComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public offsetX: number;
   @Input() public loading: boolean;
-
-  @Output() scroll: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-body';
 
-  offsetY: number = 0;
   rowTrackingFn: any;
   private subscriptions: Subscription[] = [];
 
@@ -47,25 +43,21 @@ export class BodyComponent implements OnInit, OnDestroy {
     const subRows = this.table.dataService.rowsSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subRows);
+    this.subscriptions.push(subScroll);
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onBodyScroll(event: any): void {
-    const scrollYPos: number = event.scrollYPos;
-    const scrollXPos: number = event.scrollXPos;
-
-    if (this.offsetY !== scrollYPos || this.offsetX !== scrollXPos) {
-      this.scroll.emit({
-        offsetY: scrollYPos,
-        offsetX: scrollXPos
-      });
-    }
-    this.offsetY = scrollYPos;
-    this.offsetX = scrollXPos;
+  stylesByGroup() {
+    const styles: any = {};
+    styles.left = `${this.table.offsetX}px`;
+    return styles;
   }
 
 }

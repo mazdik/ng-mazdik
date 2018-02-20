@@ -1,23 +1,21 @@
 <div class="datatable fixed-header fixed-row scroll-horz">
   <app-datatable-header
-    [table]="table"
-    [offsetX]="offsetX">
+    [table]="table">
   </app-datatable-header>
 
   <div class="datatable-body">
     <div class="datatable-selection">
-      <app-datatable-scroller
-        (scroll)="onBodyScroll($event)">
+      <app-datatable-body-scroll
+        [table]="table">
         <app-tree-table-node
           [table]="table"
           [nodes]="nodes"
           [service]="service"
           [columns]="table.columns"
-          [offsetX]="offsetX"
           (editComplete)="onCellEditComplete($event)"
           (requestNodes)="onRequestNodes($event)">
         </app-tree-table-node>
-      </app-datatable-scroller>
+      </app-datatable-body-scroll>
     </div>
   </div>
 

@@ -1,24 +1,24 @@
 import {
-  Component, Input, ElementRef, Output, EventEmitter,
-  OnInit, OnDestroy, HostBinding, ChangeDetectionStrategy
+  Component, Input, ElementRef, OnInit, OnDestroy, HostBinding, ChangeDetectionStrategy, NgZone
 } from '@angular/core';
+import {DataTable} from '../base/data-table';
 
 @Component({
-  selector: 'app-datatable-scroller',
+  selector: 'app-datatable-body-scroll',
   template: `
     <ng-content></ng-content>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ScrollerComponent implements OnInit, OnDestroy {
+export class BodyScrollComponent implements OnInit, OnDestroy {
+
+  @Input() public table: DataTable;
 
   @HostBinding('style.height.px')
   @Input() scrollHeight: number;
 
   @HostBinding('style.width.px')
   @Input() scrollWidth: number;
-
-  @Output() scroll: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class') cssClass = 'datatable-scroll';
 
@@ -28,7 +28,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   prevScrollXPos: number = 0;
   parentElement: HTMLElement;
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private ngZone: NgZone) {
   }
 
   ngOnInit(): void {
@@ -61,14 +61,15 @@ export class ScrollerComponent implements OnInit, OnDestroy {
       direction = 'up';
     }
 
-    this.scroll.emit({
-      direction,
-      scrollYPos: this.scrollYPos,
-      scrollXPos: this.scrollXPos
-    });
+    if (this.prevScrollYPos !== this.scrollYPos || this.prevScrollXPos !== this.scrollXPos) {
+      this.table.offsetY = this.scrollYPos;
+      this.table.offsetX = this.scrollXPos;
 
-    this.prevScrollYPos = this.scrollYPos;
-    this.prevScrollXPos = this.scrollXPos;
+      this.table.dataService.onScroll(direction);
+
+      this.prevScrollYPos = this.scrollYPos;
+      this.prevScrollXPos = this.scrollXPos;
+    }
   }
 
 }

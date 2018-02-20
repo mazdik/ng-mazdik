@@ -19,12 +19,9 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
 
-  @ViewChild('selectFilter') selectFilter: any;
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('container') containerViewChild: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;
-
-  public offsetX: number = 0;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
@@ -46,9 +43,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     const subEdit = this.table.dataService.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
-    const subColumnMenu = this.table.dataService.columnMenuSource$.subscribe((data) => {
-      this.showColumnMenu(data);
-    });
     const subColumnBeginResize = this.table.dataService.resizeBeginSource$.subscribe(() => {
       this.onColumnResizeBegin();
     });
@@ -62,7 +56,6 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subEdit);
-    this.subscriptions.push(subColumnMenu);
     this.subscriptions.push(subColumnBeginResize);
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
@@ -112,26 +105,16 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
     this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
   }
 
-  showColumnMenu(event) {
-    this.selectFilter.show(event.top, event.left, event.column);
-  }
-
-  onBodyScroll(event: MouseEvent): void {
-    this.offsetX = event.offsetX;
-    this.selectFilter.hide();
-  }
-
   onColumnResizeBegin() {
     this.containerViewChild.nativeElement.classList.add('datatable-unselectable');
+    const height = this.containerViewChild.nativeElement.offsetHeight - this.footerViewChild.nativeElement.offsetHeight;
+    this.resizeHelper.nativeElement.style.height = height + 'px';
   }
 
   onColumnResize(event) {
     if (!this.table.settings.setWidthColumnOnMove) {
       const rect = this.containerViewChild.nativeElement.getBoundingClientRect();
       const containerLeft = rect.left + document.body.scrollLeft;
-      const height = this.containerViewChild.nativeElement.offsetHeight - this.footerViewChild.nativeElement.offsetHeight;
-      this.resizeHelper.nativeElement.style.height = height + 'px';
-      this.resizeHelper.nativeElement.style.top = 0 + 'px';
       this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
       this.resizeHelper.nativeElement.style.display = 'block';
     }

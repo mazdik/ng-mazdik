@@ -15,7 +15,6 @@ export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public row: any;
-  @Input() public offsetX: number;
   @Input() public rowIndex: number;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
@@ -44,7 +43,11 @@ export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
     const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subColumnResizeEnd);
+    this.subscriptions.push(subScroll);
   }
 
   ngDoCheck(): void {
@@ -73,7 +76,7 @@ export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
 
   stylesByGroup() {
     const styles: any = {};
-    styles.left = `${this.offsetX}px`;
+    styles.left = `${this.table.offsetX}px`;
     return styles;
   }
 

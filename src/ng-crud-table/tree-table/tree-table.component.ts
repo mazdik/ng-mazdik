@@ -37,7 +37,6 @@ export class TreeTableComponent implements OnInit {
   }
 
   public table: DataTable;
-  public offsetX: number = 0;
   private _columns: ColumnBase[];
   private _settings: Settings;
 
@@ -53,12 +52,6 @@ export class TreeTableComponent implements OnInit {
     }
     this.table.actionColumnWidth = 250;
     this.table.settings.setWidthColumnOnMove = true;
-  }
-
-  onBodyScroll(event: any): void {
-    const scrollYPos: number = event.scrollYPos;
-    const scrollXPos: number = event.scrollXPos;
-    this.offsetX = scrollXPos;
   }
 
   onCellEditComplete(event) {

@@ -1,21 +1,22 @@
-import {Component, OnInit, Input, HostBinding} from '@angular/core';
+import {Component, OnInit, Input, HostBinding, OnDestroy} from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
 import {getHeight} from '../base/util';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable-header',
   templateUrl: 'header.component.html',
 })
 
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public offsetX: number;
 
   @HostBinding('class') cssClass = 'datatable-header';
 
   frozenColumns: Column[] = [];
+  private subscriptions: Subscription[] = [];
 
   constructor() {
   }
@@ -33,6 +34,14 @@ export class HeaderComponent implements OnInit {
       });
       this.frozenColumns.unshift(actionColumn);
     }
+    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+
+    });
+    this.subscriptions.push(subScroll);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   onSort(column: Column) {
@@ -62,7 +71,7 @@ export class HeaderComponent implements OnInit {
 
   stylesByGroup() {
     const styles: any = {};
-    styles.left = `${this.offsetX * -1}px`;
+    styles.left = `${this.table.offsetX * -1}px`;
     return styles;
   }
 

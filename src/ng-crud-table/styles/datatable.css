@@ -385,6 +385,7 @@
   z-index: 10;
   display: none;
   background: green;
+  top: 0;
 }
 
 .datatable-unselectable .datatable-header-cell:hover {

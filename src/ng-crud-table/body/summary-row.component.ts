@@ -13,7 +13,6 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public row: any;
-  @Input() public offsetX: number;
 
   private subscriptions: Subscription[] = [];
 
@@ -39,8 +38,12 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
     const subRows = this.table.dataService.rowsSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subRows);
+    this.subscriptions.push(subScroll);
   }
 
   ngOnDestroy() {
@@ -49,7 +52,7 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
 
   stylesByGroup() {
     const styles: any = {};
-    styles.left = `${this.offsetX}px`;
+    styles.left = `${this.table.offsetX}px`;
     return styles;
   }
 

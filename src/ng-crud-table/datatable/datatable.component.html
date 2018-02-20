@@ -2,18 +2,14 @@
      [ngStyle]="{'width.px': table.tableWidth}">
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <app-filter
-    #selectFilter
     [table]="table">
   </app-filter>
   <app-datatable-header
-    [table]="table"
-    [offsetX]="offsetX">
+    [table]="table">
   </app-datatable-header>
   <app-datatable-body
     [table]="table"
-    [offsetX]="offsetX"
-    [loading]="loading"
-    (scroll)="onBodyScroll($event)">
+    [loading]="loading">
   </app-datatable-body>
 
   <div #footer class="datatable-footer">

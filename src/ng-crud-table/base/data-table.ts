@@ -31,6 +31,8 @@ export class DataTable {
   public selectedRowIndex: number;
   public rowGroupMetadata: any;
   public grandTotalRow: any;
+  public offsetX: number = 0;
+  public offsetY: number = 0;
 
   set rows(val: any) {
     if (this.settings.clientSide) {

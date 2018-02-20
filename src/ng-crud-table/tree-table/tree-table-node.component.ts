@@ -14,7 +14,6 @@ export class TreeTableNodeComponent {
   @Input() public service: TreeDataSource;
   @Input() public columns: Column[];
   @Input() public level: number = 0;
-  @Input() public offsetX: number;
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
@@ -62,7 +61,7 @@ export class TreeTableNodeComponent {
 
   stylesByGroup() {
     const styles: any = {};
-    styles.left = `${this.offsetX}px`;
+    styles.left = `${this.table.offsetX}px`;
     return styles;
   }
 
