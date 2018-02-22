@@ -1,7 +1,7 @@
 import {Component, OnInit, Input, HostBinding, OnDestroy} from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
-import {getHeight} from '../base/util';
+import {getHeight, translate} from '../base/util';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -70,9 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   stylesByGroup() {
-    const styles: any = {};
-    styles.left = `${this.table.offsetX * -1}px`;
-    return styles;
+    return translate(this.table.offsetX * -1, 0);
   }
 
 }

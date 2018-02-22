@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {TreeNode, TreeDataSource} from '../types';
 import {Column} from '../base/column';
 import {DataTable} from '../base/data-table';
+import {translate} from '../base/util';
 
 @Component({
   selector: 'app-tree-table-node',
@@ -60,9 +61,7 @@ export class TreeTableNodeComponent {
   }
 
   stylesByGroup() {
-    const styles: any = {};
-    styles.left = `${this.table.offsetX}px`;
-    return styles;
+    return translate(this.table.offsetX, 0);
   }
 
   onCellEditComplete(event) {
