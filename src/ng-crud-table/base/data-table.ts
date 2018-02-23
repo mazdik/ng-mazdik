@@ -221,16 +221,8 @@ export class DataTable {
     }
   }
 
-  formatValueView(row: any, column: Column) {
-    let value = row[column.name];
-    if (value) {
-      value = column.getOptionName(value);
-    }
-    return value;
-  }
-
   valueView(column: Column) {
-    return this.formatValueView(this.rows[this.selectedRowIndex], column);
+    return column.getValueView(this.rows[this.selectedRowIndex]);
   }
 
   columnTrackingFn(index: number, column: Column): any {

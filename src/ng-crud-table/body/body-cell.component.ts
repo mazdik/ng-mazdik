@@ -1,6 +1,5 @@
 import {
-  Component, Input, HostBinding,
-  ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
+  Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, ViewContainerRef, ViewChild, OnDestroy
 } from '@angular/core';
 import {Column} from '../base/column';
 
@@ -18,7 +17,7 @@ import {Column} from '../base/column';
     </ng-template>
   `
 })
-export class BodyCellComponent implements DoCheck {
+export class BodyCellComponent implements OnDestroy {
 
   @Input() colIndex: number;
 
@@ -26,8 +25,7 @@ export class BodyCellComponent implements DoCheck {
   set column(column: Column) {
     this._column = column;
     this.cellContext.column = column;
-    this.checkValueUpdates();
-    this.cd.markForCheck();
+    this.updateValue();
   }
 
   get column(): Column {
@@ -38,14 +36,12 @@ export class BodyCellComponent implements DoCheck {
   set row(row: any) {
     this._row = row;
     this.cellContext.row = row;
-    this.checkValueUpdates();
-    this.cd.markForCheck();
+    this.updateValue();
   }
 
   get row(): any {
     return this._row;
   }
-
 
   @HostBinding('class')
   get columnCssClasses(): any {
@@ -72,6 +68,9 @@ export class BodyCellComponent implements DoCheck {
         }
       }
     }
+    if (this.editing) {
+      cls += ' cell-editing';
+    }
     return cls;
   }
 
@@ -80,42 +79,34 @@ export class BodyCellComponent implements DoCheck {
     return this.column.width;
   }
 
-  value: any;
-  cellContext: any = {
+  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
+
+  public value: any;
+  public oldValue: any;
+  public cellContext: any = {
     row: this.row,
     value: this.value,
     column: this.column,
   };
+  public editing: boolean;
   private _column: Column;
   private _row: any;
 
   constructor(private cd: ChangeDetectorRef) {
   }
 
-  ngDoCheck(): void {
-    this.checkValueUpdates();
+  ngOnDestroy(): void {
+    if (this.cellTemplate) {
+      this.cellTemplate.clear();
+    }
   }
 
-  checkValueUpdates(): void {
-    let value = '';
-
-    if (!this.row || !this.column) {
-      value = '';
-    } else {
-      const val = this.row[this.column.name];
-      if (value !== undefined) {
-        value = val;
-      }
+  updateValue(): void {
+    if (this.column) {
+      this.cellContext.value = this.column.getValue(this.row);
+      this.value = this.column.getValueView(this.row);
     }
-
-    if (this.value !== value) {
-      this.value = value;
-      this.cellContext.value = value;
-      if (value !== null && value !== undefined) {
-        this.value = this.column.getOptionName(value);
-      }
-      this.cd.markForCheck();
-    }
+    this.cd.markForCheck();
   }
 
 }

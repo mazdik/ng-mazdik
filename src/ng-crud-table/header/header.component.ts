@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, HostBinding, OnDestroy} from '@angular/core';
+import {Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
 import {getHeight, translate} from '../base/util';
@@ -7,6 +7,7 @@ import {Subscription} from 'rxjs/Subscription';
 @Component({
   selector: 'app-datatable-header',
   templateUrl: 'header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class HeaderComponent implements OnInit, OnDestroy {
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   frozenColumns: Column[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -34,10 +35,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
       this.frozenColumns.unshift(actionColumn);
     }
-    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
 
+    if (this.table.settings.setWidthColumnOnMove) {
+      const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+        this.cd.markForCheck();
+      });
+      this.subscriptions.push(subColumnResize);
+    }
+    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
+      this.cd.markForCheck();
     });
+    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    const subFilter = this.table.dataService.filterSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
+    this.subscriptions.push(subFilter);
   }
 
   ngOnDestroy() {

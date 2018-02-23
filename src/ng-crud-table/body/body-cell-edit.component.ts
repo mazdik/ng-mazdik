@@ -1,91 +1,24 @@
 import {
-  Component, Input, HostBinding, HostListener, ElementRef, ViewChild,
-  ChangeDetectionStrategy, DoCheck, ChangeDetectorRef,
+  Component, Input, HostListener, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
 import {Column} from '../base/column';
 import {DataTable} from '../base/data-table';
+import {BodyCellComponent} from './body-cell.component';
 
 @Component({
   selector: 'app-datatable-body-cell-edit',
   templateUrl: './body-cell-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyCellEditComponent implements DoCheck {
+export class BodyCellEditComponent extends BodyCellComponent {
 
   @Input() public table: DataTable;
-  @Input() public row: any;
-  @Input() public column: Column;
-  @Input() public colIndex: number;
 
   @ViewChild('selectElement') selectElement: ElementRef;
   @ViewChild('inputElement') inputElement: ElementRef;
 
-  @HostBinding('class')
-  get columnCssClasses(): any {
-    let cls = 'datatable-body-cell';
-    if (this.column.cellClass) {
-      if (typeof this.column.cellClass === 'string') {
-        cls += ' ' + this.column.cellClass;
-      } else if (typeof this.column.cellClass === 'function') {
-        const res = this.column.cellClass({
-          row: this.row,
-          column: this.column,
-          value: this.value,
-        });
-
-        if (typeof res === 'string') {
-          cls += ' ' + res;
-        } else if (typeof res === 'object') {
-          const keys = Object.keys(res);
-          for (const k of keys) {
-            if (res[k] === true) {
-              cls += ` ${k}`;
-            }
-          }
-        }
-      }
-    }
-    if (this.editing) {
-      cls += ' cell-editing';
-    }
-    return cls;
-  }
-
-  @HostBinding('style.width.px')
-  get width(): number {
-    return this.column.width;
-  }
-
-  public value: any;
-  public editing: boolean;
-  public oldValue: any;
-
-  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
-  }
-
-  ngDoCheck(): void {
-    this.checkValueUpdates();
-  }
-
-  checkValueUpdates(): void {
-    let value = '';
-
-    if (!this.row || !this.column) {
-      value = '';
-    } else {
-      const val = this.row[this.column.name];
-      if (value !== undefined) {
-        value = val;
-      }
-    }
-
-    if (this.value !== value) {
-      this.value = value;
-      if (value !== null && value !== undefined) {
-        this.value = this.column.getOptionName(value);
-      }
-      this.cd.markForCheck();
-    }
+  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
+    super(cd);
   }
 
   @HostListener('click', ['$event'])

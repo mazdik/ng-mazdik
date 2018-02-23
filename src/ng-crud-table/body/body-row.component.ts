@@ -1,8 +1,7 @@
 import {
   Component, OnInit, Input, HostBinding, HostListener, OnDestroy,
-  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+  ChangeDetectionStrategy, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {MenuItem} from '../types';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -11,7 +10,7 @@ import {Subscription} from 'rxjs/Subscription';
   templateUrl: './body-row.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
+export class BodyRowComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public row: any;
@@ -43,17 +42,17 @@ export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
     const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+      if (this.rowDiffer.diff(this.row)) {
+        this.cd.markForCheck();
+      }
+    });
     const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
+    this.subscriptions.push(subRows);
     this.subscriptions.push(subScroll);
-  }
-
-  ngDoCheck(): void {
-    if (this.rowDiffer.diff(this.row)) {
-      this.cd.markForCheck();
-    }
   }
 
   ngOnDestroy() {
@@ -67,11 +66,6 @@ export class BodyRowComponent implements OnInit, DoCheck, OnDestroy {
 
   rowClick(rowIndex: number) {
     this.table.selectRow(rowIndex);
-  }
-
-  actionClick(event, menuItem: MenuItem, rowIndex: number) {
-    this.table.selectRow(rowIndex);
-    this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
   }
 
   stylesByGroup() {

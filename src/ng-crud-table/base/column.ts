@@ -108,4 +108,19 @@ export class Column extends ColumnBase {
     this.width = width;
   }
 
+  getValue(row: any) {
+    if (!row) {
+      return '';
+    }
+    return row[this.name];
+  }
+
+  getValueView(row: any) {
+    let value = this.getValue(row);
+    if (value) {
+      value = this.getOptionName(value);
+    }
+    return value;
+  }
+
 }

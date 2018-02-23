@@ -1,21 +1,10 @@
 <div class="datatable-row-left datatable-row-group"
      [ngStyle]="stylesByGroup()">
 
-  <div class="datatable-body-cell"
-       style="text-align: center;"
-       [ngStyle]="{'width.px': table.actionColumnWidth}">
-
-    <ng-template ngFor let-action [ngForOf]="table.actionMenu">
-        <span class="row-menu"
-              [ngClass]="action.icon"
-              *ngIf="!action.disabled"
-              title="{{action.label}}"
-              (click)="actionClick($event, action, rowIndex)">
-        </span>
-    </ng-template>
-
-    <span *ngIf="!table.actionMenu">{{rowIndex+1}}</span>
-  </div>
+  <app-datatable-body-cell-action
+    [table]="table"
+    [rowIndex]="rowIndex">
+  </app-datatable-body-cell-action>
 
   <ng-container *ngFor="let column of table.frozenColumns; let colIndex = index; trackBy: table.columnTrackingFn">
     <app-datatable-body-cell
