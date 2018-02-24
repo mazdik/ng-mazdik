@@ -72,7 +72,7 @@ export class MasterDetailDemoComponent implements OnInit {
     this.http.get('assets/players.json').subscribe(data => {
       this.dtPlayers.rows = data;
       const masterId = this.dtPlayers.rows[0]['id'];
-      this.dtPlayers.selectedRowIndex = 0;
+      this.dtPlayers.selectRow(0);
 
       this.http.get('assets/rank.json').subscribe(rank => {
         this._rank = rank;
@@ -92,10 +92,10 @@ export class MasterDetailDemoComponent implements OnInit {
 
   masterChanged() {
     if (this.dtPlayers.rows.length > 0 &&
-      this.dtPlayers.selectedRowIndex !== undefined &&
-      this.dtPlayers.rows[this.dtPlayers.selectedRowIndex]) {
+      this.dtPlayers.getSelectedRowIndex() !== undefined &&
+      this.dtPlayers.rows[this.dtPlayers.getSelectedRowIndex()]) {
 
-      const masterId = this.dtPlayers.rows[this.dtPlayers.selectedRowIndex]['id'];
+      const masterId = this.dtPlayers.rows[this.dtPlayers.getSelectedRowIndex()]['id'];
       this.dtRank.rows = this._rank.filter((value: any) => {
         return value['player_id'] === masterId;
       });

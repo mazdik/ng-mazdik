@@ -22,7 +22,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   @HostBinding('class')
   get cssClass() {
     let cls = 'datatable-body-row';
-    if (this.rowIndex === this.table.selectedRowIndex) {
+    if (this.table.dataSelection.isRowSelected(this.rowIndex)) {
       cls += ' row-selected';
     }
     return cls;

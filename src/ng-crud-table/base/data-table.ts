@@ -7,6 +7,7 @@ import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
 import {DataService} from './data-service';
 import {DataAggregation} from './data-aggregation';
+import {DataSelection} from './data-selection';
 
 export class DataTable {
 
@@ -27,8 +28,8 @@ export class DataTable {
   public dataFilter: DataFilter;
   public dataService: DataService;
   public dataAggregation: DataAggregation;
+  public dataSelection: DataSelection;
   public localRows: any[];
-  public selectedRowIndex: number;
   public rowGroupMetadata: any;
   public grandTotalRow: any;
   public offsetX: number = 0;
@@ -57,6 +58,7 @@ export class DataTable {
     this.dataFilter = new DataFilter();
     this.dataService = new DataService();
     this.dataAggregation = new DataAggregation();
+    this.dataSelection = new DataSelection();
     this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
@@ -150,9 +152,9 @@ export class DataTable {
 
   selectRow(rowIndex: number) {
     if (this.rows && this.rows.length) {
-      this.selectedRowIndex = rowIndex;
+      this.dataSelection.selectRow(rowIndex);
     } else {
-      this.selectedRowIndex = null;
+      this.dataSelection.clearRowSelection();
     }
     this.dataService.onSelectionChange();
   }
@@ -221,12 +223,12 @@ export class DataTable {
     }
   }
 
-  valueView(column: Column) {
-    return column.getValueView(this.rows[this.selectedRowIndex]);
-  }
-
   columnTrackingFn(index: number, column: Column): any {
     return column.name;
+  }
+
+  getSelectedRowIndex() {
+    return this.dataSelection.selectedRowIndex;
   }
 
 }

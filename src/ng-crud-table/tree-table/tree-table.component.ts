@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
-import {TreeNode, TreeDataSource, Settings} from '../types';
+import {TreeNode, TreeDataSource} from '../types';
+import {Settings} from '../base/settings';
 import {DataTable} from '../base/data-table';
 import {ColumnBase} from '../base/column-base';
 

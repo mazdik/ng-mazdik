@@ -239,8 +239,8 @@ export class DataFilter {
 
   clear() {
     this.filters = <Filter>{};
+    this.globalFilterValue = null;
   }
-
 
   isFilter(columnName: string): boolean {
     return !isBlank(this.filters[columnName]);

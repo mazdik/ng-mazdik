@@ -12,7 +12,7 @@
           <tbody>
           <tr *ngFor="let column of dataManager.columns">
             <th>{{column.title}}</th>
-            <td>{{dataManager.valueView(column)}}</td>
+            <td>{{column.getValueView(dataManager.item)}}</td>
           </tr>
           </tbody>
         </table>

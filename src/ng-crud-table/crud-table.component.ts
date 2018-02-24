@@ -115,9 +115,9 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onRowMenu(data: any) {
     if (data.menuItem.command === 'view') {
-      this.viewAction();
+      this.viewAction(data.rowIndex);
     } else if (data.menuItem.command === 'update') {
-      this.updateAction();
+      this.updateAction(data.rowIndex);
     }
   }
 
@@ -127,15 +127,15 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.modalEditForm.open();
   }
 
-  viewAction() {
+  viewAction(rowIndex: number) {
     this.dataManager.errors = null;
-    this.dataManager.setItem();
+    this.dataManager.setItem(rowIndex);
     this.dataManager.detailView = true;
     this.modalEditForm.open();
   }
 
-  updateAction() {
-    this.dataManager.setItem();
+  updateAction(rowIndex: number) {
+    this.dataManager.setItem(rowIndex);
     this.dataManager.detailView = false;
     this.modalEditForm.open();
   }
@@ -145,7 +145,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onFilter() {
-    this.dataManager.dataFilter.globalFilterValue = null;
     this.dataManager.getItems().then();
   }
 
@@ -173,17 +172,19 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.dataManager.refreshSelectedRow();
   }
 
-  onClickGlobalSearch() {
+  globalFilter() {
+    this.dataManager.dataFilter.filters = {};
     this.dataManager.dataFilter.isGlobal = true;
-    this.dataManager.dataFilter.clear();
-    this.dataManager.getItems().then();
+    this.dataManager.dataService.onFilter();
+  }
+
+  onClickGlobalSearch() {
+    this.globalFilter();
   }
 
   onKeyPressGlobalSearch(event: KeyboardEvent) {
     if (event.which === 13) {
-      this.dataManager.dataFilter.isGlobal = true;
-      this.dataManager.dataFilter.clear();
-      this.dataManager.getItems().then();
+      this.globalFilter();
     }
   }
 

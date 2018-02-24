@@ -34,6 +34,9 @@ export class DataManager extends DataTable {
     this.errors = null;
     this.setSortMetaGroup();
     const globalFilterValue = this.dataFilter.isGlobal ? this.dataFilter.globalFilterValue : null;
+    if (!this.dataFilter.isGlobal) {
+      this.dataFilter.globalFilterValue = null;
+    }
     return this.service
       .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, globalFilterValue)
       .then(data => {
@@ -41,6 +44,7 @@ export class DataManager extends DataTable {
         this.rows = data.items;
         this.pager.total = data._meta.totalCount;
         this.pager.perPage = data._meta.perPage;
+        this.dataFilter.isGlobal = false;
       })
       .catch(error => {
         this.loading = false;
@@ -110,8 +114,8 @@ export class DataManager extends DataTable {
       this.refreshSelectedRow();
     } else {
       for (const key of Object.keys(result)) {
-        if (key in this.rows[this.selectedRowIndex]) {
-          this.rows[this.selectedRowIndex][key] = result[key];
+        if (key in this.rows[this.getSelectedRowIndex()]) {
+          this.rows[this.getSelectedRowIndex()][key] = result[key];
         }
       }
     }
@@ -119,7 +123,7 @@ export class DataManager extends DataTable {
 
   afterDelete(result: boolean) {
     if (result) {
-      this.rows.splice(this.selectedRowIndex, 1);
+      this.rows.splice(this.getSelectedRowIndex(), 1);
     }
   }
 
@@ -132,7 +136,7 @@ export class DataManager extends DataTable {
         if (isNew) {
           this.rows.push(data);
         } else {
-          this.rows[this.selectedRowIndex] = data;
+          this.rows[this.getSelectedRowIndex()] = data;
         }
       })
       .catch(error => {
@@ -142,7 +146,7 @@ export class DataManager extends DataTable {
   }
 
   refreshSelectedRow() {
-    this.refreshRow(this.rows[this.selectedRowIndex], false);
+    this.refreshRow(this.rows[this.getSelectedRowIndex()], false);
   }
 
   saveRow() {
@@ -162,14 +166,14 @@ export class DataManager extends DataTable {
     this.isNewItem = true;
   }
 
-  setItem() {
-    const item = this.rows[this.selectedRowIndex];
+  setItem(rowIndex: number) {
+    const item = this.rows[rowIndex];
     this.item = Object.assign({}, item);
     this.isNewItem = false;
   }
 
   getSelectedRow() {
-    return this.rows[this.selectedRowIndex];
+    return this.rows[this.getSelectedRowIndex()];
   }
 
   clear() {

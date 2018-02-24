@@ -16,3 +16,5 @@ export type AggregateType =
   'max' |
   'min' |
   'count';
+
+export type SelectionType = 'single' | 'multiple';

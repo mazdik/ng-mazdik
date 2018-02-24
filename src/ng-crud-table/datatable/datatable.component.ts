@@ -102,7 +102,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onSelectedRow() {
-    this.selectedRowIndexChanged.emit(this.table.selectedRowIndex);
+    this.selectedRowIndexChanged.emit(this.table.getSelectedRowIndex());
   }
 
   onColumnResizeBegin() {
