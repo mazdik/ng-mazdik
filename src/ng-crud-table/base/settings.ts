@@ -1,4 +1,5 @@
 import {Message} from './message';
+import {SelectionType} from '../types';
 
 export class Settings {
   public api: string;
@@ -17,6 +18,7 @@ export class Settings {
   public filterDelay?: number = 500;
   public globalFilter?: boolean;
   public setWidthColumnOnMove?: boolean;
+  public selectionType?: SelectionType;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

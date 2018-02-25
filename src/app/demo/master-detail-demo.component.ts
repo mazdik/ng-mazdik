@@ -8,7 +8,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
   template: `
     <app-datatable
       [table]="dtPlayers"
-      (selectedRowIndexChanged)="masterChanged()">
+      (selectionChange)="masterChanged()">
     </app-datatable>
     <div style="display:inline-block; vertical-align: top;">
       <app-datatable [table]="dtInventory"></app-datatable>

@@ -172,8 +172,8 @@ export class DataManager extends DataTable {
     this.isNewItem = false;
   }
 
-  getSelectedRow() {
-    return this.rows[this.getSelectedRowIndex()];
+  getSelectedRows() {
+    return this.dataSelection.getSelectedRows(this.rows);
   }
 
   clear() {

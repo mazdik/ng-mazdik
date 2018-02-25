@@ -395,3 +395,7 @@
 .datatable-unselectable .datatable-header-cell:hover .column-menu {
   visibility: hidden;
 }
+
+.action-column {
+ text-align: center;
+}

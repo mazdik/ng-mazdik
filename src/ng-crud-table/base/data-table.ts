@@ -118,6 +118,7 @@ export class DataTable {
     }
     this.scrollHeight = this.settings.scrollHeight;
     this.sorter.multiple = this.settings.multipleSort;
+    this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();
     this.initColumns();
   }

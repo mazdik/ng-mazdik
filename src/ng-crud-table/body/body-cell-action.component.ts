@@ -16,7 +16,13 @@ import {MenuItem} from '../types';
               (click)="actionClick($event, action, rowIndex)">
         </span>
     </ng-template>
-    <span *ngIf="!table.actionMenu">{{rowIndex+1}}</span>
+    <span *ngIf="!table.actionMenu">{{rowIndex + 1}}</span>
+    <label *ngIf="false">
+      <input type="checkbox"
+             [checked]="isSelected()"
+             (click)="onCheckboxChange($event)"/>
+      <span></span>
+    </label>
   `
 })
 export class BodyCellActionComponent {
@@ -24,7 +30,7 @@ export class BodyCellActionComponent {
   @Input() public table: DataTable;
   @Input() public rowIndex: number;
 
-  @HostBinding('class') cssClass = 'datatable-body-cell';
+  @HostBinding('class') cssClass = 'datatable-body-cell action-column';
 
   @HostBinding('style.width.px')
   get width(): number {
@@ -37,6 +43,13 @@ export class BodyCellActionComponent {
   actionClick(event, menuItem: MenuItem, rowIndex: number) {
     this.table.selectRow(rowIndex);
     this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
+  }
+
+  isSelected() {
+    return this.table.dataSelection.isRowSelected(this.rowIndex);
+  }
+
+  onCheckboxChange(event) {
   }
 
 }

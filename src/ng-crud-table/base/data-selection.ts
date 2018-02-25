@@ -12,12 +12,12 @@ export class DataSelection {
   selectRow(rowIndex: number) {
     this.selectedRowIndex = rowIndex;
     if (this.type === 'multiple') {
-      const isUnSelected = this.selectedRowIndexes.indexOf(rowIndex) > -1;
-      if (isUnSelected) {
+      const index = this.selectedRowIndexes.indexOf(rowIndex);
+      if (index === -1) {
         this.selectedRowIndexes.push(rowIndex);
+      } else {
+        this.selectedRowIndexes.splice(index, 1);
       }
-    } else {
-      this.selectedRowIndexes = [rowIndex];
     }
   }
 
@@ -27,7 +27,33 @@ export class DataSelection {
   }
 
   isRowSelected(rowIndex: number): boolean {
-    return rowIndex === this.selectedRowIndex;
+    if (this.type === 'multiple') {
+      return this.selectedRowIndexes.indexOf(rowIndex) !== -1;
+    } else {
+      return rowIndex === this.selectedRowIndex;
+    }
+  }
+
+  getSelection() {
+    if (this.type === 'multiple') {
+      return this.selectedRowIndexes;
+    } else {
+      return this.selectedRowIndex;
+    }
+  }
+
+  getSelectedRows(rows: any[]) {
+    if (this.type === 'multiple') {
+      const selectedRows = [];
+      if (this.selectedRowIndexes.length) {
+        for (const idx of this.selectedRowIndexes) {
+          selectedRows.push(rows[idx]);
+        }
+      }
+      return selectedRows;
+    } else {
+      return rows[this.selectedRowIndex];
+    }
   }
 
 }

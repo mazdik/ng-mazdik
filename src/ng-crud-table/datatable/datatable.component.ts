@@ -17,7 +17,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   @Input() public table: DataTable;
   @Input() public loading: boolean;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
-  @Output() selectedRowIndexChanged: EventEmitter<number> = new EventEmitter();
+  @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('container') containerViewChild: ElementRef;
@@ -102,7 +102,7 @@ export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onSelectedRow() {
-    this.selectedRowIndexChanged.emit(this.table.getSelectedRowIndex());
+    this.selectionChange.emit(this.table.dataSelection.getSelection());
   }
 
   onColumnResizeBegin() {
