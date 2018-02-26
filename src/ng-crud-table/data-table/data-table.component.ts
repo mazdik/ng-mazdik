@@ -7,12 +7,12 @@ import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable',
-  templateUrl: './datatable.component.html',
+  templateUrl: './data-table.component.html',
   styleUrls: ['../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatatableComponent implements OnInit, DoCheck, OnDestroy {
+export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public loading: boolean;
