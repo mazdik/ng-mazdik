@@ -39,6 +39,9 @@
       <li><span (click)="state='summary-row-demo'"
                 [ngClass]="{'active': state === 'summary-row-demo'}">Summary row</span>
       </li>
+      <li><span (click)="state='multiple-selection-demo'"
+                [ngClass]="{'active': state === 'multiple-selection-demo'}">Multiple selection</span>
+      </li>
     </ul>
   </div>
   <div class="dt-col-right">
@@ -56,5 +59,6 @@
     <app-global-filter-demo *ngIf="state === 'global-filter-demo'"></app-global-filter-demo>
     <app-row-group-summary-demo *ngIf="state === 'row-group-summary-demo'"></app-row-group-summary-demo>
     <app-summary-row-demo *ngIf="state === 'summary-row-demo'"></app-summary-row-demo>
+    <app-multiple-selection-demo *ngIf="state === 'multiple-selection-demo'"></app-multiple-selection-demo>
   </div>
 </div>

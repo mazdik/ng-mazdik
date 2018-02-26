@@ -18,6 +18,7 @@ import { RowGroupMultipleDemoComponent } from './demo/row-group-multiple-demo.co
 import { GlobalFilterDemoComponent } from './demo/global-filter-demo.component';
 import { RowGroupSummaryDemoComponent } from './demo/row-group-summary-demo.component';
 import { SummaryRowDemoComponent } from './demo/summary-row-demo.component';
+import { MultipleSelectionDemoComponent } from './demo/multiple-selection-demo.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { SummaryRowDemoComponent } from './demo/summary-row-demo.component';
     RowGroupMultipleDemoComponent,
     GlobalFilterDemoComponent,
     RowGroupSummaryDemoComponent,
-    SummaryRowDemoComponent
+    SummaryRowDemoComponent,
+    MultipleSelectionDemoComponent
   ],
   imports: [
     BrowserModule,

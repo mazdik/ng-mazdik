@@ -12,14 +12,14 @@ import {StringFilterComponent} from './filter/string-filter.component';
 import {ListFilterComponent} from './filter/list-filter.component';
 import {RangeFilterComponent} from './filter/range-filter.component';
 import {FormComponent} from './form/form.component';
-import {CrudTableComponent} from './crud-table.component';
+import {CrudTableComponent} from './crud-table/crud-table.component';
 import {BodyComponent} from './body/body.component';
 import {BodyRowComponent} from './body/body-row.component';
 import {BodyCellComponent} from './body/body-cell.component';
 import {BodyCellEditComponent} from './body/body-cell-edit.component';
 import {BodyCellActionComponent} from './body/body-cell-action.component';
 import {BodyScrollComponent} from './body/body-scroll.component';
-import {DatatableComponent} from './datatable/datatable.component';
+import {DataTableComponent} from './data-table/data-table.component';
 import {ResizeableColumnDirective} from './directives/resizeable-column.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
 import {TreeTableNodeComponent} from './tree-table/tree-table-node.component';
@@ -60,7 +60,7 @@ import {SummaryRowComponent} from './body/summary-row.component';
     BodyCellActionComponent,
     BodyScrollComponent,
     ResizeableColumnDirective,
-    DatatableComponent,
+    DataTableComponent,
     TreeTableComponent,
     TreeTableNodeComponent,
     ModalEditFormComponent,
@@ -77,7 +77,7 @@ import {SummaryRowComponent} from './body/summary-row.component';
     SummaryRowComponent,
   ],
   exports: [
-    DatatableComponent,
+    DataTableComponent,
     CrudTableComponent,
     TreeTableComponent,
     ModalComponent,
