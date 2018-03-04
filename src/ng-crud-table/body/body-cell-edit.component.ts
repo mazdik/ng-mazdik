@@ -1,8 +1,7 @@
 import {
-  Component, Input, HostListener, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, HostListener, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
 import {Column} from '../base/column';
-import {DataTable} from '../base/data-table';
 import {BodyCellComponent} from './body-cell.component';
 
 @Component({
@@ -11,8 +10,6 @@ import {BodyCellComponent} from './body-cell.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCellEditComponent extends BodyCellComponent {
-
-  @Input() public table: DataTable;
 
   @ViewChild('selectElement') selectElement: ElementRef;
   @ViewChild('inputElement') inputElement: ElementRef;

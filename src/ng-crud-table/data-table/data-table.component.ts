@@ -64,7 +64,6 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   ngDoCheck(): void {
     if (this.rowDiffer.diff(this.table.rows)) {
       this.cd.markForCheck();
-      this.table.dataService.onRows();
     }
   }
 

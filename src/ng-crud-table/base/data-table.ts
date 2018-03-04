@@ -43,6 +43,7 @@ export class DataTable {
       this._rows = val;
       this.updateRowGroupMetadata();
     }
+    this.dataService.onRows();
   }
 
   get rows(): any {

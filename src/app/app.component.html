@@ -42,6 +42,9 @@
       <li><span (click)="state='multiple-selection-demo'"
                 [ngClass]="{'active': state === 'multiple-selection-demo'}">Multiple selection</span>
       </li>
+      <li><span (click)="state='live-demo'"
+                [ngClass]="{'active': state === 'live-demo'}">Live updates</span>
+      </li>
     </ul>
   </div>
   <div class="dt-col-right">
@@ -60,5 +63,6 @@
     <app-row-group-summary-demo *ngIf="state === 'row-group-summary-demo'"></app-row-group-summary-demo>
     <app-summary-row-demo *ngIf="state === 'summary-row-demo'"></app-summary-row-demo>
     <app-multiple-selection-demo *ngIf="state === 'multiple-selection-demo'"></app-multiple-selection-demo>
+    <app-live-demo *ngIf="state === 'live-demo'"></app-live-demo>
   </div>
 </div>

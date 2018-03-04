@@ -19,6 +19,7 @@ import { GlobalFilterDemoComponent } from './demo/global-filter-demo.component';
 import { RowGroupSummaryDemoComponent } from './demo/row-group-summary-demo.component';
 import { SummaryRowDemoComponent } from './demo/summary-row-demo.component';
 import { MultipleSelectionDemoComponent } from './demo/multiple-selection-demo.component';
+import { LiveDemoComponent} from './demo/live-demo.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { MultipleSelectionDemoComponent } from './demo/multiple-selection-demo.c
     GlobalFilterDemoComponent,
     RowGroupSummaryDemoComponent,
     SummaryRowDemoComponent,
-    MultipleSelectionDemoComponent
+    MultipleSelectionDemoComponent,
+    LiveDemoComponent
   ],
   imports: [
     BrowserModule,

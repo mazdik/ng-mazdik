@@ -1,7 +1,10 @@
 import {
-  Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, ViewContainerRef, ViewChild, OnDestroy
+  Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy,
+  ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {Column} from '../base/column';
+import {DataTable} from '../base/data-table';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable-body-cell',
@@ -17,9 +20,10 @@ import {Column} from '../base/column';
     </ng-template>
   `
 })
-export class BodyCellComponent implements OnDestroy {
+export class BodyCellComponent implements OnInit, OnDestroy {
 
-  @Input() colIndex: number;
+  @Input() public table: DataTable;
+  @Input() public colIndex: number;
 
   @Input()
   set column(column: Column) {
@@ -91,14 +95,23 @@ export class BodyCellComponent implements OnDestroy {
   public editing: boolean;
   private _column: Column;
   private _row: any;
+  private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
+  }
+
+  ngOnInit(): void {
+    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+      this.updateValue();
+    });
+    this.subscriptions.push(subRows);
   }
 
   ngOnDestroy(): void {
     if (this.cellTemplate) {
       this.cellTemplate.clear();
     }
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   updateValue(): void {
