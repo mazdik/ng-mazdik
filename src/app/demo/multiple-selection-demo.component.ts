@@ -24,6 +24,7 @@ export class MultipleSelectionDemoComponent implements OnInit {
     crud: true,
     primaryKeys: ['id'],
     selectionType: 'multiple',
+    checkBoxSelection: true,
   };
 
   constructor(private http: HttpClient) {

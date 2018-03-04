@@ -142,7 +142,7 @@ export class PlayersComponent {
 * Create/Update/Delete (composite primary keys)
 * Single row view
 * Loading indicator
-* Row selection (single, multiple)
+* Row selection (single, multiple, checkbox)
 * Scrolling with fixed header horizontally and vertically
 * Frozen columns
 * Dynamic forms with validation

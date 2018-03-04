@@ -19,6 +19,7 @@ export class Settings {
   public globalFilter?: boolean;
   public setWidthColumnOnMove?: boolean;
   public selectionType?: SelectionType;
+  public checkBoxSelection?: boolean;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

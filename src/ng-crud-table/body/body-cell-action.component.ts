@@ -1,8 +1,9 @@
 import {
-  Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {MenuItem} from '../types';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-datatable-body-cell-action',
@@ -16,16 +17,15 @@ import {MenuItem} from '../types';
               (click)="actionClick($event, action, rowIndex)">
         </span>
     </ng-template>
-    <span *ngIf="!table.actionMenu">{{rowIndex + 1}}</span>
-    <label *ngIf="false">
+    <span *ngIf="!table.actionMenu && !table.settings.checkBoxSelection">{{rowIndex + 1}}</span>
+    <label class="datatable-checkbox" *ngIf="table.settings.checkBoxSelection">
       <input type="checkbox"
-             [checked]="isSelected()"
-             (click)="onCheckboxChange($event)"/>
-      <span></span>
+             [checked]="checked"
+             (click)="onCheckboxClick($event)"/>
     </label>
   `
 })
-export class BodyCellActionComponent {
+export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public rowIndex: number;
@@ -37,7 +37,22 @@ export class BodyCellActionComponent {
     return this.table.actionColumnWidth;
   }
 
+  public checked: boolean;
+  private subscriptions: Subscription[] = [];
+
   constructor(private cd: ChangeDetectorRef) {
+  }
+
+  ngOnInit() {
+    const subSelection = this.table.dataService.selectionSource$.subscribe(() => {
+      this.checked = this.table.dataSelection.isRowSelected(this.rowIndex);
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subSelection);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   actionClick(event, menuItem: MenuItem, rowIndex: number) {
@@ -45,11 +60,8 @@ export class BodyCellActionComponent {
     this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
   }
 
-  isSelected() {
-    return this.table.dataSelection.isRowSelected(this.rowIndex);
-  }
+  onCheckboxClick(event) {
 
-  onCheckboxChange(event) {
   }
 
 }
