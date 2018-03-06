@@ -56,24 +56,15 @@ export class ModalDataTableDemoComponent implements OnInit {
   @ViewChild('inventoryModal') inventoryModal: any;
 
   public settingsPlayers: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     tableWidth: 1100,
   };
 
   public settingsRank: Settings = {
-    api: null,
-    crud: false,
-    primaryKeys: ['id'],
     tableWidth: 900,
     scrollHeight: 250,
   };
 
   public settingsInventory: Settings = {
-    api: null,
-    crud: false,
-    primaryKeys: ['id'],
     tableWidth: 900,
     scrollHeight: 250,
   };

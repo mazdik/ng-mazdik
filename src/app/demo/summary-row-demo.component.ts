@@ -16,11 +16,7 @@ export class SummaryRowDemoComponent implements OnInit {
   public columns: Column[];
   public loading: boolean;
 
-  public settings: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
-  };
+  public settings: Settings = {};
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

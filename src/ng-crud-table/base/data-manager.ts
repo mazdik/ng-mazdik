@@ -25,7 +25,9 @@ export class DataManager extends DataTable {
 
   setService(service: DataSource) {
     this.service = service;
-    this.service.url = this.settings.api;
+    if (this.settings.api) {
+      this.service.url = this.settings.api;
+    }
     this.service.primaryKeys = this.settings.primaryKeys;
   }
 

@@ -30,24 +30,15 @@ export class MasterDetailDemoComponent implements OnInit {
   public columnsInventory: Column[];
 
   public settingsPlayers: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     scrollHeight: 250,
   };
 
   public settingsRank: Settings = {
-    api: null,
-    crud: false,
-    primaryKeys: ['id'],
     tableWidth: 500,
     scrollHeight: 250,
   };
 
   public settingsInventory: Settings = {
-    api: null,
-    crud: false,
-    primaryKeys: ['id'],
     tableWidth: 600,
     scrollHeight: 250,
   };

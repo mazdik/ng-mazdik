@@ -17,9 +17,6 @@ export class RowGroupDemoComponent implements OnInit {
   public loading: boolean;
 
   public settings: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     groupRowsBy: ['race']
   };
 

@@ -20,9 +20,6 @@ export class LiveDemoComponent implements OnInit {
   public stop: boolean;
 
   public settings: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     sortable: false,
     filter: false,
     trackByProp: 'changed'

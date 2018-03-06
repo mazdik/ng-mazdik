@@ -2,8 +2,8 @@ import {Message} from './message';
 import {SelectionType, SelectionMode} from '../types';
 
 export class Settings {
-  public api: string;
-  public crud: boolean;
+  public api?: string;
+  public crud?: boolean;
   public primaryKeys?: string[];
   public tableWidth?: number;
   public scrollHeight?: number;

@@ -26,17 +26,11 @@ export class MultipleSelectionDemoComponent implements OnInit {
   public selectedRows2: any[];
 
   public settings: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     selectionType: 'multiple',
     selectionMode: 'checkbox',
   };
 
   public settings2: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     selectionType: 'multiple',
     selectionMode: 'radio',
   };

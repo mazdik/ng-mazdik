@@ -36,6 +36,9 @@ export class BodyCellEditComponent extends BodyCellComponent {
 
   switchCellToViewMode() {
     this.editing = false;
+    if (this.row[this.column.name] !== this.oldValue) {
+      this.updateValue();
+    }
   }
 
   onCellEditorKeydown(event: any) {
@@ -51,6 +54,7 @@ export class BodyCellEditComponent extends BodyCellComponent {
       event.preventDefault();
       event.stopPropagation();
       this.row[this.column.name] = this.oldValue;
+      this.updateValue();
       // tab TODO
     } else if (event.keyCode === 9) {
       const currentCell = this.element.nativeElement;

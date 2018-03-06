@@ -17,9 +17,6 @@ export class DataTableDemoComponent implements OnInit {
   public loading: boolean;
 
   public settings: Settings = {
-    api: null,
-    crud: true,
-    primaryKeys: ['id'],
     clientSide: true,
     setWidthColumnOnMove: true
   };
