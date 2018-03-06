@@ -17,12 +17,13 @@ import {Subscription} from 'rxjs/Subscription';
               (click)="actionClick($event, action, rowIndex)">
         </span>
     </ng-template>
-    <span *ngIf="!table.actionMenu && !table.settings.checkBoxSelection">{{rowIndex + 1}}</span>
-    <label class="datatable-checkbox" *ngIf="table.settings.checkBoxSelection">
-      <input type="checkbox"
+    <span *ngIf="!table.actionMenu && !table.settings.selectionMode">{{rowIndex + 1}}</span>
+    <span *ngIf="table.settings.selectionMode"
+          class="{{'datatable-' + table.settings.selectionMode}}">
+      <input [type]="table.settings.selectionMode"
              [checked]="checked"
              (click)="onCheckboxClick($event)"/>
-    </label>
+    </span>
   `
 })
 export class BodyCellActionComponent implements OnInit, OnDestroy {

@@ -18,3 +18,5 @@ export type AggregateType =
   'count';
 
 export type SelectionType = 'single' | 'multiple';
+
+export type SelectionMode = 'checkbox' | 'radio';

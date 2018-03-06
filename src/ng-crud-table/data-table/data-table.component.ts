@@ -78,7 +78,12 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
     }
-    this.table.selectRow(0);
+    if (this.table.settings.selectionType === 'multiple') {
+      this.table.dataSelection.clearRowSelection();
+      this.table.dataService.onSelectionChange();
+    } else {
+      this.table.selectRow(0);
+    }
   }
 
   onEditComplete(event) {

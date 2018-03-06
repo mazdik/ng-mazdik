@@ -1,5 +1,5 @@
 import {Message} from './message';
-import {SelectionType} from '../types';
+import {SelectionType, SelectionMode} from '../types';
 
 export class Settings {
   public api: string;
@@ -19,7 +19,7 @@ export class Settings {
   public globalFilter?: boolean;
   public setWidthColumnOnMove?: boolean;
   public selectionType?: SelectionType;
-  public checkBoxSelection?: boolean;
+  public selectionMode?: SelectionMode;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();
