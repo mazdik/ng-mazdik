@@ -50,7 +50,7 @@ export class BodyCellEditComponent extends BodyCellComponent {
       event.preventDefault();
       // escape
     } else if (event.keyCode === 27) {
-      this.switchCellToViewMode();
+      this.editing = false;
       event.preventDefault();
       event.stopPropagation();
       this.row[this.column.name] = this.oldValue;

@@ -1,11 +1,12 @@
 .pagination {
-    display: inline-block;
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .pagination a {
     color: black;
-    float: left;
     padding: 5px 10px;
     text-decoration: none;
     border: 1px solid #ddd;
@@ -33,4 +34,30 @@
 .pagination a.disabled {
     color: rgba(46, 64, 87, 0.4);
     pointer-events: none;
+}
+
+@media only screen and (max-width: 40.063em) {
+  .pagination a:first-child,
+  .pagination a:last-child {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+}
+
+@media only screen and (max-width: 30.063em) {
+  .pagination a {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .pagination a.active,
+  .pagination a:first-of-type,
+  .pagination a:last-of-type,
+  .pagination a:nth-of-type(2),
+  .pagination a:nth-last-of-type(2){
+    position: initial;
+    top: initial;
+    left: initial;
+  }
 }

@@ -216,28 +216,6 @@
   text-align: right;
 }
 
-.datatable .datatable-footer .datatable-pager .pager,
-.datatable .datatable-footer .datatable-pager .pager li {
-  padding: 0;
-  margin: 0;
-  display: inline-block;
-  list-style: none;
-}
-
-.datatable .datatable-footer .datatable-pager .pager li,
-.datatable .datatable-footer .datatable-pager .pager li a {
-  outline: none;
-}
-
-.datatable .datatable-footer .datatable-pager .pager li a {
-  cursor: pointer;
-  display: inline-block;
-}
-
-.datatable .datatable-footer .datatable-pager .pager li.disabled a {
-  cursor: not-allowed;
-}
-
 /******/
 .datatable-header-cell {
   background-color: #5b9bd5;
