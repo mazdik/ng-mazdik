@@ -5,18 +5,10 @@
         *ngIf="!dataManager.detailView"
         [dataManager]="dataManager">
       </app-row-form>
-
-      <div class="detail-view"
-           *ngIf="dataManager.detailView">
-        <table>
-          <tbody>
-          <tr *ngFor="let column of dataManager.columns">
-            <th>{{column.title}}</th>
-            <td>{{column.getValueView(dataManager.item)}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+      <app-row-view
+        *ngIf="dataManager.detailView"
+        [dataManager]="dataManager">
+      </app-row-view>
 
     </div>
   </ng-container>

@@ -31,7 +31,7 @@ import {DataFilter} from '../base/data-filter';
       </span>
       </li>
       <li class="list-divider"></li>
-      <li *ngFor="let option of column.options | searchFilter:searchFilterText">
+      <li *ngFor="let option of column.options | filterBy: 'name':searchFilterText">
       <span [ngClass]="{'active': isSelected(option)}"
             (click)="setSelected(option.id)">
         <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}

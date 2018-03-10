@@ -19,3 +19,7 @@
   vertical-align: top;
   text-align: left;
 }
+
+.detail-view th.sortable {
+  cursor: pointer;
+}

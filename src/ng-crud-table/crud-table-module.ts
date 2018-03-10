@@ -7,7 +7,8 @@ import {PaginationComponent} from './pagination/pagination.component';
 import {ModalComponent} from './modal/modal.component';
 import {HeaderComponent} from './header/header.component';
 import {FilterComponent} from './filter/filter.component';
-import {SearchFilterPipe} from './filter/search-filter.pipe';
+import {FilterPipe} from './pipes/filter.pipe';
+import {OrderPipe} from './pipes/order.pipe';
 import {StringFilterComponent} from './filter/string-filter.component';
 import {ListFilterComponent} from './filter/list-filter.component';
 import {RangeFilterComponent} from './filter/range-filter.component';
@@ -35,6 +36,7 @@ import {CalendarComponent} from './form/calendar.component';
 import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
 import {SummaryRowComponent} from './body/summary-row.component';
+import {RowViewComponent} from './row-view/row-view.component';
 
 @NgModule({
   imports: [
@@ -48,7 +50,8 @@ import {SummaryRowComponent} from './body/summary-row.component';
     ModalComponent,
     HeaderComponent,
     FilterComponent,
-    SearchFilterPipe,
+    FilterPipe,
+    OrderPipe,
     StringFilterComponent,
     ListFilterComponent,
     RangeFilterComponent,
@@ -75,6 +78,7 @@ import {SummaryRowComponent} from './body/summary-row.component';
     ModalSelectComponent,
     PopupSelectComponent,
     SummaryRowComponent,
+    RowViewComponent,
   ],
   exports: [
     DataTableComponent,
