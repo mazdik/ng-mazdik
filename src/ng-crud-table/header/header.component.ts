@@ -1,7 +1,9 @@
-import {Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy} from '@angular/core';
+import {
+  Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ElementRef
+} from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
-import {getHeight, translate} from '../base/util';
+import {translate} from '../base/util';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -19,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   frozenColumns: Column[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
 
   ngOnInit() {
@@ -77,10 +79,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
-    const rowHeight = getHeight(el.parentNode);
-    top = top + rowHeight;
+    top = top + this.element.nativeElement.offsetHeight;
     // datatable-row-left + offsetLeft
-    left = left + el.parentNode.offsetLeft;
+    if (el.parentNode.offsetLeft > 0) {
+      left = left + el.parentNode.offsetLeft - this.table.offsetX;
+    }
 
     this.table.dataService.onColumnMenuClick({'top': top, 'left': left, 'column': column});
   }

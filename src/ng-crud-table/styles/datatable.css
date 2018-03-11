@@ -32,7 +32,9 @@
   white-space: nowrap;
 }
 
-.datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {
+.datatable-header-cell,
+.datatable-body-cell,
+.datatable-body-group-cell {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -44,18 +46,6 @@
 
 .datatable.fixed-row .datatable-scroll .datatable-body-row {
   white-space: nowrap;
-}
-
-.datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .datatable .datatable-body-row,
