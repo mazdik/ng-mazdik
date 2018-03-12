@@ -35,7 +35,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.width.px')
   get width(): number {
-    return this.table.actionColumnWidth;
+    return this.table.dimensions.actionColumnWidth;
   }
 
   public checked: boolean;

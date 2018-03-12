@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         sortable: false,
         filter: false,
         resizeable: false,
-        width: this.table.actionColumnWidth
+        width: this.table.dimensions.actionColumnWidth
       });
       this.frozenColumns.unshift(actionColumn);
     }

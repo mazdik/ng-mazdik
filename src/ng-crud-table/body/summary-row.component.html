@@ -2,7 +2,7 @@
      [ngStyle]="stylesByGroup()">
 
   <div class="datatable-body-cell"
-       [ngStyle]="{'width.px': table.actionColumnWidth}">
+       [ngStyle]="{'width.px': table.dimensions.actionColumnWidth}">
   </div>
 
   <ng-container *ngFor="let column of table.frozenColumns; let colIndex = index; trackBy: table.columnTrackingFn">

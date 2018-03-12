@@ -1,5 +1,5 @@
 <div #container class="datatable fixed-header fixed-row scroll-horz"
-     [ngStyle]="{'width.px': table.tableWidth}">
+     [ngStyle]="{'width.px': table.dimensions.tableWidth}">
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <app-filter
     [table]="table">

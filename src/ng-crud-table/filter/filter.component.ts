@@ -102,7 +102,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   show(top: number, left: number, column: Column) {
     this.column = column;
     this.selectContainerClicked = true;
-    this.width = this.table.columnMenuWidth;
+    this.width = this.table.dimensions.columnMenuWidth;
     if (this.top === top && this.left === left) {
       this.toggleDropdown();
     } else {

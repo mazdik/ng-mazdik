@@ -51,7 +51,7 @@ export class TreeTableComponent implements OnInit {
         this.nodes = data;
       });
     }
-    this.table.actionColumnWidth = 250;
+    this.table.dimensions.actionColumnWidth = 250;
     this.table.settings.setWidthColumnOnMove = true;
   }
 

@@ -8,27 +8,22 @@ import {DataFilter} from './data-filter';
 import {DataService} from './data-service';
 import {DataAggregation} from './data-aggregation';
 import {DataSelection} from './data-selection';
+import {Dimensions} from './dimensions';
 
 export class DataTable {
 
   public settings: Settings;
   public columns: Column[] = [];
-  public actionColumnWidth: number = 40;
-  public columnsTotalWidth: number;
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
-  public frozenWidth: number = 0;
-  public scrollableColumnsWidth: number = 0;
-  public scrollHeight: number;
-  public tableWidth: number;
   public actionMenu: MenuItem[];
-  public columnMenuWidth: number = 200;
   public pager: DataPager;
   public sorter: DataSort;
   public dataFilter: DataFilter;
   public dataService: DataService;
   public dataAggregation: DataAggregation;
   public dataSelection: DataSelection;
+  public dimensions: Dimensions;
   public localRows: any[];
   public rowGroupMetadata: any;
   public grandTotalRow: any;
@@ -60,6 +55,7 @@ export class DataTable {
     this.dataService = new DataService();
     this.dataAggregation = new DataAggregation();
     this.dataSelection = new DataSelection();
+    this.dimensions = new Dimensions();
     this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
@@ -77,7 +73,7 @@ export class DataTable {
       }
     }
     this.initColumns();
-    this.calcColumnsTotalWidth();
+    this.dimensions.calcColumnsTotalWidth(this.columns);
   }
 
   initColumns(): void {
@@ -88,10 +84,8 @@ export class DataTable {
       if (!column.tableHidden) {
         if (column.frozen) {
           this.frozenColumns.push(column);
-          this.frozenWidth = this.frozenWidth + column.width;
         } else {
           this.scrollableColumns.push(column);
-          this.scrollableColumnsWidth = this.scrollableColumnsWidth + column.width;
         }
       }
     });
@@ -113,25 +107,12 @@ export class DataTable {
         col.filter = false;
       }
     }
-    this.tableWidth = this.settings.tableWidth;
-    if (!this.tableWidth && this.columnsTotalWidth < 800) {
-      this.tableWidth = this.columnsTotalWidth;
-    }
-    this.scrollHeight = this.settings.scrollHeight;
+    this.dimensions.tableWidth = this.settings.tableWidth;
+    this.dimensions.scrollHeight = this.settings.scrollHeight;
     this.sorter.multiple = this.settings.multipleSort;
     this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();
     this.initColumns();
-  }
-
-  calcColumnsTotalWidth() {
-    let totalWidth = 0;
-    for (const column of this.columns) {
-      if (!column.tableHidden) {
-        totalWidth = totalWidth + column.width;
-      }
-    }
-    this.columnsTotalWidth = totalWidth + this.actionColumnWidth;
   }
 
   setLocalRows(data: any[]) {

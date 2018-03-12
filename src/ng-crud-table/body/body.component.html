@@ -34,7 +34,7 @@
   </app-datatable-body-scroll>
   <div class="empty-row"
        *ngIf="!table.rows?.length"
-       [style.width.px]="table.columnsTotalWidth">
+       [style.width.px]="table.dimensions.columnsTotalWidth">
     <ng-container *ngIf="loading">{{table.settings.messages.loading}}</ng-container>
     <ng-container *ngIf="!loading">{{table.settings.messages.empty}}</ng-container>
   </div>
