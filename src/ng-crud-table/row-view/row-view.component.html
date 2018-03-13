@@ -5,13 +5,13 @@
       <th>№</th>
       <th class="sortable"
           (click)="setOrder('key')">
-        {{dataManager.settings.messages.column}}
+        {{dataManager.messages.column}}
         <span [hidden]="!isOrderReverse('key')">▼</span>
         <span [hidden]="!isOrder('key')">▲</span>
       </th>
       <th class="sortable"
           (click)="setOrder('value')">
-        {{dataManager.settings.messages.value}}
+        {{dataManager.messages.value}}
         <span [hidden]="!isOrderReverse('value')">▼</span>
         <span [hidden]="!isOrder('value')">▲</span>
       </th>

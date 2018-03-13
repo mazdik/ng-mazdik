@@ -44,12 +44,12 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit() {
     this.stringOperators = [
-      {value: DataFilter.EQUALS, text: this.table.settings.messages.equals},
-      {value: DataFilter.NOT_EQUAL, text: this.table.settings.messages.notEqual},
-      {value: DataFilter.STARTS_WITH, text: this.table.settings.messages.startsWith},
-      {value: DataFilter.ENDS_WITH, text: this.table.settings.messages.endsWith},
-      {value: DataFilter.CONTAINS, text: this.table.settings.messages.contains},
-      {value: DataFilter.NOT_CONTAINS, text: this.table.settings.messages.notContains}
+      {value: DataFilter.EQUALS, text: this.table.messages.equals},
+      {value: DataFilter.NOT_EQUAL, text: this.table.messages.notEqual},
+      {value: DataFilter.STARTS_WITH, text: this.table.messages.startsWith},
+      {value: DataFilter.ENDS_WITH, text: this.table.messages.endsWith},
+      {value: DataFilter.CONTAINS, text: this.table.messages.contains},
+      {value: DataFilter.NOT_CONTAINS, text: this.table.messages.notContains}
     ];
   }
 

@@ -4,19 +4,19 @@
   <div class="df-col" *ngIf="settings.crud">
     <button type="button"
             class="button"
-            (click)="createAction()">{{dataManager.settings.messages.create}}
+            (click)="createAction()">{{dataManager.messages.create}}
     </button>
   </div>
   <div class="df-col" style="width: 300px;" *ngIf="dataManager.settings.globalFilter">
     <div class="df-input-group">
       <input class="df-control"
-             [attr.placeholder]="dataManager.settings.messages.search"
+             [attr.placeholder]="dataManager.messages.search"
              [(ngModel)]="dataManager.dataFilter.globalFilterValue"
              (keypress)="onKeyPressGlobalSearch($event)">
       <div class="df-input-group-append">
         <button type="button"
                 class="button"
-                (click)="onClickGlobalSearch()">{{dataManager.settings.messages.go}}
+                (click)="onClickGlobalSearch()">{{dataManager.messages.go}}
         </button>
       </div>
     </div>

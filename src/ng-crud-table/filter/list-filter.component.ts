@@ -12,7 +12,7 @@ import {DataFilter} from '../base/data-filter';
   template: `
     <div class="clearable-input">
       <input class="df-control"
-             placeholder="{{table.settings.messages.search}}"
+             placeholder="{{table.messages.search}}"
              #filterInput
              [(ngModel)]="searchFilterText"/>
       <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
@@ -22,12 +22,12 @@ import {DataFilter} from '../base/data-filter';
     <ul class="list-menu">
       <li>
       <span (click)="uncheckAll()">
-        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.settings.messages.clear}}
+        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.messages.clear}}
       </span>
       </li>
       <li *ngIf="column.selectionLimit !== 1">
       <span (click)="checkAll()">
-        <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.settings.messages.selectAll}}
+        <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.messages.selectAll}}
       </span>
       </li>
       <li class="list-divider"></li>

@@ -1,4 +1,3 @@
-import {Message} from './message';
 import {SelectionType, SelectionMode} from '../types';
 
 export class Settings {
@@ -12,7 +11,6 @@ export class Settings {
   public initLoad?: boolean = true;
   public clientSide?: boolean = true;
   public multipleSort?: boolean;
-  public messages?: Message;
   public trackByProp?: string;
   public groupRowsBy?: string[];
   public filterDelay?: number = 500;
@@ -23,10 +21,8 @@ export class Settings {
   public singleRowView?: boolean = true;
 
   constructor(init: Partial<Settings>) {
-    this.messages = new Message();
     if (init) {
-      const messages = Object.assign({}, this.messages, init.messages);
-      Object.assign(this, init, {messages: messages});
+      Object.assign(this, init);
     }
   }
 

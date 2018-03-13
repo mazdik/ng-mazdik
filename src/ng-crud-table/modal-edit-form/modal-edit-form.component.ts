@@ -21,10 +21,10 @@ export class ModalEditFormComponent implements OnInit {
 
   modalTitle() {
     if (!this.dataManager.detailView) {
-      return this.dataManager.isNewItem ? this.dataManager.settings.messages.titleCreate :
-        this.dataManager.settings.messages.titleUpdate;
+      return this.dataManager.isNewItem ? this.dataManager.messages.titleCreate :
+        this.dataManager.messages.titleUpdate;
     } else {
-      return this.dataManager.settings.messages.titleDetailView;
+      return this.dataManager.messages.titleDetailView;
     }
   }
 

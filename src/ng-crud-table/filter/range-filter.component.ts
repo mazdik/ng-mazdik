@@ -31,14 +31,14 @@ import {DataFilter} from '../base/data-filter';
     <ul class="list-menu">
       <li>
       <span (click)="uncheckAll()">
-        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.settings.messages.clear}}
+        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.messages.clear}}
       </span>
       </li>
       <ng-template [ngIf]="(column.type ==='date' || column.type ==='datetime-local')">
-        <li (click)="lastDate('year')"><span>{{table.settings.messages.lastYear}}</span></li>
-        <li (click)="lastDate('month')"><span>{{table.settings.messages.lastMonth}}</span></li>
-        <li (click)="lastDate('day')"><span>{{table.settings.messages.lastDay}}</span></li>
-        <li (click)="lastDate('hour')"><span>{{table.settings.messages.lastHour}}</span></li>
+        <li (click)="lastDate('year')"><span>{{table.messages.lastYear}}</span></li>
+        <li (click)="lastDate('month')"><span>{{table.messages.lastMonth}}</span></li>
+        <li (click)="lastDate('day')"><span>{{table.messages.lastDay}}</span></li>
+        <li (click)="lastDate('hour')"><span>{{table.messages.lastHour}}</span></li>
       </ng-template>
     </ul>
   `,
@@ -63,13 +63,13 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngOnInit() {
     this.operators = [
-      {value: DataFilter.EQUALS, text: this.table.settings.messages.equals},
-      {value: DataFilter.NOT_EQUAL, text: this.table.settings.messages.notEqual},
-      {value: DataFilter.GREATER_THAN, text: this.table.settings.messages.greaterThan},
-      {value: DataFilter.GREATER_THAN_OR_EQUAL, text: this.table.settings.messages.greaterThanOrEqual},
-      {value: DataFilter.LESS_THAN, text: this.table.settings.messages.lessThan},
-      {value: DataFilter.LESS_THAN_OR_EQUAL, text: this.table.settings.messages.lessThanOrEqual},
-      {value: DataFilter.IN_RANGE, text: this.table.settings.messages.inRange}
+      {value: DataFilter.EQUALS, text: this.table.messages.equals},
+      {value: DataFilter.NOT_EQUAL, text: this.table.messages.notEqual},
+      {value: DataFilter.GREATER_THAN, text: this.table.messages.greaterThan},
+      {value: DataFilter.GREATER_THAN_OR_EQUAL, text: this.table.messages.greaterThanOrEqual},
+      {value: DataFilter.LESS_THAN, text: this.table.messages.lessThan},
+      {value: DataFilter.LESS_THAN_OR_EQUAL, text: this.table.messages.lessThanOrEqual},
+      {value: DataFilter.IN_RANGE, text: this.table.messages.inRange}
     ];
   }
 

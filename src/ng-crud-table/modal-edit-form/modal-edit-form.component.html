@@ -16,18 +16,18 @@
     <button type="button"
             class="button button3"
             *ngIf="!dataManager.isNewItem && !dataManager.detailView"
-            (click)="delete()">{{dataManager.settings.messages.delete}}
+            (click)="delete()">{{dataManager.messages.delete}}
     </button>
     <button type="button"
             class="button button1"
             [style.visibility]="!dataManager.detailView ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!dataManager.formValid">{{dataManager.settings.messages.save}}
+            [disabled]="!dataManager.formValid">{{dataManager.messages.save}}
     </button>
     <button type="button"
             class="button"
             style="float: right;"
-            (click)="close()">{{dataManager.settings.messages.close}}
+            (click)="close()">{{dataManager.messages.close}}
     </button>
   </ng-container>
 </app-modal>

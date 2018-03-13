@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource} from '../../ng-crud-table';
+import {Column, Settings, DataSource, Message} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -10,7 +10,8 @@ import {getColumnsPlayers} from './columns';
     <app-crud-table
       [columns]="columns"
       [settings]="settings"
-      [service]="service">
+      [service]="service"
+      [messages]="messages">
     </app-crud-table>`
 })
 
@@ -19,21 +20,22 @@ export class BasicDemoComponent implements OnInit {
   public service: DataSource;
   public columns: Column[];
 
-  constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.service = new DemoService(this.http);
-  }
-
   public settings: Settings = {
     api: 'assets/players.json',
     crud: true,
     primaryKeys: ['id'],
     scrollHeight: 380,
-    messages: {
-      titleDetailView: 'Player details',
-      titleCreate: 'Create a new player'
-    }
   };
+
+  public messages: Message = {
+    titleDetailView: 'Player details',
+    titleCreate: 'Create a new player'
+  };
+
+  constructor(private http: HttpClient) {
+    this.columns = getColumnsPlayers();
+    this.service = new DemoService(this.http);
+  }
 
   ngOnInit() {
     this.columns[5].cellClass = this.getCellClass;

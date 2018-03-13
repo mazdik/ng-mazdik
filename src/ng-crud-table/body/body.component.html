@@ -35,7 +35,7 @@
   <div class="empty-row"
        *ngIf="!table.rows?.length"
        [style.width.px]="table.dimensions.columnsTotalWidth">
-    <ng-container *ngIf="loading">{{table.settings.messages.loading}}</ng-container>
-    <ng-container *ngIf="!loading">{{table.settings.messages.empty}}</ng-container>
+    <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
+    <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
   </div>
 </div>

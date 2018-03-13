@@ -9,6 +9,7 @@ import {DataService} from './data-service';
 import {DataAggregation} from './data-aggregation';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
+import {Message} from './message';
 
 export class DataTable {
 
@@ -24,6 +25,7 @@ export class DataTable {
   public dataAggregation: DataAggregation;
   public dataSelection: DataSelection;
   public dimensions: Dimensions;
+  public messages?: Message;
   public localRows: any[];
   public rowGroupMetadata: any;
   public grandTotalRow: any;
@@ -47,7 +49,7 @@ export class DataTable {
 
   private _rows: any[];
 
-  constructor(columns?: ColumnBase[], settings?: Settings) {
+  constructor(columns?: ColumnBase[], settings?: Settings, messages?: Message) {
     this.settings = new Settings(settings);
     this.pager = new DataPager();
     this.sorter = new DataSort();
@@ -56,12 +58,16 @@ export class DataTable {
     this.dataAggregation = new DataAggregation();
     this.dataSelection = new DataSelection();
     this.dimensions = new Dimensions();
+    this.messages = new Message();
     this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
     }
     if (settings) {
       this.setSettings(settings);
+    }
+    if (messages) {
+      this.setMessages(messages);
     }
   }
 
@@ -92,8 +98,7 @@ export class DataTable {
   }
 
   setSettings(settings: Settings) {
-    const messages = Object.assign({}, this.settings.messages, settings.messages);
-    Object.assign(this.settings, settings, {messages: messages});
+    Object.assign(this.settings, settings);
 
     /* disable all sorts */
     if (this.settings.sortable === false) {
@@ -113,6 +118,10 @@ export class DataTable {
     this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();
     this.initColumns();
+  }
+
+  setMessages(messages: Message) {
+    Object.assign(this.messages, messages);
   }
 
   setLocalRows(data: any[]) {

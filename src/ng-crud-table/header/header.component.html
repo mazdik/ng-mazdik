@@ -14,7 +14,7 @@
            [style.visibility]="(!table.dataFilter.hasFilter()) ? 'hidden' : 'visible' "
            style="cursor: pointer;"
            (click)="clearAllFilters()"
-           [title]="table.settings.messages.clearFilters">
+           [title]="table.messages.clearFilters">
         </i>
       </ng-template>
       <ng-template [ngIf]="colIndex > 0">

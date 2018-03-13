@@ -4,6 +4,7 @@ import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.compone
 import {Settings} from '../base/settings';
 import {ColumnBase} from '../base/column-base';
 import {DataManager} from '../base/data-manager';
+import {Message} from '../base/message';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -21,29 +22,33 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   @Input()
   set columns(val: ColumnBase[]) {
-    this._columns = val;
-    this.dataManager.createColumns(this._columns);
+    this.dataManager.createColumns(val);
   }
 
   get columns(): ColumnBase[] {
-    return this._columns;
+    return this.dataManager.columns;
   }
 
   @Input()
   set settings(val: Settings) {
-    this._settings = val;
-    this.dataManager.setSettings(this._settings);
+    this.dataManager.setSettings(val);
     this.dataManager.settings.clientSide = false;
   }
 
   get settings(): Settings {
-    return this._settings;
+    return this.dataManager.settings;
+  }
+
+  @Input()
+  set messages(val: Message) {
+    this.dataManager.setMessages(val);
+  }
+
+  get messages(): Message {
+    return this.dataManager.messages;
   }
 
   public dataManager: DataManager;
-
-  private _columns: ColumnBase[];
-  private _settings: Settings;
   private subscriptions: Subscription[] = [];
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
@@ -100,13 +105,13 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   initRowMenu() {
     this.dataManager.actionMenu = [
       {
-        label: this.dataManager.settings.messages.titleDetailView,
+        label: this.dataManager.messages.titleDetailView,
         icon: 'icon icon-rightwards',
         command: 'view',
         disabled: !this.dataManager.settings.singleRowView
       },
       {
-        label: this.dataManager.settings.messages.titleUpdate,
+        label: this.dataManager.messages.titleUpdate,
         icon: 'icon icon-pencil',
         command: 'update',
         disabled: !this.dataManager.settings.crud
