@@ -20,6 +20,7 @@ export class Settings {
   public setWidthColumnOnMove?: boolean;
   public selectionType?: SelectionType;
   public selectionMode?: SelectionMode;
+  public singleRowView?: boolean = true;
 
   constructor(init: Partial<Settings>) {
     this.messages = new Message();

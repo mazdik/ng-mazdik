@@ -102,13 +102,14 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       {
         label: this.dataManager.settings.messages.titleDetailView,
         icon: 'icon icon-rightwards',
-        command: 'view'
+        command: 'view',
+        disabled: !this.dataManager.settings.singleRowView
       },
       {
         label: this.dataManager.settings.messages.titleUpdate,
         icon: 'icon icon-pencil',
         command: 'update',
-        disabled: !this.settings.crud
+        disabled: !this.dataManager.settings.crud
       }
     ];
   }
