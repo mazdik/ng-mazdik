@@ -1,17 +1,13 @@
 .datatable {
   display: block;
   overflow: hidden;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   position: relative;
-  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .datatable *,
-.datatable *:before,
-.datatable *:after {
-  -webkit-box-sizing: border-box;
+.datatable *::before,
+.datatable *::after {
   box-sizing: border-box;
 }
 
@@ -60,13 +56,6 @@
   flex-flow: row;
 }
 
-.datatable .datatable-body-cell,
-.datatable .datatable-header-cell {
-  overflow-x: hidden;
-  vertical-align: top;
-  display: inline-block;
-}
-
 .datatable .datatable-body-cell:focus,
 .datatable .datatable-header-cell:focus {
   outline: none;
@@ -99,21 +88,6 @@
 .datatable .datatable-header .datatable-header-cell {
   position: relative;
   display: inline-block;
-}
-
-.datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {
-  cursor: pointer;
-}
-
-.datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {
-  cursor: move;
-}
-
-.datatable .datatable-header .datatable-header-cell .sort-btn {
-  line-height: 100%;
-  vertical-align: middle;
-  display: inline-block;
-  cursor: pointer;
 }
 
 .datatable .datatable-header .datatable-header-cell .resize-handle {
@@ -160,7 +134,8 @@
   outline: none;
 }
 
-.datatable .datatable-body .datatable-body-row > div {
+.datatable-header-inner > div,
+.datatable-body-row > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -229,8 +204,9 @@
 }
 
 .datatable-body-cell {
+  display: flex;
+  align-items: center;
   height: 30px;
-  line-height: 30px;
   padding: 0 3px;
 }
 
