@@ -6,10 +6,10 @@
 
       <div class="datatable-body-row datatable-group-header"
            *ngIf="table.isRowGroup(row, rowIndex)">
-        <div class="datatable-row-left datatable-row-group" [ngStyle]="stylesByGroup()">
+        <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
           {{table.getRowGroupName(row)}} ({{table.getRowGroupSize(row)}})
         </div>
-        <div class="datatable-row-center datatable-row-group"></div>
+        <div class="datatable-row-center"></div>
       </div>
 
       <app-datatable-body-row

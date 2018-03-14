@@ -24,7 +24,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.datatable.fixed-header .datatable-header .datatable-header-inner {
+.datatable-header-inner {
   white-space: nowrap;
 }
 
@@ -34,6 +34,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 }
 
 .datatable.fixed-row .datatable-scroll {
@@ -44,53 +46,42 @@
   white-space: nowrap;
 }
 
-.datatable .datatable-body-row,
-.datatable .datatable-header-inner {
+.datatable-body-row,
+.datatable-body-row > div,
+.datatable-header-inner,
+.datatable-header-inner > div{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  flex-flow: row;
 }
 
-.datatable .datatable-body-cell:focus,
-.datatable .datatable-header-cell:focus {
+.datatable-body-cell:focus,
+.datatable-header-cell:focus {
   outline: none;
 }
 
-.datatable .datatable-row-left,
-.datatable .datatable-row-right {
+.datatable-row-left,
+.datatable-row-right {
   z-index: 9;
 }
 
-.datatable .datatable-row-left,
-.datatable .datatable-row-center,
-.datatable .datatable-row-group,
-.datatable .datatable-row-right {
+.datatable-row-left,
+.datatable-row-center,
+.datatable-row-right {
   position: relative;
+  flex-shrink: 0;
 }
 
-.datatable .datatable-header {
+.datatable-header {
   display: block;
   overflow: hidden;
 }
 
-.datatable .datatable-header .datatable-header-inner {
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  -webkit-align-items: stretch;
-}
-
-.datatable .datatable-header .datatable-header-cell {
+.datatable-header-cell {
   position: relative;
-  display: inline-block;
 }
 
-.datatable .datatable-header .datatable-header-cell .resize-handle {
+.datatable-header-cell .resize-handle {
   display: inline-block;
   position: absolute;
   right: 0;
@@ -102,25 +93,21 @@
   cursor: ew-resize;
 }
 
-.datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {
+.datatable-header-cell.resizeable:hover .resize-handle {
   visibility: visible;
 }
 
-.datatable .datatable-body {
+.datatable-body {
   position: relative;
   z-index: 10;
   display: block;
 }
 
-.datatable .datatable-body .datatable-scroll {
+.datatable-body .datatable-scroll {
   display: inline-block;
 }
 
-.datatable .datatable-body .datatable-row-detail {
-  overflow-y: hidden;
-}
-
-.datatable .datatable-body .datatable-row-wrapper {
+.datatable-row-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -130,23 +117,16 @@
   flex-direction: column;
 }
 
-.datatable .datatable-body .datatable-body-row {
+.datatable-body-row {
   outline: none;
 }
 
-.datatable-header-inner > div,
-.datatable-body-row > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.datatable .datatable-footer {
+.datatable-footer {
   display: block;
   width: 100%;
 }
 
-.datatable .datatable-footer .datatable-footer-inner {
+.datatable-footer .datatable-footer-inner {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -156,25 +136,25 @@
   width: 100%;
 }
 
-.datatable .datatable-footer .selected-count .page-count {
+.datatable-footer .selected-count .page-count {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 40%;
   flex: 1 1 40%;
 }
 
-.datatable .datatable-footer .selected-count .datatable-pager {
+.datatable-footer .selected-count .datatable-pager {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 60%;
   flex: 1 1 60%;
 }
 
-.datatable .datatable-footer .page-count {
+.datatable-footer .page-count {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 20%;
   flex: 1 1 20%;
 }
 
-.datatable .datatable-footer .datatable-pager {
+.datatable-footer .datatable-pager {
   -webkit-box-flex: 1;
   -ms-flex: 1 1 80%;
   flex: 1 1 80%;
@@ -187,7 +167,6 @@
   color: white;
   user-select: none;
   height: 40px;
-  line-height: 40px;
   padding: 0 3px;
 }
 
@@ -204,8 +183,6 @@
 }
 
 .datatable-body-cell {
-  display: flex;
-  align-items: center;
   height: 30px;
   padding: 0 3px;
 }

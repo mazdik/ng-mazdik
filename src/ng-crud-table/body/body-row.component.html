@@ -1,4 +1,4 @@
-<div class="datatable-row-left datatable-row-group"
+<div class="datatable-row-left"
      [ngStyle]="stylesByGroup()">
 
   <app-datatable-body-cell-action
@@ -27,7 +27,7 @@
 
 </div>
 
-<div class="datatable-row-center datatable-row-group">
+<div class="datatable-row-center">
   <ng-container *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: table.columnTrackingFn">
     <app-datatable-body-cell
       *ngIf="!column.editable"

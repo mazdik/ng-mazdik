@@ -1,7 +1,7 @@
 <div class="datatable-row-wrapper" *ngFor="let node of nodes">
   <div class="datatable-body-row">
 
-    <div class="datatable-row-left datatable-row-group"
+    <div class="datatable-row-left"
          [ngStyle]="stylesByGroup()">
       <div class="datatable-body-cell"
            [ngStyle]="{'width.px': 250}">
@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div class="datatable-row-center datatable-row-group">
+    <div class="datatable-row-center">
       <ng-container *ngFor="let column of columns; let colIndex = index; trackBy: table.columnTrackingFn">
         <app-datatable-body-cell
           *ngIf="!column.editable"
