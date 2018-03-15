@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
+import {translate} from '../base/util';
 
 @Component({
   selector: 'app-datatable-body-row',
@@ -69,9 +70,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   }
 
   stylesByGroup() {
-    const styles: any = {};
-    styles.left = `${this.table.offsetX}px`;
-    return styles;
+    return translate(this.table.offsetX, 0);
   }
 
 }
