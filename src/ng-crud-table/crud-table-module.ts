@@ -19,7 +19,7 @@ import {BodyRowComponent} from './body/body-row.component';
 import {BodyCellComponent} from './body/body-cell.component';
 import {BodyCellEditComponent} from './body/body-cell-edit.component';
 import {BodyCellActionComponent} from './body/body-cell-action.component';
-import {BodyScrollComponent} from './body/body-scroll.component';
+import {BodyScrollDirective} from './directives/body-scroll.directive';
 import {DataTableComponent} from './data-table/data-table.component';
 import {ResizeableColumnDirective} from './directives/resizeable-column.directive';
 import {TreeTableComponent} from './tree-table/tree-table.component';
@@ -61,7 +61,7 @@ import {RowViewComponent} from './row-view/row-view.component';
     BodyCellComponent,
     BodyCellEditComponent,
     BodyCellActionComponent,
-    BodyScrollComponent,
+    BodyScrollDirective,
     ResizeableColumnDirective,
     DataTableComponent,
     TreeTableComponent,

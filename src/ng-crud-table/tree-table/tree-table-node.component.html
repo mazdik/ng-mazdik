@@ -1,4 +1,4 @@
-<div class="datatable-row-wrapper" *ngFor="let node of nodes">
+<ng-container *ngFor="let node of nodes">
   <div class="datatable-body-row">
 
     <div class="datatable-row-left"
@@ -55,4 +55,4 @@
     (requestNodes)="onRequestLocal($event)">
   </app-tree-table-node>
 
-</div>
+</ng-container>

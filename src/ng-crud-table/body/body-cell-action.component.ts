@@ -31,7 +31,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   @Input() public table: DataTable;
   @Input() public rowIndex: number;
 
-  @HostBinding('class') cssClass = 'datatable-body-cell action-column';
+  @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
 
   @HostBinding('style.width.px')
   get width(): number {

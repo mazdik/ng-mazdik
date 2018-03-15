@@ -1,41 +1,35 @@
-<div class="datatable-selection">
-  <app-datatable-body-scroll
-    [table]="table">
-    <div class="datatable-row-wrapper"
-         *ngFor="let row of table.rows; let rowIndex=index; trackBy: rowTrackingFn">
+<ng-container *ngFor="let row of table.rows; index as rowIndex; trackBy: rowTrackingFn">
 
-      <div class="datatable-body-row datatable-group-header"
-           *ngIf="table.isRowGroup(row, rowIndex)">
-        <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
-          {{table.getRowGroupName(row)}} ({{table.getRowGroupSize(row)}})
-        </div>
-        <div class="datatable-row-center"></div>
-      </div>
-
-      <app-datatable-body-row
-        [table]="table"
-        [row]="row"
-        [rowIndex]="rowIndex">
-      </app-datatable-body-row>
-
-      <app-datatable-summary-row
-        *ngIf="table.isRowGroupSummary(row, rowIndex)"
-        [table]="table"
-        [row]="table.getRowGroupSummary(row)">
-      </app-datatable-summary-row>
+  <div class="datatable-body-row datatable-group-header"
+       *ngIf="table.isRowGroup(row, rowIndex)">
+    <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
+      {{table.getRowGroupName(row)}} ({{table.getRowGroupSize(row)}})
     </div>
-
-    <app-datatable-summary-row
-      *ngIf="table.dataAggregation.enabled"
-      [table]="table"
-      [row]="table.grandTotalRow">
-    </app-datatable-summary-row>
-
-  </app-datatable-body-scroll>
-  <div class="empty-row"
-       *ngIf="!table.rows?.length"
-       [style.width.px]="table.dimensions.columnsTotalWidth">
-    <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
-    <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
+    <div class="datatable-row-center"></div>
   </div>
+
+  <app-datatable-body-row
+    [table]="table"
+    [row]="row"
+    [rowIndex]="rowIndex">
+  </app-datatable-body-row>
+
+  <app-datatable-summary-row
+    *ngIf="table.isRowGroupSummary(row, rowIndex)"
+    [table]="table"
+    [row]="table.getRowGroupSummary(row)">
+  </app-datatable-summary-row>
+</ng-container>
+
+<app-datatable-summary-row
+  *ngIf="table.dataAggregation.enabled"
+  [table]="table"
+  [row]="table.grandTotalRow">
+</app-datatable-summary-row>
+
+<div class="datatable-empty-row"
+     *ngIf="!table.rows?.length"
+     [style.width.px]="table.dimensions.columnsTotalWidth">
+  <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
+  <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
 </div>

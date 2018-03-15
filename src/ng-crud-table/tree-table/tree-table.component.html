@@ -4,9 +4,6 @@
   </app-datatable-header>
 
   <div class="datatable-body">
-    <div class="datatable-selection">
-      <app-datatable-body-scroll
-        [table]="table">
         <app-tree-table-node
           [table]="table"
           [nodes]="nodes"
@@ -15,8 +12,6 @@
           (editComplete)="onCellEditComplete($event)"
           (requestNodes)="onRequestNodes($event)">
         </app-tree-table-node>
-      </app-datatable-body-scroll>
-    </div>
   </div>
 
 </div>

@@ -1,4 +1,4 @@
-<div #container class="datatable fixed-header fixed-row scroll-horz"
+<div #container class="datatable"
      [ngStyle]="{'width.px': table.dimensions.tableWidth}">
   <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
   <app-filter
@@ -8,6 +8,7 @@
     [table]="table">
   </app-datatable-header>
   <app-datatable-body
+    appBodyScroll
     [table]="table"
     [loading]="loading">
   </app-datatable-body>

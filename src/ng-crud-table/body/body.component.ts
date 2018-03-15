@@ -21,7 +21,6 @@ export class BodyComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
-    // declare fn here so we can get access to the `this` property
     this.rowTrackingFn = function (index: number, row: any): any {
       if (this.table.settings.trackByProp) {
         return `${index}-${this.table.settings.trackByProp}`;

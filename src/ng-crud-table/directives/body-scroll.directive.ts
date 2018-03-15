@@ -1,48 +1,34 @@
-import {
-  Component, Input, ElementRef, OnInit, OnDestroy, HostBinding, ChangeDetectionStrategy, NgZone
-} from '@angular/core';
+import {Directive, Input, ElementRef, OnInit, OnDestroy, NgZone} from '@angular/core';
 import {DataTable} from '../base/data-table';
 
-@Component({
-  selector: 'app-datatable-body-scroll',
-  template: `
-    <ng-content></ng-content>
-  `,
-  changeDetection: ChangeDetectionStrategy.OnPush
+@Directive({
+  selector: '[appBodyScroll]'
 })
-export class BodyScrollComponent implements OnInit, OnDestroy {
+export class BodyScrollDirective implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-
-  @HostBinding('style.height.px')
-  @Input() scrollHeight: number;
-
-  @HostBinding('style.width.px')
-  @Input() scrollWidth: number;
-
-  @HostBinding('class') cssClass = 'datatable-scroll';
 
   scrollYPos: number = 0;
   scrollXPos: number = 0;
   prevScrollYPos: number = 0;
   prevScrollXPos: number = 0;
-  parentElement: HTMLElement;
+  element: HTMLElement;
 
-  constructor(private element: ElementRef, private ngZone: NgZone) {
+  constructor(element: ElementRef, private ngZone: NgZone) {
+    this.element = element.nativeElement;
   }
 
   ngOnInit(): void {
-    this.parentElement = this.element.nativeElement.parentElement.parentElement;
-    this.parentElement.addEventListener('scroll', this.onScrolled.bind(this));
+    this.element.addEventListener('scroll', this.onScrolled.bind(this));
   }
 
   ngOnDestroy(): void {
-    this.parentElement.removeEventListener('scroll', this.onScrolled.bind(this));
+    this.element.removeEventListener('scroll', this.onScrolled.bind(this));
   }
 
   setOffset(offsetY: number): void {
-    if (this.parentElement) {
-      this.parentElement.scrollTop = offsetY;
+    if (this.element) {
+      this.element.scrollTop = offsetY;
     }
   }
 
