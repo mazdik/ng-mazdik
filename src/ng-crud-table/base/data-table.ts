@@ -79,7 +79,6 @@ export class DataTable {
       }
     }
     this.initColumns();
-    this.dimensions.calcColumnsTotalWidth(this.columns);
   }
 
   initColumns(): void {
@@ -95,6 +94,7 @@ export class DataTable {
         }
       }
     });
+    this.dimensions.calcColumnsTotalWidth(this.columns);
   }
 
   setSettings(settings: Settings) {

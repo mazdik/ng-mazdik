@@ -1,7 +1,8 @@
 <ng-container *ngFor="let row of table.rows; index as rowIndex; trackBy: rowTrackingFn">
 
   <div class="datatable-body-row datatable-group-header"
-       *ngIf="table.isRowGroup(row, rowIndex)">
+       *ngIf="table.isRowGroup(row, rowIndex)"
+       [style.width.px]="table.dimensions.columnsTotalWidth">
     <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
       {{table.getRowGroupName(row)}} ({{table.getRowGroupSize(row)}})
     </div>

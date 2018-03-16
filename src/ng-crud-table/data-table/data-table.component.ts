@@ -127,6 +127,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   onColumnResizeEnd() {
     this.resizeHelper.nativeElement.style.display = 'none';
     this.containerViewChild.nativeElement.classList.remove('datatable-unselectable');
+    this.table.dimensions.calcColumnsTotalWidth(this.table.columns);
   }
 
 }
