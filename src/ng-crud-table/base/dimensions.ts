@@ -9,6 +9,7 @@ export class Dimensions {
   public columnsTotalWidth: number;
   public frozenColumnsWidth: number;
   public scrollableColumnsWidth: number;
+  public rowHeight: number = 30;
 
   calcColumnsTotalWidth(columns: Column[]) {
     let totalWidth = 0;
@@ -33,6 +34,10 @@ export class Dimensions {
     if (!this.tableWidth && this.columnsTotalWidth < 800) {
       this.tableWidth = this.columnsTotalWidth;
     }
+  }
+
+  calcVirtualBodyHeight(perPage: number) {
+    this.scrollHeight = (perPage * this.rowHeight) + 20;
   }
 
 }

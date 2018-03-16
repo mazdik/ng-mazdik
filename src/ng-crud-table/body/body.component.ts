@@ -62,4 +62,10 @@ export class BodyComponent implements OnInit, OnDestroy {
     return translate(this.table.offsetX, 0);
   }
 
+  styleTranslate(rowIndex: number) {
+    if (this.table.settings.virtualScroll) {
+      return `translate3d(0, ${rowIndex * this.table.dimensions.rowHeight}px, 0)`;
+    }
+  }
+
 }

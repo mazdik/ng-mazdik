@@ -8,8 +8,6 @@ export class BodyScrollDirective implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
 
-  scrollYPos: number = 0;
-  scrollXPos: number = 0;
   prevScrollYPos: number = 0;
   prevScrollXPos: number = 0;
   element: HTMLElement;
@@ -34,27 +32,23 @@ export class BodyScrollDirective implements OnInit, OnDestroy {
 
   onScrolled(event: MouseEvent): void {
     const dom: Element = <Element>event.currentTarget;
-    this.scrollYPos = dom.scrollTop;
-    this.scrollXPos = dom.scrollLeft;
-    this.updateOffset();
-  }
+    const scrollYPos = dom.scrollTop;
+    const scrollXPos = dom.scrollLeft;
 
-  updateOffset(): void {
     let direction: string;
-    if (this.scrollYPos < this.prevScrollYPos) {
+    if (scrollYPos < this.prevScrollYPos) {
       direction = 'down';
-    } else if (this.scrollYPos > this.prevScrollYPos) {
+    } else if (scrollYPos > this.prevScrollYPos) {
       direction = 'up';
     }
 
-    if (this.prevScrollYPos !== this.scrollYPos || this.prevScrollXPos !== this.scrollXPos) {
-      this.table.offsetY = this.scrollYPos;
-      this.table.offsetX = this.scrollXPos;
-
+    if (this.prevScrollYPos !== scrollYPos || this.prevScrollXPos !== scrollXPos) {
+      this.table.offsetY = scrollYPos;
+      this.table.offsetX = scrollXPos;
       this.table.dataService.onScroll(direction);
 
-      this.prevScrollYPos = this.scrollYPos;
-      this.prevScrollXPos = this.scrollXPos;
+      this.prevScrollYPos = scrollYPos;
+      this.prevScrollXPos = scrollXPos;
     }
   }
 

@@ -99,7 +99,6 @@ export class DataTable {
 
   setSettings(settings: Settings) {
     Object.assign(this.settings, settings);
-
     /* disable all sorts */
     if (this.settings.sortable === false) {
       for (const col of this.columns) {
@@ -114,6 +113,9 @@ export class DataTable {
     }
     this.dimensions.tableWidth = this.settings.tableWidth;
     this.dimensions.scrollHeight = this.settings.scrollHeight;
+    if (this.settings.virtualScroll && !this.dimensions.scrollHeight) {
+      this.dimensions.calcVirtualBodyHeight(this.pager.perPage);
+    }
     this.sorter.multiple = this.settings.multipleSort;
     this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();

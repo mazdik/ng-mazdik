@@ -12,7 +12,8 @@
   <app-datatable-body-row
     [table]="table"
     [row]="row"
-    [rowIndex]="rowIndex">
+    [rowIndex]="rowIndex"
+    [style.transform]="styleTranslate(rowIndex)">
   </app-datatable-body-row>
 
   <app-datatable-summary-row

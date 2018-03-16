@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef,
+  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef, HostBinding,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
@@ -20,13 +20,24 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
-  @ViewChild('container') containerViewChild: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;
+
+  @HostBinding('class') cssClass = 'datatable';
+
+  @HostBinding('class.scroll-vertical')
+  get isVirtualScroll(): boolean {
+    return this.table.settings.virtualScroll;
+  }
+
+  @HostBinding('style.width.px')
+  get tableWidth() {
+    return this.table.dimensions.tableWidth;
+  }
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 
-  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
+  constructor(private element: ElementRef, private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
   }
 
@@ -110,23 +121,23 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onColumnResizeBegin() {
-    this.containerViewChild.nativeElement.classList.add('datatable-unselectable');
-    const height = this.containerViewChild.nativeElement.offsetHeight - this.footerViewChild.nativeElement.offsetHeight;
+    this.element.nativeElement.classList.add('datatable-unselectable');
+    const height = this.element.nativeElement.offsetHeight - this.footerViewChild.nativeElement.offsetHeight;
     this.resizeHelper.nativeElement.style.height = height + 'px';
   }
 
   onColumnResize(event) {
     if (!this.table.settings.setWidthColumnOnMove) {
-      const rect = this.containerViewChild.nativeElement.getBoundingClientRect();
+      const rect = this.element.nativeElement.getBoundingClientRect();
       const containerLeft = rect.left + document.body.scrollLeft;
-      this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.containerViewChild.nativeElement.scrollLeft) + 'px';
+      this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';
       this.resizeHelper.nativeElement.style.display = 'block';
     }
   }
 
   onColumnResizeEnd() {
     this.resizeHelper.nativeElement.style.display = 'none';
-    this.containerViewChild.nativeElement.classList.remove('datatable-unselectable');
+    this.element.nativeElement.classList.remove('datatable-unselectable');
     this.table.dimensions.calcColumnsTotalWidth(this.table.columns);
   }
 

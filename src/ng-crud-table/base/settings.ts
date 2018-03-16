@@ -19,6 +19,7 @@ export class Settings {
   public selectionType?: SelectionType;
   public selectionMode?: SelectionMode;
   public singleRowView?: boolean = true;
+  public virtualScroll?: boolean;
 
   constructor(init: Partial<Settings>) {
     if (init) {

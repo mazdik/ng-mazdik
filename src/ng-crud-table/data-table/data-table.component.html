@@ -1,34 +1,31 @@
-<div #container class="datatable"
-     [ngStyle]="{'width.px': table.dimensions.tableWidth}">
-  <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
-  <app-filter
-    [table]="table">
-  </app-filter>
-  <app-datatable-header
-    [table]="table">
-  </app-datatable-header>
-  <app-datatable-body
-    appBodyScroll
-    [table]="table"
-    [loading]="loading">
-  </app-datatable-body>
+<div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
+<app-filter
+  [table]="table">
+</app-filter>
+<app-datatable-header
+  [table]="table">
+</app-datatable-header>
+<app-datatable-body
+  appBodyScroll
+  [table]="table"
+  [loading]="loading">
+</app-datatable-body>
 
-  <div #footer class="datatable-footer">
-    <div class="datatable-footer-inner" *ngIf="table.pager.total > 0">
-      <div class="page-count">
+<div #footer class="datatable-footer">
+  <div class="datatable-footer-inner" *ngIf="table.pager.total > 0">
+    <div class="page-count">
           <span class="page-range">
             {{(table.pager.perPage * (table.pager.current - 1)) + 1}} - {{table.pager.rowCount()}} of {{table.pager.total}}
           </span>
-      </div>
-      <div class="datatable-pager">
-        <app-pagination
-          [totalItems]="table.pager.total"
-          [itemsPerPage]="table.pager.perPage"
-          [currentPage]="table.pager.current"
-          (pageChanged)="onPageChanged($event)">
-        </app-pagination>
-      </div>
+    </div>
+    <div class="datatable-pager">
+      <app-pagination
+        [totalItems]="table.pager.total"
+        [itemsPerPage]="table.pager.perPage"
+        [currentPage]="table.pager.current"
+        (pageChanged)="onPageChanged($event)">
+      </app-pagination>
     </div>
   </div>
-  <div #resizeHelper class="column-resizer-helper"></div>
 </div>
+<div #resizeHelper class="column-resizer-helper"></div>
