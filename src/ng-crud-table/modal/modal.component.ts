@@ -16,6 +16,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() public autoZIndex: boolean;
   @Input() public minWidth: number = 260;
   @Input() public minHeight: number = 260;
+  @Input() public scrollTop: boolean = true;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
@@ -81,6 +82,9 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.visible = true;
     setTimeout(() => {
       this.modalRoot.nativeElement.focus();
+      if (this.scrollTop) {
+        this.modalBody.nativeElement.scrollTop = 0;
+      }
     }, 1);
   }
 
