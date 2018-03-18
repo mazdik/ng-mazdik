@@ -41,4 +41,8 @@ export class Dimensions {
     this.bodyHeight = (perPage * this.rowHeight) + 20;
   }
 
+  calcScrollHeight(totalRecords: number) {
+    this.scrollHeight = totalRecords * this.rowHeight;
+  }
+
 }

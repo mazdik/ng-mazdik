@@ -43,7 +43,8 @@ export class BodyComponent implements OnInit, OnDestroy {
     const subRows = this.table.dataService.rowsSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+    const subScroll = this.table.dataService.scrollSource$.subscribe((event) => {
+      this.table.chunkRows(event);
       this.cd.markForCheck();
     });
     const subFilter = this.table.dataService.filterSource$.subscribe(() => {
@@ -65,6 +66,12 @@ export class BodyComponent implements OnInit, OnDestroy {
   styleTranslate(rowIndex: number) {
     if (this.table.settings.virtualScroll) {
       return `translate3d(0, ${rowIndex * this.table.dimensions.rowHeight}px, 0)`;
+    }
+  }
+
+  getScrollHeight() {
+    if (this.table.settings.virtualScroll) {
+      return this.table.dimensions.scrollHeight;
     }
   }
 

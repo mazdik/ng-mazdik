@@ -26,11 +26,16 @@ export class DataTable {
   public dataSelection: DataSelection;
   public dimensions: Dimensions;
   public messages?: Message;
-  public localRows: any[];
+  public localRows: any[] = [];
+  public totalRecords: number = 0;
+  public virtualRows: any[] = [];
   public rowGroupMetadata: any;
   public grandTotalRow: any;
   public offsetX: number = 0;
   public offsetY: number = 0;
+
+  private previousStart: number;
+  private previousEnd: number;
 
   set rows(val: any) {
     if (this.settings.clientSide) {
@@ -40,11 +45,19 @@ export class DataTable {
       this._rows = val;
       this.updateRowGroupMetadata();
     }
+    this.setRowIndexes();
+    this.totalRecords = val ? val.length : 0;
+    this.dimensions.calcScrollHeight(this.totalRecords);
+    this.chunkRows('init');
     this.dataService.onRows();
   }
 
   get rows(): any {
-    return this._rows;
+    if (this.settings.virtualScroll) {
+      return this.virtualRows;
+    } else {
+      return this._rows;
+    }
   }
 
   private _rows: any[];
@@ -135,11 +148,14 @@ export class DataTable {
 
   getLocalRows(): void {
     if (this.localRows) {
-      let data = this.dataFilter.filterRows(this.localRows);
+      const data = this.dataFilter.filterRows(this.localRows);
       this.pager.total = data.length;
       this.setSortMetaGroup();
-      data = this.sorter.sortRows(data);
-      this._rows = this.pager.pager(data);
+      this._rows = this.sorter.sortRows(data);
+      if (!this.settings.virtualScroll) {
+        this._rows = this.pager.pager(this._rows);
+      }
+      this.setRowIndexes();
       this.updateRowGroupMetadata();
     }
   }
@@ -223,6 +239,32 @@ export class DataTable {
 
   getSelectedRowIndex() {
     return this.dataSelection.selectedRowIndex;
+  }
+
+  chunkRows(direction: string): void {
+    if (!direction) {
+      return;
+    }
+    let start = 0;
+    let end = this.totalRecords;
+
+    if (this.settings.virtualScroll) {
+      start = Math.floor(this.offsetY / this.dimensions.rowHeight);
+      end = Math.min(this.totalRecords, start + this.pager.perPage + 1);
+
+      if (start !== this.previousStart || end !== this.previousEnd) {
+        this.virtualRows = this._rows.slice(start, end);
+        this.previousStart = start;
+        this.previousEnd = end;
+      }
+    }
+  }
+
+  setRowIndexes() {
+    let rowIndex: number = 0;
+    this._rows.forEach(row => {
+      row.$rowIndex = rowIndex++;
+    });
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="datatable-scroll"
-     [style.height.px]="table.dimensions.scrollHeight">
+     [style.height.px]="getScrollHeight()">
   <ng-container *ngFor="let row of table.rows; index as rowIndex; trackBy: rowTrackingFn">
 
     <div class="datatable-body-row datatable-group-header"
@@ -14,8 +14,8 @@
     <app-datatable-body-row
       [table]="table"
       [row]="row"
-      [rowIndex]="rowIndex"
-      [style.transform]="styleTranslate(rowIndex)">
+      [rowIndex]="row['$rowIndex']"
+      [style.transform]="styleTranslate(row['$rowIndex'])">
     </app-datatable-body-row>
 
     <app-datatable-summary-row
