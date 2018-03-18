@@ -2,14 +2,15 @@ import {Column} from './column';
 
 export class Dimensions {
 
-  public scrollHeight: number;
   public tableWidth: number;
+  public bodyHeight: number;
   public actionColumnWidth: number = 40;
   public columnMenuWidth: number = 200;
   public columnsTotalWidth: number;
   public frozenColumnsWidth: number;
   public scrollableColumnsWidth: number;
   public rowHeight: number = 30;
+  public scrollHeight: number;
 
   calcColumnsTotalWidth(columns: Column[]) {
     let totalWidth = 0;
@@ -36,8 +37,8 @@ export class Dimensions {
     }
   }
 
-  calcVirtualBodyHeight(perPage: number) {
-    this.scrollHeight = (perPage * this.rowHeight) + 20;
+  calcBodyHeight(perPage: number) {
+    this.bodyHeight = (perPage * this.rowHeight) + 20;
   }
 
 }

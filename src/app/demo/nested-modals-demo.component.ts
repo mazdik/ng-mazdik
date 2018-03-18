@@ -32,7 +32,7 @@ export class NestedModalsDemoComponent implements OnInit {
     crud: true,
     primaryKeys: ['id'],
     tableWidth: 1100,
-    scrollHeight: 380,
+    bodyHeight: 380,
   };
 
   public columns: Column[];

@@ -30,17 +30,17 @@ export class MasterDetailDemoComponent implements OnInit {
   public columnsInventory: Column[];
 
   public settingsPlayers: Settings = {
-    scrollHeight: 250,
+    bodyHeight: 250,
   };
 
   public settingsRank: Settings = {
     tableWidth: 500,
-    scrollHeight: 250,
+    bodyHeight: 250,
   };
 
   public settingsInventory: Settings = {
     tableWidth: 600,
-    scrollHeight: 250,
+    bodyHeight: 250,
   };
 
   private _rank: any = [];

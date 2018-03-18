@@ -61,12 +61,12 @@ export class ModalDataTableDemoComponent implements OnInit {
 
   public settingsRank: Settings = {
     tableWidth: 900,
-    scrollHeight: 250,
+    bodyHeight: 250,
   };
 
   public settingsInventory: Settings = {
     tableWidth: 900,
-    scrollHeight: 250,
+    bodyHeight: 250,
   };
 
   private _rank: any = [];

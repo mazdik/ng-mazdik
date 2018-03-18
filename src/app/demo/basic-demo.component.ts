@@ -24,7 +24,7 @@ export class BasicDemoComponent implements OnInit {
     api: 'assets/players.json',
     crud: true,
     primaryKeys: ['id'],
-    scrollHeight: 380,
+    bodyHeight: 380,
   };
 
   public messages: Message = {

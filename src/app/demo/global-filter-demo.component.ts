@@ -31,7 +31,7 @@ export class GlobalFilterDemoComponent implements OnInit {
     api: 'assets/players.json',
     crud: false,
     primaryKeys: ['id'],
-    scrollHeight: 380,
+    bodyHeight: 380,
     globalFilter: true
   };
 

@@ -112,9 +112,9 @@ export class DataTable {
       }
     }
     this.dimensions.tableWidth = this.settings.tableWidth;
-    this.dimensions.scrollHeight = this.settings.scrollHeight;
-    if (this.settings.virtualScroll && !this.dimensions.scrollHeight) {
-      this.dimensions.calcVirtualBodyHeight(this.pager.perPage);
+    this.dimensions.bodyHeight = this.settings.bodyHeight;
+    if (this.settings.virtualScroll && !this.dimensions.bodyHeight) {
+      this.dimensions.calcBodyHeight(this.pager.perPage);
     }
     this.sorter.multiple = this.settings.multipleSort;
     this.dataSelection.type = this.settings.selectionType;

@@ -32,8 +32,8 @@ export class BodyComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.height')
   get bodyHeight() {
-    if (this.table.dimensions.scrollHeight) {
-      return this.table.dimensions.scrollHeight + 'px';
+    if (this.table.dimensions.bodyHeight) {
+      return this.table.dimensions.bodyHeight + 'px';
     } else {
       return 'auto';
     }

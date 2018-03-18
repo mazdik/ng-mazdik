@@ -5,7 +5,7 @@ export class Settings {
   public crud?: boolean;
   public primaryKeys?: string[];
   public tableWidth?: number;
-  public scrollHeight?: number;
+  public bodyHeight?: number;
   public sortable?: boolean = true;
   public filter?: boolean = true;
   public initLoad?: boolean = true;
