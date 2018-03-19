@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
+import {BodyScrollDirective} from '../directives/body-scroll.directive';
 
 @Component({
   selector: 'app-datatable',
@@ -21,6 +22,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;
+  @ViewChild(BodyScrollDirective) bodyScroll: BodyScrollDirective;
 
   @HostBinding('class') cssClass = 'datatable';
 
@@ -85,9 +87,14 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   onPageChanged(page: number): void {
     this.table.pager.current = page;
     this.table.dataService.onPage();
-
-    if (this.table.settings.clientSide) {
-      this.table.getLocalRows();
+    if (this.table.settings.virtualScroll) {
+      const rowIndex = this.table.pager.perPage * (page - 1);
+      const offset = rowIndex * this.table.dimensions.rowHeight;
+      this.bodyScroll.setOffsetY(offset);
+    } else {
+      if (this.table.settings.clientSide) {
+        this.table.getLocalRows();
+      }
     }
     if (this.table.settings.selectionType === 'multiple') {
       this.table.dataSelection.clearRowSelection();

@@ -43,9 +43,9 @@ export class DataManager extends DataTable {
       .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, globalFilterValue)
       .then(data => {
         this.loading = false;
-        this.rows = data.items;
         this.pager.total = data._meta.totalCount;
         this.pager.perPage = data._meta.perPage;
+        this.rows = data.items;
         this.dataFilter.isGlobal = false;
       })
       .catch(error => {

@@ -46,6 +46,7 @@ export class BodyComponent implements OnInit, OnDestroy {
     const subScroll = this.table.dataService.scrollSource$.subscribe((event) => {
       if (event.direction) {
         this.table.chunkRows();
+        this.table.updatePage(event.direction);
       }
       this.cd.markForCheck();
     });

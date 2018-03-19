@@ -33,6 +33,8 @@ export class DataTable {
   public offsetX: number = 0;
   public offsetY: number = 0;
 
+  private start: number;
+  private end: number;
   private previousStart: number;
   private previousEnd: number;
 
@@ -58,7 +60,7 @@ export class DataTable {
     }
   }
 
-  private _rows: any[];
+  private _rows: any[] = [];
 
   constructor(columns?: ColumnBase[], settings?: Settings, messages?: Message) {
     this.settings = new Settings(settings);
@@ -241,16 +243,16 @@ export class DataTable {
 
   chunkRows(force: boolean = false) {
     if (this.settings.virtualScroll) {
-      const totalRecords = this._rows ? this._rows.length : 0;
+      const totalRecords = this.pager.total;
       this.dimensions.calcScrollHeight(totalRecords);
 
-      const start = Math.floor(this.offsetY / this.dimensions.rowHeight);
-      const end = Math.min(totalRecords, start + this.pager.perPage + 1);
+      this.start = Math.floor(this.offsetY / this.dimensions.rowHeight);
+      this.end = Math.min(totalRecords, this.start + this.pager.perPage + 1);
 
-      if (start !== this.previousStart || end !== this.previousEnd || force === true) {
-        this.virtualRows = this._rows.slice(start, end);
-        this.previousStart = start;
-        this.previousEnd = end;
+      if (this.start !== this.previousStart || this.end !== this.previousEnd || force === true) {
+        this.virtualRows = this._rows.slice(this.start, this.end);
+        this.previousStart = this.start;
+        this.previousEnd = this.end;
       }
     }
   }
@@ -268,6 +270,22 @@ export class DataTable {
       row.$uid = uid++;
     });
     return data;
+  }
+
+  updatePage(direction: string): void {
+    if (this.settings.virtualScroll && direction) {
+      let page = this.start / this.pager.perPage;
+      if (direction === 'up') {
+        page = Math.floor(page);
+      } else if (direction === 'down') {
+        page = Math.ceil(page);
+      }
+      page += 1;
+      if (page !== this.pager.current) {
+        this.pager.current = page;
+        this.dataService.onPage();
+      }
+    }
   }
 
 

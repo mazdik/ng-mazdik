@@ -24,7 +24,7 @@ export class BodyScrollDirective implements OnInit, OnDestroy {
     this.element.removeEventListener('scroll', this.onScrolled.bind(this));
   }
 
-  setOffset(offsetY: number): void {
+  setOffsetY(offsetY: number): void {
     if (this.element) {
       this.element.scrollTop = offsetY;
     }
@@ -37,9 +37,9 @@ export class BodyScrollDirective implements OnInit, OnDestroy {
 
     let direction: string;
     if (scrollYPos < this.prevScrollYPos) {
-      direction = 'down';
-    } else if (scrollYPos > this.prevScrollYPos) {
       direction = 'up';
+    } else if (scrollYPos > this.prevScrollYPos) {
+      direction = 'down';
     }
 
     if (this.prevScrollYPos !== scrollYPos || this.prevScrollXPos !== scrollXPos) {
