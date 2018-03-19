@@ -106,6 +106,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
     }
+    this.table.chunkRows(true);
     this.table.selectRow(0);
   }
 
@@ -113,6 +114,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
     }
+    this.table.chunkRows(true);
     this.table.selectRow(0);
   }
 

@@ -14,8 +14,8 @@
     <app-datatable-body-row
       [table]="table"
       [row]="row"
-      [rowIndex]="row['$rowIndex']"
-      [style.transform]="styleTranslate(row['$rowIndex'])">
+      [rowIndex]="row['$index']"
+      [style.transform]="styleTranslate(row['$index'])">
     </app-datatable-body-row>
 
     <app-datatable-summary-row

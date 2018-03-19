@@ -27,7 +27,6 @@ export class DataTable {
   public dimensions: Dimensions;
   public messages?: Message;
   public localRows: any[] = [];
-  public totalRecords: number = 0;
   public virtualRows: any[] = [];
   public rowGroupMetadata: any;
   public grandTotalRow: any;
@@ -38,6 +37,7 @@ export class DataTable {
   private previousEnd: number;
 
   set rows(val: any) {
+    val = this.setRowUid(val);
     if (this.settings.clientSide) {
       this.setLocalRows(val);
       this.getLocalRows();
@@ -46,9 +46,7 @@ export class DataTable {
       this.updateRowGroupMetadata();
     }
     this.setRowIndexes();
-    this.totalRecords = val ? val.length : 0;
-    this.dimensions.calcScrollHeight(this.totalRecords);
-    this.chunkRows('init');
+    this.chunkRows(true);
     this.dataService.onRows();
   }
 
@@ -241,18 +239,15 @@ export class DataTable {
     return this.dataSelection.selectedRowIndex;
   }
 
-  chunkRows(direction: string): void {
-    if (!direction) {
-      return;
-    }
-    let start = 0;
-    let end = this.totalRecords;
-
+  chunkRows(force: boolean = false) {
     if (this.settings.virtualScroll) {
-      start = Math.floor(this.offsetY / this.dimensions.rowHeight);
-      end = Math.min(this.totalRecords, start + this.pager.perPage + 1);
+      const totalRecords = this._rows ? this._rows.length : 0;
+      this.dimensions.calcScrollHeight(totalRecords);
 
-      if (start !== this.previousStart || end !== this.previousEnd) {
+      const start = Math.floor(this.offsetY / this.dimensions.rowHeight);
+      const end = Math.min(totalRecords, start + this.pager.perPage + 1);
+
+      if (start !== this.previousStart || end !== this.previousEnd || force === true) {
         this.virtualRows = this._rows.slice(start, end);
         this.previousStart = start;
         this.previousEnd = end;
@@ -263,8 +258,17 @@ export class DataTable {
   setRowIndexes() {
     let rowIndex: number = 0;
     this._rows.forEach(row => {
-      row.$rowIndex = rowIndex++;
+      row.$index = rowIndex++;
     });
   }
+
+  setRowUid(data: any[]) {
+    let uid: number = 0;
+    data.forEach(row => {
+      row.$uid = uid++;
+    });
+    return data;
+  }
+
 
 }

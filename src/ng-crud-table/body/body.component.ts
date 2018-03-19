@@ -44,7 +44,9 @@ export class BodyComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     });
     const subScroll = this.table.dataService.scrollSource$.subscribe((event) => {
-      this.table.chunkRows(event);
+      if (event.direction) {
+        this.table.chunkRows();
+      }
       this.cd.markForCheck();
     });
     const subFilter = this.table.dataService.filterSource$.subscribe(() => {
