@@ -53,11 +53,7 @@ export class DataTable {
   }
 
   get rows(): any {
-    if (this.settings.virtualScroll) {
-      return this.virtualRows;
-    } else {
-      return this._rows;
-    }
+    return this._rows;
   }
 
   private _rows: any[] = [];
@@ -133,6 +129,14 @@ export class DataTable {
     this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();
     this.initColumns();
+  }
+
+  getRows() {
+    if (this.settings.virtualScroll) {
+      return this.virtualRows;
+    } else {
+      return this._rows;
+    }
   }
 
   setMessages(messages: Message) {

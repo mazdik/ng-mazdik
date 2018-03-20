@@ -1,6 +1,6 @@
 <div class="datatable-scroll"
      [style.height.px]="getScrollHeight()">
-  <ng-container *ngFor="let row of table.rows; index as rowIndex; trackBy: rowTrackingFn">
+  <ng-container *ngFor="let row of table.getRows(); index as rowIndex; trackBy: rowTrackingFn">
 
     <div class="datatable-body-row datatable-group-header"
          *ngIf="table.isRowGroup(row, rowIndex)"

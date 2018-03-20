@@ -155,7 +155,13 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged() {
-    this.dataManager.getItems().then();
+    if (this.settings.virtualScroll) {
+      if (!this.dataManager.pager.isViewed()) {
+        this.dataManager.getItems(true).then();
+      }
+    } else {
+      this.dataManager.getItems().then();
+    }
   }
 
   onSort() {

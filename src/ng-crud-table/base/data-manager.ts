@@ -31,7 +31,7 @@ export class DataManager extends DataTable {
     this.service.primaryKeys = this.settings.primaryKeys;
   }
 
-  getItems(): Promise<any> {
+  getItems(concatRows: boolean = false): Promise<any> {
     this.loading = true;
     this.errors = null;
     this.setSortMetaGroup();
@@ -45,7 +45,8 @@ export class DataManager extends DataTable {
         this.loading = false;
         this.pager.total = data._meta.totalCount;
         this.pager.perPage = data._meta.perPage;
-        this.rows = data.items;
+        this.rows = (concatRows) ? this.rows.concat(data.items) : data.items;
+        this.pager.setCache();
         this.dataFilter.isGlobal = false;
       })
       .catch(error => {
