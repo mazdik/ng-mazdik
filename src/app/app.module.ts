@@ -2,8 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { PageNotFoundComponent} from './not-found.component';
 import { CrudTableModule } from '../ng-crud-table';
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -20,10 +22,33 @@ import { RowGroupSummaryDemoComponent } from './demo/row-group-summary-demo.comp
 import { SummaryRowDemoComponent } from './demo/summary-row-demo.component';
 import { MultipleSelectionDemoComponent } from './demo/multiple-selection-demo.component';
 import { LiveDemoComponent} from './demo/live-demo.component';
+import { VirtualScrollDemoComponent } from './demo/virtual-scroll-demo.component';
+
+const ROUTES: Routes = [
+  {path: '', component: BasicDemoComponent},
+  {path: 'basic-demo', component: BasicDemoComponent},
+  {path: 'tree-table-demo', component: TreeTableDemoComponent},
+  {path: 'data-table-demo', component: DataTableDemoComponent},
+  {path: 'master-detail-demo', component: MasterDetailDemoComponent},
+  {path: 'modal-form-demo', component: ModalFormDemoComponent},
+  {path: 'modal-data-table-demo', component: ModalDataTableDemoComponent},
+  {path: 'nested-modals-demo', component: NestedModalsDemoComponent},
+  {path: 'multiple-sort-demo', component: MultipleSortDemoComponent},
+  {path: 'row-group-demo', component: RowGroupDemoComponent},
+  {path: 'row-group-multiple-demo', component: RowGroupMultipleDemoComponent},
+  {path: 'global-filter-demo', component: GlobalFilterDemoComponent},
+  {path: 'row-group-summary-demo', component: RowGroupSummaryDemoComponent},
+  {path: 'summary-row-demo', component: SummaryRowDemoComponent},
+  {path: 'multiple-selection-demo', component: MultipleSelectionDemoComponent},
+  {path: 'live-demo', component: LiveDemoComponent},
+  {path: 'virtual-scroll-demo', component: VirtualScrollDemoComponent},
+  {path: '**', component: PageNotFoundComponent},
+];
 
 @NgModule({
   declarations: [
     AppComponent,
+    PageNotFoundComponent,
     BasicDemoComponent,
     TreeTableDemoComponent,
     DataTableDemoComponent,
@@ -38,12 +63,14 @@ import { LiveDemoComponent} from './demo/live-demo.component';
     RowGroupSummaryDemoComponent,
     SummaryRowDemoComponent,
     MultipleSelectionDemoComponent,
-    LiveDemoComponent
+    LiveDemoComponent,
+    VirtualScrollDemoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
     CrudTableModule,
   ],
   providers: [],

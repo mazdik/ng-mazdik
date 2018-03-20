@@ -30,7 +30,6 @@ export class LiveDemoComponent implements OnInit {
     for (const column of this.columns) {
       column.editable = false;
     }
-
     this.table = new DataTable(this.columns, this.settings);
   }
 

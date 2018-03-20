@@ -124,12 +124,8 @@ export class PlayersComponent {
         crud: true,
         primaryKeys: ['id'],
         tableWidth: 820,
-        scrollHeight: 380,
-        multipleSort: true,
-        messages: {
-          titleDetailView: 'Player details',
-          titleCreate: 'Create a new player'
-        }
+        bodyHeight: 380,
+        multipleSort: true
     };
 }
 ```
@@ -154,6 +150,8 @@ export class PlayersComponent {
 * No external dependencies
 * Row Grouping (multiple columns)
 * Summary Row (aggregation on a column)
+* Live Updates
+* Virtual scroll
 
 ### Custom service
 ```typescript

@@ -1,68 +1,28 @@
-<div class="dt-row">
-  <div class="dt-col-left">
-    <h3 class="title">Demo crud data table</h3>
-    <ul class="list-menu lg">
-      <li><span (click)="state='basic-demo'" [ngClass]="{'active': state === 'basic-demo'}">Basic</span></li>
-      <li><span (click)="state='tree-table-demo'"
-                [ngClass]="{'active': state === 'tree-table-demo'}">Tree table</span>
-      </li>
-      <li><span (click)="state='data-table-demo'"
-                [ngClass]="{'active': state === 'data-table-demo'}">Data table</span>
-      </li>
-      <li><span (click)="state='master-detail-demo'" [ngClass]="{'active': state === 'master-detail-demo'}">Master detail</span>
-      </li>
-      <li><span (click)="state='modal-form-demo'"
-                [ngClass]="{'active': state === 'modal-form-demo'}">Form (dependent drop down lists)</span>
-      </li>
-      <li><span (click)="state='modal-data-table-demo'" [ngClass]="{'active': state === 'modal-data-table-demo'}">
-            Modal data table</span>
-      </li>
-      <li><span (click)="state='nested-modals-demo'" [ngClass]="{'active': state === 'nested-modals-demo'}">
-            Nested modals</span>
-      </li>
-      <li><span (click)="state='multiple-sort-demo'" [ngClass]="{'active': state === 'multiple-sort-demo'}">
-            Multiple Sorting</span>
-      </li>
-      <li><span (click)="state='row-group-demo'" [ngClass]="{'active': state === 'row-group-demo'}">
-            Row group</span>
-      </li>
-      <li><span (click)="state='row-group-multiple-demo'"
-                [ngClass]="{'active': state === 'row-group-multiple-demo'}">
-            Row group multiple</span>
-      </li>
-      <li><span (click)="state='global-filter-demo'"
-                [ngClass]="{'active': state === 'global-filter-demo'}">Global filtering</span>
-      </li>
-      <li><span (click)="state='row-group-summary-demo'"
-                [ngClass]="{'active': state === 'row-group-summary-demo'}">Summary rows with grouping</span>
-      </li>
-      <li><span (click)="state='summary-row-demo'"
-                [ngClass]="{'active': state === 'summary-row-demo'}">Summary row</span>
-      </li>
-      <li><span (click)="state='multiple-selection-demo'"
-                [ngClass]="{'active': state === 'multiple-selection-demo'}">Multiple selection</span>
-      </li>
-      <li><span (click)="state='live-demo'"
-                [ngClass]="{'active': state === 'live-demo'}">Live updates</span>
-      </li>
-    </ul>
-  </div>
-  <div class="dt-col-right">
-    <h3 class="title"><a [attr.href]="getSourceLink()" target="_blank">Source</a></h3>
-    <app-basic-demo *ngIf="state === 'basic-demo'"></app-basic-demo>
-    <app-tree-table-demo *ngIf="state === 'tree-table-demo'"></app-tree-table-demo>
-    <app-data-table-demo *ngIf="state === 'data-table-demo'"></app-data-table-demo>
-    <app-master-detail-demo *ngIf="state === 'master-detail-demo'"></app-master-detail-demo>
-    <app-modal-form-demo *ngIf="state === 'modal-form-demo'"></app-modal-form-demo>
-    <app-modal-data-table-demo *ngIf="state === 'modal-data-table-demo'"></app-modal-data-table-demo>
-    <app-nested-modals-demo *ngIf="state === 'nested-modals-demo'"></app-nested-modals-demo>
-    <app-multiple-sort-demo *ngIf="state === 'multiple-sort-demo'"></app-multiple-sort-demo>
-    <app-row-group-demo *ngIf="state === 'row-group-demo'"></app-row-group-demo>
-    <app-row-group-multiple-demo *ngIf="state === 'row-group-multiple-demo'"></app-row-group-multiple-demo>
-    <app-global-filter-demo *ngIf="state === 'global-filter-demo'"></app-global-filter-demo>
-    <app-row-group-summary-demo *ngIf="state === 'row-group-summary-demo'"></app-row-group-summary-demo>
-    <app-summary-row-demo *ngIf="state === 'summary-row-demo'"></app-summary-row-demo>
-    <app-multiple-selection-demo *ngIf="state === 'multiple-selection-demo'"></app-multiple-selection-demo>
-    <app-live-demo *ngIf="state === 'live-demo'"></app-live-demo>
-  </div>
+<div class="topnav" id="myTopnav">
+  <a href="javascript:void(0);">Demo crud data table</a>
+  <a [attr.href]="getSourceLink()" target="_blank" style="float:right">Source</a>
+  <a href="javascript:void(0);" class="icon" (click)="responsiveMenu()">&#9776;</a>
+</div>
+
+<div class="sidenav">
+  <a routerLinkActive="active" routerLink="/basic-demo">Basic</a>
+  <a routerLinkActive="active" routerLink="/tree-table-demo">Tree table</a>
+  <a routerLinkActive="active" routerLink="/data-table-demo">Data table</a>
+  <a routerLinkActive="active" routerLink="/master-detail-demo">Master detail</a>
+  <a routerLinkActive="active" routerLink="/modal-form-demo">Dynamic Forms</a>
+  <a routerLinkActive="active" routerLink="/modal-data-table-demo">Modal data table</a>
+  <a routerLinkActive="active" routerLink="/nested-modals-demo">Nested modals</a>
+  <a routerLinkActive="active" routerLink="/multiple-sort-demo">Multiple Sorting</a>
+  <a routerLinkActive="active" routerLink="/row-group-demo">Row group</a>
+  <a routerLinkActive="active" routerLink="/row-group-multiple-demo">Row group multiple</a>
+  <a routerLinkActive="active" routerLink="/global-filter-demo">Global filtering</a>
+  <a routerLinkActive="active" routerLink="/row-group-summary-demo">Summary rows with grouping</a>
+  <a routerLinkActive="active" routerLink="/summary-row-demo">Summary row</a>
+  <a routerLinkActive="active" routerLink="/multiple-selection-demo">Multiple selection</a>
+  <a routerLinkActive="active" routerLink="/live-demo">Live updates</a>
+  <a routerLinkActive="active" routerLink="/virtual-scroll-demo">Virtual scroll</a>
+</div>
+
+<div class="main">
+  <router-outlet></router-outlet>
 </div>
