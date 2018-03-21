@@ -150,10 +150,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.dataManager.update(row);
   }
 
-  onFilter() {
-    this.dataManager.getItems().then();
-  }
-
   onPageChanged() {
     if (this.settings.virtualScroll) {
       if (!this.dataManager.pager.isViewed()) {
@@ -164,7 +160,21 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
+  onFilter() {
+    if (this.settings.virtualScroll) {
+      this.dataManager.resetPositionChunkRows();
+      this.dataManager.pager.current = 1;
+      this.dataManager.pager.cache = {};
+    }
+    this.dataManager.getItems().then();
+  }
+
   onSort() {
+    if (this.settings.virtualScroll) {
+      this.dataManager.resetPositionChunkRows();
+      this.dataManager.pager.current = 1;
+      this.dataManager.pager.cache = {};
+    }
     this.dataManager.getItems().then();
   }
 

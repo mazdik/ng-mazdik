@@ -292,5 +292,12 @@ export class DataTable {
     }
   }
 
+  resetPositionChunkRows() {
+    this.start = 0;
+    this.end = 0;
+    this.previousStart = 0;
+    this.previousEnd = 0;
+  }
+
 
 }

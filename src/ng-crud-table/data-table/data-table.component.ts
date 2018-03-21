@@ -113,6 +113,9 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
     }
+    if (this.table.settings.virtualScroll && !this.table.settings.clientSide) {
+      this.bodyScroll.setOffsetY(0);
+    }
     this.table.chunkRows(true);
     this.table.selectRow(0);
   }
@@ -120,6 +123,9 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   onSort() {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
+    }
+    if (this.table.settings.virtualScroll && !this.table.settings.clientSide) {
+      this.bodyScroll.setOffsetY(0);
     }
     this.table.chunkRows(true);
     this.table.selectRow(0);

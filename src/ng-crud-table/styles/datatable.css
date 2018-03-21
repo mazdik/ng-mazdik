@@ -54,7 +54,7 @@
 
 .datatable-row-left,
 .datatable-row-right {
-  z-index: 9;
+  z-index: 1;
 }
 
 .datatable-row-left,
@@ -91,7 +91,6 @@
 
 .datatable-body {
   position: relative;
-  z-index: 10;
   display: block;
 }
 
