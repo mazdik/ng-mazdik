@@ -96,7 +96,9 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   checkAll() {
-    this.selectedOptions = this.column.options.map(option => option.id);
+    if (typeof this.column.options !== 'function') {
+      this.selectedOptions = this.column.options.map(option => option.id);
+    }
     this.filter(this.selectedOptions, this.column.name);
     this.filterClose.emit(true);
   }

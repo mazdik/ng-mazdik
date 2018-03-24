@@ -6,7 +6,7 @@ export class ColumnBase {
   public name: string;
   public sortable?: boolean = true;
   public filter?: boolean = true;
-  public options?: SelectOption[];
+  public options?: SelectOption[] | Function;
   public width?: number = null;
   public frozen?: boolean;
   public type?: ColumnType;

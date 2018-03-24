@@ -1,4 +1,4 @@
-# Angular 5 CRUD table using REST backend
+# Angular 6 CRUD table using REST backend
 
 Simple CRUD table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
@@ -28,8 +28,8 @@ export class PlayersComponent {
         {
             title: 'Id', 
             name: 'id', 
-            sortable: true, 
-            filter: true, 
+            sortable: false, 
+            filter: false, 
             frozen: true,
             resizeable: false,
             formHidden: true,
@@ -37,19 +37,14 @@ export class PlayersComponent {
         {
             title: 'Name', 
             name: 'name', 
-            sortable: true, 
-            filter: true, 
             frozen: true, 
             width: 250,
             validation: { required: true, pattern: '^[a-zA-Z ]+$' },
             editable: true,
-            resizeable: false,
         },
         {
             title: 'Race',
             name: 'race',
-            sortable: true,
-            filter: true,
             type: 'select',
             options: [
                 { id: 'ASMODIANS', name: 'ASMODIANS' },
@@ -77,8 +72,6 @@ export class PlayersComponent {
         {
             title: 'Gender',
             name: 'gender',
-            sortable: true,
-            filter: true,
             type: 'radio',
             options: [
                 { id: 'MALE', name: 'MALE' },
@@ -89,8 +82,6 @@ export class PlayersComponent {
         {
             title: 'Exp',
             name: 'exp',
-            sortable: true,
-            filter: true,
             type: 'number',
             validation: { required: true, minLength: 2, maxLength: 10 },
             editable: true,
@@ -98,8 +89,6 @@ export class PlayersComponent {
         {
             title: 'Last online', 
             name: 'last_online', 
-            sortable: true, 
-            filter: true,
             type: 'date',
             editable: true,
         },

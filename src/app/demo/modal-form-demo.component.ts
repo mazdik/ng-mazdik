@@ -16,7 +16,7 @@ import {getColumnsPlayers} from './columns';
     <button type="button"
             class="button"
             (click)="createItem()">Create
-    </button>
+    </button>&nbsp;
     <button type="button"
             class="button"
             (click)="updateItem()">Edit

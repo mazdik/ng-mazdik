@@ -17,7 +17,7 @@
             class="button button3"
             *ngIf="!dataManager.isNewItem && !dataManager.detailView"
             (click)="delete()">{{dataManager.messages.delete}}
-    </button>
+    </button>&nbsp;
     <button type="button"
             class="button button1"
             [style.visibility]="!dataManager.detailView ? 'visible': 'hidden'"
