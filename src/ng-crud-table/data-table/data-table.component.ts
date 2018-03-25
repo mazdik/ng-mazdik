@@ -96,12 +96,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
         this.table.getLocalRows();
       }
     }
-    if (this.table.settings.selectionType === 'multiple') {
-      this.table.dataSelection.clearRowSelection();
-      this.table.dataService.onSelectionChange();
-    } else {
-      this.table.selectRow(0);
-    }
+    this.table.clearSelection();
   }
 
   onEditComplete(event) {
@@ -117,7 +112,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       this.bodyScroll.setOffsetY(0);
     }
     this.table.chunkRows(true);
-    this.table.selectRow(0);
+    this.table.clearSelection();
   }
 
   onSort() {
@@ -128,7 +123,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       this.bodyScroll.setOffsetY(0);
     }
     this.table.chunkRows(true);
-    this.table.selectRow(0);
+    this.table.clearSelection();
   }
 
   onSelectedRow() {

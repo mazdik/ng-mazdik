@@ -173,6 +173,11 @@ export class DataTable {
     this.dataService.onSelectionChange();
   }
 
+  clearSelection() {
+    this.dataSelection.clearRowSelection();
+    this.dataService.onSelectionChange();
+  }
+
   setSortMetaGroup() {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       this.sorter.multiple = true;

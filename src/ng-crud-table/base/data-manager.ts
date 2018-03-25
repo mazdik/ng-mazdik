@@ -122,6 +122,7 @@ export class DataManager extends DataTable {
         }
       }
     }
+    this.dataService.onRows();
   }
 
   afterDelete(result: boolean) {
