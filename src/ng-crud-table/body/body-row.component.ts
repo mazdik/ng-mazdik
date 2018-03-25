@@ -15,7 +15,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
   @Input() public row: any;
-  @Input() public rowIndex: number;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
@@ -23,7 +22,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   @HostBinding('class')
   get cssClass() {
     let cls = 'datatable-body-row';
-    if (this.table.dataSelection.isRowSelected(this.rowIndex)) {
+    if (this.table.dataSelection.isRowSelected(this.row.$index)) {
       cls += ' row-selected';
     }
     return cls;
@@ -62,7 +61,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
-    this.rowClick(this.rowIndex);
+    this.rowClick(this.row.$index);
   }
 
   rowClick(rowIndex: number) {

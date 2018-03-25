@@ -2,14 +2,8 @@
 
   <div class="datatable-row-left">
     <div class="datatable-header-cell"
-         *ngFor="let column of frozenColumns; trackBy: table.columnTrackingFn; index as colIndex"
-         [ngStyle]="{'width.px': column.width}"
-         [attr.title] = "column.title"
-         appResizeableColumn
-         [table]="table"
-         [column]="column">
-
-      <ng-template [ngIf]="colIndex == 0 && table.settings.filter">
+         [ngStyle]="{'width.px': table.dimensions.actionColumnWidth}">
+      <ng-template [ngIf]="table.settings.filter">
         <i class="icon-filter"
            [style.visibility]="(!table.dataFilter.hasFilter()) ? 'hidden' : 'visible' "
            style="cursor: pointer;"
@@ -17,20 +11,27 @@
            [title]="table.messages.clearFilters">
         </i>
       </ng-template>
-      <ng-template [ngIf]="colIndex > 0">
+    </div>
+
+    <div class="datatable-header-cell"
+         *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
+         [ngStyle]="{'width.px': column.width}"
+         [attr.title]="column.title"
+         appResizeableColumn
+         [table]="table"
+         [column]="column">
           <span class="column-title" (click)="onSort(column)">
-          {{column.title}}
-          <i class="icon"
-             *ngIf="column.sortable"
-             [ngClass]="table.sorter.getDirection(column.name)">
-          </i>
+            <span [innerHTML]="column.title"></span>
+            <i class="icon"
+               *ngIf="column.sortable"
+               [ngClass]="table.sorter.getDirection(column.name)">
+            </i>
           </span>
-        <i *ngIf="column.filter"
-           (click)="clickColumnMenu($event, column)"
-           [ngClass]="{'is-filter': table.dataFilter.isFilter(column.name)}"
-           class="icon-filter column-menu">
-        </i>
-      </ng-template>
+      <i *ngIf="column.filter"
+         (click)="clickColumnMenu($event, column)"
+         [ngClass]="{'is-filter': table.dataFilter.isFilter(column.name)}"
+         class="icon-filter column-menu">
+      </i>
     </div>
   </div>
 
@@ -39,17 +40,16 @@
     <div class="datatable-header-cell"
          *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
          [ngStyle]="{'width.px': column.width}"
-         [attr.title] = "column.title"
+         [attr.title]="column.title"
          appResizeableColumn
          [table]="table"
          [column]="column">
-
             <span class="column-title" (click)="onSort(column)">
-            {{column.title}}
-            <i class="icon"
-               *ngIf="column.sortable"
-               [ngClass]="table.sorter.getDirection(column.name)">
-            </i>
+              <span [innerHTML]="column.title"></span>
+              <i class="icon"
+                 *ngIf="column.sortable"
+                 [ngClass]="table.sorter.getDirection(column.name)">
+              </i>
             </span>
       <i *ngIf="column.filter"
          (click)="clickColumnMenu($event, column)"

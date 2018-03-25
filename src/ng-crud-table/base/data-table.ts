@@ -200,20 +200,20 @@ export class DataTable {
     return this.rowGroupMetadata[group].size;
   }
 
-  isRowGroup(row: any, rowIndex: number) {
+  isRowGroup(row: any) {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-      return this.rowGroupMetadata[group].index === rowIndex;
+      return this.rowGroupMetadata[group].index === row.$index;
     } else {
       return false;
     }
   }
 
-  isRowGroupSummary(row: any, rowIndex: number) {
+  isRowGroupSummary(row: any) {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length && this.dataAggregation.aggregates.length) {
       const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
       const lastRowIndex = (this.rowGroupMetadata[group].index + this.rowGroupMetadata[group].size) - 1;
-      return lastRowIndex === rowIndex;
+      return lastRowIndex === row.$index;
     } else {
       return false;
     }

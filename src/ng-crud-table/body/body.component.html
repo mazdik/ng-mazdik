@@ -1,9 +1,9 @@
 <div class="datatable-scroll"
      [style.height.px]="getScrollHeight()">
-  <ng-container *ngFor="let row of table.getRows(); index as rowIndex; trackBy: rowTrackingFn">
+  <ng-container *ngFor="let row of table.getRows(); trackBy: rowTrackingFn">
 
     <div class="datatable-body-row datatable-group-header"
-         *ngIf="table.isRowGroup(row, rowIndex)"
+         *ngIf="table.isRowGroup(row)"
          [style.width.px]="table.dimensions.columnsTotalWidth">
       <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
         {{table.getRowGroupName(row)}} ({{table.getRowGroupSize(row)}})
@@ -14,12 +14,11 @@
     <app-datatable-body-row
       [table]="table"
       [row]="row"
-      [rowIndex]="row['$index']"
       [style.transform]="styleTranslate(row['$index'])">
     </app-datatable-body-row>
 
     <app-datatable-summary-row
-      *ngIf="table.isRowGroupSummary(row, rowIndex)"
+      *ngIf="table.isRowGroupSummary(row)"
       [table]="table"
       [row]="table.getRowGroupSummary(row)">
     </app-datatable-summary-row>

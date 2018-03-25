@@ -10,7 +10,7 @@ export class RowViewComponent implements OnInit {
   @Input() public dataManager: DataManager;
 
   order: string;
-  reverse: boolean;
+  reverse: boolean = true;
   transposedData: any[];
 
   constructor() {
@@ -31,11 +31,11 @@ export class RowViewComponent implements OnInit {
   }
 
   isOrder(name: string) {
-    return this.order === name && !this.reverse;
+    return this.order === name && this.reverse;
   }
 
   isOrderReverse(name: string) {
-    return this.order === name && this.reverse;
+    return this.order === name && !this.reverse;
   }
 
 }

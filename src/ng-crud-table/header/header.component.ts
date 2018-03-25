@@ -18,26 +18,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') cssClass = 'datatable-header';
 
-  frozenColumns: Column[] = [];
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
 
   ngOnInit() {
-    if (this.table.columns) {
-      this.frozenColumns = [...this.table.frozenColumns];
-      const actionColumn: Column = new Column({
-        title: '',
-        name: '',
-        sortable: false,
-        filter: false,
-        resizeable: false,
-        width: this.table.dimensions.actionColumnWidth
-      });
-      this.frozenColumns.unshift(actionColumn);
-    }
-
     if (this.table.settings.setWidthColumnOnMove) {
       const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
