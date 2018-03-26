@@ -13,7 +13,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() public modalTitle: string;
   @Input() public width: any;
   @Input() public zIndex: number;
-  @Input() public autoZIndex: boolean;
   @Input() public minWidth: number = 260;
   @Input() public minHeight: number = 260;
   @Input() public scrollTop: boolean = true;
@@ -38,9 +37,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    if (this.autoZIndex) {
-      this.zIndex = this.getMaxModalIndex() + 1;
-    } else {
+    if (!this.zIndex) {
+      this.zIndex = this.getMaxModalIndex() + 2;
       this.zIndex = this.zIndex || 1100;
     }
   }
