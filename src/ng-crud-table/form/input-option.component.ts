@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {DataSource} from '../types';
+import {DataSource, SelectOption} from '../types';
 import {InputComponent} from './input.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     return this._dependsValue;
   }
 
-  private _options: any;
+  private _options: SelectOption[];
   private _dependsValue: any;
 
   ngOnInit() {
@@ -41,6 +41,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
         this.loadOptions();
       } else {
         this._options = this.column.getOptions(this.dependsValue);
+        this.setDefaultSelect();
       }
     } else {
       this._options = [];
@@ -53,6 +54,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
       this.service.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
         this._options = res;
         this.loading = false;
+        this.setDefaultSelect();
       }).catch(error => {
         this._options = [];
         this.loading = false;
@@ -70,6 +72,12 @@ export class InputOptionComponent extends InputComponent implements OnInit {
         'column': this.column.keyColumn,
         'value': this.model
       });
+    }
+  }
+
+  setDefaultSelect() {
+    if (this._options && this._options.length === 1) {
+      this.model = this._options[0].id;
     }
   }
 
