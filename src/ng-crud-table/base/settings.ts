@@ -20,6 +20,7 @@ export class Settings {
   public selectionMode?: SelectionMode;
   public singleRowView?: boolean = true;
   public virtualScroll?: boolean;
+  public rowClass?: any;
 
   constructor(init: Partial<Settings>) {
     if (init) {

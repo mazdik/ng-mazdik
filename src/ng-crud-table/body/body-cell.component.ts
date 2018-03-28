@@ -5,6 +5,7 @@ import {
 import {Column} from '../base/column';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
+import {addClass} from '../base/util';
 
 @Component({
   selector: 'app-datatable-body-cell',
@@ -59,17 +60,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
           column: this.column,
           value: this.value,
         });
-
-        if (typeof res === 'string') {
-          cls += ' ' + res;
-        } else if (typeof res === 'object') {
-          const keys = Object.keys(res);
-          for (const k of keys) {
-            if (res[k] === true) {
-              cls += ` ${k}`;
-            }
-          }
-        }
+        cls = addClass(cls, res);
       }
     }
     if (this.editing) {

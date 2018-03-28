@@ -19,6 +19,10 @@
   position: absolute;
 }
 
+.datatable-scroll {
+  display: inline-block;
+}
+
 .datatable-body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -229,10 +233,12 @@
 
 .row-selected {
   background-color: #ecf3ff;
+  color: black;
 }
 
 .row-selected .datatable-row-left {
   background-color: #ecf3ff;
+  color: black;
 }
 
 .cell-selected {

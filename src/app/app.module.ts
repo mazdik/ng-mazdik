@@ -23,6 +23,7 @@ import { SummaryRowDemoComponent } from './demo/summary-row-demo.component';
 import { MultipleSelectionDemoComponent } from './demo/multiple-selection-demo.component';
 import { LiveDemoComponent} from './demo/live-demo.component';
 import { VirtualScrollDemoComponent } from './demo/virtual-scroll-demo.component';
+import { CssDemoComponent } from './demo/css-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -42,6 +43,7 @@ const ROUTES: Routes = [
   {path: 'multiple-selection-demo', component: MultipleSelectionDemoComponent},
   {path: 'live-demo', component: LiveDemoComponent},
   {path: 'virtual-scroll-demo', component: VirtualScrollDemoComponent},
+  {path: 'css-demo', component: CssDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -64,7 +66,8 @@ const ROUTES: Routes = [
     SummaryRowDemoComponent,
     MultipleSelectionDemoComponent,
     LiveDemoComponent,
-    VirtualScrollDemoComponent
+    VirtualScrollDemoComponent,
+    CssDemoComponent
   ],
   imports: [
     BrowserModule,

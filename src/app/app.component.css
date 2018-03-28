@@ -106,5 +106,16 @@
 }
 
 .cell-middle-value {
-  background-color: lightblue;
+  background-color: lightBlue;
+}
+
+.row-warrior,
+.row-warrior .datatable-row-left {
+  background-color: lightyellow;
+}
+
+.row-sorcerer,
+.row-sorcerer .datatable-row-left {
+  background-color: LightSlateGray;
+  color: white;
 }

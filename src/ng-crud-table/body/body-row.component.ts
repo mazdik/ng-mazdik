@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
-import {translate} from '../base/util';
+import {translate, addClass} from '../base/util';
 
 @Component({
   selector: 'app-datatable-body-row',
@@ -22,6 +22,15 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   @HostBinding('class')
   get cssClass() {
     let cls = 'datatable-body-row';
+    const rowClass = this.table.settings.rowClass;
+    if (rowClass) {
+      if (typeof rowClass === 'string') {
+        cls += ' ' + rowClass;
+      } else if (typeof rowClass === 'function') {
+        const res = rowClass(this.row);
+        cls = addClass(cls, res);
+      }
+    }
     if (this.table.dataSelection.isRowSelected(this.row.$index)) {
       cls += ' row-selected';
     }

@@ -38,15 +38,6 @@ export class BasicDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.columns[5].cellClass = this.getCellClass;
-  }
-
-  getCellClass({row, column, value}): any {
-    return {
-      'cell-big-value': parseInt(value, 10) > 1000000000,
-      'cell-middle-value': parseInt(value, 10) > 1000000 && parseInt(value, 10) < 1000000000,
-      'cell-zero-value': parseInt(value, 10) === 0,
-    };
   }
 
 }
