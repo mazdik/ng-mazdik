@@ -82,7 +82,7 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
     const underMaxWidth = !this.column.maxWidth || this.newWidth <= this.column.maxWidth;
 
     if (overMinWidth && underMaxWidth) {
-      if (this.table.settings.setWidthColumnOnMove) {
+      if (this.table.settings.columnResizeMode === 'aminated') {
         this.element.style.width = `${this.newWidth}px`;
         this.column.setWidth(this.newWidth);
       }

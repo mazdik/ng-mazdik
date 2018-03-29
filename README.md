@@ -155,3 +155,54 @@ interface DataSource {
   getOptions?(url: string, parentId: any): Promise<any>;
 }
 ```
+
+Column
+| Attribute        | Type       | Default | Description |
+|------------------|------------|---------|-------------|
+| title            | string     | null    |             |
+| name             | string     | null    |             |
+| sortable         | boolean    | true    |             |
+| filter           | boolean    | true    |             |
+| options          | SelectOption[] / Function | null | |
+| optionsUrl       | string     | null    |             |
+| width            | number     | null    |             |
+| frozen           | boolean    | false   |             |
+| type             | ColumnType | null    |             |
+| validation       | Validation | null    |             |
+| editable         | boolean    | false   |             |
+| resizeable       | boolean    | true    |             |
+| dependsColumn    | string     | null    |             |
+| cellTemplate     | TemplateRef | null   |             |
+| formHidden       | boolean    | false   |             |
+| tableHidden      | boolean    | false   |             |
+| cellClass        | string / Function | null |         |
+| keyColumn        | string     | null    |             |
+| selectionLimit   | number     | 1       |             |
+| minWidth         | number     | 50      |             |
+| maxWidth         | number     | 500     |             |
+| aggregation      | AggregateType | null |             |
+
+Settings
+| Attribute        | Type       | Default | Description |
+|------------------|------------|---------|-------------|
+| api              | string     | null    |             |
+| crud             | boolean    | false   |             |
+| primaryKeys      | string[]   | null    |             |
+| tableWidth       | number     | null    |             |
+| bodyHeight       | number     | null    |             |
+| sortable         | boolean    | true    |             |
+| filter           | boolean    | true    |             |
+| initLoad         | boolean    | true    |             |
+| clientSide       | boolean    | true    |             |
+| multipleSort     | boolean    | false   |             |
+| trackByProp      | string     | null    |             |
+| groupRowsBy      | string[]   | null    |             |
+| filterDelay      | number     | 500     |             |
+| globalFilter     | boolean    | false   |             |
+| columnResizeMode | simple / aminated | simple |       |
+| selectionType    | single / multiple | single |       |
+| selectionMode    | checkbox / radio | null |          |
+| singleRowView    | boolean      | true    |           |
+| virtualScroll    | boolean      | false   |           |
+| rowClass         | string / Function | false |        |
+

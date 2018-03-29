@@ -1,4 +1,4 @@
-import {SelectionType, SelectionMode} from '../types';
+import {SelectionType, SelectionMode, ColumnResizeMode} from '../types';
 
 export class Settings {
   public api?: string;
@@ -15,12 +15,12 @@ export class Settings {
   public groupRowsBy?: string[];
   public filterDelay?: number = 500;
   public globalFilter?: boolean;
-  public setWidthColumnOnMove?: boolean;
+  public columnResizeMode?: ColumnResizeMode = 'simple';
   public selectionType?: SelectionType;
   public selectionMode?: SelectionMode;
   public singleRowView?: boolean = true;
   public virtualScroll?: boolean;
-  public rowClass?: any;
+  public rowClass?: string | Function;
 
   constructor(init: Partial<Settings>) {
     if (init) {

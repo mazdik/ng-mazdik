@@ -20,3 +20,5 @@ export type AggregateType =
 export type SelectionType = 'single' | 'multiple';
 
 export type SelectionMode = 'checkbox' | 'radio';
+
+export type ColumnResizeMode = 'simple' | 'aminated';

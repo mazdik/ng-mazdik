@@ -137,7 +137,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onColumnResize(event) {
-    if (!this.table.settings.setWidthColumnOnMove) {
+    if (this.table.settings.columnResizeMode === 'simple') {
       const rect = this.element.nativeElement.getBoundingClientRect();
       const containerLeft = rect.left + document.body.scrollLeft;
       this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';

@@ -52,7 +52,7 @@ export class TreeTableComponent implements OnInit {
       });
     }
     this.table.dimensions.actionColumnWidth = 250;
-    this.table.settings.setWidthColumnOnMove = true;
+    this.table.settings.columnResizeMode = 'aminated';
   }
 
   onCellEditComplete(event) {

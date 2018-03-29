@@ -27,7 +27,7 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.table.settings.setWidthColumnOnMove) {
+    if (this.table.settings.columnResizeMode === 'aminated') {
       const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });

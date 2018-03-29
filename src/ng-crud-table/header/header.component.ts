@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.table.settings.setWidthColumnOnMove) {
+    if (this.table.settings.columnResizeMode === 'aminated') {
       const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });

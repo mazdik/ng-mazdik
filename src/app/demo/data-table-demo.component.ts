@@ -16,9 +16,9 @@ export class DataTableDemoComponent implements OnInit {
   public columns: Column[];
   public loading: boolean;
 
-  public settings: Settings = {
+  public settings: Settings = <Settings>{
     clientSide: true,
-    setWidthColumnOnMove: true
+    columnResizeMode: 'aminated'
   };
 
   constructor(private http: HttpClient) {
