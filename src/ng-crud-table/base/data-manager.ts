@@ -108,7 +108,7 @@ export class DataManager extends DataTable {
     if (this.refreshRowOnSave) {
       this.refreshRow(result, true);
     } else {
-      this.rows.push(result);
+      this.addRow(result);
     }
   }
 
@@ -116,11 +116,7 @@ export class DataManager extends DataTable {
     if (this.refreshRowOnSave) {
       this.refreshSelectedRow();
     } else {
-      for (const key of Object.keys(result)) {
-        if (key in this.rows[this.getSelectedRowIndex()]) {
-          this.rows[this.getSelectedRowIndex()][key] = result[key];
-        }
-      }
+      this.mergeSelectedRow(result);
     }
     this.dataService.onRows();
   }
@@ -131,6 +127,14 @@ export class DataManager extends DataTable {
     }
   }
 
+  mergeSelectedRow(result: any) {
+    for (const key of Object.keys(result)) {
+      if (key in this.rows[this.getSelectedRowIndex()]) {
+        this.rows[this.getSelectedRowIndex()][key] = result[key];
+      }
+    }
+  }
+
   refreshRow(row: any, isNew: boolean) {
     this.loading = true;
     this.errors = null;
@@ -138,9 +142,9 @@ export class DataManager extends DataTable {
       .then(data => {
         this.loading = false;
         if (isNew) {
-          this.rows.push(data);
+          this.addRow(data);
         } else {
-          this.rows[this.getSelectedRowIndex()] = data;
+          this.mergeSelectedRow(data);
         }
       })
       .catch(error => {

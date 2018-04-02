@@ -10,6 +10,7 @@ import {DataAggregation} from './data-aggregation';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
 import {Message} from './message';
+import {getUidRow} from './util';
 
 export class DataTable {
 
@@ -274,9 +275,10 @@ export class DataTable {
   }
 
   setRowUid(data: any[]) {
-    let uid: number = 0;
     data.forEach(row => {
-      row.$uid = uid++;
+      if (!row['$uid']) {
+        row.$uid = getUidRow();
+      }
     });
     return data;
   }
@@ -304,5 +306,19 @@ export class DataTable {
     this.previousEnd = 0;
   }
 
+  addRow(newRow) {
+    newRow.$uid = getUidRow();
+    this._rows.push(newRow);
+
+    if (this.settings.clientSide) {
+      this.localRows.push(newRow);
+      this.getLocalRows();
+    } else {
+      this.updateRowGroupMetadata();
+    }
+    this.setRowIndexes();
+    this.chunkRows(true);
+    this.dataService.onRows();
+  }
 
 }
