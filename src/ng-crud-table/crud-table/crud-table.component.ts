@@ -19,6 +19,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @Input() public service: DataSource;
   @Input() public zIndexModal: number;
   @Output() select: EventEmitter<any> = new EventEmitter();
+  @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
   @Input()
   set columns(val: ColumnBase[]) {
@@ -90,12 +91,16 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const subRowMenu = this.dataManager.dataService.rowMenuSource$.subscribe((data) => {
       this.onRowMenu(data);
     });
+    const subRows = this.dataManager.dataService.rowsChanged$.subscribe(() => {
+      this.rowsChanged.emit(true);
+    });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
     this.subscriptions.push(subEdit);
     this.subscriptions.push(subRowMenu);
+    this.subscriptions.push(subRows);
   }
 
   ngOnDestroy() {

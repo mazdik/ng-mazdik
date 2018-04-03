@@ -92,7 +92,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+    const subRows = this.table.dataService.rowsChanged$.subscribe(() => {
       this.updateValue();
     });
     this.subscriptions.push(subRows);

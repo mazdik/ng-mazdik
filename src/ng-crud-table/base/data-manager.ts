@@ -118,7 +118,7 @@ export class DataManager extends DataTable {
     } else {
       this.mergeSelectedRow(result);
     }
-    this.dataService.onRows();
+    this.dataService.onRowsChanged();
   }
 
   afterDelete(result: boolean) {

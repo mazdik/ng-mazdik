@@ -36,7 +36,7 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
     const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+    const subRows = this.table.dataService.rowsChanged$.subscribe(() => {
       this.cd.markForCheck();
     });
     const subScroll = this.table.dataService.scrollSource$.subscribe(() => {

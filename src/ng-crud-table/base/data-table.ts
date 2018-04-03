@@ -50,7 +50,7 @@ export class DataTable {
     }
     this.setRowIndexes();
     this.chunkRows(true);
-    this.dataService.onRows();
+    this.dataService.onRowsChanged();
   }
 
   get rows(): any {
@@ -318,7 +318,7 @@ export class DataTable {
     }
     this.setRowIndexes();
     this.chunkRows(true);
-    this.dataService.onRows();
+    this.dataService.onRowsChanged();
   }
 
 }

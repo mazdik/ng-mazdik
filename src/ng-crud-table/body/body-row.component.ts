@@ -51,7 +51,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subRows = this.table.dataService.rowsSource$.subscribe(() => {
+    const subRows = this.table.dataService.rowsChanged$.subscribe(() => {
       if (this.rowDiffer.diff(this.row)) {
         this.cd.markForCheck();
       }
