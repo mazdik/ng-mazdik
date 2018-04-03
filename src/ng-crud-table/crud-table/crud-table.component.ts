@@ -56,6 +56,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   set filters(val: Filter) {
     this.dataManager.dataFilter.filters = val;
+    this.dataManager.dataService.onFilter();
   }
 
   get filters(): Filter {

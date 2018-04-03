@@ -14,9 +14,10 @@ export class DemoService implements DataSource {
   private dataFilter: DataFilter;
   private dataSort: DataSort;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private perPage?: number) {
     this.dataFilter = new DataFilter();
     this.dataSort = new DataSort();
+    this.itemsPerPage = perPage || this.itemsPerPage;
   }
 
   getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {

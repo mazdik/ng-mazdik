@@ -9,7 +9,7 @@ import {getColumnsPlayers} from './columns';
   template: `<p>Client-side virtual scroll</p>
     <app-datatable [table]="table" [loading]="loading"></app-datatable>
   <p>Server-side virtual scroll</p>
-  <app-crud-table [columns]="columns" [settings]="serverSideSettings" [service]="service"></app-crud-table>\`
+  <app-crud-table [columns]="columns" [settings]="serverSideSettings" [service]="service"></app-crud-table>
   `
 })
 
@@ -35,7 +35,7 @@ export class VirtualScrollDemoComponent implements OnInit {
       column.editable = false;
     }
     this.table = new DataTable(this.columns, this.settings);
-    this.service = new DemoService(this.http);
+    this.service = new DemoService(this.http, 10);
   }
 
   ngOnInit() {

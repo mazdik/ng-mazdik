@@ -175,8 +175,10 @@ export class DataManager extends DataTable {
   }
 
   setItem(rowIndex: number) {
-    const item = this.rows[rowIndex];
-    this.item = Object.assign({}, item);
+    const row = this.rows.find((x) => {
+      return x['$index'] === rowIndex;
+    });
+    this.item = Object.assign({}, row);
     this.isNewItem = false;
   }
 

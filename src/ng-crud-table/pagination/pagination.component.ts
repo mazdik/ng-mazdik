@@ -10,7 +10,7 @@ export class PaginationComponent {
   protected _currentPage: number = 1;
   protected _itemsPerPage: number = 10;
   protected _totalItems: number = 0;
-  pages: any;
+  pages: number[];
 
   @Output() pageChanged = new EventEmitter();
 
@@ -69,9 +69,9 @@ export class PaginationComponent {
     return Math.max(totalPages || 0, 1);
   }
 
-  public getPages(): any[] {
+  public getPages(): number[] {
     const maxSize: number = 5;
-    const pages: any[] = [];
+    const pages: number[] = [];
     let startPage = 1;
     const totalPages = this.totalPages();
     let endPage = totalPages;

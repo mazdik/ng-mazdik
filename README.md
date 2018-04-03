@@ -156,7 +156,8 @@ interface DataSource {
 }
 ```
 
-Column
+### Column
+
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
 | title            | string     | null    |             |
@@ -182,7 +183,8 @@ Column
 | maxWidth         | number     | 500     |             |
 | aggregation      | AggregateType | null |             |
 
-Settings
+### Settings
+
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
 | api              | string     | null    |             |

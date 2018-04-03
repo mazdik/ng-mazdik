@@ -123,9 +123,6 @@ export class DataTable {
     }
     this.dimensions.tableWidth = this.settings.tableWidth;
     this.dimensions.bodyHeight = this.settings.bodyHeight;
-    if (this.settings.virtualScroll && !this.dimensions.bodyHeight) {
-      this.dimensions.calcBodyHeight(this.pager.perPage);
-    }
     this.sorter.multiple = this.settings.multipleSort;
     this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();
@@ -228,8 +225,8 @@ export class DataTable {
   getRowGroupSummary(row: any) {
     const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
     const summaryRow = Object.assign({}, this.rowGroupMetadata[group]);
-    delete summaryRow.index;
-    delete summaryRow.size;
+    delete summaryRow['index'];
+    delete summaryRow['size'];
     return summaryRow;
   }
 
@@ -252,7 +249,11 @@ export class DataTable {
   }
 
   chunkRows(force: boolean = false) {
+    if (this.settings.virtualScroll && !this.dimensions.bodyHeight) {
+      this.dimensions.calcBodyHeight(this.pager.perPage);
+    }
     if (this.settings.virtualScroll) {
+      this.pager.total = this.rows.length;
       const totalRecords = this.pager.total;
       this.dimensions.calcScrollHeight(totalRecords);
 
