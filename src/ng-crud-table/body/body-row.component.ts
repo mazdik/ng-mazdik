@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {translate, addClass} from '../base/util';
 import {Row} from '../types';
 

@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {Column} from '../base/column';
 import {DataTable} from '../base/data-table';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {addClass} from '../base/util';
 import {Row} from '../types';
 

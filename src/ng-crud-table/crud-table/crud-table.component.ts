@@ -5,7 +5,7 @@ import {Settings} from '../base/settings';
 import {ColumnBase} from '../base/column-base';
 import {DataManager} from '../base/data-manager';
 import {Message} from '../base/message';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-crud-table',

@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {MenuItem, Row} from '../types';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-datatable-body-cell-action',

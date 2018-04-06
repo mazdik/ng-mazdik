@@ -4,7 +4,7 @@ import {
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
 import {translate} from '../base/util';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-datatable-header',

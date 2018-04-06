@@ -1,9 +1,9 @@
 import {
   Directive, ElementRef, HostListener, Input, OnDestroy, AfterViewInit, Renderer2, HostBinding
 } from '@angular/core';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {fromEvent} from 'rxjs/observable/fromEvent';
+import {fromEvent} from 'rxjs';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
 

@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 import {BodyScrollDirective} from '../directives/body-scroll.directive';
 
 @Component({

@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
-import {Subscription} from 'rxjs/Subscription';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-filter',
