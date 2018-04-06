@@ -1,4 +1,4 @@
-import {DataSource} from '../types';
+import {DataSource, Row} from '../types';
 import {DataTable} from './data-table';
 import {ColumnBase} from './column-base';
 import {Settings} from './settings';
@@ -174,10 +174,7 @@ export class DataManager extends DataTable {
     this.isNewItem = true;
   }
 
-  setItem(rowIndex: number) {
-    const row = this.rows.find((x) => {
-      return x['$index'] === rowIndex;
-    });
+  setItem(row: Row) {
     this.item = Object.assign({}, row);
     this.isNewItem = false;
   }

@@ -5,6 +5,7 @@ import {
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
 import {translate, addClass} from '../base/util';
+import {Row} from '../types';
 
 @Component({
   selector: 'app-datatable-body-row',
@@ -14,13 +15,13 @@ import {translate, addClass} from '../base/util';
 export class BodyRowComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public row: any;
+  @Input() public row: Row;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 
   @HostBinding('class')
-  get cssClass() {
+  get cssClass(): string {
     let cls = 'datatable-body-row';
     const rowClass = this.table.settings.rowClass;
     if (rowClass) {
@@ -31,7 +32,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
         cls = addClass(cls, res);
       }
     }
-    if (this.table.dataSelection.isRowSelected(this.row.$index)) {
+    if (this.table.dataSelection.isRowSelected(this.row.index)) {
       cls += ' row-selected';
     }
     return cls;
@@ -70,11 +71,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
-    this.rowClick(this.row.$index);
-  }
-
-  rowClick(rowIndex: number) {
-    this.table.selectRow(rowIndex);
+    this.table.selectRow(this.row.index);
   }
 
   stylesByGroup() {

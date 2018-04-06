@@ -4,6 +4,7 @@ import {
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
 import {translate} from '../base/util';
+import {Row} from '../types';
 
 @Component({
   selector: 'app-datatable-summary-row',
@@ -13,7 +14,7 @@ import {translate} from '../base/util';
 export class SummaryRowComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public row: any;
+  @Input() public row: Row;
 
   private subscriptions: Subscription[] = [];
 

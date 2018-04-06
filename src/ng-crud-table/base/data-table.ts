@@ -1,4 +1,4 @@
-import {MenuItem} from '../types';
+import {MenuItem, Row} from '../types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
@@ -27,8 +27,8 @@ export class DataTable {
   public dataSelection: DataSelection;
   public dimensions: Dimensions;
   public messages?: Message;
-  public localRows: any[] = [];
-  public virtualRows: any[] = [];
+  public localRows: Row[] = [];
+  public virtualRows: Row[] = [];
   public rowGroupMetadata: any;
   public grandTotalRow: any;
   public offsetX: number = 0;
@@ -57,7 +57,7 @@ export class DataTable {
     return this._rows;
   }
 
-  private _rows: any[] = [];
+  private _rows: Row[] = [];
 
   constructor(columns?: ColumnBase[], settings?: Settings, messages?: Message) {
     this.settings = new Settings(settings);
@@ -141,7 +141,7 @@ export class DataTable {
     Object.assign(this.messages, messages);
   }
 
-  setLocalRows(data: any[]) {
+  setLocalRows(data: Row[]) {
     this.dataFilter.clear();
     this.sorter.clear();
     this.pager.current = 1;
@@ -194,35 +194,35 @@ export class DataTable {
     }
   }
 
-  getRowGroupName(row: any) {
+  getRowGroupName(row: Row) {
     return this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
   }
 
-  getRowGroupSize(row: any) {
+  getRowGroupSize(row: Row) {
     const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
     return this.rowGroupMetadata[group].size;
   }
 
-  isRowGroup(row: any) {
+  isRowGroup(row: Row) {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-      return this.rowGroupMetadata[group].index === row.$index;
+      return this.rowGroupMetadata[group].index === row.index;
     } else {
       return false;
     }
   }
 
-  isRowGroupSummary(row: any) {
+  isRowGroupSummary(row: Row) {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length && this.dataAggregation.aggregates.length) {
       const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
       const lastRowIndex = (this.rowGroupMetadata[group].index + this.rowGroupMetadata[group].size) - 1;
-      return lastRowIndex === row.$index;
+      return lastRowIndex === row.index;
     } else {
       return false;
     }
   }
 
-  getRowGroupSummary(row: any) {
+  getRowGroupSummary(row: Row) {
     const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
     const summaryRow = Object.assign({}, this.rowGroupMetadata[group]);
     delete summaryRow['index'];
@@ -271,14 +271,14 @@ export class DataTable {
   setRowIndexes() {
     let rowIndex: number = 0;
     this._rows.forEach(row => {
-      row.$index = rowIndex++;
+      row.index = rowIndex++;
     });
   }
 
-  setRowUid(data: any[]) {
+  setRowUid(data: Row[]): Row[] {
     data.forEach(row => {
-      if (!row['$uid']) {
-        row.$uid = getUidRow();
+      if (!row.uid) {
+        row.uid = getUidRow();
       }
     });
     return data;
@@ -307,8 +307,8 @@ export class DataTable {
     this.previousEnd = 0;
   }
 
-  addRow(newRow) {
-    newRow.$uid = getUidRow();
+  addRow(newRow: Row) {
+    newRow.uid = getUidRow();
     this._rows.push(newRow);
 
     if (this.settings.clientSide) {

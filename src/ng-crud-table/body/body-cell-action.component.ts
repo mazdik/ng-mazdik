@@ -2,7 +2,7 @@ import {
   Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../base/data-table';
-import {MenuItem} from '../types';
+import {MenuItem, Row} from '../types';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -14,10 +14,10 @@ import {Subscription} from 'rxjs/Subscription';
               [ngClass]="action.icon"
               *ngIf="!action.disabled"
               title="{{action.label}}"
-              (click)="actionClick($event, action, rowIndex)">
+              (click)="actionClick($event, action, row)">
         </span>
     </ng-template>
-    <span *ngIf="!table.actionMenu && !table.settings.selectionMode">{{rowIndex + 1}}</span>
+    <span *ngIf="!table.actionMenu && !table.settings.selectionMode">{{row.index + 1}}</span>
     <span *ngIf="table.settings.selectionMode"
           class="{{'datatable-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"
@@ -29,7 +29,7 @@ import {Subscription} from 'rxjs/Subscription';
 export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public rowIndex: number;
+  @Input() public row: Row;
 
   @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
 
@@ -46,7 +46,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const subSelection = this.table.dataService.selectionSource$.subscribe(() => {
-      this.checked = this.table.dataSelection.isRowSelected(this.rowIndex);
+      this.checked = this.table.dataSelection.isRowSelected(this.row.index);
       this.cd.markForCheck();
     });
     this.subscriptions.push(subSelection);
@@ -56,9 +56,9 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  actionClick(event, menuItem: MenuItem, rowIndex: number) {
-    this.table.selectRow(rowIndex);
-    this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'rowIndex': rowIndex});
+  actionClick(event, menuItem: MenuItem, row: Row) {
+    this.table.selectRow(row.index);
+    this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': row});
   }
 
   onCheckboxClick(event) {

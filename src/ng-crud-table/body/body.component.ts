@@ -4,6 +4,7 @@ import {
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
 import {translate} from '../base/util';
+import {Row} from '../types';
 
 @Component({
   selector: 'app-datatable-body',
@@ -17,7 +18,7 @@ export class BodyComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') cssClass = 'datatable-body';
 
-  rowTrackingFn: any;
+  rowTrackingFn: Function;
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
@@ -66,9 +67,9 @@ export class BodyComponent implements OnInit, OnDestroy {
     return translate(this.table.offsetX, 0);
   }
 
-  styleTranslate(rowIndex: number) {
+  styleTranslate(row: Row) {
     if (this.table.settings.virtualScroll) {
-      return `translate3d(0, ${rowIndex * this.table.dimensions.rowHeight}px, 0)`;
+      return `translate3d(0, ${row.index * this.table.dimensions.rowHeight}px, 0)`;
     }
   }
 

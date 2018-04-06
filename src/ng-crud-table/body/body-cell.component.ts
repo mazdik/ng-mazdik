@@ -6,6 +6,7 @@ import {Column} from '../base/column';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs/Subscription';
 import {addClass} from '../base/util';
+import {Row} from '../types';
 
 @Component({
   selector: 'app-datatable-body-cell',
@@ -38,18 +39,18 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set row(row: any) {
+  set row(row: Row) {
     this._row = row;
     this.cellContext.row = row;
     this.updateValue();
   }
 
-  get row(): any {
+  get row(): Row {
     return this._row;
   }
 
   @HostBinding('class')
-  get columnCssClasses(): any {
+  get columnCssClasses(): string {
     let cls = 'datatable-body-cell';
     if (this.column.cellClass) {
       if (typeof this.column.cellClass === 'string') {
@@ -85,7 +86,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   };
   public editing: boolean;
   private _column: Column;
-  private _row: any;
+  private _row: Row;
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {

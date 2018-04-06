@@ -3,7 +3,7 @@
 
   <app-datatable-body-cell-action
     [table]="table"
-    [rowIndex]="row['$index']">
+    [row]="row">
   </app-datatable-body-cell-action>
 
   <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn; index as colIndex">

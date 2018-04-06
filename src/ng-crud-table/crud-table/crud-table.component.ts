@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
-import {DataSource, Filter} from '../types';
+import {DataSource, Filter, Row} from '../types';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
 import {Settings} from '../base/settings';
 import {ColumnBase} from '../base/column-base';
@@ -127,9 +127,9 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onRowMenu(data: any) {
     if (data.menuItem.command === 'view') {
-      this.viewAction(data.rowIndex);
+      this.viewAction(data.row);
     } else if (data.menuItem.command === 'update') {
-      this.updateAction(data.rowIndex);
+      this.updateAction(data.row);
     }
   }
 
@@ -139,20 +139,20 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.modalEditForm.open();
   }
 
-  viewAction(rowIndex: number) {
+  viewAction(row: Row) {
     this.dataManager.errors = null;
-    this.dataManager.setItem(rowIndex);
+    this.dataManager.setItem(row);
     this.dataManager.detailView = true;
     this.modalEditForm.open();
   }
 
-  updateAction(rowIndex: number) {
-    this.dataManager.setItem(rowIndex);
+  updateAction(row: Row) {
+    this.dataManager.setItem(row);
     this.dataManager.detailView = false;
     this.modalEditForm.open();
   }
 
-  onEditComplete(row: any) {
+  onEditComplete(row: Row) {
     this.dataManager.update(row);
   }
 

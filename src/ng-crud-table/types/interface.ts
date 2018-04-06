@@ -69,7 +69,13 @@ export interface TreeDataSource {
   searchNodes(name: string): Promise<any>;
 }
 
-export  interface AggregateMeta {
+export interface AggregateMeta {
   field: string;
   type: AggregateType;
+}
+
+export interface Row {
+  [name: string]: any;
+  uid: number;
+  index: number;
 }

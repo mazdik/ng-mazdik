@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import {Column} from '../base/column';
 import {BodyCellComponent} from './body-cell.component';
+import {Row} from '../types';
 
 @Component({
   selector: 'app-datatable-body-cell-edit',
@@ -88,7 +89,7 @@ export class BodyCellEditComponent extends BodyCellComponent {
     }
   }
 
-  getOptions(row: any[]) {
+  getOptions(row: Row[]) {
     return this.column.getOptions(row[this.column.dependsColumn]);
   }
 
