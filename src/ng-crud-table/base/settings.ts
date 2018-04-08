@@ -1,4 +1,5 @@
 import {SelectionType, SelectionMode, ColumnResizeMode} from '../types';
+import {TemplateRef} from '@angular/core';
 
 export class Settings {
   public api?: string;
@@ -21,6 +22,7 @@ export class Settings {
   public singleRowView?: boolean = true;
   public virtualScroll?: boolean;
   public rowClass?: string | Function;
+  public headerTemplate?: TemplateRef<any>;
 
   constructor(init: Partial<Settings>) {
     if (init) {

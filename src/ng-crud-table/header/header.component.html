@@ -1,3 +1,9 @@
+<ng-template #headerTemplate
+            *ngIf="table.settings.headerTemplate"
+            [ngTemplateOutlet]="table.settings.headerTemplate"
+            [ngTemplateOutletContext]="table">
+</ng-template>
+
 <div class="datatable-header-inner">
 
   <div class="datatable-row-left">

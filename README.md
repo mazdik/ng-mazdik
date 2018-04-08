@@ -168,7 +168,7 @@ interface DataSource {
 | optionsUrl       | string     | null    |             |
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
-| type             | ColumnType | null    |             |
+| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup | null    |             |
 | validation       | Validation | null    |             |
 | editable         | boolean    | false   |             |
 | resizeable       | boolean    | true    |             |
@@ -181,7 +181,7 @@ interface DataSource {
 | selectionLimit   | number     | 1       |             |
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
-| aggregation      | AggregateType | null |             |
+| aggregation      | sum / average / max / min / count | null |             |
 
 ### Settings
 
@@ -208,3 +208,16 @@ interface DataSource {
 | virtualScroll    | boolean      | false   |           |
 | rowClass         | string / Function | false |        |
 
+```typescript
+interface SelectOption {
+  id: any;
+  name: string;
+  parentId?: any;
+}
+interface Validation {
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string | RegExp;
+}
+```

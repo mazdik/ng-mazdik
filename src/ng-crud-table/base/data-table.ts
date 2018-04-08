@@ -269,7 +269,7 @@ export class DataTable {
   }
 
   setRowIndexes() {
-    let rowIndex: number = 0;
+    let rowIndex = 0;
     this._rows.forEach(row => {
       row.index = rowIndex++;
     });
