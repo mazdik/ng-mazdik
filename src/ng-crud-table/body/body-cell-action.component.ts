@@ -17,7 +17,8 @@ import {Subscription} from 'rxjs';
               (click)="actionClick($event, action, row)">
         </span>
     </ng-template>
-    <span *ngIf="!table.actionMenu && !table.settings.selectionMode">{{row.index + 1}}</span>
+    <span *ngIf="!table.actionMenu && !table.settings.selectionMode && table.settings.rowNumber">
+    {{row.index + 1}}</span>
     <span *ngIf="table.settings.selectionMode"
           class="{{'datatable-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"

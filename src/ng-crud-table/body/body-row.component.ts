@@ -38,6 +38,11 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     return cls;
   }
 
+  @HostBinding('style.height.px')
+  get rowHeight(): number {
+    return this.table.dimensions.rowHeight;
+  }
+
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
     this.rowDiffer = this.differs.find({}).create();
   }
@@ -60,9 +65,17 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subSort = this.table.dataService.sortSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    const subPage = this.table.dataService.pageSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subRows);
     this.subscriptions.push(subScroll);
+    this.subscriptions.push(subSort);
+    this.subscriptions.push(subPage);
   }
 
   ngOnDestroy() {

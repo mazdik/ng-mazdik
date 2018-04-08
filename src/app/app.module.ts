@@ -25,6 +25,7 @@ import { LiveDemoComponent} from './demo/live-demo.component';
 import { VirtualScrollDemoComponent } from './demo/virtual-scroll-demo.component';
 import { CssDemoComponent } from './demo/css-demo.component';
 import { HeaderDemoComponent } from './demo/header-demo.component';
+import { TemplateDemoComponent } from './demo/template-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -46,6 +47,7 @@ const ROUTES: Routes = [
   {path: 'virtual-scroll-demo', component: VirtualScrollDemoComponent},
   {path: 'css-demo', component: CssDemoComponent},
   {path: 'header-demo', component: HeaderDemoComponent},
+  {path: 'template-demo', component: TemplateDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -70,7 +72,8 @@ const ROUTES: Routes = [
     LiveDemoComponent,
     VirtualScrollDemoComponent,
     CssDemoComponent,
-    HeaderDemoComponent
+    HeaderDemoComponent,
+    TemplateDemoComponent
   ],
   imports: [
     BrowserModule,

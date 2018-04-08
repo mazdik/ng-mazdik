@@ -9,6 +9,7 @@ export class Dimensions {
   public columnsTotalWidth: number;
   public frozenColumnsWidth: number;
   public scrollableColumnsWidth: number;
+  public headerRowHeight: number = 40;
   public rowHeight: number = 30;
   public scrollHeight: number;
 

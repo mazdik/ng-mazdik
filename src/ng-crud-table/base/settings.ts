@@ -23,6 +23,9 @@ export class Settings {
   public virtualScroll?: boolean;
   public rowClass?: string | Function;
   public headerTemplate?: TemplateRef<any>;
+  public headerRowHeight?: number = 40;
+  public rowHeight?: number = 30;
+  public rowNumber?: boolean = true;
 
   constructor(init: Partial<Settings>) {
     if (init) {

@@ -3,6 +3,7 @@
   [table]="table">
 </app-filter>
 <app-datatable-header
+  *ngIf="table.settings.headerRowHeight || table.settings.headerTemplate"
   [table]="table">
 </app-datatable-header>
 <app-datatable-body

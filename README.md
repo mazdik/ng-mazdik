@@ -141,6 +141,7 @@ export class PlayersComponent {
 * Summary Row (aggregation on a column)
 * Live Updates
 * Virtual scroll
+* Header and Cell Templates
 
 ### Custom service
 ```typescript
@@ -204,9 +205,13 @@ interface DataSource {
 | columnResizeMode | simple / aminated | simple |       |
 | selectionType    | single / multiple | single |       |
 | selectionMode    | checkbox / radio | null |          |
-| singleRowView    | boolean      | true    |           |
-| virtualScroll    | boolean      | false   |           |
+| singleRowView    | boolean    | true    |             |
+| virtualScroll    | boolean    | false   |             |
 | rowClass         | string / Function | false |        |
+| headerTemplate   | TemplateRef | null |               |
+| headerRowHeight  | number     | 40      | px, 0 - hide header |
+| rowHeight        | number     | 30      | px          |
+| rowNumber        | boolean    | true    |             |
 
 ```typescript
 interface SelectOption {

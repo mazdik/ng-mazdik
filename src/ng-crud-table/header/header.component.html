@@ -4,10 +4,11 @@
             [ngTemplateOutletContext]="table">
 </ng-template>
 
-<div class="datatable-header-inner">
+<div class="datatable-header-inner" [style.height.px]="table.dimensions.headerRowHeight">
 
   <div class="datatable-row-left">
     <div class="datatable-header-cell"
+         *ngIf="table.dimensions.actionColumnWidth"
          [ngStyle]="{'width.px': table.dimensions.actionColumnWidth}">
       <ng-template [ngIf]="table.settings.filter">
         <i class="icon-filter"

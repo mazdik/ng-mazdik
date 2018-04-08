@@ -121,8 +121,13 @@ export class DataTable {
         col.filter = false;
       }
     }
+    if (!this.actionMenu && !this.settings.selectionMode && !this.settings.rowNumber) {
+      this.dimensions.actionColumnWidth = 0;
+    }
     this.dimensions.tableWidth = this.settings.tableWidth;
     this.dimensions.bodyHeight = this.settings.bodyHeight;
+    this.dimensions.rowHeight = this.settings.rowHeight;
+    this.dimensions.headerRowHeight = this.settings.headerRowHeight;
     this.sorter.multiple = this.settings.multipleSort;
     this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();

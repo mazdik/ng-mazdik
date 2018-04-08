@@ -24,6 +24,11 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
     return cls;
   }
 
+  @HostBinding('style.height.px')
+  get rowHeight(): number {
+    return this.table.dimensions.rowHeight;
+  }
+
   constructor(private cd: ChangeDetectorRef) {
   }
 

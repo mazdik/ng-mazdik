@@ -133,11 +133,18 @@
 }
 
 /******/
+.datatable-header-inner {
+  height: 40px;
+}
+
+.datatable-body-row {
+  height: 30px;
+}
+
 .datatable-header-cell {
   background-color: #5b9bd5;
   color: white;
   user-select: none;
-  height: 40px;
   padding: 0 3px;
 }
 
@@ -154,7 +161,6 @@
 }
 
 .datatable-body-cell {
-  height: 30px;
   padding: 0 3px;
 }
 
@@ -164,9 +170,16 @@
   border-bottom: 1px solid #c6c6c6;
 }
 
-.datatable-row-left .datatable-body-cell:first-child,
-.datatable-row-left .datatable-header-cell:first-child {
+.datatable-row-left {
   border-left: 1px solid #c6c6c6;
+}
+
+.datatable-group-header .datatable-row-left {
+  border-left: none;
+}
+
+.datatable-filter + .datatable-body {
+  border-top: 1px solid #c6c6c6;
 }
 
 .column-title {

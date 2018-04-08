@@ -2,6 +2,7 @@
      [ngStyle]="stylesByGroup()">
 
   <app-datatable-body-cell-action
+    *ngIf="table.dimensions.actionColumnWidth"
     [table]="table"
     [row]="row">
   </app-datatable-body-cell-action>
