@@ -59,7 +59,7 @@ export class DataTable {
 
   private _rows: Row[] = [];
 
-  constructor(columns?: ColumnBase[], settings?: Settings, messages?: Message) {
+  constructor(columns: ColumnBase[], settings: Settings, messages?: Message) {
     this.settings = new Settings(settings);
     this.pager = new DataPager();
     this.sorter = new DataSort();

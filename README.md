@@ -3,25 +3,27 @@
 Simple CRUD table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
 
-### Sample
+### Sample crud-table
 ```typescript
 import {Component}  from '@angular/core';
-import {Column, Settings, DataSource, YiiService} from '../ng-crud-table';
+import {Column, Settings, DataSource, YiiService, DataManager} from '../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 
 
 @Component({
   selector: 'my-app',
-  template: `<app-crud-table [columns]="columns" [settings]="settings" [service]="service"></app-crud-table>`
+  template: `<app-crud-table [dataManager]="dataManager"></app-crud-table>`
 })
 
 export class PlayersComponent {
   
     public service: DataSource;
+    public dataManager: DataManager;
   
     constructor(private http: HttpClient) {
       // YiiService | RestlessService | OrdsService | your custom service
       this.service = new YiiService(this.http);
+      this.dataManager = new DataManager(this.columns, this.settings, this.service);
     }
 
     public columns: Column[] = [
@@ -118,7 +120,7 @@ export class PlayersComponent {
     };
 }
 ```
-### Only data table
+### Sample data-table
 ```typescript
 import {Column, Settings, DataTable} from '../ng-crud-table';
 

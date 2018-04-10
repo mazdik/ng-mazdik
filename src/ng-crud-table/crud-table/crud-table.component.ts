@@ -1,10 +1,7 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
-import {DataSource, Filter, Row} from '../types';
+import {Filter, Row} from '../types';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
-import {Settings} from '../base/settings';
-import {ColumnBase} from '../base/column-base';
 import {DataManager} from '../base/data-manager';
-import {Message} from '../base/message';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -16,39 +13,10 @@ import {Subscription} from 'rxjs';
 
 export class CrudTableComponent implements OnInit, OnDestroy {
 
-  @Input() public service: DataSource;
+  @Input() public dataManager: DataManager;
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
-  @Input()
-  set columns(val: ColumnBase[]) {
-    this.dataManager.createColumns(val);
-  }
-
-  get columns(): ColumnBase[] {
-    return this.dataManager.columns;
-  }
-
-  @Input()
-  set settings(val: Settings) {
-    this.dataManager.setSettings(val);
-    this.dataManager.settings.clientSide = false;
-  }
-
-  get settings(): Settings {
-    return this.dataManager.settings;
-  }
-
-  @Input()
-  set messages(val: Message) {
-    this.dataManager.setMessages(val);
-  }
-
-  get messages(): Message {
-    return this.dataManager.messages;
-  }
-
-  public dataManager: DataManager;
   private subscriptions: Subscription[] = [];
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
@@ -63,11 +31,9 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   constructor() {
-    this.dataManager = new DataManager();
   }
 
   ngOnInit() {
-    this.dataManager.setService(this.service);
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
       this.dataManager.getItems().then();
@@ -156,7 +122,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged() {
-    if (this.settings.virtualScroll) {
+    if (this.dataManager.settings.virtualScroll) {
       if (!this.dataManager.pager.isViewed()) {
         this.dataManager.getItems(true).then();
       }
@@ -166,7 +132,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onFilter() {
-    if (this.settings.virtualScroll) {
+    if (this.dataManager.settings.virtualScroll) {
       this.dataManager.resetPositionChunkRows();
       this.dataManager.pager.current = 1;
       this.dataManager.pager.cache = {};
@@ -175,7 +141,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onSort() {
-    if (this.settings.virtualScroll) {
+    if (this.dataManager.settings.virtualScroll) {
       this.dataManager.resetPositionChunkRows();
       this.dataManager.pager.current = 1;
       this.dataManager.pager.cache = {};
@@ -185,18 +151,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onSelectedRow() {
     this.select.emit(this.dataManager.getSelectedRows());
-  }
-
-  refresh() {
-    this.dataManager.getItems().then();
-  }
-
-  clear() {
-    this.dataManager.clear();
-  }
-
-  refreshSelectedRow() {
-    this.dataManager.refreshSelectedRow();
   }
 
   globalFilter() {

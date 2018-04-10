@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource} from '../../ng-crud-table';
+import {Column, Settings, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -10,9 +10,7 @@ import {getColumnsPlayers} from './columns';
     <app-modal #modal [modalTitle]="'Data-table'">
       <ng-container class="app-modal-body">
         <app-crud-table
-          [columns]="columns"
-          [settings]="settings"
-          [service]="service"
+          [dataManager]="dataManager"
           (select)="onSelect($event)">
         </app-crud-table>
       </ng-container>
@@ -26,6 +24,10 @@ import {getColumnsPlayers} from './columns';
 
 export class NestedModalsDemoComponent implements OnInit {
 
+  public service: DataSource;
+  public columns: Column[];
+  public dataManager: DataManager;
+
   public settings: Settings = {
     api: 'assets/players.json',
     crud: true,
@@ -35,10 +37,7 @@ export class NestedModalsDemoComponent implements OnInit {
     zIndexModal: 1110
   };
 
-  public columns: Column[];
   @ViewChild('modal') modal: any;
-
-  public service: DataSource;
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -47,6 +46,7 @@ export class NestedModalsDemoComponent implements OnInit {
       column.editable = false;
     }
     this.service = new DemoService(this.http);
+    this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
   ngOnInit() {
   }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TreeDataSource, Column} from '../../ng-crud-table';
+import {TreeDataSource, Column, Settings, DataTable} from '../../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 import {TreeDemoService} from './tree-demo.service';
 
@@ -8,15 +8,16 @@ import {TreeDemoService} from './tree-demo.service';
   template: `
     <app-tree-table
       [service]="treeService"
-      [columns]="columns"
+      [table]="table"
       (editComplete)="onEditComplete($event)">
     </app-tree-table>`
 })
 export class TreeTableDemoComponent implements OnInit {
 
   public treeService: TreeDataSource;
-
-  public columns: Column[] = [
+  public table: DataTable;
+  public settings: Settings;
+  public columns: Column[] = <Column[]>[
     {
       title: 'Column',
       name: 'column',
@@ -51,6 +52,7 @@ export class TreeTableDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.treeService = new TreeDemoService(this.http);
+    this.table = new DataTable(this.columns, this.settings);
   }
 
   ngOnInit() {

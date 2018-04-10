@@ -1,7 +1,7 @@
 <div class="df-alert df-alert-danger" *ngIf="this.dataManager.errors">{{this.dataManager.errors}}</div>
 
 <div class="df-row df-group">
-  <div class="df-col" *ngIf="settings.crud">
+  <div class="df-col" *ngIf="dataManager.settings.crud">
     <button type="button"
             class="button"
             (click)="createAction()">{{dataManager.messages.create}}

@@ -1,15 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, DataSource} from '../../ng-crud-table';
+import {Column, Settings, DataTable, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-virtual-scroll-demo',
   template: `<p>Client-side virtual scroll</p>
-    <app-datatable [table]="table" [loading]="loading"></app-datatable>
+  <app-datatable [table]="table" [loading]="loading"></app-datatable>
   <p>Server-side virtual scroll</p>
-  <app-crud-table [columns]="columns" [settings]="serverSideSettings" [service]="service"></app-crud-table>
+  <app-crud-table [dataManager]="dataManager"></app-crud-table>
   `
 })
 
@@ -19,6 +19,7 @@ export class VirtualScrollDemoComponent implements OnInit {
   public columns: Column[];
   public loading: boolean;
   public service: DataSource;
+  public dataManager: DataManager;
 
   public settings: Settings = {
     virtualScroll: true
@@ -36,6 +37,7 @@ export class VirtualScrollDemoComponent implements OnInit {
     }
     this.table = new DataTable(this.columns, this.settings);
     this.service = new DemoService(this.http, 10);
+    this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }
 
   ngOnInit() {

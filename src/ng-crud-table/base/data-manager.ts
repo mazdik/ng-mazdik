@@ -2,6 +2,7 @@ import {DataSource, Row} from '../types';
 import {DataTable} from './data-table';
 import {ColumnBase} from './column-base';
 import {Settings} from './settings';
+import {Message} from './message';
 
 export class DataManager extends DataTable {
 
@@ -14,12 +15,10 @@ export class DataManager extends DataTable {
   public formValid: boolean = true;
   public refreshRowOnSave: boolean;
 
-  constructor(columns?: ColumnBase[], settings?: Settings) {
-    super(columns, settings);
-  }
-
-  createColumns(columns: ColumnBase[]) {
-    super.createColumns(columns);
+  constructor(columns: ColumnBase[], settings: Settings, dataSource: DataSource, messages?: Message) {
+    super(columns, settings, messages);
+    this.settings.clientSide = false;
+    this.setService(dataSource);
     this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
   }
 

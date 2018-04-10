@@ -27,8 +27,8 @@ import {getColumnsPlayers} from './columns';
 export class ModalFormDemoComponent implements OnInit {
 
   public service: DataSource;
-  public dataManager: DataManager;
   public columns: Column[];
+  public dataManager: DataManager;
 
   public settings: Settings = {
     api: 'assets/players.json',
@@ -78,9 +78,8 @@ export class ModalFormDemoComponent implements OnInit {
     this.columns[9].formHidden = true;
     this.columns[9].tableHidden = true;
 
-    this.dataManager = new DataManager(this.columns, this.settings);
     this.service = new DemoService(this.http);
-    this.dataManager.setService(this.service);
+    this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 
   ngOnInit() {
