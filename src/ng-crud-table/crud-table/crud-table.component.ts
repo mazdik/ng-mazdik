@@ -17,7 +17,6 @@ import {Subscription} from 'rxjs';
 export class CrudTableComponent implements OnInit, OnDestroy {
 
   @Input() public service: DataSource;
-  @Input() public zIndexModal: number;
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 

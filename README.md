@@ -118,6 +118,27 @@ export class PlayersComponent {
     };
 }
 ```
+### Only data table
+```typescript
+import {Column, Settings, DataTable} from '../ng-crud-table';
+
+@Component({
+  selector: 'app-data-table-demo',
+  template: `<app-datatable [table]="table"></app-datatable>`
+})
+
+export class DataTableDemoComponent {
+
+  public table: DataTable;
+  public columns: Column[];
+  public settings: Settings;
+
+  constructor() {
+    this.table = new DataTable(this.columns, this.settings);
+    this.table.rows = data[];
+  }
+}
+```
 
 ## Features
 * Filtering (column filters and an optional global filter)
@@ -212,6 +233,7 @@ interface DataSource {
 | headerRowHeight  | number     | 40      | px, 0 - hide header |
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
+| zIndexModal      | number     | null    |             |
 
 ```typescript
 interface SelectOption {

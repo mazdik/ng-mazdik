@@ -26,6 +26,7 @@ export class Settings {
   public headerRowHeight?: number = 40;
   public rowHeight?: number = 30;
   public rowNumber?: boolean = true;
+  public zIndexModal?: number;
 
   constructor(init: Partial<Settings>) {
     if (init) {

@@ -13,7 +13,6 @@ import {getColumnsPlayers} from './columns';
           [columns]="columns"
           [settings]="settings"
           [service]="service"
-          [zIndexModal]="1110"
           (select)="onSelect($event)">
         </app-crud-table>
       </ng-container>
@@ -33,6 +32,7 @@ export class NestedModalsDemoComponent implements OnInit {
     primaryKeys: ['id'],
     tableWidth: 1100,
     bodyHeight: 380,
+    zIndexModal: 1110
   };
 
   public columns: Column[];

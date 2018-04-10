@@ -9,7 +9,6 @@ import {DataManager} from '../base/data-manager';
 export class ModalEditFormComponent implements OnInit {
 
   @Input() public dataManager: DataManager;
-  @Input() public zIndex: number;
 
   @ViewChild('childModal') childModal: ModalComponent;
 

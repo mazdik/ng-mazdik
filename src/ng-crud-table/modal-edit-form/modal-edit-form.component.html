@@ -1,4 +1,4 @@
-<app-modal #childModal [modalTitle]="modalTitle()" [width]="500" [zIndex]="zIndex">
+<app-modal #childModal [modalTitle]="modalTitle()" [width]="500" [zIndex]="dataManager.settings.zIndexModal">
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-row-form
