@@ -66,7 +66,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     return this._options;
   }
 
-  onValueChange(event) {
+  onValueChange() {
     if (this.column.keyColumn) {
       this.keyColumnChange.emit({
         'column': this.column.keyColumn,
@@ -78,6 +78,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   setDefaultSelect() {
     if (this._options && this._options.length === 1) {
       this.model = this._options[0].id;
+      this.onValueChange();
     }
   }
 

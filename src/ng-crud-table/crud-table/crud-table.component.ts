@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
-import {Filter, Row} from '../types';
+import {Row} from '../types';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
 import {DataManager} from '../base/data-manager';
 import {Subscription} from 'rxjs';
@@ -20,15 +20,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
-
-  set filters(val: Filter) {
-    this.dataManager.dataFilter.filters = val;
-    this.dataManager.dataService.onFilter();
-  }
-
-  get filters(): Filter {
-    return this.dataManager.dataFilter.filters;
-  }
 
   constructor() {
   }

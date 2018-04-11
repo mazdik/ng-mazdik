@@ -1,4 +1,4 @@
-import {DataSource, Row} from '../types';
+import {DataSource, Filter, Row} from '../types';
 import {DataTable} from './data-table';
 import {ColumnBase} from './column-base';
 import {Settings} from './settings';
@@ -20,6 +20,15 @@ export class DataManager extends DataTable {
     this.settings.clientSide = false;
     this.setService(dataSource);
     this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
+  }
+
+  set filters(val: Filter) {
+    this.dataFilter.filters = val;
+    this.dataService.onFilter();
+  }
+
+  get filters(): Filter {
+    return this.dataFilter.filters;
   }
 
   setService(service: DataSource) {
