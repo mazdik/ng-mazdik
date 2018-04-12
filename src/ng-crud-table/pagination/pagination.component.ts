@@ -1,4 +1,6 @@
-import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from '@angular/core';
+import {
+  Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding
+} from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -6,13 +8,6 @@ import {Component, Output, EventEmitter, Input, ChangeDetectionStrategy} from '@
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginationComponent {
-
-  protected _currentPage: number = 1;
-  protected _itemsPerPage: number = 10;
-  protected _totalItems: number = 0;
-  pages: number[];
-
-  @Output() pageChanged = new EventEmitter();
 
   @Input()
   public set itemsPerPage(value: number) {
@@ -48,6 +43,15 @@ export class PaginationComponent {
   public get currentPage(): number {
     return this._currentPage;
   }
+
+  @Output() pageChanged = new EventEmitter();
+
+  public pages: number[];
+  protected _currentPage: number = 1;
+  protected _itemsPerPage: number = 10;
+  protected _totalItems: number = 0;
+
+  @HostBinding('class') cssClass = 'pagination';
 
   public setPage(page: number, event ?: MouseEvent): void {
     if (event) {

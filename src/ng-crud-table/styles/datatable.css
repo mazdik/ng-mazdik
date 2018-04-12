@@ -1,7 +1,6 @@
 .datatable {
-  display: block;
-  overflow: hidden;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
 
