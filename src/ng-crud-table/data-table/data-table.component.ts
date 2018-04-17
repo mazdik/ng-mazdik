@@ -65,6 +65,11 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
       this.onColumnResizeEnd();
     });
+    const subScroll = this.table.dataService.scrollSource$.subscribe((event) => {
+      requestAnimationFrame(() => {
+        this.cd.detectChanges();
+      });
+    });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
@@ -72,6 +77,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.push(subColumnBeginResize);
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
+    this.subscriptions.push(subScroll);
   }
 
   ngDoCheck(): void {

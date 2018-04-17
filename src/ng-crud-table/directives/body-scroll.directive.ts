@@ -17,7 +17,9 @@ export class BodyScrollDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.element.addEventListener('scroll', this.onScrolled.bind(this));
+    this.ngZone.runOutsideAngular(() => {
+      this.element.addEventListener('scroll', this.onScrolled.bind(this));
+    });
   }
 
   ngOnDestroy(): void {
