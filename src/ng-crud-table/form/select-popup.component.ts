@@ -10,7 +10,7 @@ import {InputOptionComponent} from './input-option.component';
       <app-modal-select [(value)]="model"
                     [options]="getOptions()"
                     [disabled]="disabled"
-                    (valueChange)="onValueChange($event)">
+                    (valueChange)="onValueChange()">
       </app-modal-select>
       <div class="df-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>

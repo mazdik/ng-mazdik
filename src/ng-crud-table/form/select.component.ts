@@ -10,7 +10,7 @@ import {InputOptionComponent} from './input-option.component';
       <select class="df-control"
               [(ngModel)]="model"
               [id]="column.name"
-              (change)="onValueChange($event)"
+              (change)="onValueChange()"
               [disabled]="disabled">
         <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
       </select>
