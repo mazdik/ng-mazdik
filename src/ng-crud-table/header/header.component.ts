@@ -6,6 +6,7 @@ import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
 import {translate} from '../base/util';
 import {Subscription} from 'rxjs';
+import {ColumnMenuEventArgs} from '../types';
 
 @Component({
   selector: 'app-datatable-header',
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() public table: DataTable;
 
   @HostBinding('class') cssClass = 'datatable-header';
-  @ViewChild('headerTemplate', {read: ViewContainerRef}) headerTemplate: ViewContainerRef;
+  @ViewChild('headerTemplate', { read: ViewContainerRef }) headerTemplate: ViewContainerRef;
 
   private subscriptions: Subscription[] = [];
 
@@ -66,7 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.table.dataService.onFilter();
   }
 
-  clickColumnMenu(event, column: Column) {
+  clickColumnMenu(event: any, column: Column, isLast: boolean) {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
     let top = el.offsetTop;
@@ -75,8 +76,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (el.parentNode.offsetLeft > 0) {
       left = left + el.parentNode.offsetLeft - this.table.offsetX;
     }
+    let right = null;
+    if (isLast) {
+      left = null;
+      right = 0;
+    }
 
-    this.table.dataService.onColumnMenuClick({'top': top, 'left': left, 'column': column});
+    this.table.dataService.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, right, column});
   }
 
   stylesByGroup() {

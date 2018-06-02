@@ -45,7 +45,7 @@
   <div class="datatable-row-center"
        [ngStyle]="stylesByGroup()">
     <div class="datatable-header-cell"
-         *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
+         *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn last as isLast"
          [ngStyle]="{'width.px': column.width}"
          [attr.title]="column.title"
          appResizeableColumn
@@ -59,7 +59,7 @@
               </i>
             </span>
       <i *ngIf="column.filter"
-         (click)="clickColumnMenu($event, column)"
+         (click)="clickColumnMenu($event, column, isLast)"
          [ngClass]="{'is-filter': table.dataFilter.isFilter(column.name)}"
          class="icon-filter column-menu">
       </i>

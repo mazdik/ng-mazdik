@@ -1,4 +1,5 @@
 import {AggregateType} from './type';
+import {Column} from '../base/column';
 
 export interface SelectOption {
   id: any;
@@ -78,4 +79,12 @@ export interface Row {
   [name: string]: any;
   uid: number;
   index: number;
+}
+
+export interface ColumnMenuEventArgs {
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+  column: Column;
 }

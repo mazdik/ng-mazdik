@@ -4,6 +4,7 @@ import {
 import {DataTable} from '../base/data-table';
 import {Column} from '../base/column';
 import {Subscription} from 'rxjs';
+import {ColumnMenuEventArgs} from '../types';
 
 @Component({
   selector: 'app-filter',
@@ -16,6 +17,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   left: number;
   top: number;
+  right: number;
   width: number;
   column: Column = <Column> {};
   isVisible: boolean;
@@ -34,6 +36,11 @@ export class FilterComponent implements OnInit, OnDestroy {
     return this.top;
   }
 
+  @HostBinding('style.right.px')
+  get getRight(): number {
+    return this.right;
+  }
+
   @HostBinding('style.width.px')
   get getWidth(): number {
     return this.width;
@@ -46,7 +53,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const subColumnMenu = this.table.dataService.columnMenuSource$.subscribe((event) => {
-      this.show(event.top, event.left, event.column);
+      this.show(event);
     });
     const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
       this.hide();
@@ -99,15 +106,16 @@ export class FilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  show(top: number, left: number, column: Column) {
-    this.column = column;
+  show(event: ColumnMenuEventArgs) {
+    this.column = event.column;
     this.selectContainerClicked = true;
     this.width = this.table.dimensions.columnMenuWidth;
-    if (this.top === top && this.left === left) {
+    if (this.top === event.top && this.left === event.left && this.right === event.right) {
       this.toggleDropdown();
     } else {
-      this.top = top;
-      this.left = left;
+      this.top = event.top;
+      this.left = event.left;
+      this.right = event.right;
       this.closeDropdown();
       this.openDropdown();
     }

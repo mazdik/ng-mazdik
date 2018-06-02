@@ -1,4 +1,5 @@
 import {Subject} from 'rxjs';
+import {ColumnMenuEventArgs} from '../types';
 
 export class DataService {
 
@@ -8,7 +9,7 @@ export class DataService {
   private pageSource = new Subject();
   private editSource = new Subject<any>();
   private rowMenuSource = new Subject<any>();
-  private columnMenuSource = new Subject<any>();
+  private columnMenuSource = new Subject<ColumnMenuEventArgs>();
   private resizeBeginSource = new Subject();
   private resizeSource = new Subject<any>();
   private resizeEndSource = new Subject();
@@ -52,7 +53,7 @@ export class DataService {
     this.rowMenuSource.next(data);
   }
 
-  onColumnMenuClick(data: any) {
+  onColumnMenuClick(data: ColumnMenuEventArgs) {
     this.columnMenuSource.next(data);
   }
 
