@@ -88,3 +88,9 @@ export interface ColumnMenuEventArgs {
   bottom: number;
   column: Column;
 }
+
+export interface HoverEventArgs {
+  columnName: string;
+  row: Row;
+  event: any;
+}

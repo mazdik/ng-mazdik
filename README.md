@@ -236,6 +236,7 @@ interface DataSource {
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
 | zIndexModal      | number     | null    |             |
+| hoverEvents      | boolean    | false   | mouseover/mouseout |
 
 ```typescript
 interface SelectOption {

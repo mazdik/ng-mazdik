@@ -37,6 +37,7 @@ import {ModalSelectComponent} from './modal-select/modal-select.component';
 import {PopupSelectComponent} from './form/select-popup.component';
 import {SummaryRowComponent} from './body/summary-row.component';
 import {RowViewComponent} from './row-view/row-view.component';
+import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import {RowViewComponent} from './row-view/row-view.component';
     PopupSelectComponent,
     SummaryRowComponent,
     RowViewComponent,
+    BodyMouseoverDirective,
   ],
   exports: [
     DataTableComponent,

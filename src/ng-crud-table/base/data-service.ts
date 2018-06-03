@@ -1,5 +1,5 @@
 import {Subject} from 'rxjs';
-import {ColumnMenuEventArgs} from '../types';
+import {ColumnMenuEventArgs, HoverEventArgs} from '../types';
 
 export class DataService {
 
@@ -15,6 +15,8 @@ export class DataService {
   private resizeEndSource = new Subject();
   private rowsChanged = new Subject();
   private scrollSource = new Subject<any>();
+  private mouseoverSource = new Subject<HoverEventArgs>();
+  private mouseoutSource = new Subject<boolean>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -28,6 +30,8 @@ export class DataService {
   resizeEndSource$ = this.resizeEndSource.asObservable();
   rowsChanged$ = this.rowsChanged.asObservable();
   scrollSource$ = this.scrollSource.asObservable();
+  mouseoverSource$ = this.mouseoverSource.asObservable();
+  mouseoutSource$ = this.mouseoutSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -75,6 +79,14 @@ export class DataService {
 
   onScroll(data: any) {
     this.scrollSource.next(data);
+  }
+
+  onMouseover(data: HoverEventArgs) {
+    this.mouseoverSource.next(data);
+  }
+
+  onMouseout(data: boolean) {
+    this.mouseoutSource.next(data);
   }
 
 }

@@ -1,15 +1,15 @@
 import {ColumnBase} from './column-base';
-import {getUidColumn, isBlank} from './util';
+import {isBlank} from './util';
 import {SelectOption} from '../types';
 
 export class Column extends ColumnBase {
 
-  public id: number;
+  public index: number;
 
-  constructor(init: Partial<ColumnBase>) {
+  constructor(init: Partial<ColumnBase>, columnIndex: number) {
     super();
     Object.assign(this, init);
-    this.id = getUidColumn();
+    this.index = columnIndex;
     this.setDefaults();
   }
 

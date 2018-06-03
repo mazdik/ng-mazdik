@@ -27,6 +27,7 @@ export class Settings {
   public rowHeight?: number = 30;
   public rowNumber?: boolean = true;
   public zIndexModal?: number;
+  public hoverEvents?: boolean;
 
   constructor(init: Partial<Settings>) {
     if (init) {

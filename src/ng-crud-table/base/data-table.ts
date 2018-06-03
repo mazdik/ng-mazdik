@@ -82,8 +82,9 @@ export class DataTable {
   }
 
   createColumns(columns: ColumnBase[]) {
+    let columnIndex = 0;
     for (const column of columns) {
-      this.columns.push(new Column(column));
+      this.columns.push(new Column(column, columnIndex++));
       if (column.aggregation) {
         this.dataAggregation.aggregates.push({field: column.name, type: column.aggregation});
       }

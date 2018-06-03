@@ -75,6 +75,16 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     return this.column.width;
   }
 
+  @HostBinding('attr.data-column-index')
+  get attrColumnIndex(): number {
+    return this.column.index;
+  }
+
+  @HostBinding('attr.data-row-index')
+  get attrRowIndex(): number {
+    return (this.row) ? this.row.index : null;
+  }
+
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
 
   public value: any;
