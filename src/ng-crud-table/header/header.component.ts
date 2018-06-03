@@ -28,18 +28,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.table.settings.columnResizeMode === 'aminated') {
-      const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+      const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });
       this.subscriptions.push(subColumnResize);
     }
-    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
+    const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+    const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subFilter = this.table.dataService.filterSource$.subscribe(() => {
+    const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
@@ -59,12 +59,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       return;
     }
     this.table.sorter.setOrder(column.name);
-    this.table.dataService.onSort();
+    this.table.events.onSort();
   }
 
   clearAllFilters() {
     this.table.dataFilter.clear();
-    this.table.dataService.onFilter();
+    this.table.events.onFilter();
   }
 
   clickColumnMenu(event: any, column: Column, isLast: boolean) {
@@ -82,7 +82,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       right = 0;
     }
 
-    this.table.dataService.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, right, column});
+    this.table.events.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, right, column});
   }
 
   stylesByGroup() {

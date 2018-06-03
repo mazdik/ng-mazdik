@@ -44,28 +44,28 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnInit() {
-    const subSelection = this.table.dataService.selectionSource$.subscribe(() => {
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
       this.onSelectedRow();
     });
-    const subFilter = this.table.dataService.filterSource$.subscribe(() => {
+    const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.onFilter();
     });
-    const subSort = this.table.dataService.sortSource$.subscribe(() => {
+    const subSort = this.table.events.sortSource$.subscribe(() => {
       this.onSort();
     });
-    const subEdit = this.table.dataService.editSource$.subscribe((row) => {
+    const subEdit = this.table.events.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
-    const subColumnBeginResize = this.table.dataService.resizeBeginSource$.subscribe(() => {
+    const subColumnBeginResize = this.table.events.resizeBeginSource$.subscribe(() => {
       this.onColumnResizeBegin();
     });
-    const subColumnResize = this.table.dataService.resizeSource$.subscribe((event) => {
+    const subColumnResize = this.table.events.resizeSource$.subscribe((event) => {
       this.onColumnResize(event);
     });
-    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
+    const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.onColumnResizeEnd();
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe((event) => {
+    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
       requestAnimationFrame(() => {
         this.cd.detectChanges();
       });
@@ -92,7 +92,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
   onPageChanged(page: number): void {
     this.table.pager.current = page;
-    this.table.dataService.onPage();
+    this.table.events.onPage();
     if (this.table.settings.virtualScroll) {
       const rowIndex = this.table.pager.perPage * (page - 1);
       const offset = rowIndex * this.table.dimensions.rowHeight;

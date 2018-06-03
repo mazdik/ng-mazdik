@@ -24,7 +24,7 @@ export class DataManager extends DataTable {
 
   set filters(val: Filter) {
     this.dataFilter.filters = val;
-    this.dataService.onFilter();
+    this.events.onFilter();
   }
 
   get filters(): Filter {
@@ -126,7 +126,7 @@ export class DataManager extends DataTable {
     } else {
       this.mergeSelectedRow(result);
     }
-    this.dataService.onRowsChanged();
+    this.events.onRowsChanged();
   }
 
   afterDelete(result: boolean) {

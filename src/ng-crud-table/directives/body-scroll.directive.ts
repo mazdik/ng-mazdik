@@ -47,7 +47,7 @@ export class BodyScrollDirective implements OnInit, OnDestroy {
     if (this.prevScrollYPos !== scrollYPos || this.prevScrollXPos !== scrollXPos) {
       this.table.offsetY = scrollYPos;
       this.table.offsetX = scrollXPos;
-      this.table.dataService.onScroll({direction});
+      this.table.events.onScroll({direction});
 
       this.prevScrollYPos = scrollYPos;
       this.prevScrollXPos = scrollXPos;

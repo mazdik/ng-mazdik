@@ -41,17 +41,17 @@ export class BodyComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const subRows = this.table.dataService.rowsChanged$.subscribe(() => {
+    const subRows = this.table.events.rowsChanged$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe((event) => {
+    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
       if (event.direction) {
         this.table.chunkRows();
         this.table.updatePage(event.direction);
       }
       this.cd.markForCheck();
     });
-    const subFilter = this.table.dataService.filterSource$.subscribe(() => {
+    const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subRows);

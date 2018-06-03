@@ -34,18 +34,18 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.table.settings.columnResizeMode === 'aminated') {
-      const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+      const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });
       this.subscriptions.push(subColumnResize);
     }
-    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
+    const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subRows = this.table.dataService.rowsChanged$.subscribe(() => {
+    const subRows = this.table.events.rowsChanged$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+    const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);

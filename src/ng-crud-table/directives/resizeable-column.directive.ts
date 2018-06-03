@@ -47,7 +47,7 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
     if (this.subscription && !this.subscription.closed) {
       this._destroySubscription();
       this.column.setWidth(this.newWidth);
-      this.table.dataService.onResizeEnd();
+      this.table.events.onResizeEnd();
     }
   }
 
@@ -60,7 +60,7 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
     if (isHandle) {
       event.stopPropagation();
       this.resizing = true;
-      this.table.dataService.onResizeBegin();
+      this.table.events.onResizeBegin();
 
       const mouseup = fromEvent(document, 'mouseup');
       this.subscription = mouseup
@@ -86,7 +86,7 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
         this.element.style.width = `${this.newWidth}px`;
         this.column.setWidth(this.newWidth);
       }
-      this.table.dataService.onResize(event);
+      this.table.events.onResize(event);
     }
   }
 

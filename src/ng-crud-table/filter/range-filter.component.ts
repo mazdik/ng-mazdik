@@ -97,7 +97,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filter(value) {
     this.table.dataFilter.setFilter(value, this.column.name, this.matchMode, this.valueTo, this.column.type);
-    this.table.dataService.onFilter();
+    this.table.events.onFilter();
   }
 
   uncheckAll() {

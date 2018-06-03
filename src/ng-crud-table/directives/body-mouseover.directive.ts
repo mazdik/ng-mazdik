@@ -55,7 +55,7 @@ export class BodyMouseoverDirective implements OnInit, OnDestroy {
                 row: this.table.rows[rowIndex],
                 event: event
             };
-            this.table.dataService.onMouseover(ev);
+            this.table.events.onMouseover(ev);
         }
     }
 
@@ -73,7 +73,7 @@ export class BodyMouseoverDirective implements OnInit, OnDestroy {
             }
         }
         this.currentElem = null;
-        this.table.dataService.onMouseout(true);
+        this.table.events.onMouseout(true);
     }
 
 }

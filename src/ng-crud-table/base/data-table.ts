@@ -5,7 +5,7 @@ import {Settings} from './settings';
 import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
-import {DataService} from './data-service';
+import {Events} from './events';
 import {DataAggregation} from './data-aggregation';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
@@ -22,7 +22,7 @@ export class DataTable {
   public pager: DataPager;
   public sorter: DataSort;
   public dataFilter: DataFilter;
-  public dataService: DataService;
+  public events: Events;
   public dataAggregation: DataAggregation;
   public dataSelection: DataSelection;
   public dimensions: Dimensions;
@@ -50,7 +50,7 @@ export class DataTable {
     }
     this.setRowIndexes();
     this.chunkRows(true);
-    this.dataService.onRowsChanged();
+    this.events.onRowsChanged();
   }
 
   get rows(): any {
@@ -64,7 +64,7 @@ export class DataTable {
     this.pager = new DataPager();
     this.sorter = new DataSort();
     this.dataFilter = new DataFilter();
-    this.dataService = new DataService();
+    this.events = new Events();
     this.dataAggregation = new DataAggregation();
     this.dataSelection = new DataSelection();
     this.dimensions = new Dimensions();
@@ -174,12 +174,12 @@ export class DataTable {
     } else {
       this.dataSelection.clearRowSelection();
     }
-    this.dataService.onSelectionChange();
+    this.events.onSelectionChange();
   }
 
   clearSelection() {
     this.dataSelection.clearRowSelection();
-    this.dataService.onSelectionChange();
+    this.events.onSelectionChange();
   }
 
   setSortMetaGroup() {
@@ -301,7 +301,7 @@ export class DataTable {
       page += 1;
       if (page !== this.pager.current) {
         this.pager.current = page;
-        this.dataService.onPage();
+        this.events.onPage();
       }
     }
   }
@@ -325,7 +325,7 @@ export class DataTable {
     }
     this.setRowIndexes();
     this.chunkRows(true);
-    this.dataService.onRowsChanged();
+    this.events.onRowsChanged();
   }
 
 }

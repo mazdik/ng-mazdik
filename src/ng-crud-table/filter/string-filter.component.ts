@@ -76,7 +76,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   filter(value) {
     this.table.dataFilter.setFilter(value, this.column.name, this.matchMode);
-    this.table.dataService.onFilter();
+    this.table.events.onFilter();
   }
 
   uncheckAll() {

@@ -46,7 +46,7 @@ export class BodyCellEditComponent extends BodyCellComponent {
     const colIndex = this.colIndex;
     // enter
     if (event.keyCode === 13) {
-      this.table.dataService.onEdit(this.row);
+      this.table.events.onEdit(this.row);
       this.switchCellToViewMode();
       event.preventDefault();
       // escape

@@ -49,26 +49,26 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.table.settings.columnResizeMode === 'aminated') {
-      const subColumnResize = this.table.dataService.resizeSource$.subscribe(() => {
+      const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });
       this.subscriptions.push(subColumnResize);
     }
-    const subColumnResizeEnd = this.table.dataService.resizeEndSource$.subscribe(() => {
+    const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subRows = this.table.dataService.rowsChanged$.subscribe(() => {
+    const subRows = this.table.events.rowsChanged$.subscribe(() => {
       if (this.rowDiffer.diff(this.row)) {
         this.cd.markForCheck();
       }
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+    const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subSort = this.table.dataService.sortSource$.subscribe(() => {
+    const subSort = this.table.events.sortSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subPage = this.table.dataService.pageSource$.subscribe(() => {
+    const subPage = this.table.events.pageSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);

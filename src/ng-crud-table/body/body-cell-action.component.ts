@@ -46,7 +46,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const subSelection = this.table.dataService.selectionSource$.subscribe(() => {
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
       this.checked = this.table.dataSelection.isRowSelected(this.row.index);
       this.cd.markForCheck();
     });
@@ -59,7 +59,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   actionClick(event, menuItem: MenuItem, row: Row) {
     this.table.selectRow(row.index);
-    this.table.dataService.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': row});
+    this.table.events.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': row});
   }
 
   onCheckboxClick(event) {

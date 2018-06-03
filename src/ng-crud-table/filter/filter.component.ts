@@ -52,10 +52,10 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const subColumnMenu = this.table.dataService.columnMenuSource$.subscribe((event) => {
+    const subColumnMenu = this.table.events.columnMenuSource$.subscribe((event) => {
       this.show(event);
     });
-    const subScroll = this.table.dataService.scrollSource$.subscribe(() => {
+    const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.hide();
     });
     this.subscriptions.push(subColumnMenu);

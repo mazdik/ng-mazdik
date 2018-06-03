@@ -1,7 +1,7 @@
 import {Subject} from 'rxjs';
 import {ColumnMenuEventArgs, HoverEventArgs} from '../types';
 
-export class DataService {
+export class Events {
 
   private sortSource = new Subject();
   private filterSource = new Subject();

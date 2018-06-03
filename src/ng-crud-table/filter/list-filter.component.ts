@@ -116,7 +116,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   filter(value: any[], field: string) {
     const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
     this.table.dataFilter.setFilter(value, field, mode);
-    this.table.dataService.onFilter();
+    this.table.events.onFilter();
   }
 
   setFocus() {

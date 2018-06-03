@@ -30,25 +30,25 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.dataManager.getItems().then();
     }
 
-    const subSelection = this.dataManager.dataService.selectionSource$.subscribe(() => {
+    const subSelection = this.dataManager.events.selectionSource$.subscribe(() => {
       this.onSelectedRow();
     });
-    const subFilter = this.dataManager.dataService.filterSource$.subscribe(() => {
+    const subFilter = this.dataManager.events.filterSource$.subscribe(() => {
       this.onFilter();
     });
-    const subSort = this.dataManager.dataService.sortSource$.subscribe(() => {
+    const subSort = this.dataManager.events.sortSource$.subscribe(() => {
       this.onSort();
     });
-    const subPage = this.dataManager.dataService.pageSource$.subscribe(() => {
+    const subPage = this.dataManager.events.pageSource$.subscribe(() => {
       this.onPageChanged();
     });
-    const subEdit = this.dataManager.dataService.editSource$.subscribe((row) => {
+    const subEdit = this.dataManager.events.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
-    const subRowMenu = this.dataManager.dataService.rowMenuSource$.subscribe((data) => {
+    const subRowMenu = this.dataManager.events.rowMenuSource$.subscribe((data) => {
       this.onRowMenu(data);
     });
-    const subRows = this.dataManager.dataService.rowsChanged$.subscribe(() => {
+    const subRows = this.dataManager.events.rowsChanged$.subscribe(() => {
       this.rowsChanged.emit(true);
     });
     this.subscriptions.push(subSelection);
@@ -147,7 +147,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   globalFilter() {
     this.dataManager.dataFilter.filters = {};
     this.dataManager.dataFilter.isGlobal = true;
-    this.dataManager.dataService.onFilter();
+    this.dataManager.events.onFilter();
   }
 
   onClickGlobalSearch() {
