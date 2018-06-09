@@ -6,10 +6,9 @@ export class Column extends ColumnBase {
 
   public index: number;
 
-  constructor(init: Partial<ColumnBase>, columnIndex: number) {
+  constructor(init: Partial<ColumnBase>) {
     super();
     Object.assign(this, init);
-    this.index = columnIndex;
     this.setDefaults();
   }
 

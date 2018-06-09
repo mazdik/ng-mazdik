@@ -165,6 +165,7 @@ export class DataTableDemoComponent {
 * Live Updates
 * Virtual scroll
 * Header and Cell Templates
+* Keyboard navigation
 
 ### Custom service
 ```typescript

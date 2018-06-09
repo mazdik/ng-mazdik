@@ -37,7 +37,7 @@ export class BodyMouseoverDirective implements OnInit, OnDestroy {
         }
         let target = event.target;
         while (target !== this.element) {
-            if (target.closest('.datatable-body-cell')) {
+            if (target.classList.contains('datatable-body-cell')) {
                 break;
             }
             target = target.parentNode;

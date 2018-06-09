@@ -1,12 +1,12 @@
 import {
-  Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy,
+  Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {Column} from '../base/column';
 import {DataTable} from '../base/data-table';
 import {Subscription} from 'rxjs';
 import {addClass} from '../base/util';
-import {Row} from '../types';
+import {Row, CellEventArgs} from '../types';
 
 @Component({
   selector: 'app-datatable-body-cell',
@@ -95,18 +95,24 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     column: this.column,
   };
   public editing: boolean;
+  public subscriptions: Subscription[] = [];
   private _column: Column;
   private _row: Row;
-  private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(public cd: ChangeDetectorRef, public element: ElementRef) {
   }
 
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
       this.updateValue();
     });
+    const subActivateCell = this.table.events.activateCellSource$.subscribe((ev: CellEventArgs) => {
+      if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
+        this.element.nativeElement.focus();
+      }
+    });
     this.subscriptions.push(subRows);
+    this.subscriptions.push(subActivateCell);
   }
 
   ngOnDestroy(): void {

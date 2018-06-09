@@ -4,21 +4,18 @@
 
 <div class="cell-editor" *ngIf="column.editable && editing">
   <select
-    #selectElement
     *ngIf="column.options"
+    appAfterViewFocus
     [(ngModel)]="row[column.name]"
-    [id]="column.name"
-    (keydown)="onCellEditorKeydown($event)"
     (focus)="oldValue=row[column.name]"
     (blur)="switchCellToViewMode()">
     <option *ngFor="let opt of getOptions(row)" [value]="opt.id">{{opt.name}}</option>
   </select>
 
   <input [attr.type]="(column.type ==='date' || column.type ==='datetime-local') ? column.type : 'text'"
-         #inputElement
+         appAfterViewFocus
          *ngIf="!column.options"
          [(ngModel)]="row[column.name]"
-         (keydown)="onCellEditorKeydown($event)"
          (focus)="oldValue=row[column.name]"
          (blur)="switchCellToViewMode()"/>
 </div>

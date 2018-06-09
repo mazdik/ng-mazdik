@@ -82,9 +82,8 @@ export class DataTable {
   }
 
   createColumns(columns: ColumnBase[]) {
-    let columnIndex = 0;
     for (const column of columns) {
-      this.columns.push(new Column(column, columnIndex++));
+      this.columns.push(new Column(column));
       if (column.aggregation) {
         this.dataAggregation.aggregates.push({field: column.name, type: column.aggregation});
       }
@@ -105,6 +104,7 @@ export class DataTable {
         }
       }
     });
+    this.setColumnIndexes();
     this.dimensions.calcColumnsTotalWidth(this.columns);
   }
 
@@ -272,6 +272,15 @@ export class DataTable {
         this.previousEnd = this.end;
       }
     }
+  }
+
+  setColumnIndexes() {
+    let columnIndex = 0;
+    this.columns.forEach(column => {
+      if (!column.tableHidden) {
+        column.index = columnIndex++;
+      }
+    });
   }
 
   setRowIndexes() {

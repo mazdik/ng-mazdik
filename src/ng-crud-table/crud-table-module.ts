@@ -38,6 +38,9 @@ import {PopupSelectComponent} from './form/select-popup.component';
 import {SummaryRowComponent} from './body/summary-row.component';
 import {RowViewComponent} from './row-view/row-view.component';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
+import {BodyKeydownDirective} from './directives/body-keydown.directive';
+import {BodyClickDirective} from './directives/body-click.directive';
+import {AfterViewFocusDirective} from './directives/after-view-focus-directory';
 
 @NgModule({
   imports: [
@@ -81,6 +84,9 @@ import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
     SummaryRowComponent,
     RowViewComponent,
     BodyMouseoverDirective,
+    BodyKeydownDirective,
+    BodyClickDirective,
+    AfterViewFocusDirective,
   ],
   exports: [
     DataTableComponent,

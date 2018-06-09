@@ -1,37 +1,42 @@
 import {
-  Component, HostListener, ElementRef, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
 import {Column} from '../base/column';
 import {BodyCellComponent} from './body-cell.component';
-import {Row} from '../types';
+import {Row, CellEventArgs} from '../types';
+import {Keys} from '../base/keys';
 
 @Component({
   selector: 'app-datatable-body-cell-edit',
   templateUrl: './body-cell-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BodyCellEditComponent extends BodyCellComponent {
+export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
-  @ViewChild('selectElement') selectElement: ElementRef;
-  @ViewChild('inputElement') inputElement: ElementRef;
-
-  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
-    super(cd);
+  constructor(cd: ChangeDetectorRef, element: ElementRef) {
+    super(cd, element);
   }
 
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    this.switchCellToEditMode(this.column);
-  }
-
-  switchCellToEditMode(column: Column) {
-    if (column.editable) {
-      this.editing = true;
-      if (column.options) {
-        setTimeout(() => this.selectElement.nativeElement.focus(), 50);
-      } else {
-        setTimeout(() => this.inputElement.nativeElement.focus(), 50);
+  ngOnInit(): void {
+    super.ngOnInit();
+    const subClickCell = this.table.events.clickCellSource$.subscribe((ev: CellEventArgs) => {
+      if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
+        this.switchCellToEditMode();
+        this.cd.markForCheck();
       }
+    });
+    const subKeydownCell = this.table.events.keydownCellSource$.subscribe((ev: CellEventArgs) => {
+      if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
+        this.onCellEditorKeydown(ev.event);
+      }
+    });
+    this.subscriptions.push(subClickCell);
+    this.subscriptions.push(subKeydownCell);
+  }
+
+  switchCellToEditMode() {
+    if (this.column.editable) {
+      this.editing = true;
     }
   }
 
@@ -43,49 +48,16 @@ export class BodyCellEditComponent extends BodyCellComponent {
   }
 
   onCellEditorKeydown(event: any) {
-    const colIndex = this.colIndex;
-    // enter
-    if (event.keyCode === 13) {
+    if (event.keyCode === Keys.ENTER) {
       this.table.events.onEdit(this.row);
       this.switchCellToViewMode();
       event.preventDefault();
-      // escape
-    } else if (event.keyCode === 27) {
+    } else if (event.keyCode === Keys.ESCAPE) {
       this.editing = false;
-      event.preventDefault();
-      event.stopPropagation();
       this.row[this.column.name] = this.oldValue;
       this.updateValue();
-      // tab TODO
-    } else if (event.keyCode === 9) {
-      const currentCell = this.element.nativeElement;
-      const row = currentCell.parentElement;
-      let targetCell;
-
-      if (event.shiftKey) {
-        if (colIndex === 0) {
-          const previousRow = row.previousElementSibling;
-          if (previousRow) {
-            targetCell = previousRow.lastElementChild;
-          }
-        } else {
-          targetCell = row.children[colIndex - 1];
-        }
-      } else {
-        if (colIndex === (row.children.length - 1)) {
-          const nextRow = row.nextElementSibling;
-          if (nextRow) {
-            targetCell = nextRow.firstElementChild;
-          }
-        } else {
-          targetCell = row.children[colIndex + 1];
-        }
-      }
-
-      if (targetCell) {
-        targetCell.click();
-        event.preventDefault();
-      }
+      event.preventDefault();
+      event.stopPropagation();
     }
   }
 

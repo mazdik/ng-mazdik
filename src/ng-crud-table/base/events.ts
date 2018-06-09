@@ -1,5 +1,5 @@
 import {Subject} from 'rxjs';
-import {ColumnMenuEventArgs, HoverEventArgs} from '../types';
+import {ColumnMenuEventArgs, HoverEventArgs, CellEventArgs} from '../types';
 
 export class Events {
 
@@ -17,6 +17,9 @@ export class Events {
   private scrollSource = new Subject<any>();
   private mouseoverSource = new Subject<HoverEventArgs>();
   private mouseoutSource = new Subject<boolean>();
+  private activateCellSource = new Subject<CellEventArgs>();
+  private clickCellSource = new Subject<CellEventArgs>();
+  private keydownCellSource = new Subject<CellEventArgs>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -32,6 +35,9 @@ export class Events {
   scrollSource$ = this.scrollSource.asObservable();
   mouseoverSource$ = this.mouseoverSource.asObservable();
   mouseoutSource$ = this.mouseoutSource.asObservable();
+  activateCellSource$ = this.activateCellSource.asObservable();
+  clickCellSource$ = this.clickCellSource.asObservable();
+  keydownCellSource$ = this.keydownCellSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -87,6 +93,18 @@ export class Events {
 
   onMouseout(data: boolean) {
     this.mouseoutSource.next(data);
+  }
+
+  onActivateCell(data: CellEventArgs) {
+    this.activateCellSource.next(data);
+  }
+
+  onClickCell(data: CellEventArgs) {
+    this.clickCellSource.next(data);
+  }
+
+  onKeydownCell(data: CellEventArgs) {
+    this.keydownCellSource.next(data);
   }
 
 }
