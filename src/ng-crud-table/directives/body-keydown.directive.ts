@@ -31,7 +31,7 @@ export class BodyKeydownDirective implements OnInit, OnDestroy {
         const keyCode = event.keyCode;
         const shiftKey = event.shiftKey;
 
-        if (!this.isAction(keyCode)) {
+        if (!this.isAction(keyCode) && !this.isNavigationKey(keyCode)) {
             return;
         }
         let target = event.target;
@@ -48,22 +48,26 @@ export class BodyKeydownDirective implements OnInit, OnDestroy {
         event.preventDefault();
         event.stopPropagation();
 
+        const isEditing = target.classList.contains('cell-editing');
         let columnIndex = target.dataset.columnIndex;
         let rowIndex = target.dataset.rowIndex;
         if (!isBlank(columnIndex) && !isBlank(rowIndex)) {
             columnIndex = parseInt(columnIndex, 10);
             rowIndex = parseInt(rowIndex, 10);
 
-            if (keyCode === Keys.ESCAPE || keyCode === Keys.ENTER) {
-                this.table.events.onKeydownCell(<CellEventArgs>{ columnIndex, rowIndex, event });
+            if (this.isAction(keyCode)) {
+                this.ngZone.run(() => {
+                    this.table.events.onKeydownCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
+                });
             }
-            [columnIndex, rowIndex] = this.findCell(columnIndex, rowIndex, keyCode, shiftKey);
-            const ev = <CellEventArgs>{ columnIndex, rowIndex, event };
-            this.table.events.onActivateCell(ev);
+            if (this.isNavigationKey(keyCode) && !isEditing) {
+                [columnIndex, rowIndex] = this.findNextCell(columnIndex, rowIndex, keyCode, shiftKey);
+                this.table.events.onActivateCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
+            }
         }
     }
 
-    findCell(columnIndex: number, rowIndex: number, keyCode: number, shiftKey: boolean) {
+    findNextCell(columnIndex: number, rowIndex: number, keyCode: number, shiftKey: boolean) {
         const maxRowIndex = this.table.rows.length;
         const maxColIndex = this.table.columns.length;
 
@@ -85,13 +89,19 @@ export class BodyKeydownDirective implements OnInit, OnDestroy {
 
     isAction(keyCode: number): boolean {
         const isAction =
+            keyCode === Keys.ENTER ||
+            keyCode === Keys.ESCAPE ||
+            keyCode === Keys.KEY_F2;
+        return (isAction);
+    }
+
+    isNavigationKey(keyCode: number) {
+        const isAction =
             keyCode === Keys.UP ||
             keyCode === Keys.DOWN ||
             keyCode === Keys.LEFT ||
             keyCode === Keys.RIGHT ||
-            keyCode === Keys.TAB ||
-            keyCode === Keys.ENTER ||
-            keyCode === Keys.ESCAPE;
+            keyCode === Keys.TAB;
         return (isAction);
     }
 

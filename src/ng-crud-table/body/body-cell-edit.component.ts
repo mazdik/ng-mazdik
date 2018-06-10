@@ -22,12 +22,11 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     const subClickCell = this.table.events.clickCellSource$.subscribe((ev: CellEventArgs) => {
       if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
         this.switchCellToEditMode();
-        this.cd.markForCheck();
       }
     });
     const subKeydownCell = this.table.events.keydownCellSource$.subscribe((ev: CellEventArgs) => {
       if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
-        this.onCellEditorKeydown(ev.event);
+        this.onCellKeydown(ev.event);
       }
     });
     this.subscriptions.push(subClickCell);
@@ -37,6 +36,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   switchCellToEditMode() {
     if (this.column.editable) {
       this.editing = true;
+      this.cd.markForCheck();
     }
   }
 
@@ -47,23 +47,34 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     }
   }
 
+  onCellKeydown(event: any) {
+    if (this.editing) {
+      this.onCellEditorKeydown(event);
+    } else {
+      if (event.keyCode === Keys.KEY_F2 || event.keyCode === Keys.ENTER) {
+        this.switchCellToEditMode();
+      }
+    }
+  }
+
   onCellEditorKeydown(event: any) {
     if (event.keyCode === Keys.ENTER) {
+      console.log(this.row);
       this.table.events.onEdit(this.row);
       this.switchCellToViewMode();
-      event.preventDefault();
+      this.element.nativeElement.focus();
     } else if (event.keyCode === Keys.ESCAPE) {
       this.editing = false;
       this.row[this.column.name] = this.oldValue;
       this.updateValue();
-      event.preventDefault();
-      event.stopPropagation();
+      this.element.nativeElement.focus();
     }
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   getOptions(row: Row[]) {
     return this.column.getOptions(row[this.column.dependsColumn]);
   }
-
 
 }

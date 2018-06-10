@@ -19,4 +19,5 @@ export interface CellEventArgs {
   columnIndex: number;
   rowIndex: number;
   event: any;
+  fromCell: HTMLElement;
 }
