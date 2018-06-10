@@ -1,4 +1,5 @@
 import {SelectionType} from '../types';
+import {Events} from './events';
 
 export class DataSelection {
 
@@ -6,11 +7,10 @@ export class DataSelection {
   public selectedRowIndexes: number[] = [];
   public selectedRowIndex: number;
 
-  constructor() {
+  constructor(private events: Events) {
   }
 
   selectRow(rowIndex: number) {
-    this.selectedRowIndex = rowIndex;
     if (this.type === 'multiple') {
       const index = this.selectedRowIndexes.indexOf(rowIndex);
       if (index === -1) {
@@ -18,12 +18,19 @@ export class DataSelection {
       } else {
         this.selectedRowIndexes.splice(index, 1);
       }
+      this.selectedRowIndex = rowIndex;
+    } else {
+      if (this.selectedRowIndex !== rowIndex) {
+        this.selectedRowIndex = rowIndex;
+      }
     }
+    this.events.onSelectionChange();
   }
 
   clearRowSelection() {
     this.selectedRowIndexes = [];
     this.selectedRowIndex = null;
+    this.events.onSelectionChange();
   }
 
   isRowSelected(rowIndex: number): boolean {

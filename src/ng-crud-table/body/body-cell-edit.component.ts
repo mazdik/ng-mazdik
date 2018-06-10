@@ -59,7 +59,6 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
   onCellEditorKeydown(event: any) {
     if (event.keyCode === Keys.ENTER) {
-      console.log(this.row);
       this.table.events.onEdit(this.row);
       this.switchCellToViewMode();
       this.element.nativeElement.focus();

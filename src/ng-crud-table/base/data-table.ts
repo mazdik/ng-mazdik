@@ -66,7 +66,7 @@ export class DataTable {
     this.dataFilter = new DataFilter();
     this.events = new Events();
     this.dataAggregation = new DataAggregation();
-    this.dataSelection = new DataSelection();
+    this.dataSelection = new DataSelection(this.events);
     this.dimensions = new Dimensions();
     this.messages = new Message();
     this.sorter.multiple = this.settings.multipleSort;
@@ -174,12 +174,10 @@ export class DataTable {
     } else {
       this.dataSelection.clearRowSelection();
     }
-    this.events.onSelectionChange();
   }
 
   clearSelection() {
     this.dataSelection.clearRowSelection();
-    this.events.onSelectionChange();
   }
 
   setSortMetaGroup() {
