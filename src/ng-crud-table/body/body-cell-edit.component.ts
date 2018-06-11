@@ -55,6 +55,9 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
         this.switchCellToEditMode();
       }
     }
+    if (!this.column.options) {
+      event.preventDefault();
+    }
   }
 
   onCellEditorKeydown(event: any) {
@@ -68,8 +71,6 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
       this.updateValue();
       this.element.nativeElement.focus();
     }
-    event.preventDefault();
-    event.stopPropagation();
   }
 
   getOptions(row: Row[]) {
