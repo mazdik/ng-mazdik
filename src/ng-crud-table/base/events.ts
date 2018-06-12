@@ -19,7 +19,9 @@ export class Events {
   private mouseoutSource = new Subject<boolean>();
   private activateCellSource = new Subject<CellEventArgs>();
   private clickCellSource = new Subject<CellEventArgs>();
+  private dblClickCellSource = new Subject<CellEventArgs>();
   private keydownCellSource = new Subject<CellEventArgs>();
+  private contextMenuSource = new Subject<CellEventArgs>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -37,7 +39,9 @@ export class Events {
   mouseoutSource$ = this.mouseoutSource.asObservable();
   activateCellSource$ = this.activateCellSource.asObservable();
   clickCellSource$ = this.clickCellSource.asObservable();
+  dblClickCellSource$ = this.dblClickCellSource.asObservable();
   keydownCellSource$ = this.keydownCellSource.asObservable();
+  contextMenuSource$ = this.contextMenuSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -103,8 +107,16 @@ export class Events {
     this.clickCellSource.next(data);
   }
 
+  onDblClickCell(data: CellEventArgs) {
+    this.dblClickCellSource.next(data);
+  }
+
   onKeydownCell(data: CellEventArgs) {
     this.keydownCellSource.next(data);
+  }
+
+  onContextMenu(data: CellEventArgs) {
+    this.contextMenuSource.next(data);
   }
 
 }

@@ -2,9 +2,9 @@ import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angula
 import { DataTable, EventHelper } from '../base';
 
 @Directive({
-    selector: '[appBodyClick]'
+    selector: '[appBodyDblClick]'
 })
-export class BodyClickDirective implements OnInit, OnDestroy {
+export class BodyDblClickDirective implements OnInit, OnDestroy {
 
     @Input() public table: DataTable;
 
@@ -15,20 +15,23 @@ export class BodyClickDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.ngZone.runOutsideAngular(() => {
-            this.element.addEventListener('click', this.onClick.bind(this));
-        });
+        const editable = this.table.columns.some(x => x.editable);
+        if (editable) {
+            this.ngZone.runOutsideAngular(() => {
+                this.element.addEventListener('dblclick', this.onDblClick.bind(this));
+            });
+        }
     }
 
     ngOnDestroy(): void {
-        this.element.removeEventListener('click', this.onClick.bind(this));
+        this.element.removeEventListener('dblclick', this.onDblClick.bind(this));
     }
 
-    onClick(event: any): void {
+    onDblClick(event: any): void {
         const cellEventArgs = EventHelper.findCellEvent(event, this.element);
         if (cellEventArgs) {
             this.ngZone.run(() => {
-                this.table.selectRow(cellEventArgs.rowIndex);
+                this.table.events.onDblClickCell(cellEventArgs);
             });
         }
     }

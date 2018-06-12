@@ -40,7 +40,9 @@ import {RowViewComponent} from './row-view/row-view.component';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
+import {BodyDblClickDirective} from './directives/body-dblclick.directive';
 import {AfterViewFocusDirective} from './directives/after-view-focus-directory';
+import {BodyContextMenuDirective} from './directives/body-contextmenu.directive';
 
 @NgModule({
   imports: [
@@ -86,7 +88,9 @@ import {AfterViewFocusDirective} from './directives/after-view-focus-directory';
     BodyMouseoverDirective,
     BodyKeydownDirective,
     BodyClickDirective,
+    BodyDblClickDirective,
     AfterViewFocusDirective,
+    BodyContextMenuDirective,
   ],
   exports: [
     DataTableComponent,

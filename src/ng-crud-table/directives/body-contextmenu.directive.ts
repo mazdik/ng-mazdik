@@ -2,9 +2,9 @@ import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angula
 import { DataTable, EventHelper } from '../base';
 
 @Directive({
-    selector: '[appBodyClick]'
+    selector: '[appBodyContextMenu]'
 })
-export class BodyClickDirective implements OnInit, OnDestroy {
+export class BodyContextMenuDirective implements OnInit, OnDestroy {
 
     @Input() public table: DataTable;
 
@@ -15,20 +15,22 @@ export class BodyClickDirective implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.ngZone.runOutsideAngular(() => {
-            this.element.addEventListener('click', this.onClick.bind(this));
-        });
+        if (this.table.settings.contextMenu) {
+            this.ngZone.runOutsideAngular(() => {
+                this.element.addEventListener('contextmenu', this.onContextMenu.bind(this));
+            });
+        }
     }
 
     ngOnDestroy(): void {
-        this.element.removeEventListener('click', this.onClick.bind(this));
+        this.element.removeEventListener('contextmenu', this.onContextMenu.bind(this));
     }
 
-    onClick(event: any): void {
+    onContextMenu(event: any): void {
         const cellEventArgs = EventHelper.findCellEvent(event, this.element);
         if (cellEventArgs) {
             this.ngZone.run(() => {
-                this.table.selectRow(cellEventArgs.rowIndex);
+                this.table.events.onContextMenu(cellEventArgs);
             });
         }
     }

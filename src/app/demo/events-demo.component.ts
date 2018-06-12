@@ -22,6 +22,7 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   public settings: Settings = <Settings>{
     clientSide: true,
     hoverEvents: true,
+    contextMenu: true,
   };
   public eventName: string = 'Event name';
   public eventValue: any = 'event value';
@@ -45,8 +46,12 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
     const subMouseout = this.table.events.mouseoutSource$.subscribe((data) => {
       this.printEvent('mouseout', data);
     });
+    const subContextMenu = this.table.events.contextMenuSource$.subscribe((data) => {
+      this.printEvent('contextmenu', data);
+    });
     this.subscriptions.push(subMouseover);
     this.subscriptions.push(subMouseout);
+    this.subscriptions.push(subContextMenu);
   }
 
   ngOnDestroy() {

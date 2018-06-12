@@ -18,7 +18,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
-    const subClickCell = this.table.events.clickCellSource$.subscribe((ev: CellEventArgs) => {
+    const subDblClickCell = this.table.events.dblClickCellSource$.subscribe((ev: CellEventArgs) => {
       if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
         this.switchCellToEditMode();
       }
@@ -28,7 +28,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
         this.onCellKeydown(ev.event);
       }
     });
-    this.subscriptions.push(subClickCell);
+    this.subscriptions.push(subDblClickCell);
     this.subscriptions.push(subKeydownCell);
   }
 
