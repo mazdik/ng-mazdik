@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Filter, SortMeta, DataSource} from '../../ng-crud-table';
-import {DataFilter} from '../../ng-crud-table/base/data-filter';
-import {DataSort} from '../../ng-crud-table/base/data-sort';
+import {DataSort, DataFilter, Settings} from '../../ng-crud-table/base';
 
 @Injectable()
 export class DemoService implements DataSource {
@@ -16,7 +15,8 @@ export class DemoService implements DataSource {
 
   constructor(private http: HttpClient, private perPage?: number) {
     this.dataFilter = new DataFilter();
-    this.dataSort = new DataSort();
+    const settings = new Settings({});
+    this.dataSort = new DataSort(settings);
     this.itemsPerPage = perPage || this.itemsPerPage;
   }
 

@@ -3,9 +3,7 @@ import {
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
 import {SelectOption} from '../types';
-import {DataTable} from '../base/data-table';
-import {Column} from '../base/column';
-import {DataFilter} from '../base/data-filter';
+import {Column, DataTable, DataFilter} from '../base';
 
 @Component({
   selector: 'app-list-filter',

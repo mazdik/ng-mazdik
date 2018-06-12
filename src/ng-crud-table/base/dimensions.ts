@@ -1,4 +1,5 @@
 import {Column} from './column';
+import {Settings} from './settings';
 
 export class Dimensions {
 
@@ -12,6 +13,13 @@ export class Dimensions {
   public headerRowHeight: number = 40;
   public rowHeight: number = 30;
   public scrollHeight: number;
+
+  constructor(private settings: Settings) {
+    this.tableWidth = this.settings.tableWidth;
+    this.bodyHeight = this.settings.bodyHeight;
+    this.rowHeight = this.settings.rowHeight;
+    this.headerRowHeight = this.settings.headerRowHeight;
+  }
 
   calcColumnsTotalWidth(columns: Column[]) {
     let totalWidth = 0;

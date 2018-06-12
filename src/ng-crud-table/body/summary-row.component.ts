@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable} from '../base/data-table';
+import {DataTable} from '../base';
 import {Subscription} from 'rxjs';
 import {translate} from '../base/util';
 import {Row} from '../types';

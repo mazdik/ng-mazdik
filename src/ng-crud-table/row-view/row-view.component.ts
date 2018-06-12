@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {DataManager} from '../base/data-manager';
+import {DataManager} from '../base';
 
 @Component({
   selector: 'app-row-view',

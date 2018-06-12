@@ -1,4 +1,5 @@
 import {SelectionType} from '../types';
+import {Settings} from './settings';
 import {Events} from './events';
 
 export class DataSelection {
@@ -7,7 +8,8 @@ export class DataSelection {
   public selectedRowIndexes: number[] = [];
   public selectedRowIndex: number;
 
-  constructor(private events: Events) {
+  constructor(private settings: Settings, private events: Events) {
+    this.type = this.settings.selectionType;
   }
 
   selectRow(rowIndex: number) {

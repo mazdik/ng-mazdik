@@ -1,7 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {TreeNode, TreeDataSource} from '../types';
-import {Column} from '../base/column';
-import {DataTable} from '../base/data-table';
+import {Column, DataTable} from '../base';
 import {translate} from '../base/util';
 
 @Component({

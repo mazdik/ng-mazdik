@@ -1,11 +1,9 @@
 import {
   Directive, ElementRef, HostListener, Input, OnDestroy, AfterViewInit, Renderer2, HostBinding
 } from '@angular/core';
-import {Subscription} from 'rxjs';
+import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {fromEvent} from 'rxjs';
-import {DataTable} from '../base/data-table';
-import {Column} from '../base/column';
+import {Column, DataTable} from '../base';
 
 @Directive({
   selector: '[appResizeableColumn]'

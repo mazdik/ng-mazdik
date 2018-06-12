@@ -11,12 +11,6 @@ export function isBlank(val: any): boolean {
   return true;
 }
 
-let uidColumn: number = 0;
-
-export function getUidColumn(): number {
-  return uidColumn++;
-}
-
 let uidRow: number = 0;
 
 export function getUidRow(): number {

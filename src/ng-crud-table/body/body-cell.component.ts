@@ -2,8 +2,7 @@ import {
   Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {Column} from '../base/column';
-import {DataTable} from '../base/data-table';
+import {Column, DataTable} from '../base';
 import {Subscription} from 'rxjs';
 import {addClass} from '../base/util';
 import {Row, CellEventArgs} from '../types';

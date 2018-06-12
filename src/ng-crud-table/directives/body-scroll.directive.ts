@@ -1,5 +1,5 @@
 import {Directive, Input, ElementRef, OnInit, OnDestroy, NgZone} from '@angular/core';
-import {DataTable} from '../base/data-table';
+import {DataTable} from '../base';
 
 @Directive({
   selector: '[appBodyScroll]'

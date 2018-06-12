@@ -1,6 +1,6 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { DataTable } from '../base/data-table';
-import { Row, HoverEventArgs } from '../types';
+import { DataTable } from '../base';
+import { HoverEventArgs } from '../types';
 import { isBlank } from '../base/util';
 
 @Directive({

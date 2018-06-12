@@ -61,15 +61,14 @@ export class DataTable {
 
   constructor(columns: ColumnBase[], settings: Settings, messages?: Message) {
     this.settings = new Settings(settings);
-    this.pager = new DataPager();
-    this.sorter = new DataSort();
-    this.dataFilter = new DataFilter();
     this.events = new Events();
+    this.pager = new DataPager();
+    this.sorter = new DataSort(this.settings);
+    this.dataFilter = new DataFilter();
     this.dataAggregation = new DataAggregation();
-    this.dataSelection = new DataSelection(this.events);
-    this.dimensions = new Dimensions();
+    this.dataSelection = new DataSelection(this.settings, this.events);
+    this.dimensions = new Dimensions(this.settings);
     this.messages = new Message();
-    this.sorter.multiple = this.settings.multipleSort;
     if (columns) {
       this.createColumns(columns);
     }
@@ -77,7 +76,7 @@ export class DataTable {
       this.setSettings(settings);
     }
     if (messages) {
-      this.setMessages(messages);
+      Object.assign(this.messages, messages);
     }
   }
 
@@ -125,12 +124,6 @@ export class DataTable {
     if (!this.actionMenu && !this.settings.selectionMode && !this.settings.rowNumber) {
       this.dimensions.actionColumnWidth = 0;
     }
-    this.dimensions.tableWidth = this.settings.tableWidth;
-    this.dimensions.bodyHeight = this.settings.bodyHeight;
-    this.dimensions.rowHeight = this.settings.rowHeight;
-    this.dimensions.headerRowHeight = this.settings.headerRowHeight;
-    this.sorter.multiple = this.settings.multipleSort;
-    this.dataSelection.type = this.settings.selectionType;
     this.hideRowGroupColumns();
     this.initColumns();
   }
@@ -141,10 +134,6 @@ export class DataTable {
     } else {
       return this._rows;
     }
-  }
-
-  setMessages(messages: Message) {
-    Object.assign(this.messages, messages);
   }
 
   setLocalRows(data: Row[]) {

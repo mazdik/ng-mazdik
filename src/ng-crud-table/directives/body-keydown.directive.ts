@@ -1,6 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { DataTable } from '../base/data-table';
-import { KeyboardAction } from '../base/keyboard-action';
+import { DataTable, KeyboardAction } from '../base';
 
 @Directive({
     selector: '[appBodyKeydown]'

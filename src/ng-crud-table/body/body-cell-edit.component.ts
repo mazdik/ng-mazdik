@@ -1,10 +1,9 @@
 import {
   Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
-import {Column} from '../base/column';
 import {BodyCellComponent} from './body-cell.component';
 import {Row, CellEventArgs} from '../types';
-import {Keys} from '../base/keys';
+import {Keys} from '../base';
 
 @Component({
   selector: 'app-datatable-body-cell-edit',

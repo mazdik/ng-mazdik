@@ -2,9 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
-import {DataTable} from '../base/data-table';
-import {Column} from '../base/column';
-import {DataFilter} from '../base/data-filter';
+import {Column, DataTable, DataFilter} from '../base';
 
 @Component({
   selector: 'app-range-filter',

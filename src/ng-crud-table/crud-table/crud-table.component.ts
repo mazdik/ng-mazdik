@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {Row} from '../types';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
-import {DataManager} from '../base/data-manager';
+import {DataManager} from '../base';
 import {Subscription} from 'rxjs';
 
 @Component({
