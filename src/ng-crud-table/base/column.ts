@@ -1,18 +1,37 @@
 import {ColumnBase} from './column-base';
 import {isBlank} from './util';
 import {SelectOption} from '../types';
+import {Settings} from './settings';
 
 export class Column extends ColumnBase {
 
   public index: number;
 
-  constructor(init: Partial<ColumnBase>) {
+  constructor(init: Partial<ColumnBase>, private settings: Settings) {
     super();
     Object.assign(this, init);
+    this.setSettings();
+  }
+
+  private setSettings() {
+    /* disable sort for all column */
+    if (this.settings.sortable === false) {
+      this.sortable = false;
+    }
+    /* disable filter for all column */
+    if (this.settings.filter === false) {
+      this.filter = false;
+    }
+    // hide if column is grouped
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      if (this.settings.groupRowsBy.indexOf(this.name) >= 0) {
+        this.tableHidden = true;
+      }
+    }
     this.setDefaults();
   }
 
-  setDefaults() {
+  private setDefaults() {
     if (!this.width) {
       this.width = (this.name.length * 10) + 50;
       if (this.width < 150) {

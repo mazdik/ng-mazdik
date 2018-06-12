@@ -72,17 +72,15 @@ export class DataTable {
     if (columns) {
       this.createColumns(columns);
     }
-    if (settings) {
-      this.setSettings(settings);
-    }
     if (messages) {
       Object.assign(this.messages, messages);
     }
+    this.setShareSettings();
   }
 
   createColumns(columns: ColumnBase[]) {
     for (const column of columns) {
-      this.columns.push(new Column(column));
+      this.columns.push(new Column(column, this.settings));
       if (column.aggregation) {
         this.dataAggregation.aggregates.push({field: column.name, type: column.aggregation});
       }
@@ -107,25 +105,10 @@ export class DataTable {
     this.dimensions.calcColumnsTotalWidth(this.columns);
   }
 
-  setSettings(settings: Settings) {
-    Object.assign(this.settings, settings);
-    /* disable all sorts */
-    if (this.settings.sortable === false) {
-      for (const col of this.columns) {
-        col.sortable = false;
-      }
-    }
-    /* disable all filters */
-    if (this.settings.filter === false) {
-      for (const col of this.columns) {
-        col.filter = false;
-      }
-    }
+  setShareSettings() {
     if (!this.actionMenu && !this.settings.selectionMode && !this.settings.rowNumber) {
       this.dimensions.actionColumnWidth = 0;
     }
-    this.hideRowGroupColumns();
-    this.initColumns();
   }
 
   getRows() {
@@ -221,16 +204,6 @@ export class DataTable {
     delete summaryRow['index'];
     delete summaryRow['size'];
     return summaryRow;
-  }
-
-  hideRowGroupColumns() {
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      this.columns.forEach((column, index) => {
-        if (this.settings.groupRowsBy.indexOf(column.name) >= 0) {
-          this.columns[index].tableHidden = true;
-        }
-      });
-    }
   }
 
   columnTrackingFn(index: number, column: Column): any {
