@@ -1,7 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { DataTable, EventHelper } from '../base';
-import { HoverEventArgs } from '../types';
-import { isBlank } from '../base/util';
 
 @Directive({
     selector: '[appBodyMouseover]'
@@ -39,15 +37,9 @@ export class BodyMouseoverDirective implements OnInit, OnDestroy {
         if (!target) { return; }
         this.currentElem = target;
 
-        const columnIndex = target.dataset.columnIndex;
-        const rowIndex = target.dataset.rowIndex;
-        if (!isBlank(columnIndex) && !isBlank(rowIndex)) {
-            const ev = <HoverEventArgs>{
-                columnName: this.table.columns[columnIndex].name,
-                row: this.table.rows[rowIndex],
-                event: event
-            };
-            this.table.events.onMouseover(ev);
+        const cellEventArgs = EventHelper.findCellEvent(event, this.element);
+        if (cellEventArgs) {
+            this.table.events.onMouseover(cellEventArgs);
         }
     }
 

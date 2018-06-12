@@ -55,7 +55,13 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
   printEvent(name: string, event: any) {
     this.eventName = name;
-    this.eventValue = JSON.stringify(event);
+    if (this.eventName === 'mouseout') {
+      this.eventValue = JSON.stringify(event);
+    } else {
+      const columnName = this.table.columns[event.columnIndex].name;
+      const row = this.table.rows[event.rowIndex];
+      this.eventValue = JSON.stringify({columnName, row});
+    }
     this.cd.detectChanges();
     console.log(name, event);
   }

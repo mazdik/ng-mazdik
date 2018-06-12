@@ -63,7 +63,7 @@ export class DataManager extends DataTable {
       });
   }
 
-  create(row: any) {
+  create(row: Row) {
     this.loading = true;
     this.errors = null;
     this.service
@@ -80,14 +80,14 @@ export class DataManager extends DataTable {
       });
   }
 
-  update(row: any) {
+  update(row: Row) {
     this.loading = true;
     this.errors = null;
     this.service.put(row)
       .then(res => {
         this.loading = false;
         this.errors = null;
-        this.afterUpdate(res);
+        this.afterUpdate(row, res);
       })
       .catch(error => {
         this.loading = false;
@@ -95,7 +95,7 @@ export class DataManager extends DataTable {
       });
   }
 
-  delete(row: any) {
+  delete(row: Row) {
     this.loading = true;
     this.errors = null;
     this.service
@@ -103,7 +103,7 @@ export class DataManager extends DataTable {
       .then(res => {
         this.loading = false;
         this.errors = null;
-        this.afterDelete(true);
+        this.afterDelete(row, true);
         this.item = null;
       })
       .catch(error => {
@@ -120,25 +120,28 @@ export class DataManager extends DataTable {
     }
   }
 
-  afterUpdate(result: any) {
+  afterUpdate(row: Row, result: any) {
     if (this.refreshRowOnSave) {
-      this.refreshSelectedRow();
+      this.refreshRow(row, false);
     } else {
-      this.mergeSelectedRow(result);
+      this.mergeRow(row.uid, result);
     }
     this.events.onRowsChanged();
   }
 
-  afterDelete(result: boolean) {
+  afterDelete(row: Row, result: boolean) {
     if (result) {
-      this.rows.splice(this.getSelectedRowIndex(), 1);
+      const rowIndex: number = this.rows.findIndex(x => x.uid === row.uid);
+      this.rows.splice(rowIndex, 1);
     }
   }
 
-  mergeSelectedRow(result: any) {
+  mergeRow(rowUid: number, result: any) {
+    const rowIndex: number = this.rows.findIndex(x => x.uid === rowUid);
+
     for (const key of Object.keys(result)) {
-      if (key in this.rows[this.getSelectedRowIndex()]) {
-        this.rows[this.getSelectedRowIndex()][key] = result[key];
+      if (key in this.rows[rowIndex]) {
+        this.rows[rowIndex][key] = result[key];
       }
     }
   }
@@ -152,17 +155,13 @@ export class DataManager extends DataTable {
         if (isNew) {
           this.addRow(data);
         } else {
-          this.mergeSelectedRow(data);
+          this.mergeRow(row.uid, data);
         }
       })
       .catch(error => {
         this.loading = false;
         this.errors = error;
       });
-  }
-
-  refreshSelectedRow() {
-    this.refreshRow(this.rows[this.getSelectedRowIndex()], false);
   }
 
   saveRow() {

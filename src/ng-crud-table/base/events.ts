@@ -1,5 +1,5 @@
 import {Subject} from 'rxjs';
-import {ColumnMenuEventArgs, HoverEventArgs, CellEventArgs} from '../types';
+import {ColumnMenuEventArgs, CellEventArgs} from '../types';
 
 export class Events {
 
@@ -15,7 +15,7 @@ export class Events {
   private resizeEndSource = new Subject();
   private rowsChanged = new Subject();
   private scrollSource = new Subject<any>();
-  private mouseoverSource = new Subject<HoverEventArgs>();
+  private mouseoverSource = new Subject<CellEventArgs>();
   private mouseoutSource = new Subject<boolean>();
   private activateCellSource = new Subject<CellEventArgs>();
   private clickCellSource = new Subject<CellEventArgs>();
@@ -87,7 +87,7 @@ export class Events {
     this.scrollSource.next(data);
   }
 
-  onMouseover(data: HoverEventArgs) {
+  onMouseover(data: CellEventArgs) {
     this.mouseoverSource.next(data);
   }
 
