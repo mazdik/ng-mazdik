@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { DataTable } from '../base';
+import { DataTable, EventHelper } from '../base';
 import { HoverEventArgs } from '../types';
 import { isBlank } from '../base/util';
 
@@ -35,16 +35,8 @@ export class BodyMouseoverDirective implements OnInit, OnDestroy {
         if (this.currentElem) {
             return;
         }
-        let target = event.target;
-        while (target !== this.element) {
-            if (target.classList.contains('datatable-body-cell')) {
-                break;
-            }
-            target = target.parentNode;
-        }
-        if (target === this.element) {
-            return;
-        }
+        const target = EventHelper.findCellEventTarget(event, this.element);
+        if (!target) { return; }
         this.currentElem = target;
 
         const columnIndex = target.dataset.columnIndex;

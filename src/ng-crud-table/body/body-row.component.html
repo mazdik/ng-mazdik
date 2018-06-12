@@ -7,12 +7,11 @@
     [row]="row">
   </app-datatable-body-cell-action>
 
-  <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn; index as colIndex">
+  <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn">
     <app-datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
       [table]="table"
-      [colIndex]="colIndex"
       [row]="row"
       [column]="column">
     </app-datatable-body-cell>
@@ -20,7 +19,6 @@
       *ngIf="column.editable"
       tabindex="-1"
       [table]="table"
-      [colIndex]="colIndex"
       [row]="row"
       [column]="column">
     </app-datatable-body-cell-edit>
@@ -29,12 +27,11 @@
 </div>
 
 <div class="datatable-row-center">
-  <ng-container *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn; index as colIndex">
+  <ng-container *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn">
     <app-datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
       [table]="table"
-      [colIndex]="colIndex"
       [row]="row"
       [column]="column">
     </app-datatable-body-cell>
@@ -42,7 +39,6 @@
       *ngIf="column.editable"
       tabindex="-1"
       [table]="table"
-      [colIndex]="colIndex"
       [row]="row"
       [column]="column">
     </app-datatable-body-cell-edit>

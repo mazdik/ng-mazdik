@@ -24,7 +24,6 @@ import {Row, CellEventArgs} from '../types';
 export class BodyCellComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public colIndex: number;
 
   @Input()
   set column(column: Column) {

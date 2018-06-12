@@ -5,11 +5,10 @@
        [ngStyle]="{'width.px': table.dimensions.actionColumnWidth}">
   </div>
 
-  <ng-container *ngFor="let column of table.frozenColumns; let colIndex = index; trackBy: table.columnTrackingFn">
+  <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn">
     <app-datatable-body-cell
       tabindex="-1"
       [table]="table"
-      [colIndex]="colIndex"
       [row]="row"
       [column]="column">
     </app-datatable-body-cell>
@@ -17,11 +16,10 @@
 </div>
 
 <div class="datatable-row-center">
-  <ng-container *ngFor="let column of table.scrollableColumns; let colIndex = index; trackBy: table.columnTrackingFn">
+  <ng-container *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn">
     <app-datatable-body-cell
       tabindex="-1"
       [table]="table"
-      [colIndex]="colIndex"
       [row]="row"
       [column]="column">
     </app-datatable-body-cell>

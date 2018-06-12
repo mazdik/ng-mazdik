@@ -22,12 +22,11 @@
     </div>
 
     <div class="datatable-row-center">
-      <ng-container *ngFor="let column of columns; let colIndex = index; trackBy: table.columnTrackingFn">
+      <ng-container *ngFor="let column of columns; trackBy: table.columnTrackingFn">
         <app-datatable-body-cell
           *ngIf="!column.editable"
           tabindex="-1"
           [table]="table"
-          [colIndex]="colIndex"
           [row]="node.data"
           [column]="column">
         </app-datatable-body-cell>
@@ -35,7 +34,6 @@
           *ngIf="column.editable"
           tabindex="-1"
           [table]="table"
-          [colIndex]="colIndex"
           [row]="node.data"
           [column]="column"
           (editComplete)="onCellEditComplete($event)">

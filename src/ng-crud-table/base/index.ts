@@ -8,6 +8,7 @@ export { DataSelection } from './data-selection';
 export { DataSort } from './data-sort';
 export { DataTable } from './data-table';
 export { Dimensions } from './dimensions';
+export { EventHelper } from './event-helper';
 export { Events } from './events';
 export { KeyboardAction } from './keyboard-action';
 export { Keys } from './keys';

@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { DataTable, KeyboardAction } from '../base';
+import { DataTable, KeyboardAction, EventHelper } from '../base';
 
 @Directive({
     selector: '[appBodyKeydown]'
@@ -27,21 +27,12 @@ export class BodyKeydownDirective implements OnInit, OnDestroy {
     }
 
     onKeydown(event: any): void {
-        let target = event.target;
-        if (target === null) { return; }
-        while (target !== this.element) {
-            if (target.classList.contains('datatable-body-cell')) {
-                break;
-            }
-            target = target.parentNode;
+        const target = EventHelper.findCellEventTarget(event, this.element);
+        if (target) {
+            this.ngZone.run(() => {
+                this.keyboardAction.handleEvent(event, target);
+            });
         }
-        if (target === this.element) {
-            return;
-        }
-
-        this.ngZone.run(() => {
-            this.keyboardAction.handleEvent(event, target);
-        });
     }
 
 }

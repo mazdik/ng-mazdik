@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, HostBinding, HostListener, OnDestroy,
+  Component, OnInit, Input, HostBinding, OnDestroy,
   ChangeDetectionStrategy, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable} from '../base';
@@ -80,11 +80,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    this.table.selectRow(this.row.index);
   }
 
   stylesByGroup() {

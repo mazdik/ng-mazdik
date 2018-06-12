@@ -1,7 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { DataTable } from '../base';
-import { CellEventArgs } from '../types';
-import { isBlank } from '../base/util';
+import { DataTable, EventHelper } from '../base';
 
 @Directive({
     selector: '[appBodyClick]'
@@ -20,39 +18,37 @@ export class BodyClickDirective implements OnInit, OnDestroy {
         const editable = this.table.columns.some(x => x.editable);
         if (editable) {
             this.ngZone.runOutsideAngular(() => {
-                this.element.addEventListener('dblclick', this.onClick.bind(this));
+                this.element.addEventListener('dblclick', this.onDblclick.bind(this));
+            });
+        }
+        this.ngZone.runOutsideAngular(() => {
+            this.element.addEventListener('click', this.onClick.bind(this));
+        });
+    }
+
+    ngOnDestroy(): void {
+        this.element.removeEventListener('dblclick', this.onDblclick.bind(this));
+        this.element.removeEventListener('click', this.onClick.bind(this));
+    }
+
+    onDblclick(event: any): void {
+        const cellEventArgs = EventHelper.findCellEvent(event, this.element);
+        if (cellEventArgs) {
+            event.preventDefault();
+            event.stopPropagation();
+            this.ngZone.run(() => {
+                this.table.events.onClickCell(cellEventArgs);
             });
         }
     }
 
-    ngOnDestroy(): void {
-        this.element.removeEventListener('dblclick', this.onClick.bind(this));
-    }
-
     onClick(event: any): void {
-        let target = event.target;
-        if (target === null) { return; }
-        while (target !== this.element) {
-            if (target.classList.contains('datatable-body-cell')) {
-                break;
-            }
-            target = target.parentNode;
-        }
-        if (target === this.element) {
-            return;
-        }
-        event.preventDefault();
-        event.stopPropagation();
-
-        let columnIndex = target.dataset.columnIndex;
-        let rowIndex = target.dataset.rowIndex;
-        if (!isBlank(columnIndex) && !isBlank(rowIndex)) {
-            columnIndex = parseInt(columnIndex, 10);
-            rowIndex = parseInt(rowIndex, 10);
-
-            const ev = <CellEventArgs>{ columnIndex, rowIndex, event };
+        const cellEventArgs = EventHelper.findCellEvent(event, this.element);
+        if (cellEventArgs) {
+            event.preventDefault();
+            event.stopPropagation();
             this.ngZone.run(() => {
-                this.table.events.onClickCell(ev);
+                this.table.selectRow(cellEventArgs.rowIndex);
             });
         }
     }
