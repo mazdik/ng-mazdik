@@ -14,11 +14,12 @@ export class Dimensions {
   public rowHeight: number = 30;
   public scrollHeight: number;
 
-  constructor(private settings: Settings) {
+  constructor(private settings: Settings, private columns: Column[]) {
     this.tableWidth = this.settings.tableWidth;
     this.bodyHeight = this.settings.bodyHeight;
     this.rowHeight = this.settings.rowHeight;
     this.headerRowHeight = this.settings.headerRowHeight;
+    this.calcColumnsTotalWidth(this.columns);
   }
 
   calcColumnsTotalWidth(columns: Column[]) {

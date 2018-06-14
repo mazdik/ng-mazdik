@@ -42,7 +42,7 @@ export class DataManager extends DataTable {
   getItems(concatRows: boolean = false): Promise<any> {
     this.loading = true;
     this.errors = null;
-    this.setSortMetaGroup();
+    this.rowGroup.setSortMetaGroup();
     const globalFilterValue = this.dataFilter.isGlobal ? this.dataFilter.globalFilterValue : null;
     if (!this.dataFilter.isGlobal) {
       this.dataFilter.globalFilterValue = null;

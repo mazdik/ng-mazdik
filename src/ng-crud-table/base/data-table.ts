@@ -6,15 +6,16 @@ import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
 import {Events} from './events';
-import {DataAggregation} from './data-aggregation';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
 import {Message} from './message';
 import {getUidRow} from './util';
+import {RowGroup} from './row-group';
 
 export class DataTable {
 
   public settings: Settings;
+  public messages?: Message;
   public columns: Column[] = [];
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
@@ -23,14 +24,11 @@ export class DataTable {
   public sorter: DataSort;
   public dataFilter: DataFilter;
   public events: Events;
-  public dataAggregation: DataAggregation;
   public dataSelection: DataSelection;
   public dimensions: Dimensions;
-  public messages?: Message;
+  public rowGroup: RowGroup;
   public localRows: Row[] = [];
   public virtualRows: Row[] = [];
-  public rowGroupMetadata: any;
-  public grandTotalRow: any;
   public offsetX: number = 0;
   public offsetY: number = 0;
 
@@ -46,7 +44,7 @@ export class DataTable {
       this.getLocalRows();
     } else {
       this._rows = val;
-      this.updateRowGroupMetadata();
+      this.rowGroup.updateRowGroupMetadata(this._rows);
     }
     this.setRowIndexes();
     this.chunkRows(true);
@@ -61,17 +59,15 @@ export class DataTable {
 
   constructor(columns: ColumnBase[], settings: Settings, messages?: Message) {
     this.settings = new Settings(settings);
+    this.messages = new Message();
+    this.createColumns(columns);
     this.events = new Events();
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings);
     this.dataFilter = new DataFilter();
-    this.dataAggregation = new DataAggregation();
     this.dataSelection = new DataSelection(this.settings, this.events);
-    this.dimensions = new Dimensions(this.settings);
-    this.messages = new Message();
-    if (columns) {
-      this.createColumns(columns);
-    }
+    this.dimensions = new Dimensions(this.settings, this.columns);
+    this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     if (messages) {
       Object.assign(this.messages, messages);
     }
@@ -81,9 +77,6 @@ export class DataTable {
   createColumns(columns: ColumnBase[]) {
     for (const column of columns) {
       this.columns.push(new Column(column, this.settings));
-      if (column.aggregation) {
-        this.dataAggregation.aggregates.push({field: column.name, type: column.aggregation});
-      }
     }
     this.initColumns();
   }
@@ -102,7 +95,6 @@ export class DataTable {
       }
     });
     this.setColumnIndexes();
-    this.dimensions.calcColumnsTotalWidth(this.columns);
   }
 
   setShareSettings() {
@@ -130,13 +122,13 @@ export class DataTable {
     if (this.localRows) {
       const data = this.dataFilter.filterRows(this.localRows);
       this.pager.total = data.length;
-      this.setSortMetaGroup();
+      this.rowGroup.setSortMetaGroup();
       this._rows = this.sorter.sortRows(data);
       if (!this.settings.virtualScroll) {
         this._rows = this.pager.pager(this._rows);
       }
       this.setRowIndexes();
-      this.updateRowGroupMetadata();
+      this.rowGroup.updateRowGroupMetadata(this._rows);
     }
   }
 
@@ -150,60 +142,6 @@ export class DataTable {
 
   clearSelection() {
     this.dataSelection.clearRowSelection();
-  }
-
-  setSortMetaGroup() {
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      this.sorter.multiple = true;
-      this.settings.groupRowsBy.forEach(columnName => {
-        this.sorter.sortMeta.push({field: columnName, order: 1});
-      });
-    }
-  }
-
-  updateRowGroupMetadata() {
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      this.rowGroupMetadata = this.dataAggregation.groupMetaData(this.rows, this.settings.groupRowsBy);
-    }
-    if (this.dataAggregation.enabled) {
-      this.grandTotalRow = this.dataAggregation.grandTotal(this.rows);
-    }
-  }
-
-  getRowGroupName(row: Row) {
-    return this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-  }
-
-  getRowGroupSize(row: Row) {
-    const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-    return this.rowGroupMetadata[group].size;
-  }
-
-  isRowGroup(row: Row) {
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-      return this.rowGroupMetadata[group].index === row.index;
-    } else {
-      return false;
-    }
-  }
-
-  isRowGroupSummary(row: Row) {
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length && this.dataAggregation.aggregates.length) {
-      const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-      const lastRowIndex = (this.rowGroupMetadata[group].index + this.rowGroupMetadata[group].size) - 1;
-      return lastRowIndex === row.index;
-    } else {
-      return false;
-    }
-  }
-
-  getRowGroupSummary(row: Row) {
-    const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-    const summaryRow = Object.assign({}, this.rowGroupMetadata[group]);
-    delete summaryRow['index'];
-    delete summaryRow['size'];
-    return summaryRow;
   }
 
   columnTrackingFn(index: number, column: Column): any {
@@ -290,7 +228,7 @@ export class DataTable {
       this.localRows.push(newRow);
       this.getLocalRows();
     } else {
-      this.updateRowGroupMetadata();
+      this.rowGroup.updateRowGroupMetadata(this._rows);
     }
     this.setRowIndexes();
     this.chunkRows(true);
