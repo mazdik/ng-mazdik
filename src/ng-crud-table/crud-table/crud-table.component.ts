@@ -124,7 +124,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onFilter() {
     if (this.dataManager.settings.virtualScroll) {
-      this.dataManager.resetPositionChunkRows();
+      this.dataManager.rowVirtual.resetPosition();
       this.dataManager.pager.current = 1;
       this.dataManager.pager.cache = {};
     }
@@ -133,7 +133,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onSort() {
     if (this.dataManager.settings.virtualScroll) {
-      this.dataManager.resetPositionChunkRows();
+      this.dataManager.rowVirtual.resetPosition();
       this.dataManager.pager.current = 1;
       this.dataManager.pager.cache = {};
     }

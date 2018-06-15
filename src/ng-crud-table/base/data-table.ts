@@ -11,6 +11,7 @@ import {Dimensions} from './dimensions';
 import {Message} from './message';
 import {getUidRow} from './util';
 import {RowGroup} from './row-group';
+import {RowVirtual} from './row-virtual';
 
 export class DataTable {
 
@@ -27,15 +28,11 @@ export class DataTable {
   public dataSelection: DataSelection;
   public dimensions: Dimensions;
   public rowGroup: RowGroup;
+  public rowVirtual: RowVirtual;
   public localRows: Row[] = [];
   public virtualRows: Row[] = [];
   public offsetX: number = 0;
   public offsetY: number = 0;
-
-  private start: number;
-  private end: number;
-  private previousStart: number;
-  private previousEnd: number;
 
   set rows(val: any) {
     val = this.setRowUid(val);
@@ -68,6 +65,7 @@ export class DataTable {
     this.dataSelection = new DataSelection(this.settings, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
+    this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);
     if (messages) {
       Object.assign(this.messages, messages);
     }
@@ -153,22 +151,9 @@ export class DataTable {
   }
 
   chunkRows(force: boolean = false) {
-    if (this.settings.virtualScroll && !this.dimensions.bodyHeight) {
-      this.dimensions.calcBodyHeight(this.pager.perPage);
-    }
-    if (this.settings.virtualScroll) {
-      this.pager.total = this.rows.length;
-      const totalRecords = this.pager.total;
-      this.dimensions.calcScrollHeight(totalRecords);
-
-      this.start = Math.floor(this.offsetY / this.dimensions.rowHeight);
-      this.end = Math.min(totalRecords, this.start + this.pager.perPage + 1);
-
-      if (this.start !== this.previousStart || this.end !== this.previousEnd || force === true) {
-        this.virtualRows = this._rows.slice(this.start, this.end);
-        this.previousStart = this.start;
-        this.previousEnd = this.end;
-      }
+    const virtualRows = this.rowVirtual.chunkRows(this._rows, this.offsetY, force);
+    if (virtualRows && virtualRows.length) {
+      this.virtualRows = virtualRows;
     }
   }
 
@@ -195,29 +180,6 @@ export class DataTable {
       }
     });
     return data;
-  }
-
-  updatePage(direction: string): void {
-    if (this.settings.virtualScroll && direction) {
-      let page = this.start / this.pager.perPage;
-      if (direction === 'up') {
-        page = Math.floor(page);
-      } else if (direction === 'down') {
-        page = Math.ceil(page);
-      }
-      page += 1;
-      if (page !== this.pager.current) {
-        this.pager.current = page;
-        this.events.onPage();
-      }
-    }
-  }
-
-  resetPositionChunkRows() {
-    this.start = 0;
-    this.end = 0;
-    this.previousStart = 0;
-    this.previousEnd = 0;
   }
 
   addRow(newRow: Row) {
