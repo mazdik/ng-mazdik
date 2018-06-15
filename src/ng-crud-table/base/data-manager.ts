@@ -8,7 +8,6 @@ export class DataManager extends DataTable {
 
   public service: DataSource;
   public errors: any;
-  public loading: boolean;
   public item: any;
   public isNewItem: boolean;
   public detailView: boolean;
@@ -40,7 +39,7 @@ export class DataManager extends DataTable {
   }
 
   getItems(concatRows: boolean = false): Promise<any> {
-    this.loading = true;
+    this.events.onLoading(true);
     this.errors = null;
     this.rowGroup.setSortMetaGroup();
     const globalFilterValue = this.dataFilter.isGlobal ? this.dataFilter.globalFilterValue : null;
@@ -50,7 +49,7 @@ export class DataManager extends DataTable {
     return this.service
       .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, globalFilterValue)
       .then(data => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.pager.total = data._meta.totalCount;
         this.pager.perPage = data._meta.perPage;
         this.rows = (concatRows) ? this.rows.concat(data.items) : data.items;
@@ -58,56 +57,56 @@ export class DataManager extends DataTable {
         this.dataFilter.isGlobal = false;
       })
       .catch(error => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = error;
       });
   }
 
   create(row: Row) {
-    this.loading = true;
+    this.events.onLoading(true);
     this.errors = null;
     this.service
       .post(row)
       .then(res => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = null;
         this.afterCreate(res);
         this.item = res;
       })
       .catch(error => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = error;
       });
   }
 
   update(row: Row) {
-    this.loading = true;
+    this.events.onLoading(true);
     this.errors = null;
     this.service.put(row)
       .then(res => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = null;
         this.afterUpdate(row, res);
       })
       .catch(error => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = error;
       });
   }
 
   delete(row: Row) {
-    this.loading = true;
+    this.events.onLoading(true);
     this.errors = null;
     this.service
       .delete(row)
       .then(res => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = null;
         this.afterDelete(row, true);
         this.item = null;
       })
       .catch(error => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = error;
       });
   }
@@ -147,11 +146,11 @@ export class DataManager extends DataTable {
   }
 
   refreshRow(row: any, isNew: boolean) {
-    this.loading = true;
+    this.events.onLoading(true);
     this.errors = null;
     this.service.getItem(row)
       .then(data => {
-        this.loading = false;
+        this.events.onLoading(false);
         if (isNew) {
           this.addRow(data);
         } else {
@@ -159,7 +158,7 @@ export class DataManager extends DataTable {
         }
       })
       .catch(error => {
-        this.loading = false;
+        this.events.onLoading(false);
         this.errors = error;
       });
   }

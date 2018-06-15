@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
               [ngClass]="action.icon"
               *ngIf="!action.disabled"
               title="{{action.label}}"
-              (click)="actionClick($event, action, row)">
+              (click)="actionClick($event, action)">
         </span>
     </ng-template>
     <span *ngIf="!table.actionMenu && !table.settings.selectionMode && table.settings.rowNumber">
@@ -57,13 +57,13 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  actionClick(event, menuItem: MenuItem, row: Row) {
-    this.table.selectRow(row.index);
-    this.table.events.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': row});
+  actionClick(event, menuItem: MenuItem) {
+    this.table.selectRow(this.row.index);
+    this.table.events.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': this.row});
   }
 
   onCheckboxClick(event) {
-
+    this.table.selectRow(this.row.index);
   }
 
 }

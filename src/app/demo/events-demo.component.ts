@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-events-demo',
   template: `
-    <app-datatable [table]="table" [loading]="loading"></app-datatable>
+    <app-datatable [table]="table"></app-datatable>
     <div class="df-alert df-alert-success" style="word-break: break-all;">
     <b>{{eventName}}:</b> {{eventValue}}</div>
   `
@@ -17,7 +17,6 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
   public table: DataTable;
   public columns: Column[];
-  public loading: boolean;
 
   public settings: Settings = <Settings>{
     clientSide: true,
@@ -34,10 +33,10 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.table.events.onLoading(true);
     this.http.get('assets/players.json').subscribe(data => {
       this.table.rows = data;
-      this.loading = false;
+      this.table.events.onLoading(false);
     });
 
     const subMouseover = this.table.events.mouseoverSource$.subscribe((data) => {

@@ -6,7 +6,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-row-group-summary-demo',
   template: `
-    <app-datatable [table]="table" [loading]="loading"></app-datatable>
+    <app-datatable [table]="table"></app-datatable>
   `
 })
 
@@ -14,7 +14,6 @@ export class RowGroupSummaryDemoComponent implements OnInit {
 
   public table: DataTable;
   public columns: Column[];
-  public loading: boolean;
 
   public settings: Settings = {
     groupRowsBy: ['race', 'gender']
@@ -44,10 +43,10 @@ export class RowGroupSummaryDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.table.events.onLoading(true);
     this.http.get('assets/players.json').subscribe(data => {
       this.table.rows = data;
-      this.loading = false;
+      this.table.events.onLoading(false);
     });
   }
 

@@ -6,10 +6,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
 @Component({
   selector: 'app-modal-data-table-demo',
   template: `
-    <app-datatable
-      [table]="dtPlayers"
-      [loading]="loading">
-    </app-datatable>
+    <app-datatable [table]="dtPlayers"></app-datatable>
     <ng-template #template1 let-row="row" let-value="value">
       <a (click)="onClickCell1($event, value, row)" href="#">
         {{value}}
@@ -24,8 +21,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
       <ng-container class="app-modal-body" *ngIf="rankModal.visible">
         <app-datatable
           *ngIf="rankModal.visible"
-          [table]="dtRank"
-          [loading]="loading">
+          [table]="dtRank">
         </app-datatable>
       </ng-container>
     </app-modal>
@@ -48,7 +44,6 @@ export class ModalDataTableDemoComponent implements OnInit {
   public columnsPlayers: Column[];
   public columnsRank: Column[];
   public columnsInventory: Column[];
-  public loading: boolean;
 
   @ViewChild('template1') template1: TemplateRef<any>;
   @ViewChild('template2') template2: TemplateRef<any>;
@@ -88,10 +83,8 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.dtPlayers.columns[0].cellTemplate = this.template1;
     this.dtPlayers.columns[1].cellTemplate = this.template2;
 
-    this.loading = true;
     this.http.get('assets/players.json').subscribe(data => {
       this.dtPlayers.rows = data;
-      this.loading = false;
     });
     this.http.get('assets/rank.json').subscribe(rank => {
       this._rank = rank;

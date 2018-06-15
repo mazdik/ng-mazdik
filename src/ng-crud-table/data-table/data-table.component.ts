@@ -16,7 +16,6 @@ import {BodyScrollDirective} from '../directives/body-scroll.directive';
 export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public loading: boolean;
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
@@ -36,6 +35,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.table.dimensions.tableWidth;
   }
 
+  public loading: boolean;
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 
@@ -65,10 +65,13 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.onColumnResizeEnd();
     });
-    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
+    const subScroll = this.table.events.scrollSource$.subscribe(() => {
       requestAnimationFrame(() => {
         this.cd.detectChanges();
       });
+    });
+    const subLoading = this.table.events.loadingSource$.subscribe((event) => {
+      this.loading = event;
     });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
@@ -78,6 +81,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
+    this.subscriptions.push(subLoading);
   }
 
   ngDoCheck(): void {

@@ -7,7 +7,7 @@ import {getColumnsPlayers} from './columns';
   selector: 'app-live-demo',
   template: `
     <button class="button" style="margin-bottom: 5px;" (click)="stop=true">stop</button>
-    <app-datatable [table]="table" [loading]="loading"></app-datatable>
+    <app-datatable [table]="table"></app-datatable>
   `
 })
 
@@ -15,7 +15,6 @@ export class LiveDemoComponent implements OnInit {
 
   public table: DataTable;
   public columns: Column[];
-  public loading: boolean;
   public tempRows: any;
   public stop: boolean;
 
@@ -34,14 +33,14 @@ export class LiveDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.table.events.onLoading(true);
     this.http.get('assets/players.json').subscribe((data: any[]) => {
        data = data.map(d => {
         d.changed = Date.now().toString();
         return d;
       });
       this.table.rows = data;
-      this.loading = false;
+      this.table.events.onLoading(false);
       this.tempRows = [...data];
       this.updateRandom();
     });

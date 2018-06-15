@@ -1,5 +1,5 @@
-import {Subject} from 'rxjs';
-import {ColumnMenuEventArgs, CellEventArgs} from '../types';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { ColumnMenuEventArgs, CellEventArgs } from '../types';
 
 export class Events {
 
@@ -22,6 +22,7 @@ export class Events {
   private dblClickCellSource = new Subject<CellEventArgs>();
   private keydownCellSource = new Subject<CellEventArgs>();
   private contextMenuSource = new Subject<CellEventArgs>();
+  private loadingSource = new BehaviorSubject<boolean>(false);
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -42,6 +43,7 @@ export class Events {
   dblClickCellSource$ = this.dblClickCellSource.asObservable();
   keydownCellSource$ = this.keydownCellSource.asObservable();
   contextMenuSource$ = this.contextMenuSource.asObservable();
+  loadingSource$ = this.loadingSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -117,6 +119,10 @@ export class Events {
 
   onContextMenu(data: CellEventArgs) {
     this.contextMenuSource.next(data);
+  }
+
+  onLoading(data: boolean) {
+    this.loadingSource.next(data);
   }
 
 }

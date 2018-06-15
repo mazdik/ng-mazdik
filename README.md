@@ -148,12 +148,13 @@ export class DataTableDemoComponent {
 * Pagination
 * Modal (draggable and resizable)
 * Create/Update/Delete (composite primary keys)
-* Single row view
+* Single row view (with sortable colums and values)
 * Loading indicator
 * Row selection (single, multiple, checkbox, radio)
 * Scrolling with fixed header horizontally and vertically
 * Frozen columns
 * Dynamic forms with validation
+* Modal select list (with search and pagination)
 * Editable
 * Localization
 * Column resizing

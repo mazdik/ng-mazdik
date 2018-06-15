@@ -6,11 +6,11 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-multiple-selection-demo',
   template: `<p>Selection type: multiple. Selection mode: checkbox</p>
-    <app-datatable [table]="table" [loading]="loading" (selectionChange)="onSelection()"></app-datatable>
+    <app-datatable [table]="table" (selectionChange)="onSelection()"></app-datatable>
     <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows">
       {{row.id}}-{{row.name}}</div>
     <p>Selection type: multiple. Selection mode: radio</p>
-    <app-datatable [table]="table2" [loading]="loading" (selectionChange)="onSelection2()"></app-datatable>
+    <app-datatable [table]="table2" (selectionChange)="onSelection2()"></app-datatable>
     <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows2">
       {{row.id}}-{{row.name}}</div>
   `
@@ -21,7 +21,6 @@ export class MultipleSelectionDemoComponent implements OnInit {
   public table: DataTable;
   public table2: DataTable;
   public columns: Column[];
-  public loading: boolean;
   public selectedRows: any[];
   public selectedRows2: any[];
 
@@ -46,11 +45,11 @@ export class MultipleSelectionDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.table.events.onLoading(true);
     this.http.get('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table2.rows = data;
-      this.loading = false;
+      this.table.events.onLoading(false);
     });
   }
 
