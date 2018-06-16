@@ -1,13 +1,13 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {TreeNode, TreeDataSource} from '../types';
 import {Column, DataTable} from '../base';
-import {translate} from '../base/util';
+import {translate, getUidRow} from '../base/util';
 
 @Component({
   selector: 'app-tree-table-node',
   templateUrl: './tree-table-node.component.html',
 })
-export class TreeTableNodeComponent {
+export class TreeTableNodeComponent implements OnInit {
 
   @Input() public table: DataTable;
   @Input() public nodes: TreeNode[];
@@ -22,6 +22,9 @@ export class TreeTableNodeComponent {
   constructor() {
   }
 
+  ngOnInit() {
+  }
+
   isLeaf(node: TreeNode) {
     return node.leaf === false ? false : !(node.children && node.children.length);
   }
@@ -32,6 +35,11 @@ export class TreeTableNodeComponent {
       if (this.service) {
         this.loading = true;
         this.service.getNodes(node).then(data => {
+          if (data && data.length) {
+            data.forEach(n => {
+              n.data.index = getUidRow();
+            });
+          }
           node.children = data;
           this.loading = false;
           this.requestNodes.emit(node);

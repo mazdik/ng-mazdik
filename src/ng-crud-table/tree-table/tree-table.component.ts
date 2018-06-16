@@ -1,6 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation} from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectorRef
+} from '@angular/core';
 import {TreeNode, TreeDataSource} from '../types';
 import {DataTable} from '../base';
+import {getUidRow} from '../base/util';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-tree-table',
@@ -8,7 +12,7 @@ import {DataTable} from '../base';
   styleUrls: ['../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
-export class TreeTableComponent implements OnInit {
+export class TreeTableComponent implements OnInit, OnDestroy {
 
   @Input() public nodes: TreeNode[];
   @Input() public service: TreeDataSource;
@@ -16,17 +20,31 @@ export class TreeTableComponent implements OnInit {
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
   @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
+  private subscriptions: Subscription[] = [];
+
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     if (this.service && !this.nodes) {
       this.service.getNodes().then(data => {
         this.nodes = data;
+        this.setRowIndexes(this.nodes);
       });
+    } else {
+      this.setRowIndexes(this.nodes);
     }
     this.table.dimensions.actionColumnWidth = 250;
     this.table.settings.columnResizeMode = 'aminated';
+
+    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
+      this.cd.detectChanges();
+    });
+    this.subscriptions.push(subScroll);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   onCellEditComplete(event) {
@@ -35,6 +53,17 @@ export class TreeTableComponent implements OnInit {
 
   onRequestNodes(event) {
     this.requestNodes.emit(event);
+  }
+
+  setRowIndexes(nodes: TreeNode[]) {
+    if (nodes && nodes.length) {
+      nodes.forEach(n => {
+        n.data.index = getUidRow();
+        if (n.children) {
+          this.setRowIndexes(n.children);
+        }
+      });
+    }
   }
 
 }

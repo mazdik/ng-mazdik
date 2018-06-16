@@ -3,7 +3,14 @@
     [table]="table">
   </app-datatable-header>
 
-  <div class="datatable-body">
+  <div class="datatable-body"
+      appBodyScroll
+      appBodyMouseover
+      appBodyKeydown
+      appBodyClick
+      appBodyDblClick
+      appBodyContextMenu
+      [table]="table">
         <app-tree-table-node
           [table]="table"
           [nodes]="nodes"
