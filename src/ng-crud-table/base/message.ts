@@ -31,6 +31,7 @@ export class Message {
   public go?: string;
   public column?: string;
   public value?: string;
+  public export?: string;
 
   constructor() {
     this.empty = 'No data to display';
@@ -64,6 +65,7 @@ export class Message {
     this.go = 'Go';
     this.column = 'Column';
     this.value = 'Value';
+    this.export = 'Export';
   }
 
 }

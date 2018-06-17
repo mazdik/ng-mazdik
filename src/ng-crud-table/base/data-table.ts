@@ -12,6 +12,7 @@ import {Message} from './message';
 import {getUidRow} from './util';
 import {RowGroup} from './row-group';
 import {RowVirtual} from './row-virtual';
+import {Export} from './export';
 
 export class DataTable {
 
@@ -29,6 +30,7 @@ export class DataTable {
   public dimensions: Dimensions;
   public rowGroup: RowGroup;
   public rowVirtual: RowVirtual;
+  public export: Export;
   public localRows: Row[] = [];
   public virtualRows: Row[] = [];
   public offsetX: number = 0;
@@ -66,6 +68,7 @@ export class DataTable {
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);
+    this.export = new Export();
     if (messages) {
       Object.assign(this.messages, messages);
     }

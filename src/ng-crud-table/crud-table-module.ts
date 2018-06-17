@@ -37,6 +37,7 @@ import {ModalSelectComponent} from './components/modal-select/modal-select.compo
 import {PopupSelectComponent} from './components/form/select-popup.component';
 import {SummaryRowComponent} from './components/body/summary-row.component';
 import {RowViewComponent} from './components/row-view/row-view.component';
+import {ToolbarComponent} from './components/toolbar/toolbar.component';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
@@ -85,6 +86,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     PopupSelectComponent,
     SummaryRowComponent,
     RowViewComponent,
+    ToolbarComponent,
     BodyMouseoverDirective,
     BodyKeydownDirective,
     BodyClickDirective,
