@@ -1,15 +1,15 @@
 import {
   Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectorRef
 } from '@angular/core';
-import {TreeNode, TreeDataSource} from '../types';
-import {DataTable} from '../base';
-import {getUidRow} from '../base/util';
+import {TreeNode, TreeDataSource} from '../../types';
+import {DataTable} from '../../base';
+import {getUidRow} from '../../base/util';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../styles/index.css'],
+  styleUrls: ['../../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TreeTableComponent implements OnInit, OnDestroy {

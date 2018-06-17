@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
-import {Column, DataTable, DataFilter} from '../base';
+import {Column, DataTable, DataFilter} from '../../base';
 
 @Component({
   selector: 'app-string-filter',

@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {DataSource, SelectOption} from '../types';
+import {DataSource, SelectOption} from '../../types';
 import {InputComponent} from './input.component';
 
 @Component({

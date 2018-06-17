@@ -2,10 +2,10 @@ import {
   Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {Column, DataTable} from '../base';
+import {Column, DataTable} from '../../base';
 import {Subscription} from 'rxjs';
-import {addClass} from '../base/util';
-import {Row, CellEventArgs} from '../types';
+import {addClass} from '../../base/util';
+import {Row, CellEventArgs} from '../../types';
 
 @Component({
   selector: 'app-datatable-body-cell',

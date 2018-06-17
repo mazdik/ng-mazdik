@@ -2,10 +2,10 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy,
   ChangeDetectionStrategy, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable} from '../base';
+import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
-import {translate, addClass} from '../base/util';
-import {Row} from '../types';
+import {translate, addClass} from '../../base/util';
+import {Row} from '../../types';
 
 @Component({
   selector: 'app-datatable-body-row',

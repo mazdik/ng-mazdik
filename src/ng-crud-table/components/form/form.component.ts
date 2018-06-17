@@ -1,5 +1,5 @@
 import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
-import {DataManager, Column} from '../base';
+import {DataManager, Column} from '../../base';
 
 @Component({
   selector: 'app-row-form',

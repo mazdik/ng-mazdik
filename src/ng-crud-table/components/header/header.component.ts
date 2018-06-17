@@ -2,10 +2,10 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
   ElementRef, ViewChild, ViewContainerRef
 } from '@angular/core';
-import {DataTable, Column} from '../base';
-import {translate} from '../base/util';
+import {DataTable, Column} from '../../base';
+import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
-import {ColumnMenuEventArgs} from '../types';
+import {ColumnMenuEventArgs} from '../../types';
 
 @Component({
   selector: 'app-datatable-header',

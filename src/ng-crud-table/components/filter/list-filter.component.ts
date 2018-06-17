@@ -2,8 +2,8 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
-import {SelectOption} from '../types';
-import {Column, DataTable, DataFilter} from '../base';
+import {SelectOption} from '../../types';
+import {Column, DataTable, DataFilter} from '../../base';
 
 @Component({
   selector: 'app-list-filter',
