@@ -20,6 +20,7 @@ export class BasicDemoComponent implements OnInit {
     crud: true,
     primaryKeys: ['id'],
     bodyHeight: 380,
+    exportAction: true,
   };
 
   public messages: Message = {
