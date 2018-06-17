@@ -167,6 +167,7 @@ export class DataTableDemoComponent {
 * Virtual scroll
 * Header and Cell Templates
 * Keyboard navigation
+* Export Data to CSV
 
 ### Custom service
 ```typescript
@@ -240,6 +241,7 @@ interface DataSource {
 | zIndexModal      | number     | null    |             |
 | hoverEvents      | boolean    | false   | mouseover/mouseout |
 | contextMenu      | boolean    | false   | event       |
+| exportAction     | boolean    | false   | csv         |
 
 ```typescript
 interface SelectOption {

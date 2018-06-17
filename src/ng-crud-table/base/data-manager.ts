@@ -42,12 +42,11 @@ export class DataManager extends DataTable {
     this.events.onLoading(true);
     this.errors = null;
     this.rowGroup.setSortMetaGroup();
-    const globalFilterValue = this.dataFilter.isGlobal ? this.dataFilter.globalFilterValue : null;
     if (!this.dataFilter.isGlobal) {
       this.dataFilter.globalFilterValue = null;
     }
     return this.service
-      .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, globalFilterValue)
+      .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, this.dataFilter.globalFilterValue)
       .then(data => {
         this.events.onLoading(false);
         this.pager.total = data._meta.totalCount;

@@ -29,6 +29,7 @@ export class Settings {
   public zIndexModal?: number;
   public hoverEvents?: boolean;
   public contextMenu?: boolean;
+  public exportAction?: boolean;
 
   constructor(init: Partial<Settings>) {
     if (init) {

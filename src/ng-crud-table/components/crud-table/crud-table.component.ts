@@ -89,7 +89,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  createAction() {
+  onCreateAction() {
     this.dataManager.clearItem();
     this.dataManager.detailView = false;
     this.modalEditForm.open();
@@ -142,22 +142,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onSelectedRow() {
     this.select.emit(this.dataManager.getSelectedRows());
-  }
-
-  globalFilter() {
-    this.dataManager.dataFilter.filters = {};
-    this.dataManager.dataFilter.isGlobal = true;
-    this.dataManager.events.onFilter();
-  }
-
-  onClickGlobalSearch() {
-    this.globalFilter();
-  }
-
-  onKeyPressGlobalSearch(event: KeyboardEvent) {
-    if (event.which === 13) {
-      this.globalFilter();
-    }
   }
 
 }

@@ -25,6 +25,7 @@ export class DataFilter {
       this.isGlobal = false;
       return this.globalFilterRows(data);
     }
+    this.globalFilterValue = null;
     const filters = this.filters;
     let filteredRows: any[] = data;
 

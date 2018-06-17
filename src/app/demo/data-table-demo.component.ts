@@ -6,6 +6,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-data-table-demo',
   template: `
+    <app-datatable-toolbar [table]="table"></app-datatable-toolbar>
     <app-datatable [table]="table"></app-datatable>
   `
 })
@@ -17,7 +18,9 @@ export class DataTableDemoComponent implements OnInit {
 
   public settings: Settings = <Settings>{
     clientSide: true,
-    columnResizeMode: 'aminated'
+    columnResizeMode: 'aminated',
+    globalFilter: true,
+    exportAction: true,
   };
 
   constructor(private http: HttpClient) {

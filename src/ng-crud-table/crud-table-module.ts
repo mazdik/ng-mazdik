@@ -100,6 +100,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     TreeTableComponent,
     ModalComponent,
     ModalEditFormComponent,
+    ToolbarComponent,
   ],
   providers: []
 })
