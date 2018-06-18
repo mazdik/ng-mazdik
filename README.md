@@ -1,6 +1,6 @@
-# Angular 6 CRUD table using REST backend
+# Angular 6 CRUD data table using REST backend
 
-Simple CRUD table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
+Feature-rich CRUD data table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
 
 ### Sample crud-table
@@ -255,4 +255,22 @@ interface Validation {
   maxLength?: number;
   pattern?: string | RegExp;
 }
+```
+
+### Sample event subscriptions
+```typescript
+import {Subscription} from 'rxjs';
+
+private subscriptions: Subscription[] = [];
+
+  ngOnInit() {
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      this.table.dataSelection.getSelection();
+    });
+    this.subscriptions.push(subSelection);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
 ```

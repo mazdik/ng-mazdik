@@ -1,6 +1,6 @@
 export class Export {
 
-    public columnDelimiter = ',';
+    public columnDelimiter = ';';
     public lineDelimiter = '\n';
 
     public downloadCSV(rows, filename: string) {
@@ -27,7 +27,7 @@ export class Export {
         const keys = Object.keys(rows[0]);
 
         let result = '';
-        result += keys.join(this.columnDelimiter);
+        result += '"' + keys.join('"' + this.columnDelimiter + '"') + '"';
         result += this.lineDelimiter;
 
         rows.forEach(item => {
@@ -36,7 +36,7 @@ export class Export {
                 if (ctr > 0) {
                     result += this.columnDelimiter;
                 }
-                result += item[key];
+                result += '"' + item[key] + '"';
                 ctr++;
             });
             result += this.lineDelimiter;
