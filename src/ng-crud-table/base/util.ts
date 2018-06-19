@@ -11,12 +11,6 @@ export function isBlank(val: any): boolean {
   return true;
 }
 
-let uidRow: number = 0;
-
-export function getUidRow(): number {
-  return uidRow++;
-}
-
 export function getHeight(el): number {
   let height = el.offsetHeight;
   const style = getComputedStyle(el);

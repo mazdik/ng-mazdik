@@ -9,15 +9,16 @@ import {Events} from './events';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
 import {Message} from './message';
-import {getUidRow} from './util';
 import {RowGroup} from './row-group';
 import {RowVirtual} from './row-virtual';
 import {Export} from './export';
+import {Sequence} from './sequence';
 
 export class DataTable {
 
   public settings: Settings;
   public messages?: Message;
+  public sequence: Sequence;
   public columns: Column[] = [];
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
@@ -37,7 +38,7 @@ export class DataTable {
   public offsetY: number = 0;
 
   set rows(val: any) {
-    val = this.setRowUid(val);
+    val = this.sequence.setRowUid(val);
     if (this.settings.clientSide) {
       this.setLocalRows(val);
       this.getLocalRows();
@@ -45,7 +46,7 @@ export class DataTable {
       this._rows = val;
       this.rowGroup.updateRowGroupMetadata(this._rows);
     }
-    this.setRowIndexes();
+    this._rows = this.sequence.setRowIndexes(this._rows);
     this.chunkRows(true);
     this.events.onRowsChanged();
   }
@@ -59,6 +60,7 @@ export class DataTable {
   constructor(columns: ColumnBase[], settings: Settings, messages?: Message) {
     this.settings = new Settings(settings);
     this.messages = new Message();
+    this.sequence = new Sequence();
     this.createColumns(columns);
     this.events = new Events();
     this.pager = new DataPager();
@@ -95,7 +97,7 @@ export class DataTable {
         }
       }
     });
-    this.setColumnIndexes();
+    this.columns = this.sequence.setColumnIndexes(this.columns);
   }
 
   setShareSettings() {
@@ -128,7 +130,7 @@ export class DataTable {
       if (!this.settings.virtualScroll) {
         this._rows = this.pager.pager(this._rows);
       }
-      this.setRowIndexes();
+      this._rows = this.sequence.setRowIndexes(this._rows);
       this.rowGroup.updateRowGroupMetadata(this._rows);
     }
   }
@@ -160,33 +162,8 @@ export class DataTable {
     }
   }
 
-  setColumnIndexes() {
-    let columnIndex = 0;
-    this.columns.forEach(column => {
-      if (!column.tableHidden) {
-        column.index = columnIndex++;
-      }
-    });
-  }
-
-  setRowIndexes() {
-    let rowIndex = 0;
-    this._rows.forEach(row => {
-      row.index = rowIndex++;
-    });
-  }
-
-  setRowUid(data: Row[]): Row[] {
-    data.forEach(row => {
-      if (!row.uid) {
-        row.uid = getUidRow();
-      }
-    });
-    return data;
-  }
-
   addRow(newRow: Row) {
-    newRow.uid = getUidRow();
+    newRow.uid = this.sequence.getUidRow();
     this._rows.push(newRow);
 
     if (this.settings.clientSide) {
@@ -195,7 +172,7 @@ export class DataTable {
     } else {
       this.rowGroup.updateRowGroupMetadata(this._rows);
     }
-    this.setRowIndexes();
+    this._rows = this.sequence.setRowIndexes(this._rows);
     this.chunkRows(true);
     this.events.onRowsChanged();
   }

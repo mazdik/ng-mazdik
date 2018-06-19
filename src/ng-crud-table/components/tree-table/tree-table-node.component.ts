@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import {TreeNode, TreeDataSource} from '../../types';
 import {Column, DataTable} from '../../base';
-import {translate, getUidRow} from '../../base/util';
+import {translate} from '../../base/util';
 
 @Component({
   selector: 'app-tree-table-node',
@@ -37,7 +37,7 @@ export class TreeTableNodeComponent implements OnInit {
         this.service.getNodes(node).then(data => {
           if (data && data.length) {
             data.forEach(n => {
-              n.data.index = getUidRow();
+              n.data.index = this.table.sequence.getUidRow();
             });
           }
           node.children = data;

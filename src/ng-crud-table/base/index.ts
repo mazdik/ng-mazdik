@@ -15,3 +15,4 @@ export { Keys } from './keys';
 export { Message } from './message';
 export { Settings } from './settings';
 export { Export } from './export';
+export { Sequence } from './sequence';

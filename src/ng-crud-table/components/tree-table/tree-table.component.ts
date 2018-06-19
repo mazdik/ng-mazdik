@@ -3,7 +3,6 @@ import {
 } from '@angular/core';
 import {TreeNode, TreeDataSource} from '../../types';
 import {DataTable} from '../../base';
-import {getUidRow} from '../../base/util';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -58,7 +57,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   setRowIndexes(nodes: TreeNode[]) {
     if (nodes && nodes.length) {
       nodes.forEach(n => {
-        n.data.index = getUidRow();
+        n.data.index = this.table.sequence.getUidRow();
         if (n.children) {
           this.setRowIndexes(n.children);
         }
