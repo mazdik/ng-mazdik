@@ -75,13 +75,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (el.parentNode.offsetLeft > 0) {
       left = left + el.parentNode.offsetLeft - this.table.offsetX;
     }
-    let right = null;
-    if (isLast) {
-      left = null;
-      right = 0;
+    const width = this.table.dimensions.columnMenuWidth;
+    if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {
+      left = left + column.width - width;
     }
 
-    this.table.events.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, right, column});
+    this.table.events.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, column});
   }
 
   stylesByGroup() {

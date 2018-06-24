@@ -1,7 +1,7 @@
 import {
   Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
-import {Column, DataTable} from '../../base';
+import {Column, DataTable, Keys} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../types';
 
@@ -16,7 +16,6 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   left: number;
   top: number;
-  right: number;
   width: number;
   column: Column = <Column> {};
   isVisible: boolean;
@@ -33,11 +32,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   @HostBinding('style.top.px')
   get getTop(): number {
     return this.top;
-  }
-
-  @HostBinding('style.right.px')
-  get getRight(): number {
-    return this.right;
   }
 
   @HostBinding('style.width.px')
@@ -80,10 +74,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
-    const ESCAPE_KEYCODE = 27;
-    const keyCode = event.keyCode;
-
-    if (keyCode === ESCAPE_KEYCODE) {
+    if (event.keyCode === Keys.ESCAPE) {
       this.closeDropdown();
     }
   }
@@ -109,12 +100,11 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.column = event.column;
     this.selectContainerClicked = true;
     this.width = this.table.dimensions.columnMenuWidth;
-    if (this.top === event.top && this.left === event.left && this.right === event.right) {
+    if (this.top === event.top && this.left === event.left) {
       this.toggleDropdown();
     } else {
       this.top = event.top;
       this.left = event.left;
-      this.right = event.right;
       this.closeDropdown();
       this.openDropdown();
     }
