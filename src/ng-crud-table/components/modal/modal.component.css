@@ -25,6 +25,11 @@
   padding: 2px 16px;
   background-color: #5b9bd5;
   color: white;
+  user-select: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .ui-modal-body {
@@ -39,22 +44,30 @@
   color: white;
 }
 
+.ui-titlebar {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
 .ui-modal-title {
   font-size: 18px;
 }
 
-.ui-close {
-  color: white;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+.ui-controlbar {
+  display: flex;
+  align-items: center;
 }
 
-.ui-close:hover,
-.ui-close:focus {
-  color: #000;
-  text-decoration: none;
+.ui-icon {
   cursor: pointer;
+  padding-top: 9px;
+}
+
+.ui-icon:hover {
+  opacity: 0.75;
 }
 
 .dragging {

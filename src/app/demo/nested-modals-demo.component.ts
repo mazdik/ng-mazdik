@@ -7,7 +7,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-nested-modals-demo',
   template: `
-    <app-modal #modal [modalTitle]="'Data-table'">
+    <app-modal #modal [modalTitle]="'Data-table'" [maximizable]="true" [width]="1100">
       <ng-container class="app-modal-body">
         <app-crud-table
           [dataManager]="dataManager"
@@ -32,7 +32,6 @@ export class NestedModalsDemoComponent implements OnInit {
     api: 'assets/players.json',
     crud: true,
     primaryKeys: ['id'],
-    tableWidth: 1100,
     bodyHeight: 380,
     zIndexModal: 1110
   };
@@ -41,7 +40,6 @@ export class NestedModalsDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
-    this.columns.splice(7);
     for (const column of this.columns) {
       column.editable = false;
     }
