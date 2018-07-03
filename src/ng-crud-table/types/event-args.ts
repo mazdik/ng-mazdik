@@ -3,8 +3,6 @@ import {Column} from '../base/column';
 export interface ColumnMenuEventArgs {
   left: number;
   top: number;
-  right: number;
-  bottom: number;
   column: Column;
 }
 

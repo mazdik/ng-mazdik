@@ -17,7 +17,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
         {{value}}
       </a>
     </ng-template>
-    <app-modal #rankModal [modalTitle]="'Rank'">
+    <app-modal #rankModal [modalTitle]="'Rank'" [maximizable]="true" [width]="900">
       <ng-container class="app-modal-body" *ngIf="rankModal.visible">
         <app-datatable
           *ngIf="rankModal.visible"
@@ -25,7 +25,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
         </app-datatable>
       </ng-container>
     </app-modal>
-    <app-modal #inventoryModal [modalTitle]="'Inventory'">
+    <app-modal #inventoryModal [modalTitle]="'Inventory'" [maximizable]="true" [width]="900">
       <ng-container class="app-modal-body">
         <app-datatable
           *ngIf="inventoryModal.visible"
@@ -54,15 +54,8 @@ export class ModalDataTableDemoComponent implements OnInit {
     tableWidth: 1100,
   };
 
-  public settingsRank: Settings = {
-    tableWidth: 900,
-    bodyHeight: 250,
-  };
-
-  public settingsInventory: Settings = {
-    tableWidth: 900,
-    bodyHeight: 250,
-  };
+  public settingsRank: Settings = {};
+  public settingsInventory: Settings = {};
 
   private _rank: any = [];
   private _inventory: any = [];
