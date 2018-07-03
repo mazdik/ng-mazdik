@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -18,7 +18,7 @@ export class LiveDemoComponent implements OnInit {
   public tempRows: any;
   public stop: boolean;
 
-  public settings: Settings = {
+  public settings: Settings = <Settings>{
     sortable: false,
     filter: false,
     trackByProp: 'changed'

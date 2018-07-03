@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Column, Settings, DataTable} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-data-table';
 import {HttpClient} from '@angular/common/http';
 import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
 
@@ -29,16 +29,16 @@ export class MasterDetailDemoComponent implements OnInit {
   public columnsRank: Column[];
   public columnsInventory: Column[];
 
-  public settingsPlayers: Settings = {
+  public settingsPlayers: Settings = <Settings>{
     bodyHeight: 250,
   };
 
-  public settingsRank: Settings = {
+  public settingsRank: Settings = <Settings>{
     tableWidth: 500,
     bodyHeight: 250,
   };
 
-  public settingsInventory: Settings = {
+  public settingsInventory: Settings = <Settings>{
     tableWidth: 600,
     bodyHeight: 250,
   };

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TreeDataSource, Column, Settings, DataTable} from '../../ng-crud-table';
+import {TreeDataSource, Column, Settings, DataTable} from '../../ng-data-table';
 import {HttpClient} from '@angular/common/http';
 import {TreeDemoService} from './tree-demo.service';
 

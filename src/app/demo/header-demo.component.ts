@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -28,7 +28,7 @@ export class HeaderDemoComponent implements OnInit {
 
   public table: DataTable;
   public columns: Column[];
-  public settings: Settings = {};
+  public settings: Settings = <Settings>{};
   @ViewChild('template') template: TemplateRef<any>;
 
   constructor(private http: HttpClient) {

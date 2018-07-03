@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Filter, SortMeta, DataSource} from '../types';
+import {Filter, SortMeta, DataSource} from '../base';
 
 @Injectable()
 export class OrdsService implements DataSource {

@@ -15,7 +15,7 @@ export class BasicDemoComponent implements OnInit {
   public columns: Column[];
   public dataManager: DataManager;
 
-  public settings: Settings = {
+  public settings: Settings = <Settings>{
     api: 'assets/players.json',
     crud: true,
     primaryKeys: ['id'],
@@ -23,7 +23,7 @@ export class BasicDemoComponent implements OnInit {
     exportAction: true,
   };
 
-  public messages: Message = {
+  public messages: Message = <Message>{
     titleDetailView: 'Player details',
     titleCreate: 'Create a new player'
   };

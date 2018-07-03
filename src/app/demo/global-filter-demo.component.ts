@@ -21,11 +21,11 @@ export class GlobalFilterDemoComponent implements OnInit {
   public columns: Column[];
   public dataManager: DataManager;
 
-  public settings: Settings = {
+  public settings: Settings = <Settings>{
     globalFilter: true,
   };
 
-  public serverSideSettings: Settings = {
+  public serverSideSettings: Settings = <Settings>{
     api: 'assets/players.json',
     globalFilter: true
   };

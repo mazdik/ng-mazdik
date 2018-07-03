@@ -17,27 +17,9 @@ export interface Filter {
   [s: string]: FilterMetadata;
 }
 
-export interface DataSource {
-  url: string;
-  primaryKeys: string[];
-  getItems(page: number, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any>;
-  getItem(row: any): Promise<any>;
-  post(row: any): Promise<any>;
-  put(row: any): Promise<any>;
-  delete(row: any): Promise<any>;
-  getOptions?(url: string, parentId: any): Promise<any>;
-}
-
 export interface SortMeta {
   field: string;
   order: number;
-}
-
-export interface Validation {
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: string | RegExp;
 }
 
 export interface MenuItem {
@@ -78,4 +60,11 @@ export interface Row {
   [name: string]: any;
   uid: number;
   index: number;
+}
+
+export interface Validation {
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  pattern?: string | RegExp;
 }

@@ -28,7 +28,7 @@ export class NestedModalsDemoComponent implements OnInit {
   public columns: Column[];
   public dataManager: DataManager;
 
-  public settings: Settings = {
+  public settings: Settings = <Settings>{
     api: 'assets/players.json',
     crud: true,
     primaryKeys: ['id'],

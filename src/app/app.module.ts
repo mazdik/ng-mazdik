@@ -7,6 +7,7 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent} from './not-found.component';
 import { CrudTableModule } from '../ng-crud-table';
+import { DataTableModule } from '../ng-data-table';
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';
@@ -84,6 +85,7 @@ const ROUTES: Routes = [
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
     CrudTableModule,
+    DataTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
