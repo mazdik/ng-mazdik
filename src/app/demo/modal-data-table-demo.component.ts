@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-crud-table';
+import {Column, Settings, DataTable} from '../../ng-data-table';
 import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
 
 @Component({
@@ -50,12 +50,12 @@ export class ModalDataTableDemoComponent implements OnInit {
   @ViewChild('rankModal') rankModal: any;
   @ViewChild('inventoryModal') inventoryModal: any;
 
-  public settingsPlayers: Settings = {
+  public settingsPlayers: Settings = <Settings>{
     tableWidth: 1100,
   };
 
-  public settingsRank: Settings = {};
-  public settingsInventory: Settings = {};
+  public settingsRank: Settings = <Settings>{};
+  public settingsInventory: Settings = <Settings>{};
 
   private _rank: any = [];
   private _inventory: any = [];

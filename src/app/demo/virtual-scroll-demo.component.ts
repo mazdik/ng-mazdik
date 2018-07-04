@@ -20,11 +20,11 @@ export class VirtualScrollDemoComponent implements OnInit {
   public service: DataSource;
   public dataManager: DataManager;
 
-  public settings: Settings = {
+  public settings: Settings = <Settings>{
     virtualScroll: true
   };
 
-  public serverSideSettings: Settings = {
+  public serverSideSettings: Settings = <Settings>{
     api: 'assets/players.json',
     virtualScroll: true
   };

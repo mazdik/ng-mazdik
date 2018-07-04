@@ -1,13 +1,11 @@
 import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
-import {DataManager} from '../../base';
-import {Row} from '../../types';
+import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-crud-table',
   templateUrl: './crud-table.component.html',
-  styleUrls: ['../../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 

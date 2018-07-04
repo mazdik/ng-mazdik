@@ -8,7 +8,7 @@ import {InputOptionComponent} from './input-option.component';
       <label [attr.for]="column.name">{{column.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
-        <label class="checkcontainer">{{o.name ? o.name : o.id}}
+        <span class="datatable-checkbox">
           <input
             type="checkbox"
             [(ngModel)]="model"
@@ -16,8 +16,8 @@ import {InputOptionComponent} from './input-option.component';
             [value]="o.id"
             [checked]="isSelectActive(o)"
             [disabled]="disabled"/>
-          <span class="checkmark"></span>
-        </label>
+          <label>{{o.name ? o.name : o.id}}</label>
+        </span>
       </div>
       <div class="df-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>

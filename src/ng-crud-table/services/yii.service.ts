@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Filter, SortMeta, DataSource} from '../types';
+import {Filter, SortMeta, DataSource} from '../base';
 
 @Injectable()
 export class YiiService implements DataSource {
