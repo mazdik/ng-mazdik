@@ -240,6 +240,11 @@
   border: 1px solid #5b9bd5;
 }
 
+.cell-editor input:focus,
+.cell-editor select:focus {
+  border: 2px solid #5b9bd5;
+}
+
 .cell-editor select {
   cursor: pointer;
   background: #ffffff;

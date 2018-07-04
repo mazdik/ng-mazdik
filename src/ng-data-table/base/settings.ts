@@ -1,4 +1,4 @@
-import {SelectionType, SelectionMode, ColumnResizeMode} from '../types';
+import {SelectionType, SelectionMode, ColumnResizeMode, EditMode} from '../types';
 import {TemplateRef} from '@angular/core';
 
 export class Settings {
@@ -30,6 +30,7 @@ export class Settings {
   public hoverEvents?: boolean;
   public contextMenu?: boolean;
   public exportAction?: boolean;
+  public editMode?: EditMode = 'editCellOnDblClick';
 
   constructor(init: Partial<Settings>) {
     if (init) {

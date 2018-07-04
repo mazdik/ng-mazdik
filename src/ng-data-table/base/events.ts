@@ -23,6 +23,7 @@ export class Events {
   private keydownCellSource = new Subject<CellEventArgs>();
   private contextMenuSource = new Subject<CellEventArgs>();
   private loadingSource = new BehaviorSubject<boolean>(false);
+  private cellEditModeSource = new Subject<CellEventArgs>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -44,6 +45,7 @@ export class Events {
   keydownCellSource$ = this.keydownCellSource.asObservable();
   contextMenuSource$ = this.contextMenuSource.asObservable();
   loadingSource$ = this.loadingSource.asObservable();
+  cellEditModeSource$ = this.cellEditModeSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -123,6 +125,10 @@ export class Events {
 
   onLoading(data: boolean) {
     this.loadingSource.next(data);
+  }
+
+  onCellEditMode(data: CellEventArgs) {
+    this.cellEditModeSource.next(data);
   }
 
 }

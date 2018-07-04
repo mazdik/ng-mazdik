@@ -8,7 +8,7 @@
     appAfterViewFocus
     [(ngModel)]="row[column.name]"
     (focus)="oldValue=row[column.name]"
-    (blur)="switchCellToViewMode()">
+    (blur)="onInputBlur()">
     <option *ngFor="let opt of getOptions(row)" [value]="opt.id">{{opt.name}}</option>
   </select>
 
@@ -17,5 +17,5 @@
          *ngIf="!column.options"
          [(ngModel)]="row[column.name]"
          (focus)="oldValue=row[column.name]"
-         (blur)="switchCellToViewMode()"/>
+         (blur)="onInputBlur()"/>
 </div>
