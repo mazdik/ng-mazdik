@@ -1,4 +1,4 @@
-import {MenuItem, Row} from '../types';
+import {MenuItem, Row, CellEventArgs} from '../types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
@@ -174,6 +174,15 @@ export class DataTable {
     }
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.chunkRows(true);
+    this.events.onRowsChanged();
+  }
+
+  editCell(rowIndex: number, columnIndex: number, editMode: boolean) {
+    this.events.onCellEditMode(<CellEventArgs>{columnIndex, rowIndex, editMode});
+  }
+
+  updateCell(rowIndex: number, field: string, value: string | number | boolean | Date): void {
+    this.rows[rowIndex][field] = value;
     this.events.onRowsChanged();
   }
 

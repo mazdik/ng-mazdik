@@ -1,6 +1,4 @@
-import {
-  Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
-} from '@angular/core';
+import {Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {BodyCellComponent} from './body-cell.component';
 import {Row, CellEventArgs} from '../../types';
 import {Keys} from '../../base';
@@ -20,7 +18,9 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     super.ngOnInit();
     const subDblClickCell = this.table.events.dblClickCellSource$.subscribe((ev: CellEventArgs) => {
       if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
-        this.switchCellToEditMode();
+        if (this.table.settings.editMode === 'editCellOnDblClick') {
+          this.switchCellToEditMode();
+        }
       }
     });
     const subKeydownCell = this.table.events.keydownCellSource$.subscribe((ev: CellEventArgs) => {
@@ -28,8 +28,19 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
         this.onCellKeydown(ev.event);
       }
     });
+    const subCellEditMode = this.table.events.cellEditModeSource$.subscribe((ev: CellEventArgs) => {
+      if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
+        if (ev.editMode) {
+          this.switchCellToEditMode();
+        } else {
+          this.switchCellToViewMode();
+          this.cd.markForCheck();
+        }
+      }
+    });
     this.subscriptions.push(subDblClickCell);
     this.subscriptions.push(subKeydownCell);
+    this.subscriptions.push(subCellEditMode);
   }
 
   switchCellToEditMode() {
@@ -74,6 +85,12 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
   getOptions(row: Row[]) {
     return this.column.getOptions(row[this.column.dependsColumn]);
+  }
+
+  onInputBlur() {
+    if (this.table.settings.editMode === 'editCellOnDblClick') {
+      this.switchCellToViewMode();
+    }
   }
 
 }

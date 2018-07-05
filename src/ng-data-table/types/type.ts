@@ -22,3 +22,5 @@ export type SelectionType = 'single' | 'multiple';
 export type SelectionMode = 'checkbox' | 'radio';
 
 export type ColumnResizeMode = 'simple' | 'aminated';
+
+export type EditMode = 'editCellOnDblClick' | 'editProgrammatically';

@@ -9,6 +9,7 @@ export interface ColumnMenuEventArgs {
 export interface CellEventArgs {
   columnIndex: number;
   rowIndex: number;
-  event: any;
-  fromCell: HTMLElement;
+  event?: any;
+  fromCell?: HTMLElement;
+  editMode?: boolean;
 }

@@ -242,6 +242,7 @@ interface DataSource {
 | hoverEvents      | boolean    | false   | mouseover/mouseout |
 | contextMenu      | boolean    | false   | event       |
 | exportAction     | boolean    | false   | csv         |
+| editMode         | editCellOnDblClick / editProgrammatically | editCellOnDblClick |             |
 
 ```typescript
 interface SelectOption {
