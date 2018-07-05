@@ -38,7 +38,7 @@ export class DataTable {
   public offsetY: number = 0;
 
   set rows(val: any) {
-    val = this.sequence.setRowUid(val);
+    val = val.map(this.generateRow.bind(this));
     if (this.settings.clientSide) {
       this.setLocalRows(val);
       this.getLocalRows();
@@ -163,7 +163,7 @@ export class DataTable {
   }
 
   addRow(newRow: Row) {
-    newRow.uid = this.sequence.getUidRow();
+    newRow = this.generateRow(newRow);
     this._rows.push(newRow);
 
     if (this.settings.clientSide) {
@@ -184,6 +184,14 @@ export class DataTable {
   updateCell(rowIndex: number, field: string, value: string | number | boolean | Date): void {
     this.rows[rowIndex][field] = value;
     this.events.onRowsChanged();
+  }
+
+  protected generateRow(row: Row): Row {
+    if (!row.uid) {
+      row.uid = this.sequence.getUidRow();
+    }
+    row.$$data = Object.assign({}, row);
+    return row;
   }
 
 }

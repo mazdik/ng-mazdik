@@ -65,6 +65,9 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     if (this.editing) {
       cls += ' cell-editing';
     }
+    if (this.cellContext.value !== this.column.getValue(this.row.$$data)) {
+      cls += ' cell-changed';
+    }
     return cls;
   }
 
