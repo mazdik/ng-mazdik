@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
-import {Column, DataTable} from '../base';
+import {Column, DataTable, Constants} from '../base';
 
 @Directive({
   selector: '[appResizeableColumn]'
@@ -80,7 +80,7 @@ export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
     const underMaxWidth = !this.column.maxWidth || this.newWidth <= this.column.maxWidth;
 
     if (overMinWidth && underMaxWidth) {
-      if (this.table.settings.columnResizeMode === 'aminated') {
+      if (this.table.settings.columnResizeMode === Constants.resizeAminated) {
         this.element.style.width = `${this.newWidth}px`;
         this.column.setWidth(this.newWidth);
       }

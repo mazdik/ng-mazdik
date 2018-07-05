@@ -10,6 +10,8 @@ import {Keys, Constants} from '../../base';
 })
 export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
+  public tempValue: any;
+
   constructor(cd: ChangeDetectorRef, element: ElementRef) {
     super(cd, element);
   }
@@ -54,7 +56,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
   switchCellToViewMode() {
     this.editing = false;
-    if (this.row[this.column.name] !== this.oldValue) {
+    if (this.row[this.column.name] !== this.tempValue) {
       this.updateValue();
     }
   }
@@ -79,7 +81,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
       this.element.nativeElement.focus();
     } else if (event.keyCode === Keys.ESCAPE) {
       this.editing = false;
-      this.row[this.column.name] = this.oldValue;
+      this.row[this.column.name] = this.tempValue;
       this.updateValue();
       this.element.nativeElement.focus();
     }

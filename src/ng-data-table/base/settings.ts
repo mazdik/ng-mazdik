@@ -17,7 +17,7 @@ export class Settings {
   public groupRowsBy?: string[];
   public filterDelay?: number = 500;
   public globalFilter?: boolean;
-  public columnResizeMode?: ColumnResizeMode = 'simple';
+  public columnResizeMode?: ColumnResizeMode = Constants.resizeSimple;
   public selectionType?: SelectionType;
   public selectionMode?: SelectionMode;
   public singleRowView?: boolean = true;

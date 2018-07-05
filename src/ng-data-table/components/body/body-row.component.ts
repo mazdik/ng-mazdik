@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy,
   ChangeDetectionStrategy, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable} from '../../base';
+import {DataTable, Constants} from '../../base';
 import {Subscription} from 'rxjs';
 import {translate, addClass} from '../../base/util';
 import {Row} from '../../types';
@@ -48,7 +48,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.table.settings.columnResizeMode === 'aminated') {
+    if (this.table.settings.columnResizeMode === Constants.resizeAminated) {
       const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });
