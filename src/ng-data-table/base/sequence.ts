@@ -18,7 +18,7 @@ export class Sequence {
   setRowIndexes(rows: Row[]): Row[] {
     let rowIndex = 0;
     rows.forEach(row => {
-      row.index = rowIndex++;
+      row.$$index = rowIndex++;
     });
     return rows;
   }

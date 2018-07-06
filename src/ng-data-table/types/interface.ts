@@ -58,8 +58,8 @@ export interface AggregateMeta {
 
 export interface Row {
   [name: string]: any;
-  uid: number;
-  index: number;
+  $$uid: number;
+  $$index: number;
   $$data: Object;
 }
 

@@ -49,7 +49,7 @@ export class RowGroup {
     isRowGroup(row: Row) {
         if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
             const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-            return this.rowGroupMetadata[group].index === row.index;
+            return this.rowGroupMetadata[group].index === row.$$index;
         } else {
             return false;
         }
@@ -59,7 +59,7 @@ export class RowGroup {
         if (this.settings.groupRowsBy && this.settings.groupRowsBy.length && this.dataAggregation.aggregates.length) {
             const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
             const lastRowIndex = (this.rowGroupMetadata[group].index + this.rowGroupMetadata[group].size) - 1;
-            return lastRowIndex === row.index;
+            return lastRowIndex === row.$$index;
         } else {
             return false;
         }

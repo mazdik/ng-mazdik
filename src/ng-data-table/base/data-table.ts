@@ -187,8 +187,8 @@ export class DataTable {
   }
 
   protected generateRow(row: Row): Row {
-    if (!row.uid) {
-      row.uid = this.sequence.getUidRow();
+    if (!row.$$uid) {
+      row.$$uid = this.sequence.getUidRow();
     }
     row.$$data = Object.assign({}, row);
     return row;

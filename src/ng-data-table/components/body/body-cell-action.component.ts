@@ -18,7 +18,7 @@ import {Subscription} from 'rxjs';
         </span>
     </ng-template>
     <span *ngIf="!table.actionMenu && !table.settings.selectionMode && table.settings.rowNumber">
-    {{row.index + 1}}</span>
+    {{row.$$index + 1}}</span>
     <span *ngIf="table.settings.selectionMode"
           class="{{'datatable-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"
@@ -47,7 +47,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const subSelection = this.table.events.selectionSource$.subscribe(() => {
-      this.checked = this.table.dataSelection.isRowSelected(this.row.index);
+      this.checked = this.table.dataSelection.isRowSelected(this.row.$$index);
       this.cd.markForCheck();
     });
     this.subscriptions.push(subSelection);
@@ -58,12 +58,12 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   }
 
   actionClick(event, menuItem: MenuItem) {
-    this.table.selectRow(this.row.index);
+    this.table.selectRow(this.row.$$index);
     this.table.events.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': this.row});
   }
 
   onCheckboxClick(event) {
-    this.table.selectRow(this.row.index);
+    this.table.selectRow(this.row.$$index);
   }
 
 }

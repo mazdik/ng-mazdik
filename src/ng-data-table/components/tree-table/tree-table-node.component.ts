@@ -37,7 +37,7 @@ export class TreeTableNodeComponent implements OnInit {
         this.service.getNodes(node).then(data => {
           if (data && data.length) {
             data.forEach(n => {
-              n.data.index = this.table.sequence.getUidRow();
+              n.data.$$index = this.table.sequence.getUidRow();
             });
           }
           node.children = data;

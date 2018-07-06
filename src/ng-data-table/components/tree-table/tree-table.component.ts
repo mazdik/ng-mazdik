@@ -57,7 +57,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   setRowIndexes(nodes: TreeNode[]) {
     if (nodes && nodes.length) {
       nodes.forEach(n => {
-        n.data.index = this.table.sequence.getUidRow();
+        n.data.$$index = this.table.sequence.getUidRow();
         if (n.children) {
           this.setRowIndexes(n.children);
         }
