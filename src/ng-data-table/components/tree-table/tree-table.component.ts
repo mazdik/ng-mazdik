@@ -2,7 +2,7 @@ import {
   Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectorRef
 } from '@angular/core';
 import {TreeNode, TreeDataSource} from '../../types';
-import {DataTable} from '../../base';
+import {DataTable, Constants} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -34,7 +34,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
       this.setRowIndexes(this.nodes);
     }
     this.table.dimensions.actionColumnWidth = 250;
-    this.table.settings.columnResizeMode = 'aminated';
+    this.table.settings.columnResizeMode = Constants.resizeAminated;
 
     const subScroll = this.table.events.scrollSource$.subscribe((event) => {
       this.cd.detectChanges();

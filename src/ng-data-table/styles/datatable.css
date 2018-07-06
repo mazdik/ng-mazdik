@@ -40,6 +40,7 @@
   text-overflow: ellipsis;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .datatable-body-row,
@@ -71,10 +72,6 @@
 .datatable-header {
   display: block;
   overflow: hidden;
-}
-
-.datatable-header-cell {
-  position: relative;
 }
 
 .datatable-header-cell .resize-handle {
@@ -310,4 +307,15 @@
 
 .action-cell {
   justify-content: center;
+}
+
+.cell-changed::before {
+  content: '';
+  border: 3px solid;
+  border-color: currentColor currentColor transparent transparent;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #5b9bd5;
 }

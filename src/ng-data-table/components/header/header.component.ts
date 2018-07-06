@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
   ElementRef, ViewChild, ViewContainerRef
 } from '@angular/core';
-import {DataTable, Column} from '../../base';
+import {DataTable, Column, Constants} from '../../base';
 import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../types';
@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.table.settings.columnResizeMode === 'aminated') {
+    if (this.table.settings.columnResizeMode === Constants.resizeAminated) {
       const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });
