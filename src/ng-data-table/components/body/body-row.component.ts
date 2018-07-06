@@ -32,7 +32,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
         cls = addClass(cls, res);
       }
     }
-    if (this.table.dataSelection.isRowSelected(this.row.$$index)) {
+    if (this.table.selection.isRowSelected(this.row.$$index)) {
       cls += ' row-selected';
     }
     return cls;

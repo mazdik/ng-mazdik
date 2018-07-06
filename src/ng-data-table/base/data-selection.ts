@@ -29,7 +29,7 @@ export class DataSelection {
     this.events.onSelectionChange();
   }
 
-  clearRowSelection() {
+  clearSelection() {
     this.selectedRowIndexes = [];
     this.selectedRowIndex = null;
     this.events.onSelectionChange();

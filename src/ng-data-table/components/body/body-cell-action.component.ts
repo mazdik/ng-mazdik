@@ -47,7 +47,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const subSelection = this.table.events.selectionSource$.subscribe(() => {
-      this.checked = this.table.dataSelection.isRowSelected(this.row.$$index);
+      this.checked = this.table.selection.isRowSelected(this.row.$$index);
       this.cd.markForCheck();
     });
     this.subscriptions.push(subSelection);

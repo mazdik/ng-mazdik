@@ -83,10 +83,10 @@ export class MasterDetailDemoComponent implements OnInit {
 
   masterChanged() {
     if (this.dtPlayers.rows.length > 0 &&
-      this.dtPlayers.getSelectedRowIndex() !== undefined &&
-      this.dtPlayers.rows[this.dtPlayers.getSelectedRowIndex()]) {
+      this.dtPlayers.selection.selectedRowIndex !== undefined &&
+      this.dtPlayers.rows[this.dtPlayers.selection.selectedRowIndex]) {
 
-      const masterId = this.dtPlayers.rows[this.dtPlayers.getSelectedRowIndex()]['id'];
+      const masterId = this.dtPlayers.rows[this.dtPlayers.selection.selectedRowIndex]['id'];
       this.dtRank.rows = this._rank.filter((value: any) => {
         return value['player_id'] === masterId;
       });

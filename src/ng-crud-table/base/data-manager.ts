@@ -185,10 +185,6 @@ export class DataManager extends DataTable {
     this.isNewItem = false;
   }
 
-  getSelectedRows() {
-    return this.dataSelection.getSelectedRows(this.rows);
-  }
-
   clear() {
     this.rows = [];
     this.pager.total = 0;

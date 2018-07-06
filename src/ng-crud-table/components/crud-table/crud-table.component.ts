@@ -139,7 +139,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onSelectedRow() {
-    this.select.emit(this.dataManager.getSelectedRows());
+    this.select.emit(this.dataManager.selection.getSelectedRows(this.dataManager.rows));
   }
 
 }

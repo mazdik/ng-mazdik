@@ -5,7 +5,8 @@ import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-multiple-selection-demo',
-  template: `<p>Selection type: multiple. Selection mode: checkbox</p>
+  template: `<button class="button" (click)="clearSelection()">Clear all selections</button>
+    <p>Selection type: multiple. Selection mode: checkbox</p>
     <app-datatable [table]="table" (selectionChange)="onSelection()"></app-datatable>
     <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows">
       {{row.id}}-{{row.name}}</div>
@@ -54,11 +55,16 @@ export class MultipleSelectionDemoComponent implements OnInit {
   }
 
   onSelection() {
-    this.selectedRows = this.table.dataSelection.getSelectedRows(this.table.rows);
+    this.selectedRows = this.table.selection.getSelectedRows(this.table.rows);
   }
 
   onSelection2() {
-    this.selectedRows2 = this.table2.dataSelection.getSelectedRows(this.table2.rows);
+    this.selectedRows2 = this.table2.selection.getSelectedRows(this.table2.rows);
+  }
+
+  clearSelection() {
+    this.table.selection.clearSelection();
+    this.table2.selection.clearSelection();
   }
 
 }
