@@ -27,7 +27,7 @@ export class DataTable {
   public sorter: DataSort;
   public dataFilter: DataFilter;
   public events: Events;
-  public dataSelection: DataSelection;
+  public selection: DataSelection;
   public dimensions: Dimensions;
   public rowGroup: RowGroup;
   public rowVirtual: RowVirtual;
@@ -66,7 +66,7 @@ export class DataTable {
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings);
     this.dataFilter = new DataFilter();
-    this.dataSelection = new DataSelection(this.settings, this.events);
+    this.selection = new DataSelection(this.settings, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);
@@ -137,22 +137,14 @@ export class DataTable {
 
   selectRow(rowIndex: number) {
     if (this.rows && this.rows.length) {
-      this.dataSelection.selectRow(rowIndex);
+      this.selection.selectRow(rowIndex);
     } else {
-      this.dataSelection.clearRowSelection();
+      this.selection.clearSelection();
     }
-  }
-
-  clearSelection() {
-    this.dataSelection.clearRowSelection();
   }
 
   columnTrackingFn(index: number, column: Column): any {
     return column.name;
-  }
-
-  getSelectedRowIndex() {
-    return this.dataSelection.selectedRowIndex;
   }
 
   chunkRows(force: boolean = false) {
@@ -187,8 +179,8 @@ export class DataTable {
   }
 
   protected generateRow(row: Row): Row {
-    if (!row.uid) {
-      row.uid = this.sequence.getUidRow();
+    if (!row.$$uid) {
+      row.$$uid = this.sequence.getUidRow();
     }
     row.$$data = Object.assign({}, row);
     return row;

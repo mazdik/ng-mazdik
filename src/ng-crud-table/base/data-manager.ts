@@ -123,20 +123,20 @@ export class DataManager extends DataTable {
     if (this.refreshRowOnSave) {
       this.refreshRow(row, false);
     } else {
-      this.mergeRow(row.uid, result);
+      this.mergeRow(row.$$uid, result);
     }
     this.events.onRowsChanged();
   }
 
   afterDelete(row: Row, result: boolean) {
     if (result) {
-      const rowIndex: number = this.rows.findIndex(x => x.uid === row.uid);
+      const rowIndex: number = this.rows.findIndex(x => x.$$uid === row.$$uid);
       this.rows.splice(rowIndex, 1);
     }
   }
 
   mergeRow(rowUid: number, result: any) {
-    const rowIndex: number = this.rows.findIndex(x => x.uid === rowUid);
+    const rowIndex: number = this.rows.findIndex(x => x.$$uid === rowUid);
 
     for (const key of Object.keys(result)) {
       if (key in this.rows[rowIndex]) {
@@ -154,7 +154,7 @@ export class DataManager extends DataTable {
         if (isNew) {
           this.addRow(data);
         } else {
-          this.mergeRow(row.uid, data);
+          this.mergeRow(row.$$uid, data);
         }
       })
       .catch(error => {
@@ -183,10 +183,6 @@ export class DataManager extends DataTable {
   setItem(row: Row) {
     this.item = Object.assign({}, row);
     this.isNewItem = false;
-  }
-
-  getSelectedRows() {
-    return this.dataSelection.getSelectedRows(this.rows);
   }
 
   clear() {

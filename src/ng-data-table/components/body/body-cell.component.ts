@@ -65,7 +65,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     if (this.editing) {
       cls += ' cell-editing';
     }
-    if (this.cellContext.value !== this.column.getValue(this.row.$$data)) {
+    if (this.row && this.row.$$data && this.cellContext.value !== this.column.getValue(this.row.$$data)) {
       cls += ' cell-changed';
     }
     return cls;
@@ -83,7 +83,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
 
   @HostBinding('attr.data-row-index')
   get attrRowIndex(): number {
-    return (this.row) ? this.row.index : null;
+    return (this.row) ? this.row.$$index : null;
   }
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
@@ -108,7 +108,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
       this.updateValue();
     });
     const subActivateCell = this.table.events.activateCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.row.index === ev.rowIndex && this.column.index === ev.columnIndex) {
+      if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
         this.element.nativeElement.focus();
       }
     });

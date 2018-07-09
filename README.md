@@ -266,7 +266,7 @@ private subscriptions: Subscription[] = [];
 
   ngOnInit() {
     const subSelection = this.table.events.selectionSource$.subscribe(() => {
-      this.table.dataSelection.getSelection();
+      this.table.selection.getSelection();
     });
     this.subscriptions.push(subSelection);
   }

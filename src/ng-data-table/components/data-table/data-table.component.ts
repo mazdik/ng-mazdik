@@ -106,7 +106,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
         this.table.getLocalRows();
       }
     }
-    this.table.clearSelection();
+    this.table.selection.clearSelection();
   }
 
   onEditComplete(event) {
@@ -122,7 +122,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       this.bodyScroll.setOffsetY(0);
     }
     this.table.chunkRows(true);
-    this.table.clearSelection();
+    this.table.selection.clearSelection();
   }
 
   onSort() {
@@ -133,11 +133,11 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       this.bodyScroll.setOffsetY(0);
     }
     this.table.chunkRows(true);
-    this.table.clearSelection();
+    this.table.selection.clearSelection();
   }
 
   onSelectedRow() {
-    this.selectionChange.emit(this.table.dataSelection.getSelection());
+    this.selectionChange.emit(this.table.selection.getSelection());
   }
 
   onColumnResizeBegin() {
