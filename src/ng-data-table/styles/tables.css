@@ -6,7 +6,7 @@
   margin-bottom: 20px;
 }
 
-.detail-view table, th, .detail-view td {
+.detail-view table, .detail-view th, .detail-view td {
   border: 1px solid #ddd;
 }
 
