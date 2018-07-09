@@ -6,14 +6,14 @@
   margin-bottom: 20px;
 }
 
-.detail-view table, th, td {
+.detail-view table, th, .detail-view td {
   border: 1px solid #ddd;
 }
 
 .detail-view table>tbody>tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
-.detail-view th, td {
+.detail-view th, .detail-view td {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
