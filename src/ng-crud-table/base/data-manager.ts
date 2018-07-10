@@ -143,6 +143,7 @@ export class DataManager extends DataTable {
         this.rows[rowIndex][key] = result[key];
       }
     }
+    this.rows[rowIndex] = this.generateRow(this.rows[rowIndex]);
   }
 
   refreshRow(row: any, isNew: boolean) {
