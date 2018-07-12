@@ -243,6 +243,8 @@ interface DataSource {
 | contextMenu      | boolean    | false   | event       |
 | exportAction     | boolean    | false   | csv         |
 | editMode         | editCellOnDblClick / editProgrammatically | editCellOnDblClick |             |
+| actionColumnWidth | number    | 40      | px, 0 - hide |
+| rowActionTemplate | TemplateRef | null  |              |
 
 ```typescript
 interface SelectOption {

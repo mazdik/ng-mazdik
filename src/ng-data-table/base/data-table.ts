@@ -1,4 +1,4 @@
-import {MenuItem, Row, CellEventArgs} from '../types';
+import {Row, CellEventArgs} from '../types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
@@ -22,7 +22,6 @@ export class DataTable {
   public columns: Column[] = [];
   public frozenColumns: Column[] = [];
   public scrollableColumns: Column[] = [];
-  public actionMenu: MenuItem[];
   public pager: DataPager;
   public sorter: DataSort;
   public dataFilter: DataFilter;
@@ -74,7 +73,6 @@ export class DataTable {
     if (messages) {
       Object.assign(this.messages, messages);
     }
-    this.setShareSettings();
   }
 
   createColumns(columns: ColumnBase[]) {
@@ -98,12 +96,6 @@ export class DataTable {
       }
     });
     this.columns = this.sequence.setColumnIndexes(this.columns);
-  }
-
-  setShareSettings() {
-    if (!this.actionMenu && !this.settings.selectionMode && !this.settings.rowNumber) {
-      this.dimensions.actionColumnWidth = 0;
-    }
   }
 
   getRows() {

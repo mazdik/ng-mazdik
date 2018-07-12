@@ -32,6 +32,8 @@ export class Settings {
   public contextMenu?: boolean;
   public exportAction?: boolean;
   public editMode?: EditMode = Constants.editCellOnDblClick;
+  public actionColumnWidth?: number = 40;
+  public rowActionTemplate?: TemplateRef<any>;
 
   constructor(init: Partial<Settings>) {
     if (init) {

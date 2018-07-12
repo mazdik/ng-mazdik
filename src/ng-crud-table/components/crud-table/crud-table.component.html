@@ -9,3 +9,12 @@
   #modalEditForm
   [dataManager]="dataManager">
 </app-modal-edit-form>
+
+<ng-template #rowActionTemplate let-row="row">
+        <span class="row-menu"
+              *ngFor="let action of dataManager.actionMenu"
+              [ngClass]="action.icon"
+              title="{{action.label}}"
+              (click)="onRowMenuClick($event, action, row)">
+        </span>
+</ng-template>

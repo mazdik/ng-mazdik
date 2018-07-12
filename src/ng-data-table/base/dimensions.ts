@@ -19,6 +19,7 @@ export class Dimensions {
     this.bodyHeight = this.settings.bodyHeight;
     this.rowHeight = this.settings.rowHeight;
     this.headerRowHeight = this.settings.headerRowHeight;
+    this.actionColumnWidth = this.settings.actionColumnWidth;
     this.calcColumnsTotalWidth(this.columns);
   }
 

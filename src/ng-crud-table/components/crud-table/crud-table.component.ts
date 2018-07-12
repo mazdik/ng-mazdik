@@ -1,6 +1,8 @@
-import {Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy} from '@angular/core';
+import {
+  Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy, TemplateRef
+} from '@angular/core';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
-import {DataManager, Row} from '../../base';
+import {DataManager, Row, MenuItem} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -18,6 +20,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
+  @ViewChild('rowActionTemplate') rowActionTemplate: TemplateRef<any>;
 
   constructor() {
   }
@@ -27,6 +30,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     if (this.dataManager.settings.initLoad) {
       this.dataManager.getItems().then();
     }
+    this.dataManager.settings.rowActionTemplate = this.rowActionTemplate;
 
     const subSelection = this.dataManager.events.selectionSource$.subscribe(() => {
       this.onSelectedRow();
@@ -43,9 +47,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const subEdit = this.dataManager.events.editSource$.subscribe((row) => {
       this.onEditComplete(row);
     });
-    const subRowMenu = this.dataManager.events.rowMenuSource$.subscribe((data) => {
-      this.onRowMenu(data);
-    });
     const subRows = this.dataManager.events.rowsChanged$.subscribe(() => {
       this.rowsChanged.emit(true);
     });
@@ -54,7 +55,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
     this.subscriptions.push(subEdit);
-    this.subscriptions.push(subRowMenu);
     this.subscriptions.push(subRows);
   }
 
@@ -63,28 +63,29 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   initRowMenu() {
-    this.dataManager.actionMenu = [
-      {
-        label: this.dataManager.messages.titleDetailView,
-        icon: 'icon icon-rightwards',
-        command: 'view',
-        disabled: !this.dataManager.settings.singleRowView
-      },
-      {
-        label: this.dataManager.messages.titleUpdate,
-        icon: 'icon icon-pencil',
-        command: 'update',
-        disabled: !this.dataManager.settings.crud
-      }
-    ];
+    if (this.dataManager.settings.singleRowView) {
+      this.dataManager.actionMenu.push(
+        {
+          label: this.dataManager.messages.titleDetailView,
+          icon: 'icon icon-rightwards',
+          command: (row) => this.viewAction(row),
+        }
+      );
+    }
+    if (this.dataManager.settings.crud) {
+      this.dataManager.actionMenu.push(
+        {
+          label: this.dataManager.messages.titleUpdate,
+          icon: 'icon icon-pencil',
+          command: (row) => this.updateAction(row),
+        }
+      );
+    }
   }
 
-  onRowMenu(data: any) {
-    if (data.menuItem.command === 'view') {
-      this.viewAction(data.row);
-    } else if (data.menuItem.command === 'update') {
-      this.updateAction(data.row);
-    }
+  onRowMenuClick(event: any, menuItem: MenuItem, row: Row) {
+    this.dataManager.selectRow(row.$$index);
+    menuItem.command(row);
   }
 
   onCreateAction() {

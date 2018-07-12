@@ -1,36 +1,43 @@
 import {
-  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ViewContainerRef
 } from '@angular/core';
 import {DataTable} from '../../base';
-import {MenuItem, Row} from '../../types';
+import {Row} from '../../types';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-datatable-body-cell-action',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-template ngFor let-action [ngForOf]="table.actionMenu">
-        <span class="row-menu"
-              [ngClass]="action.icon"
-              *ngIf="!action.disabled"
-              title="{{action.label}}"
-              (click)="actionClick($event, action)">
-        </span>
-    </ng-template>
-    <span *ngIf="!table.actionMenu && !table.settings.selectionMode && table.settings.rowNumber">
+    <span *ngIf="!table.settings.rowActionTemplate && !table.settings.selectionMode
+     && table.settings.rowNumber && table.dimensions.actionColumnWidth">
     {{row.$$index + 1}}</span>
-    <span *ngIf="table.settings.selectionMode"
+    <span *ngIf="table.settings.selectionMode && table.dimensions.actionColumnWidth"
           class="{{'datatable-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"
              [checked]="checked"
              (click)="onCheckboxClick($event)"/>
     </span>
+    <ng-template #rowActionTemplate
+                 *ngIf="table.settings.rowActionTemplate && table.dimensions.actionColumnWidth"
+                 [ngTemplateOutlet]="table.settings.rowActionTemplate"
+                 [ngTemplateOutletContext]="cellContext">
+    </ng-template>
   `
 })
 export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @Input() public table: DataTable;
-  @Input() public row: Row;
+
+  @Input()
+  set row(row: Row) {
+    this._row = row;
+    this.cellContext.row = row;
+  }
+
+  get row(): Row {
+    return this._row;
+  }
 
   @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
 
@@ -39,7 +46,11 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
     return this.table.dimensions.actionColumnWidth;
   }
 
+  @ViewChild('rowActionTemplate', {read: ViewContainerRef}) rowActionTemplate: ViewContainerRef;
+
   public checked: boolean;
+  public cellContext: any = {row: this.row};
+  private _row: Row;
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
@@ -55,11 +66,9 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  actionClick(event, menuItem: MenuItem) {
-    this.table.selectRow(this.row.$$index);
-    this.table.events.onRowMenuClick({'event': event, 'menuItem': menuItem, 'row': this.row});
+    if (this.rowActionTemplate) {
+      this.rowActionTemplate.clear();
+    }
   }
 
   onCheckboxClick(event) {
