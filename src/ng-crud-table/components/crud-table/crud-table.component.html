@@ -1,20 +1,19 @@
-<div class="df-alert df-alert-danger" *ngIf="this.dataManager.errors">{{this.dataManager.errors}}</div>
+<div #alert class="df-alert df-alert-danger" *ngIf="this.dataManager.errors">
+  {{this.dataManager.errors}}
+</div>
 
-<app-datatable-toolbar [table]="dataManager" (createAction)="onCreateAction()">
+<app-datatable-toolbar #toolbar [table]="dataManager" (createAction)="onCreateAction()">
 </app-datatable-toolbar>
 
 <app-datatable [table]="dataManager"></app-datatable>
 
-<app-modal-edit-form
-  #modalEditForm
-  [dataManager]="dataManager">
+<app-modal-edit-form #modalEditForm [dataManager]="dataManager">
 </app-modal-edit-form>
 
 <ng-template #rowActionTemplate let-row="row">
-        <span class="row-menu"
-              *ngFor="let action of dataManager.actionMenu"
-              [ngClass]="action.icon"
-              title="{{action.label}}"
-              (click)="onRowMenuClick($event, action, row)">
-        </span>
+  <button class="button-actions" (click)="onRowMenuClick($event, row)">
+    <i class="icon icon-actions"></i>
+  </button>
 </ng-template>
+
+<app-row-menu #rowMenu [dataManager]="dataManager"></app-row-menu>

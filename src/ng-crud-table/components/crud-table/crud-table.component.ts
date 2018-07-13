@@ -1,9 +1,11 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy, TemplateRef
+  Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy,
+  TemplateRef, HostBinding, ElementRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
-import {DataManager, Row, MenuItem} from '../../base';
+import {DataManager, Row, RowMenuEventArgs} from '../../base';
 import {Subscription} from 'rxjs';
+import {RowMenuComponent} from '../row-menu/row-menu.component';
 
 @Component({
   selector: 'app-crud-table',
@@ -17,10 +19,15 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
-  private subscriptions: Subscription[] = [];
-
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
   @ViewChild('rowActionTemplate') rowActionTemplate: TemplateRef<any>;
+  @ViewChild('rowMenu') rowMenu: RowMenuComponent;
+  @ViewChild('alert') alert: ElementRef;
+  @ViewChild('toolbar') toolbar: any;
+
+  @HostBinding('class') cssClass = 'datatable crud-table';
+
+  private subscriptions: Subscription[] = [];
 
   constructor() {
   }
@@ -83,9 +90,16 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRowMenuClick(event: any, menuItem: MenuItem, row: Row) {
+  onRowMenuClick(event: any, row: Row) {
     this.dataManager.selectRow(row.$$index);
-    menuItem.command(row);
+
+    const left = 0;
+    const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
+    const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
+    let top = alertHeight + toolbarHeight + this.dataManager.dimensions.headerRowHeight;
+    top += + (row.$$index + 1) * this.dataManager.dimensions.rowHeight;
+    top -= this.dataManager.offsetY;
+    this.rowMenu.show(<RowMenuEventArgs>{left, top, row});
   }
 
   onCreateAction() {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding, ElementRef } from '@angular/core';
 import { DataTable } from '../../base';
 
 @Component({
@@ -12,7 +12,7 @@ export class ToolbarComponent {
 
     @HostBinding('class') cssClass = 'datatable-toolbar';
 
-    constructor() {
+    constructor(private element: ElementRef) {
     }
 
     globalFilter() {
@@ -37,6 +37,10 @@ export class ToolbarComponent {
 
     createActionClick() {
         this.createAction.emit();
+    }
+
+    getHeight() {
+        return this.element.nativeElement.offsetHeight;
     }
 
 }

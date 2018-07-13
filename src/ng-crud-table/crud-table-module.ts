@@ -20,6 +20,7 @@ import {CalendarComponent} from './components/form/calendar.component';
 import {ModalSelectComponent} from './components/modal-select/modal-select.component';
 import {PopupSelectComponent} from './components/form/select-popup.component';
 import {RowViewComponent} from './components/row-view/row-view.component';
+import {RowMenuComponent} from './components/row-menu/row-menu.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import {RowViewComponent} from './components/row-view/row-view.component';
     ModalSelectComponent,
     PopupSelectComponent,
     RowViewComponent,
+    RowMenuComponent,
   ],
   exports: [
     CrudTableComponent,
