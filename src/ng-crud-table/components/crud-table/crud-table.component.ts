@@ -10,6 +10,7 @@ import {RowMenuComponent} from '../row-menu/row-menu.component';
 @Component({
   selector: 'app-crud-table',
   templateUrl: './crud-table.component.html',
+  styleUrls: ['../../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 

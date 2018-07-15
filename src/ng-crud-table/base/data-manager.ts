@@ -1,5 +1,5 @@
-import {DataSource} from './interface';
-import {Row, Filter, MenuItem} from '../../ng-data-table';
+import {DataSource, MenuItem} from './interface';
+import {Row, Filter} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {Settings} from '../../ng-data-table/base/settings';

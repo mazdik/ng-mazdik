@@ -1,32 +1,53 @@
 import {
-  Component, OnInit, OnDestroy, Input, ViewChild, HostListener, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, OnInit, OnDestroy, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  HostBinding, ElementRef
 } from '@angular/core';
-import {DataManager, MenuItem, RowMenuEventArgs, Row} from '../../base';
-import {Subscription} from 'rxjs';
+import { DataManager, MenuItem, RowMenuEventArgs, Row } from '../../base';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-row-menu',
   templateUrl: './row-menu.component.html',
-  styleUrls: ['./row-menu.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RowMenuComponent implements OnInit, OnDestroy {
 
   @Input() public dataManager: DataManager;
 
-  @ViewChild('menu') menu: any;
+  left: number;
+  top: number;
   isVisible: boolean;
   selectContainerClicked: boolean;
+
+  @HostBinding('class') cssClass = 'dt-dropdown row-menu';
+
+  @HostBinding('style.left.px')
+  get getLeft(): number {
+    return this.left;
+  }
+
+  @HostBinding('style.top.px')
+  get getTop(): number {
+    return this.top;
+  }
+
+  @HostBinding('style.display')
+  get getDisplay(): string {
+    return (this.isVisible) ? 'block' : 'none';
+  }
 
   private row: Row;
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
 
   ngOnInit() {
     const subScroll = this.dataManager.events.scrollSource$.subscribe(() => {
-      this.hide();
+      if (this.isVisible) {
+        this.isVisible = false;
+        this.cd.detectChanges();
+      }
     });
     this.subscriptions.push(subScroll);
   }
@@ -35,52 +56,58 @@ export class RowMenuComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  positionMenu(left: number, top: number) {
-    const menu = this.menu.nativeElement;
-    const width = menu.offsetParent ? menu.offsetWidth : this.getHiddenElementOuterWidth(menu);
-    const height = menu.offsetParent ? menu.offsetHeight : this.getHiddenElementOuterHeight(menu);
+  @HostListener('window:click', ['$event'])
+  onWindowClick(event: MouseEvent): void {
+    if (!this.selectContainerClicked) {
+      this.closeDropdown();
+    }
+    this.selectContainerClicked = false;
+  }
+
+  @HostListener('window:keydown.esc', ['$event'])
+  onKeyDown(event: KeyboardEvent): void {
+    this.closeDropdown();
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.closeDropdown();
+  }
+
+  getPositionMenu(left: number, top: number) {
+    const menu = this.element.nativeElement;
+    const {height, width} = this.getHiddenElementOuterSizes(menu);
     // flip
     if (left + width - window.pageXOffset > window.innerWidth) {
-        left -= width;
+      left -= width;
     }
     // flip
     if (top + height - window.pageYOffset > window.innerHeight) {
-        top -= height + this.dataManager.dimensions.rowHeight;
+      top -= height + this.dataManager.dimensions.rowHeight;
     }
     // fit
     if (left < document.body.scrollLeft) {
-        left = document.body.scrollLeft;
+      left = document.body.scrollLeft;
     }
     // fit
     if (top < document.body.scrollTop) {
-        top = document.body.scrollTop;
+      top = document.body.scrollTop;
     }
-    menu.style.left = left + 'px';
-    menu.style.top = top + 'px';
+    return { left, top };
   }
 
-  getHiddenElementOuterHeight(element: any): number {
-      element.style.visibility = 'hidden';
-      element.style.display = 'block';
-      const elementHeight = element.offsetHeight;
-      element.style.display = 'none';
-      element.style.visibility = 'visible';
+  getHiddenElementOuterSizes(element: HTMLElement) {
+    if (element.offsetParent) {
+      return { height: element.offsetHeight, width: element.offsetWidth };
+    }
+    element.style.visibility = 'hidden';
+    element.style.display = 'block';
+    const elementHeight = element.offsetHeight;
+    const elementWidth = element.offsetWidth;
+    element.style.display = 'none';
+    element.style.visibility = 'visible';
 
-      return elementHeight;
-  }
-
-  getHiddenElementOuterWidth(element: any): number {
-      element.style.visibility = 'hidden';
-      element.style.display = 'block';
-      const elementWidth = element.offsetWidth;
-      element.style.display = 'none';
-      element.style.visibility = 'visible';
-
-      return elementWidth;
-  }
-
-  toggleDropdown() {
-    this.isVisible ? this.closeDropdown() : this.openDropdown();
+    return { height: elementHeight, width: elementWidth };
   }
 
   openDropdown() {
@@ -96,33 +123,19 @@ export class RowMenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  show(data: RowMenuEventArgs) {
-    this.row = data.row;
+  show(event: RowMenuEventArgs) {
+    this.row = event.row;
     this.selectContainerClicked = true;
-    this.positionMenu(data.left, data.top);
-    this.isVisible = true;
-  }
+    const coords = this.getPositionMenu(event.left, event.top);
 
-  hide() {
-    this.closeDropdown();
-  }
-
-  @HostListener('window:click', ['$event'])
-  onWindowClick(event: MouseEvent): void {
-    if (!this.selectContainerClicked) {
-      this.isVisible = false;
+    if (this.top === coords.top && this.left === coords.left) {
+      this.isVisible ? this.closeDropdown() : this.openDropdown();
+    } else {
+      this.top = coords.top;
+      this.left = coords.left;
+      this.closeDropdown();
+      this.openDropdown();
     }
-    this.selectContainerClicked = false;
-  }
-
-  @HostListener('window:keydown.esc', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    this.isVisible = false;
-  }
-
-  @HostListener('window:resize')
-  onWindowResize(): void {
-    this.isVisible = false;
   }
 
   itemClick(event, item: MenuItem) {

@@ -16,13 +16,11 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   left: number;
   top: number;
-  width: number;
   column: Column = <Column> {};
   isVisible: boolean;
   selectContainerClicked: boolean;
 
-  @HostBinding('class') cssClass = 'datatable-filter';
-  @HostBinding('style.position') position = 'absolute';
+  @HostBinding('class') cssClass = 'dt-dropdown filter-menu';
 
   @HostBinding('style.left.px')
   get getLeft(): number {
@@ -36,7 +34,12 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.width.px')
   get getWidth(): number {
-    return this.width;
+    return this.table.dimensions.columnMenuWidth;
+  }
+
+  @HostBinding('style.display')
+  get getDisplay(): string {
+    return (this.isVisible && this.column.filter) ? 'block' : 'none';
   }
 
   private subscriptions: Subscription[] = [];
@@ -99,7 +102,6 @@ export class FilterComponent implements OnInit, OnDestroy {
   show(event: ColumnMenuEventArgs) {
     this.column = event.column;
     this.selectContainerClicked = true;
-    this.width = this.table.dimensions.columnMenuWidth;
     if (this.top === event.top && this.left === event.left) {
       this.toggleDropdown();
     } else {
