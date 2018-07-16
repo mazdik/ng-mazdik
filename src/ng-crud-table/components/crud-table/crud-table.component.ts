@@ -105,7 +105,9 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   onRowMenuClick(event: any, row: Row) {
     this.dataManager.selectRow(row.$$index);
     const menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
-    this.dataManager.actionMenu[menuIndex].disabled = !this.dataManager.rowChanged(row);
+    if (menuIndex > -1) {
+      this.dataManager.actionMenu[menuIndex].disabled = !this.dataManager.rowChanged(row);
+    }
 
     const left = 0;
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
