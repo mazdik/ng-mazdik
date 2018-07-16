@@ -175,7 +175,7 @@
   border-left: none;
 }
 
-.datatable-filter + .datatable-body {
+.dt-dropdown + .datatable-body {
   border-top: 1px solid #c6c6c6;
 }
 

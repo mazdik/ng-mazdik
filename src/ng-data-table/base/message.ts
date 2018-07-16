@@ -32,6 +32,8 @@ export class Message {
   public column?: string;
   public value?: string;
   public export?: string;
+  public refresh?: string;
+  public revertChanges?: string;
 
   constructor() {
     this.empty = 'No data to display';
@@ -66,6 +68,8 @@ export class Message {
     this.column = 'Column';
     this.value = 'Value';
     this.export = 'Export';
+    this.refresh = 'Refresh';
+    this.revertChanges = 'Revert Changes';
   }
 
 }

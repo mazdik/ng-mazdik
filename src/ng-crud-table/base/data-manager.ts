@@ -126,7 +126,6 @@ export class DataManager extends DataTable {
     } else {
       this.mergeRow(row.$$uid, result);
     }
-    this.events.onRowsChanged();
   }
 
   afterDelete(row: Row, result: boolean) {
@@ -145,6 +144,7 @@ export class DataManager extends DataTable {
       }
     }
     this.rows[rowIndex] = this.generateRow(this.rows[rowIndex]);
+    this.events.onRowsChanged();
   }
 
   refreshRow(row: any, isNew: boolean) {

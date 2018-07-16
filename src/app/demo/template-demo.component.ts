@@ -22,7 +22,7 @@ export class TemplateDemoComponent implements OnInit {
   public settings: Settings = <Settings>{
     headerRowHeight: 0,
     rowHeight: 40,
-    rowNumber: false
+    actionColumnWidth: 0
   };
   @ViewChild('template') template: TemplateRef<any>;
 

@@ -178,4 +178,15 @@ export class DataTable {
     return row;
   }
 
+  revertRowChanges(row: Row) {
+    this.columns.forEach((column) => {
+      this.rows[row.$$index][column.name] = this.rows[row.$$index].$$data[column.name];
+    });
+    this.events.onRowsChanged();
+  }
+
+  rowChanged(row: Row): boolean {
+    return this.columns.some(x => row[x.name] !== row.$$data[x.name]);
+  }
+
 }

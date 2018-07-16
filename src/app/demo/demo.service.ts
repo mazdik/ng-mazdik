@@ -50,11 +50,12 @@ export class DemoService implements DataSource {
       }.bind(this));
   }
 
-  getItem(id: number): Promise<any> {
-    const filterId = {
-      [this.primaryKeys]: {value: id}
-    };
-    return this.getItems(1, filterId, null)
+  getItem(row: any): Promise<any> {
+    const filters: Filter = {};
+    for (const key of this.primaryKeys) {
+      filters[key] = {value: row[key]};
+    }
+    return this.getItems(1, filters, null)
       .then(data => data.items[0]);
   }
 

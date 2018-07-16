@@ -86,19 +86,32 @@ export class CrudTableComponent implements OnInit, OnDestroy {
           label: this.dataManager.messages.titleUpdate,
           icon: 'icon icon-pencil',
           command: (row) => this.updateAction(row),
-        }
+        },
+        {
+          label: this.dataManager.messages.refresh,
+          icon: 'icon icon-reload',
+          command: (row) => this.dataManager.refreshRow(row, false),
+        },
+        {
+          label: this.dataManager.messages.revertChanges,
+          icon: 'icon icon-return',
+          command: (row) => this.dataManager.revertRowChanges(row),
+          disabled: true,
+        },
       );
     }
   }
 
   onRowMenuClick(event: any, row: Row) {
     this.dataManager.selectRow(row.$$index);
+    const menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
+    this.dataManager.actionMenu[menuIndex].disabled = !this.dataManager.rowChanged(row);
 
     const left = 0;
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
     let top = alertHeight + toolbarHeight + this.dataManager.dimensions.headerRowHeight;
-    top += + (row.$$index + 1) * this.dataManager.dimensions.rowHeight;
+    top += (row.$$index + 1) * this.dataManager.dimensions.rowHeight;
     top -= this.dataManager.offsetY;
     this.rowMenu.show(<RowMenuEventArgs>{left, top, row});
   }
