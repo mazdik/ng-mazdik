@@ -68,6 +68,10 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     });
     const subLoading = this.table.events.loadingSource$.subscribe((event) => {
       this.loading = event;
+      // for server-side virtual scroll
+      requestAnimationFrame(() => {
+        this.cd.detectChanges();
+      });
     });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
