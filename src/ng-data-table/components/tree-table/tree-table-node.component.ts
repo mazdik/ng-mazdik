@@ -15,9 +15,8 @@ export class TreeTableNodeComponent implements OnInit {
   @Input() public columns: Column[];
   @Input() public level: number = 0;
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
-  @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
-  loading: boolean = false;
+  public loading: boolean = false;
 
   constructor() {
   }
@@ -69,10 +68,6 @@ export class TreeTableNodeComponent implements OnInit {
 
   stylesByGroup() {
     return translate(this.table.offsetX, 0);
-  }
-
-  onCellEditComplete(event) {
-    this.editComplete.emit(event);
   }
 
 }

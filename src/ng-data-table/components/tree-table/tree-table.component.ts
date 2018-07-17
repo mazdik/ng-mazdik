@@ -17,7 +17,6 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   @Input() public service: TreeDataSource;
   @Input() public table: DataTable;
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
-  @Output() editComplete: EventEmitter<any> = new EventEmitter();
 
   private subscriptions: Subscription[] = [];
 
@@ -44,10 +43,6 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  onCellEditComplete(event) {
-    this.editComplete.emit(event);
   }
 
   onRequestNodes(event) {

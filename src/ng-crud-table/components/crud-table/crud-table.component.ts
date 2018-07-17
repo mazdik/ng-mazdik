@@ -52,9 +52,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const subPage = this.dataManager.events.pageSource$.subscribe(() => {
       this.onPageChanged();
     });
-    const subEdit = this.dataManager.events.editSource$.subscribe((row) => {
-      this.onEditComplete(row);
-    });
     const subRows = this.dataManager.events.rowsChanged$.subscribe(() => {
       this.rowsChanged.emit(true);
     });
@@ -62,7 +59,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
-    this.subscriptions.push(subEdit);
     this.subscriptions.push(subRows);
   }
 
@@ -98,15 +94,36 @@ export class CrudTableComponent implements OnInit, OnDestroy {
           command: (row) => this.dataManager.revertRowChanges(row),
           disabled: true,
         },
+        {
+          label: this.dataManager.messages.save,
+          icon: 'icon icon-ok',
+          command: (row) => this.dataManager.update(row),
+          disabled: true,
+        },
+        {
+          label: this.dataManager.messages.delete,
+          icon: 'icon icon-remove',
+          command: (row) => {
+            if (confirm(this.dataManager.messages.delete + '?')) {
+              this.dataManager.delete(row);
+            }
+          },
+        },
       );
     }
   }
 
   onRowMenuClick(event: any, row: Row) {
     this.dataManager.selectRow(row.$$index);
-    const menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
+
+    const rowChanged = this.dataManager.rowChanged(row);
+    let menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
     if (menuIndex > -1) {
-      this.dataManager.actionMenu[menuIndex].disabled = !this.dataManager.rowChanged(row);
+      this.dataManager.actionMenu[menuIndex].disabled = !rowChanged;
+    }
+    menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.save);
+    if (menuIndex > -1) {
+      this.dataManager.actionMenu[menuIndex].disabled = !rowChanged;
     }
 
     const left = 0;
@@ -135,10 +152,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.dataManager.setItem(row);
     this.dataManager.detailView = false;
     this.modalEditForm.open();
-  }
-
-  onEditComplete(row: Row) {
-    this.dataManager.update(row);
   }
 
   onPageChanged() {

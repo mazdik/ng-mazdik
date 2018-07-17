@@ -155,9 +155,39 @@ export class DataTable {
       this.getLocalRows();
     } else {
       this.rowGroup.updateRowGroupMetadata(this._rows);
+      this.pager.total -= 1;
     }
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.chunkRows(true);
+    this.events.onRowsChanged();
+  }
+
+  deleteRow(row: Row) {
+    let rowIndex = this.rows.findIndex(x => x.$$uid === row.$$uid);
+    this._rows.splice(rowIndex, 1);
+
+    if (this.settings.clientSide) {
+      rowIndex = this.localRows.findIndex(x => x.$$uid === row.$$uid);
+      this.localRows.splice(rowIndex, 1);
+      this.getLocalRows();
+    } else {
+      this.rowGroup.updateRowGroupMetadata(this._rows);
+      this.pager.total -= 1;
+    }
+    this._rows = this.sequence.setRowIndexes(this._rows);
+    this.chunkRows(true);
+    this.events.onRowsChanged();
+  }
+
+  mergeRow(oldRow: Row, newRow: any) {
+    const rowIndex = this.rows.findIndex(x => x.$$uid === oldRow.$$uid);
+
+    for (const key of Object.keys(newRow)) {
+      if (key in this.rows[rowIndex]) {
+        this.rows[rowIndex][key] = newRow[key];
+      }
+    }
+    this.rows[rowIndex] = this.generateRow(this.rows[rowIndex]);
     this.events.onRowsChanged();
   }
 

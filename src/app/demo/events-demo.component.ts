@@ -8,9 +8,14 @@ import {Subscription} from 'rxjs';
   selector: 'app-events-demo',
   template: `
     <app-datatable [table]="table"></app-datatable>
+    <div class="df-alert df-alert-success" style="word-break: break-all;" *ngIf="cellValueChangedEvent">
+      <b>cellValueChanged:</b> {{cellValueChangedEvent}}
+    </div><br>
     <div class="df-alert df-alert-success" style="word-break: break-all;">
-    <b>{{eventName}}:</b> {{eventValue}}</div>
-  `
+      <b>{{eventName}}:</b> {{eventValue}}
+    </div>
+  `,
+  styleUrls: ['../../ng-crud-table/styles/alerts.css'],
 })
 
 export class EventsDemoComponent implements OnInit, OnDestroy {
@@ -25,6 +30,8 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   };
   public eventName: string = 'Event name';
   public eventValue: any = 'event value';
+  public cellValueChangedEvent: any;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
@@ -48,9 +55,13 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
     const subContextMenu = this.table.events.contextMenuSource$.subscribe((data) => {
       this.printEvent('contextmenu', data);
     });
+    const subCellValueChanged = this.table.events.cellValueChangedSource$.subscribe((data) => {
+      this.cellValueChangedEvent = JSON.stringify(data);
+    });
     this.subscriptions.push(subMouseover);
     this.subscriptions.push(subMouseout);
     this.subscriptions.push(subContextMenu);
+    this.subscriptions.push(subCellValueChanged);
   }
 
   ngOnDestroy() {

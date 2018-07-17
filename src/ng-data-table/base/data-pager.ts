@@ -24,4 +24,8 @@ export class DataPager {
     return this.cache[this.current];
   }
 
+  getRange(): string {
+    return `${(this.perPage * (this.current - 1)) + 1} - ${this.rowCount()}`;
+  }
+
 }

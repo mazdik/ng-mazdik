@@ -7,7 +7,7 @@ export class Events {
   private filterSource = new Subject();
   private selectionSource = new Subject();
   private pageSource = new Subject();
-  private editSource = new Subject<any>();
+  private cellValueChangedSource = new Subject<any>();
   private columnMenuSource = new Subject<ColumnMenuEventArgs>();
   private resizeBeginSource = new Subject();
   private resizeSource = new Subject<any>();
@@ -28,7 +28,7 @@ export class Events {
   filterSource$ = this.filterSource.asObservable();
   selectionSource$ = this.selectionSource.asObservable();
   pageSource$ = this.pageSource.asObservable();
-  editSource$ = this.editSource.asObservable();
+  cellValueChangedSource$ = this.cellValueChangedSource.asObservable();
   columnMenuSource$ = this.columnMenuSource.asObservable();
   resizeBeginSource$ = this.resizeBeginSource.asObservable();
   resizeSource$ = this.resizeSource.asObservable();
@@ -61,8 +61,8 @@ export class Events {
     this.pageSource.next();
   }
 
-  onEdit(row: any) {
-    this.editSource.next(row);
+  onCellValueChanged(data: any) {
+    this.cellValueChangedSource.next(data);
   }
 
   onColumnMenuClick(data: ColumnMenuEventArgs) {

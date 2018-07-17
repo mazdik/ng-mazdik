@@ -5,12 +5,7 @@ import {TreeDemoService} from './tree-demo.service';
 
 @Component({
   selector: 'app-tree-table-demo',
-  template: `
-    <app-tree-table
-      [service]="treeService"
-      [table]="table"
-      (editComplete)="onEditComplete($event)">
-    </app-tree-table>`
+  template: `<app-tree-table [service]="treeService" [table]="table"></app-tree-table>`
 })
 export class TreeTableDemoComponent implements OnInit {
 
@@ -56,10 +51,6 @@ export class TreeTableDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  onEditComplete(event) {
-    console.log(event);
   }
 
 }

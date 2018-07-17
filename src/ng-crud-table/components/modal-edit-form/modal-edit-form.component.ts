@@ -32,11 +32,6 @@ export class ModalEditFormComponent implements OnInit {
     this.childModal.hide();
   }
 
-  delete() {
-    this.dataManager.deleteRow();
-    this.childModal.hide();
-  }
-
   public open() {
     this.childModal.show();
   }

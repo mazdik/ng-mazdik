@@ -16,7 +16,6 @@ import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
   @Input() public table: DataTable;
-  @Output() editComplete: EventEmitter<any> = new EventEmitter();
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
@@ -53,9 +52,6 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     const subSort = this.table.events.sortSource$.subscribe(() => {
       this.onSort();
     });
-    const subEdit = this.table.events.editSource$.subscribe((row) => {
-      this.onEditComplete(row);
-    });
     const subColumnBeginResize = this.table.events.resizeBeginSource$.subscribe(() => {
       this.onColumnResizeBegin();
     });
@@ -76,7 +72,6 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
-    this.subscriptions.push(subEdit);
     this.subscriptions.push(subColumnBeginResize);
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
@@ -107,10 +102,6 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       }
     }
     this.table.selection.clearSelection();
-  }
-
-  onEditComplete(event) {
-    this.editComplete.emit(event);
   }
 
   onFilter() {
