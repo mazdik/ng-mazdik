@@ -155,11 +155,14 @@ export class DataTable {
       this.getLocalRows();
     } else {
       this.rowGroup.updateRowGroupMetadata(this._rows);
-      this.pager.total -= 1;
+      this.pager.total += 1;
     }
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.chunkRows(true);
     this.events.onRowsChanged();
+    setTimeout(() => {
+      this.events.onActivateCell(<CellEventArgs>{columnIndex: 0, rowIndex: newRow.$$index});
+    }, 10);
   }
 
   deleteRow(row: Row) {

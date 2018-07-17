@@ -21,24 +21,6 @@
   content: "\270E";
 }
 
-.icon-filter:before,
-.icon-filter:after {
-  content: '';
-  pointer-events: none;
-}
-
-.icon-filter {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border: 7.5px solid;
-  border-bottom: none;
-  border-left-color: transparent;
-  border-right-color: transparent;
-  padding: 2.5px;
-  box-shadow: inset 0 7px;
-}
-
 .icon-reload:before {
   content: "\21bb";
 }
@@ -53,6 +35,28 @@
 
 .icon-remove:before {
   content: "\2716";
+}
+
+.icon-plus:before {
+  content: "\002B";
+}
+
+.icon-filter {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: 7.5px solid;
+  border-bottom: none;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  padding: 2.5px;
+  box-shadow: inset 0 7px;
+}
+
+.icon-filter:before,
+.icon-filter:after {
+  content: '';
+  pointer-events: none;
 }
 
 .icon-node:before {

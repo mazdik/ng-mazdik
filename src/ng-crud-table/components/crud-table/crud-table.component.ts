@@ -109,6 +109,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
             }
           },
         },
+        {
+          label: this.dataManager.messages.duplicate,
+          icon: 'icon icon-plus',
+          command: (row) => this.duplicateAction(row),
+        },
       );
     }
   }
@@ -150,6 +155,13 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   updateAction(row: Row) {
     this.dataManager.setItem(row);
+    this.dataManager.detailView = false;
+    this.modalEditForm.open();
+  }
+
+  duplicateAction(row: Row) {
+    this.dataManager.item = Object.assign({}, row);
+    this.dataManager.isNewItem = true;
     this.dataManager.detailView = false;
     this.modalEditForm.open();
   }
