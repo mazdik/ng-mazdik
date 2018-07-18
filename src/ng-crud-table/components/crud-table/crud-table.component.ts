@@ -160,7 +160,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   duplicateAction(row: Row) {
-    this.dataManager.item = Object.assign({}, row);
+    this.dataManager.item = this.dataManager.cloneRow(row);
     this.dataManager.isNewItem = true;
     this.dataManager.detailView = false;
     this.modalEditForm.open();

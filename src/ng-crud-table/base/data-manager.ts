@@ -9,7 +9,7 @@ export class DataManager extends DataTable {
 
   public service: DataSource;
   public errors: any;
-  public item: any;
+  public item: Row;
   public isNewItem: boolean;
   public detailView: boolean;
   public formValid: boolean = true;
@@ -161,7 +161,7 @@ export class DataManager extends DataTable {
   }
 
   clearItem() {
-    this.item = {};
+    this.item = <Row>{};
     this.isNewItem = true;
   }
 

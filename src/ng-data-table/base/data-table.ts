@@ -222,4 +222,12 @@ export class DataTable {
     return this.columns.some(x => row[x.name] !== row.$$data[x.name]);
   }
 
+  cloneRow(row: Row): Row {
+    const newRow = Object.assign({}, row);
+    newRow.$$uid = null;
+    newRow.$$index = null;
+    newRow.$$data = null;
+    return newRow;
+  }
+
 }
