@@ -1,0 +1,15 @@
+<span *ngIf="!table.settings.rowActionTemplate && !table.settings.selectionMode
+     && table.settings.rowNumber && table.dimensions.actionColumnWidth">
+    {{row.$$index + 1}}
+</span>
+<span *ngIf="table.settings.selectionMode && table.dimensions.actionColumnWidth"
+      class="{{'datatable-' + table.settings.selectionMode}}">
+      <input [type]="table.settings.selectionMode"
+             [checked]="checked"
+             (click)="onCheckboxClick($event)"/>
+</span>
+<ng-template #rowActionTemplate
+             *ngIf="table.settings.rowActionTemplate && table.dimensions.actionColumnWidth"
+             [ngTemplateOutlet]="table.settings.rowActionTemplate"
+             [ngTemplateOutletContext]="cellContext">
+</ng-template>

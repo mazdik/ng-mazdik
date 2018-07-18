@@ -1,28 +1,13 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, DataFilter} from '../../base';
 
 @Component({
   selector: 'app-string-filter',
-  template: `
-    <select class="df-control sm"
-            style="margin-bottom: 8px;"
-            [(ngModel)]="matchMode"
-            (change)="onModeChange()">
-      <option *ngFor="let opt of stringOperators" [value]="opt.value">{{opt.text}}</option>
-    </select>
-    <div class="clearable-input">
-      <input class="df-control"
-             #filterInput
-             [attr.placeholder]="column.name"
-             [value]="table.dataFilter.getFilterValue(column.name)"
-             (input)="onFilterInput($event)"/>
-      <span [style.display]="table.dataFilter.isFilter(column.name) ? 'block' : 'none' "
-            (click)="uncheckAll()">&times;</span>
-    </div>
-  `,
+  templateUrl: 'string-filter.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
@@ -37,7 +22,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   matchMode: string = DataFilter.STARTS_WITH;
   stringOperators: any[];
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -75,6 +60,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   filter(value) {
     this.table.dataFilter.setFilter(value, this.column.name, this.matchMode);
     this.table.events.onFilter();
+    this.cd.markForCheck();
   }
 
   uncheckAll() {

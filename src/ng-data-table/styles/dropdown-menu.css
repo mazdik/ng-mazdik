@@ -16,3 +16,7 @@
   min-width: 160px;
   max-height: 200px;
 }
+
+.filter-menu input[type="datetime-local"] {
+  padding: 6px 4px;
+}

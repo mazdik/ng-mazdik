@@ -9,17 +9,8 @@ import {Row, CellEventArgs} from '../../types';
 
 @Component({
   selector: 'app-datatable-body-cell',
+  templateUrl: 'body-cell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="cell-data" *ngIf="!column.cellTemplate" title="{{value}}">
-      {{value}}
-    </div>
-    <ng-template #cellTemplate
-                 *ngIf="column.cellTemplate"
-                 [ngTemplateOutlet]="column.cellTemplate"
-                 [ngTemplateOutletContext]="cellContext">
-    </ng-template>
-  `
 })
 export class BodyCellComponent implements OnInit, OnDestroy {
 

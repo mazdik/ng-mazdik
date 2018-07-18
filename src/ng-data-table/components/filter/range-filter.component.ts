@@ -1,45 +1,13 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, DataFilter} from '../../base';
 
 @Component({
   selector: 'app-range-filter',
-  template: `
-    <select class="df-control sm"
-            style="margin-bottom: 8px;"
-            [(ngModel)]="matchMode"
-            (change)="onModeChange()">
-      <option *ngFor="let opt of operators" [value]="opt.value">{{opt.text}}</option>
-    </select>
-    <input class="df-control"
-           #filterInput
-           [attr.type]="column.type"
-           [attr.placeholder]="isRangeFilter() ? '>' : column.name"
-           [value]="table.dataFilter.getFilterValue(column.name)"
-           (input)="onFilterInput()"/>
-    <input class="df-control"
-           style="margin-top: 8px;"
-           [attr.type]="column.type"
-           [attr.placeholder]="'<'"
-           *ngIf="isRangeFilter()"
-           [(ngModel)]="valueTo"
-           (input)="onFilterInput()"/>
-    <ul class="list-menu">
-      <li>
-      <span (click)="uncheckAll()">
-        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.messages.clear}}
-      </span>
-      </li>
-      <ng-template [ngIf]="(column.type ==='date' || column.type ==='datetime-local')">
-        <li (click)="lastDate('year')"><span>{{table.messages.lastYear}}</span></li>
-        <li (click)="lastDate('month')"><span>{{table.messages.lastMonth}}</span></li>
-        <li (click)="lastDate('day')"><span>{{table.messages.lastDay}}</span></li>
-        <li (click)="lastDate('hour')"><span>{{table.messages.lastHour}}</span></li>
-      </ng-template>
-    </ul>
-  `,
+  templateUrl: 'range-filter.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 

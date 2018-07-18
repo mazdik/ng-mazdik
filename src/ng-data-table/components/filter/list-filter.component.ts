@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit,
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
 import {SelectOption} from '../../types';
@@ -7,36 +7,8 @@ import {Column, DataTable, DataFilter} from '../../base';
 
 @Component({
   selector: 'app-list-filter',
-  template: `
-    <div class="clearable-input">
-      <input class="df-control"
-             placeholder="{{table.messages.search}}"
-             #filterInput
-             [(ngModel)]="searchFilterText"/>
-      <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
-            (click)="clearSearch()">&times;</span>
-    </div>
-
-    <ul class="list-menu">
-      <li>
-      <span (click)="uncheckAll()">
-        <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.messages.clear}}
-      </span>
-      </li>
-      <li *ngIf="column.selectionLimit !== 1">
-      <span (click)="checkAll()">
-        <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.messages.selectAll}}
-      </span>
-      </li>
-      <li class="list-divider"></li>
-      <li *ngFor="let option of column.options | filterBy: 'name':searchFilterText">
-      <span [ngClass]="{'active': isSelected(option)}"
-            (click)="setSelected(option.id)">
-        <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
-      </span>
-      </li>
-    </ul>
-  `,
+  templateUrl: 'list-filter.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 

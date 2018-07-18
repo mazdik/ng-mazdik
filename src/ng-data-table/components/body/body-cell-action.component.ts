@@ -1,5 +1,6 @@
 import {
-  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ViewContainerRef
+  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef,
+  ViewChild, ViewContainerRef
 } from '@angular/core';
 import {DataTable} from '../../base';
 import {Row} from '../../types';
@@ -7,23 +8,8 @@ import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-datatable-body-cell-action',
+  templateUrl: 'body-cell-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <span *ngIf="!table.settings.rowActionTemplate && !table.settings.selectionMode
-     && table.settings.rowNumber && table.dimensions.actionColumnWidth">
-    {{row.$$index + 1}}</span>
-    <span *ngIf="table.settings.selectionMode && table.dimensions.actionColumnWidth"
-          class="{{'datatable-' + table.settings.selectionMode}}">
-      <input [type]="table.settings.selectionMode"
-             [checked]="checked"
-             (click)="onCheckboxClick($event)"/>
-    </span>
-    <ng-template #rowActionTemplate
-                 *ngIf="table.settings.rowActionTemplate && table.dimensions.actionColumnWidth"
-                 [ngTemplateOutlet]="table.settings.rowActionTemplate"
-                 [ngTemplateOutletContext]="cellContext">
-    </ng-template>
-  `
 })
 export class BodyCellActionComponent implements OnInit, OnDestroy {
 
