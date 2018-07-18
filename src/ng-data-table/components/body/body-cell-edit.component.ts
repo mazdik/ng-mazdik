@@ -50,6 +50,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   switchCellToEditMode() {
     if (this.column.editable) {
       this.editing = true;
+      this.validate();
       this.cd.markForCheck();
     }
   }
@@ -100,6 +101,10 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     if (this.table.settings.editMode !== Constants.editProgrammatically) {
       this.switchCellToViewMode();
     }
+  }
+
+  onInputFocus() {
+    this.tempValue = this.row[this.column.name];
   }
 
 }

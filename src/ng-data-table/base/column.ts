@@ -85,7 +85,7 @@ export class Column extends ColumnBase {
     }
     const length: number = value ? value.length : 0;
 
-    if (this.validation.required && !value) {
+    if (this.validation.required && isBlank(value)) {
       temp.push(`${this.title} is required.`);
     }
     if (this.validation.minLength && length < this.validation.minLength) {
@@ -108,7 +108,7 @@ export class Column extends ColumnBase {
     let regex: RegExp;
     let regexStr: string;
     if (typeof pattern === 'string') {
-      regexStr = `^${pattern}$`;
+      regexStr = pattern;
       regex = new RegExp(regexStr);
     } else {
       regexStr = pattern.toString();

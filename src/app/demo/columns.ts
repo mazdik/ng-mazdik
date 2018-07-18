@@ -19,7 +19,7 @@ export function getColumnsPlayers(): Column[] {
       filter: true,
       frozen: true,
       width: 200,
-      validation: {required: true, pattern: '^[a-zA-Z ]+$'},
+      validation: {required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'},
       editable: true,
     },
     {
@@ -32,6 +32,7 @@ export function getColumnsPlayers(): Column[] {
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},
       ],
+      validation: {required: true},
       editable: true,
     },
     {
@@ -69,7 +70,7 @@ export function getColumnsPlayers(): Column[] {
       sortable: true,
       filter: true,
       type: 'number',
-      validation: {required: true, minLength: 2, maxLength: 10},
+      validation: {required: true, maxLength: 10, pattern: '^[0-9]+$'},
       editable: true,
     },
     {
