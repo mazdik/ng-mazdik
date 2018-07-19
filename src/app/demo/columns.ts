@@ -11,6 +11,7 @@ export function getColumnsPlayers(): Column[] {
       width: 100,
       formHidden: true,
       type: 'number',
+      isPrimaryKey: true,
     },
     {
       title: 'Name',

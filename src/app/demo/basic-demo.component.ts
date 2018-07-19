@@ -19,7 +19,6 @@ export class BasicDemoComponent implements OnInit {
   public settings: Settings = <Settings>{
     api: 'assets/players.json',
     crud: true,
-    primaryKeys: ['id'],
     bodyHeight: 380,
     exportAction: true,
   };

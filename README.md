@@ -35,6 +35,7 @@ export class PlayersComponent {
             frozen: true,
             resizeable: false,
             formHidden: true,
+            isPrimaryKey: true,
         },
         {
             title: 'Name', 
@@ -113,7 +114,6 @@ export class PlayersComponent {
     public settings: Settings = {
         api: 'http://host3/players',
         crud: true,
-        primaryKeys: ['id'],
         tableWidth: 820,
         bodyHeight: 380,
         multipleSort: true
@@ -204,6 +204,7 @@ interface DataSource {
 | formHidden       | boolean    | false   |             |
 | tableHidden      | boolean    | false   |             |
 | cellClass        | string / Function | null |         |
+| isPrimaryKey     | boolean    | false   |             |
 | keyColumn        | string     | null    |             |
 | selectionLimit   | number     | 1       |             |
 | minWidth         | number     | 50      |             |
@@ -217,7 +218,6 @@ interface DataSource {
 |------------------|------------|---------|-------------|
 | api              | string     | null    |             |
 | crud             | boolean    | false   |             |
-| primaryKeys      | string[]   | null    |             |
 | tableWidth       | number     | null    |             |
 | bodyHeight       | number     | null    |             |
 | sortable         | boolean    | true    |             |

@@ -5,7 +5,6 @@ import {Constants} from './constants';
 export class Settings {
   public api?: string;
   public crud?: boolean;
-  public primaryKeys?: string[];
   public tableWidth?: number;
   public bodyHeight?: number;
   public sortable?: boolean = true;

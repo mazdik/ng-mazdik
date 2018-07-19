@@ -20,6 +20,7 @@ export class ColumnBase {
   public formHidden?: boolean;
   public tableHidden?: boolean;
   public cellClass?: string | Function;
+  public isPrimaryKey?: boolean;
   public keyColumn?: string;
   public selectionLimit?: number = 1;
   public minWidth?: number = 50;

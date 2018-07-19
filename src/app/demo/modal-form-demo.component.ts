@@ -33,7 +33,6 @@ export class ModalFormDemoComponent implements OnInit {
   public settings: Settings = <Settings>{
     api: 'assets/players.json',
     crud: true,
-    primaryKeys: ['id'],
   };
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
@@ -100,7 +99,7 @@ export class ModalFormDemoComponent implements OnInit {
   }
 
   updateItem() {
-    this.dataManager.item = Object.assign({}, this._item);
+    this.dataManager.setItem(this._item);
     this.modalEditForm.open();
   }
 

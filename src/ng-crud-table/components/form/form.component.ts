@@ -29,14 +29,10 @@ export class FormComponent implements OnInit, OnDestroy {
     if (column.formHidden) {
       return false;
     }
-    const name = column.name;
-    if (this.dataManager.settings.primaryKeys &&
-      this.dataManager.settings.primaryKeys.length &&
-      !this.dataManager.isNewItem) {
-      return (this.dataManager.settings.primaryKeys.indexOf(name) === -1);
-    } else {
-      return true;
+    if (!this.dataManager.isNewItem && column.isPrimaryKey) {
+      return false;
     }
+    return true;
   }
 
   onValid(event: any, column: Column) {
@@ -61,10 +57,10 @@ export class FormComponent implements OnInit, OnDestroy {
 
   isDisabled(column: Column) {
     if (column.keyColumn && !this.dataManager.isNewItem) {
-      return (this.dataManager.settings.primaryKeys.indexOf(column.keyColumn) !== -1);
-    } else {
-      return false;
+      const fkColumn = this.dataManager.columns.find(x => x.name === column.keyColumn);
+      return (fkColumn.isPrimaryKey === true);
     }
+    return false;
   }
 
 }
