@@ -7,7 +7,7 @@ export class ColumnBase {
   public name: string;
   public sortable?: boolean = true;
   public filter?: boolean = true;
-  public options?: SelectOption[] | Function;
+  public options?: SelectOption[];
   public optionsUrl?: string;
   public width?: number = null;
   public frozen?: boolean;
@@ -25,5 +25,6 @@ export class ColumnBase {
   public minWidth?: number = 50;
   public maxWidth?: number = 500;
   public aggregation?: AggregateType;
+  public filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
 
 }

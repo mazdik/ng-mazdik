@@ -191,7 +191,7 @@ interface DataSource {
 | name             | string     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
-| options          | SelectOption[] / Function | null | |
+| options          | SelectOption[] | null | |
 | optionsUrl       | string     | null    |             |
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
@@ -209,6 +209,7 @@ interface DataSource {
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
 | aggregation      | sum / average / max / min / count | null |             |
+| filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null |             |
 
 ### Settings
 

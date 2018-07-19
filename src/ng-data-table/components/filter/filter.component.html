@@ -1,5 +1,5 @@
 <app-list-filter
-  *ngIf="column.options"
+  *ngIf="column.options || column.filterValuesFunc"
   [table]="table"
   [column]="column"
   [isOpen]="isVisible"

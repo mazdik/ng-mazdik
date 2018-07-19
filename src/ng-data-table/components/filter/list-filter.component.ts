@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy,
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
 import {SelectOption} from '../../types';
@@ -19,10 +19,11 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('filterInput') filterInput: any;
 
-  selectedOptions: any;
-  searchFilterText: string = '';
+  public selectedOptions: any;
+  public searchFilterText: string = '';
+  public loading: boolean;
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -36,6 +37,17 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.setFocus();
     this.clearSearch();
     this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name);
+    if (this.isOpen) {
+      this.loading = true;
+      this.column.getFilterValues().then((res) => {
+        this.column.filterValues = res;
+        this.loading = false;
+        this.cd.markForCheck();
+      }).catch(() => {
+        this.loading = false;
+        this.cd.markForCheck();
+      });
+    }
   }
 
   clearSearch() {
@@ -66,11 +78,11 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   checkAll() {
-    if (typeof this.column.options !== 'function') {
-      this.selectedOptions = this.column.options.map(option => option.id);
+    if (!this.loading) {
+      this.selectedOptions = this.column.filterValues.map(option => option.id);
+      this.filter(this.selectedOptions, this.column.name);
+      this.filterClose.emit(true);
     }
-    this.filter(this.selectedOptions, this.column.name);
-    this.filterClose.emit(true);
   }
 
   uncheckAll() {

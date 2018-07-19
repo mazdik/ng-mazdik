@@ -6,6 +6,7 @@ import {Settings} from './settings';
 export class Column extends ColumnBase {
 
   public index: number;
+  public filterValues: SelectOption[] = [];
 
   constructor(init: Partial<ColumnBase>, private settings: Settings) {
     super();
@@ -49,16 +50,10 @@ export class Column extends ColumnBase {
 
   getOptions(dependsValue?: any): SelectOption[] {
     if (this.options) {
-      let options: SelectOption[];
-      if (typeof this.options === 'function') {
-        options = this.options();
-      } else {
-        options = this.options;
-      }
       if (this.dependsColumn && dependsValue) {
-        return options.filter((value) => value.parentId === dependsValue);
+        return this.options.filter((value) => value.parentId === dependsValue);
       } else {
-        return options;
+        return this.options;
       }
     }
   }
@@ -139,6 +134,15 @@ export class Column extends ColumnBase {
       value = this.getOptionName(value);
     }
     return value;
+  }
+
+  getFilterValues(): Promise<SelectOption[]> {
+    if (this.filterValuesFunc) {
+      return this.filterValuesFunc(this.name);
+    } else if (this.options) {
+      return Promise.resolve(this.options);
+    }
+    return Promise.resolve([]);
   }
 
 }
