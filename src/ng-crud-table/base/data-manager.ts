@@ -12,7 +12,6 @@ export class DataManager extends DataTable {
   public item: Row;
   public isNewItem: boolean;
   public detailView: boolean;
-  public formValid: boolean = true;
   public refreshRowOnSave: boolean;
   public actionMenu: MenuItem[] = [];
 
@@ -175,6 +174,14 @@ export class DataManager extends DataTable {
     this.rows = [];
     this.pager.total = 0;
     this.detailView = false;
+  }
+
+  rowIsValid(row: Row) {
+    const hasError = this.columns.some(x => {
+      const errors = x.validate(row[x.name]);
+      return (errors && errors.length > 0);
+    });
+    return !hasError;
   }
 
 }

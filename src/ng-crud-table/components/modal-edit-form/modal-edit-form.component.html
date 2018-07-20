@@ -3,7 +3,8 @@
     <div *ngIf="childModal.visible">
       <app-row-form
         *ngIf="!dataManager.detailView"
-        [dataManager]="dataManager">
+        [dataManager]="dataManager"
+        (valid)="onFormValid($event)">
       </app-row-form>
       <app-row-view
         *ngIf="dataManager.detailView"
@@ -17,7 +18,7 @@
             class="button button1"
             [style.visibility]="!dataManager.detailView ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!dataManager.formValid">{{dataManager.messages.save}}
+            [disabled]="!formValid">{{dataManager.messages.save}}
     </button>
     <button type="button"
             class="button"

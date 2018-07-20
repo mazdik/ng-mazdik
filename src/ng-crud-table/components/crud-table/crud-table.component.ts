@@ -129,7 +129,8 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
     menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.save);
     if (menuIndex > -1) {
-      this.dataManager.actionMenu[menuIndex].disabled = !rowChanged;
+      const rowIsValid = this.dataManager.rowIsValid(row);
+      this.dataManager.actionMenu[menuIndex].disabled = !rowChanged || !rowIsValid;
     }
 
     const left = 0;

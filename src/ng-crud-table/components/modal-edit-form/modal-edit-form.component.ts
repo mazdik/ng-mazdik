@@ -12,6 +12,8 @@ export class ModalEditFormComponent implements OnInit {
 
   @ViewChild('childModal') childModal: ModalComponent;
 
+  public formValid: boolean = true;
+
   constructor() {
   }
 
@@ -38,6 +40,10 @@ export class ModalEditFormComponent implements OnInit {
 
   public close() {
     this.childModal.hide();
+  }
+
+  onFormValid(event: any) {
+    this.formValid = event;
   }
 
 }

@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy} from '@angular/core';
+import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
 import {DataManager, Column} from '../../base';
 
 @Component({
@@ -9,6 +9,7 @@ import {DataManager, Column} from '../../base';
 export class FormComponent implements OnInit, OnDestroy {
 
   @Input() public dataManager: DataManager;
+  @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
@@ -48,7 +49,7 @@ export class FormComponent implements OnInit, OnDestroy {
         break;
       }
     }
-    this.dataManager.formValid = result;
+    this.valid.emit(result);
   }
 
   onKeyColumnChange(event) {
