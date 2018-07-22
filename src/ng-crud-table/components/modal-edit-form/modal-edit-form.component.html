@@ -2,13 +2,13 @@
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-row-form
-        *ngIf="!dataManager.detailView"
+        *ngIf="!detailView"
         [dataManager]="dataManager"
         [isNewItem]="isNewItem"
         (valid)="onFormValid($event)">
       </app-row-form>
       <app-row-view
-        *ngIf="dataManager.detailView"
+        *ngIf="detailView"
         [dataManager]="dataManager">
       </app-row-view>
 
@@ -17,7 +17,7 @@
   <ng-container class="app-modal-footer">
     <button type="button"
             class="button button1"
-            [style.visibility]="!dataManager.detailView ? 'visible': 'hidden'"
+            [style.visibility]="!detailView ? 'visible': 'hidden'"
             (click)="save()"
             [disabled]="!formValid">{{dataManager.messages.save}}
     </button>
