@@ -17,6 +17,7 @@ export class ColumnBase {
   public resizeable?: boolean = true;
   public dependsColumn?: string;
   public cellTemplate?: TemplateRef<any>;
+  public headerCellTemplate?: TemplateRef<any>;
   public formHidden?: boolean;
   public tableHidden?: boolean;
   public cellClass?: string | Function;

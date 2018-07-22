@@ -201,6 +201,7 @@ interface DataSource {
 | resizeable       | boolean    | true    |             |
 | dependsColumn    | string     | null    |             |
 | cellTemplate     | TemplateRef | null   |             |
+| headerCellTemplate | TemplateRef | null |             |
 | formHidden       | boolean    | false   |             |
 | tableHidden      | boolean    | false   |             |
 | cellClass        | string / Function | null |         |

@@ -20,50 +20,22 @@
       </ng-template>
     </div>
 
-    <div class="datatable-header-cell"
-         *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
-         [ngStyle]="{'width.px': column.width}"
-         [attr.title]="column.title"
-         appResizeableColumn
-         [table]="table"
-         [column]="column">
-          <span class="column-title" (click)="onSort(column)">
-            <span [innerHTML]="column.title"></span>
-            <i class="icon"
-               *ngIf="column.sortable"
-               [ngClass]="table.sorter.getDirection(column.name)">
-            </i>
-          </span>
-      <i *ngIf="column.filter"
-         (click)="clickColumnMenu($event, column)"
-         [ngClass]="{'is-filter': table.dataFilter.isFilter(column.name)}"
-         class="icon-filter column-menu">
-      </i>
-    </div>
+    <app-datatable-header-cell
+        *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
+        appResizeableColumn
+        [table]="table"
+        [column]="column">
+    </app-datatable-header-cell>
   </div>
 
   <div class="datatable-row-center"
        [ngStyle]="stylesByGroup()">
-    <div class="datatable-header-cell"
-         *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn last as isLast"
-         [ngStyle]="{'width.px': column.width}"
-         [attr.title]="column.title"
-         appResizeableColumn
-         [table]="table"
-         [column]="column">
-            <span class="column-title" (click)="onSort(column)">
-              <span [innerHTML]="column.title"></span>
-              <i class="icon"
-                 *ngIf="column.sortable"
-                 [ngClass]="table.sorter.getDirection(column.name)">
-              </i>
-            </span>
-      <i *ngIf="column.filter"
-         (click)="clickColumnMenu($event, column, isLast)"
-         [ngClass]="{'is-filter': table.dataFilter.isFilter(column.name)}"
-         class="icon-filter column-menu">
-      </i>
-    </div>
+      <app-datatable-header-cell
+          *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
+          appResizeableColumn
+          [table]="table"
+          [column]="column">
+      </app-datatable-header-cell>
   </div>
 
 </div>

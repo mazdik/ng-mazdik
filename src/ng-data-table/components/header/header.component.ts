@@ -1,11 +1,10 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
-  ElementRef, ViewChild, ViewContainerRef
+  ViewChild, ViewContainerRef
 } from '@angular/core';
-import {DataTable, Column, Constants} from '../../base';
+import {DataTable, Constants} from '../../base';
 import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
-import {ColumnMenuEventArgs} from '../../types';
 
 @Component({
   selector: 'app-datatable-header',
@@ -22,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -38,12 +37,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subFilter = this.table.events.filterSource$.subscribe(() => {
-      this.cd.markForCheck();
-    });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
-    this.subscriptions.push(subFilter);
   }
 
   ngOnDestroy() {
@@ -53,34 +48,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onSort(column: Column) {
-    if (!column.sortable) {
-      return;
-    }
-    this.table.sorter.setOrder(column.name);
-    this.table.events.onSort();
-  }
-
   clearAllFilters() {
     this.table.dataFilter.clear();
     this.table.events.onFilter();
-  }
-
-  clickColumnMenu(event: any, column: Column, isLast: boolean) {
-    const el = event.target.parentNode;
-    let left = el.offsetLeft;
-    let top = el.offsetTop;
-    top = top + this.element.nativeElement.offsetHeight;
-    // datatable-row-left + offsetLeft
-    if (el.parentNode.offsetLeft > 0) {
-      left = left + el.parentNode.offsetLeft - this.table.offsetX;
-    }
-    const width = this.table.dimensions.columnMenuWidth;
-    if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {
-      left = left + column.width - width;
-    }
-
-    this.table.events.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, column});
   }
 
   stylesByGroup() {

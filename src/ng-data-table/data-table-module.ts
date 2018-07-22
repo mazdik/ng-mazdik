@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 
 import {PaginationComponent} from './components/pagination/pagination.component';
 import {HeaderComponent} from './components/header/header.component';
+import {HeaderCellComponent} from './components/header/header-cell.component';
 import {FilterComponent} from './components/filter/filter.component';
 import {FilterPipe} from './pipes/filter.pipe';
 import {StringFilterComponent} from './components/filter/string-filter.component';
@@ -36,6 +37,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
   declarations: [
     PaginationComponent,
     HeaderComponent,
+    HeaderCellComponent,
     FilterComponent,
     FilterPipe,
     StringFilterComponent,
