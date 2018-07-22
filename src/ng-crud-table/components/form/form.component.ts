@@ -9,6 +9,8 @@ import {DataManager, Column} from '../../base';
 export class FormComponent implements OnInit, OnDestroy {
 
   @Input() public dataManager: DataManager;
+  @Input() public isNewItem: boolean = true;
+
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
@@ -30,7 +32,7 @@ export class FormComponent implements OnInit, OnDestroy {
     if (column.formHidden) {
       return false;
     }
-    if (!this.dataManager.isNewItem && column.isPrimaryKey) {
+    if (!this.isNewItem && column.isPrimaryKey) {
       return false;
     }
     return true;
@@ -57,7 +59,7 @@ export class FormComponent implements OnInit, OnDestroy {
   }
 
   isDisabled(column: Column) {
-    if (column.keyColumn && !this.dataManager.isNewItem) {
+    if (column.keyColumn && !this.isNewItem) {
       const fkColumn = this.dataManager.columns.find(x => x.name === column.keyColumn);
       return (fkColumn.isPrimaryKey === true);
     }

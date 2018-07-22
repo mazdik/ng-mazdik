@@ -4,6 +4,7 @@
       <app-row-form
         *ngIf="!dataManager.detailView"
         [dataManager]="dataManager"
+        [isNewItem]="isNewItem"
         (valid)="onFormValid($event)">
       </app-row-form>
       <app-row-view

@@ -9,9 +9,7 @@ export class DataManager extends DataTable {
 
   public service: DataSource;
   public errors: any;
-  public item: Row;
-  public isNewItem: boolean;
-  public detailView: boolean;
+  public item: any;
   public refreshRowOnSave: boolean;
   public actionMenu: MenuItem[] = [];
 
@@ -72,7 +70,6 @@ export class DataManager extends DataTable {
         this.events.onLoading(false);
         this.errors = null;
         this.afterCreate(res);
-        this.item = res;
       })
       .catch(error => {
         this.events.onLoading(false);
@@ -104,7 +101,6 @@ export class DataManager extends DataTable {
         this.events.onLoading(false);
         this.errors = null;
         this.afterDelete(row, true);
-        this.item = null;
       })
       .catch(error => {
         this.events.onLoading(false);
@@ -152,28 +148,9 @@ export class DataManager extends DataTable {
       });
   }
 
-  saveRow() {
-    if (this.isNewItem) {
-      this.create(this.item);
-    } else {
-      this.update(this.item);
-    }
-  }
-
-  clearItem() {
-    this.item = <Row>{};
-    this.isNewItem = true;
-  }
-
-  setItem(row: Row) {
-    this.item = Object.assign({}, row);
-    this.isNewItem = false;
-  }
-
   clear() {
     this.rows = [];
     this.pager.total = 0;
-    this.detailView = false;
   }
 
   rowIsValid(row: Row) {

@@ -94,12 +94,14 @@ export class ModalFormDemoComponent implements OnInit {
   }
 
   createItem() {
-    this.dataManager.clearItem();
+    this.dataManager.item = {};
+    this.modalEditForm.isNewItem = true;
     this.modalEditForm.open();
   }
 
   updateItem() {
-    this.dataManager.setItem(this._item);
+    this.dataManager.item = Object.assign({}, this._item);
+    this.modalEditForm.isNewItem = false;
     this.modalEditForm.open();
   }
 
