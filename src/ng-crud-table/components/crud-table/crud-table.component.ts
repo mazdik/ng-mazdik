@@ -137,7 +137,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
     let top = alertHeight + toolbarHeight + this.dataManager.dimensions.headerRowHeight;
-    top += (row.$$index + 1) * this.dataManager.dimensions.rowHeight;
+    top += (row.$$offset + row.$$height);
     top -= this.dataManager.offsetY;
     this.rowMenu.show(<RowMenuEventArgs>{left, top, row});
   }

@@ -97,8 +97,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.table.pager.current = page;
     this.table.events.onPage();
     if (this.table.settings.virtualScroll) {
-      const rowIndex = this.table.pager.perPage * (page - 1);
-      const offset = rowIndex * this.table.dimensions.rowHeight;
+      const offset = this.table.rowVirtual.calcPageOffsetY(page);
       this.bodyScroll.setOffsetY(offset);
     } else {
       if (this.table.settings.clientSide) {

@@ -74,7 +74,7 @@ export class RowMenuComponent implements OnInit, OnDestroy {
     this.closeDropdown();
   }
 
-  getPositionMenu(left: number, top: number) {
+  getPositionMenu(left: number, top: number, rowHeight: number) {
     const menu = this.element.nativeElement;
     const {height, width} = this.getHiddenElementOuterSizes(menu);
     // flip
@@ -83,7 +83,7 @@ export class RowMenuComponent implements OnInit, OnDestroy {
     }
     // flip
     if (top + height - window.pageYOffset > window.innerHeight) {
-      top -= height + this.dataManager.dimensions.rowHeight;
+      top -= height + rowHeight;
     }
     // fit
     if (left < document.body.scrollLeft) {
@@ -126,7 +126,7 @@ export class RowMenuComponent implements OnInit, OnDestroy {
   show(event: RowMenuEventArgs) {
     this.row = event.row;
     this.selectContainerClicked = true;
-    const coords = this.getPositionMenu(event.left, event.top);
+    const coords = this.getPositionMenu(event.left, event.top, this.row.$$height);
 
     if (this.top === coords.top && this.left === coords.left) {
       this.isVisible ? this.closeDropdown() : this.openDropdown();

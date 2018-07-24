@@ -52,6 +52,8 @@ export interface Row {
   $$uid: number;
   $$index: number;
   $$data: Object;
+  $$height: number;
+  $$offset: number;
 }
 
 export interface Validation {

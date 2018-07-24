@@ -40,7 +40,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.height.px')
   get rowHeight(): number {
-    return this.table.dimensions.rowHeight;
+    return this.row.$$height;
   }
 
   constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {

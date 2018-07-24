@@ -12,6 +12,7 @@ export class Dimensions {
   public scrollableColumnsWidth: number;
   public headerRowHeight: number = 40;
   public rowHeight: number = 30;
+  public summaryRowHeight: number = 30;
   public scrollHeight: number;
 
   constructor(private settings: Settings, private columns: Column[]) {

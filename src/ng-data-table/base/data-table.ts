@@ -208,6 +208,9 @@ export class DataTable {
       row.$$uid = this.sequence.getUidRow();
     }
     row.$$data = Object.assign({}, row);
+    if (!row.$$height) {
+      row.$$height = this.dimensions.rowHeight;
+    }
     return row;
   }
 

@@ -164,7 +164,7 @@ export class DataTableDemoComponent {
 * Row Grouping (multiple columns)
 * Summary Row (aggregation on a column)
 * Live Updates
-* Virtual scroll
+* Virtual scroll with dynamic row height
 * Header and Cell Templates
 * Keyboard navigation
 * Export Data to CSV
