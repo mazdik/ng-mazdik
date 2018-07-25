@@ -18,7 +18,7 @@ export class RowVirtual {
         private events: Events) {
     }
 
-    chunkRows(rows: Row[], offsetY: number, force: boolean = false) {
+    chunkRows(rows: Row[], force: boolean = false) {
         this.dimensions.initRowHeightCache(rows);
         if (this.settings.virtualScroll && !this.dimensions.bodyHeight) {
             this.dimensions.calcBodyHeight(this.pager.perPage);
@@ -28,7 +28,7 @@ export class RowVirtual {
             const totalRecords = this.pager.total;
             this.dimensions.calcScrollHeight(totalRecords);
 
-            this.start = this.dimensions.calcRowIndex(offsetY);
+            this.start = this.dimensions.calcRowIndex(this.dimensions.offsetY);
             this.end = Math.min(totalRecords, this.start + this.pager.perPage + 1);
             if ((this.end - this.start) < 3) {
                 this.start = this.end - this.pager.perPage;

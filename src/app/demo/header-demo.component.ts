@@ -58,7 +58,7 @@ export class HeaderDemoComponent implements OnInit {
   }
 
   translate3d() {
-    return `translate3d(${this.table.offsetX * -1}px, 0, 0)`;
+    return `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
   }
 
 }

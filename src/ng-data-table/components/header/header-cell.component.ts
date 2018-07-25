@@ -74,7 +74,7 @@ import {ColumnMenuEventArgs} from '../../types';
         top = top + this.table.dimensions.headerRowHeight;
         // datatable-row-left + offsetLeft
         if (el.parentNode.offsetLeft > 0) {
-          left = left + el.parentNode.offsetLeft - this.table.offsetX;
+          left = left + el.parentNode.offsetLeft - this.table.dimensions.offsetX;
         }
         const width = this.table.dimensions.columnMenuWidth;
         if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {

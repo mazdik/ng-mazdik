@@ -54,7 +54,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   stylesByGroup() {
-    return translate(this.table.offsetX * -1, 0);
+    return translate(this.table.dimensions.offsetX * -1, 0);
   }
 
 }

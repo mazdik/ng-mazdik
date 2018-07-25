@@ -83,7 +83,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   }
 
   stylesByGroup() {
-    return translate(this.table.offsetX, 0);
+    return translate(this.table.dimensions.offsetX, 0);
   }
 
 }

@@ -32,8 +32,6 @@ export class DataTable {
   public rowVirtual: RowVirtual;
   public export: Export;
   public localRows: Row[] = [];
-  public offsetX: number = 0;
-  public offsetY: number = 0;
 
   set rows(val: any) {
     val = val.map(this.generateRow.bind(this));
@@ -139,7 +137,7 @@ export class DataTable {
   }
 
   chunkRows(force: boolean = false) {
-    this.rowVirtual.chunkRows(this._rows, this.offsetY, force);
+    this.rowVirtual.chunkRows(this._rows, force);
   }
 
   addRow(newRow: Row) {
@@ -205,7 +203,7 @@ export class DataTable {
     }
     row.$$data = Object.assign({}, row);
     if (!row.$$height) {
-      row.$$height = Math.floor(Math.random() * 80) + 50;
+      row.$$height = this.dimensions.rowHeight;
     }
     return row;
   }

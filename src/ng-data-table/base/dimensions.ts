@@ -15,6 +15,8 @@ export class Dimensions {
   public rowHeight: number = 30;
   public summaryRowHeight: number = 30;
   public scrollHeight: number;
+  public offsetX: number = 0;
+  public offsetY: number = 0;
 
   private rowHeightCache: number[] = [];
 
