@@ -6,11 +6,11 @@ import { Events } from './events';
 
 export class RowVirtual {
 
+    public virtualRows: Row[] = [];
     private start: number;
     private end: number;
     private previousStart: number;
     private previousEnd: number;
-    private cache: number[] = [];
 
     constructor(private settings: Settings,
         private pager: DataPager,
@@ -19,7 +19,7 @@ export class RowVirtual {
     }
 
     chunkRows(rows: Row[], offsetY: number, force: boolean = false) {
-        this.initCache(rows);
+        this.dimensions.initRowHeightCache(rows);
         if (this.settings.virtualScroll && !this.dimensions.bodyHeight) {
             this.dimensions.calcBodyHeight(this.pager.perPage);
         }
@@ -28,7 +28,7 @@ export class RowVirtual {
             const totalRecords = this.pager.total;
             this.dimensions.calcScrollHeight(totalRecords);
 
-            this.start = this.calcRowIndex(offsetY);
+            this.start = this.dimensions.calcRowIndex(offsetY);
             this.end = Math.min(totalRecords, this.start + this.pager.perPage + 1);
             if ((this.end - this.start) < 3) {
                 this.start = this.end - this.pager.perPage;
@@ -38,7 +38,7 @@ export class RowVirtual {
                 const virtualRows = rows.slice(this.start, this.end);
                 this.previousStart = this.start;
                 this.previousEnd = this.end;
-                return virtualRows;
+                this.virtualRows = virtualRows;
             }
         }
     }
@@ -66,44 +66,9 @@ export class RowVirtual {
         this.previousEnd = 0;
     }
 
-    initCache(rows: Row[]) {
-        const size = rows.length;
-        this.cache = new Array(size);
-        for (let i = 0; i < size; ++i) {
-            this.cache[i] = 0;
-        }
-        rows.forEach((row, i) => {
-            for (let index = i; index < size; index++) {
-                this.cache[index] += row.$$height;
-            }
-            row.$$offset = (i === 0) ? 0 : this.cache[i - 1];
-        });
-    }
-
-    private calcRowIndex(offsetY: number): number {
-        if (offsetY === 0) { return 0; }
-        let pos = -1;
-        const dataLength = this.cache.length;
-
-        for (let i = dataLength; i >= 0; i--) {
-          const nextPos = pos + i;
-          if (nextPos < dataLength && offsetY >= this.cache[nextPos]) {
-            offsetY -= this.cache[nextPos];
-            pos = nextPos;
-          }
-        }
-        return pos + 1;
-    }
-
-    getRowOffset(rowIndex: number) {
-        if (rowIndex < 0) { return 0; }
-        return this.cache[rowIndex];
-    }
-
     calcPageOffsetY(page: number) {
         const rowIndex = this.pager.perPage * (page - 1);
-        const offset = this.getRowOffset(rowIndex - 1);
-        return offset;
+        return this.dimensions.getRowOffset(rowIndex - 1);
     }
 
 }

@@ -32,7 +32,6 @@ export class DataTable {
   public rowVirtual: RowVirtual;
   public export: Export;
   public localRows: Row[] = [];
-  public virtualRows: Row[] = [];
   public offsetX: number = 0;
   public offsetY: number = 0;
 
@@ -100,7 +99,7 @@ export class DataTable {
 
   getRows() {
     if (this.settings.virtualScroll) {
-      return this.virtualRows;
+      return this.rowVirtual.virtualRows;
     } else {
       return this._rows;
     }
@@ -140,10 +139,7 @@ export class DataTable {
   }
 
   chunkRows(force: boolean = false) {
-    const virtualRows = this.rowVirtual.chunkRows(this._rows, this.offsetY, force);
-    if (virtualRows && virtualRows.length) {
-      this.virtualRows = virtualRows;
-    }
+    this.rowVirtual.chunkRows(this._rows, this.offsetY, force);
   }
 
   addRow(newRow: Row) {
@@ -209,7 +205,7 @@ export class DataTable {
     }
     row.$$data = Object.assign({}, row);
     if (!row.$$height) {
-      row.$$height = this.dimensions.rowHeight;
+      row.$$height = Math.floor(Math.random() * 80) + 50;
     }
     return row;
   }

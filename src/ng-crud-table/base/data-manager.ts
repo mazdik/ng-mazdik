@@ -34,8 +34,7 @@ export class DataManager extends DataTable {
     if (this.settings.api) {
       this.service.url = this.settings.api;
     }
-    const primaryKeys = this.columns.filter(col => col.isPrimaryKey).map(col => col.name);
-    this.service.primaryKeys = primaryKeys;
+    this.service.primaryKeys = this.columns.filter(col => col.isPrimaryKey).map(col => col.name);;
   }
 
   getItems(concatRows: boolean = false): Promise<any> {
