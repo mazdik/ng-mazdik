@@ -36,7 +36,9 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     this.table.settings.columnResizeMode = Constants.resizeAminated;
 
     const subScroll = this.table.events.scrollSource$.subscribe((event) => {
-      this.cd.detectChanges();
+      requestAnimationFrame(() => {
+        this.cd.detectChanges();
+      });
     });
     this.subscriptions.push(subScroll);
   }

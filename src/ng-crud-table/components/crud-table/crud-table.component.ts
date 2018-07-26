@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, ViewEncapsulation, OnDestroy,
-  TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy
+  TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
 import {DataManager, Row, RowMenuEventArgs} from '../../base';
@@ -31,7 +31,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -56,11 +56,17 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const subRows = this.dataManager.events.rowsChanged$.subscribe(() => {
       this.rowsChanged.emit(true);
     });
+    const subScroll = this.dataManager.events.scrollSource$.subscribe(() => {
+      requestAnimationFrame(() => {
+        this.cd.detectChanges();
+      });
+    });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
     this.subscriptions.push(subRows);
+    this.subscriptions.push(subScroll);
   }
 
   ngOnDestroy() {
