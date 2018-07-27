@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {TreeNode, TreeDataSource} from '../../types';
-import {Column, DataTable} from '../../base';
+import {TreeNode} from '../../types';
+import {TreeTable} from '../../base';
 import {translate} from '../../base/util';
 
 @Component({
@@ -9,10 +9,8 @@ import {translate} from '../../base/util';
 })
 export class TreeTableNodeComponent implements OnInit {
 
-  @Input() public table: DataTable;
+  @Input() public treeTable: TreeTable;
   @Input() public nodes: TreeNode[];
-  @Input() public service: TreeDataSource;
-  @Input() public columns: Column[];
   @Input() public level: number = 0;
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
 
@@ -31,12 +29,12 @@ export class TreeTableNodeComponent implements OnInit {
   onExpand(node: TreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
-      if (this.service) {
+      if (this.treeTable.service) {
         this.loading = true;
-        this.service.getNodes(node).then(data => {
+        this.treeTable.service.getNodes(node).then(data => {
           if (data && data.length) {
             data.forEach(n => {
-              n.data.$$index = this.table.sequence.getUidRow();
+              n.data.$$index = this.treeTable.sequence.getUidRow();
             });
           }
           node.children = data;
@@ -55,7 +53,7 @@ export class TreeTableNodeComponent implements OnInit {
 
   getIcon(node: TreeNode) {
     let icon: string;
-    if (this.loading) {
+    if (this.loading && !this.isLeaf(node)) {
       return 'icon-collapsing';
     }
     if (!this.isLeaf(node) && node.expanded) {
@@ -67,7 +65,11 @@ export class TreeTableNodeComponent implements OnInit {
   }
 
   stylesByGroup() {
-    return translate(this.table.dimensions.offsetX, 0);
+    return translate(this.treeTable.dimensions.offsetX, 0);
+  }
+
+  isSelected(node: TreeNode) {
+    return (this.treeTable.selectedNode && this.treeTable.selectedNode.$$id === node.$$id);
   }
 
 }

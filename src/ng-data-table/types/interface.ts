@@ -31,7 +31,7 @@ export interface TreeNode {
   leaf?: boolean;
   parent?: TreeNode;
   icon?: string;
-  $$id?: string;
+  $$id?: number;
   $$filterState?: number;
   $$level?: number;
 }

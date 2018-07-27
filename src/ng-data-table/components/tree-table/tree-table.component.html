@@ -1,6 +1,6 @@
 <div class="datatable fixed-header fixed-row scroll-horz">
   <app-datatable-header
-    [table]="table">
+    [table]="treeTable">
   </app-datatable-header>
 
   <div class="datatable-body"
@@ -10,12 +10,10 @@
       appBodyClick
       appBodyDblClick
       appBodyContextMenu
-      [table]="table">
+      [table]="treeTable">
         <app-tree-table-node
-          [table]="table"
-          [nodes]="nodes"
-          [service]="service"
-          [columns]="table.columns"
+          [treeTable]="treeTable"
+          [nodes]="treeTable.nodes"
           (requestNodes)="onRequestNodes($event)">
         </app-tree-table-node>
   </div>

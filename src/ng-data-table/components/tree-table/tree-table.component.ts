@@ -1,8 +1,8 @@
 import {
   Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectorRef
 } from '@angular/core';
-import {TreeNode, TreeDataSource} from '../../types';
-import {DataTable, Constants} from '../../base';
+import {TreeNode} from '../../types';
+import {TreeTable, Constants} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -13,9 +13,7 @@ import {Subscription} from 'rxjs';
 })
 export class TreeTableComponent implements OnInit, OnDestroy {
 
-  @Input() public nodes: TreeNode[];
-  @Input() public service: TreeDataSource;
-  @Input() public table: DataTable;
+  @Input() public treeTable: TreeTable;
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
 
   private subscriptions: Subscription[] = [];
@@ -24,18 +22,11 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    if (this.service && !this.nodes) {
-      this.service.getNodes().then(data => {
-        this.nodes = data;
-        this.setRowIndexes(this.nodes);
-      });
-    } else {
-      this.setRowIndexes(this.nodes);
-    }
-    this.table.dimensions.actionColumnWidth = 250;
-    this.table.settings.columnResizeMode = Constants.resizeAminated;
+    this.treeTable.initGetNodes();
+    this.treeTable.dimensions.actionColumnWidth = 250;
+    this.treeTable.settings.columnResizeMode = Constants.resizeAminated;
 
-    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
+    const subScroll = this.treeTable.events.scrollSource$.subscribe((event) => {
       requestAnimationFrame(() => {
         this.cd.detectChanges();
       });
@@ -49,17 +40,6 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   onRequestNodes(event) {
     this.requestNodes.emit(event);
-  }
-
-  setRowIndexes(nodes: TreeNode[]) {
-    if (nodes && nodes.length) {
-      nodes.forEach(n => {
-        n.data.$$index = this.table.sequence.getUidRow();
-        if (n.children) {
-          this.setRowIndexes(n.children);
-        }
-      });
-    }
   }
 
 }
