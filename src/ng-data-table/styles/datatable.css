@@ -171,10 +171,6 @@
   border-left: 1px solid #c6c6c6;
 }
 
-.datatable-group-header .datatable-row-left {
-  border-left: none;
-}
-
 .dt-dropdown + .datatable-body {
   border-top: 1px solid #c6c6c6;
 }
@@ -282,10 +278,10 @@
 .datatable-group-header {
   border-right: solid 1px #D9D8D9;
   border-bottom: solid 1px #D9D8D9;
-  border-left: solid 1px #D9D8D9;
-  height: 30px;
-  line-height: 30px;
-  padding: 0 3px;
+}
+
+.datatable-group-header .datatable-body-cell {
+  border: none;
 }
 
 .datatable-group-header,

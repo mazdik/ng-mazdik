@@ -4,9 +4,11 @@
 
     <div class="datatable-body-row datatable-group-header"
          *ngIf="table.rowGroup.isRowGroup(row)"
-         [style.width.px]="table.dimensions.columnsTotalWidth">
+         [style.width.px]="table.dimensions.columnsTotalWidth + 1">
       <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
-        {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+        <div class="datatable-body-cell">
+          {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+        </div>
       </div>
       <div class="datatable-row-center"></div>
     </div>

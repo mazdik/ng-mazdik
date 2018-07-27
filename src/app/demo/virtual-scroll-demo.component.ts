@@ -6,7 +6,7 @@ import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-virtual-scroll-demo',
-  template: `<p>Client-side virtual scroll</p>
+  template: `<p>Client-side virtual scroll with dynamic row height</p>
   <app-datatable [table]="table"></app-datatable>
   <p>Server-side virtual scroll</p>
   <app-crud-table [dataManager]="dataManager"></app-crud-table>
@@ -41,7 +41,10 @@ export class VirtualScrollDemoComponent implements OnInit {
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
+      for (const row of data) {
+        row.$$height = (row.exp > 1000000) ? 40 : 25;
+      }
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
