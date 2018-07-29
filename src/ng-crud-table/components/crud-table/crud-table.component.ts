@@ -93,7 +93,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
         {
           label: this.dataManager.messages.refresh,
           icon: 'icon icon-reload',
-          command: (row) => this.dataManager.refreshRow(row, false),
+          command: (row) => this.dataManager.refreshRow(row),
         },
         {
           label: this.dataManager.messages.revertChanges,

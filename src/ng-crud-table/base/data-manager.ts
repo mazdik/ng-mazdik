@@ -108,16 +108,12 @@ export class DataManager extends DataTable {
   }
 
   afterCreate(result: any) {
-    if (this.refreshRowOnSave) {
-      this.refreshRow(result, true);
-    } else {
-      this.addRow(result);
-    }
+    this.addRow(result);
   }
 
   afterUpdate(row: Row, result: any) {
     if (this.refreshRowOnSave) {
-      this.refreshRow(row, false);
+      this.refreshRow(row);
     } else {
       this.mergeRow(row, result);
     }
@@ -129,17 +125,13 @@ export class DataManager extends DataTable {
     }
   }
 
-  refreshRow(row: any, isNew: boolean) {
+  refreshRow(row: Row) {
     this.events.onLoading(true);
     this.errors = null;
     this.service.getItem(row)
       .then(data => {
         this.events.onLoading(false);
-        if (isNew) {
-          this.addRow(data);
-        } else {
-          this.mergeRow(row, data);
-        }
+        this.mergeRow(row, data);
       })
       .catch(error => {
         this.events.onLoading(false);

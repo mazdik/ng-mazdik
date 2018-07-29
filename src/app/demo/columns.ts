@@ -82,7 +82,14 @@ export function getColumnsPlayers(): Column[] {
       type: 'datetime-local',
       editable: true,
     },
-    {title: 'Account name', name: 'account_name', editable: true},
+    {
+      title: 'Account name',
+      name: 'account_name',
+      editable: true,
+      type: 'select-popup',
+      optionsUrl: 'assets/accounts.json',
+      keyColumn: 'account_id',
+    },
     {title: 'Account id', name: 'account_id', editable: true},
     {title: 'Player class', name: 'player_class', editable: true},
     {
