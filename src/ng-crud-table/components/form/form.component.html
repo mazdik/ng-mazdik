@@ -32,7 +32,8 @@
         (valid)="onValid($event, column)"
         [service]="dataManager.service"
         (keyColumnChange)="onKeyColumnChange($event)"
-        [disabled]="isDisabled(column)">
+        [disabled]="isDisabled(column)"
+        (nameChanged)="onSelectPopupNameChanged($event, column)">
       </app-form-select-popup>
 
       <app-form-checkbox

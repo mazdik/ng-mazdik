@@ -66,4 +66,10 @@ export class FormComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  onSelectPopupNameChanged(value: any, column: Column) {
+    if (column.keyColumn) {
+      this.dataManager.item[column.name] = value;
+    }
+  }
+
 }

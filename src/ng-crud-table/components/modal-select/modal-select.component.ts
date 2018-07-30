@@ -12,8 +12,11 @@ export class ModalSelectComponent implements OnInit {
     this._options = val;
     if (this._options) {
       this.optionsCopy = [...val];
+      this.selectedName = this.getName();
+      if (this.selectedName) {
+        this.nameChanged.emit(this.selectedName);
+      }
     }
-    this.selectedName = this.getName();
   }
 
   get options(): any[] {
@@ -24,9 +27,12 @@ export class ModalSelectComponent implements OnInit {
   set model(value) {
     if (this._model !== value) {
       this._model = value;
-      this.valueChange.emit(this._model);
+      this.valueChanged.emit(this._model);
+      this.selectedName = this.getName();
+      if (this.selectedName) {
+        this.nameChanged.emit(this.selectedName);
+      }
     }
-    this.selectedName = this.getName();
   }
 
   get model() {
@@ -36,7 +42,8 @@ export class ModalSelectComponent implements OnInit {
   @Input() public zIndex: number;
   @Input() public filterDelay: number = 300;
   @Input() public disabled: boolean;
-  @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter();
+  @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modal') readonly modal: any;
   searchFilterText: any;

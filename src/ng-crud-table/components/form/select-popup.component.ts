@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import {InputOptionComponent} from './input-option.component';
 
 @Component({
@@ -10,7 +10,8 @@ import {InputOptionComponent} from './input-option.component';
       <app-modal-select [(value)]="model"
                     [options]="getOptions()"
                     [disabled]="disabled"
-                    (valueChange)="onValueChange()">
+                    (valueChanged)="onValueChange()"
+                    (nameChanged)="nameChanged.emit($event)">
       </app-modal-select>
       <div class="df-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
@@ -19,5 +20,7 @@ import {InputOptionComponent} from './input-option.component';
   `
 })
 export class PopupSelectComponent extends InputOptionComponent {
+
+  @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
 }

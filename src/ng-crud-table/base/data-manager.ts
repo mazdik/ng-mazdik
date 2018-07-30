@@ -17,7 +17,6 @@ export class DataManager extends DataTable {
     super(columns, settings, messages);
     this.settings.clientSide = false;
     this.setService(dataSource);
-    this.refreshRowOnSave = this.columns.some(x => x.keyColumn !== undefined);
   }
 
   set filters(val: Filter) {
