@@ -21,7 +21,8 @@
         (valid)="onValid($event, column)"
         [service]="dataManager.service"
         (keyColumnChange)="onKeyColumnChange($event)"
-        [disabled]="isDisabled(column)">
+        [disabled]="isDisabled(column)"
+        (loaded)="loaded.emit($event)">
       </app-form-select>
 
       <app-form-select-popup
@@ -33,7 +34,8 @@
         [service]="dataManager.service"
         (keyColumnChange)="onKeyColumnChange($event)"
         [disabled]="isDisabled(column)"
-        (nameChanged)="onSelectPopupNameChanged($event, column)">
+        (nameChanged)="onSelectPopupNameChanged($event, column)"
+        (loaded)="loaded.emit($event)">
       </app-form-select-popup>
 
       <app-form-checkbox
@@ -43,7 +45,8 @@
         [dependsValue]="dataManager.item[column.dependsColumn]"
         (valid)="onValid($event, column)"
         [service]="dataManager.service"
-        [disabled]="isDisabled(column)">
+        [disabled]="isDisabled(column)"
+        (loaded)="loaded.emit($event)">
       </app-form-checkbox>
 
       <app-form-radio
@@ -53,7 +56,8 @@
         [dependsValue]="dataManager.item[column.dependsColumn]"
         (valid)="onValid($event, column)"
         [service]="dataManager.service"
-        [disabled]="isDisabled(column)">
+        [disabled]="isDisabled(column)"
+        (loaded)="loaded.emit($event)">
       </app-form-radio>
 
       <app-form-textarea

@@ -207,4 +207,8 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.select.emit(this.dataManager.selection.getSelectedRows(this.dataManager.rows));
   }
 
+  onLoadedForm() {
+    this.cd.markForCheck();
+  }
+
 }

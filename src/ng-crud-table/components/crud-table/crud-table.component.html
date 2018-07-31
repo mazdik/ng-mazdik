@@ -7,7 +7,7 @@
 
 <app-datatable [table]="dataManager"></app-datatable>
 
-<app-modal-edit-form #modalEditForm [dataManager]="dataManager">
+<app-modal-edit-form #modalEditForm [dataManager]="dataManager" (loaded)="onLoadedForm()">
 </app-modal-edit-form>
 
 <ng-template #rowActionTemplate let-row="row">

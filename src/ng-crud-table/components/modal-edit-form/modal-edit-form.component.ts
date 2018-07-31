@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../../base';
 
@@ -11,6 +11,8 @@ export class ModalEditFormComponent implements OnInit {
   @Input() public dataManager: DataManager;
   @Input() public detailView: boolean;
   @Input() public isNewItem: boolean;
+
+  @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('childModal') childModal: ModalComponent;
 

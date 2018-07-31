@@ -12,6 +12,7 @@ export class FormComponent implements OnInit, OnDestroy {
   @Input() public isNewItem: boolean = true;
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
+  @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   private validElements: any = {};

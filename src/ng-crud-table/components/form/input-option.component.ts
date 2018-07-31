@@ -10,6 +10,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
 
   @Input() public service: DataSource;
   @Output() keyColumnChange: EventEmitter<any> = new EventEmitter();
+  @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @Input()
   set dependsValue(value) {
@@ -55,9 +56,11 @@ export class InputOptionComponent extends InputComponent implements OnInit {
         this._options = res;
         this.loading = false;
         this.setDefaultSelect();
+        this.loaded.emit();
       }).catch(error => {
         this._options = [];
         this.loading = false;
+        this.loaded.emit();
       });
     }
   }
