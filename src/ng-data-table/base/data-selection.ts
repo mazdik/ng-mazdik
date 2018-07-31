@@ -1,4 +1,4 @@
-import {SelectionType} from '../types';
+import {SelectionType, Row} from '../types';
 import {Settings} from './settings';
 import {Events} from './events';
 
@@ -27,6 +27,18 @@ export class DataSelection {
       }
     }
     this.events.onSelectionChange();
+  }
+
+  selectAllRows(rows: Row[]) {
+    if (rows && rows.length) {
+      this.selectedRowIndexes = [];
+      this.selectedRowIndex = null;
+      for (const row of rows) {
+        this.selectedRowIndexes.push(row.$$index);
+        this.selectedRowIndex = row.$$index;
+      }
+      this.events.onSelectionChange();
+    }
   }
 
   clearSelection() {

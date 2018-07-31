@@ -48,11 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  clearAllFilters() {
-    this.table.dataFilter.clear();
-    this.table.events.onFilter();
-  }
-
   stylesByGroup() {
     return translate(this.table.dimensions.offsetX * -1, 0);
   }

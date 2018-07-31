@@ -46,9 +46,6 @@
   height: 2rem;
   background: #fff;
   cursor: pointer;
-}
-
-.datatable-radio input[type='radio']:checked:after {
   border: 1px solid #ccc;
   border-radius: 100%;
 }
