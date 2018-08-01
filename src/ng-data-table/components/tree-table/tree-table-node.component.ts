@@ -10,7 +10,8 @@ import {translate} from '../../base/util';
 export class TreeTableNodeComponent implements OnInit {
 
   @Input() public treeTable: TreeTable;
-  @Input() public nodes: TreeNode[];
+  @Input() public node: TreeNode;
+  @Input() public parentNode: TreeNode;
   @Input() public level: number = 0;
   @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
 
@@ -20,6 +21,15 @@ export class TreeTableNodeComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.node.$$id) {
+      this.node.$$id = this.treeTable.sequence.getUidRow();
+    }
+    if (!this.node.$$level) {
+      this.node.$$level = (this.parentNode) ? this.parentNode.$$level + 1 : 0;
+    }
+    if (!this.node.parent) {
+      this.node.parent = this.parentNode;
+    }
   }
 
   isLeaf(node: TreeNode) {
@@ -54,8 +64,8 @@ export class TreeTableNodeComponent implements OnInit {
               n.data.$$index = this.treeTable.sequence.getUidRow();
             });
           }
-          node.children = data;
           this.loading = false;
+          this.treeTable.addNode(node.$$id, data);
           this.requestNodes.emit(node);
         }).catch(err => {
           this.loading = false;

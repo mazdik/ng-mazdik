@@ -11,7 +11,8 @@
      appBodyContextMenu
      [table]="treeTable">
   <app-tree-table-node
+    *ngFor="let node of treeTable.nodes"
     [treeTable]="treeTable"
-    [nodes]="treeTable.nodes">
+    [node]="node">
   </app-tree-table-node>
 </div>

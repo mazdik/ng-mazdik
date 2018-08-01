@@ -55,6 +55,24 @@ export class TreeTable extends DataTable {
     }
   }
 
+  addNode(nodeId: number, children: TreeNode[]) {
+    this.nodes.forEach((node) => {
+      this._addNode(node, nodeId, children);
+    });
+  }
+
+  private _addNode(node: TreeNode, nodeId: number, children: TreeNode[]) {
+    if (node.$$id === nodeId) {
+      node.children = children;
+      this.setNodeChildDefaults(node);
+      return true;
+    } else if (node.children) {
+      node.children.forEach((child) => {
+        this._addNode(child, nodeId, children);
+      });
+    }
+  }
+
   setNodeChildDefaults(node: TreeNode) {
     if (node.children) {
       for (const child of node.children) {
