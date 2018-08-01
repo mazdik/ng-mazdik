@@ -1,7 +1,6 @@
 import {
-  Component, OnInit, OnDestroy, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectorRef
+  Component, OnInit, OnDestroy, Input, ViewEncapsulation, ChangeDetectorRef, HostBinding
 } from '@angular/core';
-import {TreeNode} from '../../types';
 import {TreeTable, Constants} from '../../base';
 import {Subscription} from 'rxjs';
 
@@ -14,7 +13,8 @@ import {Subscription} from 'rxjs';
 export class TreeTableComponent implements OnInit, OnDestroy {
 
   @Input() public treeTable: TreeTable;
-  @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
+
+  @HostBinding('class') cssClass = 'datatable';
 
   private subscriptions: Subscription[] = [];
 
@@ -36,10 +36,6 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  onRequestNodes(event) {
-    this.requestNodes.emit(event);
   }
 
 }

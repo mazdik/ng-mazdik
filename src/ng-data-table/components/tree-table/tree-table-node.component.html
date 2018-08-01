@@ -1,11 +1,9 @@
 <ng-container *ngFor="let node of nodes">
-  <div class="datatable-body-row" 
-      (click)="treeTable.onSelectNode(node)">
+  <div class="datatable-body-row"
+      (click)="onSelectNode(node)">
 
-    <div class="datatable-row-left"
-         [ngStyle]="stylesByGroup()">
-      <div class="datatable-body-cell"
-           [ngStyle]="{'width.px': 250}">
+    <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
+      <div class="datatable-body-cell" [style.width.px]="treeTable.dimensions.actionColumnWidth">
 
         <div class="datatable-tree-node"
              [ngStyle]="{'padding-left.px': level*10}"
@@ -13,9 +11,9 @@
           <i [class]="getIcon(node)"
              (click)="onExpand(node)">
           </i>
-          <i *ngIf="node.icon" [ngClass]="node.icon"></i>
           <span class="datatable-tree-node-content"
                 (dblclick)="onExpand(node)">
+            <i *ngIf="node.icon" [ngClass]="node.icon"></i>
             {{node.name}}
           </span>
         </div>

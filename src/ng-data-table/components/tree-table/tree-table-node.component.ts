@@ -26,9 +26,26 @@ export class TreeTableNodeComponent implements OnInit {
     return node.leaf === false ? false : !(node.children && node.children.length);
   }
 
+  isSelected(node: TreeNode) {
+    return (this.treeTable.selectedNode && this.treeTable.selectedNode.$$id === node.$$id);
+  }
+
+  onSelectNode(node: TreeNode) {
+    if (this.treeTable.selectedNode !== node) {
+      this.treeTable.selectedNode = node;
+      this.treeTable.events.onSelectionChange();
+    }
+  }
+
   onExpand(node: TreeNode) {
     node.expanded = !node.expanded;
-    if (node.expanded && (!node.children || node.children.length === 0) && node.leaf === false) {
+    if (node.expanded) {
+      this.loadNode(node);
+    }
+  }
+
+  loadNode(node: TreeNode) {
+    if ((!node.children || node.children.length === 0) && node.leaf === false) {
       if (this.treeTable.service) {
         this.loading = true;
         this.treeTable.service.getNodes(node).then(data => {
@@ -66,10 +83,6 @@ export class TreeTableNodeComponent implements OnInit {
 
   stylesByGroup() {
     return translate(this.treeTable.dimensions.offsetX, 0);
-  }
-
-  isSelected(node: TreeNode) {
-    return (this.treeTable.selectedNode && this.treeTable.selectedNode.$$id === node.$$id);
   }
 
 }
