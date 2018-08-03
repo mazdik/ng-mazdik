@@ -12,16 +12,32 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   public treeService: TreeDataSource;
   public treeTable: TreeTable;
-  public settings: Settings;
+  public settings: Settings = <Settings> {};
   public columns: Column[] = <Column[]>[
     {
-      title: 'Column',
-      name: 'column',
+      title: 'Name',
+      name: 'name',
       sortable: false,
       filter: false,
       frozen: false,
       resizeable: true,
       editable: true,
+      validation: {required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'},
+      width: 250,
+    },
+    {
+      title: 'Gender',
+      name: 'gender',
+      sortable: false,
+      filter: false,
+      frozen: false,
+      resizeable: true,
+      editable: true,
+      type: 'radio',
+      options: [
+        {id: 'MALE', name: 'MALE'},
+        {id: 'FEMALE', name: 'FEMALE'},
+      ],
       width: 250,
     },
     {
@@ -55,7 +71,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     const subSelection = this.treeTable.events.selectionSource$.subscribe(() => {
-      console.log(this.treeTable.selectedNode);
+      console.log(this.treeTable.getSelection());
     });
     this.subscriptions.push(subSelection);
   }

@@ -66,6 +66,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     ToolbarComponent,
     PaginationComponent,
     HeaderComponent,
+    BodyScrollDirective,
     BodyKeydownDirective,
     BodyClickDirective,
     BodyDblClickDirective,

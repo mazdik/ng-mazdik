@@ -3,7 +3,8 @@
     "id": "ASMODIANS",
     "name": "ASMODIANS",
     "data": {
-      "column": "race",
+      "name": "Defunct",
+      "gender": "MALE",
       "cube_size": "1",
       "exp": 777777
     },
@@ -12,7 +13,8 @@
         "id": "MALE",
         "name": "MALE",
         "data": {
-          "column": "gender",
+          "name": "Extaze",
+          "gender": "MALE",
           "cube_size": "12",
           "exp": 7347
         }
@@ -21,7 +23,8 @@
         "id": "FEMALE",
         "name": "FEMALE",
         "data": {
-          "column": "gender",
+          "name": "Soer",
+          "gender": "FEMALE",
           "cube_size": "13",
           "exp": 7347
         }
@@ -32,7 +35,8 @@
     "id": "ELYOS",
     "name": "ELYOS",
     "data": {
-      "column": "race",
+      "name": "Spartacus",
+      "gender": "FEMALE",
       "cube_size": "2",
       "exp": 999999
     },
@@ -41,7 +45,8 @@
         "id": "MALE",
         "name": "MALE",
         "data": {
-          "column": "gender",
+          "name": "Chesterxd",
+          "gender": "MALE",
           "cube_size": "21",
           "exp": 7347
         },
@@ -51,7 +56,8 @@
             "name": "LAZY",
             "leaf": false,
             "data": {
-              "column": "gender",
+              "name": "Chester",
+              "gender": "FEMALE",
               "cube_size": "21",
               "exp": 7347
             }
@@ -62,7 +68,8 @@
         "id": "FEMALE",
         "name": "FEMALE",
         "data": {
-          "column": "gender",
+          "name": "Oumen",
+          "gender": "FEMALE",
           "cube_size": "22",
           "exp": 7347
         }

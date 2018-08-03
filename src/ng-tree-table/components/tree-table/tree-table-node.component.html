@@ -7,7 +7,7 @@
     <div class="datatable-body-cell" [style.width.px]="treeTable.dimensions.actionColumnWidth">
 
       <div class="datatable-tree-node"
-           [ngStyle]="{'padding-left.px': level*10}"
+           [ngStyle]="{'padding-left.px': node.$$level*10}"
            style="cursor: pointer;">
         <i [class]="getIcon(node)"
            (click)="onExpand(node)">
@@ -47,8 +47,6 @@
     *ngFor="let childNode of node.children"
     [node]="childNode"
     [parentNode]="node"
-    [treeTable]="treeTable"
-    [level]="level+1"
-    (requestNodes)="onRequestLocal($event)">
+    [treeTable]="treeTable">
   </app-tree-table-node>
 </ng-container>

@@ -22,7 +22,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.treeTable.initGetNodes();
+    this.initGetNodes();
     this.treeTable.dimensions.actionColumnWidth = 250;
     this.treeTable.settings.columnResizeMode = Constants.resizeAminated;
 
@@ -36,6 +36,15 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  initGetNodes() {
+    this.treeTable.events.onLoading(true);
+    this.treeTable.tree.initLoadNodes().then(() => {
+      this.treeTable.events.onLoading(false);
+    }).catch(() => {
+      this.treeTable.events.onLoading(false);
+    });
   }
 
 }

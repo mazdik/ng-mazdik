@@ -155,7 +155,6 @@ export function getColumnsInventory(): Column[] {
     {title: 'itemCount', name: 'itemCount', width: 100},
     {title: 'itemColor', name: 'itemColor', width: 100},
     {title: 'itemOwner', name: 'itemOwner', width: 100},
-    {title: 'itemCreator', name: 'itemCreator', width: 100},
     {title: 'itemCreationTime', name: 'itemCreationTime'},
     {title: 'itemExistTime', name: 'itemExistTime'},
     {title: 'itemTradeTime', name: 'itemTradeTime'},

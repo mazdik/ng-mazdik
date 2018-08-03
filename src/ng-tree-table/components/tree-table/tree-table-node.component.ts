@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TreeTable, TreeNode, translate} from '../../base';
 
 @Component({
@@ -10,8 +10,6 @@ export class TreeTableNodeComponent implements OnInit {
   @Input() public treeTable: TreeTable;
   @Input() public node: TreeNode;
   @Input() public parentNode: TreeNode;
-  @Input() public level: number = 0;
-  @Output() requestNodes: EventEmitter<TreeNode> = new EventEmitter();
 
   public loading: boolean = false;
 
@@ -20,7 +18,7 @@ export class TreeTableNodeComponent implements OnInit {
 
   ngOnInit() {
     if (!this.node.$$id) {
-      this.node.$$id = this.treeTable.sequence.getUidRow();
+      this.node.$$id = this.treeTable.tree.id();
     }
     if (!this.node.$$level) {
       this.node.$$level = (this.parentNode) ? this.parentNode.$$level + 1 : 0;
@@ -35,12 +33,12 @@ export class TreeTableNodeComponent implements OnInit {
   }
 
   isSelected(node: TreeNode) {
-    return (this.treeTable.selectedNode && this.treeTable.selectedNode.$$id === node.$$id);
+    return (this.treeTable.tree.selectedNode && this.treeTable.tree.selectedNode.$$id === node.$$id);
   }
 
   onSelectNode(node: TreeNode) {
-    if (this.treeTable.selectedNode !== node) {
-      this.treeTable.selectedNode = node;
+    if (this.treeTable.tree.selectedNode !== node) {
+      this.treeTable.tree.selectedNode = node;
       this.treeTable.events.onSelectionChange();
     }
   }
@@ -48,32 +46,13 @@ export class TreeTableNodeComponent implements OnInit {
   onExpand(node: TreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded) {
-      this.loadNode(node);
+      this.loading = true;
+      this.treeTable.tree.loadNode(node).then(() => {
+        this.loading = false;
+      }).catch(() => {
+        this.loading = false;
+      });
     }
-  }
-
-  loadNode(node: TreeNode) {
-    if ((!node.children || node.children.length === 0) && node.leaf === false) {
-      if (this.treeTable.service) {
-        this.loading = true;
-        this.treeTable.service.getNodes(node).then(data => {
-          if (data && data.length) {
-            data.forEach(n => {
-              n.data.$$index = this.treeTable.sequence.getUidRow();
-            });
-          }
-          this.loading = false;
-          this.treeTable.addNode(node.$$id, data);
-          this.requestNodes.emit(node);
-        }).catch(err => {
-          this.loading = false;
-        });
-      }
-    }
-  }
-
-  onRequestLocal(node: TreeNode) {
-    this.requestNodes.emit(node);
   }
 
   getIcon(node: TreeNode) {
