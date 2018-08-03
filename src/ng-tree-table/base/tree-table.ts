@@ -1,8 +1,8 @@
-import {DataTable} from './data-table';
-import {ColumnBase} from './column-base';
-import {Settings} from './settings';
-import {Message} from './message';
-import {TreeNode, TreeDataSource} from '../types';
+import {DataTable} from '../../ng-data-table/base/data-table';
+import {ColumnBase} from '../../ng-data-table/base/column-base';
+import {Settings} from '../../ng-data-table/base/settings';
+import {Message} from '../../ng-data-table/base/message';
+import {TreeNode, TreeDataSource} from './interface';
 
 export class TreeTable extends DataTable {
 

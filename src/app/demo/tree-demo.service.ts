@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {TreeNode, TreeDataSource} from '../../ng-data-table';
+import {TreeNode, TreeDataSource} from '../../ng-tree-table';
 
 
 @Injectable()

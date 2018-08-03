@@ -3,12 +3,9 @@
 </app-datatable-header>
 
 <div class="datatable-body"
-     appBodyScroll
-     appBodyMouseover
      appBodyKeydown
      appBodyClick
      appBodyDblClick
-     appBodyContextMenu
      [table]="treeTable">
   <app-tree-table-node
     *ngFor="let node of treeTable.nodes"

@@ -16,13 +16,12 @@ import {BodyRowComponent} from './components/body/body-row.component';
 import {BodyCellComponent} from './components/body/body-cell.component';
 import {BodyCellEditComponent} from './components/body/body-cell-edit.component';
 import {BodyCellActionComponent} from './components/body/body-cell-action.component';
-import {BodyScrollDirective} from './directives/body-scroll.directive';
 import {DataTableComponent} from './components/data-table/data-table.component';
-import {ResizeableColumnDirective} from './directives/resizeable-column.directive';
-import {TreeTableComponent} from './components/tree-table/tree-table.component';
-import {TreeTableNodeComponent} from './components/tree-table/tree-table-node.component';
 import {SummaryRowComponent} from './components/body/summary-row.component';
 import {ToolbarComponent} from './components/toolbar/toolbar.component';
+
+import {BodyScrollDirective} from './directives/body-scroll.directive';
+import {ResizeableColumnDirective} from './directives/resizeable-column.directive';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
@@ -50,13 +49,11 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     BodyCellComponent,
     BodyCellEditComponent,
     BodyCellActionComponent,
-    BodyScrollDirective,
-    ResizeableColumnDirective,
     DataTableComponent,
-    TreeTableComponent,
-    TreeTableNodeComponent,
     SummaryRowComponent,
     ToolbarComponent,
+    BodyScrollDirective,
+    ResizeableColumnDirective,
     BodyMouseoverDirective,
     BodyKeydownDirective,
     BodyClickDirective,
@@ -66,9 +63,14 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
   ],
   exports: [
     DataTableComponent,
-    TreeTableComponent,
     ToolbarComponent,
     PaginationComponent,
+    HeaderComponent,
+    BodyKeydownDirective,
+    BodyClickDirective,
+    BodyDblClickDirective,
+    BodyCellComponent,
+    BodyCellEditComponent,
   ],
   providers: []
 })

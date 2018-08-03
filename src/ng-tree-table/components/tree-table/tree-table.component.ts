@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../../styles/index.css'],
+  styleUrls: ['../../../ng-data-table/styles/index.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class TreeTableComponent implements OnInit, OnDestroy {

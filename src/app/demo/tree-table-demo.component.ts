@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TreeDataSource, Column, Settings, TreeTable} from '../../ng-data-table';
+import {TreeDataSource, Column, Settings, TreeTable} from '../../ng-tree-table';
 import {HttpClient} from '@angular/common/http';
 import {TreeDemoService} from './tree-demo.service';
 import {Subscription} from 'rxjs';
