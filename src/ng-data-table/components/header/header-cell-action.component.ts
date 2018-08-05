@@ -25,16 +25,11 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
   }
 
   get isCheckboxable(): boolean {
-    return this.table.settings.selectionType === 'multiple';
+    return this.table.selection.multiple;
   }
 
   get allRowsSelected(): boolean {
-    const allRowsSelected = (this.table.rows &&
-      this.table.selection.selectedRowIndexes &&
-      this.table.selection.selectedRowIndexes.length === this.table.rows.length &&
-      this.table.rows.length !== 0);
-
-    return allRowsSelected;
+    return this.table.selection.allRowsSelected(this.table.rows);
   }
 
   private subscriptions: Subscription[] = [];

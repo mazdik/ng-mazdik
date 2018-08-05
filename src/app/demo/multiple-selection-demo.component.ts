@@ -26,12 +26,12 @@ export class MultipleSelectionDemoComponent implements OnInit {
   public selectedRows2: any[];
 
   public settings: Settings = <Settings>{
-    selectionType: 'multiple',
+    selectionMultiple: true,
     selectionMode: 'checkbox',
   };
 
   public settings2: Settings = <Settings>{
-    selectionType: 'multiple',
+    selectionMultiple: true,
     selectionMode: 'radio',
   };
 

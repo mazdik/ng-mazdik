@@ -254,7 +254,7 @@ interface DataSource {
 | filterDelay      | number     | 500     |             |
 | globalFilter     | boolean    | false   |             |
 | columnResizeMode | simple / aminated | simple |       |
-| selectionType    | single / multiple | single |       |
+| selectionMultiple | boolean   | false   |             |
 | selectionMode    | checkbox / radio | null |          |
 | singleRowView    | boolean    | true    |             |
 | virtualScroll    | boolean    | false   |             |

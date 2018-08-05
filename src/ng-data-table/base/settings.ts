@@ -1,4 +1,4 @@
-import {SelectionType, SelectionMode, ColumnResizeMode, EditMode} from '../types';
+import {SelectionMode, ColumnResizeMode, EditMode} from '../types';
 import {TemplateRef} from '@angular/core';
 import {Constants} from './constants';
 
@@ -17,7 +17,7 @@ export class Settings {
   public filterDelay?: number = 500;
   public globalFilter?: boolean;
   public columnResizeMode?: ColumnResizeMode = Constants.resizeSimple;
-  public selectionType?: SelectionType;
+  public selectionMultiple?: boolean;
   public selectionMode?: SelectionMode;
   public singleRowView?: boolean = true;
   public virtualScroll?: boolean;
