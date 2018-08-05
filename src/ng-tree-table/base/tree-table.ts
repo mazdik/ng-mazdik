@@ -5,6 +5,7 @@ import {Message} from '../../ng-data-table/base/message';
 import {TreeNode, TreeDataSource} from './interface';
 import {Tree} from './tree';
 import {TreeFlattener} from './tree-flattener';
+import {Row} from './index';
 
 export class TreeTable extends DataTable {
 
@@ -54,6 +55,14 @@ export class TreeTable extends DataTable {
   flatten() {
     this.rows = this.treeFlattener.flattenNodes(this.nodes);
     this.events.onRowsChanged();
+  }
+
+  getDescendants(row: Row) {
+    const results = [];
+    for (let i = row.$$index + 1; i < this.rows.length && row.level < this.rows[i].level; i++) {
+      results.push(this.rows[i]);
+    }
+    return results;
   }
 
 }

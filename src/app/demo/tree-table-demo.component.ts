@@ -12,7 +12,10 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   public treeService: TreeDataSource;
   public treeTable: TreeTable;
-  public settings: Settings = <Settings> {};
+  public settings: Settings = <Settings> {
+    selectionMultiple: true,
+    selectionMode: 'checkbox',
+  };
   public columns: Column[] = <Column[]>[
     {
       title: 'Node',

@@ -28,7 +28,9 @@ export class BodyClickDirective implements OnInit, OnDestroy {
         const cellEventArgs = EventHelper.findCellEvent(event, this.element);
         if (cellEventArgs) {
             this.ngZone.run(() => {
-                this.table.selectRow(cellEventArgs.rowIndex);
+                if (!this.table.settings.selectionMode) {
+                    this.table.selectRow(cellEventArgs.rowIndex);
+                }
             });
         }
     }

@@ -86,4 +86,28 @@ export class DataSelection {
       rows.length !== 0);
   }
 
+  select(...rows: Row[]): void {
+    rows.forEach(value => this._markSelected(value.$$index));
+    this.events.onSelectionChange();
+  }
+
+  deselect(...rows: Row[]): void {
+    rows.forEach(value => this._unmarkSelected(value.$$index));
+    this.events.onSelectionChange();
+  }
+
+  private _markSelected(rowIndex: number) {
+    const index = this.selectedRowIndexes.indexOf(rowIndex);
+    if (index === -1) {
+      this.selectedRowIndexes.push(rowIndex);
+    }
+  }
+
+  private _unmarkSelected(rowIndex: number) {
+    const index = this.selectedRowIndexes.indexOf(rowIndex);
+    if (index !== -1) {
+      this.selectedRowIndexes.splice(index, 1);
+    }
+  }
+
 }

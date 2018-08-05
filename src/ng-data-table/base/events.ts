@@ -23,6 +23,7 @@ export class Events {
   private contextMenuSource = new Subject<CellEventArgs>();
   private loadingSource = new BehaviorSubject<boolean>(false);
   private cellEditModeSource = new Subject<CellEventArgs>();
+  private checkboxSource = new Subject<any>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
@@ -44,6 +45,7 @@ export class Events {
   contextMenuSource$ = this.contextMenuSource.asObservable();
   loadingSource$ = this.loadingSource.asObservable();
   cellEditModeSource$ = this.cellEditModeSource.asObservable();
+  checkboxSource$ = this.checkboxSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -123,6 +125,10 @@ export class Events {
 
   onCellEditMode(data: CellEventArgs) {
     this.cellEditModeSource.next(data);
+  }
+
+  onCheckbox(data: any) {
+    this.checkboxSource.next(data);
   }
 
 }

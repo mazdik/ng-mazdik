@@ -1,7 +1,7 @@
 import {
   Component, OnInit, OnDestroy, Input, ViewEncapsulation, ChangeDetectorRef, HostBinding, ViewChild, TemplateRef
 } from '@angular/core';
-import {TreeTable} from '../../base';
+import {TreeTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -31,7 +31,11 @@ export class TreeTableComponent implements OnInit, OnDestroy {
         this.cd.detectChanges();
       });
     });
+    const subCheckbox = this.treeTable.events.checkboxSource$.subscribe((event) => {
+      this.selectionToggle(event);
+    });
     this.subscriptions.push(subScroll);
+    this.subscriptions.push(subCheckbox);
   }
 
   ngOnDestroy() {
@@ -78,6 +82,13 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   isLeaf(node: any) {
     return node.leaf === false ? false : !(node.children && node.children.length);
+  }
+
+  selectionToggle(row: Row): void {
+    const descendants = this.treeTable.getDescendants(row);
+    this.treeTable.selection.isRowSelected(row.$$index)
+      ? this.treeTable.selection.select(...descendants)
+      : this.treeTable.selection.deselect(...descendants);
   }
 
 }
