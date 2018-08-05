@@ -141,7 +141,6 @@ export class DataTableDemoComponent {
   }
 }
 ```
-```
 ### Sample tree-table
 ```typescript
 import {TreeDataSource, Column, Settings, TreeTable} from '../ng-tree-table';
