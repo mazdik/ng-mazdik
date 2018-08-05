@@ -15,6 +15,14 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
   public settings: Settings = <Settings> {};
   public columns: Column[] = <Column[]>[
     {
+      title: 'Node',
+      name: 'node',
+      sortable: false,
+      filter: false,
+      frozen: true,
+      width: 250,
+    },
+    {
       title: 'Name',
       name: 'name',
       sortable: false,
@@ -67,6 +75,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient) {
     this.treeService = new TreeDemoService(this.http);
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
+    this.treeTable.pager.perPage = 1000;
   }
 
   ngOnInit() {

@@ -4,6 +4,7 @@ import {Settings} from '../../ng-data-table/base/settings';
 import {Message} from '../../ng-data-table/base/message';
 import {TreeNode, TreeDataSource} from './interface';
 import {Tree} from './tree';
+import {TreeFlattener} from './tree-flattener';
 
 export class TreeTable extends DataTable {
 
@@ -32,28 +33,27 @@ export class TreeTable extends DataTable {
   }
 
   public tree: Tree;
+  public treeFlattener: TreeFlattener;
 
   constructor(columns: ColumnBase[], settings: Settings, dataSource: TreeDataSource, messages?: Message) {
     super(columns, settings, messages);
     this.tree = new Tree();
     this.tree.service = dataSource;
-    this.tree.onLoadNodesFunc = this.setRowIndexes.bind(this);
+    this.treeFlattener = new TreeFlattener(this.transformer);
   }
 
-  setRowIndexes(nodes: TreeNode[]) {
-    if (nodes && nodes.length) {
-      nodes.forEach(n => {
-        n.data.$$index = this.sequence.getUidRow();
-        n.data.$$data = Object.assign({}, n.data);
-        if (n.children) {
-          this.setRowIndexes(n.children);
-        }
-      });
-    }
+  transformer = (node: TreeNode, level: number) => {
+    const data = {
+      expandable: !!node.expanded,
+      level: level,
+      node: node,
+    };
+    return Object.assign(data, node.data);
   }
 
-  getSelection() {
-    return this.tree.selectedNode;
+  flatten() {
+    this.rows = this.treeFlattener.flattenNodes(this.nodes);
+    this.events.onRowsChanged();
   }
 
 }

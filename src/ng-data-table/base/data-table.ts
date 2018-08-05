@@ -227,4 +227,8 @@ export class DataTable {
     return newRow;
   }
 
+  getSelection() {
+    return this.selection.getSelectedRows(this.rows);
+  }
+
 }

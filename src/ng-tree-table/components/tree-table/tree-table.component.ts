@@ -1,7 +1,7 @@
 import {
-  Component, OnInit, OnDestroy, Input, ViewEncapsulation, ChangeDetectorRef, HostBinding
+  Component, OnInit, OnDestroy, Input, ViewEncapsulation, ChangeDetectorRef, HostBinding, ViewChild, TemplateRef
 } from '@angular/core';
-import {TreeTable, Constants} from '../../base';
+import {TreeTable} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -15,6 +15,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   @Input() public treeTable: TreeTable;
 
   @HostBinding('class') cssClass = 'datatable';
+  @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
 
   private subscriptions: Subscription[] = [];
 
@@ -22,9 +23,8 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.treeTable.columns[0].cellTemplate = this.cellTemplate;
     this.initGetNodes();
-    this.treeTable.dimensions.actionColumnWidth = 250;
-    this.treeTable.settings.columnResizeMode = Constants.resizeAminated;
 
     const subScroll = this.treeTable.events.scrollSource$.subscribe((event) => {
       requestAnimationFrame(() => {
@@ -41,10 +41,43 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   initGetNodes() {
     this.treeTable.events.onLoading(true);
     this.treeTable.tree.initLoadNodes().then(() => {
+      this.treeTable.flatten();
       this.treeTable.events.onLoading(false);
     }).catch(() => {
       this.treeTable.events.onLoading(false);
     });
+  }
+
+  onExpand(node: any) {
+    node.expanded = !node.expanded;
+    if (node.expanded) {
+      node.loading = true;
+      this.treeTable.tree.loadNode(node).then(() => {
+        this.treeTable.flatten();
+        node.loading = false;
+      }).catch(() => {
+        node.loading = false;
+      });
+    } else {
+      this.treeTable.flatten();
+    }
+  }
+
+  getIcon(node: any) {
+    let icon: string;
+    if (node.loading && !this.isLeaf(node)) {
+      return 'icon-collapsing';
+    }
+    if (!this.isLeaf(node) && node.expanded) {
+      icon = 'icon-node icon-collapsed';
+    } else if (!this.isLeaf(node)) {
+      icon = 'icon-node';
+    }
+    return icon;
+  }
+
+  isLeaf(node: any) {
+    return node.leaf === false ? false : !(node.children && node.children.length);
   }
 
 }

@@ -8,7 +8,6 @@ export class Tree {
   public selectedNode: TreeNode;
   public filterLoading: boolean;
   public serverSideFiltering: boolean;
-  public onLoadNodesFunc: Function;
 
   set nodes(val: TreeNode[]) {
     if (val) {
@@ -20,9 +19,9 @@ export class Tree {
           node.$$level = 1;
         }
       }
-      if (this.onLoadNodesFunc) {
-        this.onLoadNodesFunc(val);
-      }
+      this.doForEach(val, (node) => {
+        this.setNodeChildDefaults(node);
+      }).then();
     }
     this._nodes = val;
   }
@@ -56,9 +55,6 @@ export class Tree {
       if (this.service) {
         return this.service.getNodes(node).then(data => {
           this.addNode(node.$$id, data);
-          if (this.onLoadNodesFunc) {
-            this.onLoadNodesFunc(data);
-          }
         });
       }
     } else {
@@ -185,9 +181,6 @@ export class Tree {
       return this.service.getNodes(node).then(data => {
         node.children = data;
         this.setNodeChildDefaults(node);
-        if (this.onLoadNodesFunc) {
-          this.onLoadNodesFunc(data);
-        }
       });
     } else {
       return Promise.resolve();

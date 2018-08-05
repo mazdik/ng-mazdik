@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 
 import {DataTableModule} from '../ng-data-table';
 import {TreeTableComponent} from './components/tree-table/tree-table.component';
-import {TreeTableNodeComponent} from './components/tree-table/tree-table-node.component';
 
 @NgModule({
   imports: [
@@ -12,7 +11,6 @@ import {TreeTableNodeComponent} from './components/tree-table/tree-table-node.co
   ],
   declarations: [
     TreeTableComponent,
-    TreeTableNodeComponent,
   ],
   exports: [
     TreeTableComponent,

@@ -1,16 +1,16 @@
-<app-datatable-header
-  [table]="treeTable">
-</app-datatable-header>
+<app-datatable [table]="treeTable"></app-datatable>
 
-<div class="datatable-body"
-     appBodyScroll
-     appBodyKeydown
-     appBodyClick
-     appBodyDblClick
-     [table]="treeTable">
-  <app-tree-table-node
-    *ngFor="let node of treeTable.nodes"
-    [treeTable]="treeTable"
-    [node]="node">
-  </app-tree-table-node>
-</div>
+<ng-template #cellTemplate let-row="row" let-value="value">
+    <div class="datatable-tree-node"
+        [ngStyle]="{'padding-left.px': row.level*10}"
+        style="cursor: pointer;">
+    <i [class]="getIcon(row.node)"
+        (click)="onExpand(row.node)">
+    </i>
+    <span class="datatable-tree-node-content"
+        (dblclick)="onExpand(row.node)">
+        <i *ngIf="row.node.icon" [ngClass]="row.node.icon"></i>
+        {{row.node.name}}
+    </span>
+    </div>
+</ng-template>
