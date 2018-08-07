@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
-import {TreeNode, TreeDataSource, FilterState} from './interface';
+import {TreeNode} from './tree-node';
+import {TreeDataSource, FilterState} from './tree-types';
 
 @Injectable()
 export class Tree {
@@ -10,20 +11,10 @@ export class Tree {
   public serverSideFiltering: boolean;
 
   set nodes(val: TreeNode[]) {
-    if (val) {
-      for (const node of val) {
-        if (!node.$$id) {
-          node.$$id = this.id();
-        }
-        if (!node.$$level) {
-          node.$$level = 1;
-        }
-      }
-      this.doForEach(val, (node) => {
-        this.setNodeChildDefaults(node);
-      }).then();
+    this._nodes = [];
+    for (const node of val) {
+      this._nodes.push(new TreeNode(node, null, this.id.bind(this)));
     }
-    this._nodes = val;
   }
 
   get nodes(): TreeNode[] {
@@ -71,28 +62,11 @@ export class Tree {
   private _addNode(node: TreeNode, nodeId: number, children: TreeNode[]) {
     if (node.$$id === nodeId) {
       node.children = children;
-      this.setNodeChildDefaults(node);
       return true;
     } else if (node.children) {
       node.children.forEach((child) => {
         this._addNode(child, nodeId, children);
       });
-    }
-  }
-
-  setNodeChildDefaults(node: TreeNode) {
-    if (node.children) {
-      for (const child of node.children) {
-        if (!child.$$id) {
-          child.$$id = this.id();
-        }
-        if (!child.$$level) {
-          child.$$level = node.$$level + 1;
-        }
-        if (!child.parent) {
-          child.parent = node;
-        }
-      }
     }
   }
 
@@ -180,7 +154,6 @@ export class Tree {
     if ((!node.children || node.children.length === 0) && node.leaf === false) {
       return this.service.getNodes(node).then(data => {
         node.children = data;
-        this.setNodeChildDefaults(node);
       });
     } else {
       return Promise.resolve();
@@ -200,7 +173,6 @@ export class Tree {
   expandAll() {
     this.doForEach(this.nodes, (node) => {
       node.expanded = true;
-      this.setNodeChildDefaults(node);
       return this.getChildren(node);
     }).then();
   }
@@ -216,7 +188,6 @@ export class Tree {
       return Promise.all(path.map((p) => {
         return this.doForEach(this.nodes, (node) => {
           if (node.id === p) {
-            this.setNodeChildDefaults(node);
             return this.getChildren(node);
           }
         });

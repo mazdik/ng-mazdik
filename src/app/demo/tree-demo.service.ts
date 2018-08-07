@@ -12,7 +12,7 @@ export class TreeDemoService implements TreeDataSource {
   }
 
   getNodes(node: TreeNode): Promise<TreeNode[]> {
-    const children: TreeNode[] = [
+    const children: any[] = [
       {
         id: 'MALE',
         name: 'MALE',
@@ -25,13 +25,11 @@ export class TreeDemoService implements TreeDataSource {
         data: {column: 'gender'},
       }];
     if (node) {
-      if (node.$$level) {
-        children[0].id = 'MALE' + node.$$level;
-        children[0].name = 'MALE' + node.$$level;
-        children[0].leaf = (node.$$level === 10);
-        children[1].id = 'FEMALE' + node.$$level;
-        children[1].name = 'FEMALE' + node.$$level;
-      }
+      children[0].id = 'MALE' + node.$$level;
+      children[0].name = 'MALE' + node.$$level;
+      children[0].leaf = (node.$$level === 10);
+      children[1].id = 'FEMALE' + node.$$level;
+      children[1].name = 'FEMALE' + node.$$level;
       return new Promise((resolve) => {
         setTimeout(() => resolve(children), 500);
       });

@@ -26,7 +26,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     this.treeTable.columns[0].cellTemplate = this.cellTemplate;
     this.initGetNodes();
 
-    const subScroll = this.treeTable.events.scrollSource$.subscribe((event) => {
+    const subScroll = this.treeTable.events.scrollSource$.subscribe(() => {
       requestAnimationFrame(() => {
         this.cd.detectChanges();
       });
@@ -69,19 +69,15 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   getIcon(node: any) {
     let icon: string;
-    if (node.loading && !this.isLeaf(node)) {
+    if (node.loading && !node.isLeaf()) {
       return 'icon-collapsing';
     }
-    if (!this.isLeaf(node) && node.expanded) {
+    if (!node.isLeaf() && node.expanded) {
       icon = 'icon-node icon-collapsed';
-    } else if (!this.isLeaf(node)) {
+    } else if (!node.isLeaf()) {
       icon = 'icon-node';
     }
     return icon;
-  }
-
-  isLeaf(node: any) {
-    return node.leaf === false ? false : !(node.children && node.children.length);
   }
 
   selectionToggle(row: Row): void {

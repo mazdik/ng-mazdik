@@ -1,4 +1,4 @@
-import {TreeNode} from './interface';
+import {TreeNode} from './tree-node';
 
 export class TreeFlattener {
 
