@@ -62,7 +62,7 @@ export class DataTable {
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings);
     this.dataFilter = new DataFilter();
-    this.selection = new DataSelection(this.settings, this.events);
+    this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);

@@ -1,88 +1,56 @@
 import {Row} from '../types';
-import {Settings} from './settings';
 import {Events} from './events';
 
 export class DataSelection {
 
-  public selectedRowIndexes: number[] = [];
-  public selectedRowIndex: number;
-
   get multiple(): boolean {
-    return this.settings.selectionMultiple;
+    return this._multiple;
   }
 
-  constructor(private settings: Settings, private events: Events) {
+  private selection: number[] = [];
+
+  constructor(private _multiple = false, private events: Events) {
   }
 
   selectRow(rowIndex: number) {
-    if (this.multiple) {
-      const index = this.selectedRowIndexes.indexOf(rowIndex);
-      if (index === -1) {
-        this.selectedRowIndexes.push(rowIndex);
-      } else {
-        this.selectedRowIndexes.splice(index, 1);
-      }
-      this.selectedRowIndex = rowIndex;
-    } else {
-      if (this.selectedRowIndex !== rowIndex) {
-        this.selectedRowIndex = rowIndex;
-      }
-    }
+    this.toggle(rowIndex);
     this.events.onSelectionChange();
   }
 
-  selectAllRows(rows: Row[]) {
+  selectAllRows(rows: Row[]): void {
     if (rows && rows.length) {
-      this.selectedRowIndexes = [];
-      this.selectedRowIndex = null;
-      for (const row of rows) {
-        this.selectedRowIndexes.push(row.$$index);
-        this.selectedRowIndex = row.$$index;
-      }
-      this.events.onSelectionChange();
+      this._unmarkAll();
+      this.select(...rows);
     }
   }
 
-  clearSelection() {
-    this.selectedRowIndexes = [];
-    this.selectedRowIndex = null;
+  clearSelection(): void {
+    this._unmarkAll();
     this.events.onSelectionChange();
   }
 
   isRowSelected(rowIndex: number): boolean {
-    if (this.multiple) {
-      return this.selectedRowIndexes.indexOf(rowIndex) !== -1;
-    } else {
-      return rowIndex === this.selectedRowIndex;
-    }
+    return this.selection.indexOf(rowIndex) !== -1;
   }
 
-  getSelection() {
-    if (this.multiple) {
-      return this.selectedRowIndexes;
-    } else {
-      return this.selectedRowIndex;
-    }
+  getSelection(): any[] {
+    return this.selection;
   }
 
-  getSelectedRows(rows: any[]) {
-    if (this.multiple) {
-      const selectedRows = [];
-      if (this.selectedRowIndexes.length) {
-        for (const idx of this.selectedRowIndexes) {
-          selectedRows.push(rows[idx]);
-        }
+  getSelectedRows(rows: any[]): any[] {
+    const selectedRows = [];
+    if (this.selection.length) {
+      for (const idx of this.selection) {
+        selectedRows.push(rows[idx]);
       }
-      return selectedRows;
-    } else {
-      return rows[this.selectedRowIndex];
     }
+    return selectedRows;
   }
 
   allRowsSelected(rows: Row[]): boolean {
     return(rows &&
-      this.selectedRowIndexes &&
-      this.selectedRowIndexes.length === rows.length &&
+      this.selection &&
+      this.selection.length === rows.length &&
       rows.length !== 0);
   }
 
@@ -96,18 +64,32 @@ export class DataSelection {
     this.events.onSelectionChange();
   }
 
+  toggle(rowIndex: number): void {
+    this.isRowSelected(rowIndex) ? this._unmarkSelected(rowIndex) : this._markSelected(rowIndex);
+  }
+
+  isEmpty(): boolean {
+    return this.selection.length === 0;
+  }
+
   private _markSelected(rowIndex: number) {
-    const index = this.selectedRowIndexes.indexOf(rowIndex);
-    if (index === -1) {
-      this.selectedRowIndexes.push(rowIndex);
+    if (!this.isRowSelected(rowIndex)) {
+      if (!this.multiple) {
+        this._unmarkAll();
+      }
+      this.selection.push(rowIndex);
     }
   }
 
   private _unmarkSelected(rowIndex: number) {
-    const index = this.selectedRowIndexes.indexOf(rowIndex);
+    const index = this.selection.indexOf(rowIndex);
     if (index !== -1) {
-      this.selectedRowIndexes.splice(index, 1);
+      this.selection.splice(index, 1);
     }
+  }
+
+  private _unmarkAll() {
+    this.selection = [];
   }
 
 }
