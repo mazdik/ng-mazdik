@@ -28,7 +28,7 @@
   min-height: 100px;
 }
 
-.datatable-header-inner {
+.datatable-header-row {
   white-space: nowrap;
 }
 
@@ -45,8 +45,8 @@
 
 .datatable-body-row,
 .datatable-body-row > div,
-.datatable-header-inner,
-.datatable-header-inner > div {
+.datatable-header-row,
+.datatable-header-row > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -126,7 +126,7 @@
 }
 
 /******/
-.datatable-header-inner {
+.datatable-header-row {
   height: 40px;
 }
 
