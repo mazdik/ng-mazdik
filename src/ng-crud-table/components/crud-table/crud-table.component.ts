@@ -17,7 +17,7 @@ import {RowMenuComponent} from '../row-menu/row-menu.component';
 
 export class CrudTableComponent implements OnInit, OnDestroy {
 
-  @Input() public dataManager: DataManager;
+  @Input() dataManager: DataManager;
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 

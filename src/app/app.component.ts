@@ -9,7 +9,7 @@ import {Router, NavigationEnd} from '@angular/router';
 })
 export class AppComponent {
 
-  public state: string;
+  state: string;
 
   constructor(private router: Router) {
     router.events.subscribe(event => {

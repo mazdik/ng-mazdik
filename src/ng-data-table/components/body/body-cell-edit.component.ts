@@ -10,7 +10,7 @@ import {Keys, Constants} from '../../base';
 })
 export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
-  public tempValue: any;
+  tempValue: any;
 
   constructor(cd: ChangeDetectorRef, element: ElementRef) {
     super(cd, element);

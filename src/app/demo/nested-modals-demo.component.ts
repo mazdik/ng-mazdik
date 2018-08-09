@@ -24,11 +24,11 @@ import {getColumnsPlayers} from './columns';
 
 export class NestedModalsDemoComponent implements OnInit {
 
-  public service: DataSource;
-  public columns: Column[];
-  public dataManager: DataManager;
+  service: DataSource;
+  columns: Column[];
+  dataManager: DataManager;
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     api: 'assets/players.json',
     crud: true,
     bodyHeight: 380,

@@ -12,18 +12,18 @@ import {SelectOption} from '../../ng-data-table';
 
 export class BasicDemoComponent implements OnInit {
 
-  public service: DataSource;
-  public columns: Column[];
-  public dataManager: DataManager;
+  service: DataSource;
+  columns: Column[];
+  dataManager: DataManager;
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     api: 'assets/players.json',
     crud: true,
     bodyHeight: 380,
     exportAction: true,
   };
 
-  public messages: Message = <Message>{
+  messages: Message = <Message>{
     titleDetailView: 'Player details',
     titleCreate: 'Create a new player'
   };

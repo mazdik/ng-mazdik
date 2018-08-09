@@ -3,7 +3,7 @@ import { isBlank } from '../base/util';
 
 export class EventHelper {
 
-    public static findCellEventTarget(event: any, element: HTMLElement): HTMLElement {
+    static findCellEventTarget(event: any, element: HTMLElement): HTMLElement {
         let target = event.target;
         if (target === null) { return; }
         while (target !== element) {
@@ -18,7 +18,7 @@ export class EventHelper {
         return target;
     }
 
-    public static findCellEvent(event: any, element: HTMLElement): CellEventArgs {
+    static findCellEvent(event: any, element: HTMLElement): CellEventArgs {
         const target = this.findCellEventTarget(event, element);
         if (target) {
             const dataColIndex = target.dataset.columnIndex;

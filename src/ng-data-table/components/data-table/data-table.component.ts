@@ -15,7 +15,7 @@ import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 })
 export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
-  @Input() public table: DataTable;
+  @Input() table: DataTable;
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
@@ -34,7 +34,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.table.dimensions.tableWidth;
   }
 
-  public loading: boolean;
+  loading: boolean;
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 

@@ -5,8 +5,8 @@ import {Settings} from './settings';
 
 export class Column extends ColumnBase {
 
-  public index: number;
-  public filterValues: SelectOption[] = [];
+  index: number;
+  filterValues: SelectOption[] = [];
 
   constructor(init: Partial<ColumnBase>, private settings: Settings) {
     super();

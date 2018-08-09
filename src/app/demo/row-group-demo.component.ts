@@ -12,10 +12,10 @@ import {getColumnsPlayers} from './columns';
 
 export class RowGroupDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public columns: Column[];
+  table: DataTable;
+  columns: Column[];
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     groupRowsBy: ['race']
   };
 

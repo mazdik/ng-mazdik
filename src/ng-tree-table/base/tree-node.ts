@@ -1,11 +1,11 @@
 export class TreeNode {
-  public id: string;
-  public name: string;
-  public data?: any;
-  public icon?: string;
-  public expanded?: boolean;
-  public leaf?: boolean;
-  public parent?: TreeNode;
+  id: string;
+  name: string;
+  data?: any;
+  icon?: string;
+  expanded?: boolean;
+  leaf?: boolean;
+  parent?: TreeNode;
 
   set children (val: TreeNode[]) {
     this._children = [];
@@ -18,9 +18,9 @@ export class TreeNode {
     return this._children;
   }
 
-  public $$id?: number;
-  public $$level?: number;
-  public $$filterState?: number;
+  $$id?: number;
+  $$level?: number;
+  $$filterState?: number;
 
   private _children: TreeNode[];
 

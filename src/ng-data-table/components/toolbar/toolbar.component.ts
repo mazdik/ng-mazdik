@@ -1,19 +1,37 @@
-import { Component, Input, Output, EventEmitter, HostBinding, ElementRef } from '@angular/core';
-import { DataTable } from '../../base';
+import {
+    Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnInit, OnDestroy,
+    ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
+import {DataTable} from '../../base';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-datatable-toolbar',
     templateUrl: './toolbar.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit, OnDestroy {
 
-    @Input() public table: DataTable;
+    @Input() table: DataTable;
     @Output() createAction: EventEmitter<any> = new EventEmitter();
 
     @HostBinding('class') cssClass = 'datatable-toolbar';
 
-    constructor(private element: ElementRef) {
+    private subscriptions: Subscription[] = [];
+
+    constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
     }
+
+    ngOnInit() {
+        const subFilter = this.table.events.filterSource$.subscribe(() => {
+          this.cd.markForCheck();
+        });
+        this.subscriptions.push(subFilter);
+    }
+
+    ngOnDestroy() {
+        this.subscriptions.forEach(s => s.unsubscribe());
+      }
 
     globalFilter() {
         this.table.dataFilter.filters = {};

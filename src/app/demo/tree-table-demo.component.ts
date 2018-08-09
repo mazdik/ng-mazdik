@@ -10,13 +10,13 @@ import {Subscription} from 'rxjs';
 })
 export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
-  public treeService: TreeDataSource;
-  public treeTable: TreeTable;
-  public settings: Settings = <Settings> {
+  treeService: TreeDataSource;
+  treeTable: TreeTable;
+  settings: Settings = <Settings> {
     selectionMultiple: true,
     selectionMode: 'checkbox',
   };
-  public columns: Column[] = <Column[]>[
+  columns: Column[] = <Column[]>[
     {
       title: 'Node',
       name: 'node',

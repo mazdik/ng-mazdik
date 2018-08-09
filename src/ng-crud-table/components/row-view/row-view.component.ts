@@ -8,7 +8,7 @@ import {DataManager} from '../../base';
 })
 export class RowViewComponent implements OnInit {
 
-  @Input() public dataManager: DataManager;
+  @Input() dataManager: DataManager;
 
   order: string;
   reverse: boolean = true;

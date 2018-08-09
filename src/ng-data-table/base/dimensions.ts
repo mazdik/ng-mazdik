@@ -4,19 +4,19 @@ import {Row} from '../types';
 
 export class Dimensions {
 
-  public tableWidth: number;
-  public bodyHeight: number;
-  public actionColumnWidth: number = 40;
-  public columnMenuWidth: number = 200;
-  public columnsTotalWidth: number;
-  public frozenColumnsWidth: number;
-  public scrollableColumnsWidth: number;
-  public headerRowHeight: number = 40;
-  public rowHeight: number = 30;
-  public summaryRowHeight: number = 30;
-  public scrollHeight: number;
-  public offsetX: number = 0;
-  public offsetY: number = 0;
+  tableWidth: number;
+  bodyHeight: number;
+  actionColumnWidth: number = 40;
+  columnMenuWidth: number = 200;
+  columnsTotalWidth: number;
+  frozenColumnsWidth: number;
+  scrollableColumnsWidth: number;
+  headerRowHeight: number = 40;
+  rowHeight: number = 30;
+  summaryRowHeight: number = 30;
+  scrollHeight: number;
+  offsetX: number = 0;
+  offsetY: number = 0;
 
   private rowHeightCache: number[] = [];
 

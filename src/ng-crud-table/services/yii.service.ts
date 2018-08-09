@@ -5,8 +5,8 @@ import {Filter, SortMeta, DataSource} from '../base';
 @Injectable()
 export class YiiService implements DataSource {
 
-  public url: string;
-  public primaryKeys: string[];
+  url: string;
+  primaryKeys: string[];
 
   constructor(private http: HttpClient) {
   }

@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
 })
 export class TreeTableComponent implements OnInit, OnDestroy {
 
-  @Input() public treeTable: TreeTable;
+  @Input() treeTable: TreeTable;
 
   @HostBinding('class') cssClass = 'datatable';
   @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;

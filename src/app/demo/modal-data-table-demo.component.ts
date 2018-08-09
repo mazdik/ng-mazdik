@@ -38,24 +38,24 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
 
 export class ModalDataTableDemoComponent implements OnInit {
 
-  public dtPlayers: DataTable;
-  public dtInventory: DataTable;
-  public dtRank: DataTable;
-  public columnsPlayers: Column[];
-  public columnsRank: Column[];
-  public columnsInventory: Column[];
+  dtPlayers: DataTable;
+  dtInventory: DataTable;
+  dtRank: DataTable;
+  columnsPlayers: Column[];
+  columnsRank: Column[];
+  columnsInventory: Column[];
 
   @ViewChild('template1') template1: TemplateRef<any>;
   @ViewChild('template2') template2: TemplateRef<any>;
   @ViewChild('rankModal') rankModal: any;
   @ViewChild('inventoryModal') inventoryModal: any;
 
-  public settingsPlayers: Settings = <Settings>{
+  settingsPlayers: Settings = <Settings>{
     tableWidth: 1100,
   };
 
-  public settingsRank: Settings = <Settings>{};
-  public settingsInventory: Settings = <Settings>{};
+  settingsRank: Settings = <Settings>{};
+  settingsInventory: Settings = <Settings>{};
 
   private _rank: any = [];
   private _inventory: any = [];

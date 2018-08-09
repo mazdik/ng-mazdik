@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
 
 export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
+  @Input() table: DataTable;
 
   @HostBinding('class')
   get columnCssClasses(): any {
@@ -34,7 +34,7 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(public cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {

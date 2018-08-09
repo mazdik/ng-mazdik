@@ -13,7 +13,7 @@ import {ColumnMenuEventArgs} from '../../types';
 
   export class HeaderCellComponent implements OnInit, OnDestroy {
 
-    @Input() public table: DataTable;
+    @Input() table: DataTable;
 
     @Input() set column(column: Column) {
         this._column = column;
@@ -39,13 +39,13 @@ import {ColumnMenuEventArgs} from '../../types';
       return this.column.title;
     }
 
-    public cellContext: any = {
+    cellContext: any = {
         column: this.column,
     };
     private _column: Column;
     private subscriptions: Subscription[] = [];
 
-    constructor(public cd: ChangeDetectorRef) {
+    constructor(private cd: ChangeDetectorRef) {
     }
 
     ngOnInit() {

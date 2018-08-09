@@ -11,9 +11,9 @@ import {Column, DataTable, DataFilter} from '../../base';
 })
 export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @Input() public table: DataTable;
-  @Input() public column: Column;
-  @Input() public isOpen: boolean;
+  @Input() table: DataTable;
+  @Input() column: Column;
+  @Input() isOpen: boolean;
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;

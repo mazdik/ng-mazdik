@@ -3,22 +3,22 @@ import {isBlank} from './util';
 
 export class DataFilter {
 
-  public static EQUALS = 'equals'; // ==
-  public static NOT_EQUAL = 'notEqual'; // !=
-  public static LESS_THAN = 'lessThan'; // <
-  public static LESS_THAN_OR_EQUAL = 'lessThanOrEqual'; // <=
-  public static GREATER_THAN = 'greaterThan'; // >
-  public static GREATER_THAN_OR_EQUAL = 'greaterThanOrEqual'; // >=
-  public static IN_RANGE = 'inRange'; // 3-7
-  public static IN = 'in'; // in
-  public static CONTAINS = 'contains'; // like lower(%val%);
-  public static NOT_CONTAINS = 'notContains'; // not like lower(%val%);
-  public static STARTS_WITH = 'startsWith'; // like val%;
-  public static ENDS_WITH = 'endsWith'; // like %val;
+  static EQUALS = 'equals'; // ==
+  static NOT_EQUAL = 'notEqual'; // !=
+  static LESS_THAN = 'lessThan'; // <
+  static LESS_THAN_OR_EQUAL = 'lessThanOrEqual'; // <=
+  static GREATER_THAN = 'greaterThan'; // >
+  static GREATER_THAN_OR_EQUAL = 'greaterThanOrEqual'; // >=
+  static IN_RANGE = 'inRange'; // 3-7
+  static IN = 'in'; // in
+  static CONTAINS = 'contains'; // like lower(%val%);
+  static NOT_CONTAINS = 'notContains'; // not like lower(%val%);
+  static STARTS_WITH = 'startsWith'; // like val%;
+  static ENDS_WITH = 'endsWith'; // like %val;
 
-  public filters: Filter = <Filter>{};
-  public globalFilterValue: string;
-  public isGlobal: boolean;
+  filters: Filter = <Filter>{};
+  globalFilterValue: string;
+  isGlobal: boolean;
 
   filterRows(data: any[]) {
     if (this.isGlobal) {

@@ -6,7 +6,7 @@ import {TreeNode, TreeDataSource} from '../../ng-tree-table';
 @Injectable()
 export class TreeDemoService implements TreeDataSource {
 
-  public url: string = 'assets/tree.json';
+  url: string = 'assets/tree.json';
 
   constructor(private http: HttpClient) {
   }

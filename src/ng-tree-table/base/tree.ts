@@ -5,10 +5,10 @@ import {TreeDataSource, FilterState} from './tree-types';
 @Injectable()
 export class Tree {
 
-  public service: TreeDataSource;
-  public selectedNode: TreeNode;
-  public filterLoading: boolean;
-  public serverSideFiltering: boolean;
+  service: TreeDataSource;
+  selectedNode: TreeNode;
+  filterLoading: boolean;
+  serverSideFiltering: boolean;
 
   set nodes(val: TreeNode[]) {
     this._nodes = [];

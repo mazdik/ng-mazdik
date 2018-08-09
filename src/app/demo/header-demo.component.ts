@@ -26,9 +26,9 @@ import {getColumnsPlayers} from './columns';
 
 export class HeaderDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public columns: Column[];
-  public settings: Settings = <Settings>{};
+  table: DataTable;
+  columns: Column[];
+  settings: Settings = <Settings>{};
   @ViewChild('template') template: TemplateRef<any>;
 
   constructor(private http: HttpClient) {

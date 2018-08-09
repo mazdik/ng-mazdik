@@ -3,8 +3,8 @@ import {Settings} from './settings';
 
 export class DataSort {
 
-  public multiple: boolean;
-  public sortMeta: SortMeta[] = [];
+  multiple: boolean;
+  sortMeta: SortMeta[] = [];
 
   constructor(private settings: Settings) {
     this.multiple = this.settings.multipleSort;

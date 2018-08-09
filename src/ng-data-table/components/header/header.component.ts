@@ -14,7 +14,7 @@ import {Subscription} from 'rxjs';
 
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
+  @Input() table: DataTable;
 
   @HostBinding('class') cssClass = 'datatable-header';
   @ViewChild('headerTemplate', { read: ViewContainerRef }) headerTemplate: ViewContainerRef;

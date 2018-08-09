@@ -7,8 +7,8 @@ import {Filter, SortMeta, Settings} from '../../ng-data-table';
 @Injectable()
 export class DemoService implements DataSource {
 
-  public url: string;
-  public primaryKeys: any;
+  url: string;
+  primaryKeys: any;
 
   private itemsPerPage: number = 20;
   private dataFilter: DataFilter;

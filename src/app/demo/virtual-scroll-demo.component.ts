@@ -15,16 +15,16 @@ import {getColumnsPlayers} from './columns';
 
 export class VirtualScrollDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public columns: Column[];
-  public service: DataSource;
-  public dataManager: DataManager;
+  table: DataTable;
+  columns: Column[];
+  service: DataSource;
+  dataManager: DataManager;
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     virtualScroll: true
   };
 
-  public serverSideSettings: Settings = <Settings>{
+  serverSideSettings: Settings = <Settings>{
     api: 'assets/players.json',
     virtualScroll: true
   };

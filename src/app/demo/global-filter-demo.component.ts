@@ -16,16 +16,16 @@ import {getColumnsPlayers} from './columns';
 
 export class GlobalFilterDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public service: DataSource;
-  public columns: Column[];
-  public dataManager: DataManager;
+  table: DataTable;
+  service: DataSource;
+  columns: Column[];
+  dataManager: DataManager;
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     globalFilter: true,
   };
 
-  public serverSideSettings: Settings = <Settings>{
+  serverSideSettings: Settings = <Settings>{
     api: 'assets/players.json',
     globalFilter: true
   };

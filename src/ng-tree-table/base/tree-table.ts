@@ -34,8 +34,8 @@ export class TreeTable extends DataTable {
     return this.tree.filterLoading;
   }
 
-  public tree: Tree;
-  public treeFlattener: TreeFlattener;
+  tree: Tree;
+  treeFlattener: TreeFlattener;
 
   constructor(columns: ColumnBase[], settings: Settings, dataSource: TreeDataSource, messages?: Message) {
     super(columns, settings, messages);

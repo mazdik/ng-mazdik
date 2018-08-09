@@ -10,9 +10,9 @@ import {getColumnsPlayers} from './columns';
 
 export class CssDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public columns: Column[];
-  public settings: Settings = <Settings>{};
+  table: DataTable;
+  columns: Column[];
+  settings: Settings = <Settings>{};
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

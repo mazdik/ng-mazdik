@@ -19,18 +19,18 @@ import {getColumnsPlayers} from './columns';
 
 export class MultipleSelectionDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public table2: DataTable;
-  public columns: Column[];
-  public selectedRows: any[];
-  public selectedRows2: any[];
+  table: DataTable;
+  table2: DataTable;
+  columns: Column[];
+  selectedRows: any[];
+  selectedRows2: any[];
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     selectionMultiple: true,
     selectionMode: 'checkbox',
   };
 
-  public settings2: Settings = <Settings>{
+  settings2: Settings = <Settings>{
     selectionMultiple: true,
     selectionMode: 'radio',
   };

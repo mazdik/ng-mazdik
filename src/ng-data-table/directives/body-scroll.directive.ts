@@ -6,7 +6,7 @@ import {DataTable} from '../base';
 })
 export class BodyScrollDirective implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
+  @Input() table: DataTable;
 
   prevScrollYPos: number = 0;
   prevScrollXPos: number = 0;

@@ -17,8 +17,8 @@ import {HttpClient} from '@angular/common/http';
 
 export class PlayersComponent {
   
-    public service: DataSource;
-    public dataManager: DataManager;
+    service: DataSource;
+    dataManager: DataManager;
   
     constructor(private http: HttpClient) {
       // YiiService | RestlessService | OrdsService | your custom service
@@ -26,7 +26,7 @@ export class PlayersComponent {
       this.dataManager = new DataManager(this.columns, this.settings, this.service);
     }
 
-    public columns: Column[] = [
+    columns: Column[] = [
         {
             title: 'Id', 
             name: 'id', 
@@ -111,7 +111,7 @@ export class PlayersComponent {
         }
     ];
 
-    public settings: Settings = {
+    settings: Settings = {
         api: 'http://host3/players',
         crud: true,
         tableWidth: 820,
@@ -131,9 +131,9 @@ import {Column, Settings, DataTable} from '../ng-crud-table';
 
 export class DataTableDemoComponent {
 
-  public table: DataTable;
-  public columns: Column[];
-  public settings: Settings;
+  table: DataTable;
+  columns: Column[];
+  settings: Settings;
 
   constructor() {
     this.table = new DataTable(this.columns, this.settings);
@@ -152,10 +152,10 @@ import {TreeDataSource, Column, Settings, TreeTable} from '../ng-tree-table';
 
 export class TreeTableDemoComponent {
 
-  public treeService: TreeDataSource;
-  public treeTable: TreeTable;
-  public settings: Settings;
-  public columns: Column[];
+  treeService: TreeDataSource;
+  treeTable: TreeTable;
+  settings: Settings;
+  columns: Column[];
 
   constructor() {
     this.treeService = new TreeDemoService(this.http);

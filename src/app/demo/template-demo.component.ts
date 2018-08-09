@@ -29,9 +29,9 @@ import {DataFilter} from '../../ng-data-table/base';
 
 export class TemplateDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public columns: Column[];
-  public settings: Settings = <Settings>{
+  table: DataTable;
+  columns: Column[];
+  settings: Settings = <Settings>{
     headerRowHeight: 40,
     rowHeight: 40,
     actionColumnWidth: 0

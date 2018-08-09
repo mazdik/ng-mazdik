@@ -22,23 +22,23 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
 
 export class MasterDetailDemoComponent implements OnInit {
 
-  public dtPlayers: DataTable;
-  public dtInventory: DataTable;
-  public dtRank: DataTable;
-  public columnsPlayers: Column[];
-  public columnsRank: Column[];
-  public columnsInventory: Column[];
+  dtPlayers: DataTable;
+  dtInventory: DataTable;
+  dtRank: DataTable;
+  columnsPlayers: Column[];
+  columnsRank: Column[];
+  columnsInventory: Column[];
 
-  public settingsPlayers: Settings = <Settings>{
+  settingsPlayers: Settings = <Settings>{
     bodyHeight: 250,
   };
 
-  public settingsRank: Settings = <Settings>{
+  settingsRank: Settings = <Settings>{
     tableWidth: 500,
     bodyHeight: 250,
   };
 
-  public settingsInventory: Settings = <Settings>{
+  settingsInventory: Settings = <Settings>{
     tableWidth: 600,
     bodyHeight: 250,
   };

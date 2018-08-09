@@ -13,8 +13,8 @@ import {Row} from '../../types';
 })
 export class BodyComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
-  @Input() public loading: boolean;
+  @Input() table: DataTable;
+  @Input() loading: boolean;
 
   @HostBinding('class') cssClass = 'datatable-body';
 

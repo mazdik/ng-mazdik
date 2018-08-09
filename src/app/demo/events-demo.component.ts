@@ -20,17 +20,17 @@ import {Subscription} from 'rxjs';
 
 export class EventsDemoComponent implements OnInit, OnDestroy {
 
-  public table: DataTable;
-  public columns: Column[];
+  table: DataTable;
+  columns: Column[];
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     clientSide: true,
     hoverEvents: true,
     contextMenu: true,
   };
-  public eventName: string = 'Event name';
-  public eventValue: any = 'event value';
-  public cellValueChangedEvent: any;
+  eventName: string = 'Event name';
+  eventValue: any = 'event value';
+  cellValueChangedEvent: any;
 
   private subscriptions: Subscription[] = [];
 

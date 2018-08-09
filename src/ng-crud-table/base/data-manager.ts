@@ -7,11 +7,11 @@ import {Message} from '../../ng-data-table/base/message';
 
 export class DataManager extends DataTable {
 
-  public service: DataSource;
-  public errors: any;
-  public item: any;
-  public refreshRowOnSave: boolean;
-  public actionMenu: MenuItem[] = [];
+  service: DataSource;
+  errors: any;
+  item: any;
+  refreshRowOnSave: boolean;
+  actionMenu: MenuItem[] = [];
 
   constructor(columns: ColumnBase[], settings: Settings, dataSource: DataSource, messages?: Message) {
     super(columns, settings, messages);

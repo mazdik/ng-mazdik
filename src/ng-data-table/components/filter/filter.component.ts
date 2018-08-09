@@ -12,7 +12,7 @@ import {ColumnMenuEventArgs} from '../../types';
 })
 export class FilterComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
+  @Input() table: DataTable;
 
   left: number;
   top: number;

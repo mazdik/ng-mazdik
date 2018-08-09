@@ -6,8 +6,8 @@ import { Column } from './column';
 
 export class RowGroup {
 
-    public rowGroupMetadata: any;
-    public grandTotalRow: any;
+    rowGroupMetadata: any;
+    grandTotalRow: any;
     private dataAggregation: DataAggregation;
 
     constructor(private settings: Settings, private sorter: DataSort, private columns: Column[]) {

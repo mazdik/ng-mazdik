@@ -14,8 +14,8 @@ import {Row} from '../../types';
 })
 export class BodyRowComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
-  @Input() public row: Row;
+  @Input() table: DataTable;
+  @Input() row: Row;
 
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];

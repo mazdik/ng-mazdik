@@ -13,12 +13,12 @@ import {getColumnsPlayers} from './columns';
 
 export class LiveDemoComponent implements OnInit {
 
-  public table: DataTable;
-  public columns: Column[];
-  public tempRows: any;
-  public stop: boolean;
+  table: DataTable;
+  columns: Column[];
+  tempRows: any;
+  stop: boolean;
 
-  public settings: Settings = <Settings>{
+  settings: Settings = <Settings>{
     sortable: false,
     filter: false,
     trackByProp: 'changed'

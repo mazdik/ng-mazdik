@@ -13,8 +13,8 @@ import {Row} from '../../types';
 })
 export class SummaryRowComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
-  @Input() public row: Row;
+  @Input() table: DataTable;
+  @Input() row: Row;
 
   private subscriptions: Subscription[] = [];
 

@@ -14,7 +14,7 @@ import {Row, CellEventArgs} from '../../types';
 })
 export class BodyCellComponent implements OnInit, OnDestroy {
 
-  @Input() public table: DataTable;
+  @Input() table: DataTable;
 
   @Input()
   set column(column: Column) {
@@ -82,16 +82,16 @@ export class BodyCellComponent implements OnInit, OnDestroy {
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
 
-  public value: any;
-  public oldValue: any;
-  public cellContext: any = {
+  value: any;
+  oldValue: any;
+  cellContext: any = {
     row: this.row,
     value: this.value,
     column: this.column,
   };
-  public editing: boolean;
-  public subscriptions: Subscription[] = [];
-  public hasError: boolean;
+  editing: boolean;
+  subscriptions: Subscription[] = [];
+  hasError: boolean;
   private _column: Column;
   private _row: Row;
 

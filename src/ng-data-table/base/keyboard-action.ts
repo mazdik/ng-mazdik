@@ -8,7 +8,7 @@ export class KeyboardAction {
     constructor(private table: DataTable) {
     }
 
-    public handleEvent(event: KeyboardEvent, target: HTMLElement) {
+    handleEvent(event: KeyboardEvent, target: HTMLElement) {
         const keyCode = event.keyCode;
         const shiftKey = event.shiftKey;
         if (!this.isAction(keyCode) && !this.isNavigationKey(keyCode)) {
