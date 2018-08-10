@@ -7,7 +7,7 @@ import {Row} from '../../types';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-datatable-body-cell-action',
+  selector: 'dt-body-cell-action',
   templateUrl: 'body-cell-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

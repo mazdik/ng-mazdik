@@ -6,7 +6,7 @@ import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
-    selector: 'app-datatable-toolbar',
+    selector: 'app-toolbar',
     templateUrl: './toolbar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

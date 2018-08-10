@@ -8,7 +8,7 @@ import {translate, addClass} from '../../base/util';
 import {Row} from '../../types';
 
 @Component({
-  selector: 'app-datatable-body-row',
+  selector: 'dt-body-row',
   templateUrl: './body-row.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

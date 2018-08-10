@@ -5,7 +5,7 @@ import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-css-demo',
-  template: `<app-datatable [table]="table"></app-datatable>`
+  template: `<app-data-table [table]="table"></app-data-table>`
 })
 
 export class CssDemoComponent implements OnInit {

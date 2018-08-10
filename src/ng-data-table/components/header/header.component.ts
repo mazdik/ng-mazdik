@@ -7,7 +7,7 @@ import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-datatable-header',
+  selector: 'dt-header',
   templateUrl: 'header.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

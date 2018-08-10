@@ -6,22 +6,22 @@
   </div>
 
   <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn">
-    <app-datatable-body-cell
+    <dt-body-cell
       tabindex="-1"
       [table]="table"
       [row]="row"
       [column]="column">
-    </app-datatable-body-cell>
+    </dt-body-cell>
   </ng-container>
 </div>
 
 <div class="datatable-row-center">
   <ng-container *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn">
-    <app-datatable-body-cell
+    <dt-body-cell
       tabindex="-1"
       [table]="table"
       [row]="row"
       [column]="column">
-    </app-datatable-body-cell>
+    </dt-body-cell>
   </ng-container>
 </div>

@@ -11,24 +11,24 @@
     <div class="datatable-row-center"></div>
   </div>
 
-  <app-datatable-body-row
+  <dt-body-row
     [table]="table"
     [row]="row"
     [style.transform]="styleTranslate(row)">
-  </app-datatable-body-row>
+  </dt-body-row>
 
-  <app-datatable-summary-row
+  <dt-summary-row
     *ngIf="table.rowGroup.isRowGroupSummary(row)"
     [table]="table"
     [row]="table.rowGroup.getRowGroupSummary(row)">
-  </app-datatable-summary-row>
+  </dt-summary-row>
 </ng-container>
 
-<app-datatable-summary-row
+<dt-summary-row
   *ngIf="table.rowGroup.aggregationEnabled()"
   [table]="table"
   [row]="table.rowGroup.grandTotalRow">
-</app-datatable-summary-row>
+</dt-summary-row>
 
 <div class="datatable-empty-row"
       *ngIf="!table.rows?.length"

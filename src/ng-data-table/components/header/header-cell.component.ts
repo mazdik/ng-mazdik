@@ -6,7 +6,7 @@ import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../types';
 
   @Component({
-    selector: 'app-datatable-header-cell',
+    selector: 'dt-header-cell',
     templateUrl: 'header-cell.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
   })

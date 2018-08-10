@@ -6,7 +6,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-header-demo',
   template: `
-    <app-datatable [table]="table"></app-datatable>
+    <app-data-table [table]="table"></app-data-table>
     <ng-template #template>
     <div class="datatable-header-row">
     <div class="datatable-row-left">

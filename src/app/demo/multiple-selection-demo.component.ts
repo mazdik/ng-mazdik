@@ -7,11 +7,11 @@ import {getColumnsPlayers} from './columns';
   selector: 'app-multiple-selection-demo',
   template: `<button class="button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
-    <app-datatable [table]="table" (selectionChange)="onSelection()"></app-datatable>
+    <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
     <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows">
       {{row.id}}-{{row.name}}</div>
     <p>Selection type: multiple. Selection mode: radio</p>
-    <app-datatable [table]="table2" (selectionChange)="onSelection2()"></app-datatable>
+    <app-data-table [table]="table2" (selectionChange)="onSelection2()"></app-data-table>
     <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows2">
       {{row.id}}-{{row.name}}</div>
   `

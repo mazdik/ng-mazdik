@@ -7,7 +7,7 @@ import {getColumnsPlayers} from './columns';
   selector: 'app-live-demo',
   template: `
     <button class="button" style="margin-bottom: 5px;" (click)="stop=true">stop</button>
-    <app-datatable [table]="table"></app-datatable>
+    <app-data-table [table]="table"></app-data-table>
   `
 })
 

@@ -7,7 +7,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-virtual-scroll-demo',
   template: `<p>Client-side virtual scroll with dynamic row height</p>
-  <app-datatable [table]="table"></app-datatable>
+  <app-data-table [table]="table"></app-data-table>
   <p>Server-side virtual scroll</p>
   <app-crud-table [dataManager]="dataManager"></app-crud-table>
   `

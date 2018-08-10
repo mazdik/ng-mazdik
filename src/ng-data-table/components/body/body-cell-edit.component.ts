@@ -4,7 +4,7 @@ import {Row, CellEventArgs} from '../../types';
 import {Keys, Constants} from '../../base';
 
 @Component({
-  selector: 'app-datatable-body-cell-edit',
+  selector: 'dt-body-cell-edit',
   templateUrl: './body-cell-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

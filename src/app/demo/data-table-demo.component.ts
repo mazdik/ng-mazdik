@@ -6,7 +6,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-data-table-demo',
   template: `
-    <app-datatable [table]="table"></app-datatable>
+    <app-data-table [table]="table"></app-data-table>
   `
 })
 

@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 
 @Component({
-  selector: 'app-datatable',
+  selector: 'app-datatable, app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['../../styles/index.css'],
   encapsulation: ViewEncapsulation.None,

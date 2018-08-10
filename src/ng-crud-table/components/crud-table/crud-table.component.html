@@ -2,10 +2,10 @@
   {{this.dataManager.errors}}
 </div>
 
-<app-datatable-toolbar #toolbar [table]="dataManager" (createAction)="onCreateAction()">
-</app-datatable-toolbar>
+<app-toolbar #toolbar [table]="dataManager" (createAction)="onCreateAction()">
+</app-toolbar>
 
-<app-datatable [table]="dataManager"></app-datatable>
+<app-data-table [table]="dataManager"></app-data-table>
 
 <app-modal-edit-form #modalEditForm [dataManager]="dataManager" (loaded)="onLoadedForm()">
 </app-modal-edit-form>

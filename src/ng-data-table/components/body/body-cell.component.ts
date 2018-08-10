@@ -8,7 +8,7 @@ import {addClass} from '../../base/util';
 import {Row, CellEventArgs} from '../../types';
 
 @Component({
-  selector: 'app-datatable-body-cell',
+  selector: 'dt-body-cell',
   templateUrl: 'body-cell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-events-demo',
   template: `
-    <app-datatable [table]="table"></app-datatable>
+    <app-data-table [table]="table"></app-data-table>
     <div class="df-alert df-alert-success" style="word-break: break-all;" *ngIf="cellValueChangedEvent">
       <b>cellValueChanged:</b> {{cellValueChangedEvent}}
     </div><br>

@@ -2,11 +2,11 @@
 <app-filter
   [table]="table">
 </app-filter>
-<app-datatable-header
+<dt-header
   *ngIf="table.settings.headerRowHeight || table.settings.headerTemplate"
   [table]="table">
-</app-datatable-header>
-<app-datatable-body
+</dt-header>
+<dt-body
   appBodyScroll
   appBodyMouseover
   appBodyKeydown
@@ -15,7 +15,7 @@
   appBodyContextMenu
   [table]="table"
   [loading]="loading">
-</app-datatable-body>
+</dt-body>
 
 <div #footer class="datatable-footer">
   <div class="datatable-footer-inner" *ngIf="table.pager.total > 0">

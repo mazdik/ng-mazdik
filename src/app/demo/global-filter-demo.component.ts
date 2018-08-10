@@ -7,8 +7,8 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-global-filter-demo',
   template: `<p>Client-side global filter</p>
-  <app-datatable-toolbar [table]="table"></app-datatable-toolbar>
-  <app-datatable [table]="table"></app-datatable>
+  <app-toolbar [table]="table"></app-toolbar>
+  <app-data-table [table]="table"></app-data-table>
   <p>Server-side global filter</p>
   <app-crud-table [dataManager]="dataManager"></app-crud-table>
   `

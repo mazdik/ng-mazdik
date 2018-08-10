@@ -7,7 +7,7 @@ import {translate} from '../../base/util';
 import {Row} from '../../types';
 
 @Component({
-  selector: 'app-datatable-summary-row',
+  selector: 'dt-summary-row',
   templateUrl: './summary-row.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

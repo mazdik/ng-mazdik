@@ -6,16 +6,16 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
 @Component({
   selector: 'app-master-detail-demo',
   template: `
-    <app-datatable
+    <app-data-table
       [table]="dtPlayers"
       (selectionChange)="masterChanged()">
-    </app-datatable>
+    </app-data-table>
     <div style="display:inline-block; vertical-align: top;">
-      <app-datatable [table]="dtInventory"></app-datatable>
+      <app-data-table [table]="dtInventory"></app-data-table>
     </div>
     <div style="display:inline-block; width: 5px;"></div>
     <div style="display:inline-block; vertical-align: top;">
-      <app-datatable [table]="dtRank"></app-datatable>
+      <app-data-table [table]="dtRank"></app-data-table>
     </div>
   `
 })

@@ -5,7 +5,7 @@ import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-datatable-header-cell-action',
+  selector: 'dt-header-cell-action',
   templateUrl: 'header-cell-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

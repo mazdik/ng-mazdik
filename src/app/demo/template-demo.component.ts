@@ -7,7 +7,7 @@ import {DataFilter} from '../../ng-data-table/base';
 @Component({
   selector: 'app-template-demo',
   template: `
-    <app-datatable [table]="table"></app-datatable>
+    <app-data-table [table]="table"></app-data-table>
     <ng-template #headerCellTemplate let-column="column">
       <img width="40" src="assets/asmodian.png" title="ASMODIANS"
         (click)="clickRaceFilter('ASMODIANS')"

@@ -126,7 +126,7 @@ import {Column, Settings, DataTable} from '../ng-crud-table';
 
 @Component({
   selector: 'app-data-table-demo',
-  template: `<app-datatable [table]="table"></app-datatable>`
+  template: `<app-data-table [table]="table"></app-data-table>`
 })
 
 export class DataTableDemoComponent {

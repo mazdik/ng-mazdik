@@ -6,7 +6,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
 @Component({
   selector: 'app-modal-data-table-demo',
   template: `
-    <app-datatable [table]="dtPlayers"></app-datatable>
+    <app-data-table [table]="dtPlayers"></app-data-table>
     <ng-template #template1 let-row="row" let-value="value">
       <a (click)="onClickCell1($event, value, row)" href="#">
         {{value}}
@@ -19,18 +19,18 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
     </ng-template>
     <app-modal #rankModal [modalTitle]="'Rank'" [maximizable]="true" [width]="900">
       <ng-container class="app-modal-body" *ngIf="rankModal.visible">
-        <app-datatable
+        <app-data-table
           *ngIf="rankModal.visible"
           [table]="dtRank">
-        </app-datatable>
+        </app-data-table>
       </ng-container>
     </app-modal>
     <app-modal #inventoryModal [modalTitle]="'Inventory'" [maximizable]="true" [width]="900">
       <ng-container class="app-modal-body">
-        <app-datatable
+        <app-data-table
           *ngIf="inventoryModal.visible"
           [table]="dtInventory">
-        </app-datatable>
+        </app-data-table>
       </ng-container>
     </app-modal>
   `
