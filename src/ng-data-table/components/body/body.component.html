@@ -2,7 +2,8 @@
 
   <div class="datatable-body-row datatable-group-header"
         *ngIf="table.rowGroup.isRowGroup(row)"
-        [style.width.px]="table.dimensions.columnsTotalWidth + 1">
+        [style.width.px]="table.dimensions.columnsTotalWidth + 1"
+        [style.height.px]="table.dimensions.rowHeight">
     <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
       <div class="datatable-body-cell">
         {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
@@ -37,6 +38,7 @@
   <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
 </div>
 
-<div class="datatable-scroll"
-  [style.height.px]="getScrollHeight()">
+<div class="virtual-scroller"
+    *ngIf="table.settings.virtualScroll"
+    [style.height.px]="table.dimensions.scrollHeight">
 </div>

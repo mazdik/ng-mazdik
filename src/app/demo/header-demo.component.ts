@@ -8,7 +8,7 @@ import {getColumnsPlayers} from './columns';
   template: `
     <app-data-table [table]="table"></app-data-table>
     <ng-template #template>
-    <div class="datatable-header-row">
+    <div class="datatable-header-row" [style.height.px]="40">
     <div class="datatable-row-left">
             <div class="datatable-header-cell" [style.width.px]="getWidth(0, 2)">Group 1</div>
         </div>

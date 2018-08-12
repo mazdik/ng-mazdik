@@ -18,14 +18,9 @@
   position: absolute;
 }
 
-.datatable-scroll {
-  display: inline-block;
-}
-
 .datatable-body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  min-height: 100px;
 }
 
 .datatable-header-row {
@@ -100,45 +95,11 @@
   outline: none;
 }
 
-.datatable-footer {
-  display: block;
-  width: 100%;
-}
-
-.datatable-footer .datatable-footer-inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-}
-
-.datatable-footer .page-count {
-  -ms-flex: 1 1 30%;
-  flex: 1 1 30%;
-}
-
-.datatable-footer .datatable-pager {
-  -ms-flex: 1 1 70%;
-  flex: 1 1 70%;
-  text-align: right;
-}
-
 /******/
-.datatable-header-row {
-  height: 40px;
-}
-
-.datatable-body-row {
-  height: 30px;
-}
-
 .datatable-header-cell {
   background-color: #5b9bd5;
   color: white;
   user-select: none;
-  padding: 0 3px;
 }
 
 .datatable-header-cell:hover {
@@ -153,12 +114,9 @@
   background-color: white;
 }
 
-.datatable-body-cell {
-  padding: 0 3px;
-}
-
 .datatable-body-cell,
 .datatable-header-cell {
+  padding: 0 3px;
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
 }

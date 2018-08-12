@@ -1,0 +1,24 @@
+.datatable-footer {
+  display: block;
+  width: 100%;
+}
+
+.datatable-footer .datatable-footer-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.datatable-footer .page-count {
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+}
+
+.datatable-footer .datatable-pager {
+  -ms-flex: 1 1 70%;
+  flex: 1 1 70%;
+  text-align: right;
+}
