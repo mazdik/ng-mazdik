@@ -71,7 +71,7 @@ import {ColumnMenuEventArgs} from '../../types';
         const el = event.target.parentNode;
         let left = el.offsetLeft;
         let top = el.offsetTop;
-        top = top + this.table.dimensions.headerRowHeight;
+        top = top + this.table.dimensions.headerRowHeight + (this.table.dimensions.headerTemplateHeight || 0);
         // datatable-row-left + offsetLeft
         if (el.parentNode.offsetLeft > 0) {
           left = left + el.parentNode.offsetLeft - this.table.dimensions.offsetX;

@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
-  ViewChild, ViewContainerRef
+  ViewChild, ViewContainerRef, AfterViewInit
 } from '@angular/core';
 import {DataTable, Constants} from '../../base';
 import {translate} from '../../base/util';
@@ -12,7 +12,7 @@ import {Subscription} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() table: DataTable;
 
@@ -39,6 +39,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
+  }
+
+  ngAfterViewInit() {
+    if (this.headerTemplate) {
+      this.table.dimensions.headerTemplateHeight = this.headerTemplate.element.nativeElement.nextSibling.offsetHeight;
+    }
   }
 
   ngOnDestroy() {

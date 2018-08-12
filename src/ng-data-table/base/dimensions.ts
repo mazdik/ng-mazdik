@@ -17,6 +17,7 @@ export class Dimensions {
   scrollHeight: number;
   offsetX: number = 0;
   offsetY: number = 0;
+  headerTemplateHeight: number = 0;
 
   private rowHeightCache: number[] = [];
 
