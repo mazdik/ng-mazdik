@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class RowMenuComponent implements OnInit, OnDestroy {
 
-  @Input() dataManager: DataManager;
+  @Input() public dataManager: DataManager;
 
   left: number;
   top: number;

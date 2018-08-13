@@ -8,13 +8,13 @@ import {addClass} from '../../base/util';
 import {Row, CellEventArgs} from '../../types';
 
 @Component({
-  selector: 'dt-body-cell',
+  selector: 'app-datatable-body-cell',
   templateUrl: 'body-cell.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCellComponent implements OnInit, OnDestroy {
 
-  @Input() table: DataTable;
+  @Input() public table: DataTable;
 
   @Input()
   set column(column: Column) {
@@ -82,16 +82,16 @@ export class BodyCellComponent implements OnInit, OnDestroy {
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
 
-  value: any;
-  oldValue: any;
-  cellContext: any = {
+  public value: any;
+  public oldValue: any;
+  public cellContext: any = {
     row: this.row,
     value: this.value,
     column: this.column,
   };
-  editing: boolean;
-  subscriptions: Subscription[] = [];
-  hasError: boolean;
+  public editing: boolean;
+  public subscriptions: Subscription[] = [];
+  public hasError: boolean;
   private _column: Column;
   private _row: Row;
 

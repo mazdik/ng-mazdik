@@ -7,8 +7,8 @@ import {Column} from '../../base';
 })
 export class InputComponent implements OnInit {
 
-  @Input() column: Column;
-  @Input() disabled: boolean;
+  @Input() public column: Column;
+  @Input() public disabled: boolean;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
@@ -25,8 +25,9 @@ export class InputComponent implements OnInit {
     return this._model;
   }
 
-  errors: any[] = [];
-  loading: boolean;
+  public errors: any[] = [];
+  public loading: boolean;
+
   private _model: any;
 
   constructor() {

@@ -3,7 +3,7 @@ import {AggregateType, AggregateMeta} from '../types';
 
 export class DataAggregation {
 
-  aggregates: AggregateMeta[] = [];
+  public aggregates: AggregateMeta[] = [];
 
   get enabled() {
     return (this.aggregates && this.aggregates.length);

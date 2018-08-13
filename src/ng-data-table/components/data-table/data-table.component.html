@@ -1,37 +1,36 @@
-<div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
-<app-filter
-  [table]="table">
-</app-filter>
-<dt-header
-  *ngIf="table.settings.headerRowHeight || table.settings.headerTemplate"
-  [table]="table">
-</dt-header>
-<dt-body
-  appBodyScroll
-  appBodyMouseover
-  appBodyKeydown
-  appBodyClick
-  appBodyDblClick
-  appBodyContextMenu
-  [table]="table"
-  [loading]="loading">
-</dt-body>
+<div class="mat-elevation-z8" >
+  <app-filter [table]="table"></app-filter>
+  <app-datatable-header
+    *ngIf="table.settings.headerRowHeight || table.settings.headerTemplate"
+    [table]="table">
+  </app-datatable-header>
+  <app-datatable-body mat-table
+    appBodyScroll
+    appBodyMouseover
+    appBodyKeydown
+    appBodyClick
+    appBodyDblClick
+    appBodyContextMenu
+    [table]="table"
+    [loading]="loading">
+  </app-datatable-body>
 
-<div #footer class="datatable-footer">
-  <div class="datatable-footer-inner" *ngIf="table.pager.total > 0">
-    <div class="page-count">
-          <span class="page-range">
-            {{table.pager.getRange()}} of {{table.pager.total}}
-          </span>
-    </div>
-    <div class="datatable-pager">
-      <app-pagination
-        [totalItems]="table.pager.total"
-        [itemsPerPage]="table.pager.perPage"
-        [currentPage]="table.pager.current"
-        (pageChanged)="onPageChanged($event)">
-      </app-pagination>
+  <div #footer class="datatable-footer">
+    <div class="datatable-footer-inner" *ngIf="table.pager.total > 0">
+      <div class="page-count">
+            <span class="page-range">
+              {{table.pager.getRange()}} of {{table.pager.total}}
+            </span>
+      </div>
+      <div class="datatable-pager">
+        <app-pagination
+          [totalItems]="table.pager.total"
+          [itemsPerPage]="table.pager.perPage"
+          [currentPage]="table.pager.current"
+          (pageChanged)="onPageChanged($event)">
+        </app-pagination>
+      </div>
     </div>
   </div>
+  <div #resizeHelper class="column-resizer-helper"></div>
 </div>
-<div #resizeHelper class="column-resizer-helper"></div>

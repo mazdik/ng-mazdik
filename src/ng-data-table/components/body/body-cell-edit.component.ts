@@ -4,13 +4,13 @@ import {Row, CellEventArgs} from '../../types';
 import {Keys, Constants} from '../../base';
 
 @Component({
-  selector: 'dt-body-cell-edit',
+  selector: 'app-datatable-body-cell-edit',
   templateUrl: './body-cell-edit.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
-  tempValue: any;
+  public tempValue: any;
 
   constructor(cd: ChangeDetectorRef, element: ElementRef) {
     super(cd, element);

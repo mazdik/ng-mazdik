@@ -5,18 +5,27 @@ import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {Settings} from '../../ng-data-table/base/settings';
 import {Message} from '../../ng-data-table/base/message';
 
+import {LoaderService} from '../../../_services/loader.service';
+
 export class DataManager extends DataTable {
 
-  service: DataSource;
-  errors: any;
-  item: any;
-  refreshRowOnSave: boolean;
-  actionMenu: MenuItem[] = [];
+  public service: DataSource;
+  public errors: any;
+  public item: any;
+  public refreshRowOnSave: boolean;
+  public actionMenu: MenuItem[] = [];
+  private loaderService: LoaderService;
 
-  constructor(columns: ColumnBase[], settings: Settings, dataSource: DataSource, messages?: Message) {
+  constructor(
+    columns: ColumnBase[],
+    settings: Settings,
+    dataSource: DataSource,
+    messages?: Message
+  ) {
     super(columns, settings, messages);
     this.settings.clientSide = false;
     this.setService(dataSource);
+    this.loaderService = new LoaderService();
   }
 
   set filters(val: Filter) {
@@ -37,7 +46,8 @@ export class DataManager extends DataTable {
   }
 
   getItems(concatRows: boolean = false): Promise<any> {
-    this.events.onLoading(true);
+    this.loaderService.show();
+    // this.events.onLoading(true);
     this.errors = null;
     this.rowGroup.setSortMetaGroup();
     if (!this.dataFilter.isGlobal) {
@@ -46,7 +56,8 @@ export class DataManager extends DataTable {
     return this.service
       .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, this.dataFilter.globalFilterValue)
       .then(data => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.pager.total = data._meta.totalCount;
         this.pager.perPage = data._meta.perPage;
         this.rows = (concatRows) ? this.rows.concat(data.items) : data.items;
@@ -54,54 +65,64 @@ export class DataManager extends DataTable {
         this.dataFilter.isGlobal = false;
       })
       .catch(error => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.errors = error;
       });
   }
 
   create(row: Row) {
-    this.events.onLoading(true);
+    this.loaderService.show();
+    // this.events.onLoading(true);
     this.errors = null;
     this.service
       .post(row)
       .then(res => {
-        this.events.onLoading(false);
+        this.loaderService.hide();
+        // this.events.onLoading(false);
         this.errors = null;
         this.afterCreate(res);
       })
       .catch(error => {
-        this.events.onLoading(false);
+        this.loaderService.hide();
+        // this.events.onLoading(false);
         this.errors = error;
       });
   }
 
   update(row: Row) {
-    this.events.onLoading(true);
+    // this.events.onLoading(true);
+    this.loaderService.show();
     this.errors = null;
     this.service.put(row)
       .then(res => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.errors = null;
         this.afterUpdate(row, res);
       })
       .catch(error => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.errors = error;
       });
   }
 
   delete(row: Row) {
-    this.events.onLoading(true);
+    // this.events.onLoading(true);
+    this.loaderService.show();
     this.errors = null;
     this.service
       .delete(row)
       .then(res => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.errors = null;
         this.afterDelete(row, true);
       })
       .catch(error => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.errors = error;
       });
   }
@@ -125,15 +146,18 @@ export class DataManager extends DataTable {
   }
 
   refreshRow(row: Row) {
-    this.events.onLoading(true);
+    // this.events.onLoading(true);
+    this.loaderService.show();
     this.errors = null;
     this.service.getItem(row)
       .then(data => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.mergeRow(row, data);
       })
       .catch(error => {
-        this.events.onLoading(false);
+        // this.events.onLoading(false);
+        this.loaderService.hide();
         this.errors = error;
       });
   }

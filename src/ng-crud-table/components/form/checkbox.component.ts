@@ -5,7 +5,7 @@ import {InputOptionComponent} from './input-option.component';
   selector: 'app-form-checkbox',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="column.name">{{column.title | translate }}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
         <span class="datatable-checkbox">

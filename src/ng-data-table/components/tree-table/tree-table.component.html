@@ -1,0 +1,17 @@
+<app-datatable-header
+  [table]="treeTable">
+</app-datatable-header>
+
+<div class="datatable-body"
+     appBodyScroll
+     appBodyMouseover
+     appBodyKeydown
+     appBodyClick
+     appBodyDblClick
+     appBodyContextMenu
+     [table]="treeTable">
+  <app-tree-table-node
+    [treeTable]="treeTable"
+    [nodes]="treeTable.nodes">
+  </app-tree-table-node>
+</div>

@@ -6,7 +6,7 @@ import { Events } from './events';
 
 export class RowVirtual {
 
-    virtualRows: Row[] = [];
+    public virtualRows: Row[] = [];
     private start: number;
     private end: number;
     private previousStart: number;

@@ -6,7 +6,7 @@ import { DataTable, KeyboardAction, EventHelper } from '../base';
 })
 export class BodyKeydownDirective implements OnInit, OnDestroy {
 
-    @Input() table: DataTable;
+    @Input() public table: DataTable;
 
     element: HTMLElement;
     private keyboardAction: KeyboardAction;

@@ -8,15 +8,15 @@ import {DataManager} from '../../base';
 })
 export class ModalEditFormComponent implements OnInit {
 
-  @Input() dataManager: DataManager;
-  @Input() detailView: boolean;
-  @Input() isNewItem: boolean;
+  @Input() public dataManager: DataManager;
+  @Input() public detailView: boolean;
+  @Input() public isNewItem: boolean;
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('childModal') childModal: ModalComponent;
 
-  formValid: boolean = true;
+  public formValid: boolean = true;
 
   constructor() {
   }
@@ -42,11 +42,11 @@ export class ModalEditFormComponent implements OnInit {
     this.childModal.hide();
   }
 
-  open() {
+  public open() {
     this.childModal.show();
   }
 
-  close() {
+  public close() {
     this.childModal.hide();
   }
 

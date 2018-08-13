@@ -10,8 +10,8 @@ import {Column, DataTable, Constants} from '../base';
 })
 export class ResizeableColumnDirective implements OnDestroy, AfterViewInit {
 
-  @Input() table: DataTable;
-  @Input() column: Column;
+  @Input() public table: DataTable;
+  @Input() public column: Column;
 
   element: HTMLElement;
   subscription: Subscription;

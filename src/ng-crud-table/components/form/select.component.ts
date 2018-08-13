@@ -5,7 +5,7 @@ import {InputOptionComponent} from './input-option.component';
   selector: 'app-form-select',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="column.name">{{column.title | translate }}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <select class="df-control"
               [(ngModel)]="model"

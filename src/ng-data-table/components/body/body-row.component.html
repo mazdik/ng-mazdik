@@ -1,46 +1,46 @@
 <div class="datatable-row-left"
      [ngStyle]="stylesByGroup()">
 
-  <dt-body-cell-action
+  <app-datatable-body-cell-action
     *ngIf="table.dimensions.actionColumnWidth"
     [table]="table"
     [row]="row">
-  </dt-body-cell-action>
+  </app-datatable-body-cell-action>
 
   <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn">
-    <dt-body-cell
+    <app-datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
       [table]="table"
       [row]="row"
       [column]="column">
-    </dt-body-cell>
-    <dt-body-cell-edit
+    </app-datatable-body-cell>
+    <app-datatable-body-cell-edit
       *ngIf="column.editable"
       tabindex="-1"
       [table]="table"
       [row]="row"
       [column]="column">
-    </dt-body-cell-edit>
+    </app-datatable-body-cell-edit>
   </ng-container>
 
 </div>
 
 <div class="datatable-row-center">
   <ng-container *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn">
-    <dt-body-cell
+    <app-datatable-body-cell
       *ngIf="!column.editable"
       tabindex="-1"
       [table]="table"
       [row]="row"
       [column]="column">
-    </dt-body-cell>
-    <dt-body-cell-edit
+    </app-datatable-body-cell>
+    <app-datatable-body-cell-edit
       *ngIf="column.editable"
       tabindex="-1"
       [table]="table"
       [row]="row"
       [column]="column">
-    </dt-body-cell-edit>
+    </app-datatable-body-cell-edit>
   </ng-container>
 </div>

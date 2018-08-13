@@ -5,7 +5,7 @@ import {InputComponent} from './input.component';
   selector: 'app-form-textarea',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="column.name">{{column.title | translate }}</label>
       <textarea class="df-control"
                 [(ngModel)]="model"
                 [id]="column.name"

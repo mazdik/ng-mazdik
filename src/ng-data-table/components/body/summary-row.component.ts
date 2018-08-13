@@ -7,14 +7,14 @@ import {translate} from '../../base/util';
 import {Row} from '../../types';
 
 @Component({
-  selector: 'dt-summary-row',
+  selector: 'app-datatable-summary-row',
   templateUrl: './summary-row.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SummaryRowComponent implements OnInit, OnDestroy {
 
-  @Input() table: DataTable;
-  @Input() row: Row;
+  @Input() public table: DataTable;
+  @Input() public row: Row;
 
   private subscriptions: Subscription[] = [];
 

@@ -8,8 +8,8 @@ import {DataManager, Column} from '../../base';
 
 export class FormComponent implements OnInit, OnDestroy {
 
-  @Input() dataManager: DataManager;
-  @Input() isNewItem: boolean = true;
+  @Input() public dataManager: DataManager;
+  @Input() public isNewItem: boolean = true;
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();

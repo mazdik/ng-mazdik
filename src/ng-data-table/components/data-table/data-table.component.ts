@@ -6,8 +6,10 @@ import {DataTable, Constants} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 
+import { LoaderService } from '../../../../_services/loader.service';
+
 @Component({
-  selector: 'app-datatable, app-data-table',
+  selector: 'app-datatable',
   templateUrl: './data-table.component.html',
   styleUrls: ['../../styles/index.css'],
   encapsulation: ViewEncapsulation.None,
@@ -15,7 +17,7 @@ import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 })
 export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
 
-  @Input() table: DataTable;
+  @Input() public table: DataTable;
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
@@ -34,15 +36,21 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.table.dimensions.tableWidth;
   }
 
-  loading: boolean;
+  public loading: boolean;
   private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
+  constructor(
+    private element: ElementRef,
+    private differs: KeyValueDiffers,
+    private cd: ChangeDetectorRef,
+    private loaderService: LoaderService
+  ) {
     this.rowDiffer = this.differs.find({}).create();
   }
 
   ngOnInit() {
+    this.loaderService.show();
     const subSelection = this.table.events.selectionSource$.subscribe(() => {
       this.onSelectedRow();
     });
@@ -72,6 +80,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       requestAnimationFrame(() => {
         this.cd.detectChanges();
       });
+      this.loaderService.hide();
     });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);

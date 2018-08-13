@@ -1,9 +1,9 @@
 import { CellEventArgs } from '../types';
-import { isBlank } from '../base/util';
+import { isBlank } from './util';
 
 export class EventHelper {
 
-    static findCellEventTarget(event: any, element: HTMLElement): HTMLElement {
+    public static findCellEventTarget(event: any, element: HTMLElement): HTMLElement {
         let target = event.target;
         if (target === null) { return; }
         while (target !== element) {
@@ -18,7 +18,7 @@ export class EventHelper {
         return target;
     }
 
-    static findCellEvent(event: any, element: HTMLElement): CellEventArgs {
+    public static findCellEvent(event: any, element: HTMLElement): CellEventArgs {
         const target = this.findCellEventTarget(event, element);
         if (target) {
             const dataColIndex = target.dataset.columnIndex;

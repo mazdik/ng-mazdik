@@ -6,7 +6,7 @@ import { DataTable, EventHelper } from '../base';
 })
 export class BodyContextMenuDirective implements OnInit, OnDestroy {
 
-    @Input() table: DataTable;
+    @Input() public table: DataTable;
 
     element: HTMLElement;
 

@@ -18,7 +18,7 @@
     </tr>
     <tr *ngFor="let data of transposedData | orderBy: order:reverse; index as i">
       <td>{{i+1}}</td>
-      <td>{{data.key}}</td>
+      <td>{{data.key | translate}}</td>
       <td>{{data.value}}</td>
     </tr>
     </tbody>

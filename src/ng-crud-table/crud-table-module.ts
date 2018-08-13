@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {MaterialModule} from '../material/material.module';
 
 import {DataTableModule} from '../ng-data-table';
 import {ModalComponent} from './components/modal/modal.component';
@@ -22,12 +23,24 @@ import {PopupSelectComponent} from './components/form/select-popup.component';
 import {RowViewComponent} from './components/row-view/row-view.component';
 import {RowMenuComponent} from './components/row-menu/row-menu.component';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient } from '@angular/common/http';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
     DataTableModule,
+    MaterialModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   declarations: [
     CrudTableComponent,
@@ -56,4 +69,8 @@ import {RowMenuComponent} from './components/row-menu/row-menu.component';
   providers: []
 })
 export class CrudTableModule {
+}
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
 }
