@@ -7,13 +7,13 @@ import {Row} from '../../types';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'dt-body-cell-action',
+  selector: 'app-datatable-body-cell-action',
   templateUrl: 'body-cell-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyCellActionComponent implements OnInit, OnDestroy {
 
-  @Input() table: DataTable;
+  @Input() public table: DataTable;
 
   @Input()
   set row(row: Row) {
@@ -34,8 +34,8 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @ViewChild('rowActionTemplate', {read: ViewContainerRef}) rowActionTemplate: ViewContainerRef;
 
-  checked: boolean;
-  cellContext: any = {row: this.row};
+  public checked: boolean;
+  public cellContext: any = {row: this.row};
   private _row: Row;
   private subscriptions: Subscription[] = [];
 
@@ -59,7 +59,6 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   onCheckboxClick(event) {
     this.table.selectRow(this.row.$$index);
-    this.table.events.onCheckbox(this.row);
   }
 
 }

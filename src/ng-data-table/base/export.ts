@@ -1,9 +1,9 @@
 export class Export {
 
-    columnDelimiter = ';';
-    lineDelimiter = '\n';
+    public columnDelimiter = ';';
+    public lineDelimiter = '\n';
 
-    downloadCSV(rows, filename: string) {
+    public downloadCSV(rows, filename: string) {
         let csv = this.convertArrayOfObjectsToCSV(rows);
         if (csv == null) { return; }
 

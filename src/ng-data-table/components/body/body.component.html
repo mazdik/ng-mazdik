@@ -1,44 +1,41 @@
-<ng-container *ngFor="let row of table.getRows(); trackBy: rowTrackingFn">
+<div class="datatable-scroll"
+     [style.height.px]="getScrollHeight()">
+  <ng-container *ngFor="let row of table.getRows(); trackBy: rowTrackingFn">
 
-  <div class="datatable-body-row datatable-group-header"
-        *ngIf="table.rowGroup.isRowGroup(row)"
-        [style.width.px]="table.dimensions.columnsTotalWidth + 1"
-        [style.height.px]="table.dimensions.rowHeight">
-    <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
-      <div class="datatable-body-cell">
-        {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+    <div class="datatable-body-row datatable-group-header"
+         *ngIf="table.rowGroup.isRowGroup(row)"
+         [style.width.px]="table.dimensions.columnsTotalWidth + 1">
+      <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
+        <div class="datatable-body-cell">
+          {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+        </div>
       </div>
+      <div class="datatable-row-center"></div>
     </div>
-    <div class="datatable-row-center"></div>
+
+    <app-datatable-body-row
+      [table]="table"
+      [row]="row"
+      [style.transform]="styleTranslate(row)">
+    </app-datatable-body-row>
+
+    <app-datatable-summary-row
+      *ngIf="table.rowGroup.isRowGroupSummary(row)"
+      [table]="table"
+      [row]="table.rowGroup.getRowGroupSummary(row)">
+    </app-datatable-summary-row>
+  </ng-container>
+
+  <app-datatable-summary-row
+    *ngIf="table.rowGroup.aggregationEnabled()"
+    [table]="table"
+    [row]="table.rowGroup.grandTotalRow">
+  </app-datatable-summary-row>
+
+  <div class="datatable-empty-row"
+       *ngIf="!table.rows?.length"
+       [style.width.px]="table.dimensions.columnsTotalWidth">
+    <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
+    <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
   </div>
-
-  <dt-body-row
-    [table]="table"
-    [row]="row"
-    [style.transform]="styleTranslate(row)">
-  </dt-body-row>
-
-  <dt-summary-row
-    *ngIf="table.rowGroup.isRowGroupSummary(row)"
-    [table]="table"
-    [row]="table.rowGroup.getRowGroupSummary(row)">
-  </dt-summary-row>
-</ng-container>
-
-<dt-summary-row
-  *ngIf="table.rowGroup.aggregationEnabled()"
-  [table]="table"
-  [row]="table.rowGroup.grandTotalRow">
-</dt-summary-row>
-
-<div class="datatable-empty-row"
-      *ngIf="!table.rows?.length"
-      [style.width.px]="table.dimensions.columnsTotalWidth">
-  <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
-  <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
-</div>
-
-<div class="virtual-scroller"
-    *ngIf="table.settings.virtualScroll"
-    [style.height.px]="table.dimensions.scrollHeight">
 </div>

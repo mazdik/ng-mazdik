@@ -10,15 +10,15 @@ import {
 })
 export class ModalComponent implements OnInit, AfterViewChecked {
 
-  @Input() modalTitle: string;
-  @Input() width: any;
-  @Input() zIndex: number;
-  @Input() minWidth: number = 260;
-  @Input() minHeight: number = 200;
-  @Input() scrollTop: boolean = true;
-  @Input() maximizable: boolean;
-  @Input() backdrop: boolean = true;
-  @Input() styleClass: string;
+  @Input() public modalTitle: string;
+  @Input() public width: any;
+  @Input() public zIndex: number;
+  @Input() public minWidth: number = 260;
+  @Input() public minHeight: number = 200;
+  @Input() public scrollTop: boolean = true;
+  @Input() public maximizable: boolean;
+  @Input() public backdrop: boolean = true;
+  @Input() public styleClass: string;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
@@ -106,7 +106,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.endResize(event);
   }
 
-  show(): void {
+  public show(): void {
     this.executePostDisplayActions = true;
     this.visible = true;
     setTimeout(() => {
@@ -118,7 +118,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.addEventListeners();
   }
 
-  hide(): void {
+  public hide(): void {
     this.visible = false;
     this.close.emit(true);
     this.focusLastModal();

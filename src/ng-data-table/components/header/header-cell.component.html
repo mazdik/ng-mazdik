@@ -7,7 +7,7 @@
 <ng-template [ngIf]="!column.headerCellTemplate">
     <span class="column-title"
         (click)="onSort(column)">
-    <span [innerHTML]="column.title"></span>
+    <span [translate]="column.title"></span>
     <i class="icon"
         *ngIf="column.sortable"
         [ngClass]="table.sorter.getDirection(column.name)">

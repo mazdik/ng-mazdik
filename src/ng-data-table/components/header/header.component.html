@@ -4,30 +4,32 @@
             [ngTemplateOutletContext]="table">
 </ng-template>
 
-<div class="datatable-header-row" [style.height.px]="table.dimensions.headerRowHeight">
-
+<div class="datatable-header-inner" [style.height.px]="table.dimensions.headerRowHeight">
+  
   <div class="datatable-row-left">
-    <dt-header-cell-action
+    <app-datatable-header-cell-action
       *ngIf="table.dimensions.actionColumnWidth"
       [table]="table">
-    </dt-header-cell-action>
+    </app-datatable-header-cell-action>
 
-    <dt-header-cell
+    <app-datatable-header-cell
         *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
         appResizeableColumn
         [table]="table"
-        [column]="column">
-    </dt-header-cell>
+        [column]="column"
+		[attr.title]="column.title | translate">
+    </app-datatable-header-cell>
   </div>
 
   <div class="datatable-row-center"
        [ngStyle]="stylesByGroup()">
-      <dt-header-cell
+      <app-datatable-header-cell
           *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
           appResizeableColumn
           [table]="table"
-          [column]="column">
-      </dt-header-cell>
+          [column]="column"
+		  [attr.title]="column.title | translate">
+      </app-datatable-header-cell>
   </div>
 
 </div>

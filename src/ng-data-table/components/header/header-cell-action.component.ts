@@ -5,14 +5,14 @@ import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'dt-header-cell-action',
+  selector: 'app-datatable-header-cell-action',
   templateUrl: 'header-cell-action.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
-  @Input() table: DataTable;
+  @Input() public table: DataTable;
 
   @HostBinding('class')
   get columnCssClasses(): any {
@@ -25,16 +25,21 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
   }
 
   get isCheckboxable(): boolean {
-    return this.table.selection.multiple;
+    return this.table.settings.selectionType === 'multiple';
   }
 
   get allRowsSelected(): boolean {
-    return this.table.selection.allRowsSelected(this.table.rows);
+    const allRowsSelected = (this.table.rows &&
+      this.table.selection.selectedRowIndexes &&
+      this.table.selection.selectedRowIndexes.length === this.table.rows.length &&
+      this.table.rows.length !== 0);
+
+    return allRowsSelected;
   }
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(public cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {

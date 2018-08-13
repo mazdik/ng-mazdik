@@ -39,9 +39,9 @@ export class ModalSelectComponent implements OnInit {
     return this._model;
   }
 
-  @Input() zIndex: number;
-  @Input() filterDelay: number = 300;
-  @Input() disabled: boolean;
+  @Input() public zIndex: number;
+  @Input() public filterDelay: number = 300;
+  @Input() public disabled: boolean;
   @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 

@@ -6,14 +6,14 @@ import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../types';
 
   @Component({
-    selector: 'dt-header-cell',
+    selector: 'app-datatable-header-cell',
     templateUrl: 'header-cell.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush
   })
 
   export class HeaderCellComponent implements OnInit, OnDestroy {
 
-    @Input() table: DataTable;
+    @Input() public table: DataTable;
 
     @Input() set column(column: Column) {
         this._column = column;
@@ -39,13 +39,13 @@ import {ColumnMenuEventArgs} from '../../types';
       return this.column.title;
     }
 
-    cellContext: any = {
+    public cellContext: any = {
         column: this.column,
     };
     private _column: Column;
     private subscriptions: Subscription[] = [];
 
-    constructor(private cd: ChangeDetectorRef) {
+    constructor(public cd: ChangeDetectorRef) {
     }
 
     ngOnInit() {
@@ -71,7 +71,7 @@ import {ColumnMenuEventArgs} from '../../types';
         const el = event.target.parentNode;
         let left = el.offsetLeft;
         let top = el.offsetTop;
-        top = top + this.table.dimensions.headerRowHeight + (this.table.dimensions.headerTemplateHeight || 0);
+        top = top + this.table.dimensions.headerRowHeight;
         // datatable-row-left + offsetLeft
         if (el.parentNode.offsetLeft > 0) {
           left = left + el.parentNode.offsetLeft - this.table.dimensions.offsetX;

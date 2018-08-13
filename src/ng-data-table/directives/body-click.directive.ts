@@ -6,7 +6,7 @@ import { DataTable, EventHelper } from '../base';
 })
 export class BodyClickDirective implements OnInit, OnDestroy {
 
-    @Input() table: DataTable;
+    @Input() public table: DataTable;
 
     element: HTMLElement;
 
@@ -28,9 +28,7 @@ export class BodyClickDirective implements OnInit, OnDestroy {
         const cellEventArgs = EventHelper.findCellEvent(event, this.element);
         if (cellEventArgs) {
             this.ngZone.run(() => {
-                if (!this.table.settings.selectionMode) {
-                    this.table.selectRow(cellEventArgs.rowIndex);
-                }
+                this.table.selectRow(cellEventArgs.rowIndex);
             });
         }
     }

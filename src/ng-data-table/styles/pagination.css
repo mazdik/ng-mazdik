@@ -1,3 +1,7 @@
+app-pagination {
+    margin-top: -12px;
+    margin-right: 10px;
+}
 .pagination {
     display: flex;
     flex-wrap: wrap;
@@ -13,9 +17,9 @@
 }
 
 .pagination a.active {
-    background-color: #5b9bd5;
+    background-color: #c6c6c6;
     color: white;
-    border: 1px solid #5b9bd5;
+    border: 1px solid #c6c6c6;
     pointer-events: none;
 }
 

@@ -23,7 +23,7 @@
 .ui-modal-header {
   position: relative;
   padding: 2px 16px;
-  background-color: #5b9bd5;
+  background-color: black; /* #5b9bd5; */
   color: white;
   user-select: none;
   display: flex;

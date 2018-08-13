@@ -5,8 +5,8 @@ import {Filter, SortMeta, DataSource} from '../base';
 @Injectable()
 export class OrdsService implements DataSource {
 
-  url: string;
-  primaryKeys: string[];
+  public url: string;
+  public primaryKeys: string[];
 
   constructor(private http: HttpClient) {
   }

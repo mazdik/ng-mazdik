@@ -5,8 +5,8 @@ import {Filter, SortMeta, DataSource} from '../base';
 @Injectable()
 export class RestlessService implements DataSource {
 
-  url: string;
-  primaryKeys: string[];
+  public url: string;
+  public primaryKeys: string[];
 
   constructor(private http: HttpClient) {
   }

@@ -7,14 +7,14 @@ import {translate} from '../../base/util';
 import {Row} from '../../types';
 
 @Component({
-  selector: 'dt-body',
+  selector: 'app-datatable-body',
   templateUrl: './body.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BodyComponent implements OnInit, OnDestroy {
 
-  @Input() table: DataTable;
-  @Input() loading: boolean;
+  @Input() public table: DataTable;
+  @Input() public loading: boolean;
 
   @HostBinding('class') cssClass = 'datatable-body';
 

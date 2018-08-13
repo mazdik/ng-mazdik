@@ -17,7 +17,7 @@ import {RowMenuComponent} from '../row-menu/row-menu.component';
 
 export class CrudTableComponent implements OnInit, OnDestroy {
 
-  @Input() dataManager: DataManager;
+  @Input() public dataManager: DataManager;
   @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
@@ -204,7 +204,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onSelectedRow() {
-    this.select.emit(this.dataManager.getSelection());
+    this.select.emit(this.dataManager.selection.getSelectedRows(this.dataManager.rows));
   }
 
   onLoadedForm() {

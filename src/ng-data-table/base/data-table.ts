@@ -16,22 +16,22 @@ import {Sequence} from './sequence';
 
 export class DataTable {
 
-  settings: Settings;
-  messages?: Message;
-  sequence: Sequence;
-  columns: Column[] = [];
-  frozenColumns: Column[] = [];
-  scrollableColumns: Column[] = [];
-  pager: DataPager;
-  sorter: DataSort;
-  dataFilter: DataFilter;
-  events: Events;
-  selection: DataSelection;
-  dimensions: Dimensions;
-  rowGroup: RowGroup;
-  rowVirtual: RowVirtual;
-  export: Export;
-  localRows: Row[] = [];
+  public settings: Settings;
+  public messages?: Message;
+  public sequence: Sequence;
+  public columns: Column[] = [];
+  public frozenColumns: Column[] = [];
+  public scrollableColumns: Column[] = [];
+  public pager: DataPager;
+  public sorter: DataSort;
+  public dataFilter: DataFilter;
+  public events: Events;
+  public selection: DataSelection;
+  public dimensions: Dimensions;
+  public rowGroup: RowGroup;
+  public rowVirtual: RowVirtual;
+  public export: Export;
+  public localRows: Row[] = [];
 
   set rows(val: any) {
     val = val.map(this.generateRow.bind(this));
@@ -62,7 +62,7 @@ export class DataTable {
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings);
     this.dataFilter = new DataFilter();
-    this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
+    this.selection = new DataSelection(this.settings, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);
@@ -230,5 +230,4 @@ export class DataTable {
   getSelection() {
     return this.selection.getSelectedRows(this.rows);
   }
-
 }

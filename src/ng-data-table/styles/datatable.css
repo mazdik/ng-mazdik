@@ -1,3 +1,6 @@
+.mat-elevation-z8 {
+  margin-bottom: 15px;
+}
 .datatable {
   display: flex;
   flex-direction: column;
@@ -18,12 +21,17 @@
   position: absolute;
 }
 
+.datatable-scroll {
+  display: inline-block;
+}
+
 .datatable-body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  /*min-height: 100px;*/
 }
 
-.datatable-header-row {
+.datatable-header-inner {
   white-space: nowrap;
 }
 
@@ -40,8 +48,8 @@
 
 .datatable-body-row,
 .datatable-body-row > div,
-.datatable-header-row,
-.datatable-header-row > div {
+.datatable-header-inner,
+.datatable-header-inner > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -95,15 +103,51 @@
   outline: none;
 }
 
+.datatable-footer {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.datatable-footer .datatable-footer-inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+}
+
+.datatable-footer .page-count {
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  margin-bottom: 5px;
+}
+
+.datatable-footer .datatable-pager {
+  -ms-flex: 1 1 70%;
+  flex: 1 1 70%;
+  text-align: right;
+}
+
 /******/
+.datatable-header-inner {
+  height: 40px;
+}
+
+.datatable-body-row {
+  height: 30px;
+}
+
 .datatable-header-cell {
-  background-color: #5b9bd5;
-  color: white;
+  background-color: white; /* #5b9bd5 */
+  color: black; /* white */
   user-select: none;
+  padding: 0 3px;
 }
 
 .datatable-header-cell:hover {
-  background-color: #337ab7;
+  background-color: #c6c6c6; /* #337ab7 */
 }
 
 .datatable-header-cell:hover .column-menu {
@@ -114,11 +158,15 @@
   background-color: white;
 }
 
+.datatable-body-cell {
+  padding: 0 3px;
+}
+
 .datatable-body-cell,
 .datatable-header-cell {
-  padding: 0 3px;
-  border-right: 1px solid #c6c6c6;
+  /*border-right: 1px solid #c6c6c6;*/
   border-bottom: 1px solid #c6c6c6;
+  /*border-top: 1px solid #c6c6c6;*/ /* adding */
 }
 
 .datatable-body-cell:focus {
@@ -126,7 +174,7 @@
 }
 
 .datatable-row-left {
-  border-left: 1px solid #c6c6c6;
+  /*border-left: 1px solid #c6c6c6;*/
 }
 
 .dt-dropdown + .datatable-body {
@@ -134,7 +182,8 @@
 }
 
 .column-title {
-  color: white;
+  color: black; /* white */
+  font-weight: bold; /* adding */
 }
 
 .column-title:hover {
@@ -236,6 +285,11 @@
 .datatable-group-header {
   border-right: solid 1px #D9D8D9;
   border-bottom: solid 1px #D9D8D9;
+  /* adding */
+  border-left: solid 1px #D9D8D9;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 3px;
 }
 
 .datatable-group-header .datatable-body-cell {
@@ -261,7 +315,7 @@
 }
 
 .datatable-unselectable .datatable-header-cell:hover {
-  background-color: #5b9bd5;
+  background-color: #c6c6c6; /* #5b9bd5 */
 }
 
 .datatable-unselectable .datatable-header-cell:hover .column-menu {
@@ -281,4 +335,9 @@
   top: 0;
   right: 0;
   color: #5b9bd5;
+}
+
+.page-range {
+  margin-left: 10px;
+  padding-bottom: 13px;
 }

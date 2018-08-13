@@ -1,14 +1,14 @@
-import { DataTable } from '../base/data-table';
+import { DataTable } from './data-table';
 import { CellEventArgs } from '../types';
-import { isBlank } from '../base/util';
-import { Keys } from '../base/keys';
+import { isBlank } from './util';
+import { Keys } from './keys';
 
 export class KeyboardAction {
 
     constructor(private table: DataTable) {
     }
 
-    handleEvent(event: KeyboardEvent, target: HTMLElement) {
+    public handleEvent(event: KeyboardEvent, target: HTMLElement) {
         const keyCode = event.keyCode;
         const shiftKey = event.shiftKey;
         if (!this.isAction(keyCode) && !this.isNavigationKey(keyCode)) {
@@ -27,7 +27,7 @@ export class KeyboardAction {
             if (this.isNavigationKey(keyCode) && !isEditing) {
                 [columnIndex, rowIndex] = this.findNextCell(columnIndex, rowIndex, keyCode, shiftKey);
                 this.table.events.onActivateCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
-                if (!this.table.selection.multiple) {
+                if (this.table.settings.selectionType !== 'multiple') {
                     this.table.selectRow(rowIndex);
                 }
                 event.preventDefault();

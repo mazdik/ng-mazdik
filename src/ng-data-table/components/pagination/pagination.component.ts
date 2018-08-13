@@ -10,27 +10,27 @@ import {
 export class PaginationComponent {
 
   @Input()
-  set itemsPerPage(value: number) {
+  public set itemsPerPage(value: number) {
     this._itemsPerPage = value;
     this.pages = this.getPages();
   }
 
-  get itemsPerPage(): number {
+  public get itemsPerPage(): number {
     return this._itemsPerPage;
   }
 
   @Input()
-  set totalItems(value: number) {
+  public set totalItems(value: number) {
     this._totalItems = value;
     this.pages = this.getPages();
   }
 
-  get totalItems(): number {
+  public get totalItems(): number {
     return this._totalItems;
   }
 
   @Input()
-  set currentPage(value: number) {
+  public set currentPage(value: number) {
     const _previous = this._currentPage;
     this._currentPage = (value > this.totalPages()) ? this.totalPages() : (value || 1);
 
@@ -40,20 +40,20 @@ export class PaginationComponent {
     this.pages = this.getPages();
   }
 
-  get currentPage(): number {
+  public get currentPage(): number {
     return this._currentPage;
   }
 
   @Output() pageChanged = new EventEmitter();
 
-  pages: number[];
+  public pages: number[];
   protected _currentPage: number = 1;
   protected _itemsPerPage: number = 10;
   protected _totalItems: number = 0;
 
   @HostBinding('class') cssClass = 'pagination';
 
-  setPage(page: number, event ?: MouseEvent): void {
+  public setPage(page: number, event ?: MouseEvent): void {
     if (event) {
       event.preventDefault();
     }
@@ -68,12 +68,12 @@ export class PaginationComponent {
     }
   }
 
-  totalPages(): number {
+  public totalPages(): number {
     const totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
     return Math.max(totalPages || 0, 1);
   }
 
-  getPages(): number[] {
+  public getPages(): number[] {
     const maxSize: number = 5;
     const pages: number[] = [];
     let startPage = 1;

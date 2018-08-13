@@ -8,7 +8,7 @@ import {InputComponent} from './input.component';
 })
 export class InputOptionComponent extends InputComponent implements OnInit {
 
-  @Input() service: DataSource;
+  @Input() public service: DataSource;
   @Output() keyColumnChange: EventEmitter<any> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 

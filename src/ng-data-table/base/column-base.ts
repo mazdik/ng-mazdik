@@ -3,30 +3,30 @@ import {TemplateRef} from '@angular/core';
 
 export class ColumnBase {
 
-  title: string;
-  name: string;
-  sortable?: boolean = true;
-  filter?: boolean = true;
-  options?: SelectOption[];
-  optionsUrl?: string;
-  width?: number = null;
-  frozen?: boolean;
-  type?: ColumnType;
-  validation?: Validation;
-  editable?: boolean;
-  resizeable?: boolean = true;
-  dependsColumn?: string;
-  cellTemplate?: TemplateRef<any>;
-  headerCellTemplate?: TemplateRef<any>;
-  formHidden?: boolean;
-  tableHidden?: boolean;
-  cellClass?: string | Function;
-  isPrimaryKey?: boolean;
-  keyColumn?: string;
-  selectionLimit?: number = 1;
-  minWidth?: number = 50;
-  maxWidth?: number = 500;
-  aggregation?: AggregateType;
-  filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
+  public title: string;
+  public name: string;
+  public sortable?: boolean = true;
+  public filter?: boolean = true;
+  public options?: SelectOption[];
+  public optionsUrl?: string;
+  public width?: number = null;
+  public frozen?: boolean;
+  public type?: ColumnType;
+  public validation?: Validation;
+  public editable?: boolean;
+  public resizeable?: boolean = true;
+  public dependsColumn?: string;
+  public cellTemplate?: TemplateRef<any>;
+  public headerCellTemplate?: TemplateRef<any>;
+  public formHidden?: boolean;
+  public tableHidden?: boolean;
+  public cellClass?: string | Function;
+  public isPrimaryKey?: boolean;
+  public keyColumn?: string;
+  public selectionLimit?: number = 1;
+  public minWidth?: number = 50;
+  public maxWidth?: number = 500;
+  public aggregation?: AggregateType;
+  public filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
 
 }
