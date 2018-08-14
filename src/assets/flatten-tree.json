@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "parentId": 0,
+        "name": "Defunct",
+        "gender": "MALE",
+        "cube_size": "1",
+        "exp": 777777
+    },
+    {
+        "id": 2,
+        "parentId": 1,
+        "name": "Extaze",
+        "gender": "MALE",
+        "cube_size": "12",
+        "exp": 7347
+    },
+    {
+        "id": 3,
+        "parentId": 1,
+        "name": "Soer",
+        "gender": "FEMALE",
+        "cube_size": "13",
+        "exp": 7347
+    },
+    {
+        "id": 4,
+        "parentId": 0,
+        "name": "Spartacus",
+        "gender": "FEMALE",
+        "cube_size": "2",
+        "exp": 999999
+    },
+    {
+        "id": 5,
+        "parentId": 4,
+        "name": "Chesterxd",
+        "gender": "MALE",
+        "cube_size": "21",
+        "exp": 7347
+    },
+    {
+        "id": 6,
+        "parentId": 5,
+        "name": "Chester",
+        "gender": "FEMALE",
+        "cube_size": "21",
+        "exp": 7347
+    },
+    {
+        "id": 7,
+        "parentId": 4,
+        "name": "Oumen",
+        "gender": "FEMALE",
+        "cube_size": "22",
+        "exp": 7347
+    }
+]

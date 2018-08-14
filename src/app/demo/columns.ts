@@ -173,3 +173,44 @@ export function getColumnsInventory(): Column[] {
   ];
   return columnsInventory;
 }
+
+export function getTreeColumns(): Column[] {
+  return [
+    {
+      title: 'Node',
+      name: 'node',
+      frozen: true,
+      width: 250,
+    },
+    {
+      title: 'Name',
+      name: 'name',
+      editable: true,
+      validation: {required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'},
+      width: 250,
+    },
+    {
+      title: 'Gender',
+      name: 'gender',
+      editable: true,
+      type: 'radio',
+      options: [
+        {id: 'MALE', name: 'MALE'},
+        {id: 'FEMALE', name: 'FEMALE'},
+      ],
+      width: 250,
+    },
+    {
+      title: 'Cube_size',
+      name: 'cube_size',
+      editable: true,
+      width: 250,
+    },
+    {
+      title: 'Exp',
+      name: 'exp',
+      editable: true,
+      width: 250,
+    }
+  ];
+}
