@@ -24,6 +24,18 @@ export class DataSort {
     }
   }
 
+  set(columnNames: string[]): void {
+    columnNames.forEach(columnName => {
+      const index = this.sortMeta.findIndex((x: SortMeta) => x.field === columnName);
+      if (index === -1) {
+        if (!this.multiple) {
+          this.sortMeta = [];
+        }
+        this.sortMeta.push(<SortMeta>{field: columnName, order: 1});
+      }
+    });
+  }
+
   getOrder(columnName: string) {
     const meta = this.findSortMeta(columnName);
     return (meta) ? meta.order : 0;
