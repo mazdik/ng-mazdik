@@ -14,10 +14,8 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
 
-  @HostBinding('class')
-  get columnCssClasses(): any {
-    return 'datatable-header-cell action-cell';
-  }
+  @HostBinding('class') cssClass = 'datatable-header-cell action-cell';
+  @HostBinding('attr.role') role = 'columnheader';
 
   @HostBinding('style.width.px')
   get width(): number {

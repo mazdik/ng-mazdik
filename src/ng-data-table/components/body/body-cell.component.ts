@@ -65,6 +65,8 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     return cls;
   }
 
+  @HostBinding('attr.role') role = 'gridcell';
+
   @HostBinding('style.width.px')
   get width(): number {
     return this.column.width;

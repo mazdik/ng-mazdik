@@ -24,6 +24,8 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
     return cls;
   }
 
+  @HostBinding('attr.role') role = 'row';
+
   @HostBinding('style.height.px')
   get rowHeight(): number {
     return this.table.dimensions.summaryRowHeight;

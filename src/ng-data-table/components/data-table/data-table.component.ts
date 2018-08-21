@@ -23,6 +23,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   @ViewChild(BodyScrollDirective) bodyScroll: BodyScrollDirective;
 
   @HostBinding('class') cssClass = 'datatable';
+  @HostBinding('attr.role') role = 'grid';
 
   @HostBinding('class.scroll-vertical')
   get isVirtualScroll(): boolean {

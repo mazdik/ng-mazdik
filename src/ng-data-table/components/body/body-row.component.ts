@@ -38,6 +38,8 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     return cls;
   }
 
+  @HostBinding('attr.role') role = 'row';
+
   @HostBinding('style.height.px')
   get rowHeight(): number {
     return this.row.$$height;

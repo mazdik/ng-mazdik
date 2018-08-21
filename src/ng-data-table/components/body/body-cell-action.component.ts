@@ -26,6 +26,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   }
 
   @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
+  @HostBinding('attr.role') role = 'gridcell';
 
   @HostBinding('style.width.px')
   get width(): number {

@@ -24,10 +24,8 @@ import {ColumnMenuEventArgs} from '../../types';
         return this._column;
     }
 
-    @HostBinding('class')
-    get columnCssClasses(): any {
-      return 'datatable-header-cell';
-    }
+    @HostBinding('class') cssClass = 'datatable-header-cell';
+    @HostBinding('attr.role') role = 'columnheader';
 
     @HostBinding('style.width.px')
     get width(): number {
