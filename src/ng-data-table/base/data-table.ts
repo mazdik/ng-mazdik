@@ -11,7 +11,6 @@ import {Dimensions} from './dimensions';
 import {Message} from './message';
 import {RowGroup} from './row-group';
 import {RowVirtual} from './row-virtual';
-import {Export} from './export';
 import {Sequence} from './sequence';
 
 export class DataTable {
@@ -30,7 +29,6 @@ export class DataTable {
   dimensions: Dimensions;
   rowGroup: RowGroup;
   rowVirtual: RowVirtual;
-  export: Export;
   localRows: Row[] = [];
 
   set rows(val: any) {
@@ -66,7 +64,6 @@ export class DataTable {
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);
-    this.export = new Export();
     if (messages) {
       Object.assign(this.messages, messages);
     }

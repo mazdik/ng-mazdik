@@ -183,7 +183,6 @@ export class TreeTableDemoComponent {
 * Column resizing
 * Cascading select (client/server side dynamic drop-down lists)
 * Tree table (flatten/unflatten tree, lazy loading)
-* No external dependencies
 * Row Grouping (multiple columns)
 * Summary Row (aggregation on a column)
 * Live Updates
@@ -191,6 +190,7 @@ export class TreeTableDemoComponent {
 * Header and Cell Templates
 * Keyboard navigation
 * Export Data to CSV
+* No external dependencies
 
 ### Custom service
 ```typescript

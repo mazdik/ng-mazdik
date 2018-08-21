@@ -2,11 +2,12 @@ import {
     Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnInit, OnDestroy,
     ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable} from '../../base';
+import {DataTable} from '../../ng-data-table/base';
 import {Subscription} from 'rxjs';
+import {ExportCSV} from '../export/export-csv';
 
 @Component({
-    selector: 'app-toolbar',
+    selector: 'dt-toolbar',
     templateUrl: './toolbar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -19,7 +20,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
+    constructor(private element: ElementRef, private cd: ChangeDetectorRef, private exportCSV: ExportCSV) {
     }
 
     ngOnInit() {
@@ -31,26 +32,26 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptions.forEach(s => s.unsubscribe());
-      }
+    }
 
     globalFilter() {
         this.table.dataFilter.filters = {};
         this.table.dataFilter.isGlobal = true;
         this.table.events.onFilter();
-      }
+    }
 
-      onClickGlobalSearch() {
+    onClickGlobalSearch() {
         this.globalFilter();
-      }
+    }
 
-      onKeyPressGlobalSearch(event: KeyboardEvent) {
+    onKeyPressGlobalSearch(event: KeyboardEvent) {
         if (event.which === 13) {
           this.globalFilter();
         }
-      }
+    }
 
     downloadCsv() {
-        this.table.export.downloadCSV(this.table.rows, null);
+        this.exportCSV.downloadCSV(this.table.rows, null);
     }
 
     createActionClick() {

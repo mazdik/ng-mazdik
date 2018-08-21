@@ -21,6 +21,7 @@ import {ModalSelectComponent} from './components/modal-select/modal-select.compo
 import {PopupSelectComponent} from './components/form/select-popup.component';
 import {RowViewComponent} from './components/row-view/row-view.component';
 import {RowMenuComponent} from './components/row-menu/row-menu.component';
+import {ToolbarModule} from '../lib/toolbar/toolbar-module';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import {RowMenuComponent} from './components/row-menu/row-menu.component';
     FormsModule,
     HttpClientModule,
     DataTableModule,
+    ToolbarModule,
   ],
   declarations: [
     CrudTableComponent,

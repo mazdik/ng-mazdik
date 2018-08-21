@@ -1,4 +1,7 @@
-export class Export {
+import {Injectable} from '@angular/core';
+
+@Injectable()
+export class ExportCSV {
 
     columnDelimiter = ';';
     lineDelimiter = '\n';
