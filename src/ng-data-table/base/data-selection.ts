@@ -13,8 +13,10 @@ export class DataSelection {
   }
 
   selectRow(rowIndex: number) {
-    this.toggle(rowIndex);
-    this.events.onSelectionChange();
+    if (!this.isRowSelected(rowIndex)) {
+      this._markSelected(rowIndex);
+      this.events.onSelectionChange();
+    }
   }
 
   selectAllRows(rows: Row[]): void {
@@ -66,6 +68,7 @@ export class DataSelection {
 
   toggle(rowIndex: number): void {
     this.isRowSelected(rowIndex) ? this._unmarkSelected(rowIndex) : this._markSelected(rowIndex);
+    this.events.onSelectionChange();
   }
 
   isEmpty(): boolean {

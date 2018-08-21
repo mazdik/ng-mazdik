@@ -59,7 +59,7 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   }
 
   onCheckboxClick(event) {
-    this.table.selectRow(this.row.$$index);
+    this.table.selection.toggle(this.row.$$index);
     this.table.events.onCheckbox(this.row);
   }
 
