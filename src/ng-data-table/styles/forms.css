@@ -59,15 +59,3 @@
 .df-group {
   margin-bottom: 1rem;
 }
-
-.df-row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -5px;
-  margin-left: -5px;
-}
-
-.df-col {
-  padding-right: 5px;
-  padding-left: 5px;
-}

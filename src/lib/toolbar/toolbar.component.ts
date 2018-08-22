@@ -1,6 +1,6 @@
 import {
-    Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnInit, OnDestroy,
-    ChangeDetectionStrategy, ChangeDetectorRef
+    Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnInit, OnDestroy, ViewEncapsulation,
+    ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
 import {DataTable} from '../../ng-data-table/base';
 import {Subscription} from 'rxjs';
@@ -9,7 +9,9 @@ import {ExportCSV} from '../export/export-csv';
 @Component({
     selector: 'dt-toolbar',
     templateUrl: './toolbar.component.html',
+    styleUrls: ['toolbar.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class ToolbarComponent implements OnInit, OnDestroy {
 

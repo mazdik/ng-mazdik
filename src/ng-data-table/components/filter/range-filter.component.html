@@ -1,17 +1,15 @@
-<select class="df-control sm"
-        style="margin-bottom: 8px;"
+<select class="dt-filter-select sm"
         [(ngModel)]="matchMode"
         (change)="onModeChange()">
   <option *ngFor="let opt of operators" [value]="opt.value">{{opt.text}}</option>
 </select>
-<input class="df-control"
+<input class="dt-filter-input"
        #filterInput
        [attr.type]="column.type"
        [attr.placeholder]="isRangeFilter() ? '>' : column.name"
        [value]="table.dataFilter.getFilterValue(column.name)"
        (input)="onFilterInput()"/>
-<input class="df-control"
-       style="margin-top: 8px;"
+<input class="dt-filter-input"
        [attr.type]="column.type"
        [attr.placeholder]="'<'"
        *ngIf="isRangeFilter()"

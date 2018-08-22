@@ -1,11 +1,10 @@
-<select class="df-control sm"
-        style="margin-bottom: 8px;"
+<select class="dt-filter-select sm"
         [(ngModel)]="matchMode"
         (change)="onModeChange()">
   <option *ngFor="let opt of stringOperators" [value]="opt.value">{{opt.text}}</option>
 </select>
 <div class="clearable-input">
-  <input class="df-control"
+  <input class="dt-filter-input"
          #filterInput
          [attr.placeholder]="column.name"
          [value]="table.dataFilter.getFilterValue(column.name)"
