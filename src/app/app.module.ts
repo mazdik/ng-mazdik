@@ -9,7 +9,7 @@ import { PageNotFoundComponent} from './not-found.component';
 import { CrudTableModule } from '../ng-crud-table';
 import { DataTableModule } from '../ng-data-table';
 import { TreeTableModule } from '../ng-tree-table';
-import { ToolbarModule } from '../lib/toolbar/toolbar-module';
+import { ToolbarModule } from '../lib/toolbar';
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';

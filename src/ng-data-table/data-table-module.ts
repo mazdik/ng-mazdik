@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
-import {PaginationComponent} from './components/pagination/pagination.component';
+import {PaginationModule} from '../lib/pagination';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -32,9 +32,9 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
   imports: [
     CommonModule,
     FormsModule,
+    PaginationModule,
   ],
   declarations: [
-    PaginationComponent,
     HeaderComponent,
     HeaderCellComponent,
     HeaderCellActionComponent,
@@ -61,9 +61,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
   ],
   exports: [
     DataTableComponent,
-    PaginationComponent,
   ],
   providers: []
 })
-export class DataTableModule {
-}
+export class DataTableModule {}

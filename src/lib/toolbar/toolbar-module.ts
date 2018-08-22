@@ -17,5 +17,4 @@ import {ExportCSV} from '../export/export-csv';
   ],
   providers: [ExportCSV]
 })
-export class ToolbarModule {
-}
+export class ToolbarModule {}

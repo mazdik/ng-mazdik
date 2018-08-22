@@ -9,7 +9,7 @@ import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 @Component({
   selector: 'app-datatable, app-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['../../styles/index.css'],
+  styleUrls: ['../../styles/index.css', '../../../lib/theming/blue.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

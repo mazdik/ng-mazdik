@@ -1,0 +1,14 @@
+@import '../theming/palette';
+
+.pagination a {
+    border: 1px solid $foreground;
+}
+
+.pagination a.active {
+    background-color: $primary;
+    border: 1px solid $primary;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: $foreground;
+}

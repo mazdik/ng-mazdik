@@ -9,13 +9,10 @@
     color: black;
     padding: 5px 10px;
     text-decoration: none;
-    border: 1px solid #ddd;
 }
 
 .pagination a.active {
-    background-color: #5b9bd5;
     color: white;
-    border: 1px solid #5b9bd5;
     pointer-events: none;
 }
 
