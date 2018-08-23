@@ -1,19 +1,18 @@
 <div class="df-input-group">
-  <input class="df-control"
+  <input class="select-input"
          readonly="readonly"
          value="{{selectedName}}"
          placeholder="Select"
-         style="cursor: default; background-color: white;"
          [disabled]="disabled">
   <button type="button" class="button" (click)="open()"><li class="icon icon-return"></li></button>
 </div>
 <input type="hidden" [(ngModel)]="model">
 
-<app-modal #modal [modalTitle]="'Search Dialog'" [width]="400" [zIndex]="zIndex">
+<app-modal #modal [modalTitle]="modalTitle" [width]="400" [zIndex]="zIndex">
   <ng-container class="app-modal-body">
-    <div class="select-header" style="margin: 3px 0;">
+    <div class="select-header">
       <div class="clearable-input">
-        <input class="df-control"
+        <input class="select-input"
                placeholder="Search..."
                [(ngModel)]="searchFilterText"
                (keyup)="onFilterKeyup()">
@@ -31,11 +30,10 @@
     </ul>
     <div class="list-divider"></div>
     <ng-template [ngIf]="totalItems > 0">
-      <span class="select-page-count" style="flex: 1 1 20%;">
+      <span class="select-page-count">
         {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
       </span>
       <app-pagination class="select-pagination"
-                  style="flex: 1 1 80%; text-align: right;"
                   [totalItems]="totalItems"
                   [itemsPerPage]="itemsPerPage"
                   [currentPage]="currentPage"

@@ -1,8 +1,12 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
+import {
+  Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
+  styleUrls: ['modal-select.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
 export class ModalSelectComponent implements OnInit {
@@ -42,6 +46,8 @@ export class ModalSelectComponent implements OnInit {
   @Input() zIndex: number;
   @Input() filterDelay: number = 300;
   @Input() disabled: boolean;
+  @Input() modalTitle: string = 'Search Dialog';
+
   @Output() valueChanged: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 

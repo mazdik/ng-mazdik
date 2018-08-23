@@ -1,12 +1,16 @@
-import {Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter} from '@angular/core';
-import {DataManager, Column} from '../../base';
+import {
+  Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation
+} from '@angular/core';
+import {DataManager, Column} from '../../ng-crud-table/base';
 
 @Component({
-  selector: 'app-row-form',
-  templateUrl: 'form.component.html'
+  selector: 'app-dynamic-form',
+  templateUrl: 'dynamic-form.component.html',
+  styleUrls: ['dynamic-form.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 
-export class FormComponent implements OnInit, OnDestroy {
+export class DynamicFormComponent implements OnInit, OnDestroy {
 
   @Input() dataManager: DataManager;
   @Input() isNewItem: boolean = true;

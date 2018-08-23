@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {DataManager} from '../../base';
+import {DataManager} from '../../ng-crud-table/base';
 
 @Component({
   selector: 'app-row-view',

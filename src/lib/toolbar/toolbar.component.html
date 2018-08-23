@@ -7,7 +7,7 @@
     </div>
     <div class="dt-toolbar-col global-filter" *ngIf="table.settings.globalFilter">
         <div class="df-input-group">
-            <input class="df-control"
+            <input class="df-input-element"
                     [attr.placeholder]="table.messages.search"
                     [(ngModel)]="table.dataFilter.globalFilterValue"
                     (keypress)="onKeyPressGlobalSearch($event)">

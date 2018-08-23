@@ -11,6 +11,8 @@ import { DataTableModule } from '../ng-data-table';
 import { TreeTableModule } from '../ng-tree-table';
 import { ToolbarModule } from '../lib/toolbar';
 import { MessageModule } from '../lib/message';
+import { ModalModule } from '../lib//modal';
+import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';
@@ -95,6 +97,8 @@ const ROUTES: Routes = [
     TreeTableModule,
     ToolbarModule,
     MessageModule,
+    ModalModule,
+    ModalEditFormModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

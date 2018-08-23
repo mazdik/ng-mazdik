@@ -2,7 +2,7 @@ import {
   Component, OnInit, OnDestroy, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
-import { DataManager, MenuItem, RowMenuEventArgs, Row } from '../../base';
+import { DataManager, MenuItem, RowMenuEventArgs, Row } from '../../ng-crud-table/base';
 import { Subscription } from 'rxjs';
 
 @Component({

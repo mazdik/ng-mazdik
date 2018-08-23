@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {DataManager} from '../../base';
+import {DataManager} from '../../ng-crud-table/base';
 
 @Component({
   selector: 'app-modal-edit-form',

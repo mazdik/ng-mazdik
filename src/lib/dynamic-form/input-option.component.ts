@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {DataSource, SelectOption} from '../../base';
+import {DataSource, SelectOption} from '../../ng-crud-table/base';
 import {InputComponent} from './input.component';
 
 @Component({

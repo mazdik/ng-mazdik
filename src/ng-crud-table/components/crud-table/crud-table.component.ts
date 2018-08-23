@@ -2,10 +2,10 @@ import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy,
   TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ModalEditFormComponent} from '../modal-edit-form/modal-edit-form.component';
+import {ModalEditFormComponent} from '../../../lib/modal-edit-form/modal-edit-form.component';
 import {DataManager, Row, RowMenuEventArgs} from '../../base';
 import {Subscription} from 'rxjs';
-import {RowMenuComponent} from '../row-menu/row-menu.component';
+import {RowMenuComponent} from '../../../lib/row-menu/row-menu.component';
 
 @Component({
   selector: 'app-crud-table',

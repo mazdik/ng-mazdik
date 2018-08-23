@@ -1,13 +1,13 @@
 <app-modal #childModal [modalTitle]="modalTitle()" [width]="500" [zIndex]="dataManager.settings.zIndexModal">
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
-      <app-row-form
+      <app-dynamic-form
         *ngIf="!detailView"
         [dataManager]="dataManager"
         [isNewItem]="isNewItem"
         (valid)="onFormValid($event)"
         (loaded)="loaded.emit($event)">
-      </app-row-form>
+      </app-dynamic-form>
       <app-row-view
         *ngIf="detailView"
         [dataManager]="dataManager">

@@ -1,20 +1,14 @@
-.dt-toolbar-row {
-    display: flex;
-    margin-right: -5px;
-    margin-left: -5px;
-    margin-bottom: 1rem;
-  }
-  
-.dt-toolbar-col {
-    padding-right: 5px;
-    padding-left: 5px;
+.select-header {
+    margin: 3px 0;
 }
-
-.global-filter {
-    width: 300px;   
+.select-page-count {
+    flex: 1 1 20%;
 }
-
-.df-input-element {
+.select-pagination {
+    flex: 1 1 80%;
+    text-align: right;
+}
+.select-input {
     display: block;
     width: 100%;
     padding: 6px 12px;
@@ -27,11 +21,15 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-
-.df-input-element:focus {
+.select-input:focus {
     color: #495057;
     background-color: #fff;
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
+.select-input[disabled], .select-input[readonly] {
+    background-color: white;
+    opacity: 1;
+    cursor: default;
+} 
