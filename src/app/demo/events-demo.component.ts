@@ -11,11 +11,9 @@ import {Subscription} from 'rxjs';
     <div class="df-alert df-alert-success" style="word-break: break-all;" *ngIf="cellValueChangedEvent">
       <b>cellValueChanged:</b> {{cellValueChangedEvent}}
     </div><br>
-    <div class="df-alert df-alert-success" style="word-break: break-all;">
-      <b>{{eventName}}:</b> {{eventValue}}
-    </div>
+    <dt-message [severity]="'success'" [text]="eventText()" style="word-break: break-all;">
+    </dt-message>
   `,
-  styleUrls: ['../../ng-crud-table/styles/alerts.css'],
 })
 
 export class EventsDemoComponent implements OnInit, OnDestroy {
@@ -79,6 +77,10 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
     }
     this.cd.detectChanges();
     console.log(name, event);
+  }
+
+  eventText() {
+    return '<b>' + this.eventName + ':</b> ' + this.eventValue;
   }
 
 }

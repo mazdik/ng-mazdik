@@ -10,6 +10,7 @@ import { CrudTableModule } from '../ng-crud-table';
 import { DataTableModule } from '../ng-data-table';
 import { TreeTableModule } from '../ng-tree-table';
 import { ToolbarModule } from '../lib/toolbar';
+import { MessageModule } from '../lib/message';
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';
@@ -93,6 +94,7 @@ const ROUTES: Routes = [
     DataTableModule,
     TreeTableModule,
     ToolbarModule,
+    MessageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

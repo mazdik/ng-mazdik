@@ -1,10 +1,12 @@
-import {Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 import {DataManager} from '../../base';
 
 @Component({
   selector: 'app-row-view',
   templateUrl: './row-view.component.html',
+  styleUrls: ['row-view.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class RowViewComponent implements OnInit {
 

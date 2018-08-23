@@ -1,6 +1,6 @@
 import {
   Component, OnInit, OnDestroy, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
-  HostBinding, ElementRef
+  HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
 import { DataManager, MenuItem, RowMenuEventArgs, Row } from '../../base';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,9 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-row-menu',
   templateUrl: './row-menu.component.html',
+  styleUrls: ['context-menu.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class RowMenuComponent implements OnInit, OnDestroy {
 

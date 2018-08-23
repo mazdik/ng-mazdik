@@ -1,6 +1,4 @@
-<div #alert class="df-alert df-alert-danger" *ngIf="this.dataManager.errors">
-  {{this.dataManager.errors}}
-</div>
+<dt-message [severity]="'danger'" [text]="this.dataManager.errors"></dt-message>
 
 <dt-toolbar #toolbar [table]="dataManager" (createAction)="onCreateAction()">
 </dt-toolbar>

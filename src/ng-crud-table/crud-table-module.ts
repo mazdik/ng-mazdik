@@ -23,6 +23,7 @@ import {RowViewComponent} from './components/row-view/row-view.component';
 import {RowMenuComponent} from './components/row-menu/row-menu.component';
 import {PaginationModule} from '../lib/pagination';
 import {ToolbarModule} from '../lib/toolbar';
+import {MessageModule} from '../lib/message';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {ToolbarModule} from '../lib/toolbar';
     DataTableModule,
     PaginationModule,
     ToolbarModule,
+    MessageModule,
   ],
   declarations: [
     CrudTableComponent,

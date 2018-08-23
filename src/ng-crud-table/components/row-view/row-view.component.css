@@ -1,4 +1,4 @@
-.detail-view table {
+.detail-view {
   border-spacing: 0;
   border-collapse: collapse;
   width: 100%;
@@ -6,11 +6,11 @@
   margin-bottom: 20px;
 }
 
-.detail-view table, .detail-view th, .detail-view td {
+.detail-view, .detail-view th, .detail-view td {
   border: 1px solid #ddd;
 }
 
-.detail-view table>tbody>tr:nth-of-type(odd) {
+.detail-view>tbody>tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
 .detail-view th, .detail-view td {

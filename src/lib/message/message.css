@@ -1,4 +1,4 @@
-.df-alert {
+.dt-message {
   display: inline-block;
   position: relative;
   padding: .75rem 1.25rem;
@@ -6,12 +6,12 @@
   border: 1px solid transparent;
   border-radius: .25rem;
 }
-.df-alert-danger {
+.dt-message-danger {
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
 }
-.df-alert-success {
+.dt-message-success {
   color: #155724;
   background-color: #d4edda;
   border-color: #c3e6cb;
