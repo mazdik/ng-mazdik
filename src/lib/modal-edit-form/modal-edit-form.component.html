@@ -3,14 +3,18 @@
     <div *ngIf="childModal.visible">
       <app-dynamic-form
         *ngIf="!detailView"
-        [dataManager]="dataManager"
+        [columns]="dataManager.columns"
+        [item]="dataManager.item"
         [isNewItem]="isNewItem"
+        [getOptionsFunc]="getOptionsFunc"
         (valid)="onFormValid($event)"
         (loaded)="loaded.emit($event)">
       </app-dynamic-form>
       <app-row-view
         *ngIf="detailView"
-        [dataManager]="dataManager">
+        [transposedData]="transposedData"
+        [headerKeyMessage]="dataManager.messages.column"
+        [headerValueMessage]="dataManager.messages.value">
       </app-row-view>
 
     </div>

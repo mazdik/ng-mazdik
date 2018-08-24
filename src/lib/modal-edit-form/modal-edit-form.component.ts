@@ -9,19 +9,35 @@ import {DataManager} from '../../ng-crud-table/base';
 export class ModalEditFormComponent implements OnInit {
 
   @Input() dataManager: DataManager;
-  @Input() detailView: boolean;
   @Input() isNewItem: boolean;
+
+  @Input()
+  get detailView(): boolean {
+    return this._detailView;
+  }
+  set detailView(val: boolean) {
+    this._detailView = val;
+    this.transposedData = [];
+    for (const column of this.dataManager.columns) {
+      this.transposedData.push({key: column.title, value: column.getValueView(this.dataManager.item)});
+    }
+  }
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('childModal') childModal: ModalComponent;
 
   formValid: boolean = true;
+  transposedData: any[];
+  getOptionsFunc: Function;
+
+  private _detailView: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.getOptionsFunc = this.dataManager.service.getOptions.bind(this.dataManager.service);
   }
 
   modalTitle() {

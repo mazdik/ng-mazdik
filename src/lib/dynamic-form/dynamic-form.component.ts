@@ -1,7 +1,7 @@
 import {
   Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation
 } from '@angular/core';
-import {DataManager, Column} from '../../ng-crud-table/base';
+import {Column, getOptionsFunction} from './types';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -12,8 +12,10 @@ import {DataManager, Column} from '../../ng-crud-table/base';
 
 export class DynamicFormComponent implements OnInit, OnDestroy {
 
-  @Input() dataManager: DataManager;
+  @Input() columns: Column[];
+  @Input() item: any;
   @Input() isNewItem: boolean = true;
+  @Input() getOptionsFunc: getOptionsFunction;
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
@@ -60,12 +62,12 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   onKeyColumnChange(event) {
-    this.dataManager.item[event.column] = event.value;
+    this.item[event.column] = event.value;
   }
 
   isDisabled(column: Column) {
     if (column.keyColumn && !this.isNewItem) {
-      const fkColumn = this.dataManager.columns.find(x => x.name === column.keyColumn);
+      const fkColumn = this.columns.find(x => x.name === column.keyColumn);
       return (fkColumn.isPrimaryKey === true);
     }
     return false;
@@ -73,7 +75,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
 
   onSelectPopupNameChanged(value: any, column: Column) {
     if (column.keyColumn) {
-      this.dataManager.item[column.name] = value;
+      this.item[column.name] = value;
     }
   }
 

@@ -55,6 +55,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.rowsChanged.emit(true);
     });
     const subScroll = this.dataManager.events.scrollSource$.subscribe(() => {
+      this.rowMenu.hide();
       requestAnimationFrame(() => {
         this.cd.detectChanges();
       });

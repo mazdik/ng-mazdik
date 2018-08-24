@@ -1,4 +1,4 @@
-<div *ngFor="let column of dataManager.columns">
+<div *ngFor="let column of columns">
 
   <div *ngIf="elemEnabled(column)">
 
@@ -16,10 +16,10 @@
       <app-form-select
         *ngSwitchCase="'select'"
         [column]="column"
-        [(value)]="(column.keyColumn) ? dataManager.item[column.keyColumn] : dataManager.item[column.name]"
-        [dependsValue]="dataManager.item[column.dependsColumn]"
+        [(value)]="(column.keyColumn) ? item[column.keyColumn] : item[column.name]"
+        [dependsValue]="item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="dataManager.service"
+        [getOptionsFunc]="getOptionsFunc"
         (keyColumnChange)="onKeyColumnChange($event)"
         [disabled]="isDisabled(column)"
         (loaded)="loaded.emit($event)">
@@ -28,10 +28,10 @@
       <app-form-select-popup
         *ngSwitchCase="'select-popup'"
         [column]="column"
-        [(value)]="(column.keyColumn) ? dataManager.item[column.keyColumn] : dataManager.item[column.name]"
-        [dependsValue]="dataManager.item[column.dependsColumn]"
+        [(value)]="(column.keyColumn) ? item[column.keyColumn] : item[column.name]"
+        [dependsValue]="item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="dataManager.service"
+        [getOptionsFunc]="getOptionsFunc"
         (keyColumnChange)="onKeyColumnChange($event)"
         [disabled]="isDisabled(column)"
         (nameChanged)="onSelectPopupNameChanged($event, column)"
@@ -41,10 +41,10 @@
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"
         [column]="column"
-        [(value)]="dataManager.item[column.name]"
-        [dependsValue]="dataManager.item[column.dependsColumn]"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="dataManager.service"
+        [getOptionsFunc]="getOptionsFunc"
         [disabled]="isDisabled(column)"
         (loaded)="loaded.emit($event)">
       </app-form-checkbox>
@@ -52,10 +52,10 @@
       <app-form-radio
         *ngSwitchCase="'radio'"
         [column]="column"
-        [(value)]="dataManager.item[column.name]"
-        [dependsValue]="dataManager.item[column.dependsColumn]"
+        [(value)]="item[column.name]"
+        [dependsValue]="item[column.dependsColumn]"
         (valid)="onValid($event, column)"
-        [service]="dataManager.service"
+        [getOptionsFunc]="getOptionsFunc"
         [disabled]="isDisabled(column)"
         (loaded)="loaded.emit($event)">
       </app-form-radio>
@@ -63,7 +63,7 @@
       <app-form-textarea
         *ngSwitchCase="'textarea'"
         [column]="column"
-        [(value)]="dataManager.item[column.name]"
+        [(value)]="item[column.name]"
         (valid)="onValid($event, column)"
         [disabled]="isDisabled(column)">
       </app-form-textarea>
@@ -71,7 +71,7 @@
       <app-form-calendar
         *ngSwitchCase="(column.type ==='date' || column.type ==='datetime-local') ? column.type : ''"
         [column]="column"
-        [(value)]="dataManager.item[column.name]"
+        [(value)]="item[column.name]"
         (valid)="onValid($event, column)"
         [disabled]="isDisabled(column)">
       </app-form-calendar>
@@ -79,7 +79,7 @@
       <app-form-input-text
         *ngSwitchDefault
         [column]="column"
-        [(value)]="dataManager.item[column.name]"
+        [(value)]="item[column.name]"
         (valid)="onValid($event, column)"
         [disabled]="isDisabled(column)">
       </app-form-input-text>

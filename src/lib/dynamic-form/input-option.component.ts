@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {DataSource, SelectOption} from '../../ng-crud-table/base';
+import {SelectOption, getOptionsFunction} from './types';
 import {InputComponent} from './input.component';
 
 @Component({
@@ -8,7 +8,7 @@ import {InputComponent} from './input.component';
 })
 export class InputOptionComponent extends InputComponent implements OnInit {
 
-  @Input() service: DataSource;
+  @Input() getOptionsFunc: getOptionsFunction;
   @Output() keyColumnChange: EventEmitter<any> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
@@ -50,9 +50,9 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   }
 
   loadOptions() {
-    if (this.column.optionsUrl && this.service.getOptions) {
+    if (this.column.optionsUrl && this.getOptionsFunc) {
       this.loading = true;
-      this.service.getOptions(this.column.optionsUrl, this._dependsValue).then((res) => {
+      this.getOptionsFunc(this.column.optionsUrl, this._dependsValue).then((res) => {
         this._options = res;
         this.loading = false;
         this.setDefaultSelect();

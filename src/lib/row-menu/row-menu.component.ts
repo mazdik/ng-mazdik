@@ -1,9 +1,8 @@
 import {
-  Component, OnInit, OnDestroy, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, OnInit, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
-import { DataManager, MenuItem, RowMenuEventArgs, Row } from '../../ng-crud-table/base';
-import { Subscription } from 'rxjs';
+import { MenuItem, RowMenuEventArgs, Row } from '../../ng-crud-table/base';
 
 @Component({
   selector: 'app-row-menu',
@@ -12,9 +11,9 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class RowMenuComponent implements OnInit, OnDestroy {
+export class RowMenuComponent implements OnInit {
 
-  @Input() dataManager: DataManager;
+  @Input() menu: MenuItem[] = [];
 
   left: number;
   top: number;
@@ -39,23 +38,11 @@ export class RowMenuComponent implements OnInit, OnDestroy {
   }
 
   private row: Row;
-  private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
 
   ngOnInit() {
-    const subScroll = this.dataManager.events.scrollSource$.subscribe(() => {
-      if (this.isVisible) {
-        this.isVisible = false;
-        this.cd.detectChanges();
-      }
-    });
-    this.subscriptions.push(subScroll);
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('window:click', ['$event'])
@@ -113,7 +100,7 @@ export class RowMenuComponent implements OnInit, OnDestroy {
   }
 
   openDropdown() {
-    if (!this.isVisible && this.dataManager.actionMenu.length > 0) {
+    if (!this.isVisible && this.menu.length > 0) {
       this.isVisible = true;
     }
   }
@@ -138,6 +125,10 @@ export class RowMenuComponent implements OnInit, OnDestroy {
       this.closeDropdown();
       this.openDropdown();
     }
+  }
+
+  hide() {
+    this.closeDropdown();
   }
 
   itemClick(event, item: MenuItem) {

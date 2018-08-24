@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
-import {Column} from '../../ng-crud-table/base';
+import {Column} from './types';
 
 @Component({
   selector: 'app-form-input',

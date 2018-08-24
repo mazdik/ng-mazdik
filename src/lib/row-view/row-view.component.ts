@@ -1,5 +1,9 @@
-import {Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-import {DataManager} from '../../ng-crud-table/base';
+import {Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
+
+export interface KeyValuePair {
+  key: string;
+  value: any;
+}
 
 @Component({
   selector: 'app-row-view',
@@ -8,22 +12,16 @@ import {DataManager} from '../../ng-crud-table/base';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class RowViewComponent implements OnInit {
+export class RowViewComponent {
 
-  @Input() dataManager: DataManager;
+  @Input() transposedData: KeyValuePair[];
+  @Input() headerKeyMessage: string = 'Key';
+  @Input() headerValueMessage: string = 'Value';
 
   order: string;
   reverse: boolean = true;
-  transposedData: any[];
 
   constructor() {
-  }
-
-  ngOnInit() {
-    this.transposedData = [];
-    for (const column of this.dataManager.columns) {
-      this.transposedData.push({key: column.title, value: column.getValueView(this.dataManager.item)});
-    }
   }
 
   setOrder(name: string) {
