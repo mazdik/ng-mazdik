@@ -228,6 +228,7 @@ interface DataSource {
 | formHidden       | boolean    | false   |             |
 | tableHidden      | boolean    | false   |             |
 | cellClass        | string / Function | null |         |
+| headerCellClass  | string     | null    |             |
 | isPrimaryKey     | boolean    | false   |             |
 | keyColumn        | string     | null    |             |
 | selectionLimit   | number     | 1       |             |

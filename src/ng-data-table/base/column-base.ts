@@ -21,6 +21,7 @@ export class ColumnBase {
   formHidden?: boolean;
   tableHidden?: boolean;
   cellClass?: string | Function;
+  headerCellClass?: string;
   isPrimaryKey?: boolean;
   keyColumn?: string;
   selectionLimit?: number = 1;

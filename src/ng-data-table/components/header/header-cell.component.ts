@@ -24,7 +24,15 @@ import {ColumnMenuEventArgs} from '../../types';
         return this._column;
     }
 
-    @HostBinding('class') cssClass = 'datatable-header-cell';
+    @HostBinding('class')
+    get columnCssClasses(): string {
+      let cls = 'datatable-header-cell';
+      if (this.column.headerCellClass) {
+        cls += ' ' + this.column.headerCellClass;
+      }
+      return cls;
+    }
+
     @HostBinding('attr.role') role = 'columnheader';
 
     @HostBinding('style.width.px')

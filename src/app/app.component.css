@@ -109,6 +109,14 @@
   background-color: lightBlue;
 }
 
+.cell-right {
+  justify-content: flex-end;
+}
+
+.cell-right input {
+  text-align: right;
+}
+
 .row-warrior,
 .row-warrior .datatable-row-left {
   background-color: lightyellow;
@@ -118,4 +126,9 @@
 .row-sorcerer .datatable-row-left {
   background-color: LightSlateGray;
   color: white;
+}
+
+.datatable-header-cell.header-cell-demo {
+  justify-content: center;
+  background-color: lightseagreen;
 }

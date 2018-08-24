@@ -18,6 +18,7 @@ export class CssDemoComponent implements OnInit {
     this.columns = getColumnsPlayers();
     this.columns[5].cellClass = this.getCellClass;
     this.settings.rowClass = this.getRowClass;
+    this.columns[2].headerCellClass = 'header-cell-demo';
     this.table = new DataTable(this.columns, this.settings);
     this.table.pager.perPage = 20;
   }
@@ -35,6 +36,7 @@ export class CssDemoComponent implements OnInit {
       'cell-big-value': parseInt(value, 10) > 1000000000,
       'cell-middle-value': parseInt(value, 10) > 1000000 && parseInt(value, 10) < 1000000000,
       'cell-zero-value': parseInt(value, 10) === 0,
+      'cell-right': true,
     };
   }
 
