@@ -1,8 +1,9 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable} from '../../ng-data-table';
 import {getColumnsPlayers} from './columns';
 import {DataAggregation} from '../../ng-data-table/base/data-aggregation';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-vertical-group-demo',
@@ -10,55 +11,64 @@ import {DataAggregation} from '../../ng-data-table/base/data-aggregation';
   <div style="display: flex;">
     <div class="datatable vertical">
       <div class="datatable-header-cell"
-          [style.width.px]="50"
           [style.height.px]="table.dimensions.headerRowHeight"
           style="border-right: none; border-left: 1px solid #c6c6c6;">
           <span class="column-title">Race</span>
       </div>
-      <ng-container *ngFor="let key of raceGroupKeys()">
-        <div class="datatable-body-cell"
-          [style.width.px]="50"
-          [style.height.px]="raceGroupHeight(key)"
-          style="border-right: none; border-left: 1px solid #c6c6c6; justify-content: center;">
-          <div class="cell-data">{{key}}</div>
-        </div>
-      </ng-container>
+      <div #dtv1 class="datatable-body" [style.height.px]="table.dimensions.bodyHeight">
+        <ng-container *ngFor="let key of raceGroupKeys()">
+          <div class="datatable-body-cell"
+            [style.height.px]="raceGroupHeight(key)"
+            style="border-right: none; border-left: 1px solid #c6c6c6; justify-content: center;">
+            <div class="cell-data">{{key}}</div>
+          </div>
+        </ng-container>
+      </div>
     </div>
     <div class="datatable vertical">
       <div class="datatable-header-cell"
-          [style.width.px]="50"
           [style.height.px]="table.dimensions.headerRowHeight"
           style="border-right: none; border-left: 1px solid #c6c6c6;">
           <span class="column-title">Gender</span>
       </div>
-      <ng-container *ngFor="let key of genderGroupKeys()">
-        <div class="datatable-body-cell"
-          [style.width.px]="50"
-          [style.height.px]="genderGroupHeight(key)"
-          style="border-right: none; border-left: 1px solid #c6c6c6; justify-content: center;">
-          <div class="cell-data">{{genderName(key)}}</div>
-        </div>
-      </ng-container>
+      <div #dtv2 class="datatable-body" [style.height.px]="table.dimensions.bodyHeight">
+        <ng-container *ngFor="let key of genderGroupKeys()">
+          <div class="datatable-body-cell"
+            [style.height.px]="genderGroupHeight(key)"
+            style="border-right: none; border-left: 1px solid #c6c6c6; justify-content: center;">
+            <div class="cell-data">{{genderName(key)}}</div>
+          </div>
+        </ng-container>
+      </div>
     </div>
     <app-data-table [table]="table"></app-data-table>
   </div>
   `,
   styles: [
-    'app-data-table .datatable-row-left {z-index: auto;}',
-    '.vertical .cell-data {transform: rotate(-90deg); overflow: visible;}'
+    'app-data-table {overflow-x: auto;}',
+    '.vertical .cell-data {transform: rotate(-90deg); overflow: visible;}',
+    '.vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}',
+    '.vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}',
   ],
   encapsulation: ViewEncapsulation.None,
 })
 
-export class VerticalGroupDemoComponent implements OnInit {
+export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
   columns: Column[];
-  settings: Settings = <Settings>{};
+  settings: Settings = <Settings>{
+    bodyHeight: 380,
+    filter: false,
+  };
+
+  @ViewChild('dtv1') dtv1: ElementRef;
+  @ViewChild('dtv2') dtv2: ElementRef;
 
   private raceGroupMetadata: any;
   private genderGroupMetadata: any;
   private dataAggregation: DataAggregation;
+  private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -80,6 +90,18 @@ export class VerticalGroupDemoComponent implements OnInit {
       this.genderGroupMetadata = this.dataAggregation.groupMetaData(this.table.rows, ['race', 'gender']);
       this.table.events.onLoading(false);
     });
+
+    const subScroll = this.table.events.scrollSource$.subscribe(() => {
+      requestAnimationFrame(() => {
+        this.dtv1.nativeElement.scrollTop = this.table.dimensions.offsetY;
+        this.dtv2.nativeElement.scrollTop = this.table.dimensions.offsetY;
+      });
+    });
+    this.subscriptions.push(subScroll);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   raceGroupKeys() {
