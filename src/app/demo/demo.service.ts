@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {DataSource} from '../../ng-crud-table';
+import {DataSource, PagedResult} from '../../ng-crud-table';
 import {DataSort, DataFilter} from '../../ng-data-table/base';
 import {Filter, SortMeta, Settings} from '../../ng-data-table';
 
@@ -21,8 +21,8 @@ export class DemoService implements DataSource {
     this.itemsPerPage = perPage || this.itemsPerPage;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
-    return this.http.get(this.url)
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
+    return this.http.get<PagedResult>(this.url)
       .toPromise()
       .then(function (res) {
         const rows: any[] = res || [];
@@ -37,7 +37,7 @@ export class DemoService implements DataSource {
         const pageData = this.page(sortedData, page);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
-        const result = {
+        const result = <PagedResult>{
           'items': pageData,
           '_meta': {
             'totalCount': totalCount,

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Filter, SortMeta, DataSource} from '../base';
+import {Filter, SortMeta, DataSource, PagedResult} from '../base';
 
 @Injectable()
 export class YiiService implements DataSource {
@@ -19,10 +19,10 @@ export class YiiService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
     const headers = this.getAuthHeaders();
     const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortMeta);
-    return this.http.get(url, {headers: headers})
+    return this.http.get<PagedResult>(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

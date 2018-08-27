@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Filter, SortMeta, DataSource} from '../base';
+import {Filter, SortMeta, DataSource, PagedResult} from '../base';
 
 @Injectable()
 export class RestlessService implements DataSource {
@@ -19,7 +19,7 @@ export class RestlessService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
     const headers = this.getAuthHeaders();
     let url = this.url;
     if (page > 1) {
@@ -33,7 +33,7 @@ export class RestlessService implements DataSource {
       url += (url.indexOf('?') === -1) ? '?' : '&';
       url = url + this.filterObject(filters, sortMeta);
     }
-    return this.http.get(url, {headers: headers})
+    return this.http.get<PagedResult>(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

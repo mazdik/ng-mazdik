@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Filter, SortMeta, DataSource} from '../base';
+import {Filter, SortMeta, DataSource, PagedResult} from '../base';
 
 @Injectable()
 export class OrdsService implements DataSource {
@@ -19,14 +19,14 @@ export class OrdsService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<any> {
+  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
     const headers = this.getAuthHeaders();
     let url = this.url + '/';
     if (page > 1) {
       url = url + '/?offset=' + page;
     }
     url = url + this.filterObject(filters, sortMeta);
-    return this.http.get(url, {headers: headers})
+    return this.http.get<PagedResult>(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);
