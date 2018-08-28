@@ -20,7 +20,7 @@ export class RowMenuComponent implements OnInit {
   isVisible: boolean;
   selectContainerClicked: boolean;
 
-  @HostBinding('class') cssClass = 'dt-dropdown row-menu';
+  @HostBinding('class') cssClass = 'dropdown-row-menu';
 
   @HostBinding('style.left.px')
   get getLeft(): number {

@@ -35,6 +35,7 @@ export class Message {
   refresh?: string;
   revertChanges?: string;
   duplicate?: string;
+  cancel?: string;
 
   constructor() {
     this.empty = 'No data to display';
@@ -72,6 +73,7 @@ export class Message {
     this.refresh = 'Refresh';
     this.revertChanges = 'Revert Changes';
     this.duplicate = 'Duplicate';
+    this.cancel = 'Cancel';
   }
 
 }

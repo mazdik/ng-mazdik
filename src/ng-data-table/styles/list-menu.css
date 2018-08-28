@@ -25,3 +25,13 @@
   overflow: hidden;
   background-color: #e5e5e5;
 }
+
+.list-menu-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.list-menu-row span {
+  width: 49%;
+  text-align: center;
+}

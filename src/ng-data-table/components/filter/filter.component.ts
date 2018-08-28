@@ -20,7 +20,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   isVisible: boolean;
   selectContainerClicked: boolean;
 
-  @HostBinding('class') cssClass = 'dt-dropdown filter-menu';
+  @HostBinding('class') cssClass = 'dropdown-filter-menu';
 
   @HostBinding('style.left.px')
   get getLeft(): number {

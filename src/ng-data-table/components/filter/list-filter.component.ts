@@ -19,7 +19,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('filterInput') filterInput: any;
 
-  selectedOptions: any;
+  selectedOptions: any[] = [];
   searchFilterText: string = '';
   loading: boolean;
 
@@ -73,8 +73,10 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   setSelected(value: any) {
     this.setSelectedOptions(value);
-    this.filter(this.selectedOptions, this.column.name);
-    this.filterClose.emit(true);
+    if (this.column.selectionLimit <= 1) {
+      this.filter(this.selectedOptions, this.column.name);
+      this.filterClose.emit(true);
+    }
   }
 
   checkAll() {
@@ -95,7 +97,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     return this.selectedOptions && this.selectedOptions.indexOf(option.id) > -1;
   }
 
-  filter(value: any[], field: string) {
+  filter(value: any[] = [], field: string) {
     const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
     this.table.dataFilter.setFilter(value, field, mode);
     this.table.events.onFilter();
@@ -107,6 +109,11 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
         this.filterInput.nativeElement.focus();
       }, 1);
     }
+  }
+
+  onClickOk() {
+    this.filter(this.selectedOptions, this.column.name);
+    this.filterClose.emit(true);
   }
 
 }
