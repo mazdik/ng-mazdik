@@ -35,8 +35,10 @@ export class TreeTable extends DataTable {
     return this.tree.filterLoading;
   }
 
+  getIconFunc: (node?: TreeNode) => string;
+  indent: number = 10;
   tree: Tree;
-  treeFlattener: TreeFlattener;
+  private treeFlattener: TreeFlattener;
 
   constructor(columns: ColumnBase[], settings: Settings, dataSource: TreeDataSource, messages?: Message) {
     super(columns, settings, messages);

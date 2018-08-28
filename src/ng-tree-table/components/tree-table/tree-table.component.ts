@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../../../ng-data-table/styles/index.css'],
+  styleUrls: ['tree-table.component.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -69,7 +69,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getIcon(node: any) {
+  getExpanderIcon(node: any) {
     let icon: string;
     if (node.loading && !node.isLeaf()) {
       return 'icon-collapsing';
@@ -82,11 +82,23 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     return icon;
   }
 
+  getIcon(node: any) {
+    if (this.treeTable.getIconFunc) {
+      return this.treeTable.getIconFunc(node);
+    } else {
+      return node.icon;
+    }
+  }
+
   selectionToggle(row: Row): void {
     const descendants = this.treeTable.getDescendants(row);
     this.treeTable.selection.isRowSelected(row.$$index)
       ? this.treeTable.selection.select(...descendants)
       : this.treeTable.selection.deselect(...descendants);
+  }
+
+  paddingIndent(row: any): number {
+    return row.level * this.treeTable.indent;
   }
 
 }

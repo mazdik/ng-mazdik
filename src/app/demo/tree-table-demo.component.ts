@@ -33,6 +33,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
     this.treeService = new TreeDemoService(this.http);
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
     this.treeTable.pager.perPage = 1000;
+    this.treeTable.getIconFunc = (node) => (!node.isLeaf()) ? 'tree-icon tree-folder' : 'tree-icon tree-file';
 
     this.flattenTreeTable = new TreeTable(this.columns, this.settings, null);
   }

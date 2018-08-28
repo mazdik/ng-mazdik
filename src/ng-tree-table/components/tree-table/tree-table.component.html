@@ -2,14 +2,14 @@
 
 <ng-template #cellTemplate let-row="row" let-value="value">
     <div class="datatable-tree-node"
-        [ngStyle]="{'padding-left.px': row.level*10}"
+        [style.padding-left.px]="paddingIndent(row)"
         style="cursor: pointer;">
-    <i [class]="getIcon(row.node)"
+    <i [class]="getExpanderIcon(row.node)"
         (click)="onExpand(row.node)">
     </i>
     <span class="datatable-tree-node-content"
         (dblclick)="onExpand(row.node)">
-        <i *ngIf="row.node.icon" [ngClass]="row.node.icon"></i>
+        <i *ngIf="row.node.icon || treeTable.getIconFunc" [ngClass]="getIcon(row.node)"></i>
         {{row.node.name}}
     </span>
     </div>
