@@ -39,7 +39,7 @@
 .sidenav a {
   display: block;
   text-decoration: none;
-  padding: 8px 2px 8px 16px;
+  padding: 8px;
   color: black;
   font-size: 15px;
   line-height: 1;
@@ -87,6 +87,23 @@
     float: none;
     display: block;
     text-align: left;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .sidenav {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding: 0;
+  }
+  .sidenav a {float: left;}
+  div.main {margin-left: 0;}
+}
+@media screen and (max-width: 400px) {
+  .sidenav a {
+    text-align: center;
+    float: none;
   }
 }
 

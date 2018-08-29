@@ -34,10 +34,10 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.setFocus();
-    this.clearSearch();
-    this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name);
     if (this.isOpen) {
+      this.setFocus();
+      this.clearSearch();
+      this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name);
       this.loading = true;
       this.column.getFilterValues().then((res) => {
         this.column.filterValues = res;
@@ -82,15 +82,19 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   checkAll() {
     if (!this.loading) {
       this.selectedOptions = this.column.filterValues.map(option => option.id);
-      this.filter(this.selectedOptions, this.column.name);
-      this.filterClose.emit(true);
+      if (this.column.selectionLimit <= 1) {
+        this.filter(this.selectedOptions, this.column.name);
+        this.filterClose.emit(true);
+      }
     }
   }
 
   uncheckAll() {
     this.selectedOptions = [];
-    this.filter(this.selectedOptions, this.column.name);
-    this.filterClose.emit(true);
+    if (this.column.selectionLimit <= 1) {
+      this.filter(this.selectedOptions, this.column.name);
+      this.filterClose.emit(true);
+    }
   }
 
   isSelected(option: SelectOption): boolean {
@@ -114,6 +118,21 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   onClickOk() {
     this.filter(this.selectedOptions, this.column.name);
     this.filterClose.emit(true);
+  }
+
+  get allFilterSelected(): boolean {
+    return(this.column.filterValues &&
+      this.column.filterValues.length !== 0 &&
+      this.selectedOptions &&
+      this.selectedOptions.length === this.column.filterValues.length);
+  }
+
+  onCheckboxAllClick() {
+    if (this.allFilterSelected) {
+      this.uncheckAll();
+    } else {
+      this.checkAll();
+    }
   }
 
 }

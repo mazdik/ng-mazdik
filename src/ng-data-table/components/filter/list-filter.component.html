@@ -6,6 +6,7 @@
   <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
         (click)="clearSearch()">&times;</span>
 </div>
+
 <div class="filter-menu">
   <ul class="list-menu">
     <li>
@@ -14,17 +15,32 @@
         </span>
     </li>
     <li *ngIf="column.selectionLimit !== 1">
-        <span (click)="checkAll()">
-          <i class="icon icon-ok"></i>&nbsp;&nbsp;{{table.messages.selectAll}}
-        </span>
+      <span class="datatable-checkbox" (click)="onCheckboxAllClick()">
+        <input type="checkbox"
+               [checked]="allFilterSelected"/>
+        <label>{{table.messages.selectAll}}</label>
+      </span>
     </li>
     <li class="list-divider"></li>
+
     <i class="icon-collapsing" *ngIf="loading"></i>
     <li *ngFor="let option of column.filterValues | filterBy: 'name':searchFilterText">
+
+      <ng-container *ngIf="column.selectionLimit === 1">
         <span [ngClass]="{'active': isSelected(option)}"
               (click)="setSelected(option.id)">
-          <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{ option.name }}
+          <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{option.name}}
         </span>
+      </ng-container>
+
+      <ng-container *ngIf="column.selectionLimit !== 1">
+        <span class="datatable-checkbox" (click)="setSelected(option.id)">
+          <input type="checkbox"
+                 [checked]="isSelected(option)"/>
+          <label>{{option.name}}</label>
+        </span>
+      </ng-container>
+
     </li>
   </ul>
 </div>

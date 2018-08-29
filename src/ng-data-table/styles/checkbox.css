@@ -48,3 +48,7 @@
   border: 1px solid #ccc;
   border-radius: 2px;
 }
+
+.datatable-checkbox input + label {
+  padding-left: 3px;
+}

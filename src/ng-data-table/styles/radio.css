@@ -49,3 +49,7 @@
   border: 1px solid #ccc;
   border-radius: 100%;
 }
+
+.datatable-radio input + label {
+  padding-left: 3px;
+}

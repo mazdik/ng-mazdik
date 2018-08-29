@@ -8,12 +8,18 @@ import {getColumnsPlayers} from './columns';
   template: `<button class="button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
     <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
-    <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows">
-      {{row.id}}-{{row.name}}</div>
+  <dt-message style="margin-right:5px;"
+              [severity]="'success'"
+              *ngFor="let row of selectedRows"
+              [text]="row.id + '-' + row.name">
+  </dt-message>
     <p>Selection type: multiple. Selection mode: radio</p>
     <app-data-table [table]="table2" (selectionChange)="onSelection2()"></app-data-table>
-    <div class="df-alert df-alert-success" style="margin-right:5px;" *ngFor="let row of selectedRows2">
-      {{row.id}}-{{row.name}}</div>
+    <dt-message style="margin-right:5px;"
+                [severity]="'success'"
+                *ngFor="let row of selectedRows2"
+                [text]="row.id + '-' + row.name">
+    </dt-message>
   `
 })
 
