@@ -31,7 +31,7 @@ export class ModalSelectComponent implements OnInit {
   set model(value) {
     if (this._model !== value) {
       this._model = value;
-      this.valueChanged.emit(this._model);
+      this.valueChange.emit(this._model);
       this.selectedName = this.getName();
       if (this.selectedName) {
         this.nameChanged.emit(this.selectedName);
@@ -48,7 +48,7 @@ export class ModalSelectComponent implements OnInit {
   @Input() disabled: boolean;
   @Input() modalTitle: string = 'Search Dialog';
 
-  @Output() valueChanged: EventEmitter<any> = new EventEmitter();
+  @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('modal') readonly modal: any;

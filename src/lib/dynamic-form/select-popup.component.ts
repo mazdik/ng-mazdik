@@ -10,7 +10,7 @@ import {InputOptionComponent} from './input-option.component';
       <app-modal-select [(value)]="model"
                     [options]="getOptions()"
                     [disabled]="disabled"
-                    (valueChanged)="onValueChange()"
+                    (valueChange)="onValueChange()"
                     (nameChanged)="nameChanged.emit($event)">
       </app-modal-select>
       <div class="df-help-block">
