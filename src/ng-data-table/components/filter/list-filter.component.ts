@@ -18,9 +18,9 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('filterInput') filterInput: any;
 
-  selectedOptions: any[] = [];
   searchFilterText: string = '';
   loading: boolean;
+  private selectedOptions: any[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
   }
@@ -54,18 +54,23 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setSelectedOptions(value: any) {
-    if (!this.isSelected(value)) {
-      if (!this.column.multiSelectFilter) {
+    const index = this.selectedOptions.indexOf(value);
+    if (index > -1) {
+      this.selectedOptions.splice(index, 1);
+    } else {
+      if (this.column.multiSelectFilter) {
+        this.selectedOptions.push(value);
+      } else {
         this.selectedOptions = [];
+        this.selectedOptions.push(value);
       }
-      this.selectedOptions.push(value);
     }
   }
 
   setSelected(value: any) {
     this.setSelectedOptions(value);
     if (!this.column.multiSelectFilter) {
-      this.filter(this.selectedOptions, this.column.name);
+      this.filter(this.selectedOptions);
       this.filterClose.emit(true);
     }
   }
@@ -74,27 +79,25 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.loading) {
       this.selectedOptions = this.column.filterValues.map(option => option.id);
       if (!this.column.multiSelectFilter) {
-        this.filter(this.selectedOptions, this.column.name);
+        this.filter(this.selectedOptions);
         this.filterClose.emit(true);
       }
     }
   }
 
-  uncheckAll() {
+  onClickClear() {
     this.selectedOptions = [];
-    if (!this.column.multiSelectFilter) {
-      this.filter(this.selectedOptions, this.column.name);
-      this.filterClose.emit(true);
-    }
+    this.filter(this.selectedOptions);
+    this.filterClose.emit(true);
   }
 
   isSelected(value: any): boolean {
     return this.selectedOptions.indexOf(value) > -1;
   }
 
-  filter(value: any[] = [], field: string) {
+  filter(value: any[] = []) {
     const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
-    this.table.dataFilter.setFilter(value, field, mode);
+    this.table.dataFilter.setFilter([...value], this.column.name, mode);
     this.table.events.onFilter();
   }
 
@@ -107,7 +110,13 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onClickOk() {
-    this.filter(this.selectedOptions, this.column.name);
+    this.filter(this.selectedOptions);
+    this.filterClose.emit(true);
+  }
+
+  onClickCancel() {
+    this.selectedOptions = [];
+    this.filter(this.selectedOptions);
     this.filterClose.emit(true);
   }
 
@@ -120,7 +129,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   onCheckboxAllClick() {
     if (this.allFilterSelected) {
-      this.uncheckAll();
+      this.selectedOptions = [];
     } else {
       this.checkAll();
     }

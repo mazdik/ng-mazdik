@@ -10,7 +10,7 @@
 <div class="filter-menu">
   <ul class="list-menu">
     <li>
-        <span (click)="uncheckAll()">
+        <span (click)="onClickClear()">
           <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.messages.clear}}
         </span>
     </li>
@@ -50,7 +50,7 @@
   <li>
     <div class="list-menu-row">
         <span class="active" (click)="onClickOk()">OK</span>
-        <span class="active" (click)="uncheckAll()">{{table.messages.cancel}}</span>
+        <span class="active" (click)="onClickCancel()">{{table.messages.cancel}}</span>
     </div>
   </li>
 </ul>

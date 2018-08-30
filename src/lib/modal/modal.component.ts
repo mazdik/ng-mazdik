@@ -75,6 +75,9 @@ export class ModalComponent implements OnInit, AfterViewChecked {
       window.document.addEventListener('mousemove', this.onMousemove.bind(this));
       window.document.addEventListener('mouseup', this.onMouseup.bind(this));
       window.addEventListener('resize', this.onWindowResize.bind(this));
+
+      window.document.addEventListener('touchmove', this.onTouchmove.bind(this), false);
+      window.document.addEventListener('touchend', this.onTouchend.bind(this), false);
     });
   }
 
@@ -82,6 +85,9 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     window.document.removeEventListener('mousemove', this.onMousemove.bind(this));
     window.document.removeEventListener('mouseup', this.onMouseup.bind(this));
     window.removeEventListener('resize', this.onWindowResize.bind(this));
+
+    window.document.removeEventListener('touchmove', this.onTouchmove.bind(this));
+    window.document.removeEventListener('touchend', this.onTouchend.bind(this));
   }
 
   @HostListener('keydown.esc', ['$event'])
@@ -96,14 +102,25 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.center();
   }
 
-  onMousemove(event): void {
-    this.onDrag(event);
-    this.onResize(event);
+  onMousemove(event: MouseEvent): void {
+    this.onDrag(event.pageX, event.pageY);
+    this.onResize(event.pageX, event.pageY);
   }
 
-  onMouseup(event): void {
-    this.endDrag(event);
-    this.endResize(event);
+  onMouseup(): void {
+    this.endDrag();
+    this.endResize();
+  }
+
+  onTouchmove(event: TouchEvent): void {
+    const touch = event.touches[0];
+    this.onDrag(touch.pageX, touch.pageY);
+    this.onResize(touch.pageX, touch.pageY);
+  }
+
+  onTouchend(): void {
+    this.endDrag();
+    this.endResize();
   }
 
   show(): void {
@@ -145,60 +162,60 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.modalRoot.nativeElement.style.top = y + 'px';
   }
 
-  initDrag(event: MouseEvent) {
+  initDrag(pageX: number, pageY: number) {
     if (!this.maximized) {
       this.dragging = true;
-      this.lastPageX = event.pageX;
-      this.lastPageY = event.pageY;
+      this.lastPageX = pageX;
+      this.lastPageY = pageY;
       this.modalRoot.nativeElement.classList.add('dragging');
     }
   }
 
-  onDrag(event: MouseEvent) {
+  onDrag(pageX: number, pageY: number) {
     if (this.dragging) {
-      const deltaX = event.pageX - this.lastPageX;
-      const deltaY = event.pageY - this.lastPageY;
+      const deltaX = pageX - this.lastPageX;
+      const deltaY = pageY - this.lastPageY;
       const leftPos = parseInt(this.modalRoot.nativeElement.style.left, 10);
       const topPos = parseInt(this.modalRoot.nativeElement.style.top, 10);
 
       this.modalRoot.nativeElement.style.left = leftPos + deltaX + 'px';
       this.modalRoot.nativeElement.style.top = topPos + deltaY + 'px';
 
-      this.lastPageX = event.pageX;
-      this.lastPageY = event.pageY;
+      this.lastPageX = pageX;
+      this.lastPageY = pageY;
     }
   }
 
-  endDrag(event: MouseEvent) {
+  endDrag() {
     this.dragging = false;
     this.modalRoot.nativeElement.classList.remove('dragging');
   }
 
-  initResizeS(event: MouseEvent) {
+  initResizeS(pageX: number, pageY: number) {
     this.resizingS = true;
-    this.lastPageX = event.pageX;
-    this.lastPageY = event.pageY;
+    this.lastPageX = pageX;
+    this.lastPageY = pageY;
     this.modalRoot.nativeElement.classList.add('resizing');
   }
 
-  initResizeE(event: MouseEvent) {
+  initResizeE(pageX: number, pageY: number) {
     this.resizingE = true;
-    this.lastPageX = event.pageX;
-    this.lastPageY = event.pageY;
+    this.lastPageX = pageX;
+    this.lastPageY = pageY;
     this.modalRoot.nativeElement.classList.add('resizing');
   }
 
-  initResizeSE(event: MouseEvent) {
+  initResizeSE(pageX: number, pageY: number) {
     this.resizingSE = true;
-    this.lastPageX = event.pageX;
-    this.lastPageY = event.pageY;
+    this.lastPageX = pageX;
+    this.lastPageY = pageY;
     this.modalRoot.nativeElement.classList.add('resizing');
   }
 
-  onResize(event: MouseEvent) {
+  onResize(pageX: number, pageY: number) {
     if (this.resizingS || this.resizingE || this.resizingSE) {
-      const deltaX = event.pageX - this.lastPageX;
-      const deltaY = event.pageY - this.lastPageY;
+      const deltaX = pageX - this.lastPageX;
+      const deltaY = pageY - this.lastPageY;
       const containerWidth = this.modalRoot.nativeElement.offsetWidth;
       const containerHeight = this.modalRoot.nativeElement.offsetHeight;
       const contentHeight = this.modalBody.nativeElement.offsetHeight;
@@ -219,12 +236,12 @@ export class ModalComponent implements OnInit, AfterViewChecked {
         }
       }
 
-      this.lastPageX = event.pageX;
-      this.lastPageY = event.pageY;
+      this.lastPageX = pageX;
+      this.lastPageY = pageY;
     }
   }
 
-  endResize(event: MouseEvent) {
+  endResize() {
     this.resizingS = false;
     this.resizingE = false;
     this.resizingSE = false;
@@ -263,7 +280,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     return el;
   }
 
-  onIconMouseDown(event: Event) {
+  onCloseIcon(event: Event) {
     event.stopPropagation();
   }
 
