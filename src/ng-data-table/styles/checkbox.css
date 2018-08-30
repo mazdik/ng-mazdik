@@ -52,3 +52,11 @@
 .datatable-checkbox input + label {
   padding-left: 3px;
 }
+
+.datatable-checkbox input[type='checkbox']:indeterminate:before {
+  transform: rotate(0deg);
+  height: 1rem;
+  border: 3px #5b9bd5;
+  border-bottom-style: solid;
+  top: -8%;
+}

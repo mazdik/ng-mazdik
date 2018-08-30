@@ -2,6 +2,7 @@
       class="{{'datatable-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"
              [checked]="allRowsSelected"
+             [indeterminate]="partiallySelected"
              (click)="onHeaderCheckboxClick()"/>
 </span>
 <button class="filter-action"

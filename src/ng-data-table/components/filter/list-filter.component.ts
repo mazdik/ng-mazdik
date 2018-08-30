@@ -127,6 +127,10 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
       this.selectedOptions.length === this.column.filterValues.length);
   }
 
+  get partiallySelected(): boolean {
+    return this.selectedOptions.length !== 0 && !this.allFilterSelected;
+  }
+
   onCheckboxAllClick() {
     if (this.allFilterSelected) {
       this.selectedOptions = [];

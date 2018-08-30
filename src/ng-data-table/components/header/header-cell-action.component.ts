@@ -30,6 +30,10 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
     return this.table.selection.allRowsSelected(this.table.rows);
   }
 
+  get partiallySelected(): boolean {
+    return !this.table.selection.isEmpty() && !this.allRowsSelected;
+  }
+
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {

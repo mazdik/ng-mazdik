@@ -17,7 +17,8 @@
     <li *ngIf="column.multiSelectFilter">
       <span class="datatable-checkbox" (click)="onCheckboxAllClick()">
         <input type="checkbox"
-               [checked]="allFilterSelected"/>
+               [checked]="allFilterSelected"
+               [indeterminate]="partiallySelected"/>
         <label>{{table.messages.selectAll}}</label>
       </span>
     </li>
