@@ -2,7 +2,6 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
   OnChanges, SimpleChanges, ViewChild
 } from '@angular/core';
-import {SelectOption} from '../../types';
 import {Column, DataTable, DataFilter} from '../../base';
 
 @Component({
@@ -37,7 +36,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     if (this.isOpen) {
       this.setFocus();
       this.clearSearch();
-      this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name);
+      this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name) || [];
       this.loading = true;
       this.column.getFilterValues().then((res) => {
         this.column.filterValues = res;
@@ -55,25 +54,17 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   setSelectedOptions(value: any) {
-    if (!this.selectedOptions) {
-      this.selectedOptions = [];
-    }
-    const index = this.selectedOptions.indexOf(value);
-    if (index > -1) {
-      this.selectedOptions.splice(index, 1);
-    } else {
-      if (this.column.selectionLimit === 0 || this.selectedOptions.length < this.column.selectionLimit) {
-        this.selectedOptions.push(value);
-      } else {
-        this.selectedOptions.push(value);
-        this.selectedOptions.shift();
+    if (!this.isSelected(value)) {
+      if (!this.column.multiSelectFilter) {
+        this.selectedOptions = [];
       }
+      this.selectedOptions.push(value);
     }
   }
 
   setSelected(value: any) {
     this.setSelectedOptions(value);
-    if (this.column.selectionLimit <= 1) {
+    if (!this.column.multiSelectFilter) {
       this.filter(this.selectedOptions, this.column.name);
       this.filterClose.emit(true);
     }
@@ -82,7 +73,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   checkAll() {
     if (!this.loading) {
       this.selectedOptions = this.column.filterValues.map(option => option.id);
-      if (this.column.selectionLimit <= 1) {
+      if (!this.column.multiSelectFilter) {
         this.filter(this.selectedOptions, this.column.name);
         this.filterClose.emit(true);
       }
@@ -91,14 +82,14 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   uncheckAll() {
     this.selectedOptions = [];
-    if (this.column.selectionLimit <= 1) {
+    if (!this.column.multiSelectFilter) {
       this.filter(this.selectedOptions, this.column.name);
       this.filterClose.emit(true);
     }
   }
 
-  isSelected(option: SelectOption): boolean {
-    return this.selectedOptions && this.selectedOptions.indexOf(option.id) > -1;
+  isSelected(value: any): boolean {
+    return this.selectedOptions.indexOf(value) > -1;
   }
 
   filter(value: any[] = [], field: string) {

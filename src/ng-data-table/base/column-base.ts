@@ -24,7 +24,7 @@ export class ColumnBase {
   headerCellClass?: string;
   isPrimaryKey?: boolean;
   keyColumn?: string;
-  selectionLimit?: number = 1;
+  multiSelectFilter?: boolean;
   minWidth?: number = 50;
   maxWidth?: number = 500;
   aggregation?: AggregateType;

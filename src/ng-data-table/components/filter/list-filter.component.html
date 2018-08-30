@@ -14,7 +14,7 @@
           <i class="icon icon-remove"></i>&nbsp;&nbsp;{{table.messages.clear}}
         </span>
     </li>
-    <li *ngIf="column.selectionLimit !== 1">
+    <li *ngIf="column.multiSelectFilter">
       <span class="datatable-checkbox" (click)="onCheckboxAllClick()">
         <input type="checkbox"
                [checked]="allFilterSelected"/>
@@ -26,17 +26,17 @@
     <i class="icon-collapsing" *ngIf="loading"></i>
     <li *ngFor="let option of column.filterValues | filterBy: 'name':searchFilterText">
 
-      <ng-container *ngIf="column.selectionLimit === 1">
-        <span [ngClass]="{'active': isSelected(option)}"
+      <ng-container *ngIf="!column.multiSelectFilter">
+        <span [ngClass]="{'active': isSelected(option.id)}"
               (click)="setSelected(option.id)">
-          <i class="icon" [class.icon-ok]="isSelected(option)"></i>&nbsp;&nbsp;{{option.name}}
+          <i class="icon" [class.icon-ok]="isSelected(option.id)"></i>&nbsp;&nbsp;{{option.name}}
         </span>
       </ng-container>
 
-      <ng-container *ngIf="column.selectionLimit !== 1">
+      <ng-container *ngIf="column.multiSelectFilter">
         <span class="datatable-checkbox" (click)="setSelected(option.id)">
           <input type="checkbox"
-                 [checked]="isSelected(option)"/>
+                 [checked]="isSelected(option.id)"/>
           <label>{{option.name}}</label>
         </span>
       </ng-container>
@@ -45,7 +45,7 @@
   </ul>
 </div>
 
-<ul class="list-menu" *ngIf="column.selectionLimit > 1">
+<ul class="list-menu" *ngIf="column.multiSelectFilter">
   <li class="list-divider"></li>
   <li>
     <div class="list-menu-row">

@@ -51,7 +51,7 @@ export function getColumnsPlayers(): Column[] {
         {id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS'},
       ],
       dependsColumn: 'race',
-      selectionLimit: 5,
+      multiSelectFilter: true,
     },
     {
       title: 'Gender',

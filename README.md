@@ -70,7 +70,7 @@ export class PlayersComponent {
                 { id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS' },
             ],
             dependsColumn: 'race',
-            selectionLimit: 5,
+            multiSelectFilter: true,
         },
         {
             title: 'Gender',
@@ -240,7 +240,7 @@ export interface PagedResult {
 | headerCellClass  | string     | null    |             |
 | isPrimaryKey     | boolean    | false   |             |
 | keyColumn        | string     | null    |             |
-| selectionLimit   | number     | 1       |             |
+| multiSelectFilter | boolean   | false   |             |
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
 | aggregation      | sum / average / max / min / count | null |             |
