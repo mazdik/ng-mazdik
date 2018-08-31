@@ -1,10 +1,13 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
+import {
+  Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../../ng-crud-table/base';
 
 @Component({
   selector: 'app-modal-edit-form',
-  templateUrl: './modal-edit-form.component.html'
+  templateUrl: './modal-edit-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalEditFormComponent implements OnInit {
 
@@ -33,7 +36,7 @@ export class ModalEditFormComponent implements OnInit {
 
   private _detailView: boolean;
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -56,14 +59,17 @@ export class ModalEditFormComponent implements OnInit {
       this.dataManager.update(this.dataManager.item);
     }
     this.childModal.hide();
+    this.cd.markForCheck();
   }
 
   open() {
     this.childModal.show();
+    this.cd.markForCheck();
   }
 
   close() {
     this.childModal.hide();
+    this.cd.markForCheck();
   }
 
   onFormValid(event: any) {

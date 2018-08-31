@@ -1,5 +1,6 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation
+  Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from '@angular/core';
 
 export interface SelectItem {
@@ -11,6 +12,7 @@ export interface SelectItem {
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
   styleUrls: ['modal-select.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 
@@ -70,7 +72,7 @@ export class ModalSelectComponent implements OnInit {
   private optionsCopy: SelectItem[];
   private _model: any;
 
-  constructor() {
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -91,6 +93,7 @@ export class ModalSelectComponent implements OnInit {
     this.filterTimeout = setTimeout(() => {
       this._options = this.getOptions();
       this.filterTimeout = null;
+      this.cd.markForCheck();
     }, this.filterDelay);
   }
 
