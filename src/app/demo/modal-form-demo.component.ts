@@ -69,6 +69,7 @@ export class ModalFormDemoComponent implements OnInit {
     this.columns = getColumnsPlayers();
     this.columns[3].options = null;
     this.columns[3].optionsUrl = 'assets/options.json';
+    this.columns[9].validatorFunc = this.customValidation;
 
     this.service = new DemoService(this.http);
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
@@ -96,6 +97,14 @@ export class ModalFormDemoComponent implements OnInit {
     this.dataManager.item = Object.assign({}, this._item);
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.open();
+  }
+
+  customValidation(name: string, value: any): string[] {
+    const errors = [];
+    if (value == null || value.length === 0) {
+      errors.push('Custom validator ' + name);
+    }
+    return errors;
   }
 
 }

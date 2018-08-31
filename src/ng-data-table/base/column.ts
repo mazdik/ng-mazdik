@@ -2,6 +2,7 @@ import {ColumnBase} from './column-base';
 import {isBlank} from './util';
 import {SelectOption} from './types';
 import {Settings} from './settings';
+import {Validators} from './validators';
 
 export class Column extends ColumnBase {
 
@@ -74,42 +75,10 @@ export class Column extends ColumnBase {
   }
 
   validate(value: any) {
-    const temp = [];
-    if (!this.validation) {
-      return temp;
+    if (this.validatorFunc) {
+      return this.validatorFunc(this.title, value);
     }
-    const length: number = value ? value.length : 0;
-
-    if (this.validation.required && isBlank(value)) {
-      temp.push(`${this.title} is required.`);
-    }
-    if (this.validation.minLength && length < this.validation.minLength) {
-      temp.push(`${this.title} has to be at least ${this.validation.minLength} characters long. ActualLength: ${length}`);
-    }
-    if (this.validation.maxLength && length > this.validation.maxLength) {
-      temp.push(`${this.title} can't be longer then ${this.validation.maxLength} characters. ActualLength: ${length}`);
-    }
-    if (this.validation.pattern && value) {
-      const patternResult = this.patternValidate(value);
-      if (patternResult) {
-        temp.push(patternResult);
-      }
-    }
-    return temp;
-  }
-
-  private patternValidate(value: any): string {
-    const pattern: string | RegExp = this.validation.pattern;
-    let regex: RegExp;
-    let regexStr: string;
-    if (typeof pattern === 'string') {
-      regexStr = pattern;
-      regex = new RegExp(regexStr);
-    } else {
-      regexStr = pattern.toString();
-      regex = pattern;
-    }
-    return regex.test(value) ? null : `${this.title} must match this pattern: ${regexStr}.`;
+    return Validators.validate(this.title, value, this.validation);
   }
 
   setWidth(width: number) {

@@ -1,5 +1,6 @@
 import {
-  Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation
+  Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {Column, getOptionsFunction} from './types';
 
@@ -8,6 +9,7 @@ import {Column, getOptionsFunction} from './types';
   templateUrl: 'dynamic-form.component.html',
   styleUrls: ['dynamic-form.component.css'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class DynamicFormComponent implements OnInit, OnDestroy {

@@ -227,8 +227,9 @@ export interface PagedResult {
 | optionsUrl       | string     | null    |             |
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
-| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup | null    |             |
+| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup | null | |
 | validation       | Validation | null    |             |
+| validatorFunc    | (name: string, value: any) => string[] | null | |
 | editable         | boolean    | false   |             |
 | resizeable       | boolean    | true    |             |
 | dependsColumn    | string     | null    |             |
@@ -243,8 +244,8 @@ export interface PagedResult {
 | multiSelectFilter | boolean   | false   |             |
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
-| aggregation      | sum / average / max / min / count | null |             |
-| filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null |             |
+| aggregation      | sum / average / max / min / count | null | |
+| filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null | |
 
 ### Settings
 

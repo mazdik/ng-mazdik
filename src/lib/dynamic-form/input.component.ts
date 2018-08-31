@@ -1,9 +1,10 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import {Column} from './types';
 
 @Component({
   selector: 'app-form-input',
-  template: ``
+  template: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent implements OnInit {
 

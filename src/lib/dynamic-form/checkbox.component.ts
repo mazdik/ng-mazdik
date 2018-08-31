@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {InputOptionComponent} from './input-option.component';
 
 @Component({
@@ -23,7 +23,8 @@ import {InputOptionComponent} from './input-option.component';
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckboxComponent extends InputOptionComponent {
 

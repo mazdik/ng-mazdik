@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {InputComponent} from './input.component';
 
 @Component({
@@ -15,7 +15,8 @@ import {InputComponent} from './input.component';
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextareaComponent extends InputComponent {
 

@@ -13,6 +13,7 @@ export class ColumnBase {
   frozen?: boolean;
   type?: ColumnType;
   validation?: Validation;
+  validatorFunc?: (name: string, value: any) => string[];
   editable?: boolean;
   resizeable?: boolean = true;
   dependsColumn?: string;

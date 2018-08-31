@@ -1,10 +1,11 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import {SelectOption, getOptionsFunction} from './types';
 import {InputComponent} from './input.component';
 
 @Component({
   selector: 'app-form-input-option',
-  template: ``
+  template: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputOptionComponent extends InputComponent implements OnInit {
 

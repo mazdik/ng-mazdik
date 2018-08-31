@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import {Component, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import {InputOptionComponent} from './input-option.component';
 
 @Component({
@@ -17,7 +17,8 @@ import {InputOptionComponent} from './input-option.component';
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>
-  `
+  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupSelectComponent extends InputOptionComponent {
 
