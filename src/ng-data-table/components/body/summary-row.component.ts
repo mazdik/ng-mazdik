@@ -1,10 +1,9 @@
 import {
   Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Constants} from '../../base';
+import {DataTable, Constants, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {translate} from '../../base/util';
-import {Row} from '../../types';
 
 @Component({
   selector: 'dt-summary-row',

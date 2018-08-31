@@ -1,4 +1,4 @@
-import {Row} from '../types';
+import {Row} from './types';
 import {Events} from './events';
 
 export class DataSelection {

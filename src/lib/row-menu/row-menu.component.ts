@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
-import { MenuItem, RowMenuEventArgs, Row } from '../../ng-crud-table/base';
+import { MenuItem, MenuEventArgs } from './types';
 
 @Component({
   selector: 'app-row-menu',
@@ -37,7 +37,7 @@ export class RowMenuComponent implements OnInit {
     return (this.isVisible) ? 'block' : 'none';
   }
 
-  private row: Row;
+  private eventArgs: MenuEventArgs;
 
   constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
@@ -112,10 +112,10 @@ export class RowMenuComponent implements OnInit {
     }
   }
 
-  show(event: RowMenuEventArgs) {
-    this.row = event.row;
+  show(event: MenuEventArgs) {
+    this.eventArgs = event;
     this.selectContainerClicked = true;
-    const coords = this.getPositionMenu(event.left, event.top, this.row.$$height);
+    const coords = this.getPositionMenu(event.left, event.top, event.rowHeight);
 
     if (this.top === coords.top && this.left === coords.left) {
       this.isVisible ? this.closeDropdown() : this.openDropdown();
@@ -140,7 +140,7 @@ export class RowMenuComponent implements OnInit {
       event.preventDefault();
     }
     if (item.command) {
-      item.command(this.row);
+      item.command(this.eventArgs.data);
     }
     this.isVisible = false;
   }

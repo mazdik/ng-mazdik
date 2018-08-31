@@ -1,4 +1,22 @@
-import {AggregateType} from './type';
+export type ColumnType =
+  'text'
+  | 'password'
+  | 'number'
+  | 'select'
+  | 'radio'
+  | 'checkbox'
+  | 'textarea'
+  | 'date'
+  | 'datetime-local'
+  | 'select-popup';
+
+export type AggregateType = 'sum' | 'average' | 'max' | 'min' | 'count';
+
+export type SelectionMode = 'checkbox' | 'radio';
+
+export type ColumnResizeMode = 'simple' | 'aminated';
+
+export type EditMode = 'editCellOnDblClick' | 'editProgrammatically';
 
 export interface SelectOption {
   id: any;
@@ -41,4 +59,18 @@ export interface Validation {
   minLength?: number;
   maxLength?: number;
   pattern?: string | RegExp;
+}
+
+export interface ColumnMenuEventArgs {
+  left: number;
+  top: number;
+  column: any;
+}
+
+export interface CellEventArgs {
+  columnIndex: number;
+  rowIndex: number;
+  event?: any;
+  fromCell?: HTMLElement;
+  editMode?: boolean;
 }

@@ -15,3 +15,4 @@ export { Message } from './message';
 export { Settings } from './settings';
 export { Sequence } from './sequence';
 export { Constants } from './constants';
+export * from './types';

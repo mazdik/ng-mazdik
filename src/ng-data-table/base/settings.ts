@@ -1,4 +1,4 @@
-import {SelectionMode, ColumnResizeMode, EditMode} from '../types';
+import {SelectionMode, ColumnResizeMode, EditMode} from './types';
 import {TemplateRef} from '@angular/core';
 import {Constants} from './constants';
 

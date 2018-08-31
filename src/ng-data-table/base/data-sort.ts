@@ -1,4 +1,4 @@
-import {SortMeta} from '../types';
+import {SortMeta} from './types';
 import {Settings} from './settings';
 
 export class DataSort {

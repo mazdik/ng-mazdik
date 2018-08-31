@@ -3,7 +3,7 @@ import {
   } from '@angular/core';
 import {Column, DataTable} from '../../base';
 import {Subscription} from 'rxjs';
-import {ColumnMenuEventArgs} from '../../types';
+import {ColumnMenuEventArgs} from '../../base/types';
 
   @Component({
     selector: 'dt-header-cell',

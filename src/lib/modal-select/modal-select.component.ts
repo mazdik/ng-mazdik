@@ -2,6 +2,11 @@ import {
   Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
+export interface SelectItem {
+  id: any;
+  name: string;
+}
+
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
@@ -12,7 +17,7 @@ import {
 export class ModalSelectComponent implements OnInit {
 
   @Input()
-  set options(val: any[]) {
+  set options(val: SelectItem[]) {
     this._options = val;
     if (this._options) {
       this.optionsCopy = [...val];
@@ -23,7 +28,7 @@ export class ModalSelectComponent implements OnInit {
     }
   }
 
-  get options(): any[] {
+  get options(): SelectItem[] {
     return this._options;
   }
 
@@ -61,8 +66,8 @@ export class ModalSelectComponent implements OnInit {
   filterTimeout: any;
   selectedName: string;
 
-  private _options: any[];
-  private optionsCopy: any[];
+  private _options: SelectItem[];
+  private optionsCopy: SelectItem[];
   private _model: any;
 
   constructor() {
@@ -150,21 +155,21 @@ export class ModalSelectComponent implements OnInit {
     return (count < this.totalItems) ? count : this.totalItems;
   }
 
-  setSelected(option: any) {
+  setSelected(option: SelectItem) {
     this.model = option.id;
     this.modal.hide();
   }
 
-  isSelected(option: any): boolean {
+  isSelected(option: SelectItem): boolean {
     return option.id === this.model;
   }
 
   getName() {
     if (this.optionsCopy) {
-      const item = this.optionsCopy.find((x) => {
+      const option = this.optionsCopy.find((x) => {
         return x.id === this.model;
       });
-      return (item) ? item['name'] : '';
+      return (option) ? option.name : '';
     }
   }
 

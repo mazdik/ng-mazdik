@@ -1,4 +1,4 @@
-import {SelectOption, Validation, ColumnType, AggregateType} from '../types';
+import {SelectOption, Validation, ColumnType, AggregateType} from './types';
 import {TemplateRef} from '@angular/core';
 
 export class ColumnBase {

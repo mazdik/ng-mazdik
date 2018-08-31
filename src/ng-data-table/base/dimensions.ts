@@ -1,6 +1,6 @@
 import {Column} from './column';
 import {Settings} from './settings';
-import {Row} from '../types';
+import {Row} from './types';
 
 export class Dimensions {
 

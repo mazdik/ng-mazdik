@@ -4,7 +4,7 @@ import {Settings} from '../../ng-data-table/base/settings';
 import {Message} from '../../ng-data-table/base/message';
 import {Tree} from './tree';
 import {TreeNode} from './tree-node';
-import {TreeDataSource} from './tree-types';
+import {TreeDataSource} from './types';
 import {TreeFlattener} from './tree-flattener';
 import {Row} from './index';
 

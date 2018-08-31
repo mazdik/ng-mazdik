@@ -1,4 +1,4 @@
-import {DataSource, MenuItem} from './interface';
+import {DataSource} from './interface';
 import {Row, Filter} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
@@ -11,7 +11,6 @@ export class DataManager extends DataTable {
   errors: any;
   item: any;
   refreshRowOnSave: boolean;
-  actionMenu: MenuItem[] = [];
 
   constructor(columns: ColumnBase[], settings: Settings, dataSource: DataSource, messages?: Message) {
     super(columns, settings, messages);

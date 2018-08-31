@@ -1,10 +1,9 @@
 import {
   Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable} from '../../base';
+import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {translate} from '../../base/util';
-import {Row} from '../../types';
 
 @Component({
   selector: 'dt-body',

@@ -1,4 +1,4 @@
-import { Filter, SortMeta, Row } from '../../ng-data-table';
+import { Filter, SortMeta } from '../../ng-data-table';
 
 export interface PagedResult {
   items: any[];
@@ -19,19 +19,4 @@ export interface DataSource {
   put(row: any): Promise<any>;
   delete(row: any): Promise<any>;
   getOptions?(url: string, parentId: any): Promise<any>;
-}
-
-export interface MenuItem {
-  label?: string;
-  icon?: string;
-  command?: (event?: any) => void;
-  url?: string;
-  routerLink?: any;
-  disabled?: boolean;
-}
-
-export interface RowMenuEventArgs {
-  left: number;
-  top: number;
-  row: Row;
 }

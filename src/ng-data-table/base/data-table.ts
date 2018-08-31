@@ -1,4 +1,4 @@
-import {Row, CellEventArgs} from '../types';
+import {Row, CellEventArgs} from './types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';

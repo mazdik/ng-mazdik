@@ -1,4 +1,4 @@
-import {Row} from '../types';
+import {Row} from './types';
 import {Column} from './column';
 
 export class Sequence {

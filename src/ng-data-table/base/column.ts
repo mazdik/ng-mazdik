@@ -1,6 +1,6 @@
 import {ColumnBase} from './column-base';
 import {isBlank} from './util';
-import {SelectOption} from '../types';
+import {SelectOption} from './types';
 import {Settings} from './settings';
 
 export class Column extends ColumnBase {

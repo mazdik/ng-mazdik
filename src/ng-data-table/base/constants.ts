@@ -1,4 +1,4 @@
-import {EditMode, ColumnResizeMode} from '../types';
+import {EditMode, ColumnResizeMode} from './types';
 
 export class Constants {
 

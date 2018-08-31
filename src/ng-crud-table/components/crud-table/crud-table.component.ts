@@ -3,9 +3,9 @@ import {
   TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../lib/modal-edit-form/modal-edit-form.component';
-import {DataManager, Row, RowMenuEventArgs} from '../../base';
+import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
-import {RowMenuComponent} from '../../../lib/row-menu/row-menu.component';
+import {RowMenuComponent, MenuItem, MenuEventArgs} from '../../../lib/row-menu';
 
 @Component({
   selector: 'app-crud-table',
@@ -27,6 +27,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') cssClass = 'datatable crud-table';
 
+  actionMenu: MenuItem[] = [];
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
@@ -74,7 +75,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   initRowMenu() {
     if (this.dataManager.settings.singleRowView) {
-      this.dataManager.actionMenu.push(
+      this.actionMenu.push(
         {
           label: this.dataManager.messages.titleDetailView,
           icon: 'icon icon-rightwards',
@@ -83,7 +84,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       );
     }
     if (this.dataManager.settings.crud) {
-      this.dataManager.actionMenu.push(
+      this.actionMenu.push(
         {
           label: this.dataManager.messages.titleUpdate,
           icon: 'icon icon-pencil',
@@ -126,14 +127,14 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onRowMenuClick(event: any, row: Row) {
     const rowChanged = this.dataManager.rowChanged(row);
-    let menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
+    let menuIndex = this.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
     if (menuIndex > -1) {
-      this.dataManager.actionMenu[menuIndex].disabled = !rowChanged;
+      this.actionMenu[menuIndex].disabled = !rowChanged;
     }
-    menuIndex = this.dataManager.actionMenu.findIndex(x => x.label === this.dataManager.messages.save);
+    menuIndex = this.actionMenu.findIndex(x => x.label === this.dataManager.messages.save);
     if (menuIndex > -1) {
       const rowIsValid = this.dataManager.rowIsValid(row);
-      this.dataManager.actionMenu[menuIndex].disabled = !rowChanged || !rowIsValid;
+      this.actionMenu[menuIndex].disabled = !rowChanged || !rowIsValid;
     }
 
     const left = 0;
@@ -142,7 +143,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     let top = alertHeight + toolbarHeight + this.dataManager.dimensions.headerRowHeight;
     top += (row.$$offset + row.$$height);
     top -= this.dataManager.dimensions.offsetY;
-    this.rowMenu.show(<RowMenuEventArgs>{left, top, row});
+    this.rowMenu.show(<MenuEventArgs>{'left': left, 'top': top, 'data': row, 'rowHeight': row.$$height});
   }
 
   onCreateAction() {

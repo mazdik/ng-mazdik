@@ -1,4 +1,4 @@
-import { Row } from '../types';
+import { Row } from './types';
 import { Settings } from './settings';
 import { DataPager } from './data-pager';
 import { Dimensions } from './dimensions';

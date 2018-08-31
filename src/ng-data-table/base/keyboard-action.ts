@@ -1,5 +1,5 @@
 import { DataTable } from '../base/data-table';
-import { CellEventArgs } from '../types';
+import { CellEventArgs } from './types';
 import { isBlank } from '../base/util';
 import { Keys } from '../base/keys';
 

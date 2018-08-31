@@ -1,5 +1,5 @@
-import { CellEventArgs } from '../types';
-import { isBlank } from '../base/util';
+import { CellEventArgs } from './types';
+import { isBlank } from './util';
 
 export class EventHelper {
 

@@ -1,5 +1,5 @@
 import { Subject, BehaviorSubject } from 'rxjs';
-import { ColumnMenuEventArgs, CellEventArgs } from '../types';
+import { ColumnMenuEventArgs, CellEventArgs } from './types';
 
 export class Events {
 

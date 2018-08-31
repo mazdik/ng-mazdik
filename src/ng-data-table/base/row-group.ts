@@ -1,4 +1,4 @@
-import { Row } from '../types';
+import { Row } from './types';
 import { Settings } from './settings';
 import { DataAggregation } from './data-aggregation';
 import { DataSort } from './data-sort';

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {TreeNode} from './tree-node';
-import {TreeDataSource, FilterState} from './tree-types';
+import {TreeDataSource, FilterState} from './types';
 
 @Injectable()
 export class Tree {
