@@ -54,6 +54,7 @@ export class ModalSelectComponent implements OnInit {
   @Input() filterDelay: number = 300;
   @Input() disabled: boolean;
   @Input() modalTitle: string = 'Search Dialog';
+  @Input() itemsPerPage: number = 10;
 
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
@@ -61,7 +62,6 @@ export class ModalSelectComponent implements OnInit {
   @ViewChild('modal') readonly modal: any;
   searchFilterText: any;
   currentPage: number = 1;
-  itemsPerPage: number = 20;
   sortOrder: number = 1;
   totalItems: number;
   pageCount: number;

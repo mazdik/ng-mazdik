@@ -30,19 +30,20 @@
           </span>
       </li>
     </ul>
-    <div class="list-divider"></div>
-    <ng-template [ngIf]="totalItems > 0">
-      <span class="select-page-count">
-        {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
-      </span>
-      <app-pagination class="select-pagination"
-                  [totalItems]="totalItems"
-                  [itemsPerPage]="itemsPerPage"
-                  [currentPage]="currentPage"
-                  (pageChanged)="onPageChanged($event)">
-      </app-pagination>
-    </ng-template>
   </ng-container>
   <ng-container class="app-modal-footer">
+    <ng-template [ngIf]="totalItems > 0">
+      <div class="select-footer">
+        <span class="select-page-count">
+            {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
+          </span>
+          <app-pagination
+              [totalItems]="totalItems"
+              [itemsPerPage]="itemsPerPage"
+              [currentPage]="currentPage"
+              (pageChanged)="onPageChanged($event)">
+          </app-pagination>
+      </div>
+    </ng-template>
   </ng-container>
 </app-modal>
