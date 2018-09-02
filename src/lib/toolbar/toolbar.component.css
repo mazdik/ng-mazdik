@@ -35,3 +35,18 @@
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
+
+.dt-toolbar-button {
+    background-color: #5b9bd5;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    user-select: none;
+    outline: 0;
+}
+
+.dt-toolbar-button:active {
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+  

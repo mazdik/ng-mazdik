@@ -1,7 +1,7 @@
 <div class="dt-toolbar-row">
     <div class="dt-toolbar-col" *ngIf="table.settings.crud">
         <button type="button"
-                class="button"
+                class="dt-toolbar-button"
                 (click)="createActionClick()">{{table.messages.create}}
         </button>
     </div>
@@ -12,12 +12,12 @@
                     [(ngModel)]="table.dataFilter.globalFilterValue"
                     (keypress)="onKeyPressGlobalSearch($event)">
             <button type="button"
-                    class="button"
+                    class="dt-toolbar-button"
                     (click)="onClickGlobalSearch()">{{table.messages.go}}
             </button>
         </div>
     </div>
   <div class="dt-toolbar-col" *ngIf="table.settings.exportAction">
-    <button class="button" (click)="downloadCsv()">{{table.messages.export}}</button>
+    <button class="dt-toolbar-button" (click)="downloadCsv()">{{table.messages.export}}</button>
   </div>
 </div>

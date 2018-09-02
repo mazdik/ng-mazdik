@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy,
+  Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation,
   TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../lib/modal-edit-form/modal-edit-form.component';
@@ -10,6 +10,8 @@ import {RowMenuComponent, MenuItem, MenuEventArgs} from '../../../lib/row-menu';
 @Component({
   selector: 'app-crud-table',
   templateUrl: './crud-table.component.html',
+  styleUrls: ['crud-table.component.css'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 

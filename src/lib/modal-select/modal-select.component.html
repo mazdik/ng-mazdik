@@ -4,7 +4,9 @@
          value="{{selectedName}}"
          placeholder="Select"
          [disabled]="disabled">
-  <button type="button" class="button" (click)="open()"><li class="icon icon-return"></li></button>
+  <button type="button" class="select-button-open" (click)="open()">
+    <li class="icon icon-return"></li>
+  </button>
 </div>
 <input type="hidden" [(ngModel)]="model">
 

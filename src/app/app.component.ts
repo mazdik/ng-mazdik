@@ -21,7 +21,7 @@ export class AppComponent {
 
   getSourceLink() {
     const link: string = 'https://github.com/mazdik/ng-crud-table/blob/master/src/app/demo/';
-    return link + this.state + '.component.ts';
+    return (this.state) ? link + this.state + '.component.ts' : link;
   }
 
   responsiveMenu() {

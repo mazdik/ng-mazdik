@@ -7,6 +7,7 @@ import {DataManager} from '../../ng-crud-table/base';
 @Component({
   selector: 'app-modal-edit-form',
   templateUrl: './modal-edit-form.component.html',
+  styleUrls: ['modal-edit-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalEditFormComponent implements OnInit {

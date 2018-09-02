@@ -1,0 +1,20 @@
+.modal-form-button {
+    background-color: #5b9bd5;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    user-select: none;
+    outline: 0;
+}
+.modal-form-button[disabled] {
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.6;
+}
+.modal-form-button:active {
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+.modal-form-button.save {
+    background-color: #4CAF50;
+}
