@@ -260,10 +260,25 @@ export class DataFilter {
 
   setFilter(value: any, field: string, matchMode: string, valueTo?: any, type?: string) {
     if (!isBlank(value) || !isBlank(valueTo)) {
+      [value, valueTo] = this.toNumber(value, valueTo, type);
       this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: type};
     } else if (this.filters[field]) {
       delete this.filters[field];
     }
+  }
+
+  isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+  toNumber(value: any, valueTo?: any, type?: string) {
+    if (!isBlank(value) && type === 'number' && this.isNumeric(value)) {
+      value = parseFloat(value);
+    }
+    if (!isBlank(valueTo) && type === 'number' && this.isNumeric(valueTo)) {
+      valueTo = parseFloat(valueTo);
+    }
+    return [value, valueTo];
   }
 
   getFilterValue(columnName: string) {
