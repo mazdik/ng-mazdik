@@ -1,22 +1,22 @@
-import {SortMeta} from './types';
+import {SortMetadata} from './types';
 import {Settings} from './settings';
 
 export class DataSort {
 
   multiple: boolean;
-  sortMeta: SortMeta[] = [];
+  sortMeta: SortMetadata[] = [];
 
   constructor(private settings: Settings) {
     this.multiple = this.settings.multipleSort;
   }
 
   setOrder(columnName: string) {
-    const index = this.sortMeta.findIndex((x: SortMeta) => x.field === columnName);
+    const index = this.sortMeta.findIndex((x: SortMetadata) => x.field === columnName);
     if (index === -1) {
       if (!this.multiple) {
         this.sortMeta = [];
       }
-      this.sortMeta.push(<SortMeta>{field: columnName, order: 1});
+      this.sortMeta.push(<SortMetadata>{field: columnName, order: 1});
     } else if (this.sortMeta[index].order === 1) {
       this.sortMeta[index].order = -1;
     } else if (this.sortMeta[index].order === -1) {
@@ -26,12 +26,12 @@ export class DataSort {
 
   set(columnNames: string[]): void {
     columnNames.forEach(columnName => {
-      const index = this.sortMeta.findIndex((x: SortMeta) => x.field === columnName);
+      const index = this.sortMeta.findIndex((x: SortMetadata) => x.field === columnName);
       if (index === -1) {
         if (!this.multiple) {
           this.sortMeta = [];
         }
-        this.sortMeta.push(<SortMeta>{field: columnName, order: 1});
+        this.sortMeta.push(<SortMetadata>{field: columnName, order: 1});
       }
     });
   }
@@ -41,8 +41,8 @@ export class DataSort {
     return (meta) ? meta.order : 0;
   }
 
-  findSortMeta(columnName: string): SortMeta {
-    return this.sortMeta.find((meta: SortMeta) => meta.field === columnName);
+  findSortMeta(columnName: string): SortMetadata {
+    return this.sortMeta.find((meta: SortMetadata) => meta.field === columnName);
   }
 
   sortRows(data: any[]): any[] {
@@ -57,7 +57,7 @@ export class DataSort {
     });
   }
 
-  multiSort(previous: any, current: any, meta: SortMeta[], index: number) {
+  multiSort(previous: any, current: any, meta: SortMetadata[], index: number) {
     const value1 = previous[meta[index].field];
     const value2 = current[meta[index].field];
     const result = (value1 < value2) ? -1 : 1;

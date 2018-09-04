@@ -1,4 +1,4 @@
-import {DataSource} from './interface';
+import {DataSource, RequestMetadata} from './interface';
 import {Row, Filter} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
@@ -42,8 +42,14 @@ export class DataManager extends DataTable {
     if (!this.dataFilter.isGlobal) {
       this.dataFilter.globalFilterValue = null;
     }
+    const requestMeta = <RequestMetadata> {
+      pageMeta: {currentPage: this.pager.current, perPage: this.pager.perPage},
+      filters: this.dataFilter.filters,
+      sortMeta: this.sorter.sortMeta,
+      globalFilterValue: this.dataFilter.globalFilterValue,
+    };
     return this.service
-      .getItems(this.pager.current, this.dataFilter.filters, this.sorter.sortMeta, this.dataFilter.globalFilterValue)
+      .getItems(requestMeta)
       .then(data => {
         this.events.onLoading(false);
         this.pager.total = data._meta.totalCount;

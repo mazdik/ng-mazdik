@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {Filter, SortMeta, DataSource, PagedResult} from '../base';
+import {RequestMetadata, DataSource, PagedResult} from '../base';
 
 @Injectable()
 export class YiiService implements DataSource {
@@ -19,9 +19,10 @@ export class YiiService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
+  getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
+    const page = requestMeta.pageMeta.currentPage;
     const headers = this.getAuthHeaders();
-    const url = this.url + '?page=' + page + this.urlEncode(filters) + this.urlSort(sortMeta);
+    const url = this.url + '?page=' + page + this.urlEncode(requestMeta) + this.urlSort(requestMeta);
     return this.http.get<PagedResult>(url, {headers: headers})
       .toPromise()
       .then(this.extractData)
@@ -29,11 +30,15 @@ export class YiiService implements DataSource {
   }
 
   getItem(row: any): Promise<any> {
-    const filters: Filter = {};
+    const filters = {};
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    return this.getItems(1, filters, null)
+    const requestMeta = <RequestMetadata> {
+      pageMeta: {currentPage: 1},
+      filters: filters,
+    };
+    return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }
 
@@ -93,14 +98,16 @@ export class YiiService implements DataSource {
     return Promise.reject(errMsg);
   }
 
-  private urlEncode(obj: Filter): string {
+  private urlEncode(requestMeta: RequestMetadata): string {
+    const obj = requestMeta.filters;
     const urlSearchParams = Object.getOwnPropertyNames(obj)
       .reduce((p, key) => p.set(key, Array.isArray(obj[key].value) ? obj[key].value[0] : obj[key].value), new HttpParams());
     const url = urlSearchParams.toString();
     return (url) ? '&' + url : '';
   }
 
-  private urlSort(sortMeta?: SortMeta[]): string {
+  private urlSort(requestMeta: RequestMetadata): string {
+    const sortMeta = requestMeta.sortMeta;
     let result: string = '';
     if (sortMeta && sortMeta.length) {
       result += '&sort=';

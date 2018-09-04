@@ -35,7 +35,7 @@ export interface Filter {
   [s: string]: FilterMetadata;
 }
 
-export interface SortMeta {
+export interface SortMetadata {
   field: string;
   order: number;
 }

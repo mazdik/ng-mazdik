@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {DataSource, PagedResult} from '../../ng-crud-table';
+import {DataSource, RequestMetadata, PagedResult} from '../../ng-crud-table';
 import {DataSort, DataFilter} from '../../ng-data-table/base';
-import {Filter, SortMeta, Settings} from '../../ng-data-table';
+import {Settings} from '../../ng-data-table';
 
 @Injectable()
 export class DemoService implements DataSource {
@@ -21,7 +21,12 @@ export class DemoService implements DataSource {
     this.itemsPerPage = perPage || this.itemsPerPage;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
+  getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
+    const page = requestMeta.pageMeta.currentPage;
+    const filters = requestMeta.filters;
+    const sortMeta = requestMeta.sortMeta;
+    const globalFilterValue = requestMeta.globalFilterValue;
+
     return this.http.get<PagedResult>(this.url)
       .toPromise()
       .then(function (res) {
@@ -51,11 +56,15 @@ export class DemoService implements DataSource {
   }
 
   getItem(row: any): Promise<any> {
-    const filters: Filter = {};
+    const filters = {};
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    return this.getItems(1, filters, null)
+    const requestMeta = <RequestMetadata> {
+      pageMeta: {currentPage: 1},
+      filters: filters,
+    };
+    return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }
 

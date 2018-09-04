@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Filter, SortMeta, DataSource, PagedResult} from '../base';
+import {RequestMetadata, DataSource, PagedResult} from '../base';
 
 @Injectable()
 export class RestlessService implements DataSource {
@@ -19,7 +19,8 @@ export class RestlessService implements DataSource {
     return headers;
   }
 
-  getItems(page: number = 1, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult> {
+  getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
+    const page = requestMeta.pageMeta.currentPage;
     const headers = this.getAuthHeaders();
     let url = this.url;
     if (page > 1) {
@@ -29,9 +30,9 @@ export class RestlessService implements DataSource {
         url = url + '&page=' + page;
       }
     }
-    if (this.filterObject(filters, sortMeta)) {
+    if (this.filterObject(requestMeta)) {
       url += (url.indexOf('?') === -1) ? '?' : '&';
-      url = url + this.filterObject(filters, sortMeta);
+      url = url + this.filterObject(requestMeta);
     }
     return this.http.get<PagedResult>(url, {headers: headers})
       .toPromise()
@@ -40,11 +41,15 @@ export class RestlessService implements DataSource {
   }
 
   getItem(row: any): Promise<any> {
-    const filters: Filter = {};
+    const filters = {};
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    return this.getItems(1, filters, null)
+    const requestMeta = <RequestMetadata> {
+      pageMeta: {currentPage: 1},
+      filters: filters,
+    };
+    return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }
 
@@ -111,7 +116,9 @@ export class RestlessService implements DataSource {
     return Promise.reject(errMsg);
   }
 
-  private filterObject(obj: Filter, sortMeta?: SortMeta[]): string {
+  private filterObject(requestMeta: RequestMetadata): string {
+    const obj = requestMeta.filters;
+    const sortMeta = requestMeta.sortMeta;
     const filters = [];
     let orderby = {};
     let result = '';

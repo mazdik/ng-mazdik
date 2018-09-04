@@ -197,21 +197,29 @@ export class TreeTableDemoComponent {
 interface DataSource {
   url: string;
   primaryKeys: string[];
-  getItems(page: number, filters: Filter, sortMeta: SortMeta[], globalFilterValue?: string): Promise<PagedResult>;
+  getItems(requestMeta: RequestMetadata): Promise<PagedResult>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;
   put(row: any): Promise<any>;
   delete(row: any): Promise<any>;
   getOptions?(url: string, parentId: any): Promise<any>;
 }
+export interface RequestMetadata {
+  pageMeta: PageMetadata;
+  sortMeta: SortMetadata[];
+  filters: Filter;
+  globalFilterValue?: string;
+}
 export interface PagedResult {
   items: any[];
-  _meta: {
-    totalCount: number;
-    pageCount: number;
-    currentPage: number;
-    perPage: number;
-  };
+  _meta: PageMetadata;
+}
+export interface PageMetadata {
+  currentPage: number;
+  perPage: number;
+  totalCount?: number;
+  pageCount?: number;
+  maxRowCount?: number;
 }
 ```
 
