@@ -16,7 +16,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   left: number;
   top: number;
-  column: Column = <Column> {};
+  column: Column = <Column>{};
   isVisible: boolean;
   selectContainerClicked: boolean;
 
@@ -118,6 +118,28 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   onFilterClose() {
     this.toggleDropdown();
+  }
+
+  get isListFilter(): boolean {
+    if (this.column.options || this.column.filterValuesFunc) {
+      return true;
+    }
+    return false;
+  }
+
+  get isRangeFilter(): boolean {
+    if (!this.isListFilter &&
+        (this.column.type === 'number' || this.column.type === 'date' || this.column.type === 'datetime-local')) {
+      return true;
+    }
+    return false;
+  }
+
+  get isStringFilter(): boolean {
+    if (!this.isListFilter && !this.isRangeFilter) {
+      return true;
+    }
+    return false;
   }
 
 }

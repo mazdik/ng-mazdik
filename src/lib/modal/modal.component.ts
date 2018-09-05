@@ -175,8 +175,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     if (this.dragging) {
       const deltaX = pageX - this.lastPageX;
       const deltaY = pageY - this.lastPageY;
-      const leftPos = parseInt(this.modalRoot.nativeElement.style.left, 10);
-      const topPos = parseInt(this.modalRoot.nativeElement.style.top, 10);
+      const leftPos = parseFloat(this.modalRoot.nativeElement.style.left);
+      const topPos = parseFloat(this.modalRoot.nativeElement.style.top);
 
       this.modalRoot.nativeElement.style.left = leftPos + deltaX + 'px';
       this.modalRoot.nativeElement.style.top = topPos + deltaY + 'px';

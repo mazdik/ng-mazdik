@@ -10,6 +10,7 @@ import {InputOptionComponent} from './input-option.component';
       <app-modal-select [(value)]="model"
                     [options]="getOptions()"
                     [disabled]="disabled"
+                    [modalTitle]="column.title"
                     (valueChange)="onValueChange()"
                     (nameChanged)="nameChanged.emit($event)">
       </app-modal-select>

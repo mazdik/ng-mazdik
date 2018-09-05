@@ -1,19 +1,19 @@
 <app-list-filter
-  *ngIf="column.options || column.filterValuesFunc"
+  *ngIf="isListFilter"
   [table]="table"
   [column]="column"
   [isOpen]="isVisible"
   (filterClose)="onFilterClose()">
 </app-list-filter>
 <app-range-filter
-  *ngIf="!column.options && (column.type ==='number' || column.type ==='date' || column.type ==='datetime-local')"
+  *ngIf="isRangeFilter"
   [table]="table"
   [column]="column"
   [isOpen]="isVisible"
   (filterClose)="onFilterClose()">
 </app-range-filter>
 <app-string-filter
-  *ngIf="!column.options && column.type !=='number' && column.type !=='date' && column.type !=='datetime-local'"
+  *ngIf="isStringFilter"
   [table]="table"
   [column]="column"
   [isOpen]="isVisible"
