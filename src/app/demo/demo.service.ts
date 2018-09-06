@@ -23,21 +23,15 @@ export class DemoService implements DataSource {
 
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
     const page = requestMeta.pageMeta.currentPage;
-    const filters = requestMeta.filters;
-    const sortMeta = requestMeta.sortMeta;
-    const globalFilterValue = requestMeta.globalFilterValue;
+    this.dataFilter.filters = requestMeta.filters;
+    this.dataFilter.globalFilterValue = requestMeta.globalFilterValue;
+    this.dataSort.sortMeta = requestMeta.sortMeta;
 
     return this.http.get<PagedResult>(this.url)
       .toPromise()
       .then(function (res) {
         const rows: any[] = res || [];
-        this.dataFilter.filters = filters;
-        if (Object.keys(filters).length === 0 && globalFilterValue) {
-          this.dataFilter.isGlobal = true;
-          this.dataFilter.globalFilterValue = globalFilterValue;
-        }
         const filteredData = this.dataFilter.filterRows(rows);
-        this.dataSort.sortMeta = sortMeta;
         const sortedData = this.dataSort.sortRows(filteredData);
         const pageData = this.page(sortedData, page);
         const totalCount = sortedData.length;

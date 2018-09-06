@@ -18,14 +18,8 @@ export class DataFilter {
 
   filters: Filter = <Filter>{};
   globalFilterValue: string;
-  isGlobal: boolean;
 
   filterRows(data: any[]) {
-    if (this.isGlobal) {
-      this.isGlobal = false;
-      return this.globalFilterRows(data);
-    }
-    this.globalFilterValue = null;
     const filters = this.filters;
     let filteredRows: any[] = data;
 
@@ -40,6 +34,7 @@ export class DataFilter {
         });
       }
     }
+    filteredRows = this.globalFilterRows(filteredRows);
     return filteredRows;
   }
 

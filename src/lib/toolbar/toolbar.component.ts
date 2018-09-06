@@ -36,19 +36,13 @@ export class ToolbarComponent implements OnInit, OnDestroy {
         this.subscriptions.forEach(s => s.unsubscribe());
     }
 
-    globalFilter() {
-        this.table.dataFilter.filters = {};
-        this.table.dataFilter.isGlobal = true;
-        this.table.events.onFilter();
-    }
-
     onClickGlobalSearch() {
-        this.globalFilter();
+        this.table.events.onFilter();
     }
 
     onKeyPressGlobalSearch(event: KeyboardEvent) {
         if (event.which === 13) {
-          this.globalFilter();
+            this.table.events.onFilter();
         }
     }
 

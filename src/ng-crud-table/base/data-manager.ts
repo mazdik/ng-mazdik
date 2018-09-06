@@ -39,9 +39,6 @@ export class DataManager extends DataTable {
     this.events.onLoading(true);
     this.errors = null;
     this.rowGroup.setSortMetaGroup();
-    if (!this.dataFilter.isGlobal) {
-      this.dataFilter.globalFilterValue = null;
-    }
     const requestMeta = <RequestMetadata> {
       pageMeta: {currentPage: this.pager.current, perPage: this.pager.perPage},
       filters: this.dataFilter.filters,
@@ -56,7 +53,6 @@ export class DataManager extends DataTable {
         this.pager.perPage = data._meta.perPage;
         this.rows = (concatRows) ? this.rows.concat(data.items) : data.items;
         this.pager.setCache();
-        this.dataFilter.isGlobal = false;
       })
       .catch(error => {
         this.events.onLoading(false);
