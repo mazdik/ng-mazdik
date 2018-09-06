@@ -89,4 +89,9 @@ import {ColumnMenuEventArgs} from '../../base/types';
         this.table.events.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, column});
     }
 
+    isFiltered(): boolean {
+      const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
+      return this.table.dataFilter.isFilter(field);
+    }
+
   }

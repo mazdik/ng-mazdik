@@ -18,7 +18,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('filterInput') filterInput: any;
 
-  searchFilterText: string = '';
+  searchFilterText: string;
   loading: boolean;
   private selectedOptions: any[] = [];
 
@@ -36,7 +36,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     if (this.isOpen) {
       this.setFocus();
       this.clearSearch();
-      this.selectedOptions = this.table.dataFilter.getFilterValue(this.column.name) || [];
+      this.loadFilter();
       this.loading = true;
       this.column.getFilterValues().then((res) => {
         this.column.filterValues = res;
@@ -70,7 +70,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   setSelected(value: any) {
     this.setSelectedOptions(value);
     if (!this.column.multiSelectFilter) {
-      this.filter(this.selectedOptions);
+      this.saveFilter();
       this.filterClose.emit(true);
     }
   }
@@ -79,7 +79,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.loading) {
       this.selectedOptions = this.column.filterValues.map(option => option.id);
       if (!this.column.multiSelectFilter) {
-        this.filter(this.selectedOptions);
+        this.saveFilter();
         this.filterClose.emit(true);
       }
     }
@@ -87,7 +87,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   onClickClear() {
     this.selectedOptions = [];
-    this.filter(this.selectedOptions);
+    this.saveFilter();
     this.filterClose.emit(true);
   }
 
@@ -95,10 +95,15 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     return this.selectedOptions.indexOf(value) > -1;
   }
 
-  filter(value: any[] = []) {
-    const mode = value.length ? DataFilter.IN : DataFilter.EQUALS;
-    this.table.dataFilter.setFilter([...value], this.column.name, mode);
+  saveFilter() {
+    const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
+    this.table.dataFilter.setFilter([...this.selectedOptions], field, DataFilter.IN);
     this.table.events.onFilter();
+  }
+
+  loadFilter() {
+    const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
+    this.selectedOptions = this.table.dataFilter.getFilterValue(field) || [];
   }
 
   setFocus() {
@@ -110,13 +115,13 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onClickOk() {
-    this.filter(this.selectedOptions);
+    this.saveFilter();
     this.filterClose.emit(true);
   }
 
   onClickCancel() {
     this.selectedOptions = [];
-    this.filter(this.selectedOptions);
+    this.saveFilter();
     this.filterClose.emit(true);
   }
 
