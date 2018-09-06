@@ -53,7 +53,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
 
     downloadCsv() {
-        this.exportCSV.downloadCSV(this.table.rows, null);
+        const keys = this.table.columns.map(col => col.name);
+        const titles = this.table.columns.map(col => col.title);
+        this.exportCSV.downloadCSV(this.table.rows, null, keys, titles);
     }
 
     createActionClick() {

@@ -6,14 +6,15 @@ export class ExportCSV {
     columnDelimiter = ';';
     lineDelimiter = '\n';
 
-    downloadCSV(rows, filename: string) {
-        let csv = this.convertArrayOfObjectsToCSV(rows);
+    downloadCSV(rows: any[], filename: string, keys: string[], titles: string[]) {
+        let csv = this.convertArrayOfObjectsToCSV(rows, keys, titles);
         if (csv == null) { return; }
 
         filename = filename || 'export.csv';
 
         if (!csv.match(/^data:text\/csv/i)) {
-            csv = 'data:text/csv;charset=utf-8,' + csv;
+          const bom = '\uFEFF';
+          csv = 'data:text/csv;charset=utf-8,' + bom + csv;
         }
         const data = encodeURI(csv);
 
@@ -23,14 +24,18 @@ export class ExportCSV {
         link.click();
     }
 
-    private convertArrayOfObjectsToCSV(rows) {
+    private convertArrayOfObjectsToCSV(rows, keys, titles) {
         if (!rows || !rows.length) {
             return;
         }
-        const keys = Object.keys(rows[0]);
-
+        if (!keys || !keys.length) {
+          keys = Object.keys(rows[0]);
+        }
+        if (!titles || !titles.length) {
+          titles = keys;
+        }
         let result = '';
-        result += '"' + keys.join('"' + this.columnDelimiter + '"') + '"';
+        result += '"' + titles.join('"' + this.columnDelimiter + '"') + '"';
         result += this.lineDelimiter;
 
         rows.forEach(item => {
