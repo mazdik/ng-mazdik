@@ -6,13 +6,14 @@
 <input class="dt-filter-input"
        #filterInput
        [attr.type]="column.type"
-       [attr.placeholder]="isRangeFilter() ? '>' : column.name"
-       [value]="table.dataFilter.getFilterValue(column.name)"
+       [attr.placeholder]="isRangeFilter ? '>' : column.name"
+       *ngIf="isValueFilter"
+       [(ngModel)]="value"
        (input)="onFilterInput()"/>
 <input class="dt-filter-input"
        [attr.type]="column.type"
        [attr.placeholder]="'<'"
-       *ngIf="isRangeFilter()"
+       *ngIf="isRangeFilter"
        [(ngModel)]="valueTo"
        (input)="onFilterInput()"/>
 <ul class="list-menu">

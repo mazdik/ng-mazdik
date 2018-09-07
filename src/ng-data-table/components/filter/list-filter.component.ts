@@ -86,8 +86,10 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onClickClear() {
-    this.selectedOptions = [];
-    this.saveFilter();
+    if (this.selectedOptions.length > 0) {
+      this.selectedOptions = [];
+      this.saveFilter();
+    }
     this.filterClose.emit(true);
   }
 

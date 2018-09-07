@@ -15,6 +15,8 @@ export class DataFilter {
   static NOT_CONTAINS = 'notContains'; // not like lower(%val%);
   static STARTS_WITH = 'startsWith'; // like val%;
   static ENDS_WITH = 'endsWith'; // like %val;
+  static IS_EMPTY = 'isEmpty'; // is null
+  static IS_NOT_EMPTY = 'isNotEmpty'; // is not null
 
   filters: Filter = <Filter>{};
   globalFilterValue: string;
@@ -76,6 +78,10 @@ export class DataFilter {
           return this.greaterThan(value, filterValue);
         case DataFilter.GREATER_THAN_OR_EQUAL:
           return this.greaterThanOrEqual(value, filterValue);
+        case DataFilter.IS_EMPTY:
+          return isBlank(value);
+        case DataFilter.IS_NOT_EMPTY:
+          return !isBlank(value);
         default:
           return this.dateEquals(value, filterValue);
       }
@@ -105,6 +111,10 @@ export class DataFilter {
           return this.greaterThan(value, filter.value);
         case DataFilter.GREATER_THAN_OR_EQUAL:
           return this.greaterThanOrEqual(value, filter.value);
+        case DataFilter.IS_EMPTY:
+          return isBlank(value);
+        case DataFilter.IS_NOT_EMPTY:
+          return !isBlank(value);
         default:
           return this.equals(value, filter.value);
       }
@@ -286,6 +296,10 @@ export class DataFilter {
 
   getFilterMatchMode(columnName: string) {
     return this.filters[columnName] ? this.filters[columnName].matchMode : null;
+  }
+
+  isNonValueFilter(matchMode: string) {
+    return (matchMode === DataFilter.IS_EMPTY || matchMode === DataFilter.IS_NOT_EMPTY);
   }
 
 }

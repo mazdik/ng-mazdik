@@ -19,10 +19,11 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('filterInput') filterInput: any;
 
   filterTimeout: any;
-  matchMode: string = DataFilter.EQUALS;
-  operators: any[];
+  matchMode: string;
+  value: any;
   valueTo: any;
-  type: string;
+  operators: any[];
+  defaultMatchMode = DataFilter.EQUALS;
 
   constructor() {
   }
@@ -35,7 +36,9 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
       {value: DataFilter.GREATER_THAN_OR_EQUAL, text: this.table.messages.greaterThanOrEqual},
       {value: DataFilter.LESS_THAN, text: this.table.messages.lessThan},
       {value: DataFilter.LESS_THAN_OR_EQUAL, text: this.table.messages.lessThanOrEqual},
-      {value: DataFilter.IN_RANGE, text: this.table.messages.inRange}
+      {value: DataFilter.IN_RANGE, text: this.table.messages.inRange},
+      {value: DataFilter.IS_EMPTY, text: this.table.messages.isEmpty},
+      {value: DataFilter.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
     ];
   }
 
@@ -44,19 +47,27 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.setFocus();
-    this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.matchMode;
+    this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.defaultMatchMode;
+    this.value = this.table.dataFilter.getFilterValue(this.column.name);
     this.valueTo = this.table.dataFilter.getFilterValueTo(this.column.name);
+    this.setFocus();
+  }
+
+  get isValueFilter() {
+    return !this.table.dataFilter.isNonValueFilter(this.matchMode);
+  }
+
+  get isRangeFilter() {
+    return this.matchMode === DataFilter.IN_RANGE;
   }
 
   onFilterInput() {
-    const value = this.filterInput.nativeElement.value;
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
 
     this.filterTimeout = setTimeout(() => {
-      this.filter(value);
+      this.filter(this.value);
       this.filterTimeout = null;
     }, this.table.settings.filterDelay);
   }
@@ -67,13 +78,15 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   uncheckAll() {
+    this.value = null;
     this.valueTo = null;
-    this.filter(null);
+    this.matchMode = this.defaultMatchMode;
+    this.filter(this.value);
     this.filterClose.emit(true);
   }
 
   setFocus() {
-    if (this.filterInput) {
+    if (this.filterInput && this.isValueFilter) {
       setTimeout(() => {
         this.filterInput.nativeElement.focus();
       }, 1);
@@ -81,14 +94,14 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onModeChange() {
-    const val = this.filterInput.nativeElement.value;
-    if (val) {
-      this.filter(val);
+    if (!this.isValueFilter) {
+      this.value = 0;
+      this.valueTo = null;
+      this.filter(this.value);
+      this.filterClose.emit(true);
+    } else if (this.value) {
+      this.filter(this.value);
     }
-  }
-
-  isRangeFilter() {
-    return this.matchMode === DataFilter.IN_RANGE;
   }
 
   lastDate(name: string) {

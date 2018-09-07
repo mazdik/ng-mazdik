@@ -19,20 +19,24 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @ViewChild('filterInput') filterInput: any;
 
   filterTimeout: any;
-  matchMode: string = DataFilter.STARTS_WITH;
-  stringOperators: any[];
+  matchMode: string;
+  value: any;
+  operators: any[];
+  defaultMatchMode = DataFilter.STARTS_WITH;
 
   constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.stringOperators = [
+    this.operators = [
       {value: DataFilter.EQUALS, text: this.table.messages.equals},
       {value: DataFilter.NOT_EQUAL, text: this.table.messages.notEqual},
       {value: DataFilter.STARTS_WITH, text: this.table.messages.startsWith},
       {value: DataFilter.ENDS_WITH, text: this.table.messages.endsWith},
       {value: DataFilter.CONTAINS, text: this.table.messages.contains},
-      {value: DataFilter.NOT_CONTAINS, text: this.table.messages.notContains}
+      {value: DataFilter.NOT_CONTAINS, text: this.table.messages.notContains},
+      {value: DataFilter.IS_EMPTY, text: this.table.messages.isEmpty},
+      {value: DataFilter.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
     ];
   }
 
@@ -41,18 +45,22 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.defaultMatchMode;
+    this.value = this.table.dataFilter.getFilterValue(this.column.name);
     this.setFocus();
-    this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.matchMode;
   }
 
-  onFilterInput(event) {
-    const value = event.target.value;
+  get isValueFilter() {
+    return !this.table.dataFilter.isNonValueFilter(this.matchMode);
+  }
+
+  onFilterInput() {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
 
     this.filterTimeout = setTimeout(() => {
-      this.filter(value);
+      this.filter(this.value);
       this.filterTimeout = null;
     }, this.table.settings.filterDelay);
   }
@@ -64,12 +72,14 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   uncheckAll() {
-    this.filter(null);
+    this.value = null;
+    this.matchMode = this.defaultMatchMode;
+    this.filter(this.value);
     this.filterClose.emit(true);
   }
 
   setFocus() {
-    if (this.filterInput) {
+    if (this.filterInput && this.isValueFilter) {
       setTimeout(() => {
         this.filterInput.nativeElement.focus();
       }, 1);
@@ -77,9 +87,12 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onModeChange() {
-    const val = this.filterInput.nativeElement.value;
-    if (val) {
-      this.filter(val);
+    if (!this.isValueFilter) {
+      this.value = 0;
+      this.filter(this.value);
+      this.filterClose.emit(true);
+    } else if (this.value) {
+      this.filter(this.value);
     }
   }
 
