@@ -69,22 +69,6 @@
   overflow: hidden;
 }
 
-.datatable-header-cell .resize-handle {
-  display: inline-block;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  padding: 0 4px;
-  visibility: hidden;
-  cursor: ew-resize;
-}
-
-.datatable-header-cell.resizeable:hover .resize-handle {
-  visibility: visible;
-}
-
 .datatable-body {
   position: relative;
   display: block;

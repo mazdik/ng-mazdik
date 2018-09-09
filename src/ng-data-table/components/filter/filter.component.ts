@@ -1,5 +1,6 @@
 import {
-  Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy
+  Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  OnDestroy, ElementRef
 } from '@angular/core';
 import {Column, DataTable, Keys} from '../../base';
 import {Subscription} from 'rxjs';
@@ -44,7 +45,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
 
   ngOnInit() {
@@ -100,6 +101,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   show(event: ColumnMenuEventArgs) {
+    this.element.nativeElement.style.width = this.table.dimensions.columnMenuWidth + 'px';
     this.column = event.column;
     this.selectContainerClicked = true;
     if (this.top === event.top && this.left === event.left) {

@@ -14,9 +14,16 @@
 
     <dt-header-cell
         *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
-        appResizeableColumn
         [table]="table"
-        [column]="column">
+        [column]="column"
+        appResizeable
+        [east]="column.resizeable"
+        [minWidth]="column.minWidth"
+        [maxWidth]="column.maxWidth"
+        [ghost]="isGhostResize"
+        (resizeBegin)="onResizeBegin()"
+        (resize)="onResize($event, column)"
+        (resizeEnd)="onResizeEnd($event, column)">
     </dt-header-cell>
   </div>
 
@@ -24,9 +31,16 @@
        [ngStyle]="stylesByGroup()">
       <dt-header-cell
           *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
-          appResizeableColumn
           [table]="table"
-          [column]="column">
+          [column]="column"
+          appResizeable
+          [east]="column.resizeable"
+          [minWidth]="column.minWidth"
+          [maxWidth]="column.maxWidth"
+          [ghost]="isGhostResize"
+          (resizeBegin)="onResizeBegin()"
+          (resize)="onResize($event, column)"
+          (resizeEnd)="onResizeEnd($event, column)">
       </dt-header-cell>
   </div>
 

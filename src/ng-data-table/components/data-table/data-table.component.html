@@ -1,5 +1,9 @@
 <div class="spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
 <app-filter
+  appResizeable
+  [minWidth]="table.dimensions.columnMenuWidth"
+  [maxWidth]="table.dimensions.columnMenuWidth * 2"
+  [east]="true"
   [table]="table">
 </app-filter>
 <dt-header

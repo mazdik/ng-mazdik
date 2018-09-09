@@ -20,7 +20,7 @@ import {DataTableComponent} from './components/data-table/data-table.component';
 import {SummaryRowComponent} from './components/body/summary-row.component';
 
 import {BodyScrollDirective} from './directives/body-scroll.directive';
-import {ResizeableColumnDirective} from './directives/resizeable-column.directive';
+import {ResizeableDirective} from './directives/resizeable.directive';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
@@ -51,7 +51,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     DataTableComponent,
     SummaryRowComponent,
     BodyScrollDirective,
-    ResizeableColumnDirective,
+    ResizeableDirective,
     BodyMouseoverDirective,
     BodyKeydownDirective,
     BodyClickDirective,

@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
   ViewChild, ViewContainerRef, AfterViewInit
 } from '@angular/core';
-import {DataTable, Constants} from '../../base';
+import {DataTable, Constants, Column} from '../../base';
 import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
 
@@ -56,6 +56,26 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   stylesByGroup() {
     return translate(this.table.dimensions.offsetX * -1, 0);
+  }
+
+  onResizeBegin() {
+    this.table.events.onResizeBegin();
+  }
+
+  onResize(event: any, column: Column) {
+    if (!this.isGhostResize) {
+      column.setWidth(event.width);
+    }
+    this.table.events.onResize(event.event);
+  }
+
+  onResizeEnd(event, column: Column) {
+    column.setWidth(event.width);
+    this.table.events.onResizeEnd();
+  }
+
+  get isGhostResize(): boolean {
+    return (this.table.settings.columnResizeMode !== Constants.resizeAminated);
   }
 
 }

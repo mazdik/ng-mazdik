@@ -1,0 +1,33 @@
+.resize-handle-e {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  padding: 0 4px;
+  cursor: ew-resize;
+}
+
+.resize-handle-se {
+  position:absolute;
+  cursor: se-resize;
+  height: 15px;
+  width: 15px;
+  right: 0;
+  bottom: 0;
+}
+
+.resize-handle-s {
+  position:absolute;
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+.resizing {
+  -webkit-user-select: none;
+  user-select: none;
+}
