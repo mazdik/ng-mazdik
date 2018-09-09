@@ -202,6 +202,11 @@ export class DataTable {
     if (!row.$$height) {
       row.$$height = this.dimensions.rowHeight;
     }
+    this.columns.forEach((column) => {
+      if (column.containsDots) {
+        row[column.name] = column.getDeepValue(row, column.name);
+      }
+    });
     return row;
   }
 

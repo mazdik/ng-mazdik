@@ -123,7 +123,7 @@ export function getColumnsPlayers(): Column[] {
     {title: 'Marry title', name: 'marrytitle', editable: true},
     {title: 'Bg points', name: 'bg_points', editable: true},
     {title: 'Personal rating', name: 'personal_rating', editable: true},
-    {title: 'Arena points', name: 'arena_points', editable: true}
+    {title: 'Quest status', name: 'quest.status', editable: true}
   ];
   return columnsPlayers;
 }

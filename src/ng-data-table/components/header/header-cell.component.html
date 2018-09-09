@@ -7,11 +7,11 @@
 <ng-template [ngIf]="!column.headerCellTemplate">
     <span class="column-title"
         (click)="onSort(column)">
-    <span [innerHTML]="column.title"></span>
-    <i class="icon"
-        *ngIf="column.sortable"
-        [ngClass]="table.sorter.getDirection(column.name)">
-    </i>
+        {{column.title}}
+        <i class="icon"
+            *ngIf="column.sortable"
+            [ngClass]="table.sorter.getDirection(column.name)">
+        </i>
     </span>
     <i *ngIf="column.filter"
         (click)="clickColumnMenu($event, column)"

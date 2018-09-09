@@ -30,10 +30,10 @@
     "rebirth_id": 0,
     "memberpoints": 4452,
     "marry_player_id": 0,
-    "marrytitle": null,
+    "marrytitle": "marry title",
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   },
   {
     "id": 97193,
@@ -69,7 +69,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "START"}
   },
   {
     "id": 97270,
@@ -105,7 +105,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "REWARD"}
   },
   {
     "id": 97294,
@@ -141,7 +141,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "LOCKED"}
   },
   {
     "id": 97306,
@@ -177,7 +177,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "NONE"}
   },
   {
     "id": 97351,
@@ -213,7 +213,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   },
   {
     "id": 97408,
@@ -249,7 +249,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "START"}
   },
   {
     "id": 97432,
@@ -285,7 +285,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "REWARD"}
   },
   {
     "id": 97439,
@@ -321,7 +321,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "LOCKED"}
   },
   {
     "id": 97452,
@@ -357,7 +357,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   },
   {
     "id": 97479,
@@ -393,7 +393,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "START"}
   },
   {
     "id": 97523,
@@ -429,7 +429,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "REWARD"}
   },
   {
     "id": 97531,
@@ -465,7 +465,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "LOCKED"}
   },
   {
     "id": 97630,
@@ -501,7 +501,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   },
   {
     "id": 97680,
@@ -537,7 +537,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "START"}
   },
   {
     "id": 97718,
@@ -573,7 +573,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "LOCKED"}
   },
   {
     "id": 97727,
@@ -609,7 +609,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "REWARD"}
   },
   {
     "id": 97833,
@@ -645,7 +645,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   },
   {
     "id": 97834,
@@ -681,7 +681,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "START"}
   },
   {
     "id": 97835,
@@ -717,7 +717,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "LOCKED"}
   },
   {
     "id": 97836,
@@ -753,7 +753,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "REWARD"}
   },
   {
     "id": 97837,
@@ -789,7 +789,7 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   },
   {
     "id": 97838,
@@ -825,6 +825,6 @@
     "marrytitle": null,
     "bg_points": 0,
     "personal_rating": 0,
-    "arena_points": 0
+    "quest": {"quest_id": 1, "status": "COMPLETE"}
   }
 ]

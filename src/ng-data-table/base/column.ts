@@ -9,6 +9,10 @@ export class Column extends ColumnBase {
   index: number;
   filterValues: SelectOption[] = [];
 
+  get containsDots(): boolean {
+    return (this.name.indexOf('.') >= 0);
+  }
+
   constructor(init: Partial<ColumnBase>, private settings: Settings) {
     super();
     Object.assign(this, init);
@@ -94,7 +98,29 @@ export class Column extends ColumnBase {
     if (!row) {
       return '';
     }
-    return row[this.name];
+    if (this.containsDots) {
+      return this.getDeepValue(row, this.name);
+    } else {
+      return row[this.name];
+    }
+  }
+
+  getDeepValue(data: any, path: string): any {
+    if (!data) {
+      return '';
+    }
+    if (data[path] !== undefined) {
+      return data[path];
+    }
+    const fields = path.split('.');
+    let currentObject = data;
+    for (let i = 0; i < fields.length; i++) {
+        currentObject = currentObject[fields[i]];
+        if (isBlank(currentObject)) {
+            return null;
+        }
+    }
+    return currentObject;
   }
 
   getValueView(row: any) {
