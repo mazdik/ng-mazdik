@@ -99,7 +99,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   saveFilter() {
     const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
-    this.table.dataFilter.setFilter([...this.selectedOptions], field, DataFilter.IN);
+    this.table.dataFilter.setFilter([...this.selectedOptions], field, DataFilter.IN, null, this.column.dataType);
     this.table.events.onFilter();
   }
 

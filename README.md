@@ -254,6 +254,7 @@ export interface PageMetadata {
 | maxWidth         | number     | 500     |             |
 | aggregation      | sum / average / max / min / count | null | |
 | filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null | |
+| dataType         | string /number /date | null |      |
 
 ### Settings
 

@@ -1,6 +1,6 @@
 import {ColumnBase} from './column-base';
 import {isBlank} from './util';
-import {SelectOption} from './types';
+import {SelectOption, DataType} from './types';
 import {Settings} from './settings';
 import {Validators} from './validators';
 
@@ -39,7 +39,7 @@ export class Column extends ColumnBase {
 
   private setDefaults() {
     if (!this.width) {
-      this.width = (this.name.length * 10) + 50;
+      this.width = (this.title.length * 10);
       if (this.width < 150) {
         this.width = 150;
       }
@@ -49,6 +49,13 @@ export class Column extends ColumnBase {
         this.type = 'select';
       } else {
         this.type = 'text';
+      }
+    }
+    if (!this.dataType) {
+      if (this.type === 'date' || this.type === 'datetime-local') {
+        this.dataType = DataType.Date;
+      } else if (this.type === 'number') {
+        this.dataType = DataType.Number;
       }
     }
   }

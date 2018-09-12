@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
   ViewChild, ViewContainerRef, AfterViewInit
 } from '@angular/core';
-import {DataTable, Constants, Column} from '../../base';
+import {DataTable, ColumnResizeMode, Column} from '../../base';
 import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
 
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    if (this.table.settings.columnResizeMode === Constants.resizeAminated) {
+    if (this.table.settings.columnResizeMode === ColumnResizeMode.Aminated) {
       const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
         this.cd.markForCheck();
       });
@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   get isGhostResize(): boolean {
-    return (this.table.settings.columnResizeMode !== Constants.resizeAminated);
+    return (this.table.settings.columnResizeMode !== ColumnResizeMode.Aminated);
   }
 
 }

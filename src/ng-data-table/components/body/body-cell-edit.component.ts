@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {BodyCellComponent} from './body-cell.component';
-import {Keys, Constants, Row, CellEventArgs} from '../../base';
+import {Keys, Row, CellEventArgs, EditMode} from '../../base';
 
 @Component({
   selector: 'dt-body-cell-edit',
@@ -19,14 +19,14 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     super.ngOnInit();
     const subDblClickCell = this.table.events.dblClickCellSource$.subscribe((ev: CellEventArgs) => {
       if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
-        if (this.table.settings.editMode !== Constants.editProgrammatically) {
+        if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
           this.switchCellToEditMode();
         }
       }
     });
     const subKeydownCell = this.table.events.keydownCellSource$.subscribe((ev: CellEventArgs) => {
       if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
-        if (this.table.settings.editMode !== Constants.editProgrammatically) {
+        if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
           this.onCellKeydown(ev.event);
         }
       }
@@ -97,7 +97,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   }
 
   onInputBlur() {
-    if (this.table.settings.editMode !== Constants.editProgrammatically) {
+    if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
       this.switchCellToViewMode();
     }
   }

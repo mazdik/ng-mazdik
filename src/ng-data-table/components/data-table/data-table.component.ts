@@ -2,7 +2,7 @@ import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef, HostBinding,
   ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
-import {DataTable, Constants} from '../../base';
+import {DataTable, ColumnResizeMode} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 
@@ -142,7 +142,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   onColumnResize(event) {
-    if (this.table.settings.columnResizeMode === Constants.resizeSimple) {
+    if (this.table.settings.columnResizeMode === ColumnResizeMode.Simple) {
       const rect = this.element.nativeElement.getBoundingClientRect();
       const containerLeft = rect.left + document.body.scrollLeft;
       this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';

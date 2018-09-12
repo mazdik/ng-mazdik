@@ -1,6 +1,5 @@
 import {SelectionMode, ColumnResizeMode, EditMode} from './types';
 import {TemplateRef} from '@angular/core';
-import {Constants} from './constants';
 
 export class Settings {
   api?: string;
@@ -16,7 +15,7 @@ export class Settings {
   groupRowsBy?: string[];
   filterDelay?: number = 500;
   globalFilter?: boolean;
-  columnResizeMode?: ColumnResizeMode = Constants.resizeSimple;
+  columnResizeMode?: ColumnResizeMode;
   selectionMultiple?: boolean;
   selectionMode?: SelectionMode;
   singleRowView?: boolean = true;
@@ -30,13 +29,19 @@ export class Settings {
   hoverEvents?: boolean;
   contextMenu?: boolean;
   exportAction?: boolean;
-  editMode?: EditMode = Constants.editCellOnDblClick;
+  editMode?: EditMode;
   actionColumnWidth?: number = 40;
   rowActionTemplate?: TemplateRef<any>;
 
   constructor(init: Partial<Settings>) {
     if (init) {
       Object.assign(this, init);
+    }
+    if (!this.columnResizeMode) {
+      this.columnResizeMode = ColumnResizeMode.Simple;
+    }
+    if (!this.editMode) {
+      this.editMode = EditMode.EditCellOnDblClick;
     }
   }
 

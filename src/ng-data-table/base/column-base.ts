@@ -1,4 +1,4 @@
-import {SelectOption, Validation, ColumnType, AggregateType} from './types';
+import {SelectOption, Validation, ColumnType, AggregateType, DataType} from './types';
 import {TemplateRef} from '@angular/core';
 
 export class ColumnBase {
@@ -30,5 +30,6 @@ export class ColumnBase {
   maxWidth?: number = 500;
   aggregation?: AggregateType;
   filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
+  dataType?: DataType;
 
 }

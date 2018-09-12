@@ -1,4 +1,4 @@
-import {Filter, FilterMetadata} from './types';
+import {Filter, FilterMetadata, DataType} from './types';
 import {isBlank} from './util';
 
 export class DataFilter {
@@ -51,7 +51,7 @@ export class DataFilter {
   }
 
   compare(value: any, filter: FilterMetadata) {
-    if (filter.type === 'date' || filter.type === 'datetime-local') {
+    if (filter.type === DataType.Date) {
       let filterValue;
       let filterValueTo;
       if (!isBlank(value)) {
@@ -263,10 +263,10 @@ export class DataFilter {
     return !empty || this.globalFilterValue;
   }
 
-  setFilter(value: any, field: string, matchMode: string, valueTo?: any, type?: string) {
+  setFilter(value: any, field: string, matchMode: string, valueTo?: any, dataType?: DataType) {
     if (!isBlank(value) || !isBlank(valueTo)) {
-      [value, valueTo] = this.toNumber(value, valueTo, type);
-      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: type};
+      [value, valueTo] = this.toNumber(value, valueTo, dataType);
+      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: dataType};
     } else if (this.filters[field]) {
       delete this.filters[field];
     }
@@ -276,11 +276,11 @@ export class DataFilter {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
 
-  toNumber(value: any, valueTo?: any, type?: string) {
-    if (!isBlank(value) && type === 'number' && this.isNumeric(value)) {
+  toNumber(value: any, valueTo?: any, dataType?: DataType) {
+    if (!isBlank(value) && dataType === DataType.Number && this.isNumeric(value)) {
       value = parseFloat(value);
     }
-    if (!isBlank(valueTo) && type === 'number' && this.isNumeric(valueTo)) {
+    if (!isBlank(valueTo) && dataType === DataType.Number && this.isNumeric(valueTo)) {
       valueTo = parseFloat(valueTo);
     }
     return [value, valueTo];

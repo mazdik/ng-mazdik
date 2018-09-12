@@ -10,13 +10,25 @@ export type ColumnType =
   | 'datetime-local'
   | 'select-popup';
 
+export enum DataType {
+  String = 'string',
+  Number = 'number',
+  Date = 'date',
+}
+
 export type AggregateType = 'sum' | 'average' | 'max' | 'min' | 'count';
 
 export type SelectionMode = 'checkbox' | 'radio';
 
-export type ColumnResizeMode = 'simple' | 'aminated';
+export enum ColumnResizeMode {
+  Simple = 'simple',
+  Aminated = 'aminated',
+}
 
-export type EditMode = 'editCellOnDblClick' | 'editProgrammatically';
+export enum EditMode {
+  EditCellOnDblClick = 'editCellOnDblClick',
+  EditProgrammatically = 'editProgrammatically',
+}
 
 export interface SelectOption {
   id: any;
@@ -28,7 +40,7 @@ export interface FilterMetadata {
   value?: any;
   matchMode?: string;
   valueTo?: any;
-  type?: string;
+  type?: DataType;
 }
 
 export interface Filter {
@@ -73,4 +85,18 @@ export interface CellEventArgs {
   event?: any;
   fromCell?: HTMLElement;
   editMode?: boolean;
+}
+
+export enum Keys {
+  BACKSPACE = 8,
+  TAB = 9,
+  ENTER = 13,
+  ESCAPE = 27,
+  SPACE = 32,
+  LEFT = 37,
+  UP = 38,
+  RIGHT = 39,
+  DOWN = 40,
+  DELETE = 46,
+  KEY_F2 = 113,
 }
