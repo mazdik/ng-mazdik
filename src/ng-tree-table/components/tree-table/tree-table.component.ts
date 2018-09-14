@@ -28,15 +28,9 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     this.treeTable.columns[0].cellTemplate = this.cellTemplate;
     this.initGetNodes();
 
-    const subScroll = this.treeTable.events.scrollSource$.subscribe(() => {
-      requestAnimationFrame(() => {
-        this.cd.detectChanges();
-      });
-    });
     const subCheckbox = this.treeTable.events.checkboxSource$.subscribe((event) => {
       this.selectionToggle(event);
     });
-    this.subscriptions.push(subScroll);
     this.subscriptions.push(subCheckbox);
   }
 

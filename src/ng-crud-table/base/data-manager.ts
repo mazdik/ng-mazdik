@@ -1,4 +1,4 @@
-import {DataSource, RequestMetadata} from './interface';
+import {DataSource, RequestMetadata} from './types';
 import {Row, Filter} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';

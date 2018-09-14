@@ -21,6 +21,7 @@ export class BasicDemoComponent implements OnInit {
     crud: true,
     bodyHeight: 380,
     exportAction: true,
+    globalFilter: true,
   };
 
   messages: Message = <Message>{

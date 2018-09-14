@@ -195,6 +195,11 @@ export class DataTable {
   }
 
   protected generateRow(row: Row): Row {
+    this.columns.forEach((column) => {
+      if (column.containsDots) {
+        row[column.name] = column.getDeepValue(row, column.name);
+      }
+    });
     if (!row.$$uid) {
       row.$$uid = this.sequence.getUidRow();
     }
@@ -202,11 +207,6 @@ export class DataTable {
     if (!row.$$height) {
       row.$$height = this.dimensions.rowHeight;
     }
-    this.columns.forEach((column) => {
-      if (column.containsDots) {
-        row[column.name] = column.getDeepValue(row, column.name);
-      }
-    });
     return row;
   }
 
