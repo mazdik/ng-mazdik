@@ -55,11 +55,11 @@ export class DataTable {
     this.settings = new Settings(settings);
     this.messages = new Message();
     this.sequence = new Sequence();
+    this.dataFilter = new DataFilter();
     this.createColumns(columns);
     this.events = new Events();
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings);
-    this.dataFilter = new DataFilter();
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
@@ -71,7 +71,7 @@ export class DataTable {
 
   createColumns(columns: ColumnBase[]) {
     for (const column of columns) {
-      this.columns.push(new Column(column, this.settings));
+      this.columns.push(new Column(column, this.settings, this.dataFilter));
     }
     this.initColumns();
   }
@@ -218,7 +218,7 @@ export class DataTable {
   }
 
   rowChanged(row: Row): boolean {
-    return this.columns.some(x => row[x.name] !== row.$$data[x.name]);
+    return this.columns.some(x => x.getValue(row) !== x.getValue(row.$$data));
   }
 
   cloneRow(row: Row): Row {

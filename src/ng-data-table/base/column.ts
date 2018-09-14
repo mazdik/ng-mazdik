@@ -3,6 +3,7 @@ import {isBlank} from './util';
 import {SelectOption, DataType} from './types';
 import {Settings} from './settings';
 import {Validators} from './validators';
+import {DataFilter} from './data-filter';
 
 export class Column extends ColumnBase {
 
@@ -13,7 +14,7 @@ export class Column extends ColumnBase {
     return (this.name.indexOf('.') >= 0);
   }
 
-  constructor(init: Partial<ColumnBase>, private settings: Settings) {
+  constructor(init: Partial<ColumnBase>, private settings: Settings, private dataFilter: DataFilter) {
     super();
     Object.assign(this, init);
     this.setSettings();
@@ -145,6 +146,17 @@ export class Column extends ColumnBase {
       return Promise.resolve(this.options);
     }
     return Promise.resolve([]);
+  }
+
+  setFilter(value: any, matchMode?: string, valueTo?: any) {
+    matchMode = matchMode || DataFilter.EQUALS;
+    this.dataFilter.setFilter(value, this.name, matchMode, valueTo, this.dataType);
+  }
+
+  clearFilter() {
+    if (this.dataFilter.filters[this.name]) {
+      delete this.dataFilter.filters[this.name];
+    }
   }
 
 }
