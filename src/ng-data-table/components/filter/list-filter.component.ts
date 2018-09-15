@@ -85,14 +85,6 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  onClickClear() {
-    if (this.selectedOptions.length > 0) {
-      this.selectedOptions = [];
-      this.saveFilter();
-    }
-    this.filterClose.emit(true);
-  }
-
   isSelected(value: any): boolean {
     return this.selectedOptions.indexOf(value) > -1;
   }
@@ -122,8 +114,14 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onClickCancel() {
-    this.selectedOptions = [];
-    this.saveFilter();
+    this.filterClose.emit(true);
+  }
+
+  onClickClear() {
+    if (this.selectedOptions.length > 0) {
+      this.selectedOptions = [];
+      this.saveFilter();
+    }
     this.filterClose.emit(true);
   }
 

@@ -69,7 +69,7 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
   filterActionEnabled(): boolean {
     const rowAction = this.table.settings.rowActionTemplate && this.table.dimensions.actionColumnWidth > 0;
-    return !this.isCheckboxable || rowAction;
+    return (!this.isCheckboxable || rowAction) && this.table.settings.clearAllFiltersIcon;
   }
 
 }

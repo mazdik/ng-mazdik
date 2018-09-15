@@ -7,7 +7,7 @@ export class Dimensions {
   tableWidth: number;
   bodyHeight: number;
   actionColumnWidth: number = 40;
-  columnMenuWidth: number = 200;
+  columnMenuWidth: number = 220;
   columnsTotalWidth: number;
   frozenColumnsWidth: number;
   scrollableColumnsWidth: number;

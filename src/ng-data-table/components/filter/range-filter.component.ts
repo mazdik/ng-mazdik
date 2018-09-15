@@ -18,7 +18,6 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('filterInput') filterInput: any;
 
-  filterTimeout: any;
   matchMode: string;
   value: any;
   valueTo: any;
@@ -61,28 +60,9 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     return this.matchMode === DataFilter.IN_RANGE;
   }
 
-  onFilterInput() {
-    if (this.filterTimeout) {
-      clearTimeout(this.filterTimeout);
-    }
-
-    this.filterTimeout = setTimeout(() => {
-      this.filter(this.value);
-      this.filterTimeout = null;
-    }, this.table.settings.filterDelay);
-  }
-
-  filter(value) {
-    this.table.dataFilter.setFilter(value, this.column.name, this.matchMode, this.valueTo, this.column.dataType);
+  saveFilter() {
+    this.column.setFilter(this.value, this.matchMode, this.valueTo);
     this.table.events.onFilter();
-  }
-
-  uncheckAll() {
-    this.value = null;
-    this.valueTo = null;
-    this.matchMode = this.defaultMatchMode;
-    this.filter(this.value);
-    this.filterClose.emit(true);
   }
 
   setFocus() {
@@ -97,10 +77,10 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     if (!this.isValueFilter) {
       this.value = 0;
       this.valueTo = null;
-      this.filter(this.value);
+      this.saveFilter();
       this.filterClose.emit(true);
-    } else if (this.value) {
-      this.filter(this.value);
+    } else if (this.value === 0) {
+      this.value = null;
     }
   }
 
@@ -118,9 +98,26 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
       dt = new Date(Date.now() + -1 * 3600 * 1000);
     }
     this.matchMode = DataFilter.GREATER_THAN_OR_EQUAL;
-    this.filter(dt.toISOString().slice(0, 16));
+    this.value = dt.toISOString().slice(0, 16);
+    this.saveFilter();
     this.filterClose.emit(true);
   }
 
+  onClickOk() {
+    this.saveFilter();
+    this.filterClose.emit(true);
+  }
+
+  onClickCancel() {
+    this.filterClose.emit(true);
+  }
+
+  onClickClear() {
+    this.value = null;
+    this.valueTo = null;
+    this.matchMode = this.defaultMatchMode;
+    this.saveFilter();
+    this.filterClose.emit(true);
+  }
 
 }

@@ -18,7 +18,6 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('filterInput') filterInput: any;
 
-  filterTimeout: any;
   matchMode: string;
   value: any;
   operators: any[];
@@ -54,28 +53,10 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
     return !this.table.dataFilter.isNonValueFilter(this.matchMode);
   }
 
-  onFilterInput() {
-    if (this.filterTimeout) {
-      clearTimeout(this.filterTimeout);
-    }
-
-    this.filterTimeout = setTimeout(() => {
-      this.filter(this.value);
-      this.filterTimeout = null;
-    }, this.table.settings.filterDelay);
-  }
-
-  filter(value) {
-    this.table.dataFilter.setFilter(value, this.column.name, this.matchMode);
+  saveFilter() {
+    this.column.setFilter(this.value, this.matchMode);
     this.table.events.onFilter();
     this.cd.markForCheck();
-  }
-
-  uncheckAll() {
-    this.value = null;
-    this.matchMode = this.defaultMatchMode;
-    this.filter(this.value);
-    this.filterClose.emit(true);
   }
 
   setFocus() {
@@ -89,11 +70,27 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   onModeChange() {
     if (!this.isValueFilter) {
       this.value = 0;
-      this.filter(this.value);
+      this.saveFilter();
       this.filterClose.emit(true);
-    } else if (this.value) {
-      this.filter(this.value);
+    } else if (this.value === 0) {
+      this.value = null;
     }
+  }
+
+  onClickOk() {
+    this.saveFilter();
+    this.filterClose.emit(true);
+  }
+
+  onClickCancel() {
+    this.filterClose.emit(true);
+  }
+
+  onClickClear() {
+    this.value = null;
+    this.matchMode = this.defaultMatchMode;
+    this.saveFilter();
+    this.filterClose.emit(true);
   }
 
 }

@@ -271,7 +271,7 @@ export interface PageMetadata {
 | multipleSort     | boolean    | false   |             |
 | trackByProp      | string     | null    |             |
 | groupRowsBy      | string[]   | null    |             |
-| filterDelay      | number     | 500     |             |
+| clearAllFiltersIcon | boolean | true    |             |
 | globalFilter     | boolean    | false   |             |
 | columnResizeMode | simple / aminated | simple |       |
 | selectionMultiple | boolean   | false   |             |

@@ -32,6 +32,10 @@
 }
 
 .list-menu-row span {
-  width: 49%;
+  width: 100%;
   text-align: center;
 }
+
+.list-menu-row span + span {
+  margin-left: 2%;
+ }

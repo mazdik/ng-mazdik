@@ -13,7 +13,7 @@ export class Settings {
   multipleSort?: boolean;
   trackByProp?: string;
   groupRowsBy?: string[];
-  filterDelay?: number = 500;
+  clearAllFiltersIcon?: boolean = true;
   globalFilter?: boolean;
   columnResizeMode?: ColumnResizeMode;
   selectionMultiple?: boolean;
