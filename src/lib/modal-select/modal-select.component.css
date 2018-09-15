@@ -46,3 +46,42 @@
 .select-button-open:active {
     box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
 }
+
+.select-icon-return {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.select-icon-return:before {
+  content: "\21b5";
+}
+
+.select-input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.select-input-group input:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+}
+
+.select-input-group input {
+  position: relative;
+  width: 1%;
+  margin-bottom: 0;
+  flex: 1 1 auto;
+}
+
+.select-input-group input:focus {
+  box-shadow: none;
+}
+
+.select-input-group button:last-child {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

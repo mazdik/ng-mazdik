@@ -1,11 +1,11 @@
-<div class="df-input-group">
+<div class="select-input-group">
   <input class="select-input"
          readonly="readonly"
          value="{{selectedName}}"
          placeholder="Select"
          [disabled]="disabled">
   <button type="button" class="select-button-open" (click)="open()">
-    <li class="icon icon-return"></li>
+    <i class="select-icon-return"></i>
   </button>
 </div>
 <input type="hidden" [(ngModel)]="model">

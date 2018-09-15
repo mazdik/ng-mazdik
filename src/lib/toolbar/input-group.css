@@ -1,4 +1,4 @@
-.df-input-group {
+.dt-input-group {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -6,24 +6,24 @@
   width: 100%;
 }
 
-.df-input-group input:not(:last-child) {
+.dt-input-group input:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: 0;
 }
 
-.df-input-group input {
+.dt-input-group input {
   position: relative;
   width: 1%;
   margin-bottom: 0;
   flex: 1 1 auto;
 }
 
-.df-input-group input:focus {
+.dt-input-group input:focus {
   box-shadow: none;
 }
 
-.df-input-group button:last-child {
+.dt-input-group button:last-child {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
