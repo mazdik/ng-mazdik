@@ -1,14 +1,6 @@
 .select-header {
     margin: 3px 0;
 }
-.select-footer {
-    display: flex;
-    border-top: 1px solid #e5e5e5;
-    padding-top: 5px;
-}
-.select-page-count {
-    flex: 1 1 20%;
-}
 .select-input {
     display: block;
     width: 100%;

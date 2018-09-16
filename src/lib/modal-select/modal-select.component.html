@@ -32,18 +32,11 @@
     </ul>
   </ng-container>
   <ng-container class="app-modal-footer">
-    <ng-template [ngIf]="totalItems > 0">
-      <div class="select-footer">
-        <span class="select-page-count">
-            {{(itemsPerPage * (currentPage - 1)) + 1}} - {{rowCount()}} of {{totalItems}}
-          </span>
-          <app-pagination
-              [totalItems]="totalItems"
-              [itemsPerPage]="itemsPerPage"
-              [currentPage]="currentPage"
-              (pageChanged)="onPageChanged($event)">
-          </app-pagination>
-      </div>
-    </ng-template>
+    <app-pagination
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        [currentPage]="currentPage"
+        (pageChanged)="onPageChanged($event)">
+    </app-pagination>
   </ng-container>
 </app-modal>

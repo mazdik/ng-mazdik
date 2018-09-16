@@ -153,11 +153,6 @@ export class ModalSelectComponent implements OnInit {
     this._options = this.getOptions();
   }
 
-  rowCount() {
-    const count = this.itemsPerPage * this.currentPage;
-    return (count < this.totalItems) ? count : this.totalItems;
-  }
-
   setSelected(option: SelectItem) {
     this.model = option.id;
     this.modal.hide();

@@ -11,21 +11,12 @@ export class DataPager {
     return data.slice(start, end);
   }
 
-  rowCount() {
-    const count = this.perPage * this.current;
-    return (count < this.total) ? count : this.total;
-  }
-
   setCache() {
     this.cache[this.current] = true;
   }
 
   isViewed() {
     return this.cache[this.current];
-  }
-
-  getRange(): string {
-    return `${(this.perPage * (this.current - 1)) + 1} - ${this.rowCount()}`;
   }
 
 }

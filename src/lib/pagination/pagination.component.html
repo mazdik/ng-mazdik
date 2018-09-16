@@ -1,4 +1,8 @@
-<ng-template [ngIf]="pages.length > 1">
+<div class="pagination-range-label">
+  {{getRangeLabel(currentPage, itemsPerPage, totalItems)}}
+</div>
+
+<div class="pagination-navigation" *ngIf="pages.length > 1">
   <a [class.disabled]="currentPage===1" href (click)="setPage(1, $event)">&laquo;</a>
   <a [class.disabled]="currentPage===1" href (click)="setPage(currentPage - 1, $event)">&lsaquo;</a>
     <a *ngFor="let page of pages"
@@ -8,4 +12,4 @@
     </a>
   <a [class.disabled]="currentPage===totalPages()" href (click)="setPage(currentPage + 1, $event)">&rsaquo;</a>
   <a [class.disabled]="currentPage===totalPages()" href (click)="setPage(totalPages(), $event)">&raquo;</a>
-</ng-template>
+</div>
