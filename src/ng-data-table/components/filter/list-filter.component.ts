@@ -35,7 +35,7 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.isOpen) {
       this.setFocus();
-      this.clearSearch();
+      this.searchFilterText = null;
       this.loadFilter();
       this.loading = true;
       this.column.getFilterValues().then((res) => {
@@ -47,10 +47,6 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
         this.cd.markForCheck();
       });
     }
-  }
-
-  clearSearch() {
-    this.searchFilterText = '';
   }
 
   setSelectedOptions(value: any) {

@@ -1,11 +1,7 @@
-<div class="clearable-input">
-  <input class="dt-filter-input"
-         placeholder="{{table.messages.search}}"
-         #filterInput
-         [(ngModel)]="searchFilterText"/>
-  <span [style.display]="searchFilterText.length > 0 ? 'block' : 'none' "
-        (click)="clearSearch()">&times;</span>
-</div>
+<input class="dt-filter-input"
+       #filterInput
+       placeholder="{{table.messages.search}}"
+       [(ngModel)]="searchFilterText"/>
 
 <div class="filter-menu">
   <ul class="list-menu">

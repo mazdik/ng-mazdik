@@ -1,3 +1,5 @@
+@import "./clearable-input.css";
+
 .select-header {
     margin: 3px 0;
 }
@@ -76,4 +78,25 @@
 .select-input-group button:last-child {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
+}
+
+.select-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.select-list span {
+  cursor: pointer;
+  display: block;
+  padding: 4px 3px;
+}
+
+.select-list span:hover:not(.active) {
+  background-color: #ccc;
+}
+
+.select-list span.active {
+  background-color: #5b9bd5;
+  color: #fff;
 }

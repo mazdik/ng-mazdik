@@ -32,6 +32,7 @@ export class Settings {
   editMode?: EditMode;
   actionColumnWidth?: number = 40;
   rowActionTemplate?: TemplateRef<any>;
+  paginator?: boolean = true;
 
   constructor(init: Partial<Settings>) {
     if (init) {

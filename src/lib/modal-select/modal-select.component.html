@@ -22,7 +22,7 @@
               (click)="onClickClearSearch()">&times;</span>
       </div>
     </div>
-    <ul class="list-menu">
+    <ul class="select-list">
       <li *ngFor="let option of options">
           <span (click)="setSelected(option)"
                 [ngClass]="{'active': isSelected(option)}">

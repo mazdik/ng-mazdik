@@ -290,6 +290,7 @@ export interface PageMetadata {
 | editMode         | editCellOnDblClick / editProgrammatically | editCellOnDblClick |             |
 | actionColumnWidth | number    | 40      | px, 0 - hide |
 | rowActionTemplate | TemplateRef | null  |              |
+| paginator        | boolean    | true    |              |
 
 ```typescript
 interface SelectOption {
