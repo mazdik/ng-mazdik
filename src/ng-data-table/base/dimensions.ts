@@ -49,10 +49,6 @@ export class Dimensions {
     this.columnsTotalWidth = totalWidth + this.actionColumnWidth;
     this.frozenColumnsWidth = frozenWidth;
     this.scrollableColumnsWidth = scrollWidth;
-
-    if (!this.tableWidth && this.columnsTotalWidth < 800) {
-      this.tableWidth = this.columnsTotalWidth;
-    }
   }
 
   calcBodyHeight(perPage: number) {

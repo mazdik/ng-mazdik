@@ -76,7 +76,7 @@ export class PaginationComponent {
   }
 
   getPages(): number[] {
-    const maxSize: number = 5;
+    const maxSize = 3;
     const pages: number[] = [];
     let startPage = 1;
     const totalPages = this.totalPages();

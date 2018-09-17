@@ -1,4 +1,4 @@
-<div class="pagination-range-label">
+<div class="pagination-range-label" *ngIf="totalItems">
   {{getRangeLabel(currentPage, itemsPerPage, totalItems)}}
 </div>
 

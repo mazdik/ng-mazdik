@@ -68,7 +68,7 @@ export class DataManager extends DataTable {
       .then(res => {
         this.events.onLoading(false);
         this.errors = null;
-        this.afterCreate(res);
+        this.addRow(res);
       })
       .catch(error => {
         this.events.onLoading(false);
@@ -99,7 +99,7 @@ export class DataManager extends DataTable {
       .then(res => {
         this.events.onLoading(false);
         this.errors = null;
-        this.afterDelete(row, true);
+        this.deleteRow(row);
       })
       .catch(error => {
         this.events.onLoading(false);
@@ -107,21 +107,11 @@ export class DataManager extends DataTable {
       });
   }
 
-  afterCreate(result: any) {
-    this.addRow(result);
-  }
-
   afterUpdate(row: Row, result: any) {
     if (this.refreshRowOnSave) {
       this.refreshRow(row);
     } else {
-      this.mergeRow(row, result);
-    }
-  }
-
-  afterDelete(row: Row, result: boolean) {
-    if (result) {
-      this.deleteRow(row);
+      this.mergeRow(row, result || row);
     }
   }
 

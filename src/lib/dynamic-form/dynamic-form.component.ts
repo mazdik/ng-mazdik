@@ -70,7 +70,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   isDisabled(column: Column) {
     if (column.keyColumn && !this.isNewItem) {
       const fkColumn = this.columns.find(x => x.name === column.keyColumn);
-      return (fkColumn.isPrimaryKey === true);
+      return (fkColumn && fkColumn.isPrimaryKey === true);
     }
     return false;
   }
