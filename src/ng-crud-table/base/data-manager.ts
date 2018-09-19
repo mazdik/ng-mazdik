@@ -68,7 +68,7 @@ export class DataManager extends DataTable {
       .then(res => {
         this.events.onLoading(false);
         this.errors = null;
-        this.addRow(res);
+        this.addRow(res || row);
       })
       .catch(error => {
         this.events.onLoading(false);
