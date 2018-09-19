@@ -23,10 +23,15 @@
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
-.select-input[disabled], .select-input[readonly] {
+.select-input[readonly] {
     background-color: white;
     opacity: 1;
     cursor: default;
+}
+.select-input[disabled] {
+  background-color: #eee;
+  opacity: 1;
+  cursor: default;
 }
 .select-button-open {
     background-color: #5b9bd5;
