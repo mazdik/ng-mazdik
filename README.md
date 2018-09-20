@@ -280,7 +280,7 @@ export interface PageMetadata {
 | virtualScroll    | boolean    | false   |             |
 | rowClass         | string / Function | false |        |
 | headerTemplate   | TemplateRef | null |               |
-| headerRowHeight  | number     | 40      | px, 0 - hide header |
+| headerRowHeight  | number     | null    | px, 0 - hide header |
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
 | zIndexModal      | number     | null    |             |

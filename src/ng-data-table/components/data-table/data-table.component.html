@@ -7,7 +7,7 @@
   [table]="table">
 </app-filter>
 <dt-header
-  *ngIf="table.settings.headerRowHeight || table.settings.headerTemplate"
+  *ngIf="headerVisible"
   [table]="table">
 </dt-header>
 <dt-body

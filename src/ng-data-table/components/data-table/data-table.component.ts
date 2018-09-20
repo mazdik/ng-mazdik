@@ -30,6 +30,11 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     return this.table.settings.virtualScroll;
   }
 
+  @HostBinding('class.fixed-header')
+  get isFixedHeader(): boolean {
+    return (this.table.dimensions.headerRowHeight) ? true : false;
+  }
+
   @HostBinding('style.width.px')
   get tableWidth() {
     return this.table.dimensions.tableWidth;
@@ -156,6 +161,13 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.resizeHelper.nativeElement.style.display = 'none';
     this.element.nativeElement.classList.remove('datatable-unselectable');
     this.table.dimensions.calcColumnsTotalWidth(this.table.columns);
+  }
+
+  get headerVisible(): boolean {
+    if (this.table.dimensions.headerRowHeight === 0) {
+      return false;
+    }
+    return true;
   }
 
 }

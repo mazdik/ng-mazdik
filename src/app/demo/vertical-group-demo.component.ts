@@ -58,6 +58,7 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
   table: DataTable;
   columns: Column[];
   settings: Settings = <Settings>{
+    headerRowHeight: 40,
     bodyHeight: 380,
     filter: false,
   };

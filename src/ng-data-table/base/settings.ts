@@ -22,7 +22,7 @@ export class Settings {
   virtualScroll?: boolean;
   rowClass?: string | Function;
   headerTemplate?: TemplateRef<any>;
-  headerRowHeight?: number = 40;
+  headerRowHeight?: number;
   rowHeight?: number = 30;
   rowNumber?: boolean = true;
   zIndexModal?: number;

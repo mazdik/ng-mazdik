@@ -11,7 +11,7 @@ export class Dimensions {
   columnsTotalWidth: number;
   frozenColumnsWidth: number;
   scrollableColumnsWidth: number;
-  headerRowHeight: number = 40;
+  headerRowHeight: number;
   rowHeight: number = 30;
   summaryRowHeight: number = 30;
   scrollHeight: number;

@@ -40,9 +40,12 @@ export class Column extends ColumnBase {
 
   private setDefaults() {
     if (!this.width) {
-      this.width = (this.title.length * 10);
+      this.width = (this.title.length * 5);
       if (this.width < 150) {
         this.width = 150;
+      }
+      if (this.width > this.maxWidth) {
+        this.width = this.maxWidth;
       }
     }
     if (!this.type) {
