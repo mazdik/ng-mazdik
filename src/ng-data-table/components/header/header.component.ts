@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy,
+  Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ElementRef,
   ViewChild, ViewContainerRef, AfterViewInit
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Column} from '../../base';
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
   }
 
   ngOnInit() {
@@ -52,6 +52,12 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.headerTemplate.clear();
     }
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  getHeight() {
+    if (this.element.nativeElement) {
+      return this.element.nativeElement.offsetHeight;
+    }
   }
 
   stylesByGroup() {

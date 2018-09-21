@@ -2,10 +2,11 @@ import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation,
   TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ModalEditFormComponent} from '../../../lib/modal-edit-form/modal-edit-form.component';
+import {ModalEditFormComponent} from '../../../lib/modal-edit-form';
 import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {RowMenuComponent, MenuItem, MenuEventArgs} from '../../../lib/row-menu';
+import {DataTableComponent} from '../../../ng-data-table';
 
 @Component({
   selector: 'app-crud-table',
@@ -26,6 +27,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @ViewChild('rowMenu') rowMenu: RowMenuComponent;
   @ViewChild('alert') alert: ElementRef;
   @ViewChild('toolbar') toolbar: any;
+  @ViewChild(DataTableComponent) dt: DataTableComponent;
 
   @HostBinding('class') cssClass = 'datatable crud-table';
 
@@ -142,7 +144,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const left = 0;
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
-    let top = alertHeight + toolbarHeight + this.dataManager.dimensions.headerRowHeight;
+    let top = alertHeight + toolbarHeight + this.dt.getHeaderHeight();
     top += (row.$$offset + row.$$height);
     top -= this.dataManager.dimensions.offsetY;
     this.rowMenu.show(<MenuEventArgs>{'left': left, 'top': top, 'data': row, 'rowHeight': row.$$height});

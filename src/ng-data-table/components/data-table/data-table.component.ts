@@ -5,6 +5,7 @@ import {
 import {DataTable, ColumnResizeMode} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyScrollDirective} from '../../directives/body-scroll.directive';
+import {HeaderComponent} from '../header/header.component';
 
 @Component({
   selector: 'app-datatable, app-data-table',
@@ -21,6 +22,7 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;
   @ViewChild(BodyScrollDirective) bodyScroll: BodyScrollDirective;
+  @ViewChild(HeaderComponent) header: HeaderComponent;
 
   @HostBinding('class') cssClass = 'datatable';
   @HostBinding('attr.role') role = 'grid';
@@ -168,6 +170,10 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
       return false;
     }
     return true;
+  }
+
+  getHeaderHeight() {
+    return this.header.getHeight();
   }
 
 }

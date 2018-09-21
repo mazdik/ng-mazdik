@@ -114,7 +114,7 @@ export function getColumnsPlayers(): Column[] {
     {title: 'Stigma slot size', name: 'advanced_stigma_slot_size', editable: true},
     {title: 'Warehouse size', name: 'warehouse_size', editable: true},
     {title: 'Mailbox Letters', name: 'mailboxLetters', editable: true},
-    {title: 'Mailbox Un Read Letters', name: 'mailboxUnReadLetters', editable: true},
+    {title: 'Mailbox Unread', name: 'mailboxUnReadLetters', editable: true},
     {title: 'Title id', name: 'title_id', editable: true},
     {title: 'Repletion state', name: 'repletionstate', editable: true},
     {title: 'Rebirth id', name: 'rebirth_id', editable: true},
