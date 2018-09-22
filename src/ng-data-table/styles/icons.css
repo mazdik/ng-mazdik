@@ -13,28 +13,8 @@
   content: "\2B07";
 }
 
-.icon-rightwards:before {
-  content: "\27A4";
-}
-
-.icon-pencil:before {
-  content: "\270E";
-}
-
-.icon-reload:before {
-  content: "\21bb";
-}
-
 .icon-ok:before {
   content: "\2714";
-}
-
-.icon-remove:before {
-  content: "\2716";
-}
-
-.icon-plus:before {
-  content: "\002B";
 }
 
 .icon-filter {

@@ -25,7 +25,6 @@ export class VirtualScrollDemoComponent implements OnInit {
   };
 
   serverSideSettings: Settings = <Settings>{
-    api: 'assets/players.json',
     virtualScroll: true
   };
 
@@ -36,6 +35,7 @@ export class VirtualScrollDemoComponent implements OnInit {
     }
     this.table = new DataTable(this.columns, this.settings);
     this.service = new DemoService(this.http, 10);
+    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }
 

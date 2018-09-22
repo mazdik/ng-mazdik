@@ -2,7 +2,6 @@ import {SelectionMode, ColumnResizeMode, EditMode} from './types';
 import {TemplateRef} from '@angular/core';
 
 export class Settings {
-  api?: string;
   crud?: boolean;
   tableWidth?: number;
   bodyHeight?: number;

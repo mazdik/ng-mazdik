@@ -1,13 +1,10 @@
 import {SortMetadata} from './types';
-import {Settings} from './settings';
 
 export class DataSort {
 
-  multiple: boolean;
   sortMeta: SortMetadata[] = [];
 
-  constructor(private settings: Settings) {
-    this.multiple = this.settings.multipleSort;
+  constructor(public multiple: boolean = false) {
   }
 
   setOrder(columnName: string) {

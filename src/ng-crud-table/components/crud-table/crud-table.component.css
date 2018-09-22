@@ -17,3 +17,23 @@
 .button-actions:hover {
   background-color: rgba(0,0,0,.1);
 }
+
+.icon-rightwards:before {
+  content: "\27A4";
+}
+
+.icon-pencil:before {
+  content: "\270E";
+}
+
+.icon-reload:before {
+  content: "\21bb";
+}
+
+.icon-remove:before {
+  content: "\2716";
+}
+
+.icon-plus:before {
+  content: "\002B";
+}

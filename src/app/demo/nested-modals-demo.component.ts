@@ -29,7 +29,6 @@ export class NestedModalsDemoComponent implements OnInit {
   dataManager: DataManager;
 
   settings: Settings = <Settings>{
-    api: 'assets/players.json',
     crud: true,
     bodyHeight: 380,
     zIndexModal: 1110
@@ -43,6 +42,7 @@ export class NestedModalsDemoComponent implements OnInit {
       column.editable = false;
     }
     this.service = new DemoService(this.http);
+    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
   ngOnInit() {

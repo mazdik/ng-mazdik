@@ -17,7 +17,6 @@ export class BasicDemoComponent implements OnInit {
   dataManager: DataManager;
 
   settings: Settings = <Settings>{
-    api: 'assets/players.json',
     crud: true,
     bodyHeight: 380,
     exportAction: true,
@@ -33,6 +32,7 @@ export class BasicDemoComponent implements OnInit {
     this.columns = getColumnsPlayers();
     this.columns[4].filterValuesFunc = this.filterValuesFunc;
     this.service = new DemoService(this.http);
+    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
   }
 

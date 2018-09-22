@@ -31,7 +31,6 @@ export class ModalFormDemoComponent implements OnInit {
   dataManager: DataManager;
 
   settings: Settings = <Settings>{
-    api: 'assets/players.json',
     crud: true,
   };
 
@@ -72,6 +71,7 @@ export class ModalFormDemoComponent implements OnInit {
     this.columns[9].validatorFunc = this.customValidation;
 
     this.service = new DemoService(this.http);
+    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 
