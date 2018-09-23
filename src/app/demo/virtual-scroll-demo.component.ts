@@ -34,7 +34,7 @@ export class VirtualScrollDemoComponent implements OnInit {
       column.editable = false;
     }
     this.table = new DataTable(this.columns, this.settings);
-    this.service = new DemoService(this.http, 10);
+    this.service = new DemoService(this.http);
     this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }
