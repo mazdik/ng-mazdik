@@ -2,6 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
+import {PageEvent} from '../../lib/pagination';
 
 export interface SelectItem {
   id: any;
@@ -148,8 +149,9 @@ export class ModalSelectComponent implements OnInit {
     return data.slice(start, end);
   }
 
-  onPageChanged(event) {
-    this.currentPage = event;
+  onPageChanged(event: PageEvent) {
+    this.currentPage = event.currentPage;
+    this.itemsPerPage = event.perPage;
     this._options = this.getOptions();
   }
 

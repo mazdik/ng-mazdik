@@ -4,6 +4,7 @@ export class DataPager {
   total: number = 0;
   current: number = 1;
   cache: any = {};
+  pageSizeOptions: number[] = [10, 20, 30, 50];
 
   pager(data: any[]): any[] {
     const start = (this.current - 1) * this.perPage;

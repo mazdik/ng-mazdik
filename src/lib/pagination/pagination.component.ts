@@ -2,6 +2,11 @@ import {
   Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding, ViewEncapsulation
 } from '@angular/core';
 
+export class PageEvent {
+  currentPage: number;
+  perPage: number;
+}
+
 @Component({
   selector: 'app-pagination',
   templateUrl: 'pagination.component.html',
@@ -12,26 +17,23 @@ import {
 export class PaginationComponent {
 
   @Input()
-  set itemsPerPage(value: number) {
-    this._itemsPerPage = value;
+  get perPage(): number { return this._perPage; }
+  set perPage(value: number) {
+    this._perPage = value;
     this.pages = this.getPages();
   }
-
-  get itemsPerPage(): number {
-    return this._itemsPerPage;
-  }
+  private _perPage: number = 10;
 
   @Input()
+  get totalItems(): number { return this._totalItems; }
   set totalItems(value: number) {
     this._totalItems = value;
     this.pages = this.getPages();
   }
-
-  get totalItems(): number {
-    return this._totalItems;
-  }
+  private _totalItems: number = 0;
 
   @Input()
+  get currentPage(): number { return this._currentPage; }
   set currentPage(value: number) {
     const _previous = this._currentPage;
     this._currentPage = (value > this.totalPages()) ? this.totalPages() : (value || 1);
@@ -41,17 +43,18 @@ export class PaginationComponent {
     }
     this.pages = this.getPages();
   }
+  private _currentPage: number = 1;
 
-  get currentPage(): number {
-    return this._currentPage;
+  @Input()
+  get pageSizeOptions(): number[] { return this._pageSizeOptions; }
+  set pageSizeOptions(value: number[]) {
+    this._pageSizeOptions = (value || []).sort((a, b) => a - b);
   }
+  private _pageSizeOptions: number[] = [];
 
   @Output() pageChanged = new EventEmitter();
 
   pages: number[];
-  protected _currentPage: number = 1;
-  protected _itemsPerPage: number = 10;
-  protected _totalItems: number = 0;
 
   @HostBinding('class') cssClass = 'pagination';
 
@@ -66,12 +69,12 @@ export class PaginationComponent {
     }
     if (page > 0 && page <= this.totalPages() && page !== this.currentPage) {
       this.currentPage = page;
-      this.pageChanged.emit(this.currentPage);
+      this.pageChanged.emit(<PageEvent>{currentPage: this.currentPage, perPage: this.perPage});
     }
   }
 
   totalPages(): number {
-    const totalPages = this.itemsPerPage < 1 ? 1 : Math.ceil(this.totalItems / this.itemsPerPage);
+    const totalPages = this.perPage < 1 ? 1 : Math.ceil(this.totalItems / this.perPage);
     return Math.max(totalPages || 0, 1);
   }
 
@@ -109,6 +112,11 @@ export class PaginationComponent {
         startIndex + pageSize;
 
     return `${startIndex + 1} - ${endIndex} of ${length}`;
+  }
+
+  onChangePageSize(pageSize: number) {
+    this.perPage = pageSize;
+    this.pageChanged.emit(<PageEvent>{currentPage: this.currentPage, perPage: this.perPage});
   }
 
 }

@@ -6,6 +6,7 @@ import {DataTable, ColumnResizeMode} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyScrollDirective} from '../../directives/body-scroll.directive';
 import {HeaderComponent} from '../header/header.component';
+import {PageEvent} from '../../../lib/pagination';
 
 @Component({
   selector: 'app-datatable, app-data-table',
@@ -103,11 +104,12 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onPageChanged(page: number): void {
-    this.table.pager.current = page;
+  onPageChanged(event: PageEvent): void {
+    this.table.pager.current = event.currentPage;
+    this.table.pager.perPage = event.perPage;
     this.table.events.onPage();
     if (this.table.settings.virtualScroll) {
-      const offset = this.table.rowVirtual.calcPageOffsetY(page);
+      const offset = this.table.rowVirtual.calcPageOffsetY(event.currentPage);
       this.bodyScroll.setOffsetY(offset);
     } else {
       if (this.table.settings.clientSide) {

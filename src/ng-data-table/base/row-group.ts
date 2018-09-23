@@ -12,7 +12,7 @@ export class RowGroup {
 
     constructor(private settings: Settings, private sorter: DataSort, private columns: Column[]) {
         this.dataAggregation = new DataAggregation();
-        for (const column of columns) {
+        for (const column of this.columns) {
             if (column.aggregation) {
                 this.dataAggregation.aggregates.push({ field: column.name, type: column.aggregation });
             }

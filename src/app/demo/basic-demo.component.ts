@@ -34,6 +34,7 @@ export class BasicDemoComponent implements OnInit {
     this.service = new DemoService(this.http);
     this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
+    this.dataManager.pager.perPage = 20;
   }
 
   ngOnInit() {

@@ -9,14 +9,12 @@ export class DemoService implements DataSource {
   url: string;
   primaryKeys: any;
 
-  private itemsPerPage: number = 20;
   private dataFilter: DataFilter;
   private dataSort: DataSort;
 
-  constructor(private http: HttpClient, private perPage?: number) {
+  constructor(private http: HttpClient) {
     this.dataFilter = new DataFilter();
     this.dataSort = new DataSort();
-    this.itemsPerPage = perPage || this.itemsPerPage;
   }
 
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
@@ -24,6 +22,7 @@ export class DemoService implements DataSource {
     this.dataFilter.filters = requestMeta.filters;
     this.dataFilter.globalFilterValue = requestMeta.globalFilterValue;
     this.dataSort.sortMeta = requestMeta.sortMeta;
+    const perPage = requestMeta.pageMeta.perPage;
 
     return this.http.get<PagedResult>(this.url)
       .toPromise()
@@ -31,7 +30,7 @@ export class DemoService implements DataSource {
         const rows: any[] = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
         const sortedData = this.dataSort.sortRows(filteredData);
-        const pageData = this.page(sortedData, page);
+        const pageData = this.page(sortedData, page, perPage);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
         const result = <PagedResult>{
@@ -40,7 +39,7 @@ export class DemoService implements DataSource {
             'totalCount': totalCount,
             'pageCount': pageCount,
             'currentPage': page,
-            'perPage': this.itemsPerPage
+            'perPage': perPage
           }
         };
         return result;
@@ -60,9 +59,9 @@ export class DemoService implements DataSource {
       .then(data => data.items[0]);
   }
 
-  page(data: any, page: any): Array<any> {
-    const start = (page - 1) * this.itemsPerPage;
-    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
+  page(data: any, page: any, perPage: number): Array<any> {
+    const start = (page - 1) * perPage;
+    const end = perPage > -1 ? (start + perPage) : data.length;
     return data.slice(start, end);
   }
 

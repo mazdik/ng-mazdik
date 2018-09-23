@@ -45,6 +45,7 @@ export class TreeTable extends DataTable {
     this.tree = new Tree();
     this.tree.service = dataSource;
     this.treeFlattener = new TreeFlattener(this.transformer);
+    this.pager.pageSizeOptions = [];
   }
 
   transformer = (node: TreeNode, level: number) => {

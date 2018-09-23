@@ -24,8 +24,9 @@
 <div #footer class="datatable-footer" *ngIf="table.settings.paginator">
     <app-pagination
       [totalItems]="table.pager.total"
-      [itemsPerPage]="table.pager.perPage"
+      [perPage]="table.pager.perPage"
       [currentPage]="table.pager.current"
+      [pageSizeOptions]="(table.settings.virtualScroll) ? [] : table.pager.pageSizeOptions"
       (pageChanged)="onPageChanged($event)">
     </app-pagination>
 </div>

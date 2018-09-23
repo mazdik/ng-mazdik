@@ -1,5 +1,15 @@
+<div class="pagination-page-size" *ngIf="pageSizeOptions.length > 1">
+  <select class="pagination-page-size-select"
+          [value]="perPage"
+          (change)="onChangePageSize($event.target.value)">
+    <option *ngFor="let pageSizeOption of pageSizeOptions" [value]="pageSizeOption">
+      {{pageSizeOption}}
+    </option>
+  </select>
+</div>
+
 <div class="pagination-range-label" *ngIf="totalItems">
-  {{getRangeLabel(currentPage, itemsPerPage, totalItems)}}
+  {{getRangeLabel(currentPage, perPage, totalItems)}}
 </div>
 
 <div class="pagination-navigation" *ngIf="pages.length > 1">
