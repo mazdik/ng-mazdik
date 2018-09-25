@@ -21,8 +21,9 @@
   [loading]="loading">
 </dt-body>
 
-<div #footer class="datatable-footer" *ngIf="table.settings.paginator">
+<div #footer class="datatable-footer">
     <app-pagination
+      *ngIf="table.settings.paginator"
       [totalItems]="table.pager.total"
       [perPage]="table.pager.perPage"
       [currentPage]="table.pager.current"
