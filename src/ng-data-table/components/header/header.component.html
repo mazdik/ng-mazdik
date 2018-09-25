@@ -27,8 +27,7 @@
     </dt-header-cell>
   </div>
 
-  <div class="datatable-row-center"
-       [ngStyle]="stylesByGroup()">
+  <div #rowCenter class="datatable-row-center">
       <dt-header-cell
           *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
           [table]="table"

@@ -20,10 +20,7 @@ export function getHeight(el): number {
 }
 
 export function translate(x: number, y: number) {
-  const styles: any = {};
-  styles.transform = `translate3d(${x}px, ${y}px, 0)`;
-  styles.backfaceVisibility = 'hidden';
-  return styles;
+  return `translate3d(${x}px, ${y}px, 0)`;
 }
 
 export function addClass(cls: string, res: any): string {

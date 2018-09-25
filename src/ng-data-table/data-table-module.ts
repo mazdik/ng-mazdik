@@ -18,6 +18,7 @@ import {BodyCellEditComponent} from './components/body/body-cell-edit.component'
 import {BodyCellActionComponent} from './components/body/body-cell-action.component';
 import {DataTableComponent} from './components/data-table/data-table.component';
 import {SummaryRowComponent} from './components/body/summary-row.component';
+import {BodyGroupRowComponent} from './components/body/body-group-row.component';
 
 import {BodyScrollDirective} from './directives/body-scroll.directive';
 import {ResizeableDirective} from './directives/resizeable.directive';
@@ -50,6 +51,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     BodyCellActionComponent,
     DataTableComponent,
     SummaryRowComponent,
+    BodyGroupRowComponent,
     BodyScrollDirective,
     ResizeableDirective,
     BodyMouseoverDirective,

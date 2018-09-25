@@ -1,16 +1,10 @@
 <ng-container *ngFor="let row of table.getRows(); trackBy: rowTrackingFn">
 
-  <div class="datatable-body-row datatable-group-header"
-        *ngIf="table.rowGroup.isRowGroup(row)"
-        [style.width.px]="table.dimensions.columnsTotalWidth + 1"
-        [style.height.px]="table.dimensions.rowHeight">
-    <div class="datatable-row-left" [ngStyle]="stylesByGroup()">
-      <div class="datatable-body-cell">
-        {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
-      </div>
-    </div>
-    <div class="datatable-row-center"></div>
-  </div>
+  <dt-body-group-row
+    *ngIf="table.rowGroup.isRowGroup(row)"
+    [table]="table"
+    [row]="row">
+  </dt-body-group-row>
 
   <dt-body-row
     [table]="table"

@@ -62,13 +62,9 @@ export class BodyComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  stylesByGroup() {
-    return translate(this.table.dimensions.offsetX, 0);
-  }
-
   styleTranslate(row: Row) {
     if (this.table.settings.virtualScroll) {
-      return `translate3d(0, ${row.$$offset}px, 0)`;
+      return translate(0, row.$$offset);
     }
   }
 

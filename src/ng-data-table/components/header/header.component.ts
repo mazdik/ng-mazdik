@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostBinding('class') cssClass = 'datatable-header';
   @ViewChild('headerTemplate', { read: ViewContainerRef }) headerTemplate: ViewContainerRef;
+  @ViewChild('rowCenter') rowCenter: ElementRef;
 
   private subscriptions: Subscription[] = [];
 
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cd.markForCheck();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
+      this.rowCenter.nativeElement.style.transform = translate(this.table.dimensions.offsetX * -1, 0);
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
@@ -58,10 +60,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.element.nativeElement) {
       return this.element.nativeElement.offsetHeight;
     }
-  }
-
-  stylesByGroup() {
-    return translate(this.table.dimensions.offsetX * -1, 0);
   }
 
   onResizeBegin() {

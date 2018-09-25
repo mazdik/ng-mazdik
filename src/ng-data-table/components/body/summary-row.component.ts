@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
+  Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row} from '../../base';
 import {Subscription} from 'rxjs';
@@ -15,6 +15,8 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
   @Input() row: Row;
 
+  @ViewChild('rowLeft') rowLeft: ElementRef;
+
   private subscriptions: Subscription[] = [];
 
   @HostBinding('class')
@@ -28,6 +30,11 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
   @HostBinding('style.height.px')
   get rowHeight(): number {
     return this.table.dimensions.summaryRowHeight;
+  }
+
+  @HostBinding('style.width.px')
+  get rowWidth(): number {
+    return this.table.dimensions.columnsTotalWidth + 1;
   }
 
   constructor(private cd: ChangeDetectorRef) {
@@ -47,6 +54,7 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
+      this.rowLeft.nativeElement.style.transform = translate(this.table.dimensions.offsetX, 0);
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
@@ -56,10 +64,6 @@ export class SummaryRowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  stylesByGroup() {
-    return translate(this.table.dimensions.offsetX, 0);
   }
 
 }

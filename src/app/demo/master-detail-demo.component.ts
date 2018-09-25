@@ -10,12 +10,14 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
       [table]="dtPlayers"
       (selectionChange)="masterChanged()">
     </app-data-table>
-    <div style="display:inline-block; vertical-align: top;">
-      <app-data-table [table]="dtInventory"></app-data-table>
-    </div>
-    <div style="display:inline-block; width: 5px;"></div>
-    <div style="display:inline-block; vertical-align: top;">
-      <app-data-table [table]="dtRank"></app-data-table>
+    <div style="display:flex;">
+      <div style="width: 59%;">
+        <app-data-table [table]="dtInventory"></app-data-table>
+      </div>
+      <div style="width: 1%;"></div>
+      <div style="width: 40%;">
+        <app-data-table [table]="dtRank"></app-data-table>
+      </div>
     </div>
   `
 })
@@ -34,12 +36,10 @@ export class MasterDetailDemoComponent implements OnInit {
   };
 
   settingsRank: Settings = <Settings>{
-    tableWidth: 500,
     bodyHeight: 250,
   };
 
   settingsInventory: Settings = <Settings>{
-    tableWidth: 600,
     bodyHeight: 250,
   };
 
