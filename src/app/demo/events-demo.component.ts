@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable} from '../../ng-data-table';
 import {getColumnsPlayers} from './columns';
@@ -7,6 +7,9 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-events-demo',
   template: `
+    <div #tooltip class="tooltip">
+      <b>{{this.eventName}}</b>: {{this.eventValue}}
+    </div>
     <app-data-table [table]="table"></app-data-table>
     <div class="df-alert df-alert-success" style="word-break: break-all;" *ngIf="cellValueChangedEvent">
       <b>cellValueChanged:</b> {{cellValueChangedEvent}}
@@ -29,6 +32,8 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   eventName: string = 'Event name';
   eventValue: any = 'event value';
   cellValueChangedEvent: any;
+  timer: any;
+  @ViewChild('tooltip') tooltip: ElementRef;
 
   private subscriptions: Subscription[] = [];
 
@@ -46,9 +51,17 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
     const subMouseover = this.table.events.mouseoverSource$.subscribe((data) => {
       this.printEvent('mouseove', data);
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      this.timer = setTimeout(() => {
+        this.showTooltip(data.event);
+        this.timer = null;
+      }, 700);
     });
     const subMouseout = this.table.events.mouseoutSource$.subscribe((data) => {
       this.printEvent('mouseout', data);
+      this.hideTooltip();
     });
     const subContextMenu = this.table.events.contextMenuSource$.subscribe((data) => {
       this.printEvent('contextmenu', data);
@@ -72,15 +85,26 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
       this.eventValue = JSON.stringify(event);
     } else {
       const columnName = this.table.columns[event.columnIndex].name;
-      const row = this.table.rows[event.rowIndex];
-      this.eventValue = JSON.stringify({columnName, row});
+      const cell = this.table.rows[event.rowIndex][columnName];
+      this.eventValue = JSON.stringify({columnName, cell});
     }
     this.cd.detectChanges();
-    console.log(name, event);
   }
 
   eventText() {
     return '<b>' + this.eventName + ':</b> ' + this.eventValue;
+  }
+
+  showTooltip(event: MouseEvent) {
+    if (this.eventName === 'mouseove') {
+      this.tooltip.nativeElement.style.left = event.pageX + 'px';
+      this.tooltip.nativeElement.style.top = event.pageY + 'px';
+      this.tooltip.nativeElement.style.visibility = 'visible';
+    }
+  }
+
+  hideTooltip() {
+    this.tooltip.nativeElement.style.visibility = 'hidden';
   }
 
 }
