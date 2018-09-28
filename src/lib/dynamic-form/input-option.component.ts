@@ -10,7 +10,7 @@ import {InputComponent} from './input.component';
 export class InputOptionComponent extends InputComponent implements OnInit {
 
   @Input() getOptionsFunc: getOptionsFunction;
-  @Output() keyColumnChange: EventEmitter<any> = new EventEmitter();
+  @Output() keyElementChange: EventEmitter<any> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @Input()
@@ -29,20 +29,20 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   private _dependsValue: any;
 
   ngOnInit() {
-    if (this.column.optionsUrl && !this.column.dependsColumn) {
+    if (this.dynElement.optionsUrl && !this.dynElement.dependsElement) {
       this.loadOptions();
     } else {
-      this._options = this.column.getOptions(this.dependsValue);
+      this._options = this.dynElement.getOptions(this.dependsValue);
     }
     this.validate();
   }
 
   setDependsOptions() {
     if (this.dependsValue) {
-      if (this.column.optionsUrl) {
+      if (this.dynElement.optionsUrl) {
         this.loadOptions();
       } else {
-        this._options = this.column.getOptions(this.dependsValue);
+        this._options = this.dynElement.getOptions(this.dependsValue);
         this.setDefaultSelect();
       }
     } else {
@@ -51,9 +51,9 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   }
 
   loadOptions() {
-    if (this.column.optionsUrl && this.getOptionsFunc) {
+    if (this.dynElement.optionsUrl && this.getOptionsFunc) {
       this.loading = true;
-      this.getOptionsFunc(this.column.optionsUrl, this._dependsValue).then((res) => {
+      this.getOptionsFunc(this.dynElement.optionsUrl, this._dependsValue).then((res) => {
         this._options = res;
         this.loading = false;
         this.setDefaultSelect();
@@ -71,9 +71,9 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   }
 
   onValueChange() {
-    if (this.column.keyColumn) {
-      this.keyColumnChange.emit({
-        'column': this.column.keyColumn,
+    if (this.dynElement.keyElement) {
+      this.keyElementChange.emit({
+        'dynElement': this.dynElement.keyElement,
         'value': this.model
       });
     }

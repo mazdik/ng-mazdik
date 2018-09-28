@@ -5,14 +5,14 @@ import {InputOptionComponent} from './input-option.component';
   selector: 'app-form-radio',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
         <span class="datatable-radio">
           <input
             type="radio"
             [(ngModel)]="model"
-            [name]="column.name"
+            [name]="dynElement.name"
             [value]="o.id"
             [checked]="model === o.id"
             (click)="model = o.id"

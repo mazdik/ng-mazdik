@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../../ng-crud-table/base';
+import {DynamicFormElement} from '../dynamic-form';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -31,6 +32,7 @@ export class ModalEditFormComponent implements OnInit {
 
   @ViewChild('childModal') childModal: ModalComponent;
 
+  dynElements: DynamicFormElement[];
   formValid: boolean = true;
   transposedData: any[];
   getOptionsFunc: Function;
@@ -64,6 +66,7 @@ export class ModalEditFormComponent implements OnInit {
   }
 
   open() {
+    this.createDynamicFormElements();
     this.childModal.show();
     this.cd.markForCheck();
   }
@@ -75,6 +78,26 @@ export class ModalEditFormComponent implements OnInit {
 
   onFormValid(event: any) {
     this.formValid = event;
+  }
+
+  createDynamicFormElements() {
+    this.dynElements = [];
+    for (const column of this.dataManager.columns) {
+      const element = new DynamicFormElement();
+      element.name = column.name;
+      element.title = column.title;
+      element.options = column.options;
+      element.optionsUrl = column.optionsUrl;
+      element.type = column.type;
+      element.validation = column.validation;
+      element.validatorFunc = column.validatorFunc;
+      element.dependsElement = column.dependsColumn;
+      element.cellTemplate = column.cellTemplate;
+      element.formHidden = column.formHidden;
+      element.isPrimaryKey = column.isPrimaryKey;
+      element.keyElement = column.keyColumn;
+      this.dynElements.push(element);
+    }
   }
 
 }

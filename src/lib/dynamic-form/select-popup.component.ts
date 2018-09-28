@@ -5,12 +5,12 @@ import {InputOptionComponent} from './input-option.component';
   selector: 'app-form-select-popup',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <app-modal-select [(value)]="model"
                     [options]="getOptions()"
                     [disabled]="disabled"
-                    [modalTitle]="column.title"
+                    [modalTitle]="dynElement.title"
                     (valueChange)="onValueChange()"
                     (nameChanged)="nameChanged.emit($event)">
       </app-modal-select>

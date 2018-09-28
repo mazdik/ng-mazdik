@@ -5,10 +5,10 @@ import {InputComponent} from './input.component';
   selector: 'app-form-textarea',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <textarea class="df-control"
                 [(ngModel)]="model"
-                [id]="column.name"
+                [id]="dynElement.name"
                 [disabled]="disabled">
       </textarea>
       <div class="df-help-block">

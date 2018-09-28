@@ -3,7 +3,7 @@
     <div *ngIf="childModal.visible">
       <app-dynamic-form
         *ngIf="!detailView"
-        [columns]="dataManager.columns"
+        [dynElements]="dynElements"
         [item]="dataManager.item"
         [isNewItem]="isNewItem"
         [getOptionsFunc]="getOptionsFunc"

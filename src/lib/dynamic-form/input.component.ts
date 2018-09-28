@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {Column} from './types';
+import {DynamicFormElement} from './dynamic-form-element';
 
 @Component({
   selector: 'app-form-input',
@@ -8,7 +8,7 @@ import {Column} from './types';
 })
 export class InputComponent implements OnInit {
 
-  @Input() column: Column;
+  @Input() dynElement: DynamicFormElement;
   @Input() disabled: boolean;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
@@ -38,7 +38,7 @@ export class InputComponent implements OnInit {
   }
 
   validate() {
-    this.errors = this.column.validate(this.model);
+    this.errors = this.dynElement.validate(this.model);
   }
 
   hasError() {

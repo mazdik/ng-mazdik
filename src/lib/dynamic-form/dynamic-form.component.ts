@@ -2,7 +2,8 @@ import {
   Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation,
   ChangeDetectionStrategy
 } from '@angular/core';
-import {Column, getOptionsFunction} from './types';
+import {getOptionsFunction} from './types';
+import {DynamicFormElement} from './dynamic-form-element';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -14,7 +15,7 @@ import {Column, getOptionsFunction} from './types';
 
 export class DynamicFormComponent implements OnInit, OnDestroy {
 
-  @Input() columns: Column[];
+  @Input() dynElements: DynamicFormElement[];
   @Input() item: any;
   @Input() isNewItem: boolean = true;
   @Input() getOptionsFunc: getOptionsFunction;
@@ -37,18 +38,18 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  elemEnabled(column: Column): boolean {
-    if (column.formHidden) {
+  elemEnabled(dynElement: DynamicFormElement): boolean {
+    if (dynElement.formHidden) {
       return false;
     }
-    if (!this.isNewItem && column.isPrimaryKey) {
+    if (!this.isNewItem && dynElement.isPrimaryKey) {
       return false;
     }
     return true;
   }
 
-  onValid(event: any, column: Column) {
-    this.validElements[column.name] = event;
+  onValid(event: any, dynElement: DynamicFormElement) {
+    this.validElements[dynElement.name] = event;
     this.isValid();
   }
 
@@ -63,21 +64,21 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
     this.valid.emit(result);
   }
 
-  onKeyColumnChange(event) {
-    this.item[event.column] = event.value;
+  onKeyElementChange(event) {
+    this.item[event.dynElement] = event.value;
   }
 
-  isDisabled(column: Column) {
-    if (column.keyColumn && !this.isNewItem) {
-      const fkColumn = this.columns.find(x => x.name === column.keyColumn);
-      return (fkColumn && fkColumn.isPrimaryKey === true);
+  isDisabled(dynElement: DynamicFormElement) {
+    if (dynElement.keyElement && !this.isNewItem) {
+      const fkElement = this.dynElements.find(x => x.name === dynElement.keyElement);
+      return (fkElement && fkElement.isPrimaryKey === true);
     }
     return false;
   }
 
-  onSelectPopupNameChanged(value: any, column: Column) {
-    if (column.keyColumn) {
-      this.item[column.name] = value;
+  onSelectPopupNameChanged(value: any, dynElement: DynamicFormElement) {
+    if (dynElement.keyElement) {
+      this.item[dynElement.name] = value;
     }
   }
 

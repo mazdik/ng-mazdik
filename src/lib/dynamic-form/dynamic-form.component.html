@@ -1,87 +1,87 @@
-<div *ngFor="let column of columns">
+<div *ngFor="let dynElement of dynElements">
 
-  <div *ngIf="elemEnabled(column)">
+  <div *ngIf="elemEnabled(dynElement)">
 
     <ng-template #cellTemplate
-                 *ngIf="column.cellTemplate"
-                 [ngTemplateOutlet]="column.cellTemplate"
+                 *ngIf="dynElement.cellTemplate"
+                 [ngTemplateOutlet]="dynElement.cellTemplate"
                  [ngTemplateOutletContext]="{
-                  value: item[column.name],
-                  column: column
+                  value: item[dynElement.name],
+                  column: dynElement
                }">
     </ng-template>
 
-    <div *ngIf="!column.cellTemplate" [ngSwitch]="column.type">
+    <div *ngIf="!dynElement.cellTemplate" [ngSwitch]="dynElement.type">
 
       <app-form-select
         *ngSwitchCase="'select'"
-        [column]="column"
-        [(value)]="(column.keyColumn) ? item[column.keyColumn] : item[column.name]"
-        [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)"
+        [dynElement]="dynElement"
+        [(value)]="(dynElement.keyElement) ? item[dynElement.keyElement] : item[dynElement.name]"
+        [dependsValue]="item[dynElement.dependsElement]"
+        (valid)="onValid($event, dynElement)"
         [getOptionsFunc]="getOptionsFunc"
-        (keyColumnChange)="onKeyColumnChange($event)"
-        [disabled]="isDisabled(column)"
+        (keyElementChange)="onKeyElementChange($event)"
+        [disabled]="isDisabled(dynElement)"
         (loaded)="loaded.emit($event)">
       </app-form-select>
 
       <app-form-select-popup
         *ngSwitchCase="'select-popup'"
-        [column]="column"
-        [(value)]="(column.keyColumn) ? item[column.keyColumn] : item[column.name]"
-        [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)"
+        [dynElement]="dynElement"
+        [(value)]="(dynElement.keyElement) ? item[dynElement.keyElement] : item[dynElement.name]"
+        [dependsValue]="item[dynElement.dependsElement]"
+        (valid)="onValid($event, dynElement)"
         [getOptionsFunc]="getOptionsFunc"
-        (keyColumnChange)="onKeyColumnChange($event)"
-        [disabled]="isDisabled(column)"
-        (nameChanged)="onSelectPopupNameChanged($event, column)"
+        (keyElementChange)="onKeyElementChange($event)"
+        [disabled]="isDisabled(dynElement)"
+        (nameChanged)="onSelectPopupNameChanged($event, dynElement)"
         (loaded)="loaded.emit($event)">
       </app-form-select-popup>
 
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"
-        [column]="column"
-        [(value)]="item[column.name]"
-        [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)"
+        [dynElement]="dynElement"
+        [(value)]="item[dynElement.name]"
+        [dependsValue]="item[dynElement.dependsElement]"
+        (valid)="onValid($event, dynElement)"
         [getOptionsFunc]="getOptionsFunc"
-        [disabled]="isDisabled(column)"
+        [disabled]="isDisabled(dynElement)"
         (loaded)="loaded.emit($event)">
       </app-form-checkbox>
 
       <app-form-radio
         *ngSwitchCase="'radio'"
-        [column]="column"
-        [(value)]="item[column.name]"
-        [dependsValue]="item[column.dependsColumn]"
-        (valid)="onValid($event, column)"
+        [dynElement]="dynElement"
+        [(value)]="item[dynElement.name]"
+        [dependsValue]="item[dynElement.dependsElement]"
+        (valid)="onValid($event, dynElement)"
         [getOptionsFunc]="getOptionsFunc"
-        [disabled]="isDisabled(column)"
+        [disabled]="isDisabled(dynElement)"
         (loaded)="loaded.emit($event)">
       </app-form-radio>
 
       <app-form-textarea
         *ngSwitchCase="'textarea'"
-        [column]="column"
-        [(value)]="item[column.name]"
-        (valid)="onValid($event, column)"
-        [disabled]="isDisabled(column)">
+        [dynElement]="dynElement"
+        [(value)]="item[dynElement.name]"
+        (valid)="onValid($event, dynElement)"
+        [disabled]="isDisabled(dynElement)">
       </app-form-textarea>
 
       <app-form-calendar
-        *ngSwitchCase="(column.type ==='date' || column.type ==='datetime-local') ? column.type : ''"
-        [column]="column"
-        [(value)]="item[column.name]"
-        (valid)="onValid($event, column)"
-        [disabled]="isDisabled(column)">
+        *ngSwitchCase="(dynElement.type ==='date' || dynElement.type ==='datetime-local') ? dynElement.type : ''"
+        [dynElement]="dynElement"
+        [(value)]="item[dynElement.name]"
+        (valid)="onValid($event, dynElement)"
+        [disabled]="isDisabled(dynElement)">
       </app-form-calendar>
 
       <app-form-input-text
         *ngSwitchDefault
-        [column]="column"
-        [(value)]="item[column.name]"
-        (valid)="onValid($event, column)"
-        [disabled]="isDisabled(column)">
+        [dynElement]="dynElement"
+        [(value)]="item[dynElement.name]"
+        (valid)="onValid($event, dynElement)"
+        [disabled]="isDisabled(dynElement)">
       </app-form-input-text>
 
     </div>

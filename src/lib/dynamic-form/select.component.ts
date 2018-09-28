@@ -5,11 +5,11 @@ import {InputOptionComponent} from './input-option.component';
   selector: 'app-form-select',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <select class="df-control"
               [(ngModel)]="model"
-              [id]="column.name"
+              [id]="dynElement.name"
               (change)="onValueChange()"
               [disabled]="disabled">
         <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>

@@ -5,14 +5,14 @@ import {InputOptionComponent} from './input-option.component';
   selector: 'app-form-checkbox',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
         <span class="datatable-checkbox">
           <input
             type="checkbox"
             [(ngModel)]="model"
-            [name]="column.name"
+            [name]="dynElement.name"
             [value]="o.id"
             [checked]="isSelectActive(o)"
             [disabled]="disabled"/>

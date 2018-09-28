@@ -5,9 +5,9 @@ import {InputComponent} from './input.component';
   selector: 'app-form-calendar',
   template: `
     <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
-      <label [attr.for]="column.name">{{column.title}}</label>
+      <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <input class="df-control"
-             [attr.type]="column.type"
+             [attr.type]="dynElement.type"
              [(ngModel)]="model"
              [disabled]="disabled"/>
       <div class="df-help-block">
