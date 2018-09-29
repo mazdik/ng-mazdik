@@ -13,6 +13,9 @@ import { ToolbarModule } from '../lib/toolbar';
 import { MessageModule } from '../lib/message';
 import { ModalModule } from '../lib//modal';
 import { ModalEditFormModule } from '../lib/modal-edit-form';
+import { TreeViewModule } from '../lib/tree-view';
+import { ContextMenuModule } from '../lib/context-menu';
+
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';
@@ -34,6 +37,7 @@ import { HeaderDemoComponent } from './demo/header-demo.component';
 import { TemplateDemoComponent } from './demo/template-demo.component';
 import { EventsDemoComponent } from './demo/events-demo.component';
 import { VerticalGroupDemoComponent } from './demo/vertical-group-demo.component';
+import { TreeViewDemoComponent } from './demo/tree-view-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -58,6 +62,7 @@ const ROUTES: Routes = [
   {path: 'template-demo', component: TemplateDemoComponent},
   {path: 'events-demo', component: EventsDemoComponent},
   {path: 'vertical-group-demo', component: VerticalGroupDemoComponent},
+  {path: 'tree-view-demo', component: TreeViewDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -85,7 +90,8 @@ const ROUTES: Routes = [
     HeaderDemoComponent,
     TemplateDemoComponent,
     EventsDemoComponent,
-    VerticalGroupDemoComponent
+    VerticalGroupDemoComponent,
+    TreeViewDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,6 +105,8 @@ const ROUTES: Routes = [
     MessageModule,
     ModalModule,
     ModalEditFormModule,
+    TreeViewModule,
+    ContextMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

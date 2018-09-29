@@ -2,10 +2,7 @@ import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {Settings} from '../../ng-data-table/base/settings';
 import {Message} from '../../ng-data-table/base/message';
-import {Tree} from './tree';
-import {TreeNode} from './tree-node';
-import {TreeDataSource} from './types';
-import {TreeFlattener} from './tree-flattener';
+import {Tree, TreeNode, TreeDataSource, TreeFlattener} from '../../lib/tree';
 import {Row} from './index';
 
 export class TreeTable extends DataTable {

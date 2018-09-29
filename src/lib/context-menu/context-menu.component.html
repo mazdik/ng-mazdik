@@ -1,0 +1,14 @@
+<nav #menu
+     class="context-menu"
+     [style.display]="(isVisible && items.length > 0) ? 'block' : 'none' ">
+  <ul>
+    <ng-template ngFor let-item [ngForOf]="items" let-i="index">
+      <li [ngClass]="{'disabled':item.disabled}">
+        <a [href]="item.url||'#'"
+           (click)="itemClick($event, item)">
+          <i [ngClass]="item.icon"></i><span class="context-menu-sep">&nbsp;</span>{{item.label}}
+        </a>
+      </li>
+    </ng-template>
+  </ul>
+</nav>
