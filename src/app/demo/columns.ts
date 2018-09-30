@@ -1,4 +1,5 @@
 import {Column} from '../../ng-crud-table';
+import {Validators} from '../../lib/validation/validators';
 
 export function getColumnsPlayers(): Column[] {
   const columnsPlayers: Column[] = [
@@ -20,7 +21,7 @@ export function getColumnsPlayers(): Column[] {
       filter: true,
       frozen: true,
       width: 200,
-      validation: {required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'},
+      validatorFunc: Validators.get({required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'}),
       editable: true,
     },
     {
@@ -33,7 +34,7 @@ export function getColumnsPlayers(): Column[] {
         {id: 'ASMODIANS', name: 'ASMODIANS'},
         {id: 'ELYOS', name: 'ELYOS'},
       ],
-      validation: {required: true},
+      validatorFunc: Validators.get({required: true}),
       editable: true,
     },
     {
@@ -71,7 +72,7 @@ export function getColumnsPlayers(): Column[] {
       sortable: true,
       filter: true,
       type: 'number',
-      validation: {required: true, maxLength: 10, pattern: '^[0-9]+$'},
+      validatorFunc: Validators.get({required: true, maxLength: 10, pattern: '^[0-9]+$'}),
       editable: true,
     },
     {
@@ -186,7 +187,7 @@ export function getTreeColumns(): Column[] {
       title: 'Name',
       name: 'name',
       editable: true,
-      validation: {required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'},
+      validatorFunc: Validators.get({required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'}),
       width: 250,
     },
     {

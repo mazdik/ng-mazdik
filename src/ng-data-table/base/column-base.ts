@@ -1,4 +1,4 @@
-import {SelectOption, Validation, ColumnType, AggregateType, DataType} from './types';
+import {SelectOption, ColumnType, AggregateType, DataType} from './types';
 import {TemplateRef} from '@angular/core';
 
 export class ColumnBase {
@@ -12,7 +12,6 @@ export class ColumnBase {
   width?: number = null;
   frozen?: boolean;
   type?: ColumnType;
-  validation?: Validation;
   validatorFunc?: (name: string, value: any) => string[];
   editable?: boolean;
   resizeable?: boolean = true;

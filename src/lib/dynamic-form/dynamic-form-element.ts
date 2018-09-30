@@ -1,6 +1,5 @@
 import {TemplateRef} from '@angular/core';
 import {SelectOption, ElementType} from './types';
-import {Validation, Validators} from './../validation/validators';
 
 export class DynamicFormElement {
   title: string;
@@ -8,7 +7,6 @@ export class DynamicFormElement {
   options?: SelectOption[];
   optionsUrl?: string;
   type?: ElementType;
-  validation?: Validation;
   validatorFunc?: (name: string, value: any) => string[];
   dependsElement?: string;
   cellTemplate?: TemplateRef<any>;
@@ -26,11 +24,11 @@ export class DynamicFormElement {
     }
   }
 
-  validate(value: any) {
+  validate(value: any): string[] {
     if (this.validatorFunc) {
       return this.validatorFunc(this.title, value);
     }
-    return Validators.validate(this.title, value, this.validation);
+    return [];
   }
 
 }

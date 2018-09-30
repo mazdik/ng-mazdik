@@ -42,7 +42,7 @@ export class InputComponent implements OnInit {
   }
 
   hasError() {
-    const hasError = this.errors.length > 0;
+    const hasError = (this.errors && this.errors.length > 0);
     this.valid.emit(!hasError);
     return hasError;
   }

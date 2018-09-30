@@ -66,13 +66,6 @@ export interface Row {
   $$offset: number;
 }
 
-export interface Validation {
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: string | RegExp;
-}
-
 export interface ColumnMenuEventArgs {
   left: number;
   top: number;

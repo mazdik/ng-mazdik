@@ -2,7 +2,6 @@ import {ColumnBase} from './column-base';
 import {isBlank} from './util';
 import {SelectOption, DataType} from './types';
 import {Settings} from './settings';
-import {Validators} from './validators';
 import {DataFilter} from './data-filter';
 
 export class Column extends ColumnBase {
@@ -89,11 +88,11 @@ export class Column extends ColumnBase {
     return name || value;
   }
 
-  validate(value: any) {
+  validate(value: any): string[] {
     if (this.validatorFunc) {
       return this.validatorFunc(this.title, value);
     }
-    return Validators.validate(this.title, value, this.validation);
+    return [];
   }
 
   setWidth(width: number) {

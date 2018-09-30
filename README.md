@@ -8,7 +8,7 @@ The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Ser
 import {Component}  from '@angular/core';
 import {Column, Settings, DataSource, YiiService, DataManager} from '../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
-
+import {Validators} from '../../lib/validation/validators';
 
 @Component({
   selector: 'my-app',
@@ -43,7 +43,7 @@ export class PlayersComponent {
             name: 'name', 
             frozen: true, 
             width: 250,
-            validation: { required: true, pattern: '^[a-zA-Z ]+$' },
+            validatorFunc: Validators.get({required: true, minLength: 2, pattern: '^[a-zA-Z ]+$'}),
             editable: true,
         },
         {
@@ -87,7 +87,7 @@ export class PlayersComponent {
             title: 'Exp',
             name: 'exp',
             type: 'number',
-            validation: { required: true, minLength: 2, maxLength: 10 },
+            validatorFunc: Validators.get({required: true, minLength: 2, maxLength: 10}),
             editable: true,
         },
         {
@@ -236,7 +236,6 @@ export interface PageMetadata {
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
 | type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup | null | |
-| validation       | Validation | null    |             |
 | validatorFunc    | (name: string, value: any) => string[] | null | |
 | editable         | boolean    | false   |             |
 | resizeable       | boolean    | true    |             |

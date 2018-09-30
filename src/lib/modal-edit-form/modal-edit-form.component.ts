@@ -89,7 +89,6 @@ export class ModalEditFormComponent implements OnInit {
       element.options = column.options;
       element.optionsUrl = column.optionsUrl;
       element.type = column.type;
-      element.validation = column.validation;
       element.validatorFunc = column.validatorFunc;
       element.dependsElement = column.dependsColumn;
       element.cellTemplate = column.cellTemplate;
