@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ViewChild, ElementRef,
-  ChangeDetectionStrategy, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef
+  ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row} from '../../base';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @ViewChild('rowLeft') rowLeft: ElementRef;
 
-  private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 
   @HostBinding('class')
@@ -51,8 +50,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     return this.table.dimensions.columnsTotalWidth + 1;
   }
 
-  constructor(private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
-    this.rowDiffer = this.differs.find({}).create();
+  constructor(private cd: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -65,11 +63,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subRows = this.table.events.rowsChanged$.subscribe(() => {
-      if (this.rowDiffer.diff(this.row)) {
-        this.cd.markForCheck();
-      }
-    });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.rowLeft.nativeElement.style.transform = translate(this.table.dimensions.offsetX, 0);
       this.cd.markForCheck();
@@ -81,7 +74,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
-    this.subscriptions.push(subRows);
     this.subscriptions.push(subScroll);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);

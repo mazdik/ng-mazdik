@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef, HostBinding,
-  ChangeDetectionStrategy, DoCheck, KeyValueDiffers, KeyValueDiffer, ChangeDetectorRef, OnDestroy
+  ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy
 } from '@angular/core';
 import {DataTable, ColumnResizeMode} from '../../base';
 import {Subscription} from 'rxjs';
@@ -15,7 +15,7 @@ import {PageEvent} from '../../../lib/pagination';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
+export class DataTableComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
@@ -44,11 +44,9 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   loading: boolean;
-  private rowDiffer: KeyValueDiffer<{}, {}>;
   private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, private differs: KeyValueDiffers, private cd: ChangeDetectorRef) {
-    this.rowDiffer = this.differs.find({}).create();
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -92,12 +90,6 @@ export class DataTableComponent implements OnInit, DoCheck, OnDestroy {
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
     this.subscriptions.push(subLoading);
-  }
-
-  ngDoCheck(): void {
-    if (this.rowDiffer.diff(this.table.rows)) {
-      this.cd.markForCheck();
-    }
   }
 
   ngOnDestroy() {
