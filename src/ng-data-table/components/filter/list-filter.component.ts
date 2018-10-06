@@ -1,6 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
-  OnChanges, SimpleChanges, ViewChild
+  Component, OnChanges, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {Column, DataTable, DataFilter} from '../../base';
 
@@ -9,33 +8,21 @@ import {Column, DataTable, DataFilter} from '../../base';
   templateUrl: 'list-filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
+export class ListFilterComponent implements OnChanges {
 
   @Input() table: DataTable;
   @Input() column: Column;
   @Input() isOpen: boolean;
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('filterInput') filterInput: any;
-
-  searchFilterText: string;
   loading: boolean;
-  private selectedOptions: any[] = [];
+  selectedOptions: any[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
   }
 
-  ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    this.setFocus();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges() {
     if (this.isOpen) {
-      this.setFocus();
-      this.searchFilterText = null;
       this.loadFilter();
       this.loading = true;
       this.column.getFilterValues().then((res) => {
@@ -49,42 +36,6 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  setSelectedOptions(value: any) {
-    const index = this.selectedOptions.indexOf(value);
-    if (index > -1) {
-      this.selectedOptions.splice(index, 1);
-    } else {
-      if (this.column.multiSelectFilter) {
-        this.selectedOptions.push(value);
-      } else {
-        this.selectedOptions = [];
-        this.selectedOptions.push(value);
-      }
-    }
-  }
-
-  setSelected(value: any) {
-    this.setSelectedOptions(value);
-    if (!this.column.multiSelectFilter) {
-      this.saveFilter();
-      this.filterClose.emit(true);
-    }
-  }
-
-  checkAll() {
-    if (!this.loading) {
-      this.selectedOptions = this.column.filterValues.map(option => option.id);
-      if (!this.column.multiSelectFilter) {
-        this.saveFilter();
-        this.filterClose.emit(true);
-      }
-    }
-  }
-
-  isSelected(value: any): boolean {
-    return this.selectedOptions.indexOf(value) > -1;
-  }
-
   saveFilter() {
     const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
     this.table.dataFilter.setFilter([...this.selectedOptions], field, DataFilter.IN, null, this.column.dataType);
@@ -96,48 +47,14 @@ export class ListFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.selectedOptions = this.table.dataFilter.getFilterValue(field) || [];
   }
 
-  setFocus() {
-    if (this.filterInput) {
-      setTimeout(() => {
-        this.filterInput.nativeElement.focus();
-      }, 1);
-    }
-  }
-
-  onClickOk() {
+  onSelectionChange(event) {
+    this.selectedOptions = event;
     this.saveFilter();
     this.filterClose.emit(true);
   }
 
-  onClickCancel() {
+  onSelectionCancel() {
     this.filterClose.emit(true);
-  }
-
-  onClickClear() {
-    if (this.selectedOptions.length > 0) {
-      this.selectedOptions = [];
-      this.saveFilter();
-    }
-    this.filterClose.emit(true);
-  }
-
-  get allFilterSelected(): boolean {
-    return(this.column.filterValues &&
-      this.column.filterValues.length !== 0 &&
-      this.selectedOptions &&
-      this.selectedOptions.length === this.column.filterValues.length);
-  }
-
-  get partiallySelected(): boolean {
-    return this.selectedOptions.length !== 0 && !this.allFilterSelected;
-  }
-
-  onCheckboxAllClick() {
-    if (this.allFilterSelected) {
-      this.selectedOptions = [];
-    } else {
-      this.checkAll();
-    }
   }
 
 }
