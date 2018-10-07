@@ -1,6 +1,11 @@
 <dt-message [severity]="'danger'" [text]="this.dataManager.errors"></dt-message>
 
-<dt-toolbar #toolbar [table]="dataManager" (createAction)="onCreateAction()">
+<dt-toolbar #toolbar
+            [table]="dataManager"
+            [createAction]="dataManager.settings.crud"
+            [globalFilter]="dataManager.settings.globalFilter"
+            [exportAction]="dataManager.settings.exportAction"
+            (create)="createAction()">
 </dt-toolbar>
 
 <app-data-table [table]="dataManager"></app-data-table>

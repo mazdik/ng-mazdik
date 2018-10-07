@@ -1,4 +1,4 @@
-# Angular 6 CRUD data table using REST backend
+# Angular 7 CRUD data table using REST backend
 
 Feature-rich CRUD data table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
@@ -6,7 +6,7 @@ The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Ser
 ### Sample crud-table
 ```typescript
 import {Component}  from '@angular/core';
-import {Column, Settings, DataSource, YiiService, DataManager} from '../ng-crud-table';
+import {Column, CdtSettings, DataSource, YiiService, DataManager} from '../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
 import {Validators} from '../../lib/validation/validators';
 
@@ -112,7 +112,7 @@ export class PlayersComponent {
         }
     ];
 
-    settings: Settings = {
+    settings: CdtSettings = {
         crud: true,
         tableWidth: 820,
         bodyHeight: 380,
@@ -259,36 +259,41 @@ export interface PageMetadata {
 
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
-| crud             | boolean    | false   |             |
 | tableWidth       | number     | null    |             |
 | bodyHeight       | number     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
-| initLoad         | boolean    | true    |             |
 | clientSide       | boolean    | true    |             |
 | multipleSort     | boolean    | false   |             |
 | trackByProp      | string     | null    |             |
 | groupRowsBy      | string[]   | null    |             |
 | clearAllFiltersIcon | boolean | true    |             |
-| globalFilter     | boolean    | false   |             |
 | columnResizeMode | simple / aminated | simple |       |
 | selectionMultiple | boolean   | false   |             |
 | selectionMode    | checkbox / radio | null |          |
-| singleRowView    | boolean    | true    |             |
 | virtualScroll    | boolean    | false   |             |
 | rowClass         | string / Function | false |        |
 | headerTemplate   | TemplateRef | null |               |
 | headerRowHeight  | number     | null    | px, 0 - hide header |
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
-| zIndexModal      | number     | null    |             |
 | hoverEvents      | boolean    | false   | mouseover/mouseout |
 | contextMenu      | boolean    | false   | event       |
-| exportAction     | boolean    | false   | csv         |
 | editMode         | editCellOnDblClick / editProgrammatically | editCellOnDblClick |             |
 | actionColumnWidth | number    | 40      | px, 0 - hide |
 | rowActionTemplate | TemplateRef | null  |              |
 | paginator        | boolean    | true    |              |
+
+### CdtSettings extends Settings
+| Attribute        | Type       | Default | Description |
+|------------------|------------|---------|-------------|
+| crud             | boolean    | false   |             |
+| initLoad         | boolean    | true    |             |
+| globalFilter     | boolean    | false   |             |
+| singleRowView    | boolean    | true    |             |
+| zIndexModal      | number     | null    |             |
+| exportAction     | boolean    | false   | csv         |
+
 
 ```typescript
 interface SelectOption {

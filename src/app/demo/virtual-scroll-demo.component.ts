@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataTable, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -20,11 +20,11 @@ export class VirtualScrollDemoComponent implements OnInit {
   service: DataSource;
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: CdtSettings = <CdtSettings>{
     virtualScroll: true
   };
 
-  serverSideSettings: Settings = <Settings>{
+  serverSideSettings: CdtSettings = <CdtSettings>{
     virtualScroll: true
   };
 

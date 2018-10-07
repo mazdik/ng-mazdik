@@ -1,4 +1,4 @@
 export { DataManager } from './data-manager';
+export { CdtSettings } from './cdt-settings';
 export * from './types';
-export { Column } from '../../ng-data-table/base/column';
-export { Row, Filter, SortMetadata, SelectOption } from '../../ng-data-table';
+export { Row } from '../../ng-data-table';

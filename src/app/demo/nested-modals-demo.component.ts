@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -28,7 +28,7 @@ export class NestedModalsDemoComponent implements OnInit {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: CdtSettings = <CdtSettings>{
     crud: true,
     bodyHeight: 380,
     zIndexModal: 1110

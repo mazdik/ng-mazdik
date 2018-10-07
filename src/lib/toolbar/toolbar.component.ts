@@ -16,7 +16,15 @@ import {ExportCSV} from '../export/export-csv';
 export class ToolbarComponent implements OnInit, OnDestroy {
 
     @Input() table: DataTable;
-    @Output() createAction: EventEmitter<any> = new EventEmitter();
+    @Input() createAction: boolean;
+    @Input() globalFilter: boolean = true;
+    @Input() exportAction: boolean;
+    @Input() createMessage: string = 'Create';
+    @Input() goMessage: string = 'Go';
+    @Input() exportMessage: string = 'Export';
+    @Input() searchMessage: string = 'Search...';
+
+    @Output() create: EventEmitter<any> = new EventEmitter();
 
     @HostBinding('class') cssClass = 'datatable-toolbar';
 
@@ -53,7 +61,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
 
     createActionClick() {
-        this.createAction.emit();
+        this.create.emit();
     }
 
     getHeight() {

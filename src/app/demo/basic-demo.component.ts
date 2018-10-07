@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource, Message, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataSource, Message, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 import {SelectOption} from '../../ng-data-table';
@@ -16,7 +16,7 @@ export class BasicDemoComponent implements OnInit {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: CdtSettings = <CdtSettings>{
     crud: true,
     bodyHeight: 380,
     exportAction: true,

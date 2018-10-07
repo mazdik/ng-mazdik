@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataTable, DataSource, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -21,11 +21,8 @@ export class GlobalFilterDemoComponent implements OnInit {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
-    globalFilter: true,
-  };
-
-  serverSideSettings: Settings = <Settings>{
+  settings: CdtSettings;
+  serverSideSettings: CdtSettings = <CdtSettings>{
     globalFilter: true
   };
 

@@ -2,18 +2,20 @@ import {DataSource, RequestMetadata} from './types';
 import {Row, Filter} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
-import {Settings} from '../../ng-data-table/base/settings';
+import {CdtSettings} from './cdt-settings';
 import {Message} from '../../ng-data-table/base/message';
 
 export class DataManager extends DataTable {
 
+  settings: CdtSettings;
   service: DataSource;
   errors: any;
   item: any;
   refreshRowOnSave: boolean;
 
-  constructor(columns: ColumnBase[], settings: Settings, dataSource: DataSource, messages?: Message) {
+  constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: Message) {
     super(columns, settings, messages);
+    this.settings = new CdtSettings(settings);
     this.settings.clientSide = false;
     this.setService(dataSource);
   }

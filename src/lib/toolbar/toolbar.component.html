@@ -1,11 +1,11 @@
 <div class="dt-toolbar-row">
-    <div class="dt-toolbar-col" *ngIf="table.settings.crud">
+    <div class="dt-toolbar-col" *ngIf="createAction">
         <button type="button"
                 class="dt-toolbar-button"
                 (click)="createActionClick()">{{table.messages.create}}
         </button>
     </div>
-    <div class="dt-toolbar-col dt-global-filter" *ngIf="table.settings.globalFilter">
+    <div class="dt-toolbar-col dt-global-filter" *ngIf="globalFilter">
         <div class="dt-input-group">
             <input class="dt-input-element"
                     [attr.placeholder]="table.messages.search"
@@ -17,7 +17,7 @@
             </button>
         </div>
     </div>
-  <div class="dt-toolbar-col" *ngIf="table.settings.exportAction">
+  <div class="dt-toolbar-col" *ngIf="exportAction">
     <button class="dt-toolbar-button" (click)="downloadCsv()">{{table.messages.export}}</button>
   </div>
 </div>
