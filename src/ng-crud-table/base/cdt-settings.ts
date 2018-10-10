@@ -10,6 +10,9 @@ export class CdtSettings extends Settings {
 
   constructor(init: Partial<CdtSettings>) {
     super(init);
+    if (init) {
+      Object.assign(this, init);
+    }
   }
 
 }
