@@ -1,0 +1,174 @@
+import {
+  Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnDestroy, OnInit, ViewChild,
+  ViewEncapsulation, NgZone, ChangeDetectionStrategy
+} from '@angular/core';
+import {RowHeightCache} from './row-height-cache';
+
+@Component({
+  selector: 'app-scroller, [scroller]',
+  templateUrl: './scroller.component.html',
+  styleUrls: ['./scroller.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class ScrollerComponent implements OnInit, OnDestroy {
+
+  @Input()
+  get items(): any[] { return this._items; }
+  set items(val: any[]) {
+    this._items = val;
+    this.resetPosition();
+    this.chunkRows();
+  }
+  private _items: any[];
+
+  @Input() virtualScroll: boolean;
+  @Input() rowHeight: number;
+  @Input() itemsPerRow: number = 20;
+  @Input() rowHeightProp: string;
+
+  @HostBinding('style.height.px')
+  @Input() scrollHeight: number;
+
+  @HostBinding('style.width.px')
+  @Input() scrollWidth: number;
+
+  @Output() scroll: EventEmitter<any> = new EventEmitter();
+
+  @HostBinding('class.scroller') cssClass = true;
+  @HostBinding('class.virtual-scroll')
+  get isVirtualScroll(): boolean {
+    return this.virtualScroll;
+  }
+
+  @ViewChild('content') content: ElementRef;
+
+  scrollYPos: number = 0;
+  scrollXPos: number = 0;
+  prevScrollYPos: number = 0;
+  prevScrollXPos: number = 0;
+  element: HTMLElement;
+  scrollLength: number;
+  viewRows: any[];
+
+  private start: number;
+  private end: number;
+  private previousStart: number;
+  private previousEnd: number;
+  private rowHeightCache: RowHeightCache = new RowHeightCache();
+
+  constructor(element: ElementRef, private ngZone: NgZone) {
+    this.element = element.nativeElement;
+  }
+
+  ngOnInit() {
+    this.ngZone.runOutsideAngular(() => {
+      this.element.addEventListener('scroll', this.onScrolled.bind(this));
+    });
+  }
+
+  ngOnDestroy() {
+    this.element.removeEventListener('scroll', this.onScrolled.bind(this));
+  }
+
+  setOffsetY(offsetY: number) {
+    if (this.element) {
+      this.element.scrollTop = offsetY;
+    }
+  }
+
+  onScrolled(event: MouseEvent) {
+    const dom: Element = <Element>event.currentTarget;
+    this.scrollYPos = dom.scrollTop;
+    this.scrollXPos = dom.scrollLeft;
+
+    let direction: string;
+    if (this.scrollYPos < this.prevScrollYPos) {
+      direction = 'up';
+    } else if (this.scrollYPos > this.prevScrollYPos) {
+      direction = 'down';
+    }
+
+    if (this.prevScrollYPos !== this.scrollYPos || this.prevScrollXPos !== this.scrollXPos) {
+      if (direction && this.virtualScroll) {
+        this.chunkRows();
+        if (this.virtualScroll) {
+          let topPadding = this.rowHeight * this.start;
+          if (this.rowHeightProp) {
+            topPadding = this.rowHeightCache.getRowOffset(this.start - 1);
+          }
+          this.ngZone.runOutsideAngular(() => {
+            requestAnimationFrame(() => {
+              this.content.nativeElement.style.transform = `translateY(${topPadding}px)`;
+            });
+          });
+        }
+      }
+
+      this.scroll.emit({
+        direction,
+        scrollYPos: this.scrollYPos,
+        scrollXPos: this.scrollXPos
+      });
+      this.prevScrollYPos = this.scrollYPos;
+      this.prevScrollXPos = this.scrollXPos;
+    }
+  }
+
+  private calculateDimensions() {
+    if (this.rowHeightProp) {
+      this.rowHeightCache.initCache(this.items);
+    }
+    if (this.items && this.items.length) {
+      const totalRecords = this.items.length;
+      if (this.rowHeightProp) {
+        this.scrollLength = this.rowHeightCache.calcScrollLength(totalRecords);
+      } else {
+        this.scrollLength = this.rowHeight * totalRecords;
+      }
+    }
+    if (this.scrollHeight && this.rowHeight) {
+      this.itemsPerRow = Math.round(this.scrollHeight / this.rowHeight);
+    } else {
+      this.scrollHeight = this.calcBodyHeight(this.itemsPerRow, this.rowHeight);
+    }
+  }
+
+  private calcBodyHeight(perPage: number, rowHeight: number): number {
+    let height = (perPage * rowHeight);
+    if (height > 0) {
+      height -= rowHeight;
+    }
+    return height;
+  }
+
+  chunkRows(force: boolean = false) {
+    this.calculateDimensions();
+    const totalRecords = this.items.length;
+    if (this.rowHeightProp) {
+      this.start = this.rowHeightCache.calcRowIndex(this.scrollYPos);
+    } else {
+      this.start = Math.floor(this.scrollYPos / this.rowHeight);
+    }
+    this.end = Math.min(totalRecords, this.start + this.itemsPerRow + 1);
+    if ((this.end - this.start) <= this.itemsPerRow) {
+      this.start = totalRecords - this.itemsPerRow - 1;
+      this.end = totalRecords;
+    }
+
+    if (this.start !== this.previousStart || this.end !== this.previousEnd || force === true) {
+      const virtualRows = this.items.slice(this.start, this.end);
+      this.previousStart = this.start;
+      this.previousEnd = this.end;
+      this.viewRows = virtualRows;
+    }
+  }
+
+  resetPosition() {
+    this.start = 0;
+    this.end = 0;
+    this.previousStart = 0;
+    this.previousEnd = 0;
+  }
+
+}

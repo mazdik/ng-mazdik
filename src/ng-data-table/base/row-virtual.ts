@@ -45,12 +45,7 @@ export class RowVirtual {
   updatePage(direction: string): void {
     if (this.settings.virtualScroll && direction && this.pager) {
       let page = this.start / this.itemSize;
-      if (direction === 'up') {
-        page = Math.floor(page);
-      } else if (direction === 'down') {
-        page = Math.ceil(page);
-      }
-      page += 1;
+      page = Math.ceil(page) + 1;
       if (page !== this.pager.current) {
         this.pager.current = page;
         this.events.onPage();
