@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable, ColumnResizeMode} from '../../base';
 import {Subscription} from 'rxjs';
-import {BodyScrollDirective} from '../../directives/body-scroll.directive';
+import {BodyComponent} from '../body/body.component';
 import {HeaderComponent} from '../header/header.component';
 import {PageEvent} from '../../../lib/pagination';
 
@@ -22,16 +22,11 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;
-  @ViewChild(BodyScrollDirective) bodyScroll: BodyScrollDirective;
+  @ViewChild(BodyComponent) body: BodyComponent;
   @ViewChild(HeaderComponent) header: HeaderComponent;
 
   @HostBinding('class') cssClass = 'datatable';
   @HostBinding('attr.role') role = 'grid';
-
-  @HostBinding('class.scroll-vertical')
-  get isVirtualScroll(): boolean {
-    return this.table.settings.virtualScroll;
-  }
 
   @HostBinding('class.fixed-header')
   get isFixedHeader(): boolean {
@@ -101,8 +96,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     this.table.pager.perPage = event.perPage;
     this.table.events.onPage();
     if (this.table.settings.virtualScroll) {
-      const offset = this.table.rowVirtual.calcPageOffsetY(event.currentPage);
-      this.bodyScroll.setOffsetY(offset);
+      this.body.scroller.setPageOffsetY(event.currentPage);
     } else {
       if (this.table.settings.clientSide) {
         this.table.getLocalRows();
@@ -116,10 +110,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
     }
-    if (this.table.settings.virtualScroll && !this.table.settings.clientSide) {
-      this.bodyScroll.setOffsetY(0);
-    }
-    this.table.chunkRows(true);
     this.table.selection.clearSelection();
   }
 
@@ -127,10 +117,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
     if (this.table.settings.clientSide) {
       this.table.getLocalRows();
     }
-    if (this.table.settings.virtualScroll && !this.table.settings.clientSide) {
-      this.bodyScroll.setOffsetY(0);
-    }
-    this.table.chunkRows(true);
     this.table.selection.clearSelection();
   }
 

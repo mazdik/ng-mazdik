@@ -26,6 +26,7 @@ export class Settings {
   actionColumnWidth?: number = 40;
   rowActionTemplate?: TemplateRef<any>;
   paginator?: boolean = true;
+  rowHeightProp?: string;
 
   constructor(init: Partial<Settings>) {
     if (init) {

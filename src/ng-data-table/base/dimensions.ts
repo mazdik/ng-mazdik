@@ -1,6 +1,5 @@
 import {Column} from './column';
 import {Settings} from './settings';
-import {Row} from './types';
 
 export class Dimensions {
 
@@ -14,12 +13,9 @@ export class Dimensions {
   headerRowHeight: number;
   rowHeight: number = 30;
   summaryRowHeight: number = 30;
-  scrollHeight: number;
   offsetX: number = 0;
   offsetY: number = 0;
   headerTemplateHeight: number = 0;
-
-  private rowHeightCache: number[] = [];
 
   constructor(private settings: Settings, private columns: Column[]) {
     this.tableWidth = this.settings.tableWidth;
@@ -49,55 +45,6 @@ export class Dimensions {
     this.columnsTotalWidth = totalWidth + this.actionColumnWidth;
     this.frozenColumnsWidth = frozenWidth;
     this.scrollableColumnsWidth = scrollWidth;
-  }
-
-  calcBodyHeight(perPage: number) {
-    this.bodyHeight = (perPage * this.rowHeight);
-    if (this.bodyHeight > 0) {
-      this.bodyHeight -= this.rowHeight;
-    }
-  }
-
-  calcScrollHeight(totalRecords: number) {
-    this.scrollHeight = this.rowHeightCache[totalRecords - 1];
-  }
-
-  initRowHeightCache(rows: Row[]) {
-    const size = rows.length;
-    this.rowHeightCache = new Array(size);
-    for (let i = 0; i < size; ++i) {
-      this.rowHeightCache[i] = 0;
-    }
-    rows.forEach((row, i) => {
-      for (let index = i; index < size; index++) {
-        this.rowHeightCache[index] += row.$$height;
-      }
-      row.$$offset = (i === 0) ? 0 : this.rowHeightCache[i - 1];
-    });
-  }
-
-  calcRowIndex(offsetY: number): number {
-    if (offsetY === 0) {
-      return 0;
-    }
-    let pos = -1;
-    const dataLength = this.rowHeightCache.length;
-
-    for (let i = dataLength; i >= 0; i--) {
-      const nextPos = pos + i;
-      if (nextPos < dataLength && offsetY >= this.rowHeightCache[nextPos]) {
-        offsetY -= this.rowHeightCache[nextPos];
-        pos = nextPos;
-      }
-    }
-    return pos + 1;
-  }
-
-  getRowOffset(rowIndex: number) {
-    if (rowIndex < 0) {
-      return 0;
-    }
-    return this.rowHeightCache[rowIndex];
   }
 
 }

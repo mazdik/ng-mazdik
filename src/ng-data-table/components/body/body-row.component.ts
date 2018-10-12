@@ -42,7 +42,12 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.height.px')
   get rowHeight(): number {
-    return this.row.$$height;
+    if (this.table.settings.rowHeightProp) {
+      const rowHeight = this.row[this.table.settings.rowHeightProp];
+      return (rowHeight) ? rowHeight : this.table.dimensions.rowHeight;
+    } else {
+      return this.table.dimensions.rowHeight;
+    }
   }
 
   @HostBinding('style.width.px')

@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 import {PaginationModule} from '../lib/pagination';
+import {ScrollerModule} from '../lib/scroller';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -21,7 +22,6 @@ import {SummaryRowComponent} from './components/body/summary-row.component';
 import {BodyGroupRowComponent} from './components/body/body-group-row.component';
 import {SelectListComponent} from './components/select-list/select-list.component';
 
-import {BodyScrollDirective} from './directives/body-scroll.directive';
 import {ResizeableDirective} from './directives/resizeable.directive';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
@@ -35,6 +35,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     CommonModule,
     FormsModule,
     PaginationModule,
+    ScrollerModule,
   ],
   declarations: [
     HeaderComponent,
@@ -54,7 +55,6 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     SummaryRowComponent,
     BodyGroupRowComponent,
     SelectListComponent,
-    BodyScrollDirective,
     ResizeableDirective,
     BodyMouseoverDirective,
     BodyKeydownDirective,

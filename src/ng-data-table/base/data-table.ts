@@ -10,7 +10,6 @@ import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
 import {Message} from './message';
 import {RowGroup} from './row-group';
-import {RowVirtual} from './row-virtual';
 import {Sequence} from './sequence';
 
 export class DataTable {
@@ -28,7 +27,6 @@ export class DataTable {
   selection: DataSelection;
   dimensions: Dimensions;
   rowGroup: RowGroup;
-  rowVirtual: RowVirtual;
   localRows: Row[] = [];
 
   set rows(val: any) {
@@ -41,7 +39,6 @@ export class DataTable {
       this.rowGroup.updateRowGroupMetadata(this._rows);
     }
     this._rows = this.sequence.setRowIndexes(this._rows);
-    this.chunkRows(true);
     this.events.onRowsChanged();
   }
 
@@ -63,7 +60,6 @@ export class DataTable {
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
-    this.rowVirtual = new RowVirtual(this.settings, this.pager, this.dimensions, this.events);
     if (messages) {
       Object.assign(this.messages, messages);
     }
@@ -92,14 +88,6 @@ export class DataTable {
     this.columns = this.sequence.setColumnIndexes(this.columns);
   }
 
-  getRows() {
-    if (this.settings.virtualScroll) {
-      return this.rowVirtual.virtualRows;
-    } else {
-      return this._rows;
-    }
-  }
-
   setLocalRows(data: Row[]) {
     this.dataFilter.clear();
     this.sorter.clear();
@@ -116,7 +104,7 @@ export class DataTable {
       if (!this.settings.virtualScroll) {
         this._rows = this.pager.pager(this._rows);
       }
-      this._rows = this.sequence.setRowIndexes(this._rows);
+      this._rows = [].concat(this.sequence.setRowIndexes(this._rows));
       this.rowGroup.updateRowGroupMetadata(this._rows);
     }
   }
@@ -133,10 +121,6 @@ export class DataTable {
     return column.name;
   }
 
-  chunkRows(force: boolean = false) {
-    this.rowVirtual.chunkRows(this._rows, force);
-  }
-
   addRow(newRow: Row) {
     newRow = this.generateRow(newRow);
     this._rows.push(newRow);
@@ -149,7 +133,6 @@ export class DataTable {
       this.pager.total += 1;
     }
     this._rows = this.sequence.setRowIndexes(this._rows);
-    this.chunkRows(true);
     this.events.onRowsChanged();
     setTimeout(() => {
       this.events.onActivateCell(<CellEventArgs>{columnIndex: 0, rowIndex: newRow.$$index});
@@ -169,7 +152,6 @@ export class DataTable {
       this.pager.total -= 1;
     }
     this._rows = this.sequence.setRowIndexes(this._rows);
-    this.chunkRows(true);
     this.events.onRowsChanged();
   }
 
@@ -204,9 +186,6 @@ export class DataTable {
       row.$$uid = this.sequence.getUidRow();
     }
     row.$$data = Object.assign({}, row);
-    if (!row.$$height) {
-      row.$$height = this.dimensions.rowHeight;
-    }
     return row;
   }
 

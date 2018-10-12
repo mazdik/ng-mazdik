@@ -18,7 +18,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   set items(val: any[]) {
     this._items = val;
     this.resetPosition();
-    this.chunkRows();
+    this.chunkRows(true);
   }
   private _items: any[];
 
@@ -43,16 +43,22 @@ export class ScrollerComponent implements OnInit, OnDestroy {
 
   @ViewChild('content') content: ElementRef;
 
+  get viewRows(): any[] {
+    return (this.virtualScroll) ? this._viewRows : this.items;
+  }
+  set viewRows(val: any[]) {
+    this._viewRows = val;
+  }
+  private _viewRows: any[];
+
   scrollYPos: number = 0;
   scrollXPos: number = 0;
   prevScrollYPos: number = 0;
   prevScrollXPos: number = 0;
   element: HTMLElement;
   scrollLength: number;
-  viewRows: any[];
-
-  private start: number;
-  private end: number;
+  start: number;
+  end: number;
   private previousStart: number;
   private previousEnd: number;
   private rowHeightCache: RowHeightCache = new RowHeightCache();
@@ -69,12 +75,6 @@ export class ScrollerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.element.removeEventListener('scroll', this.onScrolled.bind(this));
-  }
-
-  setOffsetY(offsetY: number) {
-    if (this.element) {
-      this.element.scrollTop = offsetY;
-    }
   }
 
   onScrolled(event: MouseEvent) {
@@ -115,9 +115,26 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     }
   }
 
+  setOffsetY(offsetY: number) {
+    if (this.element) {
+      this.element.scrollTop = offsetY;
+    }
+  }
+
+  setPageOffsetY(page: number) {
+    const rowIndex = this.itemsPerRow * (page - 1);
+    let offset = 0;
+    if (this.rowHeightProp) {
+      offset = this.rowHeightCache.getRowOffset(rowIndex - 1);
+    } else {
+      offset = this.rowHeight * rowIndex;
+    }
+    this.setOffsetY(offset);
+  }
+
   private calculateDimensions() {
     if (this.rowHeightProp) {
-      this.rowHeightCache.initCache(this.items);
+      this.rowHeightCache.initCache(this.items, this.rowHeightProp);
     }
     if (this.items && this.items.length) {
       const totalRecords = this.items.length;
@@ -151,7 +168,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
       this.start = Math.floor(this.scrollYPos / this.rowHeight);
     }
     this.end = Math.min(totalRecords, this.start + this.itemsPerRow + 1);
-    if ((this.end - this.start) <= this.itemsPerRow) {
+    if ((this.end - this.start) < this.itemsPerRow) {
       this.start = totalRecords - this.itemsPerRow - 1;
       this.end = totalRecords;
     }

@@ -1,9 +1,9 @@
 import {
-  Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
+  Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import {DataTable, Row} from '../../base';
+import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
-import {translate} from '../../base/util';
+import {ScrollerComponent} from '../../../lib/scroller';
 
 @Component({
   selector: 'dt-body',
@@ -16,6 +16,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   @Input() loading: boolean;
 
   @HostBinding('class') cssClass = 'datatable-body';
+  @ViewChild(ScrollerComponent) scroller: ScrollerComponent;
 
   rowTrackingFn: Function;
   private subscriptions: Subscription[] = [];
@@ -30,31 +31,14 @@ export class BodyComponent implements OnInit, OnDestroy {
     }.bind(this);
   }
 
-  @HostBinding('style.height')
-  get bodyHeight() {
-    if (this.table.dimensions.bodyHeight) {
-      return this.table.dimensions.bodyHeight + 'px';
-    } else {
-      return 'auto';
-    }
-  }
-
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
-      this.cd.markForCheck();
-    });
-    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
-      if (event.direction) {
-        this.table.chunkRows();
-        this.table.rowVirtual.updatePage(event.direction);
-      }
       this.cd.markForCheck();
     });
     const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subRows);
-    this.subscriptions.push(subScroll);
     this.subscriptions.push(subFilter);
   }
 
@@ -62,16 +46,25 @@ export class BodyComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  styleTranslate(row: Row) {
-    if (this.table.settings.virtualScroll) {
-      return translate(0, row.$$offset);
+  updatePage(direction: string) {
+    if (this.table.settings.virtualScroll && direction && this.table.pager) {
+      let page = this.scroller.start / this.scroller.itemsPerRow;
+      page = Math.ceil(page) + 1;
+      if (page !== this.table.pager.current) {
+        this.table.pager.current = page;
+        this.table.events.onPage();
+      }
     }
   }
 
-  getScrollHeight() {
-    if (this.table.settings.virtualScroll) {
-      return this.table.dimensions.scrollHeight;
+  onScroll(event: any) {
+    this.table.dimensions.offsetY = event.scrollYPos;
+    this.table.dimensions.offsetX = event.scrollXPos;
+    this.table.events.onScroll(event);
+    if (event.direction) {
+      this.updatePage(event.direction);
     }
+    this.cd.markForCheck();
   }
 
 }

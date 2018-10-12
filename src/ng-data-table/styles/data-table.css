@@ -10,19 +10,6 @@
   box-sizing: border-box;
 }
 
-.datatable.scroll-vertical .datatable-body {
-  overflow-y: auto;
-}
-
-.datatable.scroll-vertical .datatable-body .datatable-body-row {
-  position: absolute;
-}
-
-.datatable-body {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
 .datatable-header-cell,
 .datatable-body-cell,
 .datatable-body-group-cell {

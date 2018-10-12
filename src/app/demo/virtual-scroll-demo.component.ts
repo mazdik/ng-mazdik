@@ -21,7 +21,8 @@ export class VirtualScrollDemoComponent implements OnInit {
   dataManager: DataManager;
 
   settings: CdtSettings = <CdtSettings>{
-    virtualScroll: true
+    virtualScroll: true,
+    rowHeightProp: '$$height',
   };
 
   serverSideSettings: CdtSettings = <CdtSettings>{

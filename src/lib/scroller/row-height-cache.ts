@@ -6,7 +6,7 @@ export class RowHeightCache {
     return this.cache[totalRecords - 1];
   }
 
-  initCache(rows: any[]) {
+  initCache(rows: any[], rowHeightProp: string) {
     const size = rows.length;
     this.cache = new Array(size);
     for (let i = 0; i < size; ++i) {
@@ -14,9 +14,8 @@ export class RowHeightCache {
     }
     rows.forEach((row, i) => {
       for (let index = i; index < size; index++) {
-        this.cache[index] += row.$$height;
+        this.cache[index] += row[rowHeightProp];
       }
-      row.$$offset = (i === 0) ? 0 : this.cache[i - 1];
     });
   }
 

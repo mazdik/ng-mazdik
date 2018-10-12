@@ -130,6 +130,10 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onRowMenuClick(event: any, row: Row) {
+    const el = event.target.parentNode.parentNode.parentNode; // row
+    const rowHeight = el.offsetHeight;
+    const rowTop = el.offsetTop + rowHeight;
+
     const rowChanged = this.dataManager.rowChanged(row);
     let menuIndex = this.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
     if (menuIndex > -1) {
@@ -145,9 +149,13 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
     let top = alertHeight + toolbarHeight + this.dt.getHeaderHeight();
-    top += (row.$$offset + row.$$height);
-    top -= this.dataManager.dimensions.offsetY;
-    this.rowMenu.show(<MenuEventArgs>{'left': left, 'top': top, 'data': row, 'rowHeight': row.$$height});
+    top += rowTop;
+    if (this.dataManager.settings.virtualScroll) {
+      top -= (this.dataManager.dimensions.offsetY) ? 17 : 0;
+    } else {
+      top -= this.dataManager.dimensions.offsetY;
+    }
+    this.rowMenu.show(<MenuEventArgs>{'left': left, 'top': top, 'data': row, 'rowHeight': rowHeight});
   }
 
   createAction() {
@@ -191,7 +199,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onFilter() {
     if (this.dataManager.settings.virtualScroll) {
-      this.dataManager.rowVirtual.resetPosition();
+      this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
       this.dataManager.pager.cache = {};
     }
@@ -200,7 +208,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onSort() {
     if (this.dataManager.settings.virtualScroll) {
-      this.dataManager.rowVirtual.resetPosition();
+      this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
       this.dataManager.pager.cache = {};
     }

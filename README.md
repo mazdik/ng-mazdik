@@ -283,6 +283,7 @@ export interface PageMetadata {
 | actionColumnWidth | number    | 40      | px, 0 - hide |
 | rowActionTemplate | TemplateRef | null  |              |
 | paginator        | boolean    | true    |              |
+| rowHeightProp    | string     | null    |              |
 
 ### CdtSettings extends Settings
 | Attribute        | Type       | Default | Description |
