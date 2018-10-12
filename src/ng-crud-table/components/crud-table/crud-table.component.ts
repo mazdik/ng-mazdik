@@ -40,7 +40,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
-      this.dataManager.getItems().then();
+      this.dataManager.loadItems();
     }
     this.dataManager.settings.rowActionTemplate = this.rowActionTemplate;
 
@@ -148,7 +148,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const left = 0;
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
-    let top = alertHeight + toolbarHeight + this.dt.getHeaderHeight();
+    let top = alertHeight + toolbarHeight + this.dt.header.getHeight();
     top += rowTop;
     if (this.dataManager.settings.virtualScroll) {
       top -= (this.dataManager.dimensions.offsetY) ? 17 : 0;
@@ -188,31 +188,25 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged() {
-    if (this.dataManager.settings.virtualScroll) {
-      if (!this.dataManager.pager.isViewed()) {
-        this.dataManager.getItems(true).then();
-      }
-    } else {
-      this.dataManager.getItems().then();
-    }
+    this.dataManager.loadItems();
   }
 
   onFilter() {
     if (this.dataManager.settings.virtualScroll) {
       this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
-      this.dataManager.pager.cache = {};
+      this.dataManager.pagerCache = {};
     }
-    this.dataManager.getItems().then();
+    this.dataManager.loadItems();
   }
 
   onSort() {
     if (this.dataManager.settings.virtualScroll) {
       this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
-      this.dataManager.pager.cache = {};
+      this.dataManager.pagerCache = {};
     }
-    this.dataManager.getItems().then();
+    this.dataManager.loadItems();
   }
 
   onSelectedRow() {

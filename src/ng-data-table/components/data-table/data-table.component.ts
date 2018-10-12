@@ -152,8 +152,4 @@ export class DataTableComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  getHeaderHeight() {
-    return this.header.getHeight();
-  }
-
 }

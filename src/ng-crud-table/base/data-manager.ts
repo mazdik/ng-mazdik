@@ -12,6 +12,7 @@ export class DataManager extends DataTable {
   errors: any;
   item: any;
   refreshRowOnSave: boolean;
+  pagerCache: any = {};
 
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: Message) {
     super(columns, settings, messages);
@@ -34,7 +35,14 @@ export class DataManager extends DataTable {
     this.service.primaryKeys = this.columns.filter(col => col.isPrimaryKey).map(col => col.name);
   }
 
+  loadItems() {
+    this.getItems(this.settings.virtualScroll).then();
+  }
+
   getItems(concatRows: boolean = false): Promise<any> {
+    if (concatRows === true && this.pagerCache[this.pager.current]) {
+      return Promise.resolve();
+    }
     this.events.onLoading(true);
     this.errors = null;
     this.rowGroup.setSortMetaGroup();
@@ -44,14 +52,19 @@ export class DataManager extends DataTable {
       sortMeta: this.sorter.sortMeta,
       globalFilterValue: this.dataFilter.globalFilterValue,
     };
+
     return this.service
       .getItems(requestMeta)
       .then(data => {
         this.events.onLoading(false);
-        this.pager.total = data._meta.totalCount;
-        this.pager.perPage = data._meta.perPage;
         this.rows = (concatRows) ? this.rows.concat(data.items) : data.items;
-        this.pager.setCache();
+        if (concatRows) {
+          this.pager.total = (data._meta.totalCount > this.rows.length) ? this.rows.length + 1 : this.rows.length;
+        } else {
+          this.pager.total = data._meta.totalCount;
+        }
+        this.pager.perPage = data._meta.perPage;
+        this.pagerCache[this.pager.current] = true;
       })
       .catch(error => {
         this.events.onLoading(false);
