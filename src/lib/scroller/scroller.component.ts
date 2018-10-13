@@ -17,8 +17,10 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   get items(): any[] { return this._items; }
   set items(val: any[]) {
     this._items = val;
-    this.resetPosition();
-    this.chunkRows(true);
+    if (this.virtualScroll) {
+      this.resetPosition();
+      this.chunkRows(true);
+    }
   }
   private _items: any[];
 
@@ -92,17 +94,15 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     if (this.prevScrollYPos !== this.scrollYPos || this.prevScrollXPos !== this.scrollXPos) {
       if (direction && this.virtualScroll) {
         this.chunkRows();
-        if (this.virtualScroll) {
-          let topPadding = this.rowHeight * this.start;
-          if (this.rowHeightProp) {
-            topPadding = this.rowHeightCache.getRowOffset(this.start - 1);
-          }
-          this.ngZone.runOutsideAngular(() => {
-            requestAnimationFrame(() => {
-              this.content.nativeElement.style.transform = `translateY(${topPadding}px)`;
-            });
-          });
+        let topPadding = this.rowHeight * this.start;
+        if (this.rowHeightProp) {
+          topPadding = this.rowHeightCache.getRowOffset(this.start - 1);
         }
+        this.ngZone.runOutsideAngular(() => {
+          requestAnimationFrame(() => {
+            this.content.nativeElement.style.transform = `translateY(${topPadding}px)`;
+          });
+        });
       }
 
       this.scroll.emit({

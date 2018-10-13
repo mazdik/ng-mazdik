@@ -1,0 +1,55 @@
+.dt-radio {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  vertical-align: middle;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.dt-radio input[type='radio'] {
+  position: relative;
+  margin: 0 1rem 0 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.dt-radio input[type='radio']:before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 0;
+  z-index: 1;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+}
+
+.dt-radio input[type='radio']:checked:before {
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  background: #5b9bd5;
+  position: absolute;
+  left: 0.5rem;
+  top: 0.15rem;
+}
+
+.dt-radio input[type='radio']:after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  background: #fff;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 100%;
+}
+
+.dt-radio input + label {
+  padding-left: 3px;
+}

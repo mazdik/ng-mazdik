@@ -8,7 +8,7 @@ import {DynamicFormElement} from './dynamic-form-element';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: 'dynamic-form.component.html',
-  styleUrls: ['dynamic-form.component.css'],
+  styleUrls: ['dynamic-form.component.css', '../styles/checkbox.css', '../styles/radio.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

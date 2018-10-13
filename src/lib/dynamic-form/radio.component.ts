@@ -8,7 +8,7 @@ import {InputOptionComponent} from './input-option.component';
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
-        <span class="datatable-radio">
+        <span class="dt-radio">
           <input
             type="radio"
             [(ngModel)]="model"

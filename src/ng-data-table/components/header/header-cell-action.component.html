@@ -1,5 +1,5 @@
 <span *ngIf="isCheckboxable && table.settings.selectionMode"
-      class="{{'datatable-' + table.settings.selectionMode}}">
+      class="{{'dt-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"
              [checked]="allRowsSelected"
              [indeterminate]="partiallySelected"

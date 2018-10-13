@@ -6,7 +6,7 @@
 <div class="filter-menu">
   <ul class="list-menu">
     <li *ngIf="multiple">
-      <span class="datatable-checkbox" (click)="onCheckboxAllClick()">
+      <span class="dt-checkbox" (click)="onCheckboxAllClick()">
         <input type="checkbox"
                [checked]="allSelected"
                [indeterminate]="partiallySelected"/>
@@ -25,7 +25,7 @@
       </ng-container>
 
       <ng-container *ngIf="multiple">
-        <span class="datatable-checkbox" (click)="setSelected(option.id)">
+        <span class="dt-checkbox" (click)="setSelected(option.id)">
           <input type="checkbox"
                  [checked]="isSelected(option.id)"/>
           <label>{{option.name}}</label>

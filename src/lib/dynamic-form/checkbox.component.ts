@@ -8,7 +8,7 @@ import {InputOptionComponent} from './input-option.component';
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
-        <span class="datatable-checkbox">
+        <span class="dt-checkbox">
           <input
             type="checkbox"
             [(ngModel)]="model"

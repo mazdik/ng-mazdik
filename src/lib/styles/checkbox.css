@@ -1,4 +1,4 @@
-.datatable-radio {
+.dt-checkbox {
   position: relative;
   margin: 0;
   cursor: pointer;
@@ -8,14 +8,14 @@
   padding: 0;
 }
 
-.datatable-radio input[type='radio'] {
+.dt-checkbox input[type='checkbox'] {
   position: relative;
   margin: 0 1rem 0 0;
   cursor: pointer;
   outline: none;
 }
 
-.datatable-radio input[type='radio']:before {
+.dt-checkbox input[type='checkbox']:before {
   content: "";
   position: absolute;
   top: -25%;
@@ -24,20 +24,19 @@
   width: 2rem;
   height: 2rem;
   border: 1px solid #ccc;
-  border-radius: 100%;
+  border-radius: 2px;
 }
 
-.datatable-radio input[type='radio']:checked:before {
-  width: 1rem;
+.dt-checkbox input[type='checkbox']:checked:before {
+  transform: rotate(-45deg);
   height: 1rem;
-  border: none;
-  background: #5b9bd5;
-  position: absolute;
-  left: 0.5rem;
-  top: 0.15rem;
+  border: 3px solid #5b9bd5;
+  border-top-style: none;
+  border-right-style: none;
+  top: -5%;
 }
 
-.datatable-radio input[type='radio']:after {
+.dt-checkbox input[type='checkbox']:after {
   content: "";
   position: absolute;
   top: -25%;
@@ -47,9 +46,17 @@
   background: #fff;
   cursor: pointer;
   border: 1px solid #ccc;
-  border-radius: 100%;
+  border-radius: 2px;
 }
 
-.datatable-radio input + label {
+.dt-checkbox input + label {
   padding-left: 3px;
+}
+
+.dt-checkbox input[type='checkbox']:indeterminate:before {
+  transform: rotate(0deg);
+  height: 1rem;
+  border: 3px #5b9bd5;
+  border-bottom-style: solid;
+  top: -8%;
 }
