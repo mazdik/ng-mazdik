@@ -4,11 +4,11 @@ import {FormsModule} from '@angular/forms';
 
 import {PaginationModule} from '../lib/pagination';
 import {ScrollerModule} from '../lib/scroller';
+import {SelectListModule} from '../lib/select-list';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
 import {FilterComponent} from './components/filter/filter.component';
-import {FilterPipe} from './pipes/filter.pipe';
 import {StringFilterComponent} from './components/filter/string-filter.component';
 import {ListFilterComponent} from './components/filter/list-filter.component';
 import {RangeFilterComponent} from './components/filter/range-filter.component';
@@ -20,7 +20,6 @@ import {BodyCellActionComponent} from './components/body/body-cell-action.compon
 import {DataTableComponent} from './components/data-table/data-table.component';
 import {SummaryRowComponent} from './components/body/summary-row.component';
 import {BodyGroupRowComponent} from './components/body/body-group-row.component';
-import {SelectListComponent} from './components/select-list/select-list.component';
 
 import {ResizeableDirective} from './directives/resizeable.directive';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
@@ -36,13 +35,13 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     FormsModule,
     PaginationModule,
     ScrollerModule,
+    SelectListModule,
   ],
   declarations: [
     HeaderComponent,
     HeaderCellComponent,
     HeaderCellActionComponent,
     FilterComponent,
-    FilterPipe,
     StringFilterComponent,
     ListFilterComponent,
     RangeFilterComponent,
@@ -54,7 +53,6 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     DataTableComponent,
     SummaryRowComponent,
     BodyGroupRowComponent,
-    SelectListComponent,
     ResizeableDirective,
     BodyMouseoverDirective,
     BodyKeydownDirective,
