@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, AfterViewInit, ViewEncapsulation, ChangeDetectionStrategy,
+  Component, Input, Output, EventEmitter, OnInit, AfterViewInit, ViewEncapsulation, ChangeDetectionStrategy,
   OnChanges, ViewChild, SimpleChanges
 } from '@angular/core';
 
@@ -10,16 +10,16 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectListComponent implements AfterViewInit, OnChanges {
+export class SelectListComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() options: any[];
   @Input() selectedOptions: any[] = [];
   @Input() multiple: boolean;
   @Input() isOpen: boolean;
-  @Input() selectAllMessage: string = 'Select all';
-  @Input() cancelMessage: string = 'Cancel';
-  @Input() clearMessage: string = 'Clear';
-  @Input() searchMessage: string = 'Search...';
+  @Input() selectAllMessage: string;
+  @Input() cancelMessage: string;
+  @Input() clearMessage: string;
+  @Input() searchMessage: string;
 
   @Output() selectionChange: EventEmitter<any[]> = new EventEmitter();
   @Output() selectionCancel: EventEmitter<boolean> = new EventEmitter();
@@ -29,6 +29,13 @@ export class SelectListComponent implements AfterViewInit, OnChanges {
   private selectedOptionsOld: any[] = [];
 
   constructor() {
+  }
+
+  ngOnInit() {
+    this.selectAllMessage = this.selectAllMessage || 'Select all';
+    this.cancelMessage = this.cancelMessage || 'Cancel';
+    this.clearMessage = this.clearMessage || 'Clear';
+    this.searchMessage = this.searchMessage || 'Search...';
   }
 
   ngAfterViewInit() {

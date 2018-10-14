@@ -9,7 +9,7 @@ import {ExportCSV} from '../export/export-csv';
 @Component({
     selector: 'dt-toolbar',
     templateUrl: './toolbar.component.html',
-    styleUrls: ['toolbar.component.css'],
+    styleUrls: ['toolbar.component.css', '../styles/input-group.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })

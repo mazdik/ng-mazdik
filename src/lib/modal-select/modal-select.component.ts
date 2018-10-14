@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy,
+  Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy,
   ChangeDetectorRef
 } from '@angular/core';
 import {PageEvent} from '../../lib/pagination';
@@ -12,12 +12,12 @@ export interface SelectItem {
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: ['modal-select.component.css'],
+  styleUrls: ['modal-select.component.css', '../styles/input-group.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 
-export class ModalSelectComponent implements OnInit {
+export class ModalSelectComponent {
 
   @Input()
   set options(val: SelectItem[]) {
@@ -74,9 +74,6 @@ export class ModalSelectComponent implements OnInit {
   private _model: any;
 
   constructor(private cd: ChangeDetectorRef) {
-  }
-
-  ngOnInit() {
   }
 
   open() {

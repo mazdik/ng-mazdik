@@ -55,36 +55,6 @@
   content: "\21b5";
 }
 
-.select-input-group {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  width: 100%;
-}
-
-.select-input-group input:not(:last-child) {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: 0;
-}
-
-.select-input-group input {
-  position: relative;
-  width: 1%;
-  margin-bottom: 0;
-  flex: 1 1 auto;
-}
-
-.select-input-group input:focus {
-  box-shadow: none;
-}
-
-.select-input-group button:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
 .select-list {
   list-style: none;
   padding: 0;

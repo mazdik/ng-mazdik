@@ -1,0 +1,24 @@
+<div class="dt-input-group" (click)="onClick()">
+  <input class="select-input"
+         readonly="readonly"
+         value="{{selectedName}}"
+         placeholder="Select">
+  <button type="button" class="select-button-open">
+    <i class="icon asc" *ngIf="isOpen"></i>
+    <i class="icon desc" *ngIf="!isOpen"></i>
+  </button>
+</div>
+<div class="dropdown-select-list" *ngIf="isOpen">
+  <app-select-list
+      [options]="options"
+      [selectedOptions]="selectedOptions"
+      [multiple]="multiple"
+      [isOpen]="isOpen"
+      [selectAllMessage]="selectAllMessage"
+      [cancelMessage]="cancelMessage"
+      [clearMessage]="clearMessage"
+      [searchMessage]="searchMessage"
+      (selectionChange)="onSelectionChange($event)"
+      (selectionCancel)="onSelectionCancel()">
+  </app-select-list>
+</div>
