@@ -1,6 +1,6 @@
 import {
-  Component, Input, Output, EventEmitter, OnInit, AfterViewInit, ViewEncapsulation, ChangeDetectionStrategy,
-  OnChanges, ViewChild, SimpleChanges
+  Component, Input, Output, EventEmitter, OnInit, ViewEncapsulation, ChangeDetectionStrategy,
+  ViewChild
 } from '@angular/core';
 
 @Component({
@@ -10,23 +10,40 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectListComponent implements OnInit, AfterViewInit, OnChanges {
+export class SelectListComponent implements OnInit {
 
   @Input() options: any[];
-  @Input() selectedOptions: any[] = [];
   @Input() multiple: boolean;
-  @Input() isOpen: boolean;
   @Input() selectAllMessage: string;
   @Input() cancelMessage: string;
   @Input() clearMessage: string;
   @Input() searchMessage: string;
 
-  @Output() selectionChange: EventEmitter<any[]> = new EventEmitter();
+  @Input('selected')
+  get model(): any[] { return this._model; }
+  set model(val: any[]) {
+    this._model = val;
+    this.selectedOptions = (val && val.length) ? val.slice(0) : [];
+  }
+  private _model: any[] = [];
+
+  @Input()
+  get isOpen(): boolean { return this._isOpen; }
+  set isOpen(val: boolean) {
+    this._isOpen = val;
+    if (val === true) {
+      this.setFocus();
+      this.searchFilterText = null;
+    }
+  }
+  private _isOpen: boolean;
+
+  @Output() selectionChange: EventEmitter<any> = new EventEmitter();
   @Output() selectionCancel: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
   searchFilterText: string;
-  private selectedOptionsOld: any[] = [];
+  private selectedOptions: any[] = [];
 
   constructor() {
   }
@@ -36,20 +53,6 @@ export class SelectListComponent implements OnInit, AfterViewInit, OnChanges {
     this.cancelMessage = this.cancelMessage || 'Cancel';
     this.clearMessage = this.clearMessage || 'Clear';
     this.searchMessage = this.searchMessage || 'Search...';
-  }
-
-  ngAfterViewInit() {
-    this.setFocus();
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.selectedOptions) {
-      this.selectedOptionsOld = this.selectedOptions.slice(0);
-    }
-    if (changes.isOpen && this.isOpen) {
-      this.setFocus();
-      this.searchFilterText = null;
-    }
   }
 
   setSelectedOptions(value: any) {
@@ -97,7 +100,7 @@ export class SelectListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onClickCancel() {
-    this.selectedOptions = this.selectedOptionsOld.slice(0);
+    this.selectedOptions = this.model.slice(0);
     this.selectionCancel.emit(true);
   }
 
@@ -128,12 +131,12 @@ export class SelectListComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   selectionChangeEmit() {
-    if (this.selectedOptionsOld.length === this.selectedOptions.length
-      && this.selectedOptionsOld.every((value, index) => value === this.selectedOptions[index])) {
+    if (this.model.length === this.selectedOptions.length
+      && this.model.every((value, index) => value === this.selectedOptions[index])) {
         this.selectionCancel.emit(true);
     } else {
-      this.selectedOptionsOld = this.selectedOptions.slice(0);
-      this.selectionChange.emit(this.selectedOptions);
+      this.model = this.selectedOptions.slice(0);
+      this.selectionChange.emit(this.model);
     }
   }
 

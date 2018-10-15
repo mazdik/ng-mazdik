@@ -51,7 +51,6 @@ export class DropdownSelectComponent extends Dropdown {
   }
 
   onSelectionChange(event) {
-    this.selectedOptions = event;
     this.selectedName = this.getName(event);
     this.selectionChangeEmit(event);
     this.isOpen = false;

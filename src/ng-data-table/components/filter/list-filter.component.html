@@ -1,7 +1,7 @@
 <i class="icon-collapsing" *ngIf="loading"></i>
 <app-select-list *ngIf="!loading"
                  [options]="column.filterValues"
-                 [selectedOptions]="selectedOptions"
+                 [selected]="selectedOptions"
                  [multiple]="column.multiSelectFilter"
                  [isOpen]="isOpen"
                  [selectAllMessage]="table.messages.selectAll"
