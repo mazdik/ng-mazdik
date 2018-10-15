@@ -148,6 +148,9 @@ export class ScrollerComponent implements OnInit, OnDestroy {
       this.itemsPerRow = Math.round(this.scrollHeight / this.rowHeight);
     } else {
       this.scrollHeight = this.itemsPerRow * this.rowHeight;
+      if (this.scrollHeight > 0) {
+        this.scrollHeight -= this.rowHeight; // for lazy load
+      }
     }
   }
 
