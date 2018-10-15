@@ -9,17 +9,6 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 
-.filter-menu {
-  height: auto;
-  overflow-y: auto;
-  min-width: 160px;
-  max-height: 200px;
-}
-
-.filter-menu input[type="datetime-local"] {
-  padding: 6px 4px;
-}
-
 .dt-filter-input,
 .dt-filter-select {
     display: block;
@@ -34,7 +23,7 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
-  
+
 .dt-filter-input.sm,
 .dt-filter-select.sm {
     padding: 3px 9px;

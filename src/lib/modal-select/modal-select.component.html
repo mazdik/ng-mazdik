@@ -1,14 +1,13 @@
-<div class="dt-input-group">
+<div class="dt-input-group" (click)="open()">
   <input class="select-input"
          readonly="readonly"
          value="{{selectedName}}"
          placeholder="Select"
          [disabled]="disabled">
-  <button type="button" class="select-button-open" (click)="open()">
+  <button type="button" class="select-button-open">
     <i class="select-icon-return"></i>
   </button>
 </div>
-<input type="hidden" [(ngModel)]="model">
 
 <app-modal #modal [modalTitle]="modalTitle" [width]="400" [zIndex]="zIndex">
   <ng-container class="app-modal-body">

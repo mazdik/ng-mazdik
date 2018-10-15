@@ -25,17 +25,18 @@
       [row]="table.rowGroup.getRowGroupSummary(row)">
     </dt-summary-row>
   </ng-container>
+
+  <dt-summary-row
+    *ngIf="table.rowGroup.aggregationEnabled()"
+    [table]="table"
+    [row]="table.rowGroup.grandTotalRow">
+  </dt-summary-row>
+
+  <div class="datatable-empty-row"
+       *ngIf="!table.rows?.length"
+       [style.width.px]="table.dimensions.columnsTotalWidth">
+    <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
+    <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
+  </div>
+
 </app-scroller>
-
-<dt-summary-row
-  *ngIf="table.rowGroup.aggregationEnabled()"
-  [table]="table"
-  [row]="table.rowGroup.grandTotalRow">
-</dt-summary-row>
-
-<div class="datatable-empty-row"
-      *ngIf="!table.rows?.length"
-      [style.width.px]="table.dimensions.columnsTotalWidth">
-  <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
-  <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
-</div>

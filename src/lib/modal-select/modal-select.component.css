@@ -1,49 +1,58 @@
 @import "./clearable-input.css";
 
 .select-header {
-    margin: 3px 0;
+  margin: 3px 0;
 }
+
+.modal-select .dt-input-group input {
+  cursor: pointer;
+}
+
 .select-input {
-    display: block;
-    width: 100%;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
+
 .select-input:focus {
-    color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
+
 .select-input[readonly] {
-    background-color: white;
-    opacity: 1;
-    cursor: default;
+  background-color: white;
+  opacity: 1;
+  cursor: default;
 }
+
 .select-input[disabled] {
   background-color: #eee;
   opacity: 1;
   cursor: default;
 }
+
 .select-button-open {
-    background-color: #5b9bd5;
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    cursor: pointer;
-    user-select: none;
-    outline: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  cursor: pointer;
+  user-select: none;
+  outline: 0;
 }
+
 .select-button-open:active {
-    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+  box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
 }
 
 .select-icon-return {

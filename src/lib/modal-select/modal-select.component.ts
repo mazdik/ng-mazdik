@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy,
+  Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, HostBinding,
   ChangeDetectorRef
 } from '@angular/core';
 import {PageEvent} from '../../lib/pagination';
@@ -60,6 +60,7 @@ export class ModalSelectComponent {
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
+  @HostBinding('class.modal-select') cssClass = true;
   @ViewChild('modal') readonly modal: any;
   searchFilterText: any;
   currentPage: number = 1;

@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding
 } from '@angular/core';
+import {Dropdown} from './dropdown';
 
 export interface SelectItem {
   id: any;
@@ -15,36 +16,45 @@ export interface SelectItem {
   encapsulation: ViewEncapsulation.None,
 })
 
-export class DropdownSelectComponent {
+export class DropdownSelectComponent extends Dropdown {
 
   @Input() options: SelectItem[];
-  @Input() selectedOptions: SelectItem[] = [];
   @Input() multiple: boolean;
   @Input() selectAllMessage: string;
   @Input() cancelMessage: string;
   @Input() clearMessage: string;
   @Input() searchMessage: string;
+  @Input() placeholder: string = 'Select';
 
-  @Output() selectionChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input()
+  set value(val: any) {
+    if (Array.isArray(val)) {
+      this.selectedOptions = [...val];
+    } else {
+      this.selectedOptions = [];
+      if (val) {
+        this.selectedOptions.push(val);
+      }
+    }
+    this.selectedName = this.getName(this.selectedOptions);
+  }
+
+  @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   @HostBinding('class.dropdown-select') cssClass = true;
 
-  isOpen: boolean;
+  selectedOptions: SelectItem[] = [];
   selectedName: string;
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
-
-  onClick() {
-    this.isOpen = !this.isOpen;
+  constructor(cd: ChangeDetectorRef) {
+    super(cd);
   }
 
   onSelectionChange(event) {
     this.selectedOptions = event;
     this.selectedName = this.getName(event);
-    this.selectionChange.emit(event);
+    this.selectionChangeEmit(event);
     this.isOpen = false;
-    this.cd.markForCheck();
   }
 
   onSelectionCancel() {
@@ -61,6 +71,15 @@ export class DropdownSelectComponent {
         });
         return (option) ? option.name : '';
       }
+    }
+  }
+
+  selectionChangeEmit(items: any) {
+    if (!this.multiple) {
+      const value = (items && items.length) ? items[0] : null;
+      this.valueChange.emit(value);
+    } else {
+      this.valueChange.emit(items);
     }
   }
 

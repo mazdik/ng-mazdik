@@ -1,3 +1,10 @@
+.list-menu-scroll {
+  height: auto;
+  overflow-y: auto;
+  min-width: 160px;
+  max-height: 200px;
+}
+
 .list-menu {
   list-style: none;
   padding: 0;
@@ -38,10 +45,9 @@
 
 .list-menu-row span + span {
   margin-left: 2%;
- }
+}
 
-
- .select-list-filter-input {
+.select-list-filter-input {
   display: block;
   width: 100%;
   padding: 6px 12px;
@@ -54,12 +60,12 @@
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   margin-bottom: 5px;
- }
+}
 
- .select-list-filter-input:focus {
+.select-list-filter-input:focus {
   color: #495057;
   background-color: #fff;
   border-color: #80bdff;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
- }
+}

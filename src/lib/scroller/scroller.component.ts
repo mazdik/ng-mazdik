@@ -147,16 +147,8 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     if (this.scrollHeight && this.rowHeight) {
       this.itemsPerRow = Math.round(this.scrollHeight / this.rowHeight);
     } else {
-      this.scrollHeight = this.calcBodyHeight(this.itemsPerRow, this.rowHeight);
+      this.scrollHeight = this.itemsPerRow * this.rowHeight;
     }
-  }
-
-  private calcBodyHeight(perPage: number, rowHeight: number): number {
-    let height = (perPage * rowHeight);
-    if (height > 0) {
-      height -= rowHeight;
-    }
-    return height;
   }
 
   chunkRows(force: boolean = false) {
