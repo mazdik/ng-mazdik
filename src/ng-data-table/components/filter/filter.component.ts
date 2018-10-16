@@ -5,21 +5,20 @@ import {
 import {Column, DataTable, Keys} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
+import {Dropdown} from './dropdown';
 
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterComponent implements OnInit, OnDestroy {
+export class FilterComponent extends Dropdown implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
 
   left: number;
   top: number;
   column: Column = <Column>{};
-  isVisible: boolean;
-  selectContainerClicked: boolean;
 
   @HostBinding('class') cssClass = 'dropdown-filter-menu';
 
@@ -40,12 +39,13 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.display')
   get getDisplay(): string {
-    return (this.isVisible && this.column.filter) ? 'block' : 'none';
+    return (this.isOpen && this.column.filter) ? 'block' : 'none';
   }
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
+  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
+    super(cd);
   }
 
   ngOnInit() {
@@ -61,43 +61,6 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    this.selectContainerClicked = true;
-  }
-
-  @HostListener('window:click', ['$event'])
-  onWindowClick(event: MouseEvent): void {
-    if (!this.selectContainerClicked) {
-      this.closeDropdown();
-    }
-    this.selectContainerClicked = false;
-  }
-
-  @HostListener('keydown', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    if (event.keyCode === Keys.ESCAPE) {
-      this.closeDropdown();
-    }
-  }
-
-  toggleDropdown() {
-    this.isVisible ? this.closeDropdown() : this.openDropdown();
-  }
-
-  openDropdown() {
-    if (!this.isVisible && this.column.filter) {
-      this.isVisible = true;
-    }
-  }
-
-  closeDropdown() {
-    if (this.isVisible) {
-      this.isVisible = false;
-      this.cd.markForCheck();
-    }
   }
 
   show(event: ColumnMenuEventArgs) {

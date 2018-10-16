@@ -3,7 +3,7 @@ import {TreeNode, Tree, TreeDataSource} from '../tree';
 
 @Component({
   selector: 'app-tree-view',
-  styleUrls: ['./tree-view.component.css', './tree-view.css'],
+  styleUrls: ['./tree-view.component.css', './tree-view.css', '../styles/clearable-input.css'],
   encapsulation: ViewEncapsulation.None,
   template: `
     <div class="tree-header">

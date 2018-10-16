@@ -15,7 +15,6 @@ import { ModalModule } from '../lib//modal';
 import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { TreeViewModule } from '../lib/tree-view';
 import { ContextMenuModule } from '../lib/context-menu';
-import { DropdownSelectModule } from '../lib/dropdown-select';
 
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -108,7 +107,6 @@ const ROUTES: Routes = [
     ModalEditFormModule,
     TreeViewModule,
     ContextMenuModule,
-    DropdownSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

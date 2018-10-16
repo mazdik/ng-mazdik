@@ -12,7 +12,7 @@ export interface SelectItem {
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: ['modal-select.component.css', '../styles/input-group.css'],
+  styleUrls: ['modal-select.component.css', '../styles/input-group.css', '../styles/clearable-input.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
