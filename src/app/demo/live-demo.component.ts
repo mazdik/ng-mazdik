@@ -6,7 +6,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-live-demo',
   template: `
-    <button class="button" style="margin-bottom: 5px;" (click)="stop=true">stop</button>
+    <button class="dt-button" style="margin-bottom: 5px;" (click)="stop=true">stop</button>
     <app-data-table [table]="table"></app-data-table>
   `
 })

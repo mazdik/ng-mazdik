@@ -5,7 +5,7 @@ import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-multiple-selection-demo',
-  template: `<button class="button" (click)="clearSelection()">Clear all selections</button>
+  template: `<button class="dt-button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
     <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
   <dt-message style="margin-right:5px;"

@@ -13,14 +13,8 @@ import {getColumnsPlayers} from './columns';
                          (saved)="onSaved($event)"
                          (updated)="onUpdated($event)">
     </app-modal-edit-form>
-    <button type="button"
-            class="button"
-            (click)="createItem()">Create
-    </button>&nbsp;
-    <button type="button"
-            class="button"
-            (click)="updateItem()">Edit
-    </button>
+    <button class="dt-button" (click)="createItem()">Create</button>&nbsp;
+    <button class="dt-button" (click)="updateItem()">Edit</button>
   `
 })
 

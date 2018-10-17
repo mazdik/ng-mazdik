@@ -1,5 +1,6 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../../ng-crud-table/base';
@@ -8,8 +9,9 @@ import {DynamicFormElement} from '../dynamic-form';
 @Component({
   selector: 'app-modal-edit-form',
   templateUrl: './modal-edit-form.component.html',
-  styleUrls: ['modal-edit-form.component.css'],
+  styleUrls: ['../styles/buttons.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalEditFormComponent implements OnInit {
 

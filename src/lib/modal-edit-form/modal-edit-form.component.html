@@ -19,14 +19,12 @@
     </div>
   </ng-container>
   <ng-container class="app-modal-footer">
-    <button type="button"
-            class="modal-form-button save"
+    <button class="dt-button"
             [style.visibility]="!detailView ? 'visible': 'hidden'"
             (click)="save()"
             [disabled]="!formValid">{{dataManager.messages.save}}
     </button>
-    <button type="button"
-            class="modal-form-button close"
+    <button class="dt-button dt-green"
             style="float: right;"
             (click)="close()">{{dataManager.messages.close}}
     </button>

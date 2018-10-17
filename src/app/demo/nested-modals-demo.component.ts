@@ -15,10 +15,7 @@ import {getColumnsPlayers} from './columns';
         </app-crud-table>
       </ng-container>
     </app-modal>
-    <button type="button"
-            class="button"
-            (click)="openModal()">open modal
-    </button>
+    <button class="dt-button" (click)="openModal()">open modal</button>
   `
 })
 
