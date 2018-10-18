@@ -1,20 +1,5 @@
-.tree-button {
-  background-color: #5b9bd5;
-  border: none;
-  color: white;
-  padding: 3px 12px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
-  user-select: none;
-  outline: 0;
-}
-
-.tree-button + .tree-button {
-  margin-left: 1rem;
-  margin-right: 1rem;
+.tree-header button {
+  margin-right: 2px;
 }
 
 .tree-input {

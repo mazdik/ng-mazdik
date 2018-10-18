@@ -1,6 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, OnInit, ViewEncapsulation, ChangeDetectionStrategy,
-  ViewChild
+  Component, Input, Output, EventEmitter, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, AfterViewInit
 } from '@angular/core';
 
 @Component({
@@ -10,7 +9,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectListComponent implements OnInit {
+export class SelectListComponent implements OnInit, AfterViewInit {
 
   @Input() options: any[];
   @Input() multiple: boolean;
@@ -53,6 +52,10 @@ export class SelectListComponent implements OnInit {
     this.cancelMessage = this.cancelMessage || 'Cancel';
     this.clearMessage = this.clearMessage || 'Clear';
     this.searchMessage = this.searchMessage || 'Search...';
+  }
+
+  ngAfterViewInit() {
+    this.setFocus();
   }
 
   setSelectedOptions(value: any) {

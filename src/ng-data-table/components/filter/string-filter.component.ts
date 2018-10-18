@@ -1,6 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef,
-  OnChanges, SimpleChanges, ViewChild
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, DataFilter} from '../../base';
 
@@ -23,7 +22,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   operators: any[];
   defaultMatchMode = DataFilter.STARTS_WITH;
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -43,7 +42,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.setFocus();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.defaultMatchMode;
     this.value = this.table.dataFilter.getFilterValue(this.column.name);
     this.setFocus();
@@ -56,7 +55,6 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   saveFilter() {
     this.column.setFilter(this.value, this.matchMode);
     this.table.events.onFilter();
-    this.cd.markForCheck();
   }
 
   setFocus() {

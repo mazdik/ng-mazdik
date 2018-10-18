@@ -11,14 +11,6 @@ export function isBlank(val: any): boolean {
   return true;
 }
 
-export function getHeight(el): number {
-  let height = el.offsetHeight;
-  const style = getComputedStyle(el);
-  height -= parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
-  height -= parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
-  return height;
-}
-
 export function translate(x: number, y: number) {
   return `translate3d(${x}px, ${y}px, 0)`;
 }

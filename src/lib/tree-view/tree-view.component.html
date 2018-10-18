@@ -1,0 +1,34 @@
+<div class="tree-header">
+  <button class="dt-button dt-button-sm" (click)="collapseAll()">
+    <i class="icon icon-return"></i>
+  </button>
+  <button class="dt-button dt-button-sm" (click)="refresh()">
+    <i class="icon icon-reload"></i>
+  </button>
+
+  <div class="clearable-input tree-filter-input">
+    <input class="tree-input"
+           placeholder="Search"
+           #filterInput
+           [(ngModel)]="searchFilterText"
+           (keyup)="onFilterKeyup()">
+    <span class="icon-collapsing"
+          style="top: 25%; cursor:auto;"
+          [style.display]="filterLoading ? 'block' : 'none' ">
+    </span>
+    <span [style.display]="(searchFilterText?.length > 0 && !filterLoading) ? 'block' : 'none' "
+          (click)="onClickClearSearch()">&times;</span>
+  </div>
+</div>
+<div class="tree-body">
+  <div *ngIf="loading" class="tree-loading-content"><i class="icon-collapsing"></i></div>
+  <ul class="tree-container" style="padding-left: 0;">
+    <app-tree-view-node
+      *ngFor="let node of nodes"
+      [node]="node"
+      [getIconFunc]="getIconFunc"
+      (selectedChanged)="selectedChanged.emit($event)"
+      (nodeRightClick)="onNodeRightClick($event)">
+    </app-tree-view-node>
+  </ul>
+</div>

@@ -1,6 +1,5 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy,
-  OnChanges, SimpleChanges, ViewChild
+  Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, DataFilter} from '../../base';
 
@@ -45,7 +44,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.setFocus();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.matchMode = this.table.dataFilter.getFilterMatchMode(this.column.name) || this.defaultMatchMode;
     this.value = this.table.dataFilter.getFilterValue(this.column.name);
     this.valueTo = this.table.dataFilter.getFilterValueTo(this.column.name);

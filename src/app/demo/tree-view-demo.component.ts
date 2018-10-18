@@ -7,7 +7,7 @@ import {TreeDemoService} from './tree-demo.service';
 @Component({
   selector: 'app-tree-view-demo',
   template: `
-  <div style="width: 220px; height: 500px; border-right: 1px solid #eee">
+  <div style="width: 250px; height: 500px; border-right: 1px solid #eee">
     <app-tree-view
       [service]="treeDataSource"
       (selectedChanged)="onSelectNode($event)"

@@ -3,36 +3,14 @@ import {TreeNode, Tree, TreeDataSource} from '../tree';
 
 @Component({
   selector: 'app-tree-view',
-  styleUrls: ['./tree-view.component.css', './tree-view.css', '../styles/clearable-input.css'],
+  templateUrl: 'tree-view.component.html',
+  styleUrls: [
+    './tree-view.component.css',
+    './tree-view.css',
+    '../styles/clearable-input.css',
+    '../styles/buttons.css',
+  ],
   encapsulation: ViewEncapsulation.None,
-  template: `
-    <div class="tree-header">
-      <button class="tree-button" (click)="collapseAll()"><i class="icon icon-return"></i></button>
-      <button class="tree-button" (click)="refresh()"><i class="icon icon-reload"></i></button>
-      <div class="clearable-input tree-filter-input">
-        <input class="tree-input"
-               placeholder="Search"
-               #filterInput
-               [(ngModel)]="searchFilterText"
-               (keyup)="onFilterKeyup()">
-        <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "
-              (click)="onClickClearSearch()">&times;</span>
-      </div>
-      <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
-    </div>
-    <div class="tree-body">
-      <div *ngIf="loading" class="tree-loading-content"><i class="icon-collapsing"></i></div>
-      <ul class="tree-container" style="padding-left: 0;">
-        <app-tree-view-node
-          *ngFor="let node of nodes"
-          [node]="node"
-          [getIconFunc]="getIconFunc"
-          (selectedChanged)="selectedChanged.emit($event)"
-          (nodeRightClick)="onNodeRightClick($event)">
-        </app-tree-view-node>
-      </ul>
-    </div>
-  `
 })
 export class TreeViewComponent implements OnInit {
 
