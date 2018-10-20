@@ -2,6 +2,11 @@ import {
   Component, Input, Output, EventEmitter, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, AfterViewInit
 } from '@angular/core';
 
+export interface SelectItem {
+  id: any;
+  name: string;
+}
+
 @Component({
   selector: 'app-select-list',
   templateUrl: 'select-list.component.html',
@@ -16,7 +21,7 @@ import {
 })
 export class SelectListComponent implements OnInit, AfterViewInit {
 
-  @Input() options: any[];
+  @Input() options: SelectItem[];
   @Input() multiple: boolean;
   @Input() selectAllMessage: string;
   @Input() cancelMessage: string;

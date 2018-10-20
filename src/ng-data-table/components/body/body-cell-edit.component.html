@@ -1,23 +1,9 @@
-<div class="cell-data" *ngIf="!editing" title="{{value}}">
-  {{value}}
-</div>
-
-<div class="cell-editor" *ngIf="column.editable && editing">
-  <select
-    *ngIf="column.options"
-    appAfterViewFocus
-    [(ngModel)]="row[column.name]"
-    (change)="validate()"
-    (focus)="onInputFocus()"
-    (blur)="onInputBlur()">
-    <option *ngFor="let opt of getOptions(row)" [value]="opt.id">{{opt.name}}</option>
-  </select>
-
-  <input [attr.type]="(column.type ==='date' || column.type ==='datetime-local') ? column.type : 'text'"
-         appAfterViewFocus
-         *ngIf="!column.options"
-         [(ngModel)]="row[column.name]"
-         (keyup)="validate()"
-         (focus)="onInputFocus()"
-         (blur)="onInputBlur()"/>
-</div>
+<app-inline-edit
+  [(value)]="row[column.name]"
+  [editing]=editing
+  [type]="(column.type ==='date' || column.type ==='datetime-local') ? column.type : 'text'"
+  [options]="column.options"
+  (change)="validate()"
+  (focus)="onInputFocus()"
+  (blur)="onInputBlur()">
+</app-inline-edit>

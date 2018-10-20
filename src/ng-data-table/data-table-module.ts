@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {PaginationModule} from '../lib/pagination';
 import {ScrollerModule} from '../lib/scroller';
 import {SelectListModule} from '../lib/select-list';
+import {InlineEditModule} from '../lib/inline-edit';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -26,7 +27,6 @@ import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
 import {BodyDblClickDirective} from './directives/body-dblclick.directive';
-import {AfterViewFocusDirective} from './directives/after-view-focus-directory';
 import {BodyContextMenuDirective} from './directives/body-contextmenu.directive';
 
 @NgModule({
@@ -36,6 +36,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     PaginationModule,
     ScrollerModule,
     SelectListModule,
+    InlineEditModule,
   ],
   declarations: [
     HeaderComponent,
@@ -58,7 +59,6 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     BodyKeydownDirective,
     BodyClickDirective,
     BodyDblClickDirective,
-    AfterViewFocusDirective,
     BodyContextMenuDirective,
   ],
   exports: [

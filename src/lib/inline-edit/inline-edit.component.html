@@ -1,0 +1,22 @@
+<div class="dt-inline-data" *ngIf="!editing" title="{{viewValue}}">
+  {{viewValue}}
+</div>
+
+<select
+  *ngIf="editing && options"
+  appAfterViewFocus
+  [(ngModel)]="value"
+  (change)="onInputChange()"
+  (focus)="onInputFocus()"
+  (blur)="onInputBlur()">
+  <option *ngFor="let opt of options" [value]="opt.id">{{opt.name}}</option>
+</select>
+
+<input *ngIf="editing && !options"
+        appAfterViewFocus
+        [attr.type]="type"
+        [attr.step]="(type === 'number') ? 'any' : null"
+        [(ngModel)]="value"
+        (keyup)="onInputChange()"
+        (focus)="onInputFocus()"
+        (blur)="onInputBlur()"/>
