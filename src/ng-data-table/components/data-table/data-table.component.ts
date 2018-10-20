@@ -11,7 +11,13 @@ import {PageEvent} from '../../../lib/pagination';
 @Component({
   selector: 'app-datatable, app-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: ['../../styles/index.css', '../../../lib/styles/checkbox.css', '../../../lib/styles/radio.css'],
+  styleUrls: [
+    '../../styles/index.css',
+    '../../../lib/styles/checkbox.css',
+    '../../../lib/styles/radio.css',
+    '../../../lib/styles/buttons.css',
+    '../../../lib/styles/list-menu.css',
+  ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

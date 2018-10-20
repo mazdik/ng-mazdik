@@ -31,11 +31,18 @@
   justify-content: space-between;
 }
 
-.list-menu-row span {
+.list-menu-row button {
   width: 100%;
   text-align: center;
 }
 
-.list-menu-row span + span {
+.list-menu-row button + button {
   margin-left: 2%;
  }
+
+.list-menu-scroll {
+  height: auto;
+  overflow-y: auto;
+  min-width: 160px;
+  max-height: 200px;
+}

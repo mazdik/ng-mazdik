@@ -14,8 +14,8 @@ import {Subscription} from 'rxjs';
     <div class="df-alert df-alert-success" style="word-break: break-all;" *ngIf="cellValueChangedEvent">
       <b>cellValueChanged:</b> {{cellValueChangedEvent}}
     </div><br>
-    <dt-message [severity]="'success'" [text]="eventText()" style="word-break: break-all;">
-    </dt-message>
+    <app-message [severity]="'success'" [text]="eventText()" style="word-break: break-all;">
+    </app-message>
   `,
 })
 

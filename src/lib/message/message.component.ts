@@ -1,7 +1,7 @@
 import {Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
 
   @Component({
-    selector: 'dt-message',
+    selector: 'app-message',
     template: ` <div *ngIf="text" [ngClass]="getClass()" [innerHTML]="text"></div>`,
     styleUrls: ['message.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,

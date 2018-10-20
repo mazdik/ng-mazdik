@@ -5,7 +5,12 @@ import {
 @Component({
   selector: 'app-select-list',
   templateUrl: 'select-list.component.html',
-  styleUrls: ['select-list.component.css', '../styles/checkbox.css'],
+  styleUrls: [
+    'select-list.component.css',
+    '../styles/checkbox.css',
+    '../styles/checkbox.css',
+    '../styles/list-menu.css'
+  ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

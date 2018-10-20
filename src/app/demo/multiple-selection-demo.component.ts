@@ -8,18 +8,18 @@ import {getColumnsPlayers} from './columns';
   template: `<button class="dt-button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
     <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
-  <dt-message style="margin-right:5px;"
+  <app-message style="margin-right:5px;"
               [severity]="'success'"
               *ngFor="let row of selectedRows"
               [text]="row.id + '-' + row.name">
-  </dt-message>
+  </app-message>
     <p>Selection type: multiple. Selection mode: radio</p>
     <app-data-table [table]="table2" (selectionChange)="onSelection2()"></app-data-table>
-    <dt-message style="margin-right:5px;"
+    <app-message style="margin-right:5px;"
                 [severity]="'success'"
                 *ngFor="let row of selectedRows2"
                 [text]="row.id + '-' + row.name">
-    </dt-message>
+    </app-message>
   `
 })
 
