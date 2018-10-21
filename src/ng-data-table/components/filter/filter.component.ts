@@ -1,8 +1,8 @@
 import {
-  Component, Input, OnInit, HostBinding, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Input, OnInit, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef,
   OnDestroy, ElementRef
 } from '@angular/core';
-import {Column, DataTable, Keys} from '../../base';
+import {Column, DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
 import {Dropdown} from './dropdown';

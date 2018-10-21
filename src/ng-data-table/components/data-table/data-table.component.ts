@@ -17,6 +17,7 @@ import {PageEvent} from '../../../lib/pagination';
     '../../../lib/styles/radio.css',
     '../../../lib/styles/buttons.css',
     '../../../lib/styles/list-menu.css',
+    '../../../lib/styles/input.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

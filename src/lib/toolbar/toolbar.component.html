@@ -6,7 +6,7 @@
     </div>
     <div class="dt-toolbar-col dt-global-filter" *ngIf="globalFilter">
         <div class="dt-input-group">
-            <input class="dt-input-element"
+            <input class="dt-input"
                     [attr.placeholder]="table.messages.search"
                     [(ngModel)]="table.dataFilter.globalFilterValue"
                     (keypress)="onKeyPressGlobalSearch($event)">

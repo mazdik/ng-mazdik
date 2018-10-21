@@ -11,10 +11,10 @@ export interface SelectItem {
   selector: 'app-select-list',
   templateUrl: 'select-list.component.html',
   styleUrls: [
-    'select-list.component.css',
     '../styles/checkbox.css',
     '../styles/checkbox.css',
-    '../styles/list-menu.css'
+    '../styles/list-menu.css',
+    '../styles/input.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

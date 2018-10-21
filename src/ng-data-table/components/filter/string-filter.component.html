@@ -1,9 +1,9 @@
-<select class="dt-filter-select sm"
+<select class="dt-input sm dt-form-group"
         [(ngModel)]="matchMode"
         (change)="onModeChange()">
   <option *ngFor="let opt of operators" [value]="opt.value">{{opt.text}}</option>
 </select>
-<input class="dt-filter-input"
+<input class="dt-input dt-form-group"
        #filterInput
        [attr.placeholder]="column.name"
        *ngIf="isValueFilter"

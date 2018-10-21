@@ -9,6 +9,7 @@ import {TreeNode, Tree, TreeDataSource} from '../tree';
     './tree-view.css',
     '../styles/clearable-input.css',
     '../styles/buttons.css',
+    '../styles/input.css',
   ],
   encapsulation: ViewEncapsulation.None,
 })
