@@ -1,5 +1,5 @@
 <div class="dt-input-group" (click)="open()">
-  <input class="select-input"
+  <input class="dt-input select-input"
          readonly="readonly"
          value="{{selectedName}}"
          placeholder="Select"
@@ -13,7 +13,7 @@
   <ng-container class="app-modal-body">
     <div class="select-header">
       <div class="clearable-input">
-        <input class="select-input"
+        <input class="dt-input select-input"
                placeholder="Search..."
                [(ngModel)]="searchFilterText"
                (keyup)="onFilterKeyup()">

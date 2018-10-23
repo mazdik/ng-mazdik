@@ -41,7 +41,7 @@ export function getColumnsPlayers(): Column[] {
       title: 'Cascading Select',
       name: 'note',
       editable: true,
-      type: 'select',
+      type: 'select-dropdown',
       options: [
         {id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS'},
         {id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS'},

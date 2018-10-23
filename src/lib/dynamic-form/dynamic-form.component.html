@@ -38,6 +38,18 @@
         (loaded)="loaded.emit($event)">
       </app-form-select-popup>
 
+      <app-form-select-dropdown
+        *ngSwitchCase="'select-dropdown'"
+        [dynElement]="dynElement"
+        [(value)]="(dynElement.keyElement) ? item[dynElement.keyElement] : item[dynElement.name]"
+        [dependsValue]="item[dynElement.dependsElement]"
+        (valid)="onValid($event, dynElement)"
+        [getOptionsFunc]="getOptionsFunc"
+        (keyElementChange)="onKeyElementChange($event)"
+        [disabled]="isDisabled(dynElement)"
+        (loaded)="loaded.emit($event)">
+      </app-form-select-dropdown>
+
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"
         [dynElement]="dynElement"

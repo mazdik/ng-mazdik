@@ -16,7 +16,8 @@ export interface SelectItem {
     'modal-select.component.css',
     '../styles/input-group.css',
     '../styles/clearable-input.css',
-    '../styles/list-menu.css'
+    '../styles/list-menu.css',
+    '../styles/input.css'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -25,36 +26,28 @@ export interface SelectItem {
 export class ModalSelectComponent {
 
   @Input()
+  get options(): SelectItem[] { return this._options; }
   set options(val: SelectItem[]) {
     this._options = val;
     if (this._options) {
       this.optionsCopy = [...val];
       this.selectedName = this.getName();
-      if (this.selectedName) {
-        this.nameChanged.emit(this.selectedName);
-      }
+      this.nameChanged.emit(this.selectedName);
     }
   }
-
-  get options(): SelectItem[] {
-    return this._options;
-  }
+  private _options: SelectItem[];
 
   @Input('value')
+  get model() { return this._model; }
   set model(value) {
     if (this._model !== value) {
       this._model = value;
       this.valueChange.emit(this._model);
       this.selectedName = this.getName();
-      if (this.selectedName) {
-        this.nameChanged.emit(this.selectedName);
-      }
+      this.nameChanged.emit(this.selectedName);
     }
   }
-
-  get model() {
-    return this._model;
-  }
+  private _model: any;
 
   @Input() zIndex: number;
   @Input() filterDelay: number = 300;
@@ -75,9 +68,7 @@ export class ModalSelectComponent {
   filterTimeout: any;
   selectedName: string;
 
-  private _options: SelectItem[];
   private optionsCopy: SelectItem[];
-  private _model: any;
 
   constructor(private cd: ChangeDetectorRef) {
   }

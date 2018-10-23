@@ -1,10 +1,10 @@
 export interface SelectOption {
-    id: any;
-    name: string;
-    parentId?: any;
-  }
+  id: any;
+  name: string;
+  parentId?: any;
+}
 
-  export type ElementType =
+export type ElementType =
   'text'
   | 'password'
   | 'number'
@@ -14,6 +14,7 @@ export interface SelectOption {
   | 'textarea'
   | 'date'
   | 'datetime-local'
-  | 'select-popup';
+  | 'select-popup'
+  | 'select-dropdown';
 
 export type getOptionsFunction = (url: string, parentId: any) => Promise<any>;

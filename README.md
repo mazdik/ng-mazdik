@@ -235,7 +235,7 @@ export interface PageMetadata {
 | optionsUrl       | string     | null    |             |
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
-| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup | null | |
+| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup / select-dropdown | null | |
 | validatorFunc    | (name: string, value: any) => string[] | null | |
 | editable         | boolean    | false   |             |
 | resizeable       | boolean    | true    |             |

@@ -21,7 +21,7 @@ import {InputOptionComponent} from './input-option.component';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PopupSelectComponent extends InputOptionComponent {
+export class SelectPopupComponent extends InputOptionComponent {
 
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 

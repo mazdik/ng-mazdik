@@ -11,7 +11,11 @@ export interface SelectItem {
 @Component({
   selector: 'app-dropdown-select',
   templateUrl: 'dropdown-select.component.html',
-  styleUrls: ['dropdown-select.component.css', '../styles/input-group.css'],
+  styleUrls: [
+    'dropdown-select.component.css',
+    '../styles/input-group.css',
+    '../styles/input.css'
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
@@ -25,6 +29,14 @@ export class DropdownSelectComponent extends Dropdown {
   @Input() clearMessage: string;
   @Input() searchMessage: string;
   @Input() placeholder: string = 'Select';
+
+  @Input()
+  get options(): SelectItem[] { return this._options; }
+  set options(val: SelectItem[]) {
+    this._options = val;
+    this.selectedName = this.getName(this.selectedOptions);
+  }
+  private _options: SelectItem[];
 
   @Input()
   set value(val: any) {

@@ -8,7 +8,8 @@ export type ColumnType =
   | 'textarea'
   | 'date'
   | 'datetime-local'
-  | 'select-popup';
+  | 'select-popup'
+  | 'select-dropdown';
 
 export enum DataType {
   String = 'string',
