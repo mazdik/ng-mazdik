@@ -4,17 +4,17 @@ import {InputOptionComponent} from './input-option.component';
 @Component({
   selector: 'app-form-select',
   template: `
-    <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
-      <select class="df-control"
+      <select class="dt-input"
               [(ngModel)]="model"
               [id]="dynElement.name"
               (change)="onValueChange()"
               [disabled]="disabled">
         <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
       </select>
-      <div class="df-help-block">
+      <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>

@@ -4,13 +4,13 @@ import {InputComponent} from './input.component';
 @Component({
   selector: 'app-form-calendar',
   template: `
-    <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
-      <input class="df-control"
+      <input class="dt-input"
              [attr.type]="dynElement.type"
              [(ngModel)]="model"
              [disabled]="disabled"/>
-      <div class="df-help-block">
+      <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>

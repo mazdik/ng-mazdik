@@ -4,14 +4,14 @@ import {InputComponent} from './input.component';
 @Component({
   selector: 'app-form-textarea',
   template: `
-    <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
-      <textarea class="df-control"
+      <textarea class="dt-input"
                 [(ngModel)]="model"
                 [id]="dynElement.name"
                 [disabled]="disabled">
       </textarea>
-      <div class="df-help-block">
+      <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>

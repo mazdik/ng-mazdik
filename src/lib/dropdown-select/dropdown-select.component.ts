@@ -14,7 +14,8 @@ export interface SelectItem {
   styleUrls: [
     'dropdown-select.component.css',
     '../styles/input-group.css',
-    '../styles/input.css'
+    '../styles/input.css',
+    '../styles/buttons.css'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

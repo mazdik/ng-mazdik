@@ -23,6 +23,12 @@
 .dt-red {background-color: #f44336;}
 .dt-orange {background-color: #ff9800;}
 
+.dt-white {
+  background-color: white;
+  border: 1px solid #ccc;
+  color: black;
+}
+
 .dt-button-sm {
   padding: 4px 8px;
 }

@@ -25,19 +25,6 @@
   cursor: default;
 }
 
-.select-button-open {
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 8px 16px;
-  cursor: pointer;
-  user-select: none;
-  outline: 0;
-}
-
-.select-button-open:active {
-  box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
-}
-
 .icon {
   position: relative;
   display: inline-block;

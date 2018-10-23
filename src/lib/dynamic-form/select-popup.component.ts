@@ -4,7 +4,7 @@ import {InputOptionComponent} from './input-option.component';
 @Component({
   selector: 'app-form-select-popup',
   template: `
-    <div class="df-group" [ngClass]="{'df-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="icon-collapsing" *ngIf="loading"></i>
       <app-modal-select [(value)]="model"
@@ -14,7 +14,7 @@ import {InputOptionComponent} from './input-option.component';
                     (valueChange)="onValueChange()"
                     (nameChanged)="nameChanged.emit($event)">
       </app-modal-select>
-      <div class="df-help-block">
+      <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
     </div>
