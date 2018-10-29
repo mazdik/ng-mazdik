@@ -196,6 +196,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
       this.dataManager.pagerCache = {};
+      this.dataManager.clear();
     }
     this.dataManager.loadItems();
   }
@@ -205,6 +206,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
       this.dataManager.pagerCache = {};
+      this.dataManager.clear();
     }
     this.dataManager.loadItems();
   }

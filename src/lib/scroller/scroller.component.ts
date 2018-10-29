@@ -37,8 +37,8 @@ export class ScrollerComponent implements OnInit, OnDestroy {
 
   @Output() scroll: EventEmitter<any> = new EventEmitter();
 
-  @HostBinding('class.scroller') cssClass = true;
-  @HostBinding('class.virtual-scroll')
+  @HostBinding('class.dt-scroller') cssClass = true;
+  @HostBinding('class.dt-virtual-scroll')
   get isVirtualScroll(): boolean {
     return this.virtualScroll;
   }

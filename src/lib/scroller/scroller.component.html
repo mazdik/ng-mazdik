@@ -1,7 +1,7 @@
 <ng-container *ngIf="virtualScroll; else unwrapped">
-  <div class="scrollable-content" #content>
+  <div class="dt-scrollable-content" #content>
     <ng-content *ngTemplateOutlet="unwrapped"></ng-content>
   </div>
-  <div class="total-padding" [style.height.px]="scrollLength"></div>
+  <div class="dt-total-padding" [style.height.px]="scrollLength"></div>
 </ng-container>
 <ng-template #unwrapped><ng-content></ng-content></ng-template>

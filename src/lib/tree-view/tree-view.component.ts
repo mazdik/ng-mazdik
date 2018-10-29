@@ -10,6 +10,7 @@ import {TreeNode, Tree, TreeDataSource} from '../tree';
     '../styles/clearable-input.css',
     '../styles/buttons.css',
     '../styles/input.css',
+    '../styles/spinners.css',
   ],
   encapsulation: ViewEncapsulation.None,
 })

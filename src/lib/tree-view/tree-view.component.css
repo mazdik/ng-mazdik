@@ -82,8 +82,7 @@
   transition: all .3s cubic-bezier(.4,0,.2,1);
   vertical-align: middle;
 }
-.icon-node.icon-collapsed:before,
-.icon-node.icon-collapsing:before {
+.icon-node.icon-collapsed:before {
   transform: rotate(-90deg);
   transition: all .3s cubic-bezier(.4,0,.2,1);
 }
