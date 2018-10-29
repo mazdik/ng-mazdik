@@ -18,6 +18,7 @@ import {PageEvent} from '../../../lib/pagination';
     '../../../lib/styles/buttons.css',
     '../../../lib/styles/list-menu.css',
     '../../../lib/styles/input.css',
+    '../../../lib/styles/spinners.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

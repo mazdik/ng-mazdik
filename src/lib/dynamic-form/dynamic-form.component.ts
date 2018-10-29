@@ -11,7 +11,8 @@ import {DynamicFormElement} from './dynamic-form-element';
   styleUrls: [
     '../styles/input.css',
     '../styles/checkbox.css',
-    '../styles/radio.css'
+    '../styles/radio.css',
+    '../styles/spinners.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

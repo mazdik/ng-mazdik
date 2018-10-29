@@ -1,4 +1,4 @@
-<ul class="context-menu">
+<ul>
   <ng-template ngFor let-item [ngForOf]="menu" let-i="index">
     <li [ngClass]="{'disabled':item.disabled}">
       <a [href]="item.url||'#'" (click)="itemClick($event, item)">

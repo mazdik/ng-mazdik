@@ -7,7 +7,7 @@ import { MenuItem, MenuEventArgs } from './types';
 @Component({
   selector: 'app-row-menu',
   templateUrl: './row-menu.component.html',
-  styleUrls: ['context-menu.css'],
+  styleUrls: ['../styles/context-menu.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
@@ -20,7 +20,7 @@ export class RowMenuComponent implements OnInit {
   isVisible: boolean;
   selectContainerClicked: boolean;
 
-  @HostBinding('class') cssClass = 'dropdown-row-menu';
+  @HostBinding('class') cssClass = 'dt-context-menu dt-row-menu';
 
   @HostBinding('style.left.px')
   get getLeft(): number {

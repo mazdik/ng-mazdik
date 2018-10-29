@@ -4,7 +4,7 @@ import {MenuItem} from './types';
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
-  styleUrls: ['./context-menu.component.css']
+  styleUrls: ['../styles/context-menu.css']
 })
 export class ContextMenuComponent implements OnInit {
 
