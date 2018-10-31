@@ -6,7 +6,7 @@
   cursor: pointer;
 }
 
-.select-input[readonly] {
+input.select-input[readonly] {
   background-color: white;
   cursor: default;
 }
