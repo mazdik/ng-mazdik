@@ -71,9 +71,6 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   }
 
   onSort(column: Column) {
-    if (!column.sortable) {
-      return;
-    }
     this.table.sorter.setOrder(column.name);
     this.table.events.onSort();
   }

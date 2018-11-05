@@ -6,6 +6,7 @@ import {PaginationModule} from '../lib/pagination';
 import {ScrollerModule} from '../lib/scroller';
 import {SelectListModule} from '../lib/select-list';
 import {InlineEditModule} from '../lib/inline-edit';
+import {SortHeaderModule} from '../lib/sort-header';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -37,6 +38,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     ScrollerModule,
     SelectListModule,
     InlineEditModule,
+    SortHeaderModule,
   ],
   declarations: [
     HeaderComponent,

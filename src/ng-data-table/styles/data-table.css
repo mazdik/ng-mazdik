@@ -124,11 +124,7 @@
   border-top: 1px solid #c6c6c6;
 }
 
-.column-title {
-  color: white;
-}
-
-.column-title:hover {
+.dt-sort-header {
   cursor: pointer;
 }
 
@@ -172,11 +168,6 @@
 
 .cell-selected {
   background-color: #b3c4c7;
-}
-
-.row-menu {
-  color: #337ab7;
-  cursor: pointer;
 }
 
 .datatable-empty-row {

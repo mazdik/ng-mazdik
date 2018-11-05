@@ -5,13 +5,11 @@
 </ng-template>
 
 <ng-template [ngIf]="!column.headerCellTemplate">
-    <span class="column-title"
-        (click)="onSort(column)">
+    <span sort-header
+          [sortable]="column.sortable"
+          [order]="table.sorter.getOrder(column.name)"
+          (sortChange)="onSort(column)">
         {{column.title}}
-        <i class="icon"
-            *ngIf="column.sortable"
-            [ngClass]="table.sorter.getDirection(column.name)">
-        </i>
     </span>
     <i *ngIf="column.filter"
         (click)="clickColumnMenu($event, column)"

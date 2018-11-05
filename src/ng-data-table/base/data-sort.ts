@@ -70,16 +70,4 @@ export class DataSort {
     this.sortMeta = [];
   }
 
-  getDirection(columnName: string) {
-    let icon: string;
-    if (this.getOrder(columnName) === -1) {
-      icon = 'desc';
-    } else if (this.getOrder(columnName) === 1) {
-      icon = 'asc';
-    } else {
-      icon = '';
-    }
-    return icon;
-  }
-
 }
