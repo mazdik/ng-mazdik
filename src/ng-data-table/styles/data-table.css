@@ -223,3 +223,14 @@
   right: 0;
   color: #5b9bd5;
 }
+
+.dropdown-filter-menu {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}

@@ -349,3 +349,4 @@ private subscriptions: Subscription[] = [];
 | tree                           |             |
 | app-tree-view                  |             |
 | validation                     |             |
+| app-sort-header, [sort-header] |             |
