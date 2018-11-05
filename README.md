@@ -350,3 +350,4 @@ private subscriptions: Subscription[] = [];
 | app-tree-view                  |             |
 | validation                     |             |
 | app-sort-header, [sort-header] |             |
+| [appResizable]                 |             |

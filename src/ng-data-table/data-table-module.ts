@@ -7,6 +7,7 @@ import {ScrollerModule} from '../lib/scroller';
 import {SelectListModule} from '../lib/select-list';
 import {InlineEditModule} from '../lib/inline-edit';
 import {SortHeaderModule} from '../lib/sort-header';
+import {ResizableModule} from '../lib/resizable';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -23,7 +24,6 @@ import {DataTableComponent} from './components/data-table/data-table.component';
 import {SummaryRowComponent} from './components/body/summary-row.component';
 import {BodyGroupRowComponent} from './components/body/body-group-row.component';
 
-import {ResizeableDirective} from './directives/resizeable.directive';
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
@@ -39,6 +39,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     SelectListModule,
     InlineEditModule,
     SortHeaderModule,
+    ResizableModule,
   ],
   declarations: [
     HeaderComponent,
@@ -56,7 +57,6 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     DataTableComponent,
     SummaryRowComponent,
     BodyGroupRowComponent,
-    ResizeableDirective,
     BodyMouseoverDirective,
     BodyKeydownDirective,
     BodyClickDirective,

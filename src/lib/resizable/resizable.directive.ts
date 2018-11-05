@@ -5,9 +5,9 @@ import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 @Directive({
-  selector: '[appResizeable]'
+  selector: '[appResizable]'
 })
-export class ResizeableDirective implements OnDestroy, AfterViewInit {
+export class ResizableDirective implements OnDestroy, AfterViewInit {
 
   @Input() south: boolean;
   @Input() east: boolean;

@@ -16,7 +16,7 @@
         *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
         [table]="table"
         [column]="column"
-        appResizeable
+        appResizable
         [east]="column.resizeable"
         [minWidth]="column.minWidth"
         [maxWidth]="column.maxWidth"
@@ -32,7 +32,7 @@
           *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
           [table]="table"
           [column]="column"
-          appResizeable
+          appResizable
           [east]="column.resizeable"
           [minWidth]="column.minWidth"
           [maxWidth]="column.maxWidth"

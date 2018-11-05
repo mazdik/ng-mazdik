@@ -12,7 +12,7 @@ import {PageEvent} from '../../../lib/pagination';
   selector: 'app-datatable, app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: [
-    '../../styles/index.css',
+    './data-table.component.css',
     '../../../lib/styles/checkbox.css',
     '../../../lib/styles/radio.css',
     '../../../lib/styles/buttons.css',
@@ -20,6 +20,7 @@ import {PageEvent} from '../../../lib/pagination';
     '../../../lib/styles/input.css',
     '../../../lib/styles/spinners.css',
     '../../../lib/styles/icons.css',
+    '../../../lib/styles/resizable.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
