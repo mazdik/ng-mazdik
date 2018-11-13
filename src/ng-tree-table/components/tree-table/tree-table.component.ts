@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['tree-table.component.css'],
+  styleUrls: ['../../../lib/styles/icons.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -66,12 +66,12 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   getExpanderIcon(node: any) {
     let icon: string;
     if (node.loading && !node.isLeaf()) {
-      return 'icon-collapsing';
+      return 'dt-loader';
     }
     if (!node.isLeaf() && node.expanded) {
-      icon = 'icon-node icon-collapsed';
+      icon = 'dt-icon-node dt-icon-collapsed';
     } else if (!node.isLeaf()) {
-      icon = 'icon-node';
+      icon = 'dt-icon-node';
     }
     return icon;
   }

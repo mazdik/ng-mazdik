@@ -14,7 +14,7 @@
        [attr.placeholder]="'<'"
        *ngIf="isRangeFilter"
        [(ngModel)]="valueTo"/>
-<ul class="list-menu">
+<ul class="dt-list-menu">
   <ng-template [ngIf]="(column.type ==='date' || column.type ==='datetime-local')">
     <li (click)="lastDate('year')"><span>{{table.messages.lastYear}}</span></li>
     <li (click)="lastDate('month')"><span>{{table.messages.lastMonth}}</span></li>
@@ -23,8 +23,8 @@
   </ng-template>
 </ul>
 
-<div class="list-divider"></div>
-<div class="list-menu-row">
+<div class="dt-list-divider"></div>
+<div class="dt-list-menu-row">
   <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="isValueFilter">OK</button>
   <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{table.messages.cancel}}</button>
   <button class="dt-button dt-button-sm" (click)="onClickClear()">{{table.messages.clear}}</button>

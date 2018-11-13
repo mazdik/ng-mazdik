@@ -3,8 +3,8 @@
        placeholder="{{searchMessage}}"
        [(ngModel)]="searchFilterText"/>
 
-<div class="list-menu-scroll">
-  <ul class="list-menu">
+<div class="dt-list-menu-scroll">
+  <ul class="dt-list-menu">
     <li *ngIf="multiple">
       <span class="dt-checkbox" (click)="onCheckboxAllClick()">
         <input type="checkbox"
@@ -13,14 +13,14 @@
         <label>{{selectAllMessage}}</label>
       </span>
     </li>
-    <li class="list-divider"></li>
+    <li class="dt-list-divider"></li>
 
     <li *ngFor="let option of options | filterBy: 'name':searchFilterText">
 
       <ng-container *ngIf="!multiple">
         <span [ngClass]="{'active': isSelected(option.id)}"
               (click)="setSelected(option.id)">
-          <i class="icon" [class.icon-ok]="isSelected(option.id)"></i>&nbsp;&nbsp;{{option.name}}
+          <i class="dt-icon" [class.dt-icon-ok]="isSelected(option.id)"></i>&nbsp;&nbsp;{{option.name}}
         </span>
       </ng-container>
 
@@ -36,8 +36,8 @@
   </ul>
 </div>
 
-<div class="list-divider"></div>
-<div class="list-menu-row">
+<div class="dt-list-divider"></div>
+<div class="dt-list-menu-row">
   <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="multiple">OK</button>
   <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{cancelMessage}}</button>
   <button class="dt-button dt-button-sm" (click)="onClickClear()">{{clearMessage}}</button>

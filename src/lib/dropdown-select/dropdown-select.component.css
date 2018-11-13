@@ -24,18 +24,3 @@ input.select-input[readonly] {
   background-color: white;
   cursor: default;
 }
-
-.icon {
-  position: relative;
-  display: inline-block;
-  font-style: normal;
-  font-weight: bold;
-}
-
-.icon.asc:before {
-  content: "\2B06";
-}
-
-.icon.desc:before {
-  content: "\2B07";
-}

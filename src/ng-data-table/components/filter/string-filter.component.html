@@ -9,8 +9,8 @@
        *ngIf="isValueFilter"
        [(ngModel)]="value"/>
 
-<div class="list-divider"></div>
-<div class="list-menu-row">
+<div class="dt-list-divider"></div>
+<div class="dt-list-menu-row">
   <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="isValueFilter">OK</button>
   <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{table.messages.cancel}}</button>
   <button class="dt-button dt-button-sm" (click)="onClickClear()">{{table.messages.clear}}</button>

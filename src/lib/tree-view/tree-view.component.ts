@@ -11,6 +11,7 @@ import {TreeNode, Tree, TreeDataSource} from '../tree';
     '../styles/buttons.css',
     '../styles/input.css',
     '../styles/spinners.css',
+    '../styles/icons.css',
   ],
   encapsulation: ViewEncapsulation.None,
 })

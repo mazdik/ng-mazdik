@@ -14,12 +14,3 @@ input.select-input[readonly] {
 .select-input[disabled] {
   cursor: default;
 }
-
-.select-icon-return {
-  font-style: normal;
-  font-weight: bold;
-}
-
-.select-icon-return:before {
-  content: "\21b5";
-}

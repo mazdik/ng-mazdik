@@ -1,13 +1,13 @@
-.datatable {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
 .datatable *,
 .datatable *::before,
 .datatable *::after {
   box-sizing: border-box;
+}
+
+.datatable {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .datatable-header-cell,
@@ -233,4 +233,14 @@
   border: 1px solid #ccc;
   border-radius: 2px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.filter-action {
+  margin: 0;
+  padding: 8px 10px;
+  background-color: transparent;
+  border: none;
+  outline:none;
+  cursor:pointer;
+  color: white;
 }

@@ -5,7 +5,7 @@ import {
 @Component({
   selector: 'app-sort-header, [sort-header]',
   template: `<ng-content></ng-content>
-  <i class="icon" *ngIf="sortable" [ngClass]="direction"></i>
+  <i class="dt-icon" *ngIf="sortable" [ngClass]="direction"></i>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

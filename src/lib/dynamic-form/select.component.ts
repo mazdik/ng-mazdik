@@ -6,7 +6,7 @@ import {InputOptionComponent} from './input-option.component';
   template: `
     <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
-      <i class="icon-collapsing" *ngIf="loading"></i>
+      <i class="dt-loader" *ngIf="loading"></i>
       <select class="dt-input"
               [(ngModel)]="model"
               [id]="dynElement.name"

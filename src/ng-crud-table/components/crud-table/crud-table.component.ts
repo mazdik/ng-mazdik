@@ -11,7 +11,10 @@ import {DataTableComponent} from '../../../ng-data-table';
 @Component({
   selector: 'app-crud-table',
   templateUrl: './crud-table.component.html',
-  styleUrls: ['crud-table.component.css'],
+  styleUrls: [
+    'crud-table.component.css',
+    '../../../lib/styles/icons.css',
+  ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -82,7 +85,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.actionMenu.push(
         {
           label: this.dataManager.messages.titleDetailView,
-          icon: 'icon icon-rightwards',
+          icon: 'dt-icon dt-icon-rightwards',
           command: (row) => this.viewAction(row),
         }
       );
@@ -91,29 +94,29 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.actionMenu.push(
         {
           label: this.dataManager.messages.titleUpdate,
-          icon: 'icon icon-pencil',
+          icon: 'dt-icon dt-icon-pencil',
           command: (row) => this.updateAction(row),
         },
         {
           label: this.dataManager.messages.refresh,
-          icon: 'icon icon-reload',
+          icon: 'dt-icon dt-icon-reload',
           command: (row) => this.dataManager.refreshRow(row),
         },
         {
           label: this.dataManager.messages.revertChanges,
-          icon: 'icon icon-return',
+          icon: 'dt-icon dt-icon-return',
           command: (row) => this.dataManager.revertRowChanges(row),
           disabled: true,
         },
         {
           label: this.dataManager.messages.save,
-          icon: 'icon icon-ok',
+          icon: 'dt-icon dt-icon-ok',
           command: (row) => this.dataManager.update(row),
           disabled: true,
         },
         {
           label: this.dataManager.messages.delete,
-          icon: 'icon icon-remove',
+          icon: 'dt-icon dt-icon-remove',
           command: (row) => {
             if (confirm(this.dataManager.messages.delete + '?')) {
               this.dataManager.delete(row);
@@ -122,7 +125,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
         },
         {
           label: this.dataManager.messages.duplicate,
-          icon: 'icon icon-plus',
+          icon: 'dt-icon dt-icon-plus',
           command: (row) => this.duplicateAction(row),
         },
       );

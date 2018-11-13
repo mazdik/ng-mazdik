@@ -1,46 +1,46 @@
-.list-menu {
+.dt-list-menu {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.list-menu span {
+.dt-list-menu span {
   cursor: pointer;
   display: block;
   padding: 4px 3px;
 }
 
-.list-menu span:hover:not(.active) {
+.dt-list-menu span:hover:not(.active) {
   background-color: #ccc;
 }
 
-.list-menu span.active {
+.dt-list-menu span.active {
   background-color: #5b9bd5;
   color: #fff;
 }
 
-.list-divider {
+.dt-list-divider {
   height: 1px;
   margin: 3px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
 
-.list-menu-row {
+.dt-list-menu-row {
   display: flex;
   justify-content: space-between;
 }
 
-.list-menu-row button {
+.dt-list-menu-row button {
   width: 100%;
   text-align: center;
 }
 
-.list-menu-row button + button {
+.dt-list-menu-row button + button {
   margin-left: 2%;
  }
 
-.list-menu-scroll {
+.dt-list-menu-scroll {
   height: auto;
   overflow-y: auto;
   min-width: 160px;

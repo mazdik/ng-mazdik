@@ -18,7 +18,8 @@ export interface SelectItem {
     '../styles/clearable-input.css',
     '../styles/list-menu.css',
     '../styles/input.css',
-    '../styles/buttons.css'
+    '../styles/buttons.css',
+    '../styles/icons.css',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

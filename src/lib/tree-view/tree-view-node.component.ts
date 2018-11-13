@@ -69,12 +69,12 @@ export class TreeViewNodeComponent implements OnInit {
   getExpanderIcon(node: TreeNode): string {
     let icon: string;
     if (this.loading) {
-      return 'icon-collapsing';
+      return 'dt-loader';
     }
     if (!node.isLeaf() && node.expanded) {
-      icon = 'icon-node icon-collapsed';
+      icon = 'dt-icon-node dt-icon-collapsed';
     } else if (!node.isLeaf()) {
-      icon = 'icon-node';
+      icon = 'dt-icon-node';
     }
     return icon;
   }
