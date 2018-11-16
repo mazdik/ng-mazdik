@@ -70,7 +70,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   onKeyElementChange(event) {
-    this.item[event.dynElement] = event.value;
+    this.item[event.keyElementName] = event.keyElementValue;
+    this.item[event.elementName] = event.elementValue;
   }
 
   isDisabled(dynElement: DynamicFormElement) {

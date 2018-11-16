@@ -73,8 +73,10 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   onValueChange() {
     if (this.dynElement.keyElement) {
       this.keyElementChange.emit({
-        'dynElement': this.dynElement.keyElement,
-        'value': this.model
+        'keyElementName': this.dynElement.keyElement,
+        'keyElementValue': this.model,
+        'elementName': this.dynElement.name,
+        'elementValue': this.getName(),
       });
     }
   }
@@ -83,6 +85,15 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     if (this._options && this._options.length === 1) {
       this.model = this._options[0].id;
       this.onValueChange();
+    }
+  }
+
+  getName() {
+    if (this._options) {
+      const option = this._options.find((x) => {
+        return x.id === this.model;
+      });
+      return (option) ? option.name : '';
     }
   }
 
