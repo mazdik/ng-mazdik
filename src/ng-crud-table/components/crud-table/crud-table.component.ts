@@ -43,7 +43,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
-      this.dataManager.loadItems();
+      this.dataManager.loadItems().catch(() => this.cd.markForCheck());
     }
     this.dataManager.settings.rowActionTemplate = this.rowActionTemplate;
 

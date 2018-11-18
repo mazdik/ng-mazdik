@@ -80,6 +80,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     });
     const subLoading = this.table.events.loadingSource$.subscribe((event) => {
       this.loading = event;
+      this.cd.markForCheck();
       // for server-side virtual scroll
       if (this.table.settings.virtualScroll) {
         requestAnimationFrame(() => {

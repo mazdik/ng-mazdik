@@ -36,7 +36,7 @@ export class DataManager extends DataTable {
   }
 
   loadItems() {
-    this.getItems(this.settings.virtualScroll).then();
+    return this.getItems(this.settings.virtualScroll);
   }
 
   getItems(concatRows: boolean = false): Promise<any> {
