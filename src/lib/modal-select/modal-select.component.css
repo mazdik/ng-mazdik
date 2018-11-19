@@ -6,7 +6,7 @@
   cursor: pointer;
 }
 
-input.select-input[readonly] {
+input.select-input[readonly]:not([disabled]) {
   background-color: white;
   cursor: default;
 }

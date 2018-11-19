@@ -30,6 +30,7 @@ export class DropdownSelectComponent extends Dropdown {
   @Input() clearMessage: string;
   @Input() searchMessage: string;
   @Input() placeholder: string = 'Select';
+  @Input() disabled: boolean;
 
   @Input()
   get options(): SelectItem[] { return this._options; }
@@ -63,6 +64,12 @@ export class DropdownSelectComponent extends Dropdown {
     super(cd);
   }
 
+  open() {
+    if (!this.disabled) {
+      this.toggleDropdown();
+    }
+  }
+
   onSelectionChange(event) {
     this.selectedName = this.getName(event);
     this.selectionChangeEmit(event);
@@ -74,7 +81,7 @@ export class DropdownSelectComponent extends Dropdown {
   }
 
   getName(items: any) {
-    if (items && items.length) {
+    if (items && items.length && this.options && this.options.length) {
       if (this.multiple && items.length > 1) {
         return items.length + ' items selected';
       } else {

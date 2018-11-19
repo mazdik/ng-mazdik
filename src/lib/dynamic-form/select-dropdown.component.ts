@@ -9,6 +9,7 @@ import {InputOptionComponent} from './input-option.component';
       <i class="dt-loader" *ngIf="loading"></i>
       <app-dropdown-select [(value)]="model"
                            [options]="getOptions()"
+                           [disabled]="disabled"
                            (valueChange)="onValueChange()">
       </app-dropdown-select>
       <div class="dt-help-block">
