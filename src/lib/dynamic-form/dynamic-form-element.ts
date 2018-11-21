@@ -10,9 +10,10 @@ export class DynamicFormElement {
   validatorFunc?: (name: string, value: any) => string[];
   dependsElement?: string;
   cellTemplate?: TemplateRef<any>;
-  formHidden?: boolean;
+  hidden?: boolean;
   isPrimaryKey?: boolean;
   keyElement?: string;
+  disableOnEdit?: boolean;
 
   getOptions(dependsValue?: any): SelectOption[] {
     if (this.options) {

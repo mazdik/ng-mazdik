@@ -3,10 +3,6 @@
   position: relative;
 }
 
-.dropdown-select .dt-input-group input {
-  cursor: pointer;
-}
-
 .dropdown-select-list {
   position: absolute;
   left: 0;
@@ -20,7 +16,10 @@
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
 
+.dropdown-select .dt-input-group input:not([disabled]) {
+  cursor: pointer;
+}
+
 input.select-input[readonly]:not([disabled]) {
   background-color: white;
-  cursor: default;
 }

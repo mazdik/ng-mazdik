@@ -4,7 +4,7 @@
          value="{{selectedName}}"
          placeholder="{{placeholder}}"
          [disabled]="disabled">
-  <button class="dt-button dt-white">
+  <button class="dt-button dt-white" [disabled]="disabled">
     <i class="dt-icon asc" *ngIf="isOpen"></i>
     <i class="dt-icon desc" *ngIf="!isOpen"></i>
   </button>

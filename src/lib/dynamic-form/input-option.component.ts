@@ -14,19 +14,17 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @Input()
-  set dependsValue(value) {
+  get dependsValue(): any { return this._dependsValue; }
+  set dependsValue(value: any) {
     if (this._dependsValue !== value) {
       this._dependsValue = value;
       this.setDependsOptions();
     }
   }
-
-  get dependsValue() {
-    return this._dependsValue;
-  }
+  private _dependsValue: any;
 
   private _options: SelectOption[];
-  private _dependsValue: any;
+  private firstCascade: boolean = true;
 
   ngOnInit() {
     if (this.dynElement.optionsUrl && !this.dynElement.dependsElement) {
@@ -55,14 +53,12 @@ export class InputOptionComponent extends InputComponent implements OnInit {
       this.loading = true;
       this.getOptionsFunc(this.dynElement.optionsUrl, this._dependsValue).then((res) => {
         this._options = res;
-        this.loading = false;
         this.setDefaultSelect();
         this.loaded.emit();
       }).catch(error => {
         this._options = [];
-        this.loading = false;
         this.loaded.emit();
-      });
+      }).finally(() => this.loading = false);
     }
   }
 
@@ -82,10 +78,15 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   }
 
   setDefaultSelect() {
-    if (this._options && this._options.length === 1) {
-      this.model = this._options[0].id;
+    const initValueOnEdit = (this.firstCascade && this.model !== null && this.model !== undefined);
+    if (!initValueOnEdit) {
+      this.model = '';
+      if (this._options && this._options.length === 1) {
+        this.model = this._options[0].id;
+      }
       this.onValueChange();
     }
+    this.firstCascade = false;
   }
 
   getName() {

@@ -2,15 +2,10 @@
   margin: 3px 0;
 }
 
-.modal-select .dt-input-group input {
+.modal-select .dt-input-group input:not([disabled]) {
   cursor: pointer;
 }
 
 input.select-input[readonly]:not([disabled]) {
   background-color: white;
-  cursor: default;
-}
-
-.select-input[disabled] {
-  cursor: default;
 }

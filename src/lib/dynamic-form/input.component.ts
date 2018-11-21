@@ -14,21 +14,18 @@ export class InputComponent implements OnInit {
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 
   @Input('value')
-  set model(value) {
+  get model(): any { return this._model; }
+  set model(value: any) {
     if (this._model !== value) {
       this._model = value;
       this.valueChange.emit(this._model);
       this.validate();
     }
   }
-
-  get model() {
-    return this._model;
-  }
+  private _model: any;
 
   errors: any[] = [];
   loading: boolean;
-  private _model: any;
 
   constructor() {
   }

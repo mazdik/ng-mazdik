@@ -30,5 +30,5 @@ export class ColumnBase {
   aggregation?: AggregateType;
   filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
   dataType?: DataType;
-
+  formDisableOnEdit?: boolean;
 }

@@ -44,7 +44,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   elemEnabled(dynElement: DynamicFormElement): boolean {
-    if (dynElement.formHidden) {
+    if (dynElement.hidden) {
       return false;
     }
     if (!this.isNewItem && dynElement.isPrimaryKey) {
@@ -75,9 +75,13 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   isDisabled(dynElement: DynamicFormElement) {
-    if (dynElement.keyElement && !this.isNewItem) {
-      const fkElement = this.dynElements.find(x => x.name === dynElement.keyElement);
-      return (fkElement && fkElement.isPrimaryKey === true);
+    if (!this.isNewItem) {
+      if (dynElement.disableOnEdit) {
+        return true;
+      } else if (dynElement.keyElement) {
+        const fkElement = this.dynElements.find(x => x.name === dynElement.keyElement);
+        return (fkElement && fkElement.isPrimaryKey === true);
+      }
     }
     return false;
   }

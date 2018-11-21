@@ -30,7 +30,7 @@ export class CheckboxComponent extends InputOptionComponent {
 
   isSelectActive(option) {
     if (Array.isArray(this.model)) {
-      return this.model.find(a => a === option.id) ? true : false;
+      return this.model.some(a => a === option.id);
     } else {
       return this.model === option.id;
     }
