@@ -58,11 +58,7 @@ export class TreeViewNodeComponent implements OnInit {
     node.expanded = !node.expanded;
     if (node.expanded) {
       this.loading = true;
-      this.tree.loadNode(node).then(() => {
-        this.loading = false;
-      }).catch(() => {
-        this.loading = false;
-      });
+      this.tree.loadNode(node).finally(() => { this.loading = false; });
     }
   }
 

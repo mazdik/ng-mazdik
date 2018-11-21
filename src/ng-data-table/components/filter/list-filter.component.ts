@@ -26,13 +26,13 @@ export class ListFilterComponent implements OnChanges {
       this.loadFilter();
       this.loading = true;
       this.column.getFilterValues().then((res) => {
-        this.column.filterValues = res;
-        this.loading = false;
-        this.cd.markForCheck();
-      }).catch(() => {
-        this.loading = false;
-        this.cd.markForCheck();
-      });
+          this.column.filterValues = res;
+        })
+        .catch(() => {})
+        .finally(() => {
+          this.loading = false;
+          this.cd.markForCheck();
+        });
     }
   }
 

@@ -56,7 +56,6 @@ export class DataManager extends DataTable {
     return this.service
       .getItems(requestMeta)
       .then(data => {
-        this.events.onLoading(false);
         this.rows = (concatRows) ? this.rows.concat(data.items) : data.items;
         if (concatRows) {
           this.pager.total = (data._meta.totalCount > this.rows.length) ? this.rows.length + 1 : this.rows.length;
@@ -67,9 +66,9 @@ export class DataManager extends DataTable {
         this.pagerCache[this.pager.current] = true;
       })
       .catch(error => {
-        this.events.onLoading(false);
         this.errors = error;
-      });
+      })
+      .finally(() => { this.events.onLoading(false); });
   }
 
   create(row: Row) {
@@ -78,14 +77,13 @@ export class DataManager extends DataTable {
     this.service
       .post(row)
       .then(res => {
-        this.events.onLoading(false);
         this.errors = null;
         this.addRow(res || row);
       })
       .catch(error => {
-        this.events.onLoading(false);
         this.errors = error;
-      });
+      })
+      .finally(() => { this.events.onLoading(false); });
   }
 
   update(row: Row) {
@@ -93,14 +91,13 @@ export class DataManager extends DataTable {
     this.errors = null;
     this.service.put(row)
       .then(res => {
-        this.events.onLoading(false);
         this.errors = null;
         this.afterUpdate(row, res);
       })
       .catch(error => {
-        this.events.onLoading(false);
         this.errors = error;
-      });
+      })
+      .finally(() => { this.events.onLoading(false); });
   }
 
   delete(row: Row) {
@@ -109,14 +106,13 @@ export class DataManager extends DataTable {
     this.service
       .delete(row)
       .then(res => {
-        this.events.onLoading(false);
         this.errors = null;
         this.deleteRow(row);
       })
       .catch(error => {
-        this.events.onLoading(false);
         this.errors = error;
-      });
+      })
+      .finally(() => { this.events.onLoading(false); });
   }
 
   afterUpdate(row: Row, result: any) {
@@ -132,13 +128,12 @@ export class DataManager extends DataTable {
     this.errors = null;
     this.service.getItem(row)
       .then(data => {
-        this.events.onLoading(false);
         this.mergeRow(row, data);
       })
       .catch(error => {
-        this.events.onLoading(false);
         this.errors = error;
-      });
+      })
+      .finally(() => { this.events.onLoading(false); });
   }
 
   clear() {

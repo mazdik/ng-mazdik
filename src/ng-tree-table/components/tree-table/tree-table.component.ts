@@ -40,24 +40,22 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   initGetNodes() {
     this.treeTable.events.onLoading(true);
-    this.treeTable.tree.initLoadNodes().then(() => {
-      this.treeTable.flatten();
-      this.treeTable.events.onLoading(false);
-    }).catch(() => {
-      this.treeTable.events.onLoading(false);
-    });
+    this.treeTable.tree.initLoadNodes()
+      .then(() => {
+        this.treeTable.flatten();
+      })
+      .finally(() => { this.treeTable.events.onLoading(false); });
   }
 
   onExpand(node: any) {
     node.expanded = !node.expanded;
     if (node.expanded) {
       node.loading = true;
-      this.treeTable.tree.loadNode(node).then(() => {
-        this.treeTable.flatten();
-        node.loading = false;
-      }).catch(() => {
-        node.loading = false;
-      });
+      this.treeTable.tree.loadNode(node)
+        .then(() => {
+          this.treeTable.flatten();
+        })
+        .finally(() => { node.loading = false; });
     } else {
       this.treeTable.flatten();
     }

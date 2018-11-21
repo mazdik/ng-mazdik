@@ -65,11 +65,7 @@ export class TreeViewComponent implements OnInit {
 
   initGetNodes() {
     this.loading = true;
-    this.tree.initLoadNodes().then(() => {
-      this.loading = false;
-    }).catch(() => {
-      this.loading = false;
-    });
+    this.tree.initLoadNodes().finally(() => { this.loading = false; });
   }
 
   onFilterKeyup() {
