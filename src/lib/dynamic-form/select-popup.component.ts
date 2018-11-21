@@ -10,6 +10,8 @@ import {InputOptionComponent} from './input-option.component';
       <app-modal-select [(value)]="model"
                     [options]="getOptions()"
                     [disabled]="disabled"
+                    [placeholder]="placeholder"
+                    [searchInputPlaceholder]="searchInputPlaceholder"
                     [modalTitle]="dynElement.title"
                     (valueChange)="onValueChange()"
                     (nameChanged)="nameChanged.emit($event)">

@@ -10,6 +10,8 @@ import {InputOptionComponent} from './input-option.component';
       <app-dropdown-select [(value)]="model"
                            [options]="getOptions()"
                            [disabled]="disabled"
+                           [placeholder]="placeholder"
+                           [searchInputPlaceholder]="searchInputPlaceholder"
                            (valueChange)="onValueChange()">
       </app-dropdown-select>
       <div class="dt-help-block">

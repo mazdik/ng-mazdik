@@ -10,6 +10,7 @@ import {InputComponent} from './input.component';
 export class InputOptionComponent extends InputComponent implements OnInit {
 
   @Input() getOptionsFunc: getOptionsFunction;
+  @Input() searchInputPlaceholder: string;
   @Output() keyElementChange: EventEmitter<any> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
@@ -78,7 +79,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   }
 
   setDefaultSelect() {
-    const initValueOnEdit = (this.firstCascade && this.model !== null && this.model !== undefined);
+    const initValueOnEdit = (this.firstCascade && this.model !== null && this.model !== undefined && this.model.length !== 0);
     if (!initValueOnEdit) {
       this.model = '';
       if (this._options && this._options.length === 1) {

@@ -22,6 +22,8 @@
         [getOptionsFunc]="getOptionsFunc"
         (keyElementChange)="onKeyElementChange($event)"
         [disabled]="isDisabled(dynElement)"
+        [placeholder]="selectPlaceholder"
+        [searchInputPlaceholder]="searchInputPlaceholder"
         (loaded)="loaded.emit($event)">
       </app-form-select>
 
@@ -34,6 +36,8 @@
         [getOptionsFunc]="getOptionsFunc"
         (keyElementChange)="onKeyElementChange($event)"
         [disabled]="isDisabled(dynElement)"
+        [placeholder]="selectPlaceholder"
+        [searchInputPlaceholder]="searchInputPlaceholder"
         (nameChanged)="onSelectPopupNameChanged($event, dynElement)"
         (loaded)="loaded.emit($event)">
       </app-form-select-popup>
@@ -47,6 +51,8 @@
         [getOptionsFunc]="getOptionsFunc"
         (keyElementChange)="onKeyElementChange($event)"
         [disabled]="isDisabled(dynElement)"
+        [placeholder]="selectPlaceholder"
+        [searchInputPlaceholder]="searchInputPlaceholder"
         (loaded)="loaded.emit($event)">
       </app-form-select-dropdown>
 

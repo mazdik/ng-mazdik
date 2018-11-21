@@ -24,6 +24,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   @Input() item: any;
   @Input() isNewItem: boolean = true;
   @Input() getOptionsFunc: getOptionsFunction;
+  @Input() selectPlaceholder: string;
+  @Input() searchInputPlaceholder: string;
 
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();

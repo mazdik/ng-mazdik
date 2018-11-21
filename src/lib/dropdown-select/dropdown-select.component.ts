@@ -25,12 +25,12 @@ export interface SelectItem {
 export class DropdownSelectComponent extends Dropdown {
 
   @Input() multiple: boolean;
+  @Input() disabled: boolean;
   @Input() selectAllMessage: string;
   @Input() cancelMessage: string;
   @Input() clearMessage: string;
-  @Input() searchMessage: string;
   @Input() placeholder: string = 'Select';
-  @Input() disabled: boolean;
+  @Input() searchInputPlaceholder: string = 'Search...';
 
   @Input()
   get options(): SelectItem[] { return this._options; }

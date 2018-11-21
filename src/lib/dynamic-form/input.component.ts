@@ -10,6 +10,7 @@ export class InputComponent implements OnInit {
 
   @Input() dynElement: DynamicFormElement;
   @Input() disabled: boolean;
+  @Input() placeholder: string;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
 

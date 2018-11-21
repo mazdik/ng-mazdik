@@ -38,6 +38,7 @@ export class Message {
   cancel?: string;
   isEmpty?: string;
   isNotEmpty?: string;
+  selectPlaceholder?: string;
 
   constructor() {
     this.empty = 'No data to display';
@@ -78,6 +79,7 @@ export class Message {
     this.cancel = 'Cancel';
     this.isEmpty = 'Is empty';
     this.isNotEmpty = 'Is not empty';
+    this.selectPlaceholder = 'Select...';
   }
 
 }

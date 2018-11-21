@@ -14,7 +14,7 @@
     <div class="select-header">
       <div class="dt-clearable-input">
         <input class="dt-input select-input"
-               placeholder="Search..."
+               placeholder={{searchInputPlaceholder}}
                [(ngModel)]="searchFilterText"
                (keyup)="onFilterKeyup()">
         <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "

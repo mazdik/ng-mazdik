@@ -12,6 +12,7 @@ import {InputOptionComponent} from './input-option.component';
               [id]="dynElement.name"
               (change)="onValueChange()"
               [disabled]="disabled">
+        <option value="" disabled selected hidden>{{placeholder}}</option>
         <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
       </select>
       <div class="dt-help-block">
