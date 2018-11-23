@@ -14,6 +14,7 @@ export type ElementType =
   | 'textarea'
   | 'date'
   | 'datetime-local'
+  | 'month'
   | 'select-popup'
   | 'select-dropdown';
 

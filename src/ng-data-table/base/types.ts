@@ -8,6 +8,7 @@ export type ColumnType =
   | 'textarea'
   | 'date'
   | 'datetime-local'
+  | 'month'
   | 'select-popup'
   | 'select-dropdown';
 

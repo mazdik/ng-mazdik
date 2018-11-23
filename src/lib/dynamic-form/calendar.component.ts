@@ -1,5 +1,6 @@
 import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {InputComponent} from './input.component';
+import {inputFormattedDate} from '../common/utils';
 
 @Component({
   selector: 'app-form-calendar',
@@ -8,8 +9,9 @@ import {InputComponent} from './input.component';
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <input class="dt-input"
              [attr.type]="dynElement.type"
-             [(ngModel)]="model"
-             [disabled]="disabled"/>
+             [disabled]="disabled"
+             [ngModel]=formattedDate
+             (ngModelChange)="model = $event">
       <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>
@@ -18,5 +20,9 @@ import {InputComponent} from './input.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent extends InputComponent {
+
+  get formattedDate() {
+    return inputFormattedDate(this.dynElement.type, this.model);
+  }
 
 }

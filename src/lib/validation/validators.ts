@@ -20,7 +20,7 @@ export class Validators {
     }
     const length: number = value ? value.length : 0;
 
-    if (validation.required && (value == null || value.length === 0)) {
+    if (validation.required && (value === null || length === 0)) {
       temp.push(`${name} is required.`);
     }
     if (validation.minLength && length < validation.minLength) {

@@ -93,8 +93,7 @@ export class FilterComponent extends Dropdown implements OnInit, OnDestroy {
   }
 
   get isRangeFilter(): boolean {
-    if (!this.isListFilter &&
-        (this.column.type === 'number' || this.column.type === 'date' || this.column.type === 'datetime-local')) {
+    if (!this.isListFilter && (this.column.type === 'number' || this.column.isDateType)) {
       return true;
     }
     return false;

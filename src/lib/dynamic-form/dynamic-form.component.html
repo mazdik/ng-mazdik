@@ -87,7 +87,7 @@
       </app-form-textarea>
 
       <app-form-calendar
-        *ngSwitchCase="(dynElement.type ==='date' || dynElement.type ==='datetime-local') ? dynElement.type : ''"
+        *ngSwitchCase="(dynElement.isDateType) ? dynElement.type : ''"
         [dynElement]="dynElement"
         [(value)]="item[dynElement.name]"
         (valid)="onValid($event, dynElement)"

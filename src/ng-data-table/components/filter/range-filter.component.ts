@@ -2,6 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, DataFilter} from '../../base';
+import {inputFormattedDate} from '../../../lib/common/utils';
 
 @Component({
   selector: 'app-range-filter',
@@ -97,7 +98,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
       dt = new Date(Date.now() + -1 * 3600 * 1000);
     }
     this.matchMode = DataFilter.GREATER_THAN_OR_EQUAL;
-    this.value = dt.toISOString().slice(0, 16);
+    this.value = inputFormattedDate(this.column.type, dt.toISOString());
     this.saveFilter();
     this.filterClose.emit(true);
   }

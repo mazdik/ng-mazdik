@@ -1,7 +1,7 @@
 <app-inline-edit
   [(value)]="row[column.name]"
   [editing]=editing
-  [type]="(column.type ==='date' || column.type ==='datetime-local') ? column.type : 'text'"
+  [type]="(column.isDateType) ? column.type : 'text'"
   [options]="column.options"
   (change)="validate()"
   (focus)="onInputFocus()"

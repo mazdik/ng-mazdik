@@ -32,4 +32,8 @@ export class DynamicFormElement {
     return [];
   }
 
+  get isDateType(): boolean {
+    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
+  }
+
 }

@@ -55,7 +55,7 @@ export class Column extends ColumnBase {
       }
     }
     if (!this.dataType) {
-      if (this.type === 'date' || this.type === 'datetime-local') {
+      if (this.isDateType) {
         this.dataType = DataType.Date;
       } else if (this.type === 'number') {
         this.dataType = DataType.Number;
@@ -159,6 +159,10 @@ export class Column extends ColumnBase {
     if (this.dataFilter.filters[this.name]) {
       delete this.dataFilter.filters[this.name];
     }
+  }
+
+  get isDateType(): boolean {
+    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
 }

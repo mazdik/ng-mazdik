@@ -16,7 +16,8 @@
         appAfterViewFocus
         [attr.type]="type"
         [attr.step]="(type === 'number') ? 'any' : null"
-        [(ngModel)]="value"
+        [ngModel]=inputFormattedValue
+        (ngModelChange)="value = $event"
         (keyup)="onInputChange()"
         (focus)="onInputFocus()"
         (blur)="onInputBlur()"/>

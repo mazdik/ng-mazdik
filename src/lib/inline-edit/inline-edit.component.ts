@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding} from '@angular/core';
+import {inputFormattedDate} from '../common/utils';
 
 export interface SelectItem {
   id: any;
@@ -40,6 +41,10 @@ export class InlineEditComponent {
     } else {
       return this.value;
     }
+  }
+
+  get inputFormattedValue() {
+    return inputFormattedDate(this.type, this.value);
   }
 
   constructor() {
