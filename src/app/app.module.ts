@@ -10,7 +10,6 @@ import { CrudTableModule } from '../ng-crud-table';
 import { DataTableModule } from '../ng-data-table';
 import { TreeTableModule } from '../ng-tree-table';
 import { ToolbarModule } from '../lib/toolbar';
-import { MessageModule } from '../lib/message';
 import { ModalModule } from '../lib//modal';
 import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { TreeViewModule } from '../lib/tree-view';
@@ -102,7 +101,6 @@ const ROUTES: Routes = [
     DataTableModule,
     TreeTableModule,
     ToolbarModule,
-    MessageModule,
     ModalModule,
     ModalEditFormModule,
     TreeViewModule,

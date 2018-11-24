@@ -4,15 +4,16 @@ import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {CdtSettings} from './cdt-settings';
 import {Message} from '../../ng-data-table/base/message';
+import {NotifyService} from '../../lib/notify/notify.service';
 
 export class DataManager extends DataTable {
 
   settings: CdtSettings;
   service: DataSource;
-  errors: any;
   item: any;
   refreshRowOnSave: boolean;
   pagerCache: any = {};
+  notifyService: NotifyService;
 
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: Message) {
     super(columns, settings, messages);
@@ -44,7 +45,6 @@ export class DataManager extends DataTable {
       return Promise.resolve();
     }
     this.events.onLoading(true);
-    this.errors = null;
     this.rowGroup.setSortMetaGroup();
     const requestMeta = <RequestMetadata> {
       pageMeta: {currentPage: this.pager.current, perPage: this.pager.perPage},
@@ -66,51 +66,45 @@ export class DataManager extends DataTable {
         this.pagerCache[this.pager.current] = true;
       })
       .catch(error => {
-        this.errors = error;
+        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
 
   create(row: Row) {
     this.events.onLoading(true);
-    this.errors = null;
     this.service
       .post(row)
       .then(res => {
-        this.errors = null;
         this.addRow(res || row);
       })
       .catch(error => {
-        this.errors = error;
+        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
 
   update(row: Row) {
     this.events.onLoading(true);
-    this.errors = null;
     this.service.put(row)
       .then(res => {
-        this.errors = null;
         this.afterUpdate(row, res);
       })
       .catch(error => {
-        this.errors = error;
+        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
 
   delete(row: Row) {
     this.events.onLoading(true);
-    this.errors = null;
     this.service
       .delete(row)
       .then(res => {
-        this.errors = null;
         this.deleteRow(row);
       })
       .catch(error => {
-        this.errors = error;
+        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
@@ -125,13 +119,12 @@ export class DataManager extends DataTable {
 
   refreshRow(row: Row) {
     this.events.onLoading(true);
-    this.errors = null;
     this.service.getItem(row)
       .then(data => {
         this.mergeRow(row, data);
       })
       .catch(error => {
-        this.errors = error;
+        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
@@ -147,6 +140,10 @@ export class DataManager extends DataTable {
       return (errors && errors.length > 0);
     });
     return !hasError;
+  }
+
+  sendErrorMessage(text: string): void {
+    this.notifyService.sendMessage({title: 'data table', text: text, severity: 'error'});
   }
 
 }

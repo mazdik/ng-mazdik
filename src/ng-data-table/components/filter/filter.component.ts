@@ -5,7 +5,7 @@ import {
 import {Column, DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
-import {Dropdown} from './dropdown';
+import {Dropdown} from '../../../lib/common/dropdown';
 
 @Component({
   selector: 'app-filter',

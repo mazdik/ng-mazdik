@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding
 } from '@angular/core';
-import {Dropdown} from './dropdown';
+import {Dropdown} from '../common/dropdown';
 
 export interface SelectItem {
   id: any;

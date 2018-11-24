@@ -11,10 +11,13 @@ import {Subscription} from 'rxjs';
       <b>{{this.eventName}}</b>: {{this.eventValue}}
     </div>
     <app-data-table [table]="table"></app-data-table>
-    <app-message [severity]="'success'" [text]="cellValueChangedText()" style="word-break: break-all;">
-    </app-message><br>
-    <app-message [severity]="'success'" [text]="eventText()" style="word-break: break-all;">
-    </app-message>
+    <div class="dt-message dt-message-success" style="word-break: break-all;"
+    *ngIf="this.cellValueChangedEvent">
+      <b>cellValueChanged:</b> {{this.cellValueChangedEvent}}
+    </div><br>
+    <div class="dt-message dt-message-success" style="word-break: break-all;">
+    <b>{{this.eventName}}:</b> {{this.eventValue}}
+    </div>
   `,
 })
 
@@ -88,16 +91,6 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
       this.eventValue = JSON.stringify({columnName, cell});
     }
     this.cd.detectChanges();
-  }
-
-  eventText() {
-    return '<b>' + this.eventName + ':</b> ' + this.eventValue;
-  }
-
-  cellValueChangedText() {
-    if (this.cellValueChangedEvent) {
-      return '<b>cellValueChanged:</b> ' + this.cellValueChangedEvent;
-    }
   }
 
   showTooltip(event: MouseEvent) {

@@ -35,7 +35,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   @ViewChild(BodyComponent) body: BodyComponent;
   @ViewChild(HeaderComponent) header: HeaderComponent;
 
-  @HostBinding('class') cssClass = 'datatable';
+  @HostBinding('class.datatable') cssClass = true;
   @HostBinding('attr.role') role = 'grid';
 
   @HostBinding('class.fixed-header')

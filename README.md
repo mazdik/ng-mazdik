@@ -330,25 +330,25 @@ private subscriptions: Subscription[] = [];
 ```
 
 ### Lib
-| Componnent                     | Description |
-|--------------------------------|-------------|
-| app-context-menu               |             |
-| app-dropdown-select            |             |
-| app-dynamic-form               |             |
-| export                         | csv         |
-| app-inline-edit, [inline-edit] |             |
-| app-message                    |             |
-| app-modal                      |             |
-| app-modal-edit-form            |             |
-| app-modal-select               |             |
-| app-pagination                 |             |
-| app-row-menu                   |             |
-| app-row-view                   |             |
-| app-scroller, [scroller]       | virtual scroll |
-| app-select-list                |             |
-| dt-toolbar                     |             |
-| tree                           |             |
-| app-tree-view                  |             |
-| validation                     |             |
-| app-sort-header, [sort-header] |             |
-| [appResizable]                 |             |
+| Componnent                     | Description        |
+|--------------------------------|--------------------|
+| app-context-menu               |                    |
+| app-dropdown-select            |                    |
+| app-dynamic-form               |                    |
+| export                         | csv                |
+| app-inline-edit, [inline-edit] |                    |
+| app-notify                     | with NotifyService |
+| app-modal                      |                    |
+| app-modal-edit-form            |                    |
+| app-modal-select               |                    |
+| app-pagination                 |                    |
+| app-row-menu                   |                    |
+| app-row-view                   |                    |
+| app-scroller, [scroller]       | virtual scroll     |
+| app-select-list                |                    |
+| dt-toolbar                     |                    |
+| tree                           |                    |
+| app-tree-view                  |                    |
+| validation                     |                    |
+| app-sort-header, [sort-header] |                    |
+| [appResizable]                 |                    |

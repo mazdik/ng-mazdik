@@ -7,6 +7,7 @@ import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {RowMenuComponent, MenuItem, MenuEventArgs} from '../../../lib/row-menu';
 import {DataTableComponent} from '../../../ng-data-table';
+import {NotifyService} from '../../../lib/notify/notify.service';
 
 @Component({
   selector: 'app-crud-table',
@@ -37,10 +38,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   actionMenu: MenuItem[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private notifyService: NotifyService) {
   }
 
   ngOnInit() {
+    this.dataManager.notifyService = this.notifyService;
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
       this.dataManager.loadItems().catch(() => this.cd.markForCheck());
@@ -169,7 +171,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   viewAction(row: Row) {
-    this.dataManager.errors = null;
     this.dataManager.item = Object.assign({}, row);
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = true;

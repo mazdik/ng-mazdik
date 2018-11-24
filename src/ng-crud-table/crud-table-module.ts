@@ -4,7 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import {DataTableModule} from '../ng-data-table';
 import {ToolbarModule} from '../lib/toolbar';
-import {MessageModule} from '../lib/message';
+import {NotifyModule} from '../lib/notify';
 import {ModalEditFormModule} from '../lib/modal-edit-form';
 import {RowMenuModule} from '../lib/row-menu';
 import {CrudTableComponent} from './components/crud-table/crud-table.component';
@@ -15,7 +15,7 @@ import {CrudTableComponent} from './components/crud-table/crud-table.component';
     HttpClientModule,
     DataTableModule,
     ToolbarModule,
-    MessageModule,
+    NotifyModule,
     ModalEditFormModule,
     RowMenuModule,
   ],
