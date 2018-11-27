@@ -1,5 +1,5 @@
 import {Filter, FilterMetadata, DataType} from './types';
-import {isBlank} from './util';
+import {isBlank} from '../../lib/common/utils';
 
 export class DataFilter {
 

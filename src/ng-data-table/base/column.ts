@@ -1,5 +1,5 @@
 import {ColumnBase} from './column-base';
-import {isBlank} from './util';
+import {isBlank} from '../../lib/common/utils';
 import {SelectOption, DataType} from './types';
 import {Settings} from './settings';
 import {DataFilter} from './data-filter';

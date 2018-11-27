@@ -1,6 +1,6 @@
 import { DataTable } from '../base/data-table';
 import { CellEventArgs, Keys } from './types';
-import { isBlank } from '../base/util';
+import { isBlank } from '../../lib/common/utils';
 
 export class KeyboardAction {
 

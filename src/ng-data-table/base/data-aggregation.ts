@@ -1,4 +1,4 @@
-import {isBlank} from './util';
+import {isBlank} from '../../lib/common/utils';
 import {AggregateType, AggregateMeta} from './types';
 
 export class DataAggregation {
