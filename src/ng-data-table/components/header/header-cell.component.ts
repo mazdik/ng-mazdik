@@ -16,14 +16,12 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
 
   @Input()
+  get column(): Column { return this._column; }
   set column(column: Column) {
     this._column = column;
     this.cellContext.column = column;
   }
-
-  get column(): Column {
-    return this._column;
-  }
+  private _column: Column;
 
   @HostBinding('class')
   get columnCssClasses(): string {
@@ -49,7 +47,6 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   cellContext: any = {
     column: this.column,
   };
-  private _column: Column;
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {

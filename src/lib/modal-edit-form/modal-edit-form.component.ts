@@ -19,9 +19,7 @@ export class ModalEditFormComponent implements OnInit {
   @Input() isNewItem: boolean;
 
   @Input()
-  get detailView(): boolean {
-    return this._detailView;
-  }
+  get detailView(): boolean { return this._detailView; }
   set detailView(val: boolean) {
     this._detailView = val;
     this.transposedData = [];
@@ -29,6 +27,7 @@ export class ModalEditFormComponent implements OnInit {
       this.transposedData.push({key: column.title, value: column.getValueView(this.dataManager.item)});
     }
   }
+  private _detailView: boolean;
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
@@ -38,8 +37,6 @@ export class ModalEditFormComponent implements OnInit {
   formValid: boolean = true;
   transposedData: any[];
   getOptionsFunc: Function;
-
-  private _detailView: boolean;
 
   constructor(private cd: ChangeDetectorRef) {
   }

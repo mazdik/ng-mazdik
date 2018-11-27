@@ -43,7 +43,8 @@ export class DemoService implements DataSource {
           }
         };
         return result;
-      }.bind(this));
+      }.bind(this))
+      .catch(this.handleError);
   }
 
   getItem(row: any): Promise<any> {
@@ -101,8 +102,15 @@ export class DemoService implements DataSource {
   }
 
   private handleError(error: any) {
-    const errMsg = error.message ? error.message : error.toString();
-    return Promise.reject(errMsg);
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return Promise.reject(errorMessage);
   }
 
 }

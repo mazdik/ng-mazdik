@@ -16,26 +16,22 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
 
   @Input()
+  get column(): Column { return this._column; }
   set column(column: Column) {
     this._column = column;
     this.cellContext.column = column;
     this.updateValue();
   }
-
-  get column(): Column {
-    return this._column;
-  }
+  private _column: Column;
 
   @Input()
+  get row(): Row { return this._row; }
   set row(row: Row) {
     this._row = row;
     this.cellContext.row = row;
     this.updateValue();
   }
-
-  get row(): Row {
-    return this._row;
-  }
+  private _row: Row;
 
   @HostBinding('class')
   get columnCssClasses(): string {
@@ -93,8 +89,6 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   editing: boolean;
   subscriptions: Subscription[] = [];
   hasError: boolean;
-  private _column: Column;
-  private _row: Row;
 
   constructor(public cd: ChangeDetectorRef, public element: ElementRef) {
   }

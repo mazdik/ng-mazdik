@@ -12,7 +12,8 @@ import {Validators} from '../../lib/validation/validators';
 
 @Component({
   selector: 'my-app',
-  template: `<app-crud-table [dataManager]="dataManager"></app-crud-table>`
+  template: `<app-crud-table [dataManager]="dataManager"></app-crud-table>
+  <app-notify></app-notify>`
 })
 
 export class PlayersComponent {

@@ -15,14 +15,12 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
 
   @Input()
+  get row(): Row { return this._row; }
   set row(row: Row) {
     this._row = row;
     this.cellContext.row = row;
   }
-
-  get row(): Row {
-    return this._row;
-  }
+  private _row: Row;
 
   @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
   @HostBinding('attr.role') role = 'gridcell';
@@ -36,7 +34,6 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   checked: boolean;
   cellContext: any = {row: this.row};
-  private _row: Row;
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
