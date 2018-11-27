@@ -52,7 +52,7 @@ export class NotifyItemComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  onCloseClick(event) {
+  onCloseClick() {
     this.clearTimeout();
     this.close.emit(this.index);
   }

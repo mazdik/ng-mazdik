@@ -353,3 +353,4 @@ private subscriptions: Subscription[] = [];
 | validation                     |                    |
 | app-sort-header, [sort-header] |                    |
 | [appResizable]                 |                    |
+| app-dual-list-box              |                    |
