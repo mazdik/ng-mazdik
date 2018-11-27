@@ -1,0 +1,31 @@
+<div class="dt-listbox-panel">
+  <label>{{sourceTitle}}</label>
+  <select class="dt-input" size="10"
+          [disabled]="disabled"
+          [(ngModel)]="sourceModel">
+    <option *ngFor="let opt of source" [ngValue]="opt.id">{{opt.name}}</option>
+  </select>
+</div>
+
+<div class="dt-listbox-panel">
+  <button class="dt-button" (click)="moveRightAll()" title="move all to the right">&rArr;</button>
+  <button class="dt-button" (click)="moveRight()" [disabled]="isBlankSourceModel" title="move selected to the right">&#8594;</button>
+  <button class="dt-button" (click)="moveLeft()" [disabled]="isBlankTargetModel" title="move selected to the left">&#8592;</button>
+  <button class="dt-button" (click)="moveLeftAll()" title="move all to the left">&lArr;</button>
+</div>
+
+<div class="dt-listbox-panel">
+  <label>{{targetTitle}}</label>
+  <select class="dt-input" size="10"
+          [disabled]="disabled"
+          [(ngModel)]="targetModel">
+    <option *ngFor="let opt of target" [ngValue]="opt.id">{{opt.name}}</option>
+  </select>
+</div>
+
+<div class="dt-listbox-panel">
+  <button class="dt-button" (click)="moveTop()" [disabled]="isBlankTargetModel" title="move top">&uArr;</button>
+  <button class="dt-button" (click)="moveUp()" [disabled]="isBlankTargetModel" title="move up">&#8593;</button>
+  <button class="dt-button" (click)="moveDown()" [disabled]="isBlankTargetModel" title="move down">&#8595;</button>
+  <button class="dt-button" (click)="moveBottom()" [disabled]="isBlankTargetModel" title="move bottom">&dArr;</button>
+</div>

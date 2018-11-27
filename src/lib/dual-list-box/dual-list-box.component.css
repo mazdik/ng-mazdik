@@ -1,0 +1,21 @@
+.dt-listbox {
+  display: flex;
+}
+
+.dt-listbox-panel {
+  display: inline-block;
+}
+
+.dt-listbox-panel button {
+  display: block;
+  margin-bottom: .25em;
+  width: 45px;
+}
+
+.dt-listbox-panel select {
+  width: 300px;
+}
+
+.dt-listbox-panel + .dt-listbox-panel {
+  margin-left: .5em;
+}
