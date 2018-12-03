@@ -6,8 +6,7 @@ The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Ser
 ### Sample crud-table
 ```typescript
 import {Component}  from '@angular/core';
-import {Column, CdtSettings, DataSource, YiiService, DataManager} from '../ng-crud-table';
-import {HttpClient} from '@angular/common/http';
+import {Column, CdtSettings, YiiService, DataManager} from '../ng-crud-table';
 import {Validators} from '../../lib/validation/validators';
 
 @Component({
@@ -17,13 +16,11 @@ import {Validators} from '../../lib/validation/validators';
 })
 
 export class PlayersComponent {
-  
-    service: DataSource;
+
     dataManager: DataManager;
   
-    constructor(private http: HttpClient) {
+    constructor(private service: YiiService) {
       // YiiService | RestlessService | OrdsService | your custom service
-      this.service = new YiiService(this.http);
       this.service.url = 'http://host3/players';
       this.dataManager = new DataManager(this.columns, this.settings, this.service);
     }
@@ -144,7 +141,7 @@ export class DataTableDemoComponent {
 ```
 ### Sample tree-table
 ```typescript
-import {TreeDataSource, Column, Settings, TreeTable} from '../ng-tree-table';
+import {Column, Settings, TreeTable} from '../ng-tree-table';
 
 @Component({
   selector: 'app-tree-table-demo',
@@ -153,13 +150,11 @@ import {TreeDataSource, Column, Settings, TreeTable} from '../ng-tree-table';
 
 export class TreeTableDemoComponent {
 
-  treeService: TreeDataSource;
   treeTable: TreeTable;
   settings: Settings;
   columns: Column[];
 
-  constructor() {
-    this.treeService = new TreeDemoService(this.http);
+  constructor(private treeService: TreeDemoService) {
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
   }
 }

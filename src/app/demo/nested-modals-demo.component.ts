@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -21,7 +20,6 @@ import {getColumnsPlayers} from './columns';
 
 export class NestedModalsDemoComponent implements OnInit {
 
-  service: DataSource;
   columns: Column[];
   dataManager: DataManager;
 
@@ -33,12 +31,11 @@ export class NestedModalsDemoComponent implements OnInit {
 
   @ViewChild('modal') modal: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
     for (const column of this.columns) {
       column.editable = false;
     }
-    this.service = new DemoService(this.http);
     this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }

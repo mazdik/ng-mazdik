@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../lib/modal-edit-form/modal-edit-form.component';
 import {getColumnsPlayers} from './columns';
@@ -20,7 +20,6 @@ import {getColumnsPlayers} from './columns';
 
 export class ModalFormDemoComponent implements OnInit {
 
-  service: DataSource;
   columns: Column[];
   dataManager: DataManager;
 
@@ -58,13 +57,12 @@ export class ModalFormDemoComponent implements OnInit {
     'online': 1
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();
     this.columns[3].options = null;
     this.columns[3].optionsUrl = 'assets/options.json';
     this.columns[9].validatorFunc = this.customValidation;
 
-    this.service = new DemoService(this.http);
     this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }

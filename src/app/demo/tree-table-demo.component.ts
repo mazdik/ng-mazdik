@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TreeDataSource, Column, Settings, TreeTable} from '../../ng-tree-table';
+import {Column, Settings, TreeTable} from '../../ng-tree-table';
 import {HttpClient} from '@angular/common/http';
 import {TreeDemoService} from './tree-demo.service';
 import {getTreeColumns} from './columns';
@@ -15,7 +15,6 @@ import {Subscription} from 'rxjs';
 })
 export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
-  treeService: TreeDataSource;
   treeTable: TreeTable;
   settings: Settings = <Settings> {
     selectionMultiple: true,
@@ -28,9 +27,8 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private treeService: TreeDemoService,  private http: HttpClient) {
     this.columns = getTreeColumns();
-    this.treeService = new TreeDemoService(this.http);
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
     this.treeTable.pager.perPage = 1000;
     this.treeTable.getIconFunc = (node) => (!node.isLeaf()) ? 'tree-icon tree-folder' : 'tree-icon tree-file';

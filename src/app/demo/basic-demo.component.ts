@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataSource, Message, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, Message, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 import {SelectOption} from '../../ng-data-table';
@@ -12,7 +11,6 @@ import {SelectOption} from '../../ng-data-table';
 
 export class BasicDemoComponent implements OnInit {
 
-  service: DataSource;
   columns: Column[];
   dataManager: DataManager;
 
@@ -28,10 +26,9 @@ export class BasicDemoComponent implements OnInit {
     titleCreate: 'Create a new player'
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
     this.columns[4].filterValuesFunc = this.filterValuesFunc;
-    this.service = new DemoService(this.http);
     this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
     this.dataManager.pager.perPage = 20;

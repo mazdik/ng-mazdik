@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {TreeNode, TreeDataSource} from '../../ng-tree-table';
 
-
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TreeDemoService implements TreeDataSource {
 
   url: string = 'assets/tree.json';

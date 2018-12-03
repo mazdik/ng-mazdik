@@ -3,7 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {DataSource, RequestMetadata, PagedResult} from '../../ng-crud-table';
 import {DataSort, DataFilter} from '../../ng-data-table/base';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DemoService implements DataSource {
 
   url: string;

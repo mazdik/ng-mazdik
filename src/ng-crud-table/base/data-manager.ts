@@ -76,7 +76,11 @@ export class DataManager extends DataTable {
     this.service
       .post(row)
       .then(res => {
-        this.addRow(res || row);
+        if (this.refreshRowOnSave) {
+          this.loadItems();
+        } else {
+          this.addRow(res || row);
+        }
       })
       .catch(error => {
         this.sendErrorMessage(error);
