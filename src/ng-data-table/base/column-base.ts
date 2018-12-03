@@ -1,5 +1,5 @@
 import {SelectOption, ColumnType, AggregateType, DataType} from './types';
-import {TemplateRef} from '@angular/core';
+import {TemplateRef, PipeTransform} from '@angular/core';
 
 export class ColumnBase {
 
@@ -31,4 +31,5 @@ export class ColumnBase {
   filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
   dataType?: DataType;
   formDisableOnEdit?: boolean;
+  pipe?: PipeTransform;
 }

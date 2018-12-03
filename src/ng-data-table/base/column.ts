@@ -138,6 +138,9 @@ export class Column extends ColumnBase {
     if (value) {
       value = this.getOptionName(value);
     }
+    if (this.pipe) {
+      value = this.pipe.transform(value);
+    }
     return value;
   }
 

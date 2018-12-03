@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding} from '@angular/core';
-import {inputFormattedDate} from '../common/utils';
+import {PipeTransform} from '@angular/core';
+import {inputFormattedDate, isBlank} from '../common/utils';
 
 export interface SelectItem {
   id: any;
@@ -18,6 +19,7 @@ export class InlineEditComponent {
   @Input() editing: boolean;
   @Input() type = 'text';
   @Input() options: SelectItem[];
+  @Input() pipe: PipeTransform;
 
   @Input()
   get value(): string | number { return this._value; }
@@ -35,12 +37,15 @@ export class InlineEditComponent {
   @HostBinding('class.dt-inline-editor') cssClass = true;
 
   get viewValue() {
-    if (this.value && this.options && this.options.length) {
+    let value = this.value;
+    if (!isBlank(this.value) && this.options && this.options.length) {
       const option = this.options.find(x => x.id === this.value);
-      return (option) ? option.name : null;
-    } else {
-      return this.value;
+      value = (option) ? option.name : null;
     }
+    if (this.pipe) {
+      value = this.pipe.transform(value);
+    }
+    return value;
   }
 
   get inputFormattedValue() {

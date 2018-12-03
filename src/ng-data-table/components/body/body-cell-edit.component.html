@@ -3,6 +3,7 @@
   [editing]=editing
   [type]="(column.isDateType) ? column.type : 'text'"
   [options]="column.options"
+  [pipe]="column.pipe"
   (change)="validate()"
   (focus)="onInputFocus()"
   (blur)="onInputBlur()">
