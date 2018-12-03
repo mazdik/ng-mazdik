@@ -251,6 +251,7 @@ export interface PageMetadata {
 | filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null | |
 | dataType         | string /number /date | null |      |
 | formDisableOnEdit | boolean   | false   |             |
+| pipe             | PipeTransform | null |             |
 
 ### Settings
 
