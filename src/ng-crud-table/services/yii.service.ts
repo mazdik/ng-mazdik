@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {RequestMetadata, DataSource, PagedResult} from '../base';
+import {NotifyService} from '../../lib/notify/notify.service';
 
 @Injectable()
 export class YiiService implements DataSource {
@@ -8,25 +9,16 @@ export class YiiService implements DataSource {
   url: string;
   primaryKeys: string[];
 
-  constructor(private http: HttpClient) {
-  }
-
-  getAuthHeaders() {
-    const authToken = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${authToken}`);
-    return headers;
+  constructor(private http: HttpClient, private notifyService: NotifyService) {
   }
 
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
     const page = requestMeta.pageMeta.currentPage;
-    const headers = this.getAuthHeaders();
     const url = this.url + '?page=' + page + this.urlEncode(requestMeta) + this.urlSort(requestMeta);
-    return this.http.get<PagedResult>(url, {headers: headers})
+    return this.http.get<PagedResult>(url)
       .toPromise()
       .then(this.extractData)
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   getItem(row: any): Promise<any> {
@@ -43,16 +35,14 @@ export class YiiService implements DataSource {
   }
 
   post(row: any): Promise<any> {
-    const headers = this.getAuthHeaders();
     return this.http
-      .post(this.url, JSON.stringify(row), {headers: headers})
+      .post(this.url, JSON.stringify(row))
       .toPromise()
       .then(res => res)
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   put(row: any): Promise<any> {
-    const headers = this.getAuthHeaders();
     let url;
     if (Array.isArray(this.primaryKeys) && this.primaryKeys.length > 1) {
       url = this.url + '?';
@@ -64,14 +54,13 @@ export class YiiService implements DataSource {
       url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
-      .put(url, JSON.stringify(row), {headers: headers})
+      .put(url, JSON.stringify(row))
       .toPromise()
       .then(res => res)
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   delete(row: any): Promise<any> {
-    const headers = this.getAuthHeaders();
     let url;
     if (Array.isArray(this.primaryKeys) && this.primaryKeys.length > 1) {
       url = this.url + '?';
@@ -83,9 +72,9 @@ export class YiiService implements DataSource {
       url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
-      .delete(url, {headers: headers})
+      .delete(url)
       .toPromise()
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   private extractData(res: any) {
@@ -94,6 +83,7 @@ export class YiiService implements DataSource {
 
   private handleError(error: any) {
     const errMsg = error.message ? error.message : error.toString();
+    this.notifyService.sendMessage({title: 'HttpErrorResponse', text: errMsg, severity: 'error'});
     console.error(error);
     return Promise.reject(errMsg);
   }
@@ -130,7 +120,7 @@ export class YiiService implements DataSource {
       .then(response => {
         return response;
       })
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
 }

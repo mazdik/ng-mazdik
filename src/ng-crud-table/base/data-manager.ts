@@ -4,7 +4,6 @@ import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {CdtSettings} from './cdt-settings';
 import {Message} from '../../ng-data-table/base/message';
-import {NotifyService} from '../../lib/notify/notify.service';
 
 export class DataManager extends DataTable {
 
@@ -13,7 +12,6 @@ export class DataManager extends DataTable {
   item: any;
   refreshRowOnSave: boolean;
   pagerCache: any = {};
-  notifyService: NotifyService;
 
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: Message) {
     super(columns, settings, messages);
@@ -65,9 +63,6 @@ export class DataManager extends DataTable {
         this.pager.perPage = data._meta.perPage;
         this.pagerCache[this.pager.current] = true;
       })
-      .catch(error => {
-        this.sendErrorMessage(error);
-      })
       .finally(() => { this.events.onLoading(false); });
   }
 
@@ -82,9 +77,6 @@ export class DataManager extends DataTable {
           this.addRow(res || row);
         }
       })
-      .catch(error => {
-        this.sendErrorMessage(error);
-      })
       .finally(() => { this.events.onLoading(false); });
   }
 
@@ -93,9 +85,6 @@ export class DataManager extends DataTable {
     this.service.put(row)
       .then(res => {
         this.afterUpdate(row, res);
-      })
-      .catch(error => {
-        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
@@ -106,9 +95,6 @@ export class DataManager extends DataTable {
       .delete(row)
       .then(res => {
         this.deleteRow(row);
-      })
-      .catch(error => {
-        this.sendErrorMessage(error);
       })
       .finally(() => { this.events.onLoading(false); });
   }
@@ -127,9 +113,6 @@ export class DataManager extends DataTable {
       .then(data => {
         this.mergeRow(row, data);
       })
-      .catch(error => {
-        this.sendErrorMessage(error);
-      })
       .finally(() => { this.events.onLoading(false); });
   }
 
@@ -144,10 +127,6 @@ export class DataManager extends DataTable {
       return (errors && errors.length > 0);
     });
     return !hasError;
-  }
-
-  sendErrorMessage(text: string): void {
-    this.notifyService.sendMessage({title: 'data table', text: text, severity: 'error'});
   }
 
 }
