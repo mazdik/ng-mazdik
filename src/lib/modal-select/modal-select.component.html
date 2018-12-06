@@ -1,5 +1,5 @@
 <div class="dt-input-group" (click)="open()">
-  <input class="dt-input select-input"
+  <input class="dt-input dt-select-input"
          readonly="readonly"
          value="{{selectedName}}"
          placeholder="{{placeholder}}"
@@ -11,7 +11,7 @@
 
 <app-modal #modal [modalTitle]="modalTitle" [width]="400" [zIndex]="zIndex">
   <ng-container class="app-modal-body">
-    <div class="select-header">
+    <div class="dt-select-header">
       <div class="dt-clearable-input">
         <input class="dt-input select-input"
                placeholder={{searchInputPlaceholder}}

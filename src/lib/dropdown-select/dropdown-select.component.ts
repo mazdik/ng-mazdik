@@ -55,7 +55,7 @@ export class DropdownSelectComponent extends Dropdown {
 
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @HostBinding('class.dropdown-select') cssClass = true;
+  @HostBinding('class.dt-dropdown-select') cssClass = true;
 
   selectedOptions: SelectItem[] = [];
   selectedName: string;

@@ -1,5 +1,5 @@
 <div class="dt-input-group" (click)="open()">
-  <input class="dt-input select-input"
+  <input class="dt-input dt-select-input"
          readonly="readonly"
          value="{{selectedName}}"
          placeholder="{{placeholder}}"
@@ -9,7 +9,7 @@
     <i class="dt-icon desc" *ngIf="!isOpen"></i>
   </button>
 </div>
-<div class="dropdown-select-list" *ngIf="isOpen">
+<div class="dt-dropdown-select-list" *ngIf="isOpen">
   <app-select-list
       [options]="options"
       [selected]="selectedOptions"

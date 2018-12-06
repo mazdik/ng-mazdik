@@ -1,4 +1,4 @@
-.icon-actions {
+.dt-icon-actions {
   display: inline-block;
   width: 16px;
   height: 2px;
@@ -6,7 +6,7 @@
   vertical-align: middle;
 }
 
-.button-actions {
+.dt-button-actions {
   margin: 0;
   padding: 8px 12px;
   background-color: transparent;
@@ -15,6 +15,6 @@
   cursor:pointer;
 }
 
-.button-actions:hover {
+.dt-button-actions:hover {
   background-color: rgba(0,0,0,.1);
 }

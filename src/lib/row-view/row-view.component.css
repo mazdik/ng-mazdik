@@ -1,4 +1,4 @@
-.detail-view {
+.dt-detail-view {
   border-spacing: 0;
   border-collapse: collapse;
   width: 100%;
@@ -6,20 +6,20 @@
   margin-bottom: 20px;
 }
 
-.detail-view, .detail-view th, .detail-view td {
+.dt-detail-view, .dt-detail-view th, .dt-detail-view td {
   border: 1px solid #ddd;
 }
 
-.detail-view>tbody>tr:nth-of-type(odd) {
+.dt-detail-view>tbody>tr:nth-of-type(odd) {
   background-color: #f9f9f9;
 }
-.detail-view th, .detail-view td {
+.dt-detail-view th, .dt-detail-view td {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
   text-align: left;
 }
 
-.detail-view th.sortable {
+.dt-detail-view th.sortable {
   cursor: pointer;
 }

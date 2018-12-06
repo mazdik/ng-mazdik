@@ -1,11 +1,11 @@
-.select-header {
+.dt-select-header {
   margin: 3px 0;
 }
 
-.modal-select .dt-input-group input:not([disabled]) {
+.dt-modal-select .dt-input-group input:not([disabled]) {
   cursor: pointer;
 }
 
-input.select-input[readonly]:not([disabled]) {
+input.dt-select-input[readonly]:not([disabled]) {
   background-color: white;
 }
