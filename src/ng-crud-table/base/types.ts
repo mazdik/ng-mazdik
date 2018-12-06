@@ -1,8 +1,6 @@
 import { Filter, SortMetadata } from '../../ng-data-table';
 
 export interface DataSource {
-  url: string;
-  primaryKeys: string[];
   getItems(requestMeta: RequestMetadata): Promise<PagedResult>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;

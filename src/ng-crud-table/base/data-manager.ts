@@ -17,7 +17,7 @@ export class DataManager extends DataTable {
     super(columns, settings, messages);
     this.settings = new CdtSettings(settings);
     this.settings.clientSide = false;
-    this.setService(dataSource);
+    this.service = dataSource;
   }
 
   set filters(val: Filter) {
@@ -27,11 +27,6 @@ export class DataManager extends DataTable {
 
   get filters(): Filter {
     return this.dataFilter.filters;
-  }
-
-  setService(service: DataSource) {
-    this.service = service;
-    this.service.primaryKeys = this.columns.filter(col => col.isPrimaryKey).map(col => col.name);
   }
 
   loadItems() {

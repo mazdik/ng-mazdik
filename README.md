@@ -24,6 +24,7 @@ export class PlayersComponent {
       // YiiService | RestlessService | OrdsService | your custom service
       this.service = new YiiService(this.http);
       this.service.url = 'http://host3/players';
+      this.service.primaryKeys = this.columns.filter(col => col.isPrimaryKey).map(col => col.name);
       this.dataManager = new DataManager(this.columns, this.settings, this.service);
     }
 
@@ -194,8 +195,6 @@ export class TreeTableDemoComponent {
 ### Custom service
 ```typescript
 interface DataSource {
-  url: string;
-  primaryKeys: string[];
   getItems(requestMeta: RequestMetadata): Promise<PagedResult>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;

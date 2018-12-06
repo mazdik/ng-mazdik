@@ -9,7 +9,7 @@ import {DataSort, DataFilter} from '../../ng-data-table/base';
 export class DemoService implements DataSource {
 
   url: string = 'assets/players.json';
-  primaryKeys: any;
+  primaryKeys: string[] = ['id'];
 
   private dataFilter: DataFilter;
   private dataSort: DataSort;
