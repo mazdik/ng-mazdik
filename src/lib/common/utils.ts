@@ -11,8 +11,11 @@ export function isBlank(val: any): boolean {
   return true;
 }
 
-export function inputFormattedDate(type, value) {
+export function inputFormattedDate(type: string, value: any) {
   if (value) {
+    if (value instanceof Date) {
+      value = value.toISOString();
+    }
     if (type === 'datetime-local') {
       return value.slice(0, 16);
     } else if (type === 'date') {

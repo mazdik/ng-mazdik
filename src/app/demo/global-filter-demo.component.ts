@@ -31,7 +31,6 @@ export class GlobalFilterDemoComponent implements OnInit {
       column.editable = false;
     }
     this.table = new DataTable(this.columns, this.settings);
-    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }
 

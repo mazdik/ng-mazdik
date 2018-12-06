@@ -62,8 +62,6 @@ export class ModalFormDemoComponent implements OnInit {
     this.columns[3].options = null;
     this.columns[3].optionsUrl = 'assets/options.json';
     this.columns[9].validatorFunc = this.customValidation;
-
-    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 

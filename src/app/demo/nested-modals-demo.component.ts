@@ -36,7 +36,6 @@ export class NestedModalsDemoComponent implements OnInit {
     for (const column of this.columns) {
       column.editable = false;
     }
-    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
   ngOnInit() {
