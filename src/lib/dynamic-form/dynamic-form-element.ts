@@ -12,7 +12,6 @@ export class DynamicFormElement {
   dependsElement?: string;
   cellTemplate?: TemplateRef<any>;
   hidden?: boolean;
-  isPrimaryKey?: boolean;
   keyElement?: string;
   disableOnEdit?: boolean;
 

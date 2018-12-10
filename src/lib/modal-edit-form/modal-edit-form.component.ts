@@ -92,7 +92,6 @@ export class ModalEditFormComponent implements OnInit {
       element.dependsElement = column.dependsColumn;
       element.cellTemplate = column.cellTemplate;
       element.hidden = column.formHidden;
-      element.isPrimaryKey = column.isPrimaryKey;
       element.keyElement = column.keyColumn;
       element.disableOnEdit = column.formDisableOnEdit;
       this.dynElements.push(element);

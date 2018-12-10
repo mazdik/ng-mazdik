@@ -46,13 +46,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   elemEnabled(dynElement: DynamicFormElement): boolean {
-    if (dynElement.hidden) {
-      return false;
-    }
-    if (!this.isNewItem && dynElement.isPrimaryKey) {
-      return false;
-    }
-    return true;
+    return (!dynElement.hidden);
   }
 
   onValid(event: any, dynElement: DynamicFormElement) {
@@ -77,15 +71,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   isDisabled(dynElement: DynamicFormElement) {
-    if (!this.isNewItem) {
-      if (dynElement.disableOnEdit) {
-        return true;
-      } else if (dynElement.keyElement) {
-        const fkElement = this.dynElements.find(x => x.name === dynElement.keyElement);
-        return (fkElement && fkElement.isPrimaryKey === true);
-      }
-    }
-    return false;
+    return (!this.isNewItem && dynElement.disableOnEdit);
   }
 
   onSelectPopupNameChanged(value: any, dynElement: DynamicFormElement) {
