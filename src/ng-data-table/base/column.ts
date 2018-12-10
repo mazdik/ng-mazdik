@@ -1,13 +1,14 @@
 import {ColumnBase} from './column-base';
 import {isBlank} from '../../lib/common/utils';
-import {SelectOption, DataType} from './types';
+import {DataType} from './types';
 import {Settings} from './settings';
 import {DataFilter} from './data-filter';
+import {SelectItem} from '../../lib/common';
 
 export class Column extends ColumnBase {
 
   index: number;
-  filterValues: SelectOption[] = [];
+  filterValues: SelectItem[] = [];
 
   get containsDots(): boolean {
     return (this.name.indexOf('.') >= 0);
@@ -63,7 +64,7 @@ export class Column extends ColumnBase {
     }
   }
 
-  getOptions(dependsValue?: any): SelectOption[] {
+  getOptions(dependsValue?: any): SelectItem[] {
     if (this.options) {
       if (this.dependsColumn && dependsValue) {
         return this.options.filter((value) => value.parentId === dependsValue);
@@ -77,10 +78,10 @@ export class Column extends ColumnBase {
     if (!this.options) {
       return value;
     }
-    const options: SelectOption[] = this.getOptions();
+    const options: SelectItem[] = this.getOptions();
     let name;
     if (options && !isBlank(value)) {
-      const el: SelectOption = options.find(o => {
+      const el: SelectItem = options.find(o => {
         return o.id.toString() === value.toString();
       });
       name = (el) ? el.name : null;
@@ -144,7 +145,7 @@ export class Column extends ColumnBase {
     return value;
   }
 
-  getFilterValues(): Promise<SelectOption[]> {
+  getFilterValues(): Promise<SelectItem[]> {
     if (this.filterValuesFunc) {
       return this.filterValuesFunc(this.name);
     } else if (this.options) {

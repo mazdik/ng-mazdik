@@ -1,5 +1,6 @@
-import {SelectOption, ColumnType, AggregateType, DataType} from './types';
+import {ColumnType, AggregateType, DataType} from './types';
 import {TemplateRef, PipeTransform} from '@angular/core';
+import {SelectItem} from '../../lib/common';
 
 export class ColumnBase {
 
@@ -7,7 +8,7 @@ export class ColumnBase {
   name: string;
   sortable?: boolean = true;
   filter?: boolean = true;
-  options?: SelectOption[];
+  options?: SelectItem[];
   optionsUrl?: string;
   width?: number = null;
   frozen?: boolean;
@@ -28,7 +29,7 @@ export class ColumnBase {
   minWidth?: number = 50;
   maxWidth?: number = 500;
   aggregation?: AggregateType;
-  filterValuesFunc?: (columnName: string) => Promise<SelectOption[]>;
+  filterValuesFunc?: (columnName: string) => Promise<SelectItem[]>;
   dataType?: DataType;
   formDisableOnEdit?: boolean;
   pipe?: PipeTransform;

@@ -1,10 +1,6 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding } from '@angular/core';
+import { SelectItem } from '../common';
 import { isBlank } from '../common/utils';
-
-export interface SelectItem {
-  id: any;
-  name: string;
-}
 
 @Component({
   selector: 'app-dual-list-box',

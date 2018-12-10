@@ -32,12 +32,6 @@ export enum EditMode {
   EditProgrammatically = 'editProgrammatically',
 }
 
-export interface SelectOption {
-  id: any;
-  name: string;
-  parentId?: any;
-}
-
 export interface FilterMetadata {
   value?: any;
   matchMode?: string;

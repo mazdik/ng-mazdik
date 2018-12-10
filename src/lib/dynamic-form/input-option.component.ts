@@ -1,6 +1,7 @@
 import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {SelectOption, getOptionsFunction} from './types';
+import {getOptionsFunction} from './types';
 import {InputComponent} from './input.component';
+import {SelectItem} from '../common';
 
 @Component({
   selector: 'app-form-input-option',
@@ -24,7 +25,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   }
   private _dependsValue: any;
 
-  private _options: SelectOption[];
+  private _options: SelectItem[];
   private firstCascade: boolean = true;
 
   ngOnInit() {

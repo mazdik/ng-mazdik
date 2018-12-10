@@ -2,7 +2,8 @@ import {
   Component, OnInit, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
-import { MenuItem, MenuEventArgs } from './types';
+import { MenuEventArgs } from './types';
+import { MenuItem } from '../common';
 
 @Component({
   selector: 'app-row-menu',

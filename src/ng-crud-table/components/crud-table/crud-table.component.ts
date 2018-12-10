@@ -5,8 +5,9 @@ import {
 import {ModalEditFormComponent} from '../../../lib/modal-edit-form';
 import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
-import {RowMenuComponent, MenuItem, MenuEventArgs} from '../../../lib/row-menu';
+import {RowMenuComponent, MenuEventArgs} from '../../../lib/row-menu';
 import {DataTableComponent} from '../../../ng-data-table';
+import {MenuItem} from '../../../lib/common';
 
 @Component({
   selector: 'app-crud-table',

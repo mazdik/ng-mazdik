@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Column, CdtSettings, Message, DataManager} from '../../ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
-import {SelectOption} from '../../ng-data-table';
+import {SelectItem} from '../../lib/common';
 
 @Component({
   selector: 'app-basic-demo',
@@ -36,7 +36,7 @@ export class BasicDemoComponent implements OnInit {
   ngOnInit() {
   }
 
-  filterValuesFunc(columnName: string): Promise<SelectOption[]> {
+  filterValuesFunc(columnName: string): Promise<SelectItem[]> {
     return new Promise((resolve) => {
       setTimeout(() => resolve(
         [

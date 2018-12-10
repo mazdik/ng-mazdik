@@ -10,7 +10,7 @@ export class PageEvent {
 @Component({
   selector: 'app-pagination',
   templateUrl: 'pagination.component.html',
-  styleUrls: ['pagination.css'],
+  styleUrls: ['pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })

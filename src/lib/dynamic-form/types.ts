@@ -1,9 +1,3 @@
-export interface SelectOption {
-  id: any;
-  name: string;
-  parentId?: any;
-}
-
 export type ElementType =
   'text'
   | 'password'

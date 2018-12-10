@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TreeNode} from '../../lib/tree-view';
-import {MenuItem} from '../../lib/context-menu';
+import {MenuItem} from '../../lib/common';
 import {TreeDemoService} from './tree-demo.service';
 
 @Component({

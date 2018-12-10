@@ -3,11 +3,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import {PageEvent} from '../../lib/pagination';
-
-export interface SelectItem {
-  id: any;
-  name: string;
-}
+import {SelectItem} from '../common';
 
 @Component({
   selector: 'app-modal-select',

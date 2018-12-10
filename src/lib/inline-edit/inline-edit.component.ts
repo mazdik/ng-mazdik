@@ -1,11 +1,7 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding} from '@angular/core';
 import {PipeTransform} from '@angular/core';
+import {SelectItem} from '../common';
 import {inputFormattedDate, isBlank} from '../common/utils';
-
-export interface SelectItem {
-  id: any;
-  name: string;
-}
 
 @Component({
   selector: 'app-inline-edit, [inline-edit]',

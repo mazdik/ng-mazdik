@@ -1,4 +1,4 @@
-export interface MenuItem {
+export class MenuItem {
   label?: string;
   icon?: string;
   command?: (event?: any) => void;

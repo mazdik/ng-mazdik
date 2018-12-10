@@ -1,11 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, AfterViewInit
 } from '@angular/core';
-
-export interface SelectItem {
-  id: any;
-  name: string;
-}
+import {SelectItem} from '../common';
 
 @Component({
   selector: 'app-select-list',

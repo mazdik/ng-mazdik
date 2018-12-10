@@ -24,7 +24,7 @@ export class PlayersComponent {
       // YiiService | RestlessService | OrdsService | your custom service
       this.service = new YiiService(this.http);
       this.service.url = 'http://host3/players';
-      this.service.primaryKeys = this.columns.filter(col => col.isPrimaryKey).map(col => col.name);
+      this.service.primaryKeys = ['id'];
       this.dataManager = new DataManager(this.columns, this.settings, this.service);
     }
 
@@ -229,7 +229,7 @@ export interface PageMetadata {
 | name             | string     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
-| options          | SelectOption[] | null | |
+| options          | SelectItem[] | null | |
 | optionsUrl       | string     | null    |             |
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
@@ -250,7 +250,7 @@ export interface PageMetadata {
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
 | aggregation      | sum / average / max / min / count | null | |
-| filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null | |
+| filterValuesFunc | (columnName: string) => Promise<SelectItem[]> | null | |
 | dataType         | string /number /date | null |      |
 | formDisableOnEdit | boolean   | false   |             |
 | pipe             | PipeTransform | null |             |
@@ -297,16 +297,10 @@ export interface PageMetadata {
 
 
 ```typescript
-interface SelectOption {
+export class SelectItem {
   id: any;
   name: string;
   parentId?: any;
-}
-interface Validation {
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: string | RegExp;
 }
 ```
 
