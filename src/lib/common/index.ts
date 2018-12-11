@@ -1,3 +1,3 @@
 export * from './dropdown';
-export * from './select-item.model';
-export * from './menu-item.model';
+export * from './models/select-item.model';
+export * from './models/menu-item.model';

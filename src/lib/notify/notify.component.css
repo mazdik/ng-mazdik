@@ -1,7 +1,7 @@
 .dt-notify-container {
     display: block;
     position: fixed;
-    z-index: 2;
+    z-index: 1000;
 }
 
 .dt-notify-container.dt-n-top-right {
