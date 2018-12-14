@@ -1,9 +1,9 @@
 import {
-  Component, OnInit, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
 import { MenuEventArgs } from './types';
-import { MenuItem } from '../common';
+import { Dropdown, MenuItem } from '../common';
 
 @Component({
   selector: 'app-row-menu',
@@ -12,16 +12,14 @@ import { MenuItem } from '../common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class RowMenuComponent implements OnInit {
+export class RowMenuComponent extends Dropdown {
 
   @Input() menu: MenuItem[] = [];
 
   left: number;
   top: number;
-  isVisible: boolean;
-  selectContainerClicked: boolean;
 
-  @HostBinding('class') cssClass = 'dt-context-menu dt-row-menu';
+  @HostBinding('class.dt-context-menu') cssClass = true;
 
   @HostBinding('style.left.px')
   get getLeft(): number {
@@ -35,28 +33,13 @@ export class RowMenuComponent implements OnInit {
 
   @HostBinding('style.display')
   get getDisplay(): string {
-    return (this.isVisible) ? 'block' : 'none';
+    return (this.isOpen && this.menu.length > 0) ? 'block' : 'none';
   }
 
   private eventArgs: MenuEventArgs;
 
-  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
-  }
-
-  ngOnInit() {
-  }
-
-  @HostListener('window:click', ['$event'])
-  onWindowClick(event: MouseEvent): void {
-    if (!this.selectContainerClicked) {
-      this.closeDropdown();
-    }
-    this.selectContainerClicked = false;
-  }
-
-  @HostListener('window:keydown.esc', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    this.closeDropdown();
+  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
+    super(cd);
   }
 
   @HostListener('window:resize')
@@ -100,26 +83,12 @@ export class RowMenuComponent implements OnInit {
     return { height: elementHeight, width: elementWidth };
   }
 
-  openDropdown() {
-    if (!this.isVisible && this.menu.length > 0) {
-      this.isVisible = true;
-    }
-  }
-
-  closeDropdown() {
-    if (this.isVisible) {
-      this.isVisible = false;
-      this.cd.markForCheck();
-    }
-  }
-
   show(event: MenuEventArgs) {
     this.eventArgs = event;
-    this.selectContainerClicked = true;
     const coords = this.getPositionMenu(event.left, event.top, event.rowHeight);
-
+    this.selectContainerClicked = true;
     if (this.top === coords.top && this.left === coords.left) {
-      this.isVisible ? this.closeDropdown() : this.openDropdown();
+      this.toggleDropdown();
     } else {
       this.top = coords.top;
       this.left = coords.left;
@@ -143,7 +112,7 @@ export class RowMenuComponent implements OnInit {
     if (item.command) {
       item.command(this.eventArgs.data);
     }
-    this.isVisible = false;
+    this.isOpen = false;
   }
 
 }

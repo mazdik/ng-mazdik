@@ -19,13 +19,10 @@ export class DataManager extends DataTable {
     this.service = dataSource;
   }
 
+  get filters(): Filter { return this.dataFilter.filters; }
   set filters(val: Filter) {
     this.dataFilter.filters = val;
     this.events.onFilter();
-  }
-
-  get filters(): Filter {
-    return this.dataFilter.filters;
   }
 
   loadItems() {

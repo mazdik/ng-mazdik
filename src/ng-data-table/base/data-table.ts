@@ -29,6 +29,7 @@ export class DataTable {
   rowGroup: RowGroup;
   localRows: Row[] = [];
 
+  get rows(): any { return this._rows; }
   set rows(val: any) {
     val = val.map(this.generateRow.bind(this));
     if (this.settings.clientSide) {
@@ -41,11 +42,6 @@ export class DataTable {
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
-
-  get rows(): any {
-    return this._rows;
-  }
-
   private _rows: Row[] = [];
 
   constructor(columns: ColumnBase[], settings: Settings) {

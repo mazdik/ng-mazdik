@@ -21,11 +21,9 @@ export class Dropdown {
     this.selectContainerClicked = false;
   }
 
-  @HostListener('keydown', ['$event'])
+  @HostListener('window:keydown.esc', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
-    if (event.keyCode === 27) {
-      this.closeDropdown();
-    }
+    this.closeDropdown();
   }
 
   toggleDropdown() {

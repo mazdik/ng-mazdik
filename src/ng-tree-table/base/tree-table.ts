@@ -6,21 +6,15 @@ import {Row} from './index';
 
 export class TreeTable extends DataTable {
 
+  get service(): TreeDataSource { return this.tree.service; }
   set service(val: TreeDataSource) {
     this.tree.service = val;
   }
 
-  get service(): TreeDataSource {
-    return this.tree.service;
-  }
-
+  get nodes(): TreeNode[] { return this.tree.nodes; }
   set nodes(val: TreeNode[]) {
     this.tree.nodes = val;
     this.flatten();
-  }
-
-  get nodes(): TreeNode[] {
-    return this.tree.nodes;
   }
 
   set serverSideFiltering(val: boolean) {

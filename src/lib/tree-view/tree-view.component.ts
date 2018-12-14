@@ -18,22 +18,16 @@ import {TreeNode, Tree, TreeDataSource} from '../tree';
 export class TreeViewComponent implements OnInit {
 
   @Input()
+  get service(): TreeDataSource { return this.tree.service; }
   set service(val: TreeDataSource) {
     this.tree.service = val;
     this.tree.nodes = [];
   }
 
-  get service(): TreeDataSource {
-    return this.tree.service;
-  }
-
   @Input()
+  get nodes(): TreeNode[] { return this.tree.nodes; }
   set nodes(val: TreeNode[]) {
     this.tree.nodes = val;
-  }
-
-  get nodes(): TreeNode[] {
-    return this.tree.nodes;
   }
 
   @Input()

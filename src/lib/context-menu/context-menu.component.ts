@@ -1,31 +1,41 @@
-import {Component, OnInit, Input, ViewChild, HostListener} from '@angular/core';
-import {MenuItem} from '../common';
+import {
+  Component, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  HostBinding, ElementRef, ViewEncapsulation
+} from '@angular/core';
+import {Dropdown, MenuItem} from '../common';
 
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
-  styleUrls: ['../styles/context-menu.css']
+  styleUrls: ['../styles/context-menu.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent extends Dropdown {
 
   @Input() items: MenuItem[];
 
-  @ViewChild('menu') menu: any;
-  isVisible: boolean;
-  selectContainerClicked: boolean;
+  @HostBinding('class.dt-context-menu') cssClass = true;
 
-  constructor() {
+  @HostBinding('style.display')
+  get getDisplay(): string {
+    return (this.isOpen && this.items.length > 0) ? 'block' : 'none';
   }
 
-  ngOnInit() {
+  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
+    super(cd);
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.closeDropdown();
   }
 
   positionMenu(event) {
     let left = event.pageX + 1;
     let top = event.pageY + 1;
-    const menu = this.menu.nativeElement;
-    const width = menu.offsetParent ? menu.offsetWidth : this.getHiddenElementOuterWidth(menu);
-    const height = menu.offsetParent ? menu.offsetHeight : this.getHiddenElementOuterHeight(menu);
+    const menu = this.element.nativeElement;
+    const {height, width} = this.getHiddenElementOuterSizes(menu);
     // flip
     if (left + width - document.body.scrollLeft > window.innerWidth) {
         left -= width;
@@ -46,56 +56,24 @@ export class ContextMenuComponent implements OnInit {
     menu.style.top = top + 'px';
   }
 
-  getHiddenElementOuterHeight(element: any): number {
-      element.style.visibility = 'hidden';
-      element.style.display = 'block';
-      const elementHeight = element.offsetHeight;
-      element.style.display = 'none';
-      element.style.visibility = 'visible';
+  getHiddenElementOuterSizes(element: HTMLElement) {
+    if (element.offsetParent) {
+      return { height: element.offsetHeight, width: element.offsetWidth };
+    }
+    element.style.visibility = 'hidden';
+    element.style.display = 'block';
+    const elementHeight = element.offsetHeight;
+    const elementWidth = element.offsetWidth;
+    element.style.display = 'none';
+    element.style.visibility = 'visible';
 
-      return elementHeight;
-  }
-
-  getHiddenElementOuterWidth(element: any): number {
-      element.style.visibility = 'hidden';
-      element.style.display = 'block';
-      const elementWidth = element.offsetWidth;
-      element.style.display = 'none';
-      element.style.visibility = 'visible';
-
-      return elementWidth;
+    return { height: elementHeight, width: elementWidth };
   }
 
   show(event: MouseEvent) {
     this.positionMenu(event);
-    this.isVisible = true;
+    this.openDropdown();
     event.preventDefault();
-  }
-
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    this.selectContainerClicked = true;
-    if (this.isVisible && event.button !== 2) {
-      this.isVisible = false;
-    }
-  }
-
-  @HostListener('window:click', ['$event'])
-  onWindowClick(event: MouseEvent): void {
-    if (!this.selectContainerClicked) {
-      this.isVisible = false;
-    }
-    this.selectContainerClicked = false;
-  }
-
-  @HostListener('keydown.esc', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    this.isVisible = false;
-  }
-
-  @HostListener('window:resize')
-  onWindowResize(): void {
-    this.isVisible = false;
   }
 
   itemClick(event, item: MenuItem) {
@@ -103,17 +81,13 @@ export class ContextMenuComponent implements OnInit {
       event.preventDefault();
       return;
     }
-
     if (!item.url) {
       event.preventDefault();
     }
-
     if (item.command) {
-      item.command({
-        originalEvent: event,
-        item: item
-      });
+      item.command({originalEvent: event, item: item});
     }
+    this.isOpen = false;
   }
 
 }
