@@ -1,21 +1,21 @@
 <div class="dt-toolbar-row">
     <div class="dt-toolbar-col" *ngIf="createAction">
         <button class="dt-button"
-                (click)="createActionClick()">{{table.messages.create}}
+                (click)="createActionClick()">{{table.messages.create | dtTranslate}}
         </button>
     </div>
     <div class="dt-toolbar-col dt-global-filter" *ngIf="globalFilter">
         <div class="dt-input-group">
             <input class="dt-input"
-                    [attr.placeholder]="table.messages.search"
+                    [attr.placeholder]="table.messages.search | dtTranslate"
                     [(ngModel)]="table.dataFilter.globalFilterValue"
                     (keypress)="onKeyPressGlobalSearch($event)">
             <button class="dt-button"
-                    (click)="onClickGlobalSearch()">{{table.messages.go}}
+                    (click)="onClickGlobalSearch()">{{table.messages.go | dtTranslate}}
             </button>
         </div>
     </div>
   <div class="dt-toolbar-col" *ngIf="exportAction">
-    <button class="dt-button" (click)="downloadCsv()">{{table.messages.export}}</button>
+    <button class="dt-button" (click)="downloadCsv()">{{table.messages.export | dtTranslate}}</button>
   </div>
 </div>

@@ -10,7 +10,6 @@ export { Dimensions } from './dimensions';
 export { EventHelper } from './event-helper';
 export { Events } from './events';
 export { KeyboardAction } from './keyboard-action';
-export { Message } from './message';
 export { Settings } from './settings';
 export { Sequence } from './sequence';
 export * from './types';

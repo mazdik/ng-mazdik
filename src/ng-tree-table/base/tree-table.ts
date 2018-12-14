@@ -1,7 +1,6 @@
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {Settings} from '../../ng-data-table/base/settings';
-import {Message} from '../../ng-data-table/base/message';
 import {Tree, TreeNode, TreeDataSource, TreeFlattener} from '../../lib/tree';
 import {Row} from './index';
 
@@ -37,8 +36,8 @@ export class TreeTable extends DataTable {
   tree: Tree;
   private treeFlattener: TreeFlattener;
 
-  constructor(columns: ColumnBase[], settings: Settings, dataSource: TreeDataSource, messages?: Message) {
-    super(columns, settings, messages);
+  constructor(columns: ColumnBase[], settings: Settings, dataSource: TreeDataSource) {
+    super(columns, settings);
     this.tree = new Tree();
     this.tree.service = dataSource;
     this.treeFlattener = new TreeFlattener(this.transformer);

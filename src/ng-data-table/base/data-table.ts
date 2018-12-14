@@ -8,14 +8,14 @@ import {DataFilter} from './data-filter';
 import {Events} from './events';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
-import {Message} from './message';
+import {DtMessages} from '../../lib/dt-translate';
 import {RowGroup} from './row-group';
 import {Sequence} from './sequence';
 
 export class DataTable {
 
   settings: Settings;
-  messages?: Message;
+  messages: DtMessages = new DtMessages();
   sequence: Sequence;
   columns: Column[] = [];
   frozenColumns: Column[] = [];
@@ -48,9 +48,8 @@ export class DataTable {
 
   private _rows: Row[] = [];
 
-  constructor(columns: ColumnBase[], settings: Settings, messages?: Message) {
+  constructor(columns: ColumnBase[], settings: Settings) {
     this.settings = new Settings(settings);
-    this.messages = new Message();
     this.sequence = new Sequence();
     this.dataFilter = new DataFilter();
     this.createColumns(columns);
@@ -60,9 +59,6 @@ export class DataTable {
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
-    if (messages) {
-      Object.assign(this.messages, messages);
-    }
   }
 
   createColumns(columns: ColumnBase[]) {

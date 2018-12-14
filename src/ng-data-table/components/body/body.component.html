@@ -35,8 +35,8 @@
   <div class="datatable-empty-row"
        *ngIf="!table.rows?.length"
        [style.width.px]="table.dimensions.columnsTotalWidth">
-    <ng-container *ngIf="loading">{{table.messages.loading}}</ng-container>
-    <ng-container *ngIf="!loading">{{table.messages.empty}}</ng-container>
+    <ng-container *ngIf="loading">{{table.messages.loading | dtTranslate}}</ng-container>
+    <ng-container *ngIf="!loading">{{table.messages.empty | dtTranslate}}</ng-container>
   </div>
 
 </app-scroller>

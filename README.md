@@ -322,6 +322,28 @@ private subscriptions: Subscription[] = [];
   }
 ```
 
+### Sample add ngx-translate
+```typescript
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { DtTranslateModule, DtTranslateService } from '../lib/dt-translate';
+
+  DtTranslateModule.forRoot({
+    service: {
+      provide: DtTranslateService,
+      useClass: TranslateService,
+    }
+  })
+```
+### Sample lang.json (full list in lib/dt-translate/dt-messages)
+```json
+{
+  "DT": {
+    "empty": "No data to display",
+    ...
+  }
+}
+```
+
 ### Lib
 | Componnent                     | Description        |
 |--------------------------------|--------------------|

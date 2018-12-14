@@ -4,4 +4,4 @@ export {OrdsService} from './services/ords.service';
 export {RestlessService} from './services/restless.service';
 export {YiiService} from './services/yii.service';
 export {DataManager, DataSource, RequestMetadata, PagedResult, CdtSettings} from './base';
-export {Column, DataTable, Message, DataType} from '../ng-data-table';
+export {Column, DataTable, DataType} from '../ng-data-table';

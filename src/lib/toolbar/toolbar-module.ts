@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
+import {DtTranslateModule} from '../dt-translate';
 import {ToolbarComponent} from './toolbar.component';
 import {ExportCSV} from '../export/export-csv';
 
@@ -8,6 +9,7 @@ import {ExportCSV} from '../export/export-csv';
   imports: [
     CommonModule,
     FormsModule,
+    DtTranslateModule.forChild(),
   ],
   declarations: [
     ToolbarComponent,

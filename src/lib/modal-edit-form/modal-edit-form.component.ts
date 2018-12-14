@@ -45,7 +45,7 @@ export class ModalEditFormComponent implements OnInit {
     this.getOptionsFunc = this.dataManager.service.getOptions.bind(this.dataManager.service);
   }
 
-  modalTitle() {
+  get modalTitle() {
     if (!this.detailView) {
       return this.isNewItem ? this.dataManager.messages.titleCreate :
         this.dataManager.messages.titleUpdate;

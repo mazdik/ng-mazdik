@@ -8,6 +8,7 @@ import {SelectListModule} from '../lib/select-list';
 import {InlineEditModule} from '../lib/inline-edit';
 import {SortHeaderModule} from '../lib/sort-header';
 import {ResizableModule} from '../lib/resizable';
+import {DtTranslateModule} from '../lib/dt-translate';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -40,6 +41,7 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     InlineEditModule,
     SortHeaderModule,
     ResizableModule,
+    DtTranslateModule.forChild(),
   ],
   declarations: [
     HeaderComponent,
