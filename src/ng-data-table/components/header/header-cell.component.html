@@ -9,7 +9,7 @@
           [sortable]="column.sortable"
           [order]="table.sorter.getOrder(column.name)"
           (sortChange)="onSort(column)">
-        {{column.title}}
+        {{column.title | dtTranslate}}
     </span>
     <i *ngIf="column.filter"
         (click)="clickColumnMenu($event, column)"

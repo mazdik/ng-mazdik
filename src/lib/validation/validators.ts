@@ -1,3 +1,5 @@
+import {isBlank} from '../common/utils';
+
 export interface Validation {
   required?: boolean;
   minLength?: number;
@@ -18,9 +20,9 @@ export class Validators {
     if (!validation) {
       return temp;
     }
-    const length: number = value ? value.length : 0;
+    const length: number = !isBlank(value) ? value.toString().length : 0;
 
-    if (validation.required && (value === null || length === 0)) {
+    if (validation.required && isBlank(value)) {
       temp.push(`${name} is required.`);
     }
     if (validation.minLength && length < validation.minLength) {

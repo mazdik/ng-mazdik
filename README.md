@@ -37,7 +37,6 @@ export class PlayersComponent {
             frozen: true,
             resizeable: false,
             formHidden: true,
-            isPrimaryKey: true,
         },
         {
             title: 'Name', 
@@ -244,7 +243,6 @@ export interface PageMetadata {
 | tableHidden      | boolean    | false   |             |
 | cellClass        | string / Function | null |         |
 | headerCellClass  | string     | null    |             |
-| isPrimaryKey     | boolean    | false   |             |
 | keyColumn        | string     | null    |             |
 | multiSelectFilter | boolean   | false   |             |
 | minWidth         | number     | 50      |             |

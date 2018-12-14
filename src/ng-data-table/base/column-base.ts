@@ -23,7 +23,6 @@ export class ColumnBase {
   tableHidden?: boolean;
   cellClass?: string | Function;
   headerCellClass?: string;
-  isPrimaryKey?: boolean;
   keyColumn?: string;
   multiSelectFilter?: boolean;
   minWidth?: number = 50;
