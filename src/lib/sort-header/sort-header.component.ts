@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding, HostListener
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding, ElementRef
 } from '@angular/core';
 
 @Component({
@@ -22,14 +22,20 @@ export class SortHeaderComponent {
     return (this.order === -1) ? 'desc' : (this.order === 1) ? 'asc' : '';
   }
 
-  constructor() {
+  constructor(private element: ElementRef) {}
+
+  ngOnInit(): void {
+    if (this.sortable) {
+      this.element.nativeElement.addEventListener('click', this.onClick.bind(this));
+    }
   }
 
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    if (this.sortable) {
-      this.sortChange.emit();
-    }
+  ngOnDestroy(): void {
+    this.element.nativeElement.removeEventListener('click', this.onClick.bind(this));
+  }
+
+  onClick(): void {
+    this.sortChange.emit();
   }
 
 }

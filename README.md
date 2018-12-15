@@ -355,7 +355,6 @@ import { DtTranslateModule, DtTranslateService } from '../lib/dt-translate';
 | app-modal-edit-form            |                    |
 | app-modal-select               |                    |
 | app-pagination                 |                    |
-| app-row-menu                   |                    |
 | app-row-view                   |                    |
 | app-scroller, [scroller]       | virtual scroll     |
 | app-select-list                |                    |

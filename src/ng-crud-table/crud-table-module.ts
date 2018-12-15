@@ -6,7 +6,7 @@ import {DataTableModule} from '../ng-data-table';
 import {ToolbarModule} from '../lib/toolbar';
 import {NotifyModule} from '../lib/notify';
 import {ModalEditFormModule} from '../lib/modal-edit-form';
-import {RowMenuModule} from '../lib/row-menu';
+import {ContextMenuModule} from '../lib/context-menu';
 import {DtTranslateModule} from '../lib/dt-translate';
 import {CrudTableComponent} from './components/crud-table/crud-table.component';
 
@@ -18,7 +18,7 @@ import {CrudTableComponent} from './components/crud-table/crud-table.component';
     ToolbarModule,
     NotifyModule,
     ModalEditFormModule,
-    RowMenuModule,
+    ContextMenuModule,
     DtTranslateModule.forChild(),
   ],
   declarations: [

@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TreeNode, Tree, TreeDataSource} from '../tree';
+import {ContextMenuComponent, MenuEventArgs} from '../context-menu';
 
 @Component({
   selector: 'app-tree-view',
@@ -35,7 +36,7 @@ export class TreeViewComponent implements OnInit {
     this.tree.serverSideFiltering = val;
   }
 
-  @Input() contextMenu: any;
+  @Input() contextMenu: ContextMenuComponent;
   @Input() filterDelay = 500;
   @Input() getIconFunc: (node?: TreeNode) => string;
 
@@ -75,7 +76,7 @@ export class TreeViewComponent implements OnInit {
 
   onNodeRightClick(event) {
     if (this.contextMenu) {
-      this.contextMenu.show(event['event']);
+      this.contextMenu.show(<MenuEventArgs>{originalEvent: event['event'], data: event['node']});
     }
   }
 

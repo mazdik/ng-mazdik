@@ -14,7 +14,7 @@ import {TreeDemoService} from './tree-demo.service';
       [contextMenu]="contextMenu"
       [getIconFunc]="getIconFunc">
     </app-tree-view>
-    <app-context-menu #contextMenu [items]="items"></app-context-menu>
+    <app-context-menu #contextMenu [menu]="items"></app-context-menu>
   </div>
   `
 })

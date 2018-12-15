@@ -5,7 +5,7 @@ import {
 import {ModalEditFormComponent} from '../../../lib/modal-edit-form';
 import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
-import {RowMenuComponent, MenuEventArgs} from '../../../lib/row-menu';
+import {ContextMenuComponent, MenuEventArgs} from '../../../lib/context-menu';
 import {DataTableComponent} from '../../../ng-data-table';
 import {MenuItem} from '../../../lib/common';
 
@@ -28,7 +28,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
   @ViewChild('rowActionTemplate') rowActionTemplate: TemplateRef<any>;
-  @ViewChild('rowMenu') rowMenu: RowMenuComponent;
+  @ViewChild('rowMenu') rowMenu: ContextMenuComponent;
   @ViewChild('alert') alert: ElementRef;
   @ViewChild('toolbar') toolbar: any;
   @ViewChild(DataTableComponent) dt: DataTableComponent;
@@ -159,7 +159,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     } else {
       top -= this.dataManager.dimensions.offsetY;
     }
-    this.rowMenu.show(<MenuEventArgs>{'left': left, 'top': top, 'data': row, 'rowHeight': rowHeight});
+    this.rowMenu.show(<MenuEventArgs>{originalEvent: event, data: row, left: left, top: top});
   }
 
   createAction() {
