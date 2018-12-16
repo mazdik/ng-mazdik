@@ -341,6 +341,16 @@ import { DtTranslateModule, DtTranslateService } from '../lib/dt-translate';
   }
 }
 ```
+```typescript
+import {DtMessages} from '../lib/dt-translate';
+
+messages: DtMessages = <DtMessages>{
+  empty: 'DT.empty',
+  titleDetailView: 'Item details',
+  titleCreate: 'Create a new item'
+};
+this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
+```
 
 ### Lib
 | Componnent                     | Description        |

@@ -3,6 +3,7 @@ import {Row, Filter} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {CdtSettings} from './cdt-settings';
+import {DtMessages} from '../../lib/dt-translate';
 
 export class DataManager extends DataTable {
 
@@ -12,8 +13,8 @@ export class DataManager extends DataTable {
   refreshRowOnSave: boolean;
   pagerCache: any = {};
 
-  constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource) {
-    super(columns, settings);
+  constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: DtMessages) {
+    super(columns, settings, messages);
     this.settings = new CdtSettings(settings);
     this.settings.clientSide = false;
     this.service = dataSource;

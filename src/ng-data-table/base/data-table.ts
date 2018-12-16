@@ -44,7 +44,7 @@ export class DataTable {
   }
   private _rows: Row[] = [];
 
-  constructor(columns: ColumnBase[], settings: Settings) {
+  constructor(columns: ColumnBase[], settings: Settings, messages?: DtMessages) {
     this.settings = new Settings(settings);
     this.sequence = new Sequence();
     this.dataFilter = new DataFilter();
@@ -55,6 +55,9 @@ export class DataTable {
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
+    if (messages) {
+      Object.assign(this.messages, messages);
+    }
   }
 
   createColumns(columns: ColumnBase[]) {
