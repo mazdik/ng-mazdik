@@ -9,7 +9,6 @@ import {ContextMenuComponent, MenuEventArgs} from '../context-menu';
     './tree-view.component.css',
     './tree-view.css',
     '../styles/clearable-input.css',
-    '../styles/buttons.css',
     '../styles/input.css',
     '../styles/spinners.css',
     '../styles/icons.css',

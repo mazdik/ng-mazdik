@@ -10,18 +10,15 @@ export class Tree {
   filterLoading: boolean;
   serverSideFiltering: boolean;
 
+  get nodes(): TreeNode[] { return this._nodes; }
   set nodes(val: TreeNode[]) {
     this._nodes = [];
     for (const node of val) {
       this._nodes.push(new TreeNode(node, null, this.id.bind(this)));
     }
   }
-
-  get nodes(): TreeNode[] {
-    return this._nodes;
-  }
-
   private _nodes: TreeNode[];
+
   private uidNode: number = 0;
 
   constructor() {

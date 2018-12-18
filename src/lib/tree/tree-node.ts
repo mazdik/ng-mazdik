@@ -7,22 +7,18 @@ export class TreeNode {
   leaf?: boolean;
   parent?: TreeNode;
 
+  get children(): TreeNode[] { return this._children; }
   set children (val: TreeNode[]) {
     this._children = [];
     if (val) {
       this._children = val.map((c) => new TreeNode(c, this, this.genUid));
     }
   }
-
-  get children(): TreeNode[] {
-    return this._children;
-  }
+  private _children: TreeNode[];
 
   $$id?: number;
   $$level?: number;
   $$filterState?: number;
-
-  private _children: TreeNode[];
 
   constructor(init: Partial<TreeNode>, parentNode: TreeNode, private genUid: () => number) {
     this.id = init.id;

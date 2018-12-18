@@ -72,3 +72,25 @@
 .tree-header button {
   margin-right: 2px;
 }
+
+.tree-button-actions {
+  margin: 0;
+  padding: 4px;
+  background-color: transparent;
+  border: none;
+  outline:none;
+  cursor:pointer;
+  color: #333;
+}
+
+.tree-button-actions:hover {
+  background-color: rgba(0,0,0,.1);
+}
+
+.tree-icon-actions {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+}
