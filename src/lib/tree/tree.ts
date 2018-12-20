@@ -1,8 +1,6 @@
-import {Injectable} from '@angular/core';
 import {TreeNode} from './tree-node';
 import {TreeDataSource, FilterState} from './types';
 
-@Injectable()
 export class Tree {
 
   service: TreeDataSource;
@@ -14,7 +12,7 @@ export class Tree {
   set nodes(val: TreeNode[]) {
     this._nodes = [];
     for (const node of val) {
-      this._nodes.push(new TreeNode(node, null, this.id.bind(this)));
+      this._nodes.push(new TreeNode(node, null, this));
     }
   }
   private _nodes: TreeNode[];
@@ -122,12 +120,11 @@ export class Tree {
     });
   }
 
-  getNodeById(nodeId) {
-    const idStr = nodeId.toString();
-    return this.getNodeBy((node) => node.id.toString() === idStr);
+  getNodeById(nodeId: string): TreeNode {
+    return this.getNodeBy((node) => node.id && node.id.toString() === nodeId.toString());
   }
 
-  getNodeBy(predicate, startNode = null) {
+  getNodeBy(predicate, startNode = null): TreeNode {
     startNode = startNode || {'children': this.nodes};
     if (!startNode.children) {
       return null;

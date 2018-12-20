@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {TreeNode, Tree, FilterState} from '../tree';
+import {TreeNode, FilterState} from '../tree';
 
 @Component({
   selector: 'app-tree-view-node',
@@ -15,7 +15,7 @@ import {TreeNode, Tree, FilterState} from '../tree';
         <i *ngIf="node.icon || getIconFunc" [ngClass]="getIcon(node)"></i>
         {{node.name}}
       </span>
-      <ul class="tree-container" *ngIf="node.children && node.expanded">
+      <ul class="tree-container" *ngIf="node.hasChildren && node.expanded">
         <app-tree-view-node
           *ngFor="let childNode of node.children"
           [node]="childNode"
@@ -37,19 +37,14 @@ export class TreeViewNodeComponent implements OnInit {
 
   loading: boolean;
 
-  constructor(private tree: Tree) {
-  }
+  constructor() {}
 
   ngOnInit() {
   }
 
-  isSelected(node: TreeNode) {
-    return node === this.tree.selectedNode;
-  }
-
   onSelectNode(node: TreeNode) {
-    if (this.tree.selectedNode !== node) {
-      this.tree.selectedNode = node;
+    if (this.node.tree.selectedNode !== node) {
+      this.node.tree.selectedNode = node;
       this.selectedChanged.emit(node);
     }
   }
@@ -58,7 +53,7 @@ export class TreeViewNodeComponent implements OnInit {
     node.expanded = !node.expanded;
     if (node.expanded) {
       this.loading = true;
-      this.tree.loadNode(node).finally(() => { this.loading = false; });
+      this.node.tree.loadNode(node).finally(() => { this.loading = false; });
     }
   }
 
@@ -98,7 +93,7 @@ export class TreeViewNodeComponent implements OnInit {
     } else if (this.node.$$filterState === FilterState.ON_FOUND_PATH) {
       cls += ' filter-on-path';
     }
-    if (this.isSelected(this.node)) {
+    if (this.node.isSelected) {
       cls += ' highlight';
     }
     return cls;

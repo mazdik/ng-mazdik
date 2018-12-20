@@ -46,12 +46,12 @@ export class TreeViewComponent implements OnInit {
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
   @ViewChild('filterInput') filterInput: any;
 
+  tree: Tree = new Tree();
   filterTimeout: any;
   loading: boolean;
   searchFilterText: any;
 
-  constructor(private tree: Tree) {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.initGetNodes();
@@ -93,6 +93,10 @@ export class TreeViewComponent implements OnInit {
   onClickClearSearch() {
     this.searchFilterText = '';
     this.onFilterKeyup();
+  }
+
+  getNodeById(nodeId: string) {
+    return this.tree.getNodeById(nodeId);
   }
 
 }
