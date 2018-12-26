@@ -1,9 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Column, Settings, TreeTable} from '../../ng-tree-table';
 import {HttpClient} from '@angular/common/http';
+import {Column, Settings, TreeTable} from '../../ng-tree-table';
 import {TreeDemoService} from './tree-demo.service';
 import {getTreeColumns} from './columns';
 import {Subscription} from 'rxjs';
+import {TreeBuilder} from '../../lib/tree';
 
 @Component({
   selector: 'app-tree-table-demo',
@@ -39,7 +40,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.flattenTreeTable.events.onLoading(true);
     this.http.get<any[]>('assets/flatten-tree.json').subscribe(data => {
-      const nodes = this.flattenTreeTable.rowsToTree(data, 'parentId', 'id');
+      const nodes = TreeBuilder.rowsToTree(data, 'parentId', 'id');
       this.flattenTreeTable.nodes = nodes;
       this.flattenTreeTable.events.onLoading(false);
     });
