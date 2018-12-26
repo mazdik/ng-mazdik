@@ -29,7 +29,7 @@ export class BasicDemoComponent implements OnInit {
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
-    this.columns[4].filterValuesFunc = this.filterValuesFunc;
+    this.columns[4].filterValues = this.filterValuesFunc;
     this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
     this.dataManager.pager.perPage = 20;
   }

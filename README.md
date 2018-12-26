@@ -248,7 +248,7 @@ export interface PageMetadata {
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
 | aggregation      | sum / average / max / min / count | null | |
-| filterValuesFunc | (columnName: string) => Promise<SelectItem[]> | null | |
+| filterValues     | (columnName: string) => Promise<SelectItem[]> / SelectItem[] / string | null | |
 | dataType         | string /number /date | null |      |
 | formDisableOnEdit | boolean   | false   |             |
 | pipe             | PipeTransform | null |             |

@@ -86,7 +86,7 @@ export class FilterComponent extends Dropdown implements OnInit, OnDestroy {
   }
 
   get isListFilter(): boolean {
-    if (this.column.options || this.column.filterValuesFunc) {
+    if (this.column.options || this.column.filterValues) {
       return true;
     }
     return false;

@@ -1,6 +1,6 @@
 <i class="dt-loader" *ngIf="loading"></i>
 <app-select-list *ngIf="!loading"
-                 [options]="column.filterValues"
+                 [options]="column.filterValuesTemp"
                  [selected]="selectedOptions"
                  [multiple]="column.multiSelectFilter"
                  [isOpen]="isOpen"

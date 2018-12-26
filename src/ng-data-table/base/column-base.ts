@@ -2,6 +2,8 @@ import {ColumnType, AggregateType, DataType} from './types';
 import {TemplateRef, PipeTransform} from '@angular/core';
 import {SelectItem} from '../../lib/common';
 
+type FilterValuesFunc = (columnName: string) => Promise<SelectItem[]>;
+
 export class ColumnBase {
 
   title: string;
@@ -28,7 +30,7 @@ export class ColumnBase {
   minWidth?: number = 50;
   maxWidth?: number = 500;
   aggregation?: AggregateType;
-  filterValuesFunc?: (columnName: string) => Promise<SelectItem[]>;
+  filterValues?: FilterValuesFunc | SelectItem[] | string;
   dataType?: DataType;
   formDisableOnEdit?: boolean;
   pipe?: PipeTransform;

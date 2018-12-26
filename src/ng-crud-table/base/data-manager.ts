@@ -18,6 +18,12 @@ export class DataManager extends DataTable {
     this.settings = new CdtSettings(settings);
     this.settings.clientSide = false;
     this.service = dataSource;
+
+    this.columns.forEach(col => {
+      if (col.filterValues && typeof col.filterValues === 'string') {
+        col.filterValues = this.service.getOptions.bind(this.service, col.filterValues);
+      }
+    });
   }
 
   get filters(): Filter { return this.dataFilter.filters; }

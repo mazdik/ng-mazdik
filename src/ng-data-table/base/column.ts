@@ -8,7 +8,7 @@ import {SelectItem} from '../../lib/common';
 export class Column extends ColumnBase {
 
   index: number;
-  filterValues: SelectItem[] = [];
+  filterValuesTemp: SelectItem[] = [];
 
   get containsDots(): boolean {
     return (this.name.indexOf('.') >= 0);
@@ -146,8 +146,10 @@ export class Column extends ColumnBase {
   }
 
   getFilterValues(): Promise<SelectItem[]> {
-    if (this.filterValuesFunc) {
-      return this.filterValuesFunc(this.name);
+    if (this.filterValues && typeof this.filterValues === 'function') {
+      return this.filterValues(this.name);
+    } else if (this.filterValues && this.filterValues instanceof Array) {
+      return Promise.resolve(this.filterValues);
     } else if (this.options) {
       return Promise.resolve(this.options);
     }

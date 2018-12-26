@@ -26,7 +26,7 @@ export class ListFilterComponent implements OnChanges {
       this.loadFilter();
       this.loading = true;
       this.column.getFilterValues().then((res) => {
-          this.column.filterValues = res;
+          this.column.filterValuesTemp = res;
         })
         .catch(() => {})
         .finally(() => {
