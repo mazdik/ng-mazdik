@@ -91,4 +91,10 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.filterClose.emit(true);
   }
 
+  onKeyPressFilterInput(event: KeyboardEvent) {
+    if (event.which === 13) {
+      this.onClickOk();
+    }
+  }
+
 }

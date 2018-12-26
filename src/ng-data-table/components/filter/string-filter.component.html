@@ -7,7 +7,8 @@
        #filterInput
        [attr.placeholder]="column.name"
        *ngIf="isValueFilter"
-       [(ngModel)]="value"/>
+       [(ngModel)]="value"
+       (keypress)="onKeyPressFilterInput($event)">
 
 <div class="dt-list-divider"></div>
 <div class="dt-list-menu-row">
