@@ -54,6 +54,7 @@ export class ModalSelectComponent {
   @Input() itemsPerPage: number = 10;
   @Input() placeholder: string = 'Select';
   @Input() searchInputPlaceholder: string = 'Search...';
+  @Input() styleClass: string;
 
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();

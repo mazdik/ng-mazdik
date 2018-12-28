@@ -26,6 +26,7 @@ export class DropdownSelectComponent extends Dropdown {
   @Input() clearMessage: string;
   @Input() placeholder: string = 'Select';
   @Input() searchInputPlaceholder: string = 'Search...';
+  @Input() styleClass: string;
 
   @Input()
   get options(): SelectItem[] { return this._options; }

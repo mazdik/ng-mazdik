@@ -1,4 +1,4 @@
-<div class="dt-input-group" (click)="open()">
+<div class="dt-input-group" [ngClass]="styleClass" (click)="open()">
   <input class="dt-input dt-select-input"
          readonly="readonly"
          value="{{selectedName}}"

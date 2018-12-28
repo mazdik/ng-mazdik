@@ -13,6 +13,7 @@ import {InputOptionComponent} from './input-option.component';
                     [placeholder]="placeholder"
                     [searchInputPlaceholder]="searchInputPlaceholder"
                     [modalTitle]="dynElement.title"
+                    [styleClass]="{'dt-has-error':hasError()}"
                     (valueChange)="onValueChange()"
                     (nameChanged)="nameChanged.emit($event)">
       </app-modal-select>
