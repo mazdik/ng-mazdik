@@ -5,6 +5,8 @@ import {
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../../ng-crud-table/base';
 import {DynamicFormElement} from '../dynamic-form';
+import {DtTranslateService} from '../dt-translate';
+import {Observable, forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -38,7 +40,7 @@ export class ModalEditFormComponent implements OnInit {
   transposedData: any[];
   getOptionsFunc: Function;
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private dtTranslateService: DtTranslateService) {
   }
 
   ngOnInit() {
@@ -80,7 +82,9 @@ export class ModalEditFormComponent implements OnInit {
   }
 
   createDynamicFormElements() {
-    this.dynElements = [];
+    const temp: DynamicFormElement[] = [];
+    const observables: Observable<string>[] = [];
+
     for (const column of this.dataManager.columns) {
       const element = new DynamicFormElement();
       element.name = column.name;
@@ -94,8 +98,16 @@ export class ModalEditFormComponent implements OnInit {
       element.hidden = column.formHidden;
       element.keyElement = column.keyColumn;
       element.disableOnEdit = column.formDisableOnEdit;
-      this.dynElements.push(element);
+      temp.push(element);
+      observables.push(this.dtTranslateService.get(element.title));
     }
+
+    forkJoin(observables).subscribe(res => {
+      temp.forEach((el, i) => {
+        el.title = res[i];
+      });
+      this.dynElements = temp;
+    });
   }
 
 }

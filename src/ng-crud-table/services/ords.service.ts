@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {RequestMetadata, DataSource, PagedResult} from '../base';
 import {NotifyService} from '../../lib/notify/notify.service';
 
@@ -12,6 +12,12 @@ export class OrdsService implements DataSource {
   constructor(private http: HttpClient, private notifyService: NotifyService) {
   }
 
+  get headers() {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+    return headers;
+  }
+
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
     const page = requestMeta.pageMeta.currentPage;
 
@@ -20,7 +26,7 @@ export class OrdsService implements DataSource {
       url = url + '/?offset=' + page;
     }
     url = url + this.filterObject(requestMeta);
-    return this.http.get<PagedResult>(url)
+    return this.http.get<PagedResult>(url, {headers: this.headers})
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError.bind(this));
@@ -41,7 +47,7 @@ export class OrdsService implements DataSource {
 
   post(row: any): Promise<any> {
     return this.http
-      .post(this.url + '/', JSON.stringify(row))
+      .post(this.url + '/', JSON.stringify(row), {headers: this.headers})
       .toPromise()
       .then(res => res)
       .catch(this.handleError.bind(this));
@@ -59,7 +65,7 @@ export class OrdsService implements DataSource {
       url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
-      .put(url, JSON.stringify(row))
+      .put(url, JSON.stringify(row), {headers: this.headers})
       .toPromise()
       .then(res => res)
       .catch(this.handleError.bind(this));
@@ -77,7 +83,7 @@ export class OrdsService implements DataSource {
       url = (this.primaryKeys) ? `${this.url}/?q={"${this.primaryKeys}":${row[this.primaryKeys[0]]}}` : this.url;
     }
     return this.http
-      .delete(url)
+      .delete(url, {headers: this.headers})
       .toPromise()
       .catch(this.handleError.bind(this));
   }

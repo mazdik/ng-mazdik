@@ -12,10 +12,16 @@ export class YiiService implements DataSource {
   constructor(private http: HttpClient, private notifyService: NotifyService) {
   }
 
+  get headers() {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json');
+    return headers;
+  }
+
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
     const page = requestMeta.pageMeta.currentPage;
     const url = this.url + '?page=' + page + this.urlEncode(requestMeta) + this.urlSort(requestMeta);
-    return this.http.get<PagedResult>(url)
+    return this.http.get<PagedResult>(url, {headers: this.headers})
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError.bind(this));
@@ -36,7 +42,7 @@ export class YiiService implements DataSource {
 
   post(row: any): Promise<any> {
     return this.http
-      .post(this.url, JSON.stringify(row))
+      .post(this.url, JSON.stringify(row), {headers: this.headers})
       .toPromise()
       .then(res => res)
       .catch(this.handleError.bind(this));
@@ -54,7 +60,7 @@ export class YiiService implements DataSource {
       url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
-      .put(url, JSON.stringify(row))
+      .put(url, JSON.stringify(row), {headers: this.headers})
       .toPromise()
       .then(res => res)
       .catch(this.handleError.bind(this));
@@ -72,7 +78,7 @@ export class YiiService implements DataSource {
       url = (this.primaryKeys) ? `${this.url}/${row[this.primaryKeys[0]]}` : this.url;
     }
     return this.http
-      .delete(url)
+      .delete(url, {headers: this.headers})
       .toPromise()
       .catch(this.handleError.bind(this));
   }
