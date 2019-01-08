@@ -21,7 +21,6 @@ export class LiveDemoComponent implements OnInit {
   settings: Settings = <Settings>{
     sortable: false,
     filter: false,
-    trackByProp: 'changed'
   };
 
   constructor(private http: HttpClient) {

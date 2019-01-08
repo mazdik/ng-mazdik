@@ -23,11 +23,7 @@ export class BodyComponent implements OnInit, OnDestroy {
 
   constructor(private cd: ChangeDetectorRef) {
     this.rowTrackingFn = function (index: number, row: any): any {
-      if (this.table.settings.trackByProp) {
-        return `${index}-${this.table.settings.trackByProp}`;
-      } else {
-        return index;
-      }
+      return (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;
     }.bind(this);
   }
 
