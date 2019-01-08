@@ -8,9 +8,9 @@ import {ExportCSV} from '../export/export-csv';
 
 @Component({
     selector: 'dt-toolbar',
-    templateUrl: './toolbar.component.html',
+    templateUrl: './dt-toolbar.component.html',
     styleUrls: [
-      'toolbar.component.css',
+      './dt-toolbar.component.css',
       '../styles/input-group.css',
       '../styles/buttons.css',
       '../styles/input.css'

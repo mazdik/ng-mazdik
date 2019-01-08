@@ -3,7 +3,7 @@ import {CommonModule} from '@angular/common';
 import {HttpClientModule} from '@angular/common/http';
 
 import {DataTableModule} from '../ng-data-table';
-import {ToolbarModule} from '../lib/toolbar';
+import {ToolbarModule} from '../lib/dt-toolbar';
 import {NotifyModule} from '../lib/notify';
 import {ModalEditFormModule} from '../lib/modal-edit-form';
 import {ContextMenuModule} from '../lib/context-menu';

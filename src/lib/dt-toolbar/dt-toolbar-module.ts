@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DtTranslateModule} from '../dt-translate';
-import {ToolbarComponent} from './toolbar.component';
+import {ToolbarComponent} from './dt-toolbar.component';
 import {ExportCSV} from '../export/export-csv';
 
 @NgModule({
