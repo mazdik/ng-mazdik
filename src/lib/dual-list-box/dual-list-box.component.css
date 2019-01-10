@@ -10,7 +10,7 @@
 .dt-listbox-panel button {
   display: block;
   margin-bottom: .25em;
-  width: 45px;
+  padding: 2px 6px;
 }
 
 .dt-listbox-panel select {
@@ -19,4 +19,44 @@
 
 .dt-listbox-panel + .dt-listbox-panel {
   margin-left: .5em;
+}
+
+.dt-svg-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+}
+
+.dt-backspace-right {
+  transform: rotate(180deg);
+}
+
+.dt-backspace-down {
+  transform: rotate(-90deg);
+}
+
+.dt-backspace-left {
+  transform: rotate(0deg);
+}
+
+.dt-backspace-up {
+  transform: rotate(90deg);
+}
+
+.dt-tab-right {
+  transform: rotate(0deg);
+}
+
+.dt-tab-down {
+  transform: rotate(90deg);
+}
+
+.dt-tab-left {
+  transform: rotate(180deg);
+}
+
+.dt-tab-up {
+  transform: rotate(-90deg);
 }
