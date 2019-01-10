@@ -20,6 +20,7 @@ export class BasicDemoComponent implements OnInit {
     bodyHeight: 380,
     exportAction: true,
     globalFilter: true,
+    columnToggleAction: true,
   };
 
   messages: DtMessages = <DtMessages>{

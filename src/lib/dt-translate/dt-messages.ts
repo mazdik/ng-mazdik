@@ -41,6 +41,7 @@ export class DtMessages {
   isNotEmpty = PREF + 'isNotEmpty';
   selectPlaceholder = PREF + 'selectPlaceholder';
   ok = PREF + 'ok';
+  columns = PREF + 'columns';
 }
 
 export const EN = <DtMessages> {
@@ -84,4 +85,5 @@ export const EN = <DtMessages> {
   isNotEmpty: 'Is not empty',
   selectPlaceholder: 'Select...',
   ok: 'OK',
+  columns: 'Columns',
 };

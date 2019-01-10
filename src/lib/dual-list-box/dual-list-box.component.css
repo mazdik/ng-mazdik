@@ -4,6 +4,7 @@
 
 .dt-listbox-panel {
   display: inline-block;
+  user-select: none;
 }
 
 .dt-listbox-panel button {

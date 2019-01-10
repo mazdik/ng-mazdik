@@ -9,7 +9,7 @@ import { PageNotFoundComponent} from './not-found.component';
 import { CrudTableModule } from '../ng-crud-table';
 import { DataTableModule } from '../ng-data-table';
 import { TreeTableModule } from '../ng-tree-table';
-import { ToolbarModule } from '../lib/dt-toolbar';
+import { DtToolbarModule } from '../lib/dt-toolbar';
 import { ModalModule } from '../lib//modal';
 import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { TreeViewModule } from '../lib/tree-view';
@@ -101,7 +101,7 @@ const ROUTES: Routes = [
     CrudTableModule,
     DataTableModule,
     TreeTableModule,
-    ToolbarModule,
+    DtToolbarModule,
     ModalModule,
     ModalEditFormModule,
     TreeViewModule,

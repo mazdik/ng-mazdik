@@ -18,4 +18,8 @@
   <div class="dt-toolbar-col" *ngIf="exportAction">
     <button class="dt-button" (click)="downloadCsv()">{{table.messages.export | dtTranslate}}</button>
   </div>
+  <div class="dt-toolbar-col" *ngIf="columnToggleAction">
+    <button class="dt-button" (click)="modalColumnToggler.open()">{{table.messages.columns | dtTranslate}}</button>
+  </div>
 </div>
+<dt-column-toggler #modalColumnToggler [table]="table" [zIndex]="zIndexColumnToggler"></dt-column-toggler>

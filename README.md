@@ -292,6 +292,7 @@ export interface PageMetadata {
 | singleRowView    | boolean    | true    |             |
 | zIndexModal      | number     | null    |             |
 | exportAction     | boolean    | false   | csv         |
+| columnToggleAction | boolean  | false   |             |
 
 
 ```typescript

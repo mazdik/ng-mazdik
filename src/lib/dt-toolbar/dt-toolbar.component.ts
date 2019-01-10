@@ -18,16 +18,18 @@ import {ExportCSV} from '../export/export-csv';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 })
-export class ToolbarComponent implements OnInit, OnDestroy {
+export class DtToolbarComponent implements OnInit, OnDestroy {
 
     @Input() table: DataTable;
     @Input() createAction: boolean;
     @Input() globalFilter: boolean = true;
     @Input() exportAction: boolean;
+    @Input() columnToggleAction: boolean;
     @Input() createMessage: string = 'Create';
     @Input() goMessage: string = 'Go';
     @Input() exportMessage: string = 'Export';
     @Input() searchMessage: string = 'Search...';
+    @Input() zIndexColumnToggler: number;
 
     @Output() create: EventEmitter<any> = new EventEmitter();
 

@@ -7,6 +7,7 @@ export class CdtSettings extends Settings {
   singleRowView?: boolean = true;
   zIndexModal?: number;
   exportAction?: boolean;
+  columnToggleAction?: boolean;
 
   constructor(init: Partial<CdtSettings>) {
     super(init);

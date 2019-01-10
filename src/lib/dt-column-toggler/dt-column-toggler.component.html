@@ -1,0 +1,19 @@
+<app-modal #childModal [modalTitle]="table.messages.columns | dtTranslate" [width]="740" [zIndex]="zIndex">
+  <ng-container class="app-modal-body">
+      <app-dual-list-box
+        *ngIf="childModal.visible"
+        [source]="selectColumns"
+        [target]="selectedColumns"
+        (targetChange)="onSelectionChange($event)">
+      </app-dual-list-box>
+  </ng-container>
+  <ng-container class="app-modal-footer">
+    <button class="dt-button"
+            (click)="save()">{{table.messages.save | dtTranslate}}
+    </button>
+    <button class="dt-button dt-green"
+            style="float: right;"
+            (click)="close()">{{table.messages.close | dtTranslate}}
+    </button>
+  </ng-container>
+</app-modal>
