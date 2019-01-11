@@ -2,11 +2,12 @@ import {
   Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
   ViewEncapsulation
 } from '@angular/core';
+import {Observable, forkJoin} from 'rxjs';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../../ng-crud-table/base';
 import {DynamicFormElement} from '../dynamic-form';
 import {DtTranslateService} from '../dt-translate';
-import {Observable, forkJoin} from 'rxjs';
+import {KeyValuePair} from '../row-view';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -24,10 +25,6 @@ export class ModalEditFormComponent implements OnInit {
   get detailView(): boolean { return this._detailView; }
   set detailView(val: boolean) {
     this._detailView = val;
-    this.transposedData = [];
-    for (const column of this.dataManager.columns) {
-      this.transposedData.push({key: column.title, value: column.getValueView(this.dataManager.item)});
-    }
   }
   private _detailView: boolean;
 
@@ -37,7 +34,7 @@ export class ModalEditFormComponent implements OnInit {
 
   dynElements: DynamicFormElement[];
   formValid: boolean = true;
-  transposedData: any[];
+  transposedData: KeyValuePair[];
   getOptionsFunc: Function;
 
   constructor(private cd: ChangeDetectorRef, private dtTranslateService: DtTranslateService) {
@@ -84,6 +81,7 @@ export class ModalEditFormComponent implements OnInit {
   createDynamicFormElements() {
     const temp: DynamicFormElement[] = [];
     const observables: Observable<string>[] = [];
+    const tempDetailView: KeyValuePair[] = [];
 
     for (const column of this.dataManager.columns) {
       const element = new DynamicFormElement();
@@ -99,6 +97,7 @@ export class ModalEditFormComponent implements OnInit {
       element.keyElement = column.keyColumn;
       element.disableOnEdit = column.formDisableOnEdit;
       temp.push(element);
+      tempDetailView.push({key: column.title, value: column.getValueView(this.dataManager.item)});
       observables.push(this.dtTranslateService.get(element.title));
     }
 
@@ -106,7 +105,11 @@ export class ModalEditFormComponent implements OnInit {
       temp.forEach((el, i) => {
         el.title = res[i];
       });
+      tempDetailView.forEach((el, i) => {
+        el.key = res[i];
+      });
       this.dynElements = temp;
+      this.transposedData = tempDetailView;
     });
   }
 
