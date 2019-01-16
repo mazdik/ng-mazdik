@@ -281,7 +281,8 @@ export interface PageMetadata {
 | actionColumnWidth | number    | 40      | px, 0 - hide |
 | rowActionTemplate | TemplateRef | null  |              |
 | paginator        | boolean    | true    |              |
-| rowHeightProp    | string     | null    |              |
+| rowHeightProp    | string     | null    | row.$$height |
+| isEditableCellProp | string   | null    | row.$$editable |
 
 ### CdtSettings extends Settings
 | Attribute        | Type       | Default | Description |

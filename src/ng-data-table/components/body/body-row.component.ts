@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ViewChild, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnResizeMode, Row} from '../../base';
+import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
 import {Subscription} from 'rxjs';
 import {translate, addClass} from '../../base/util';
 
@@ -86,6 +86,13 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  isEditableCell(row: Row, column: Column): boolean {
+    if (column.editable && row.hasOwnProperty(this.table.settings.isEditableCellProp)) {
+      return row[this.table.settings.isEditableCellProp];
+    }
+    return column.editable;
   }
 
 }

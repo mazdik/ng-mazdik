@@ -1,7 +1,7 @@
 <app-inline-edit
   [(value)]="row[column.name]"
   [editing]=editing
-  [type]="(column.isDateType) ? column.type : 'text'"
+  [type]="(column.isDateType || column.type === 'number') ? column.type : 'text'"
   [options]="column.options"
   [pipe]="column.pipe"
   (change)="validate()"

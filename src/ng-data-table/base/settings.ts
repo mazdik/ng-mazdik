@@ -27,6 +27,7 @@ export class Settings {
   rowActionTemplate?: TemplateRef<any>;
   paginator?: boolean = true;
   rowHeightProp?: string;
+  isEditableCellProp?: string;
 
   constructor(init: Partial<Settings>) {
     if (init) {

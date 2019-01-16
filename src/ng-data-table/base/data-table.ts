@@ -61,9 +61,7 @@ export class DataTable {
   }
 
   createColumns(columns: ColumnBase[]) {
-    for (const column of columns) {
-      this.columns.push(new Column(column, this.settings, this.dataFilter));
-    }
+    this.columns = columns.map(column => new Column(column, this.settings, this.dataFilter));
     this.initColumns();
   }
 
