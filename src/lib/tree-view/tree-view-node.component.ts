@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {TreeNode, FilterState} from '../tree';
+import {TreeNode, FilterState, TreeHelper} from '../tree';
 
 @Component({
   selector: 'app-tree-view-node',
@@ -35,8 +35,6 @@ export class TreeViewNodeComponent implements OnInit {
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
   @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
 
-  loading: boolean;
-
   constructor() {}
 
   ngOnInit() {
@@ -52,22 +50,13 @@ export class TreeViewNodeComponent implements OnInit {
   onExpand(node: TreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded) {
-      this.loading = true;
-      this.node.tree.loadNode(node).finally(() => { this.loading = false; });
+      node.$$loading = true;
+      this.node.tree.loadNode(node).finally(() => { node.$$loading = false; });
     }
   }
 
-  getExpanderIcon(node: TreeNode): string {
-    let icon: string;
-    if (this.loading) {
-      return 'dt-loader';
-    }
-    if (!node.isLeaf() && node.expanded) {
-      icon = 'dt-icon-node dt-icon-collapsed';
-    } else if (!node.isLeaf()) {
-      icon = 'dt-icon-node';
-    }
-    return icon;
+  getExpanderIcon(node: TreeNode) {
+    return TreeHelper.getExpanderIcon(node);
   }
 
   getIcon(node: TreeNode) {

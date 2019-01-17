@@ -21,6 +21,7 @@ export class TreeNode {
   $$id?: number;
   $$level?: number;
   $$filterState?: number;
+  $$loading?: boolean;
 
   constructor(init: Partial<TreeNode>, parentNode: TreeNode, public tree: Tree) {
     this.id = init.id;

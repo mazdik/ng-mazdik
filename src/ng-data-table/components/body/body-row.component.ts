@@ -5,6 +5,7 @@ import {
 import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
 import {Subscription} from 'rxjs';
 import {translate, addClass} from '../../base/util';
+import {isBlank} from '../../../lib/common/utils';
 
 @Component({
   selector: 'dt-body-row',
@@ -44,7 +45,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   get rowHeight(): number {
     if (this.table.settings.rowHeightProp) {
       const rowHeight = this.row[this.table.settings.rowHeightProp];
-      return (rowHeight) ? rowHeight : this.table.dimensions.rowHeight;
+      return !isBlank(rowHeight) ? rowHeight : this.table.dimensions.rowHeight;
     } else {
       return this.table.dimensions.rowHeight;
     }

@@ -80,6 +80,7 @@
 .datatable-body-row {
   white-space: nowrap;
   outline: none;
+  overflow: hidden;
 }
 
 /******/

@@ -1,9 +1,10 @@
 import {
   Component, OnInit, OnDestroy, Input, ViewEncapsulation, HostBinding, ViewChild, TemplateRef,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {TreeTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
+import {TreeNode, TreeHelper} from '../../../lib/tree';
 
 @Component({
   selector: 'app-tree-table',
@@ -21,8 +22,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.treeTable.columns[0].cellTemplate = this.cellTemplate;
@@ -47,34 +47,25 @@ export class TreeTableComponent implements OnInit, OnDestroy {
       .finally(() => { this.treeTable.events.onLoading(false); });
   }
 
-  onExpand(node: any) {
+  onExpand(node: TreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded) {
-      node.loading = true;
+      node.$$loading = true;
       this.treeTable.tree.loadNode(node)
         .then(() => {
           this.treeTable.flatten();
         })
-        .finally(() => { node.loading = false; });
+        .finally(() => { node.$$loading = false; });
     } else {
       this.treeTable.flatten();
     }
   }
 
-  getExpanderIcon(node: any) {
-    let icon: string;
-    if (node.loading && !node.isLeaf()) {
-      return 'dt-loader';
-    }
-    if (!node.isLeaf() && node.expanded) {
-      icon = 'dt-icon-node dt-icon-collapsed';
-    } else if (!node.isLeaf()) {
-      icon = 'dt-icon-node';
-    }
-    return icon;
+  getExpanderIcon(node: TreeNode) {
+    return TreeHelper.getExpanderIcon(node);
   }
 
-  getIcon(node: any) {
+  getIcon(node: TreeNode) {
     if (this.treeTable.getIconFunc) {
       return this.treeTable.getIconFunc(node);
     } else {
