@@ -4,18 +4,18 @@ import {Column, Settings, DataTable} from '../../ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
-  selector: 'app-data-table-demo',
-  template: `<app-data-table [table]="table"></app-data-table>`
+  selector: 'app-editable-condition-demo',
+  template: `<p>Editable condition per row. If row.exp > 1000000 and column editable</p>
+  <app-data-table [table]="table"></app-data-table>`
 })
 
-export class DataTableDemoComponent implements OnInit {
+export class EditableConditionDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
 
   settings: Settings = <Settings>{
-    clientSide: true,
-    columnResizeMode: 'aminated',
+    isEditableCellProp: '$$editable',
   };
 
   constructor(private http: HttpClient) {
@@ -25,7 +25,10 @@ export class DataTableDemoComponent implements OnInit {
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
+      for (const row of data) {
+        row.$$editable = row.exp > 1000000;
+      }
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
