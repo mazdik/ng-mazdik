@@ -101,7 +101,7 @@ export function getColumnsPlayers(): Column[] {
         {id: 1, name: 'Online'}
       ]
     },
-    {title: 'Cube size', name: 'cube_size', editable: true},
+    {title: 'Cube size', name: 'cube_size', editable: true, type: 'number'},
     {title: 'Broker Kinah', name: 'brokerKinah', editable: true},
     {title: 'Bind point', name: 'bind_point', editable: true},
     {title: 'X', name: 'x', editable: true},
@@ -205,6 +205,7 @@ export function getTreeColumns(): Column[] {
       name: 'cube_size',
       editable: true,
       width: 250,
+      type: 'number',
     },
     {
       title: 'Exp',

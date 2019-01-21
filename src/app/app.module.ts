@@ -39,6 +39,7 @@ import { EventsDemoComponent } from './demo/events-demo.component';
 import { VerticalGroupDemoComponent } from './demo/vertical-group-demo.component';
 import { TreeViewDemoComponent } from './demo/tree-view-demo.component';
 import { EditableConditionDemoComponent } from './demo/editable-condition-demo.component';
+import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -65,6 +66,7 @@ const ROUTES: Routes = [
   {path: 'vertical-group-demo', component: VerticalGroupDemoComponent},
   {path: 'tree-view-demo', component: TreeViewDemoComponent},
   {path: 'editable-condition-demo', component: EditableConditionDemoComponent},
+  {path: 'tree-table-custom-demo', component: TreeTableCustomDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -95,6 +97,7 @@ const ROUTES: Routes = [
     VerticalGroupDemoComponent,
     TreeViewDemoComponent,
     EditableConditionDemoComponent,
+    TreeTableCustomDemoComponent,
   ],
   imports: [
     BrowserModule,
