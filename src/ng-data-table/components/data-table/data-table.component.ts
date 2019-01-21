@@ -110,7 +110,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
       this.body.scroller.setPageOffsetY(event.currentPage);
     } else {
       if (this.table.settings.clientSide) {
-        this.table.getLocalRows();
+        this.table.loadLocalRows();
       }
     }
     this.table.selection.clearSelection();
@@ -119,14 +119,14 @@ export class DataTableComponent implements OnInit, OnDestroy {
   onFilter() {
     this.table.pager.current = 1;
     if (this.table.settings.clientSide) {
-      this.table.getLocalRows();
+      this.table.loadLocalRows();
     }
     this.table.selection.clearSelection();
   }
 
   onSort() {
     if (this.table.settings.clientSide) {
-      this.table.getLocalRows();
+      this.table.loadLocalRows();
     }
     this.table.selection.clearSelection();
   }

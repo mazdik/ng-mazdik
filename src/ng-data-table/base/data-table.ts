@@ -11,6 +11,7 @@ import {Dimensions} from './dimensions';
 import {DtMessages} from '../../lib/dt-translate';
 import {RowGroup} from './row-group';
 import {Sequence} from './sequence';
+import {LocalDataSource} from './local-data-source';
 
 export class DataTable {
 
@@ -27,18 +28,18 @@ export class DataTable {
   selection: DataSelection;
   dimensions: Dimensions;
   rowGroup: RowGroup;
-  localRows: Row[] = [];
+  localDataSource: LocalDataSource;
 
   get rows(): any { return this._rows; }
   set rows(val: any) {
     val = val.map(this.generateRow.bind(this));
     if (this.settings.clientSide) {
-      this.setLocalRows(val);
-      this.getLocalRows();
+      this.localDataSource.setRows(val);
+      this._rows = this.localDataSource.getRows();
     } else {
       this._rows = val;
-      this.rowGroup.updateRowGroupMetadata(this._rows);
     }
+    this.rowGroup.updateRowGroupMetadata(this._rows);
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
@@ -55,6 +56,7 @@ export class DataTable {
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
+    this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.rowGroup, this.settings);
     if (messages) {
       Object.assign(this.messages, messages);
     }
@@ -81,27 +83,6 @@ export class DataTable {
     this.columns = this.sequence.setColumnIndexes(this.columns);
   }
 
-  setLocalRows(data: Row[]) {
-    this.dataFilter.clear();
-    this.sorter.clear();
-    this.pager.current = 1;
-    this.localRows = (data) ? data.slice(0) : [];
-  }
-
-  getLocalRows(): void {
-    if (this.localRows) {
-      const data = this.dataFilter.filterRows(this.localRows);
-      this.pager.total = data.length;
-      this.rowGroup.setSortMetaGroup();
-      this._rows = this.sorter.sortRows(data);
-      if (!this.settings.virtualScroll) {
-        this._rows = this.pager.pager(this._rows);
-      }
-      this._rows = [].concat(this.sequence.setRowIndexes(this._rows));
-      this.rowGroup.updateRowGroupMetadata(this._rows);
-    }
-  }
-
   selectRow(rowIndex: number) {
     if (this.rows && this.rows.length) {
       this.selection.selectRow(rowIndex);
@@ -116,15 +97,15 @@ export class DataTable {
 
   addRow(newRow: Row) {
     newRow = this.generateRow(newRow);
-    this._rows.push(newRow);
 
     if (this.settings.clientSide) {
-      this.localRows.push(newRow);
-      this.getLocalRows();
+      this.localDataSource.post(newRow);
+      this._rows = this.localDataSource.getRows();
     } else {
-      this.rowGroup.updateRowGroupMetadata(this._rows);
+      this._rows.push(newRow);
       this.pager.total += 1;
     }
+    this.rowGroup.updateRowGroupMetadata(this._rows);
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
     setTimeout(() => {
@@ -133,17 +114,15 @@ export class DataTable {
   }
 
   deleteRow(row: Row) {
-    let rowIndex = this.rows.findIndex(x => x.$$uid === row.$$uid);
-    this._rows.splice(rowIndex, 1);
-
     if (this.settings.clientSide) {
-      rowIndex = this.localRows.findIndex(x => x.$$uid === row.$$uid);
-      this.localRows.splice(rowIndex, 1);
-      this.getLocalRows();
+      this.localDataSource.delete(row);
+      this._rows = this.localDataSource.getRows();
     } else {
-      this.rowGroup.updateRowGroupMetadata(this._rows);
+      const rowIndex = this.rows.findIndex(x => x.$$uid === row.$$uid);
+      this._rows.splice(rowIndex, 1);
       this.pager.total -= 1;
     }
+    this.rowGroup.updateRowGroupMetadata(this._rows);
     this._rows = this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
@@ -203,6 +182,12 @@ export class DataTable {
 
   getSelection() {
     return this.selection.getSelectedRows(this.rows);
+  }
+
+  loadLocalRows() {
+    this._rows = this.localDataSource.getRows();
+    this.rowGroup.updateRowGroupMetadata(this._rows);
+    this._rows = this.sequence.setRowIndexes(this._rows);
   }
 
 }
