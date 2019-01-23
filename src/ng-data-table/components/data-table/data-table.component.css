@@ -167,10 +167,6 @@
   color: black;
 }
 
-.cell-selected {
-  background-color: #b3c4c7;
-}
-
 .datatable-empty-row {
   padding: 0 0 5px 5px;
 }

@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding, ElementRef
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SortHeaderComponent {
+export class SortHeaderComponent implements OnInit, OnDestroy {
 
   @Input() sortable: boolean = true;
   @Input() order: number = 0;
