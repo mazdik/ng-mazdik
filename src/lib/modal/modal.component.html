@@ -5,6 +5,13 @@
 
 <div class="ui-modal" tabindex="-1" role="dialog"
      #modalRoot
+     appResizable
+     [south]="true"
+     [east]="true"
+     [southEast]="true"
+     [minWidth]="minWidth"
+     [minHeight]="minHeight"
+     (resize)="onResize($event)"
      [ngStyle]="{'display': visible ? 'block' : 'none'}"
      [style.width.px]="width"
      [style.minWidth.px]="minWidth"
@@ -43,20 +50,4 @@
     <div class="ui-modal-footer" #modalFooter>
       <ng-content select=".app-modal-footer"></ng-content>
     </div>
-
-  <div class="ui-resizable-s"
-       *ngIf="!maximized"
-       [style.zIndex]="contentzIndex"
-       (mousedown)="initResizeS($event.pageX, $event.pageY)"
-       (touchstart)="initResizeS($event.touches[0].pageX, $event.touches[0].pageY)"></div>
-  <div class="ui-resizable-e"
-       *ngIf="!maximized"
-       [style.zIndex]="contentzIndex"
-       (mousedown)="initResizeE($event.pageX, $event.pageY)"
-       (touchstart)="initResizeE($event.touches[0].pageX, $event.touches[0].pageY)"></div>
-  <div class="ui-resizable-se"
-       *ngIf="!maximized"
-       [style.zIndex]="contentzIndex"
-       (mousedown)="initResizeSE($event.pageX, $event.pageY)"
-       (touchstart)="initResizeSE($event.touches[0].pageX, $event.touches[0].pageY)"></div>
 </div>

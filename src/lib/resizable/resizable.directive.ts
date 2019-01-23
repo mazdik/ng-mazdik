@@ -1,8 +1,15 @@
 import {
-  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit, Renderer2
+  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit, Renderer2, NgZone
 } from '@angular/core';
-import {Subscription, fromEvent} from 'rxjs';
+import {Subscription, fromEvent, merge} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+
+export interface ResizableEvent {
+  width: number;
+  height: number;
+  event?: any;
+  direction?: 'horizontal' | 'vertical';
+}
 
 @Directive({
   selector: '[appResizable]'
@@ -19,8 +26,8 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   @Input() maxHeight: number;
 
   @Output() resizeBegin: EventEmitter<any> = new EventEmitter();
-  @Output() resize: EventEmitter<any> = new EventEmitter();
-  @Output() resizeEnd: EventEmitter<any> = new EventEmitter();
+  @Output() resize: EventEmitter<ResizableEvent> = new EventEmitter();
+  @Output() resizeEnd: EventEmitter<ResizableEvent> = new EventEmitter();
 
   element: HTMLElement;
   private subscription: Subscription;
@@ -30,7 +37,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   private resizingE: boolean; // east
   private resizingSE: boolean; // south-east
 
-  constructor(element: ElementRef, private renderer: Renderer2) {
+  constructor(element: ElementRef, private renderer: Renderer2, private ngZone: NgZone) {
     this.element = element.nativeElement;
   }
 
@@ -51,7 +58,14 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   }
 
   @HostListener('mousedown', ['$event'])
-  onMousedown(event: MouseEvent): void {
+  @HostListener('touchstart', ['$event'])
+  onMousedown(event: MouseEvent | TouchEvent): void {
+    this.ngZone.runOutsideAngular(() => {
+      this.run(event);
+    });
+  }
+
+  run(event: MouseEvent | TouchEvent): void {
     const classList = (<HTMLElement>(event.target)).classList;
     const isSouth = classList.contains('resize-handle-s');
     const isEast = classList.contains('resize-handle-e');
@@ -59,27 +73,41 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
 
     const width = this.element.clientWidth;
     const height = this.element.clientHeight;
-    const screenX = event.screenX;
-    const screenY = event.screenY;
+    const screenX = this.getScreenX(event);
+    const screenY = this.getScreenY(event);
 
     if (isSouth || isEast || isSouthEast) {
       this.initResize(event, isSouth, isEast, isSouthEast);
 
-      const mouseup = fromEvent(document, 'mouseup');
+      const mouseup = merge(
+        fromEvent(document, 'mouseup'),
+        fromEvent(document, 'touchend')
+      );
       this.subscription = mouseup
-        .subscribe((ev: MouseEvent) => this.onMouseup());
+        .subscribe((ev: MouseEvent | TouchEvent) => this.onMouseup());
 
-      const mouseMoveSub = fromEvent(document, 'mousemove')
+      const mouseMoveSub = merge(
+        fromEvent(document, 'mousemove'),
+        fromEvent(document, 'touchmove')
+      )
         .pipe(takeUntil(mouseup))
-        .subscribe((e: MouseEvent) => this.move(e, width, height, screenX, screenY));
+        .subscribe((e: MouseEvent | TouchEvent) => this.move(e, width, height, screenX, screenY));
 
       this.subscription.add(mouseMoveSub);
     }
   }
 
-  move(event: MouseEvent, width: number, height: number, screenX: number, screenY: number): void {
-    const movementX = event.screenX - screenX;
-    const movementY = event.screenY - screenY;
+  getScreenX(event: MouseEvent | TouchEvent) {
+    return (<MouseEvent>event).screenX || ((<TouchEvent>event).targetTouches && (<TouchEvent>event).targetTouches[0].screenX);
+  }
+
+  getScreenY(event: MouseEvent | TouchEvent) {
+    return (<MouseEvent>event).screenY || ((<TouchEvent>event).targetTouches && (<TouchEvent>event).targetTouches[0].screenY);
+  }
+
+  move(event: MouseEvent | TouchEvent, width: number, height: number, screenX: number, screenY: number): void {
+    const movementX = this.getScreenX(event) - screenX;
+    const movementY = this.getScreenY(event) - screenY;
     this.newWidth = width + movementX;
     this.newHeight = height + movementY;
     this.resizeWidth();
@@ -104,7 +132,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.renderer.appendChild(this.element, node);
   }
 
-  initResize(event: MouseEvent, isSouth: boolean, isEast: boolean, isSouthEast: boolean) {
+  initResize(event: MouseEvent | TouchEvent, isSouth: boolean, isEast: boolean, isSouthEast: boolean) {
     if (isSouth) {
       this.resizingS = true;
     }
@@ -125,10 +153,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.resizingE = false;
     this.resizingSE = false;
     this.element.classList.remove('resizing');
-    this.resizeEnd.emit({
-      'width': this.newWidth,
-      'height': this.newHeight
-    });
+    this.resizeEnd.emit({ width: this.newWidth, height: this.newHeight });
   }
 
   resizeWidth() {
@@ -140,11 +165,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
         if (!this.ghost) {
           this.element.style.width = `${this.newWidth}px`;
         }
-        this.resize.emit({
-          'event': event,
-          'width': this.newWidth,
-          'height': this.newHeight
-        });
+        this.resize.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'horizontal' });
       }
     }
   }
@@ -158,11 +179,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
         if (!this.ghost) {
           this.element.style.height = `${this.newHeight}px`;
         }
-        this.resize.emit({
-          'event': event,
-          'width': this.newWidth,
-          'height': this.newHeight
-        });
+        this.resize.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'vertical' });
       }
     }
   }

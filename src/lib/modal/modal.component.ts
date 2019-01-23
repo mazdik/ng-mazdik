@@ -2,6 +2,7 @@ import {
   Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, NgZone,
   HostListener, HostBinding, EventEmitter
 } from '@angular/core';
+import {ResizableEvent} from '../resizable';
 
 @Component({
   selector: 'app-modal',
@@ -40,9 +41,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   contentzIndex: number;
   executePostDisplayActions: boolean;
   dragging: boolean;
-  resizingS: boolean;
-  resizingE: boolean;
-  resizingSE: boolean;
   lastPageX: number;
   lastPageY: number;
   maximized: boolean;
@@ -104,23 +102,19 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   onMousemove(event: MouseEvent): void {
     this.onDrag(event.pageX, event.pageY);
-    this.onResize(event.pageX, event.pageY);
   }
 
   onMouseup(): void {
     this.endDrag();
-    this.endResize();
   }
 
   onTouchmove(event: TouchEvent): void {
     const touch = event.touches[0];
     this.onDrag(touch.pageX, touch.pageY);
-    this.onResize(touch.pageX, touch.pageY);
   }
 
   onTouchend(): void {
     this.endDrag();
-    this.endResize();
   }
 
   show(): void {
@@ -191,61 +185,12 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.modalRoot.nativeElement.classList.remove('dragging');
   }
 
-  initResizeS(pageX: number, pageY: number) {
-    this.resizingS = true;
-    this.lastPageX = pageX;
-    this.lastPageY = pageY;
-    this.modalRoot.nativeElement.classList.add('resizing');
-  }
-
-  initResizeE(pageX: number, pageY: number) {
-    this.resizingE = true;
-    this.lastPageX = pageX;
-    this.lastPageY = pageY;
-    this.modalRoot.nativeElement.classList.add('resizing');
-  }
-
-  initResizeSE(pageX: number, pageY: number) {
-    this.resizingSE = true;
-    this.lastPageX = pageX;
-    this.lastPageY = pageY;
-    this.modalRoot.nativeElement.classList.add('resizing');
-  }
-
-  onResize(pageX: number, pageY: number) {
-    if (this.resizingS || this.resizingE || this.resizingSE) {
-      const deltaX = pageX - this.lastPageX;
-      const deltaY = pageY - this.lastPageY;
-      const containerWidth = this.modalRoot.nativeElement.offsetWidth;
-      const containerHeight = this.modalRoot.nativeElement.offsetHeight;
-      const contentHeight = this.modalBody.nativeElement.offsetHeight;
-      const newWidth = containerWidth + deltaX;
-      const newHeight = containerHeight + deltaY;
-
-      if (this.resizingSE || this.resizingE) {
-        if (newWidth > this.minWidth) {
-          this.modalRoot.nativeElement.style.width = newWidth + 'px';
-        }
-      }
-
-      if (this.resizingSE || this.resizingS) {
-        if (newHeight > this.minHeight) {
-          this.modalRoot.nativeElement.style.height = newHeight + 'px';
-          this.modalBody.nativeElement.style.height = contentHeight + deltaY + 'px';
-          this.modalBody.nativeElement.style.maxHeight = 'none';
-        }
-      }
-
-      this.lastPageX = pageX;
-      this.lastPageY = pageY;
+  onResize(event: ResizableEvent) {
+    if (event.direction === 'vertical') {
+      const contentHeight = event.height - (this.modalHeader.nativeElement.offsetHeight + this.modalFooter.nativeElement.offsetHeight);
+      this.modalBody.nativeElement.style.height = contentHeight + 'px';
+      this.modalBody.nativeElement.style.maxHeight = 'none';
     }
-  }
-
-  endResize() {
-    this.resizingS = false;
-    this.resizingE = false;
-    this.resizingSE = false;
-    this.modalRoot.nativeElement.classList.remove('resizing');
   }
 
   calcBodyHeight() {
