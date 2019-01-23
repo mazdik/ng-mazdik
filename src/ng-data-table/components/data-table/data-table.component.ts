@@ -20,7 +20,7 @@ import {PageEvent} from '../../../lib/pagination';
     '../../../lib/styles/input.css',
     '../../../lib/styles/spinners.css',
     '../../../lib/styles/icons.css',
-    '../../../lib/styles/resizable.css',
+    '../../../lib/resizable/resizable.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

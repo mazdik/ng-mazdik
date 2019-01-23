@@ -1,12 +1,10 @@
 .resize-handle-e {
-  display: inline-block;
   position: absolute;
-  right: 0;
+  cursor: e-resize;
+  height: 100%;
+  width: 7px;
+  right: -5px;
   top: 0;
-  bottom: 0;
-  width: 5px;
-  padding: 0 4px;
-  cursor: ew-resize;
 }
 
 .resize-handle-se {
