@@ -7,7 +7,7 @@ import {takeUntil} from 'rxjs/operators';
 export interface ResizableEvent {
   width: number;
   height: number;
-  event?: any;
+  event?: MouseEvent | Touch;
   direction?: 'horizontal' | 'vertical';
 }
 
@@ -65,10 +65,11 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     const isEast = classList.contains('resize-handle-e');
     const isSouthEast = classList.contains('resize-handle-se');
 
+    const evt = this.getEvent(event);
     const width = this.element.clientWidth;
     const height = this.element.clientHeight;
-    const screenX = this.getScreenX(event);
-    const screenY = this.getScreenY(event);
+    const screenX = evt.screenX;
+    const screenY = evt.screenY;
 
     if (isSouth || isEast || isSouthEast) {
       this.initResize(event, isSouth, isEast, isSouthEast);
@@ -91,25 +92,18 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     }
   }
 
-  getEvent(event: MouseEvent | TouchEvent) {
+  getEvent(event: MouseEvent | TouchEvent): MouseEvent | Touch {
     return (<MouseEvent>event) || ((<TouchEvent>event).targetTouches && (<TouchEvent>event).targetTouches[0]);
   }
 
-  getScreenX(event: MouseEvent | TouchEvent) {
-    return this.getEvent(event).screenX;
-  }
-
-  getScreenY(event: MouseEvent | TouchEvent) {
-    return this.getEvent(event).screenY;
-  }
-
   move(event: MouseEvent | TouchEvent, width: number, height: number, screenX: number, screenY: number): void {
-    const movementX = this.getScreenX(event) - screenX;
-    const movementY = this.getScreenY(event) - screenY;
+    const evt = this.getEvent(event);
+    const movementX = evt.screenX - screenX;
+    const movementY = evt.screenY - screenY;
     this.newWidth = width + movementX;
     this.newHeight = height + movementY;
-    this.resizeWidth(event);
-    this.resizeHeight(event);
+    this.resizeWidth(evt);
+    this.resizeHeight(evt);
   }
 
   onMouseup(): void {
@@ -141,6 +135,8 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
       this.resizingSE = true;
     }
     this.element.classList.add('resizing');
+    this.newWidth = this.element.clientWidth;
+    this.newHeight = this.element.clientHeight;
 
     event.stopPropagation();
     this.resizeBegin.emit();
@@ -154,7 +150,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.resizeEnd.emit({ width: this.newWidth, height: this.newHeight });
   }
 
-  resizeWidth(event: MouseEvent | TouchEvent) {
+  resizeWidth(event: MouseEvent | Touch) {
     const overMinWidth = !this.minWidth || this.newWidth >= this.minWidth;
     const underMaxWidth = !this.maxWidth || this.newWidth <= this.maxWidth;
 
@@ -163,12 +159,12 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
         if (!this.ghost) {
           this.element.style.width = `${this.newWidth}px`;
         }
-        this.resize.emit({ event: this.getEvent(event), width: this.newWidth, height: this.newHeight, direction: 'horizontal' });
+        this.resize.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'horizontal' });
       }
     }
   }
 
-  resizeHeight(event: MouseEvent | TouchEvent) {
+  resizeHeight(event: MouseEvent | Touch) {
     const overMinHeight = !this.minHeight || this.newHeight >= this.minHeight;
     const underMaxHeight = !this.maxHeight || this.newHeight <= this.maxHeight;
 
@@ -177,7 +173,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
         if (!this.ghost) {
           this.element.style.height = `${this.newHeight}px`;
         }
-        this.resize.emit({ event: this.getEvent(event), width: this.newWidth, height: this.newHeight, direction: 'vertical' });
+        this.resize.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'vertical' });
       }
     }
   }
