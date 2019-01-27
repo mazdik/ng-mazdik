@@ -1,5 +1,5 @@
 import {
-  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, NgZone,
+  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked,
   HostListener, HostBinding, EventEmitter
 } from '@angular/core';
 import {ResizableEvent} from '../resizable';
@@ -19,7 +19,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() scrollTop: boolean = true;
   @Input() maximizable: boolean;
   @Input() backdrop: boolean = true;
-  @Input() styleClass: string;
 
   @Output() close: EventEmitter<boolean> = new EventEmitter();
 
@@ -28,14 +27,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @ViewChild('modalHeader') modalHeader: ElementRef;
   @ViewChild('modalFooter') modalFooter: ElementRef;
 
-  @HostBinding('class')
-  get cssClass(): string {
-    let cls = 'app-modal';
-    if (this.styleClass) {
-      cls += ' ' + this.styleClass;
-    }
-    return cls;
-  }
+  @HostBinding('class.app-modal') cssClass = true;
 
   visible: boolean;
   contentzIndex: number;
@@ -48,8 +40,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   preMaximizePageY: number;
   dragEventTarget: MouseEvent | TouchEvent;
 
-  constructor(private element: ElementRef, private ngZone: NgZone) {
-  }
+  constructor(private element: ElementRef) {}
 
   ngOnInit() {
     if (!this.zIndex) {
@@ -66,16 +57,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  addEventListeners() {
-    this.ngZone.runOutsideAngular(() => {
-      window.addEventListener('resize', this.onWindowResize.bind(this));
-    });
-  }
-
-  removeEventListener() {
-    window.removeEventListener('resize', this.onWindowResize.bind(this));
-  }
-
   @HostListener('keydown.esc', ['$event'])
   onKeyDown(event): void {
     event.preventDefault();
@@ -83,6 +64,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.hide();
   }
 
+  @HostListener('window:resize')
   onWindowResize(): void {
     this.executePostDisplayActions = true;
     this.center();
@@ -97,14 +79,12 @@ export class ModalComponent implements OnInit, AfterViewChecked {
         this.modalBody.nativeElement.scrollTop = 0;
       }
     }, 1);
-    this.addEventListeners();
   }
 
   hide(): void {
     this.visible = false;
     this.close.emit(true);
     this.focusLastModal();
-    this.removeEventListener();
   }
 
   center() {
@@ -135,17 +115,15 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   onResize(event: ResizableEvent) {
     if (event.direction === 'vertical') {
-      const contentHeight = event.height - (this.modalHeader.nativeElement.offsetHeight + this.modalFooter.nativeElement.offsetHeight);
-      this.modalBody.nativeElement.style.height = contentHeight + 'px';
-      this.modalBody.nativeElement.style.maxHeight = 'none';
+      this.calcBodyHeight();
     }
   }
 
   calcBodyHeight() {
-    const windowHeight = window.innerHeight;
-    if (this.modalRoot.nativeElement.offsetWidth > windowHeight) {
-      this.modalBody.nativeElement.style.height = (windowHeight * .75) + 'px';
-    }
+    const diffHeight = this.modalHeader.nativeElement.offsetHeight + this.modalFooter.nativeElement.offsetHeight;
+    const contentHeight = this.modalRoot.nativeElement.offsetHeight - diffHeight;
+    this.modalBody.nativeElement.style.height = contentHeight + 'px';
+    this.modalBody.nativeElement.style.maxHeight = 'none';
   }
 
   getMaxModalIndex() {
