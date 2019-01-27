@@ -1,7 +1,7 @@
 import {
   Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit, Renderer2
 } from '@angular/core';
-import {Subscription, fromEvent, merge} from 'rxjs';
+import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
 export interface ResizableEvent {
@@ -71,29 +71,23 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     const screenX = evt.screenX;
     const screenY = evt.screenY;
 
+    const isTouchEvent = event.type.startsWith('touch');
+    const moveEvent = isTouchEvent ? 'touchmove' : 'mousemove';
+    const upEvent = isTouchEvent ? 'touchend' : 'mouseup';
+
     if (isSouth || isEast || isSouthEast) {
       this.initResize(event, isSouth, isEast, isSouthEast);
 
-      const mouseup = merge(
-        fromEvent(document, 'mouseup'),
-        fromEvent(document, 'touchend')
-      );
+      const mouseup = fromEvent(document, upEvent);
       this.subscription = mouseup
-        .subscribe((ev: MouseEvent | TouchEvent) => this.onMouseup());
+        .subscribe((ev: MouseEvent | TouchEvent) => this.onMouseup(ev));
 
-      const mouseMoveSub = merge(
-        fromEvent(document, 'mousemove'),
-        fromEvent(document, 'touchmove')
-      )
+      const mouseMoveSub = fromEvent(document, moveEvent)
         .pipe(takeUntil(mouseup))
         .subscribe((e: MouseEvent | TouchEvent) => this.move(e, width, height, screenX, screenY));
 
       this.subscription.add(mouseMoveSub);
     }
-  }
-
-  getEvent(event: MouseEvent | TouchEvent): MouseEvent | Touch {
-    return (<MouseEvent>event) || ((<TouchEvent>event).targetTouches && (<TouchEvent>event).targetTouches[0]);
   }
 
   move(event: MouseEvent | TouchEvent, width: number, height: number, screenX: number, screenY: number): void {
@@ -106,9 +100,13 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.resizeHeight(evt);
   }
 
-  onMouseup(): void {
-    this.endResize();
+  onMouseup(event: MouseEvent | TouchEvent): void {
+    this.endResize(event);
     this.destroySubscription();
+  }
+
+  getEvent(event: MouseEvent | TouchEvent): MouseEvent | Touch {
+    return event.type.startsWith('touch') ? (<TouchEvent>event).targetTouches[0] : <MouseEvent>event;
   }
 
   private destroySubscription() {
@@ -142,12 +140,12 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.resizeBegin.emit();
   }
 
-  endResize() {
+  endResize(event: MouseEvent | TouchEvent) {
     this.resizingS = false;
     this.resizingE = false;
     this.resizingSE = false;
     this.element.classList.remove('resizing');
-    this.resizeEnd.emit({ width: this.newWidth, height: this.newHeight });
+    this.resizeEnd.emit({ event: this.getEvent(event), width: this.newWidth, height: this.newHeight });
   }
 
   resizeWidth(event: MouseEvent | Touch) {

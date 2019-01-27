@@ -40,15 +40,13 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   visible: boolean;
   contentzIndex: number;
   executePostDisplayActions: boolean;
-  dragging: boolean;
-  lastPageX: number;
-  lastPageY: number;
   maximized: boolean;
   preMaximizeRootWidth: number;
   preMaximizeRootHeight: number;
   preMaximizeBodyHeight: number;
   preMaximizePageX: number;
   preMaximizePageY: number;
+  dragEventTarget: MouseEvent | TouchEvent;
 
   constructor(private element: ElementRef, private ngZone: NgZone) {
   }
@@ -70,22 +68,12 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   addEventListeners() {
     this.ngZone.runOutsideAngular(() => {
-      window.document.addEventListener('mousemove', this.onMousemove.bind(this));
-      window.document.addEventListener('mouseup', this.onMouseup.bind(this));
       window.addEventListener('resize', this.onWindowResize.bind(this));
-
-      window.document.addEventListener('touchmove', this.onTouchmove.bind(this), false);
-      window.document.addEventListener('touchend', this.onTouchend.bind(this), false);
     });
   }
 
   removeEventListener() {
-    window.document.removeEventListener('mousemove', this.onMousemove.bind(this));
-    window.document.removeEventListener('mouseup', this.onMouseup.bind(this));
     window.removeEventListener('resize', this.onWindowResize.bind(this));
-
-    window.document.removeEventListener('touchmove', this.onTouchmove.bind(this));
-    window.document.removeEventListener('touchend', this.onTouchend.bind(this));
   }
 
   @HostListener('keydown.esc', ['$event'])
@@ -98,23 +86,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   onWindowResize(): void {
     this.executePostDisplayActions = true;
     this.center();
-  }
-
-  onMousemove(event: MouseEvent): void {
-    this.onDrag(event.pageX, event.pageY);
-  }
-
-  onMouseup(): void {
-    this.endDrag();
-  }
-
-  onTouchmove(event: TouchEvent): void {
-    const touch = event.touches[0];
-    this.onDrag(touch.pageX, touch.pageY);
-  }
-
-  onTouchend(): void {
-    this.endDrag();
   }
 
   show(): void {
@@ -156,33 +127,10 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.modalRoot.nativeElement.style.top = y + 'px';
   }
 
-  initDrag(pageX: number, pageY: number) {
+  initDrag(event: MouseEvent | TouchEvent) {
     if (!this.maximized) {
-      this.dragging = true;
-      this.lastPageX = pageX;
-      this.lastPageY = pageY;
-      this.modalRoot.nativeElement.classList.add('dragging');
+      this.dragEventTarget = event;
     }
-  }
-
-  onDrag(pageX: number, pageY: number) {
-    if (this.dragging) {
-      const deltaX = pageX - this.lastPageX;
-      const deltaY = pageY - this.lastPageY;
-      const leftPos = parseFloat(this.modalRoot.nativeElement.style.left);
-      const topPos = parseFloat(this.modalRoot.nativeElement.style.top);
-
-      this.modalRoot.nativeElement.style.left = leftPos + deltaX + 'px';
-      this.modalRoot.nativeElement.style.top = topPos + deltaY + 'px';
-
-      this.lastPageX = pageX;
-      this.lastPageY = pageY;
-    }
-  }
-
-  endDrag() {
-    this.dragging = false;
-    this.modalRoot.nativeElement.classList.remove('dragging');
   }
 
   onResize(event: ResizableEvent) {

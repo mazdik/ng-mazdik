@@ -12,6 +12,8 @@
      [minWidth]="minWidth"
      [minHeight]="minHeight"
      (resize)="onResize($event)"
+     appDraggable
+     [dragEventTarget]="dragEventTarget"
      [ngStyle]="{'display': visible ? 'block' : 'none'}"
      [style.width.px]="width"
      [style.minWidth.px]="minWidth"
@@ -19,8 +21,8 @@
      (mousedown)="moveOnTop()"
      (touchstart)="moveOnTop()">
     <div class="ui-modal-header" #modalHeader
-         (mousedown)="initDrag($event.pageX, $event.pageY)"
-         (touchstart)="initDrag($event.touches[0].pageX, $event.touches[0].pageY)">
+         (mousedown)="initDrag($event)"
+         (touchstart)="initDrag($event)">
       <div class="ui-titlebar">
           <span class="ui-modal-title" *ngIf="modalTitle">{{modalTitle}}</span>
           <ng-content select=".app-modal-header"></ng-content>

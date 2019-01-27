@@ -376,4 +376,5 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | validation                     |                    |
 | app-sort-header, [sort-header] |                    |
 | [appResizable]                 |                    |
+| [appDraggable]                 |                    |
 | app-dual-list-box              |                    |
