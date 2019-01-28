@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
 import {Subscription} from 'rxjs';
-import {translate, addClass} from '../../base/util';
+import {translate} from '../../base/util';
 import {isBlank} from '../../../lib/common/utils';
 
 @Component({
@@ -21,22 +21,10 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  @HostBinding('class')
-  get cssClass(): string {
-    let cls = 'datatable-body-row';
-    const rowClass = this.table.settings.rowClass;
-    if (rowClass) {
-      if (typeof rowClass === 'string') {
-        cls += ' ' + rowClass;
-      } else if (typeof rowClass === 'function') {
-        const res = rowClass(this.row);
-        cls = addClass(cls, res);
-      }
-    }
-    if (this.table.selection.isRowSelected(this.row.$$index)) {
-      cls += ' row-selected';
-    }
-    return cls;
+  @HostBinding('class.datatable-body-row') cssClass = true;
+  @HostBinding('class.row-selected')
+  get cssSelected(): boolean {
+    return this.table.selection.isRowSelected(this.row.$$index);
   }
 
   @HostBinding('attr.role') role = 'row';

@@ -33,7 +33,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
     @Output() create: EventEmitter<any> = new EventEmitter();
 
-    @HostBinding('class') cssClass = 'datatable-toolbar';
+    @HostBinding('class.datatable-toolbar') cssClass = true;
 
     private subscriptions: Subscription[] = [];
 

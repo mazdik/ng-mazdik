@@ -56,7 +56,7 @@ export class PaginationComponent {
 
   pages: number[];
 
-  @HostBinding('class') cssClass = 'pagination';
+  @HostBinding('class.pagination') cssClass = true;
 
   setPage(page: number, event ?: MouseEvent): void {
     if (event) {

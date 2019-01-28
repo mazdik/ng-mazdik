@@ -1,9 +1,10 @@
 import {
   Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import {DataTable} from '../../base';
+import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {ScrollerComponent} from '../../../lib/scroller';
+import {addClass} from '../../base/util';
 
 @Component({
   selector: 'dt-body',
@@ -61,6 +62,20 @@ export class BodyComponent implements OnInit, OnDestroy {
       this.updatePage(event.direction);
     }
     this.cd.markForCheck();
+  }
+
+  getRowClass(row: Row): string {
+    let cls = '';
+    const rowClass = this.table.settings.rowClass;
+    if (rowClass) {
+      if (typeof rowClass === 'string') {
+        cls += rowClass;
+      } else if (typeof rowClass === 'function') {
+        const res = rowClass(row);
+        cls = addClass(cls, res);
+      }
+    }
+    return cls;
   }
 
 }
