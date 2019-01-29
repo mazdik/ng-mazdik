@@ -32,6 +32,10 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @ViewChild('rowActionTemplate', {read: ViewContainerRef}) rowActionTemplate: ViewContainerRef;
 
+  get rowNum() {
+    return (this.row && this.row.$$index) ? this.row.$$index + 1 : null;
+  }
+
   checked: boolean;
   cellContext: any = {row: this.row};
   private subscriptions: Subscription[] = [];

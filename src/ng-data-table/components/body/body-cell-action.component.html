@@ -1,6 +1,6 @@
 <span *ngIf="!table.settings.rowActionTemplate && !table.settings.selectionMode
      && table.settings.rowNumber && table.dimensions.actionColumnWidth">
-    {{row.$$index + 1}}
+    {{rowNum}}
 </span>
 <span *ngIf="table.settings.selectionMode && table.dimensions.actionColumnWidth"
       class="{{'dt-' + table.settings.selectionMode}}">

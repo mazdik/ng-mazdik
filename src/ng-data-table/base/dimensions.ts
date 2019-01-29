@@ -12,7 +12,6 @@ export class Dimensions {
   scrollableColumnsWidth: number;
   headerRowHeight: number;
   rowHeight: number = 30;
-  summaryRowHeight: number = 30;
   offsetX: number = 0;
   offsetY: number = 0;
   headerTemplateHeight: number = 0;

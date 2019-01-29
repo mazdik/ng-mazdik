@@ -22,7 +22,6 @@ import {BodyCellComponent} from './components/body/body-cell.component';
 import {BodyCellEditComponent} from './components/body/body-cell-edit.component';
 import {BodyCellActionComponent} from './components/body/body-cell-action.component';
 import {DataTableComponent} from './components/data-table/data-table.component';
-import {SummaryRowComponent} from './components/body/summary-row.component';
 import {BodyGroupRowComponent} from './components/body/body-group-row.component';
 
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
@@ -57,7 +56,6 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     BodyCellEditComponent,
     BodyCellActionComponent,
     DataTableComponent,
-    SummaryRowComponent,
     BodyGroupRowComponent,
     BodyMouseoverDirective,
     BodyKeydownDirective,

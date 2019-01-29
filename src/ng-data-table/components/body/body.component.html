@@ -20,18 +20,20 @@
       [row]="row">
     </dt-body-row>
 
-    <dt-summary-row
+    <dt-body-row
+      class="datatable-group-row"
       *ngIf="table.rowGroup.isRowGroupSummary(row)"
       [table]="table"
       [row]="table.rowGroup.getRowGroupSummary(row)">
-    </dt-summary-row>
+    </dt-body-row>
   </ng-container>
 
-  <dt-summary-row
+  <dt-body-row
+    class="datatable-group-row"
     *ngIf="table.rowGroup.aggregationEnabled()"
     [table]="table"
     [row]="table.rowGroup.grandTotalRow">
-  </dt-summary-row>
+  </dt-body-row>
 
   <div class="datatable-empty-row"
        *ngIf="!table.rows?.length"

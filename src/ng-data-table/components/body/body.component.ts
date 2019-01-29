@@ -4,7 +4,6 @@ import {
 import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {ScrollerComponent} from '../../../lib/scroller';
-import {addClass} from '../../base/util';
 
 @Component({
   selector: 'dt-body',
@@ -64,18 +63,15 @@ export class BodyComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
 
-  getRowClass(row: Row): string {
-    let cls = '';
+  getRowClass(row: Row) {
     const rowClass = this.table.settings.rowClass;
     if (rowClass) {
       if (typeof rowClass === 'string') {
-        cls += rowClass;
+        return rowClass;
       } else if (typeof rowClass === 'function') {
-        const res = rowClass(row);
-        cls = addClass(cls, res);
+        return rowClass(row);
       }
     }
-    return cls;
   }
 
 }
