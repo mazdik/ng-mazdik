@@ -1,7 +1,7 @@
 <ng-template
     *ngIf="column.headerCellTemplate"
     [ngTemplateOutlet]="column.headerCellTemplate"
-    [ngTemplateOutletContext]="cellContext">
+    [ngTemplateOutletContext]="{column: column}">
 </ng-template>
 
 <ng-template [ngIf]="!column.headerCellTemplate">

@@ -14,24 +14,9 @@ import {ColumnMenuEventArgs} from '../../base/types';
 export class HeaderCellComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
+  @Input() column: Column;
 
-  @Input()
-  get column(): Column { return this._column; }
-  set column(column: Column) {
-    this._column = column;
-    this.cellContext.column = column;
-  }
-  private _column: Column;
-
-  @HostBinding('class')
-  get columnCssClasses(): string {
-    let cls = 'datatable-header-cell';
-    if (this.column.headerCellClass) {
-      cls += ' ' + this.column.headerCellClass;
-    }
-    return cls;
-  }
-
+  @HostBinding('class.datatable-header-cell') cssClass = true;
   @HostBinding('attr.role') role = 'columnheader';
 
   @HostBinding('style.width.px')
@@ -44,9 +29,6 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     return this.column.title;
   }
 
-  cellContext: any = {
-    column: this.column,
-  };
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {

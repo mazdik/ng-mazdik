@@ -14,6 +14,7 @@
 
     <dt-header-cell
         *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn"
+        [ngClass]="column.headerCellClass"
         [table]="table"
         [column]="column"
         appResizable
@@ -30,6 +31,7 @@
   <div #rowCenter class="datatable-row-center">
       <dt-header-cell
           *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn"
+          [ngClass]="column.headerCellClass"
           [table]="table"
           [column]="column"
           appResizable

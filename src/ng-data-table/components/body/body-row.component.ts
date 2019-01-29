@@ -24,7 +24,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   @HostBinding('class.datatable-body-row') cssClass = true;
   @HostBinding('class.row-selected')
   get cssSelected(): boolean {
-    return (this.row && this.row.$$index) ? this.table.selection.isRowSelected(this.row.$$index) : false;
+    return (this.row && !isBlank(this.row.$$index)) ? this.table.selection.isRowSelected(this.row.$$index) : false;
   }
 
   @HostBinding('attr.role') role = 'row';
