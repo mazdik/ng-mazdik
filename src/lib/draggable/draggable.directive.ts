@@ -1,6 +1,7 @@
 import {
   Directive, ElementRef, Input, Output, EventEmitter, OnDestroy, OnChanges, SimpleChanges, NgZone
 } from '@angular/core';
+import {isLeftButton, getEvent} from '../common/utils';
 
 @Directive({
   selector: '[appDraggable]'
@@ -37,8 +38,11 @@ export class DraggableDirective implements OnChanges, OnDestroy {
   }
 
   onMousedown(event: MouseEvent | TouchEvent): void {
+    if (!isLeftButton(event)) {
+      return;
+    }
     if (this.dragX || this.dragY) {
-      const evt = this.getEvent(event);
+      const evt = getEvent(event);
       this.initDrag(evt.pageX, evt.pageY);
       this.addEventListeners(event);
       this.dragStart.emit(event);
@@ -46,7 +50,7 @@ export class DraggableDirective implements OnChanges, OnDestroy {
   }
 
   onMousemove(event: MouseEvent | TouchEvent): void {
-    const evt = this.getEvent(event);
+    const evt = getEvent(event);
     this.onDrag(evt.pageX, evt.pageY);
     this.dragMove.emit(event);
   }
@@ -55,10 +59,6 @@ export class DraggableDirective implements OnChanges, OnDestroy {
     this.endDrag();
     this.removeEventListener();
     this.dragEnd.emit(event);
-  }
-
-  getEvent(event: MouseEvent | TouchEvent): MouseEvent | Touch {
-    return event.type.startsWith('touch') ? (<TouchEvent>event).targetTouches[0] : <MouseEvent>event;
   }
 
   addEventListeners(event: MouseEvent | TouchEvent) {
