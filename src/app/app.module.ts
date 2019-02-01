@@ -15,6 +15,7 @@ import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { TreeViewModule } from '../lib/tree-view';
 import { ContextMenuModule } from '../lib/context-menu';
 import { NotifyModule } from '../lib/notify';
+import { DragDropModule } from '../lib/drag-drop';
 
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -40,6 +41,7 @@ import { VerticalGroupDemoComponent } from './demo/vertical-group-demo.component
 import { TreeViewDemoComponent } from './demo/tree-view-demo.component';
 import { EditableConditionDemoComponent } from './demo/editable-condition-demo.component';
 import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.component';
+import { DragDropDemoComponent } from './demo/drag-drop-demo';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -67,6 +69,7 @@ const ROUTES: Routes = [
   {path: 'tree-view-demo', component: TreeViewDemoComponent},
   {path: 'editable-condition-demo', component: EditableConditionDemoComponent},
   {path: 'tree-table-custom-demo', component: TreeTableCustomDemoComponent},
+  {path: 'drag-drop-demo', component: DragDropDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -98,6 +101,7 @@ const ROUTES: Routes = [
     TreeViewDemoComponent,
     EditableConditionDemoComponent,
     TreeTableCustomDemoComponent,
+    DragDropDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +117,7 @@ const ROUTES: Routes = [
     TreeViewModule,
     ContextMenuModule,
     NotifyModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
