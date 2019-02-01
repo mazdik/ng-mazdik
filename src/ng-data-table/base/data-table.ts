@@ -25,7 +25,7 @@ export class DataTable {
   sorter: DataSort;
   dataFilter: DataFilter;
   events: Events;
-  selection: DataSelection;
+  selection: DataSelection<number>;
   dimensions: Dimensions;
   rowGroup: RowGroup;
   localDataSource: LocalDataSource;
@@ -53,7 +53,7 @@ export class DataTable {
     this.events = new Events();
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings.multipleSort);
-    this.selection = new DataSelection(this.settings.selectionMultiple, this.events);
+    this.selection = new DataSelection(this.settings.selectionMultiple, this.events.selectionSource);
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
     this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.rowGroup, this.settings);
@@ -85,7 +85,7 @@ export class DataTable {
 
   selectRow(rowIndex: number) {
     if (this.rows && this.rows.length) {
-      this.selection.selectRow(rowIndex);
+      this.selection.selectValue(rowIndex);
     } else {
       this.selection.clearSelection();
     }
@@ -181,7 +181,7 @@ export class DataTable {
   }
 
   getSelection() {
-    return this.selection.getSelectedRows(this.rows);
+    return this.selection.getSelection().map(x => this.rows[x]);
   }
 
   loadLocalRows() {

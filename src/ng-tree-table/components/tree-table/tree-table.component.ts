@@ -74,8 +74,9 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   }
 
   selectionToggle(row: Row): void {
-    const descendants = this.treeTable.getDescendants(row);
-    this.treeTable.selection.isRowSelected(row.$$index)
+    let descendants = this.treeTable.getDescendants(row);
+    descendants = descendants.map(x => x.$$index);
+    this.treeTable.selection.isSelected(row.$$index)
       ? this.treeTable.selection.select(...descendants)
       : this.treeTable.selection.deselect(...descendants);
   }

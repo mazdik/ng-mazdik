@@ -1,91 +1,80 @@
-import {Row} from './types';
-import {Events} from './events';
+import {Subject} from 'rxjs';
 
-export class DataSelection {
+export class DataSelection<T> {
 
   get multiple(): boolean {
     return this._multiple;
   }
 
-  private selection: number[] = [];
+  private selection: T[] = [];
 
-  constructor(private _multiple = false, private events: Events) {
+  constructor(private _multiple = false, private selectionSource: Subject<any>) {
   }
 
-  selectRow(rowIndex: number) {
-    if (!this.isRowSelected(rowIndex)) {
-      this._markSelected(rowIndex);
-      this.events.onSelectionChange();
+  selectValue(value: T) {
+    if (!this.isSelected(value)) {
+      this._markSelected(value);
+      this.selectionSource.next();
     }
   }
 
-  selectAllRows(rows: Row[]): void {
-    if (rows && rows.length) {
+  selectAll(values: T[]): void {
+    if (values && values.length) {
       this._unmarkAll();
-      this.select(...rows);
+      this.select(...values);
     }
   }
 
   clearSelection(): void {
     this._unmarkAll();
-    this.events.onSelectionChange();
+    this.selectionSource.next();
   }
 
-  isRowSelected(rowIndex: number): boolean {
-    return this.selection.indexOf(rowIndex) !== -1;
+  isSelected(value: T): boolean {
+    return this.selection.indexOf(value) !== -1;
   }
 
-  getSelection(): any[] {
+  getSelection(): T[] {
     return this.selection;
   }
 
-  getSelectedRows(rows: any[]): any[] {
-    const selectedRows = [];
-    if (this.selection.length) {
-      for (const idx of this.selection) {
-        selectedRows.push(rows[idx]);
-      }
-    }
-    return selectedRows;
-  }
-
-  allRowsSelected(rows: Row[]): boolean {
-    return(rows &&
+  allSelected(values: T[]): boolean {
+    return(values &&
       this.selection &&
-      this.selection.length === rows.length &&
-      rows.length !== 0);
+      this.selection.length === values.length &&
+      values.length !== 0);
   }
 
-  select(...rows: Row[]): void {
-    rows.forEach(value => this._markSelected(value.$$index));
-    this.events.onSelectionChange();
+  select(...values: T[]): void {
+    values.forEach(value => this._markSelected(value));
+    this.selectionSource.next();
   }
 
-  deselect(...rows: Row[]): void {
-    rows.forEach(value => this._unmarkSelected(value.$$index));
-    this.events.onSelectionChange();
+  deselect(...values: T[]): void {
+    values.forEach(value => this._unmarkSelected(value));
+    this.selectionSource.next();
   }
 
-  toggle(rowIndex: number): void {
-    this.isRowSelected(rowIndex) ? this._unmarkSelected(rowIndex) : this._markSelected(rowIndex);
-    this.events.onSelectionChange();
+  toggle(value: T): void {
+    this.isSelected(value) ? this._unmarkSelected(value) : this._markSelected(value);
+    this.selectionSource.next();
   }
 
   isEmpty(): boolean {
     return this.selection.length === 0;
   }
 
-  private _markSelected(rowIndex: number) {
-    if (!this.isRowSelected(rowIndex)) {
+  private _markSelected(value: T) {
+    if (!this.isSelected(value)) {
       if (!this.multiple) {
         this._unmarkAll();
       }
-      this.selection.push(rowIndex);
+      this.selection.push(value);
     }
   }
 
-  private _unmarkSelected(rowIndex: number) {
-    const index = this.selection.indexOf(rowIndex);
+  private _unmarkSelected(value: T) {
+    const index = this.selection.indexOf(value);
     if (index !== -1) {
       this.selection.splice(index, 1);
     }
