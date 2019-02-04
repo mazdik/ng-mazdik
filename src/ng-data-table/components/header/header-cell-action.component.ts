@@ -27,7 +27,8 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
   }
 
   get allRowsSelected(): boolean {
-    return this.table.selection.allRowsSelected(this.table.rows);
+    const selectedIndexes = this.table.rows.map(x => x.$$index);
+    return this.table.selection.allSelected(selectedIndexes);
   }
 
   get partiallySelected(): boolean {
@@ -63,7 +64,8 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
     if (this.allRowsSelected) {
       this.table.selection.clearSelection();
     } else {
-      this.table.selection.selectAllRows(this.table.rows);
+      const selectedIndexes = this.table.rows.map(x => x.$$index);
+      this.table.selection.selectAll(selectedIndexes);
     }
   }
 

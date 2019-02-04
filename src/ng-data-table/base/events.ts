@@ -3,9 +3,9 @@ import { ColumnMenuEventArgs, CellEventArgs } from './types';
 
 export class Events {
 
+  selectionSource = new Subject();
   private sortSource = new Subject();
   private filterSource = new Subject();
-  private selectionSource = new Subject();
   private pageSource = new Subject();
   private cellValueChangedSource = new Subject<any>();
   private columnMenuSource = new Subject<ColumnMenuEventArgs>();
