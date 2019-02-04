@@ -21,17 +21,19 @@ export class SortHeaderComponent implements OnInit, OnDestroy {
   get direction() {
     return (this.order === -1) ? 'desc' : (this.order === 1) ? 'asc' : '';
   }
+  private clickListener: any;
 
   constructor(private element: ElementRef) {}
 
   ngOnInit(): void {
     if (this.sortable) {
-      this.element.nativeElement.addEventListener('click', this.onClick.bind(this));
+      this.clickListener = this.onClick.bind(this);
+      this.element.nativeElement.addEventListener('click', this.clickListener);
     }
   }
 
   ngOnDestroy(): void {
-    this.element.nativeElement.removeEventListener('click', this.onClick.bind(this));
+    this.element.nativeElement.removeEventListener('click', this.clickListener);
   }
 
   onClick(): void {
