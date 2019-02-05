@@ -22,10 +22,10 @@ export class PlayersComponent {
   
     constructor(private http: HttpClient) {
       // YiiService | RestlessService | OrdsService | your custom service
-      this.service = new YiiService(this.http);
-      this.service.url = 'http://host3/players';
-      this.service.primaryKeys = ['id'];
-      this.dataManager = new DataManager(this.columns, this.settings, this.service);
+      const service = new YiiService(this.http);
+      service.url = 'http://host3/players';
+      service.primaryKeys = ['id'];
+      this.dataManager = new DataManager(this.columns, this.settings, service);
     }
 
     columns: Column[] = [

@@ -5,7 +5,6 @@
 .dt-listbox-panel {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   user-select: none;
 }
 
@@ -15,8 +14,18 @@
   padding: 2px 6px;
 }
 
-.dt-listbox-panel.box {
+.dt-listbox-panel:nth-child(2n) {
+  padding-top: 1.5em;
+}
+
+.dt-listbox-panel:nth-child(2n+1) {
   width: calc(50% - 40px);
+}
+
+.dt-listbox-panel .dt-list-menu {
+  height: 200px;
+  overflow: auto;
+  border: 1px solid #ccc;
 }
 
 .dt-listbox-panel + .dt-listbox-panel {
