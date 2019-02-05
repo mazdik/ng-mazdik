@@ -64,6 +64,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   private previousStart: number;
   private previousEnd: number;
   private rowHeightCache: RowHeightCache = new RowHeightCache();
+  private scrollListener: any;
 
   constructor(element: ElementRef, private ngZone: NgZone) {
     this.element = element.nativeElement;
@@ -71,12 +72,13 @@ export class ScrollerComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.ngZone.runOutsideAngular(() => {
-      this.element.addEventListener('scroll', this.onScrolled.bind(this));
+      this.scrollListener = this.onScrolled.bind(this);
+      this.element.addEventListener('scroll', this.scrollListener);
     });
   }
 
   ngOnDestroy() {
-    this.element.removeEventListener('scroll', this.onScrolled.bind(this));
+    this.element.removeEventListener('scroll', this.scrollListener);
   }
 
   onScrolled(event: MouseEvent) {

@@ -2,38 +2,40 @@ import { Directive, Input, ElementRef, OnInit, OnDestroy, NgZone } from '@angula
 import { DataTable, EventHelper } from '../base';
 
 @Directive({
-    selector: '[appBodyDblClick]'
+  selector: '[appBodyDblClick]'
 })
 export class BodyDblClickDirective implements OnInit, OnDestroy {
 
-    @Input() table: DataTable;
+  @Input() table: DataTable;
 
-    element: HTMLElement;
+  element: HTMLElement;
+  private clickListener: any;
 
-    constructor(element: ElementRef, private ngZone: NgZone) {
-        this.element = element.nativeElement;
+  constructor(element: ElementRef, private ngZone: NgZone) {
+    this.element = element.nativeElement;
+  }
+
+  ngOnInit(): void {
+    const editable = this.table.columns.some(x => x.editable);
+    if (editable) {
+      this.ngZone.runOutsideAngular(() => {
+        this.clickListener = this.onDblClick.bind(this);
+        this.element.addEventListener('dblclick', this.clickListener);
+      });
     }
+  }
 
-    ngOnInit(): void {
-        const editable = this.table.columns.some(x => x.editable);
-        if (editable) {
-            this.ngZone.runOutsideAngular(() => {
-                this.element.addEventListener('dblclick', this.onDblClick.bind(this));
-            });
-        }
-    }
+  ngOnDestroy(): void {
+    this.element.removeEventListener('dblclick', this.clickListener);
+  }
 
-    ngOnDestroy(): void {
-        this.element.removeEventListener('dblclick', this.onDblClick.bind(this));
+  onDblClick(event: any): void {
+    const cellEventArgs = EventHelper.findCellEvent(event, this.element);
+    if (cellEventArgs) {
+      this.ngZone.run(() => {
+        this.table.events.onDblClickCell(cellEventArgs);
+      });
     }
-
-    onDblClick(event: any): void {
-        const cellEventArgs = EventHelper.findCellEvent(event, this.element);
-        if (cellEventArgs) {
-            this.ngZone.run(() => {
-                this.table.events.onDblClickCell(cellEventArgs);
-            });
-        }
-    }
+  }
 
 }
