@@ -1,4 +1,4 @@
-import { Directive, Input, ElementRef, HostListener, Output, EventEmitter, NgZone } from '@angular/core';
+import { Directive, Input, ElementRef, HostListener, Output, EventEmitter } from '@angular/core';
 import { DragElementEvent, DropElementEvent } from './types';
 
 @Directive({
@@ -9,7 +9,7 @@ export class DropElementDirective  {
   @Input() dragElementEvent: DragElementEvent;
   @Output() dropElement: EventEmitter<DropElementEvent> = new EventEmitter();
 
-  constructor(private element: ElementRef, private ngZone: NgZone) {}
+  constructor(private element: ElementRef) {}
 
   @HostListener('dragenter', ['$event'])
   onDragEnter(event: DragEvent) {
@@ -30,16 +30,12 @@ export class DropElementDirective  {
   onDrop(event: DragEvent) {
     event.preventDefault();
     const dragParentElement = (<HTMLElement>this.dragElementEvent.event.target).parentElement;
-    const position = Math.max(0, this.getNumberPosition(event.target) - 1);
+    const position = Math.max(0, this.getNumberPosition(event.target));
 
     if (dragParentElement === this.element.nativeElement) {
-      this.dropElement.emit({
-        model: this.dragElementEvent.model, previousIndex: this.dragElementEvent.index, currentIndex: position, type: 'reorder'
-      });
+      this.dropElement.emit({ previousIndex: this.dragElementEvent.index, currentIndex: position, type: 'reorder' });
     } else {
-      this.dropElement.emit({
-        model: this.dragElementEvent.model, previousIndex: this.dragElementEvent.index, currentIndex: position, type: 'move'
-      });
+      this.dropElement.emit({ previousIndex: this.dragElementEvent.index, currentIndex: position, type: 'move' });
     }
   }
 
@@ -47,16 +43,16 @@ export class DropElementDirective  {
     const dragTarget: HTMLElement = (<HTMLElement>this.dragElementEvent.event.target).parentElement;
     const dropTarget: HTMLElement = this.element.nativeElement;
     if (elem === dragTarget) {
-      return dragTarget.children ? dragTarget.children.length : 1;
+      return dragTarget.children ? dragTarget.children.length : 0;
     }
     if (elem === dropTarget) {
-      return dropTarget.children ? dropTarget.children.length : 1;
+      return dropTarget.children ? dropTarget.children.length : 0;
     }
     let spanCount = 0;
     while (elem = elem.previousSibling) {
       spanCount++;
     }
-    return spanCount;
+    return spanCount - 1;
   }
 
 }
