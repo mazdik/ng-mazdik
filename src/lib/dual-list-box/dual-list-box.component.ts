@@ -9,6 +9,7 @@ import { isBlank } from '../common/utils';
     'dual-list-box.component.css',
     '../styles/input.css',
     '../styles/buttons.css',
+    '../styles/list-menu.css',
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

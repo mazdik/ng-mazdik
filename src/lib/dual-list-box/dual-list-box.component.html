@@ -1,10 +1,12 @@
-<div class="dt-listbox-panel box">
+<div class="dt-listbox-panel">
   <label>{{sourceTitle}}</label>
-  <select class="dt-input" size="10"
-          [disabled]="disabled"
-          [(ngModel)]="sourceModel">
-    <option *ngFor="let opt of source" [ngValue]="opt.id">{{opt.name}}</option>
-  </select>
+  <div class="dt-list-menu">
+    <span *ngFor="let option of source"
+          (click)="sourceModel = option.id"
+          [ngClass]="{'active': sourceModel === option.id}">
+          {{option.name}}
+    </span>
+  </div>
 </div>
 
 <div class="dt-listbox-panel">
@@ -30,13 +32,15 @@
   </button>
 </div>
 
-<div class="dt-listbox-panel box">
+<div class="dt-listbox-panel">
   <label>{{targetTitle}}</label>
-  <select class="dt-input" size="10"
-          [disabled]="disabled"
-          [(ngModel)]="targetModel">
-    <option *ngFor="let opt of target" [ngValue]="opt.id">{{opt.name}}</option>
-  </select>
+  <div class="dt-list-menu">
+    <span *ngFor="let option of target"
+          (click)="targetModel = option.id"
+          [ngClass]="{'active': targetModel === option.id}">
+          {{option.name}}
+    </span>
+  </div>
 </div>
 
 <div class="dt-listbox-panel">
