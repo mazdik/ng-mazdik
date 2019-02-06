@@ -29,11 +29,12 @@ export class DataTable {
   dimensions: Dimensions;
   rowGroup: RowGroup;
   localDataSource: LocalDataSource;
+  clientSide: boolean = true;
 
   get rows(): any { return this._rows; }
   set rows(val: any) {
     val = val.map(this.generateRow.bind(this));
-    if (this.settings.clientSide) {
+    if (this.clientSide) {
       this.localDataSource.setRows(val);
       this._rows = this.localDataSource.getRows();
     } else {
@@ -98,7 +99,7 @@ export class DataTable {
   addRow(newRow: Row) {
     newRow = this.generateRow(newRow);
 
-    if (this.settings.clientSide) {
+    if (this.clientSide) {
       this.localDataSource.post(newRow);
       this._rows = this.localDataSource.getRows();
     } else {
@@ -114,7 +115,7 @@ export class DataTable {
   }
 
   deleteRow(row: Row) {
-    if (this.settings.clientSide) {
+    if (this.clientSide) {
       this.localDataSource.delete(row);
       this._rows = this.localDataSource.getRows();
     } else {

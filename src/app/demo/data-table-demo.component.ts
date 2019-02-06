@@ -14,7 +14,6 @@ export class DataTableDemoComponent implements OnInit {
   columns: Column[];
 
   settings: Settings = <Settings>{
-    clientSide: true,
     columnResizeMode: 'aminated',
   };
 

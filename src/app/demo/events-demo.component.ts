@@ -27,7 +27,6 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   columns: Column[];
 
   settings: Settings = <Settings>{
-    clientSide: true,
     hoverEvents: true,
     contextMenu: true,
   };

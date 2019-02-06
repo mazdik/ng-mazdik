@@ -6,7 +6,6 @@ export class Settings {
   bodyHeight?: number;
   sortable?: boolean = true;
   filter?: boolean = true;
-  clientSide?: boolean = true;
   multipleSort?: boolean;
   trackByProp?: string;
   groupRowsBy?: string[];

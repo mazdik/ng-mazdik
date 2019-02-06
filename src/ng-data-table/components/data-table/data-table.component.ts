@@ -109,7 +109,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     if (this.table.settings.virtualScroll) {
       this.body.scroller.setPageOffsetY(event.currentPage);
     } else {
-      if (this.table.settings.clientSide) {
+      if (this.table.clientSide) {
         this.table.loadLocalRows();
       }
     }
@@ -118,14 +118,14 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   onFilter() {
     this.table.pager.current = 1;
-    if (this.table.settings.clientSide) {
+    if (this.table.clientSide) {
       this.table.loadLocalRows();
     }
     this.table.selection.clearSelection();
   }
 
   onSort() {
-    if (this.table.settings.clientSide) {
+    if (this.table.clientSide) {
       this.table.loadLocalRows();
     }
     this.table.selection.clearSelection();

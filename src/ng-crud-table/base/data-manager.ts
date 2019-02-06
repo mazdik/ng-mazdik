@@ -16,7 +16,7 @@ export class DataManager extends DataTable {
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: DtMessages) {
     super(columns, settings, messages);
     this.settings = new CdtSettings(settings);
-    this.settings.clientSide = false;
+    this.clientSide = false;
     this.service = dataSource;
 
     this.columns.forEach(col => {

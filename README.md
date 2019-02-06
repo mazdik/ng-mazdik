@@ -262,7 +262,6 @@ export interface PageMetadata {
 | bodyHeight       | number     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
-| clientSide       | boolean    | true    |             |
 | multipleSort     | boolean    | false   |             |
 | trackByProp      | string     | null    |             |
 | groupRowsBy      | string[]   | null    |             |
