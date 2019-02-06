@@ -9,6 +9,7 @@ import {Component}  from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, CdtSettings, DataSource, YiiService, DataManager} from '../ng-crud-table';
 import {Validators} from '../../lib/validation/validators';
+import {NotifyService} from '../lib/notify/notify.service';
 
 @Component({
   selector: 'my-app',
@@ -20,9 +21,9 @@ export class PlayersComponent {
 
     dataManager: DataManager;
   
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private notifyService: NotifyService) {
       // YiiService | RestlessService | OrdsService | your custom service
-      const service = new YiiService(this.http);
+      const service = new YiiService(this.http, this.notifyService);
       service.url = 'http://host3/players';
       service.primaryKeys = ['id'];
       this.dataManager = new DataManager(this.columns, this.settings, service);

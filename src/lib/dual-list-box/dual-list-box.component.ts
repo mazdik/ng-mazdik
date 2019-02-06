@@ -1,6 +1,9 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding, ViewChild, ElementRef
+} from '@angular/core';
 import { SelectItem } from '../common';
-import { isBlank } from '../common/utils';
+import { isBlank, arrayMove, arrayTransfer } from '../common/utils';
+import { DragElementEvent, DropElementEvent } from '../../lib/drag-drop';
 
 @Component({
   selector: 'app-dual-list-box',
@@ -39,19 +42,19 @@ export class DualListBoxComponent {
   @Output() targetChange: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class.dt-listbox') cssClass = true;
+  @ViewChild('sourceList') sourceList: ElementRef;
+  @ViewChild('targetList') targetList: ElementRef;
 
   sourceModel: any;
   targetModel: any;
+  dragElementEvent: DragElementEvent;
 
   constructor() { }
 
   moveRight() {
     if (!isBlank(this.sourceModel) && !isBlank(this.source)) {
       const selectedItemIndex = this.source.findIndex(x => x.id === this.sourceModel);
-      const selectedItem = this.source[selectedItemIndex];
-
-      this.source.splice(selectedItemIndex, 1);
-      this.target.push(selectedItem);
+      arrayTransfer(this.source, this.target, selectedItemIndex, this.target.length);
       this.sourceModel = null;
 
       this.targetChange.emit(this.target);
@@ -71,10 +74,7 @@ export class DualListBoxComponent {
   moveLeft() {
     if (!isBlank(this.targetModel) && !isBlank(this.target)) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
-      const selectedItem = this.target[selectedItemIndex];
-
-      this.target.splice(selectedItemIndex, 1);
-      this.source.push(selectedItem);
+      arrayTransfer(this.target, this.source, selectedItemIndex, this.source.length);
       this.targetModel = null;
 
       this.targetChange.emit(this.target);
@@ -95,10 +95,10 @@ export class DualListBoxComponent {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== 0) {
-        const movedItem = this.target[selectedItemIndex];
-        const temp = this.target[selectedItemIndex - 1];
-        this.target[selectedItemIndex - 1] = movedItem;
-        this.target[selectedItemIndex] = temp;
+        arrayMove(this.target, selectedItemIndex, selectedItemIndex - 1);
+        if (this.targetList.nativeElement.children[selectedItemIndex]) {
+          this.targetList.nativeElement.children[selectedItemIndex].scrollIntoView({block: 'center', behavior: 'smooth'});
+        }
 
         this.targetChange.emit(this.target);
       }
@@ -109,9 +109,8 @@ export class DualListBoxComponent {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== 0) {
-        const movedItem = this.target[selectedItemIndex];
-        this.target.splice(selectedItemIndex, 1);
-        this.target.unshift(movedItem);
+        arrayMove(this.target, selectedItemIndex, 0);
+        this.targetList.nativeElement.scrollTop = 0;
 
         this.targetChange.emit(this.target);
       }
@@ -122,10 +121,10 @@ export class DualListBoxComponent {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== (this.target.length - 1)) {
-        const movedItem = this.target[selectedItemIndex];
-        const temp = this.target[selectedItemIndex + 1];
-        this.target[selectedItemIndex + 1] = movedItem;
-        this.target[selectedItemIndex] = temp;
+        arrayMove(this.target, selectedItemIndex, selectedItemIndex + 1);
+        if (this.targetList.nativeElement.children[selectedItemIndex]) {
+          this.targetList.nativeElement.children[selectedItemIndex].scrollIntoView({block: 'center', behavior: 'smooth'});
+        }
 
         this.targetChange.emit(this.target);
       }
@@ -136,9 +135,8 @@ export class DualListBoxComponent {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== (this.target.length - 1)) {
-        const movedItem = this.target[selectedItemIndex];
-        this.target.splice(selectedItemIndex, 1);
-        this.target.push(movedItem);
+        arrayMove(this.target, selectedItemIndex, this.target.length);
+        this.targetList.nativeElement.scrollTop = this.targetList.nativeElement.scrollHeight;
 
         this.targetChange.emit(this.target);
       }
@@ -157,6 +155,33 @@ export class DualListBoxComponent {
 
   get isBlankTargetModel() {
     return isBlank(this.targetModel);
+  }
+
+  onDragStart(event: DragEvent, index: number) {
+    event.dataTransfer.effectAllowed = 'move';
+    this.dragElementEvent = { event, index };
+  }
+
+  onDropSource(event: DropElementEvent) {
+    if (event.type === 'reorder') {
+      arrayMove(this.source, event.previousIndex, event.currentIndex);
+    } else {
+      arrayTransfer(this.target, this.source, event.previousIndex, event.currentIndex);
+    }
+    this.targetModel = null;
+
+    this.targetChange.emit(this.target);
+  }
+
+  onDropTarget(event: DropElementEvent) {
+    if (event.type === 'reorder') {
+      arrayMove(this.target, event.previousIndex, event.currentIndex);
+    } else {
+      arrayTransfer(this.source, this.target, event.previousIndex, event.currentIndex);
+    }
+    this.sourceModel = null;
+
+    this.targetChange.emit(this.target);
   }
 
 }

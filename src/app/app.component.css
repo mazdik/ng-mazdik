@@ -180,33 +180,3 @@
   background-color: #d4edda;
   border-color: #c3e6cb;
 }
-
-.drag-drop {
-  display: flex;
-  height: 300px;
-}
-
-.drag-elem {
-  background-color: #c3e6cb;
-  padding: 10px;
-  border-bottom: solid 1px #ccc;
-}
-
-.drag-elem:last-child {
-  border: none;
-}
-
-.drag-box {
-  width: 300px;
-  border: 1px solid #ccc;
-  overflow: auto;
-}
-
-.drag-elem.dragging {
-  cursor: move;
-  border-color: #66afe9;
-  outline: 0;
-  box-shadow: 0 4px 8px rgba(102,175,233,.6), 0 6px 20px rgba(0,0,0,.2);
-  -webkit-user-select: none;
-  user-select: none;
-}

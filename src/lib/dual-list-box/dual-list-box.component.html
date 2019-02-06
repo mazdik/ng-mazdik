@@ -1,9 +1,11 @@
 <div class="dt-listbox-panel">
   <label>{{sourceTitle}}</label>
-  <div class="dt-list-menu">
-    <span *ngFor="let option of source"
+  <div class="dt-list-menu" #sourceList appDropElement [dragElementEvent]="dragElementEvent" (dropElement)="onDropSource($event)">
+    <span *ngFor="let option of source; index as i"
           (click)="sourceModel = option.id"
-          [ngClass]="{'active': sourceModel === option.id}">
+          [ngClass]="{'active': sourceModel === option.id}"
+          [draggable]="true"
+          (dragstart)="onDragStart($event, i); sourceModel = option.id">
           {{option.name}}
     </span>
   </div>
@@ -34,10 +36,12 @@
 
 <div class="dt-listbox-panel">
   <label>{{targetTitle}}</label>
-  <div class="dt-list-menu">
-    <span *ngFor="let option of target"
+  <div class="dt-list-menu" #targetList appDropElement [dragElementEvent]="dragElementEvent" (dropElement)="onDropTarget($event)">
+    <span *ngFor="let option of target; index as i"
           (click)="targetModel = option.id"
-          [ngClass]="{'active': targetModel === option.id}">
+          [ngClass]="{'active': targetModel === option.id}"
+          [draggable]="true"
+          (dragstart)="onDragStart($event, i); targetModel = option.id">
           {{option.name}}
     </span>
   </div>
