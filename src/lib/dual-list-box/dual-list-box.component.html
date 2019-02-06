@@ -1,6 +1,6 @@
 <div class="dt-listbox-panel">
   <label>{{sourceTitle}}</label>
-  <div class="dt-list-menu" #sourceList appDropElement [dragElementEvent]="dragElementEvent" (dropElement)="onDropSource($event)">
+  <div class="dt-list-menu" #sourceList appDroppable [dragElementEvent]="dragElementEvent" (dropElement)="onDropSource($event)">
     <span *ngFor="let option of source; index as i"
           (click)="sourceModel = option.id"
           [ngClass]="{'active': sourceModel === option.id}"
@@ -36,7 +36,7 @@
 
 <div class="dt-listbox-panel">
   <label>{{targetTitle}}</label>
-  <div class="dt-list-menu" #targetList appDropElement [dragElementEvent]="dragElementEvent" (dropElement)="onDropTarget($event)">
+  <div class="dt-list-menu" #targetList appDroppable [dragElementEvent]="dragElementEvent" (dropElement)="onDropTarget($event)">
     <span *ngFor="let option of target; index as i"
           (click)="targetModel = option.id"
           [ngClass]="{'active': targetModel === option.id}"

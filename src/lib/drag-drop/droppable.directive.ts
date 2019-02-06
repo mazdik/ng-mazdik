@@ -2,9 +2,9 @@ import { Directive, Input, ElementRef, HostListener, Output, EventEmitter } from
 import { DragElementEvent, DropElementEvent } from './types';
 
 @Directive({
-  selector: '[appDropElement]'
+  selector: '[appDroppable]'
 })
-export class DropElementDirective  {
+export class DroppableDirective  {
 
   @Input() dragElementEvent: DragElementEvent;
   @Output() dropElement: EventEmitter<DropElementEvent> = new EventEmitter();

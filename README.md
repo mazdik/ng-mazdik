@@ -1,6 +1,6 @@
-# Angular 7 CRUD data table using REST backend
+# Angular 7 data table with CRUD actions
 
-Feature-rich CRUD data table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
+Feature-rich data table component for Angular with CRUD operations. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
 
 ### Sample crud-table
@@ -377,4 +377,5 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | app-sort-header, [sort-header] |                    |
 | [appResizable]                 |                    |
 | [appDraggable]                 |                    |
+| [appDroppable]                 | html5              |
 | app-dual-list-box              |                    |
