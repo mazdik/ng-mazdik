@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform, NgModule} from '@angular/core';
 
 @Pipe({
   name: 'orderBy',
@@ -14,3 +14,9 @@ export class OrderPipe implements PipeTransform {
     return (reverse === false) ? array.reverse() : array;
   }
 }
+
+@NgModule({
+  declarations: [OrderPipe],
+  exports: [OrderPipe],
+})
+export class OrderPipeModule {}

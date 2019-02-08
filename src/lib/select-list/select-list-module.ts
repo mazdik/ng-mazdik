@@ -1,18 +1,17 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-
+import {FilterPipeModule} from '../pipes';
 import {SelectListComponent} from './select-list.component';
-import {FilterPipe} from './filter.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    FilterPipeModule,
   ],
   declarations: [
     SelectListComponent,
-    FilterPipe,
   ],
   exports: [
     SelectListComponent,

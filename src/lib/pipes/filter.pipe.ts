@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform, NgModule} from '@angular/core';
 
 @Pipe({
   name: 'filterBy'
@@ -13,3 +13,9 @@ export class FilterPipe implements PipeTransform {
       val[field].toLowerCase().indexOf((filter || '').toLowerCase()) > -1);
   }
 }
+
+@NgModule({
+  declarations: [FilterPipe],
+  exports: [FilterPipe],
+})
+export class FilterPipeModule {}

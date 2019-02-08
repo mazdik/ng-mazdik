@@ -1,4 +1,4 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Pipe, PipeTransform, NgModule} from '@angular/core';
 
 @Pipe({
   name: 'paginate'
@@ -14,3 +14,9 @@ export class PaginatePipe implements PipeTransform {
     return array.slice(start, end);
   }
 }
+
+@NgModule({
+  declarations: [PaginatePipe],
+  exports: [PaginatePipe],
+})
+export class PaginatePipeModule {}
