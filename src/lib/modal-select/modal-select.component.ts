@@ -61,18 +61,16 @@ export class ModalSelectComponent {
 
   @HostBinding('class.dt-modal-select') cssClass = true;
   @ViewChild('modal') readonly modal: any;
-  searchFilterText: any;
+  searchFilterText: string;
   currentPage: number = 1;
   sortOrder: number = 1;
   totalItems: number;
-  pageCount: number;
   filterTimeout: any;
   selectedName: string;
 
-  private optionsCopy: SelectItem[];
+  private optionsCopy: SelectItem[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   open() {
     if (!this.disabled) {
@@ -94,54 +92,13 @@ export class ModalSelectComponent {
   }
 
   getOptions() {
-    if (this.optionsCopy && this.optionsCopy.length) {
-      let data: any[] = this.optionsCopy;
-      if (this.searchFilterText) {
-        const filters = [];
-        filters['name'] = {'value': this.searchFilterText};
-        data = this.filter(data, filters);
-      }
-      const sortedData = this.sort(data, 'name', this.sortOrder);
-      const pageData = this.pager(sortedData, this.currentPage);
-      this.totalItems = sortedData.length;
-      this.pageCount = pageData.length;
-      return pageData;
-    } else {
-      return [];
+    if (this.optionsCopy && this.optionsCopy.length && this.searchFilterText) {
+      const data = this.optionsCopy.filter(x => x.name.toLocaleLowerCase().indexOf(this.searchFilterText.toLocaleLowerCase()) > -1);
+      this.totalItems = data.length;
+      return data;
     }
-  }
-
-  filter(data: any[], filters: any[]) {
-    let filteredData: Array<any> = data;
-    for (const key in filters) {
-      if (filters[key]['value']) {
-        filteredData = filteredData.filter((item: any) => {
-          if (item[key]) {
-            return item[key].toString().match(filters[key]['value']);
-          } else {
-            return false;
-          }
-        });
-      }
-    }
-    return filteredData;
-  }
-
-  sort(data: any, sortField ?: string, sortOrder ?: number) {
-    return data.sort((previous: any, current: any) => {
-      if (previous[sortField] > current[sortField]) {
-        return sortOrder === -1 ? -1 : 1;
-      } else if (previous[sortField] < current[sortField]) {
-        return sortOrder === 1 ? -1 : 1;
-      }
-      return 0;
-    });
-  }
-
-  pager(data: any, page: any): Array<any> {
-    const start = (page - 1) * this.itemsPerPage;
-    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
-    return data.slice(start, end);
+    this.totalItems = this.optionsCopy.length;
+    return this.optionsCopy;
   }
 
   onPageChanged(event: PageEvent) {

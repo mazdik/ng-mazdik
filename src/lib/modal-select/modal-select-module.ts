@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {ModalModule} from '../modal';
 import {PaginationModule} from '../pagination';
 import {ModalSelectComponent} from './modal-select.component';
+import {PaginatePipe} from './paginate.pipe';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import {ModalSelectComponent} from './modal-select.component';
   ],
   declarations: [
     ModalSelectComponent,
+    PaginatePipe,
   ],
   exports: [
     ModalSelectComponent,

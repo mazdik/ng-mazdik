@@ -29,9 +29,7 @@ export class Settings {
   isEditableCellProp?: string;
 
   constructor(init: Partial<Settings>) {
-    if (init) {
-      Object.assign(this, init);
-    }
+    Object.assign(this, init);
     if (!this.columnResizeMode) {
       this.columnResizeMode = ColumnResizeMode.Simple;
     }

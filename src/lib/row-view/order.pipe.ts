@@ -1,7 +1,8 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'orderBy'
+  name: 'orderBy',
+  pure: false
 })
 export class OrderPipe implements PipeTransform {
 
@@ -9,18 +10,7 @@ export class OrderPipe implements PipeTransform {
     if (!array || !field) {
       return array;
     }
-    array.sort((a: any, b: any) => {
-      if (a[field] < b[field]) {
-        return -1;
-      } else if (a[field] > b[field]) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    if (reverse === false) {
-      return array.reverse();
-    }
-    return array;
+    array.sort((a, b) => (a[field] > b[field]) ? 1 : (a[field] < b[field]) ? -1 : 0);
+    return (reverse === false) ? array.reverse() : array;
   }
 }
