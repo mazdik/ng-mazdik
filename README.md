@@ -1,7 +1,6 @@
-# Angular 7 data table with CRUD actions
+# Angular 7 data table with CRUD operations
 
 Feature-rich data table component for Angular with CRUD operations. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
-The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
 
 ### Sample crud-table
 ```typescript
@@ -22,7 +21,7 @@ export class PlayersComponent {
     dataManager: DataManager;
   
     constructor(private http: HttpClient, private notifyService: NotifyService) {
-      // YiiService | RestlessService | OrdsService | your custom service
+      // YiiService | RestlessService | your custom service
       const service = new YiiService(this.http, this.notifyService);
       service.url = 'http://host3/players';
       service.primaryKeys = ['id'];
