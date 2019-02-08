@@ -1,13 +1,14 @@
 <div class="dt-listbox-panel">
   <label>{{sourceTitle}}</label>
   <div class="dt-list-menu" #sourceList appDroppable [dragElementEvent]="dragElementEvent" (dropElement)="onDropSource($event)">
-    <span *ngFor="let option of source; index as i"
-          (click)="sourceModel = option.id"
-          [ngClass]="{'active': sourceModel === option.id}"
-          [draggable]="true"
-          (dragstart)="onDragStart($event, i); sourceModel = option.id">
-          {{option.name}}
-    </span>
+    <div class="dt-list-menu-item"
+        *ngFor="let option of source; index as i"
+        (click)="sourceModel = option.id"
+        [ngClass]="{'active': sourceModel === option.id}"
+        [draggable]="true"
+        (dragstart)="onDragStart($event, i); sourceModel = option.id">
+        {{option.name}}
+    </div>
   </div>
 </div>
 
@@ -37,13 +38,14 @@
 <div class="dt-listbox-panel">
   <label>{{targetTitle}}</label>
   <div class="dt-list-menu" #targetList appDroppable [dragElementEvent]="dragElementEvent" (dropElement)="onDropTarget($event)">
-    <span *ngFor="let option of target; index as i"
-          (click)="targetModel = option.id"
-          [ngClass]="{'active': targetModel === option.id}"
-          [draggable]="true"
-          (dragstart)="onDragStart($event, i); targetModel = option.id">
-          {{option.name}}
-    </span>
+    <div class="dt-list-menu-item"
+        *ngFor="let option of target; index as i"
+        (click)="targetModel = option.id"
+        [ngClass]="{'active': targetModel === option.id}"
+        [draggable]="true"
+        (dragstart)="onDragStart($event, i); targetModel = option.id">
+        {{option.name}}
+    </div>
   </div>
 </div>
 

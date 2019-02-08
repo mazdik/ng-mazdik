@@ -22,11 +22,11 @@
       </div>
     </div>
     <ul class="dt-list-menu">
-      <li *ngFor="let option of options">
-          <span (click)="setSelected(option)"
-                [ngClass]="{'active': isSelected(option)}">
-            {{option.name}}
-          </span>
+      <li class="dt-list-menu-item"
+          *ngFor="let option of options"
+          (click)="setSelected(option)"
+          [ngClass]="{'active': isSelected(option)}">
+          {{option.name}}
       </li>
     </ul>
   </ng-container>

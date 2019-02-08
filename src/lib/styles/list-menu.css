@@ -4,17 +4,17 @@
   margin: 0;
 }
 
-.dt-list-menu span {
+.dt-list-menu-item {
   cursor: pointer;
   display: block;
   padding: 4px 3px;
 }
 
-.dt-list-menu span:hover:not(.active) {
+.dt-list-menu-item:hover:not(.active) {
   background-color: #ccc;
 }
 
-.dt-list-menu span.active {
+.dt-list-menu-item.active {
   background-color: #5b9bd5;
   color: #fff;
 }

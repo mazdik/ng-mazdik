@@ -16,10 +16,10 @@
        [(ngModel)]="valueTo"/>
 <ul class="dt-list-menu">
   <ng-template [ngIf]="column.isDateType">
-    <li (click)="lastDate('year')"><span>{{table.messages.lastYear | dtTranslate}}</span></li>
-    <li (click)="lastDate('month')"><span>{{table.messages.lastMonth | dtTranslate}}</span></li>
-    <li (click)="lastDate('day')"><span>{{table.messages.lastDay | dtTranslate}}</span></li>
-    <li (click)="lastDate('hour')"><span>{{table.messages.lastHour | dtTranslate}}</span></li>
+    <li class="dt-list-menu-item" (click)="lastDate('year')">{{table.messages.lastYear | dtTranslate}}</li>
+    <li class="dt-list-menu-item" (click)="lastDate('month')">{{table.messages.lastMonth | dtTranslate}}</li>
+    <li class="dt-list-menu-item" (click)="lastDate('day')">{{table.messages.lastDay | dtTranslate}}</li>
+    <li class="dt-list-menu-item" (click)="lastDate('hour')">{{table.messages.lastHour | dtTranslate}}</li>
   </ng-template>
 </ul>
 
