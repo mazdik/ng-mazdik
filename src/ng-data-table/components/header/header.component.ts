@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() table: DataTable;
 
-  @HostBinding('class') cssClass = 'datatable-header';
+  @HostBinding('class.datatable-header') cssClass = true;
   @ViewChild('headerTemplate', { read: ViewContainerRef }) headerTemplate: ViewContainerRef;
   @ViewChild('rowCenter') rowCenter: ElementRef;
 

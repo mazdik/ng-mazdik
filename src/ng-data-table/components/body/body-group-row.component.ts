@@ -19,11 +19,7 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  @HostBinding('class')
-  get cssClass() {
-    const cls = 'datatable-body-row datatable-group-header';
-    return cls;
-  }
+  @HostBinding('class') cssClass = 'datatable-body-row datatable-group-header';
 
   @HostBinding('attr.role') role = 'row';
 
