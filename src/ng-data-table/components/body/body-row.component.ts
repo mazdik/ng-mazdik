@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
 import {Subscription} from 'rxjs';
-import {translate} from '../../base/util';
 import {isBlank} from '../../../lib/common/utils';
 
 @Component({
@@ -58,7 +57,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      this.rowLeft.nativeElement.style.transform = translate(this.table.dimensions.offsetX, 0);
+      this.rowLeft.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
       this.cd.markForCheck();
     });
     const subSort = this.table.events.sortSource$.subscribe(() => {
@@ -82,6 +81,16 @@ export class BodyRowComponent implements OnInit, OnDestroy {
       return row[this.table.settings.isEditableCellProp];
     }
     return column.editable;
+  }
+
+  getCellClass(row: Row, column: Column) {
+    if (column.cellClass) {
+      if (typeof column.cellClass === 'string') {
+        return column.cellClass;
+      } else if (typeof column.cellClass === 'function') {
+        return column.cellClass({row, column, value: row[column.name]});
+      }
+    }
   }
 
 }

@@ -9,6 +9,7 @@
   <ng-container *ngFor="let column of table.frozenColumns; trackBy: table.columnTrackingFn">
     <dt-body-cell
       *ngIf="!isEditableCell(row, column)"
+      [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
       [row]="row"
@@ -16,6 +17,7 @@
     </dt-body-cell>
     <dt-body-cell-edit
       *ngIf="isEditableCell(row, column)"
+      [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
       [row]="row"
@@ -29,6 +31,7 @@
   <ng-container *ngFor="let column of table.scrollableColumns; trackBy: table.columnTrackingFn">
     <dt-body-cell
       *ngIf="!isEditableCell(row, column)"
+      [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
       [row]="row"
@@ -36,6 +39,7 @@
     </dt-body-cell>
     <dt-body-cell-edit
       *ngIf="isEditableCell(row, column)"
+      [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
       [row]="row"

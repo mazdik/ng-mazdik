@@ -3,7 +3,6 @@ import {
   ViewChild, ViewContainerRef, AfterViewInit
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Column} from '../../base';
-import {translate} from '../../base/util';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -36,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cd.markForCheck();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      this.rowCenter.nativeElement.style.transform = translate(this.table.dimensions.offsetX * -1, 0);
+      this.rowCenter.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);

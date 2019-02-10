@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import {Column, DataTable, Row, CellEventArgs} from '../../base';
 import {Subscription} from 'rxjs';
-import {addClass} from '../../base/util';
 
 @Component({
   selector: 'dt-body-cell',
@@ -33,31 +32,15 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
   private _row: Row;
 
-  @HostBinding('class')
-  get columnCssClasses(): string {
-    let cls = 'datatable-body-cell';
-    if (this.column.cellClass) {
-      if (typeof this.column.cellClass === 'string') {
-        cls += ' ' + this.column.cellClass;
-      } else if (typeof this.column.cellClass === 'function') {
-        const res = this.column.cellClass({
-          row: this.row,
-          column: this.column,
-          value: this.value,
-        });
-        cls = addClass(cls, res);
-      }
-    }
-    if (this.editing) {
-      cls += ' cell-editing';
-    }
-    if (this.row && this.row.$$data && this.cellContext.value !== this.column.getValue(this.row.$$data)) {
-      cls += ' cell-changed';
-    }
-    if (this.hasError) {
-      cls += ' cell-error';
-    }
-    return cls;
+  @HostBinding('class.datatable-body-cell') cssClass = true;
+  @HostBinding('class.cell-editing') get cssEditing(): boolean {
+    return this.editing;
+  }
+  @HostBinding('class.cell-changed') get cssChanged(): boolean {
+    return (this.row && this.row.$$data && this.cellContext.value !== this.column.getValue(this.row.$$data));
+  }
+  @HostBinding('class.cell-error') get cssError(): boolean {
+    return this.hasError;
   }
 
   @HostBinding('attr.role') role = 'gridcell';

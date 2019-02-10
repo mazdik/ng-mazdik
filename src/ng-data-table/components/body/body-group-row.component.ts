@@ -3,7 +3,6 @@ import {
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row} from '../../base';
 import {Subscription} from 'rxjs';
-import {translate} from '../../base/util';
 
 @Component({
   selector: 'dt-body-group-row',
@@ -50,7 +49,7 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      this.rowLeft.nativeElement.style.transform = translate(this.table.dimensions.offsetX, 0);
+      this.rowLeft.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
