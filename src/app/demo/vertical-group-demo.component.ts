@@ -1,8 +1,8 @@
 import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
-import {DataAggregation} from '../../ng-data-table/base/data-aggregation';
+import {DataAggregation} from '../../lib/ng-data-table/base/data-aggregation';
 import {Subscription} from 'rxjs';
 
 @Component({

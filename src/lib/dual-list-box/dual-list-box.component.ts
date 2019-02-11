@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import { SelectItem } from '../common';
 import { isBlank, arrayMove, arrayTransfer } from '../common/utils';
-import { DragElementEvent, DropElementEvent } from '../../lib/drag-drop';
+import { DragElementEvent, DropElementEvent } from '../drag-drop';
 
 @Component({
   selector: 'app-dual-list-box',

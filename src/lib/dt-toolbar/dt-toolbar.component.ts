@@ -2,7 +2,7 @@ import {
     Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnInit, OnDestroy, ViewEncapsulation,
     ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
-import {DataTable} from '../../ng-data-table/base';
+import {DataTable} from '../ng-data-table/base';
 import {Subscription} from 'rxjs';
 import {ExportCSV} from '../export/export-csv';
 

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataTable, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataTable, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 

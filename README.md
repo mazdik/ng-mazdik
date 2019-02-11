@@ -6,7 +6,7 @@ Feature-rich data table component for Angular with CRUD operations. (<a target="
 ```typescript
 import {Component}  from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataSource, YiiService, DataManager} from '../ng-crud-table';
+import {Column, CdtSettings, DataSource, YiiService, DataManager} from '../lib/ng-crud-table';
 import {Validators} from '../../lib/validation/validators';
 import {NotifyService} from '../lib/notify/notify.service';
 
@@ -122,7 +122,7 @@ export class PlayersComponent {
 ```
 ### Sample data-table
 ```typescript
-import {Column, Settings, DataTable} from '../ng-crud-table';
+import {Column, Settings, DataTable} from '../lib/ng-crud-table';
 
 @Component({
   selector: 'app-data-table-demo',
@@ -143,7 +143,7 @@ export class DataTableDemoComponent {
 ```
 ### Sample tree-table
 ```typescript
-import {Column, Settings, TreeTable} from '../ng-tree-table';
+import {Column, Settings, TreeTable} from '../lib/ng-tree-table';
 import {TreeDemoService} from './tree-demo.service';
 
 @Component({

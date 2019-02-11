@@ -1,4 +1,4 @@
-import {Column} from '../../ng-crud-table';
+import {Column} from '../../lib/ng-crud-table';
 import {Validators} from '../../lib/validation/validators';
 
 export function getColumnsPlayers(): Column[] {

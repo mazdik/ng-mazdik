@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {Observable, forkJoin} from 'rxjs';
 import {ModalComponent} from '../modal/modal.component';
-import {DataManager} from '../../ng-crud-table/base';
+import {DataManager} from '../ng-crud-table/base';
 import {DynamicFormElement} from '../dynamic-form';
 import {DtTranslateService} from '../dt-translate';
 import {KeyValuePair} from '../row-view';

@@ -6,9 +6,9 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent} from './not-found.component';
-import { CrudTableModule } from '../ng-crud-table';
-import { DataTableModule } from '../ng-data-table';
-import { TreeTableModule } from '../ng-tree-table';
+import { CrudTableModule } from '../lib/ng-crud-table';
+import { DataTableModule } from '../lib/ng-data-table';
+import { TreeTableModule } from '../lib/ng-tree-table';
 import { DtToolbarModule } from '../lib/dt-toolbar';
 import { ModalModule } from '../lib//modal';
 import { ModalEditFormModule } from '../lib/modal-edit-form';

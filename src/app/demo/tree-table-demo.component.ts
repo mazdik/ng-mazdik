@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, TreeTable} from '../../ng-tree-table';
+import {Column, Settings, TreeTable} from '../../lib/ng-tree-table';
 import {TreeDemoService} from './tree-demo.service';
 import {getTreeColumns} from './columns';
 import {Subscription} from 'rxjs';

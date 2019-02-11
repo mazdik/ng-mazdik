@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Column, CdtSettings, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 import {SelectItem} from '../../lib/common';

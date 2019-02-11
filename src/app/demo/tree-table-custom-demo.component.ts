@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, Row} from '../../ng-data-table';
+import {Column, Settings, DataTable, Row} from '../../lib/ng-data-table';
 import {getTreeColumns} from './columns';
 import {Tree, TreeNode, TreeFlattener, TreeHelper} from '../../lib/tree';
 

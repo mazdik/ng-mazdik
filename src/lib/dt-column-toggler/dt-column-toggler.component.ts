@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
-import { DataTable } from '../../ng-data-table/base';
+import { DataTable } from '../ng-data-table/base';
 import { SelectItem } from '../common';
 import { ModalComponent } from '../modal/modal.component';
 

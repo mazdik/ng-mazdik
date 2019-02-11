@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
-import {DataFilter} from '../../ng-data-table/base';
+import {DataFilter} from '../../lib/ng-data-table/base';
 
 @Component({
   selector: 'app-template-demo',

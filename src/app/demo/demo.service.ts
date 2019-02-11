@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {DataSource, RequestMetadata, PagedResult} from '../../ng-crud-table';
-import {DataSort, DataFilter} from '../../ng-data-table/base';
+import {DataSource, RequestMetadata, PagedResult} from '../../lib/ng-crud-table';
+import {DataSort, DataFilter} from '../../lib/ng-data-table/base';
 
 @Injectable({
   providedIn: 'root'
