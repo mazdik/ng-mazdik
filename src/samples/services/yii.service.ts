@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {RequestMetadata, DataSource, PagedResult} from '../base';
-import {NotifyService} from '../../notify/notify.service';
+import {RequestMetadata, DataSource, PagedResult} from '../../lib/ng-crud-table';
+import {NotifyService} from '../../lib/notify/notify.service';
 
 @Injectable()
 export class YiiService implements DataSource {
