@@ -374,7 +374,6 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | tree                           |                    |
 | app-tree-view                  |                    |
 | validation                     |                    |
-| app-sort-header, [sort-header] |                    |
 | [appResizable]                 |                    |
 | [appDraggable]                 |                    |
 | [appDroppable]                 | html5              |

@@ -29,6 +29,11 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     return this.column.title;
   }
 
+  get direction() {
+    const order = this.table.sorter.getOrder(this.column.name);
+    return (order === -1) ? 'desc' : (order === 1) ? 'asc' : '';
+  }
+
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
@@ -49,9 +54,11 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onSort(column: Column) {
-    this.table.sorter.setOrder(column.name);
-    this.table.events.onSort();
+  onSort() {
+    if (this.column.sortable) {
+      this.table.sorter.setOrder(this.column.name);
+      this.table.events.onSort();
+    }
   }
 
   clickColumnMenu(event: any, column: Column, isLast: boolean) {

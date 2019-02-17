@@ -5,11 +5,10 @@
 </ng-template>
 
 <ng-template [ngIf]="!column.headerCellTemplate">
-    <span sort-header
-          [sortable]="column.sortable"
-          [order]="table.sorter.getOrder(column.name)"
-          (sortChange)="onSort(column)">
+    <span class="dt-sort-header"
+          (click)="onSort()">
         {{column.title | dtTranslate}}
+        <i class="dt-icon" *ngIf="column.sortable" [ngClass]="direction"></i>
     </span>
     <i *ngIf="column.filter"
         (click)="clickColumnMenu($event, column)"

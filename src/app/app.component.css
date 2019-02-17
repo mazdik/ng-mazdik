@@ -143,8 +143,8 @@
   background-color: lightyellow;
 }
 
-.row-sorcerer,
-.row-sorcerer .datatable-row-left {
+.datatable-body-row.row-sorcerer,
+.datatable-body-row.row-sorcerer .datatable-row-left {
   background-color: LightSlateGray;
   color: white;
 }

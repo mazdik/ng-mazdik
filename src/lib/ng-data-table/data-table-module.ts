@@ -6,7 +6,6 @@ import {PaginationModule} from '../pagination';
 import {ScrollerModule} from '../scroller';
 import {SelectListModule} from '../select-list';
 import {InlineEditModule} from '../inline-edit';
-import {SortHeaderModule} from '../sort-header';
 import {ResizableModule} from '../resizable';
 import {DtTranslateModule} from '../dt-translate';
 import {HeaderComponent} from './components/header/header.component';
@@ -38,7 +37,6 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     ScrollerModule,
     SelectListModule,
     InlineEditModule,
-    SortHeaderModule,
     ResizableModule,
     DtTranslateModule.forChild(),
   ],

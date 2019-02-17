@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable, Row} from '../../lib/ng-data-table';
 import {getTreeColumns} from './columns';
-import {Tree, TreeNode, TreeFlattener, TreeHelper} from '../../lib/tree';
+import {Tree, TreeNode, TreeFlattener} from '../../lib/tree';
 
 @Component({
   selector: 'app-tree-table-custom-demo',
@@ -15,12 +15,12 @@ import {Tree, TreeNode, TreeFlattener, TreeHelper} from '../../lib/tree';
       <div class="datatable-tree-node"
           [style.padding-left.px]="paddingIndent(row)"
           style="cursor: pointer;">
-      <i [class]="getExpanderIcon(row.node)"
+      <i [class]="getExpanderIcon(row)"
           (click)="onExpand(row)">
       </i>
       <span class="datatable-tree-node-content"
           (dblclick)="onExpand(row)">
-          {{row.node.name}}
+          {{row.name}}
       </span>
       </div>
   </ng-template>
@@ -42,7 +42,6 @@ export class TreeTableCustomDemoComponent implements OnInit {
   @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
   @ViewChild('cellNodeTemplate') cellNodeTemplate: TemplateRef<any>;
 
-  private tree: Tree = new Tree();
   private treeFlattener: TreeFlattener;
 
   constructor(private http: HttpClient) {
@@ -66,19 +65,21 @@ export class TreeTableCustomDemoComponent implements OnInit {
     const data = {
       expandable: true,
       level: level,
-      node: node,
+      expanded: false,
+      hasChildren: (node.children && node.children.length > 0)
     };
     return Object.assign(data, node.data);
   }
 
   prepareTreeData(nodes: TreeNode[]) {
-    this.tree.nodes = nodes;
-    const rows = this.treeFlattener.flattenNodes(this.tree.nodes);
+    const tree = new Tree();
+    tree.nodes = nodes;
+    const rows = this.treeFlattener.flattenNodes(tree.nodes);
     rows.forEach(x => {
       x.$$height = (x.level > 1) ? 0 : null;
-      x.node.expanded = !(x.level > 0);
-      x.$$editable = !(x.node.children && x.node.children.length > 0);
-      x['cube_size'] = (x.node.children && x.node.children.length > 0) ? null : x['cube_size'];
+      x.expanded = !(x.level > 0);
+      x.$$editable = !x.hasChildren;
+      x['cube_size'] = x.hasChildren ? null : x['cube_size'];
     });
     return rows;
   }
@@ -107,20 +108,24 @@ export class TreeTableCustomDemoComponent implements OnInit {
   }
 
   onExpand(row: any) {
-    row.node.expanded = !row.node.expanded;
-    if (!row.node.expanded) {
+    row.expanded = !row.expanded;
+    if (!row.expanded) {
       const descendants = this.getDescendants(row, this.dataTable.rows);
       if (descendants && descendants.length) {
-        descendants.forEach(x => { x.$$height = 0; x.node.expanded = true; });
+        descendants.forEach(x => { x.$$height = 0; x.expanded = true; });
       }
     } else {
       const descendants = this.getDescendantsByLevel(row, this.dataTable.rows, row.level + 1);
-      descendants.forEach(x => { x.$$height = null; x.node.expanded = false; });
+      descendants.forEach(x => { x.$$height = null; x.expanded = false; });
     }
   }
 
-  getExpanderIcon(node: TreeNode) {
-    return TreeHelper.getExpanderIcon(node);
+  getExpanderIcon(row: any) {
+    if (row.hasChildren && !row.expanded) {
+      return 'dt-icon-node dt-icon-collapsed';
+    } else if (row.hasChildren) {
+      return 'dt-icon-node';
+    }
   }
 
   getDescendants(row: Row, rows: Row[]) {
