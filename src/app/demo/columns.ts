@@ -119,10 +119,6 @@ export function getColumnsPlayers(): Column[] {
     {title: 'Repletion state', name: 'repletionstate', editable: true},
     {title: 'Rebirth id', name: 'rebirth_id', editable: true},
     {title: 'Member points', name: 'memberpoints', editable: true},
-    {title: 'Marry player id', name: 'marry_player_id', editable: true},
-    {title: 'Marry title', name: 'marrytitle', editable: true},
-    {title: 'Bg points', name: 'bg_points', editable: true},
-    {title: 'Personal rating', name: 'personal_rating', editable: true},
     {title: 'Quest status', name: 'quest.status', editable: true}
   ];
   return columnsPlayers;
@@ -161,14 +157,6 @@ export function getColumnsInventory(): Column[] {
     {title: 'isEquiped', name: 'isEquiped'},
     {title: 'isSoulBound', name: 'isSoulBound'},
     {title: 'slot', name: 'slot'},
-    {title: 'itemLocation', name: 'itemLocation'},
-    {title: 'enchant', name: 'enchant'},
-    {title: 'itemSkin', name: 'itemSkin'},
-    {title: 'fusionedItem', name: 'fusionedItem'},
-    {title: 'optionalSocket', name: 'optionalSocket'},
-    {title: 'optionalFusionSocket', name: 'optionalFusionSocket'},
-    {title: 'charge', name: 'charge'},
-    {title: 'sealStats', name: 'sealStats'},
     {title: 'sealEndTime', name: 'sealEndTime'}
   ];
   return columnsInventory;

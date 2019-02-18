@@ -4,10 +4,11 @@ import {
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
 import {DataManager, Row} from '../../base';
-import {Subscription} from 'rxjs';
+import {Subscription, Observable, forkJoin} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
 import {DataTableComponent} from '../../../ng-data-table';
 import {MenuItem} from '../../../common';
+import {DtTranslateService} from '../../../dt-translate';
 
 @Component({
   selector: 'app-crud-table',
@@ -38,7 +39,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   actionMenu: MenuItem[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef, private dtTranslateService: DtTranslateService) {
   }
 
   ngOnInit() {
@@ -118,11 +119,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
         {
           label: this.dataManager.messages.delete,
           icon: 'dt-icon dt-icon-remove',
-          command: (row) => {
-            if (confirm(this.dataManager.messages.delete + '?')) {
-              this.dataManager.delete(row);
-            }
-          },
+          command: (row) => confirm('Delete ?') ? this.dataManager.delete(row) : null,
         },
         {
           label: this.dataManager.messages.duplicate,
@@ -131,6 +128,16 @@ export class CrudTableComponent implements OnInit, OnDestroy {
         },
       );
     }
+    const observables: Observable<string>[] = [];
+    this.actionMenu.forEach(x => observables.push(this.dtTranslateService.get(x.label)));
+    forkJoin(observables).subscribe(res => {
+      this.actionMenu.forEach((el, i) => {
+        el.label = res[i];
+        if (el.icon == 'dt-icon dt-icon-remove') {
+          el.command = (row) => confirm(res[i] + '?') ? this.dataManager.delete(row) : null
+        }
+      });
+    });
   }
 
   onRowMenuClick(event: any, row: Row) {
