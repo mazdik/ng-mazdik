@@ -54,11 +54,12 @@ export interface AggregateMeta {
 }
 
 export interface GroupMeta {
+  [name: string]: any;
   index: number;
   size: number;
 }
 
-export interface GroupMetaData {
+export interface GroupMetadata {
   [s: string]: GroupMeta;
 }
 

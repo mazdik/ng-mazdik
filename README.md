@@ -283,6 +283,7 @@ export interface PageMetadata {
 | paginator        | boolean    | true    |              |
 | rowHeightProp    | string     | null    | row.$$height |
 | isEditableCellProp | string   | null    | row.$$editable |
+| rowGroupTemplate | TemplateRef | null   |              |
 
 ### CdtSettings extends Settings
 | Attribute        | Type       | Default | Description |

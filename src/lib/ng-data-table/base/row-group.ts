@@ -1,4 +1,4 @@
-import { Row, GroupMetaData } from './types';
+import { Row, GroupMetadata } from './types';
 import { Settings } from './settings';
 import { DataAggregation } from './data-aggregation';
 import { DataSort } from './data-sort';
@@ -6,7 +6,7 @@ import { Column } from './column';
 
 export class RowGroup {
 
-  rowGroupMetadata: GroupMetaData;
+  rowGroupMetadata: GroupMetadata;
   grandTotalRow: any;
   private dataAggregation: DataAggregation;
 
@@ -73,6 +73,11 @@ export class RowGroup {
 
   aggregationEnabled() {
     return this.dataAggregation.enabled;
+  }
+
+  getGroupRows(row: Row, rows: Row[]): Row[] {
+    const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
+    return rows.filter(x => this.dataAggregation.groupStringValues(x, this.settings.groupRowsBy) === group);
   }
 
 }
