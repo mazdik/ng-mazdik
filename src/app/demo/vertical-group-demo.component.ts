@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, GroupMetaData} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 import {DataAggregation} from '../../lib/ng-data-table/base/data-aggregation';
 import {Subscription} from 'rxjs';
@@ -66,8 +66,8 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
   @ViewChild('dtv1') dtv1: ElementRef;
   @ViewChild('dtv2') dtv2: ElementRef;
 
-  private raceGroupMetadata: any;
-  private genderGroupMetadata: any;
+  private raceGroupMetadata: GroupMetaData;
+  private genderGroupMetadata: GroupMetaData;
   private dataAggregation: DataAggregation;
   private subscriptions: Subscription[] = [];
 

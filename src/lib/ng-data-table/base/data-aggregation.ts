@@ -1,5 +1,5 @@
 import {isBlank} from '../../common/utils';
-import {AggregateType, AggregateMeta} from './types';
+import {AggregateType, AggregateMeta, GroupMetaData} from './types';
 
 export class DataAggregation {
 
@@ -9,17 +9,13 @@ export class DataAggregation {
     return (this.aggregates && this.aggregates.length);
   }
 
-  groupStringValues(item: any, keys: any[]) {
-    const values = [];
-    keys.forEach(key => {
-      values.push(item[key]);
-    });
-    return values.join(', ');
+  groupStringValues(item: any, keys: any[]): string {
+    return keys.map(x => item[x]).join(', ');
   }
 
   groupBy(array: any[], keys: any[]) {
     const groups = {};
-    array.forEach(function (row) {
+    array.forEach(row => {
       const group = this.groupStringValues(row, keys);
       groups[group] = groups[group] || [];
       groups[group].push(row);
@@ -27,8 +23,8 @@ export class DataAggregation {
     return groups;
   }
 
-  groupMetaData(array: any[], keys: any[]) {
-    const groupMetadata = {};
+  groupMetaData(array: any[], keys: any[]): GroupMetaData {
+    const groupMetadata: GroupMetaData = {};
     if (array) {
       for (let i = 0; i < array.length; i++) {
         const row = array[i];

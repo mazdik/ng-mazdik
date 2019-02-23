@@ -205,7 +205,7 @@ interface DataSource {
 export interface RequestMetadata {
   pageMeta: PageMetadata;
   sortMeta: SortMetadata[];
-  filters: Filter;
+  filters: FilterMetadata;
   globalFilterValue?: string;
 }
 export interface PagedResult {

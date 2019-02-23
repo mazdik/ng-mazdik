@@ -32,15 +32,15 @@ export enum EditMode {
   EditProgrammatically = 'editProgrammatically',
 }
 
-export interface FilterMetadata {
+export interface FilterMeta {
   value?: any;
   matchMode?: string;
   valueTo?: any;
   type?: DataType;
 }
 
-export interface Filter {
-  [s: string]: FilterMetadata;
+export interface FilterMetadata {
+  [s: string]: FilterMeta;
 }
 
 export interface SortMetadata {
@@ -51,6 +51,15 @@ export interface SortMetadata {
 export interface AggregateMeta {
   field: string;
   type: AggregateType;
+}
+
+export interface GroupMeta {
+  index: number;
+  size: number;
+}
+
+export interface GroupMetaData {
+  [s: string]: GroupMeta;
 }
 
 export interface Row {

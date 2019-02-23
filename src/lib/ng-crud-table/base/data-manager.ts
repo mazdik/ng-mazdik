@@ -1,5 +1,5 @@
 import {DataSource, RequestMetadata} from './types';
-import {Row, Filter} from '../../ng-data-table';
+import {Row, FilterMetadata} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {CdtSettings} from './cdt-settings';
@@ -26,8 +26,8 @@ export class DataManager extends DataTable {
     });
   }
 
-  get filters(): Filter { return this.dataFilter.filters; }
-  set filters(val: Filter) {
+  get filters(): FilterMetadata { return this.dataFilter.filters; }
+  set filters(val: FilterMetadata) {
     this.dataFilter.filters = val;
     this.events.onFilter();
   }

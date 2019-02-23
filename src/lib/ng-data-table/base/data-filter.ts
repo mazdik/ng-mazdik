@@ -1,4 +1,4 @@
-import {Filter, FilterMetadata, DataType} from './types';
+import {FilterMeta, FilterMetadata, DataType} from './types';
 import {isBlank} from '../../common/utils';
 
 export class DataFilter {
@@ -18,7 +18,7 @@ export class DataFilter {
   static IS_EMPTY = 'isEmpty'; // is null
   static IS_NOT_EMPTY = 'isNotEmpty'; // is not null
 
-  filters: Filter = <Filter>{};
+  filters: FilterMetadata = <FilterMetadata>{};
   globalFilterValue: string;
 
   filterRows(data: any[]) {
@@ -50,7 +50,7 @@ export class DataFilter {
     }
   }
 
-  compare(value: any, filter: FilterMetadata) {
+  compare(value: any, filter: FilterMeta) {
     if (filter.type === DataType.Date) {
       let filterValue;
       let filterValueTo;
@@ -244,7 +244,7 @@ export class DataFilter {
   }
 
   clear() {
-    this.filters = <Filter>{};
+    this.filters = <FilterMetadata>{};
     this.globalFilterValue = null;
   }
 

@@ -1,4 +1,4 @@
-import { Filter, SortMetadata } from '../../ng-data-table';
+import { FilterMetadata, SortMetadata } from '../../ng-data-table';
 
 export interface DataSource {
   getItems(requestMeta: RequestMetadata): Promise<PagedResult>;
@@ -12,7 +12,7 @@ export interface DataSource {
 export class RequestMetadata {
   pageMeta: PageMetadata;
   sortMeta: SortMetadata[];
-  filters: Filter;
+  filters: FilterMetadata;
   globalFilterValue?: string;
 }
 
