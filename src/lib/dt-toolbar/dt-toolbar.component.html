@@ -15,7 +15,7 @@
             </button>
         </div>
     </div>
-  <div class="dt-toolbar-col" appDropdown *ngIf="exportAction || columnToggleAction">
+  <div class="dt-toolbar-col" appDropdown *ngIf="exportAction || columnToggleAction || clearAllFiltersAction">
     <button class="dt-button">{{table.messages.actions | dtTranslate}} <i class="dt-icon-node"></i></button>
     <div class="dt-context-menu">
       <div class="dt-list-menu-item" *ngIf="columnToggleAction" (click)="modalColumnToggler.open()">
@@ -24,6 +24,12 @@
       <div class="dt-list-menu-item" *ngIf="exportAction" (click)="downloadCsv()">
         {{table.messages.export | dtTranslate}}
       </div>
+      <div class="dt-list-menu-item"
+          *ngIf="clearAllFiltersAction"
+          (click)="clearAllFilters()"
+          [ngClass]="{'disabled':!table.dataFilter.hasFilter()}">
+          {{table.messages.clearFilters | dtTranslate}}
+        </div>
     </div>
   </div>
 

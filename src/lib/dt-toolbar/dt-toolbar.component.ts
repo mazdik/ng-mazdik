@@ -25,6 +25,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
   @Input() globalFilter: boolean = true;
   @Input() exportAction: boolean;
   @Input() columnToggleAction: boolean;
+  @Input() clearAllFiltersAction: boolean;
   @Input() createMessage: string = 'Create';
   @Input() goMessage: string = 'Go';
   @Input() exportMessage: string = 'Export';
@@ -73,6 +74,13 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
   getHeight() {
     return this.element.nativeElement.offsetHeight;
+  }
+
+  clearAllFilters() {
+    if (this.table.dataFilter.hasFilter()) {
+      this.table.dataFilter.clear();
+      this.table.events.onFilter();
+    }
   }
 
 }

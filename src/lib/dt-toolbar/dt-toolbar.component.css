@@ -23,3 +23,12 @@
 .dt-toolbar-col.open .dt-context-menu {
   display: block;
 }
+
+.dt-toolbar-col .dt-list-menu-item.disabled,
+.dt-toolbar-col .dt-list-menu-item.disabled:hover {
+  color: silver;
+  background-color: transparent;
+  border: 0;
+  box-shadow: 0 0 0;
+  cursor: default;
+}
