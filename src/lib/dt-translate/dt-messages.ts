@@ -42,6 +42,7 @@ export class DtMessages {
   selectPlaceholder = PREF + 'selectPlaceholder';
   ok = PREF + 'ok';
   columns = PREF + 'columns';
+  actions = PREF + 'actions';
 }
 
 export const EN = <DtMessages> {
@@ -86,4 +87,5 @@ export const EN = <DtMessages> {
   selectPlaceholder: 'Select...',
   ok: 'OK',
   columns: 'Columns',
+  actions: 'Actions',
 };

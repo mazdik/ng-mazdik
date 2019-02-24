@@ -379,3 +379,4 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | [appDraggable]                 |                    |
 | [appDroppable]                 | html5              |
 | app-dual-list-box              |                    |
+| [appDropdown]                  |                    |

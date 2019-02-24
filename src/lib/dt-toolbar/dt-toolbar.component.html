@@ -15,11 +15,17 @@
             </button>
         </div>
     </div>
-  <div class="dt-toolbar-col" *ngIf="exportAction">
-    <button class="dt-button" (click)="downloadCsv()">{{table.messages.export | dtTranslate}}</button>
+  <div class="dt-toolbar-col" appDropdown *ngIf="exportAction || columnToggleAction">
+    <button class="dt-button">{{table.messages.actions | dtTranslate}} <i class="dt-icon-node"></i></button>
+    <div class="dt-context-menu">
+      <div class="dt-list-menu-item" *ngIf="columnToggleAction" (click)="modalColumnToggler.open()">
+        {{table.messages.columns | dtTranslate}}
+      </div>
+      <div class="dt-list-menu-item" *ngIf="exportAction" (click)="downloadCsv()">
+        {{table.messages.export | dtTranslate}}
+      </div>
+    </div>
   </div>
-  <div class="dt-toolbar-col" *ngIf="columnToggleAction">
-    <button class="dt-button" (click)="modalColumnToggler.open()">{{table.messages.columns | dtTranslate}}</button>
-  </div>
+
 </div>
 <dt-column-toggler #modalColumnToggler [table]="table" [zIndex]="zIndexColumnToggler"></dt-column-toggler>
