@@ -1,7 +1,7 @@
 export { ColumnBase } from './column-base';
 export { Column } from './column';
 export { DataAggregation } from './data-aggregation';
-export { DataFilter } from './data-filter';
+export { DataFilter, FilterOperator } from './data-filter';
 export { DataPager } from './data-pager';
 export { DataSelection } from './data-selection';
 export { DataSort } from './data-sort';

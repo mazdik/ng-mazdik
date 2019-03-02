@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
-import {Column, DataTable, DataFilter} from '../../base';
+import {Column, DataTable, FilterOperator} from '../../base';
 
 @Component({
   selector: 'app-string-filter',
@@ -20,21 +20,21 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   matchMode: string;
   value: any;
   operators: any[];
-  defaultMatchMode = DataFilter.STARTS_WITH;
+  defaultMatchMode = FilterOperator.STARTS_WITH;
 
   constructor() {
   }
 
   ngOnInit() {
     this.operators = [
-      {value: DataFilter.EQUALS, text: this.table.messages.equals},
-      {value: DataFilter.NOT_EQUAL, text: this.table.messages.notEqual},
-      {value: DataFilter.STARTS_WITH, text: this.table.messages.startsWith},
-      {value: DataFilter.ENDS_WITH, text: this.table.messages.endsWith},
-      {value: DataFilter.CONTAINS, text: this.table.messages.contains},
-      {value: DataFilter.NOT_CONTAINS, text: this.table.messages.notContains},
-      {value: DataFilter.IS_EMPTY, text: this.table.messages.isEmpty},
-      {value: DataFilter.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
+      {value: FilterOperator.EQUALS, text: this.table.messages.equals},
+      {value: FilterOperator.NOT_EQUAL, text: this.table.messages.notEqual},
+      {value: FilterOperator.STARTS_WITH, text: this.table.messages.startsWith},
+      {value: FilterOperator.ENDS_WITH, text: this.table.messages.endsWith},
+      {value: FilterOperator.CONTAINS, text: this.table.messages.contains},
+      {value: FilterOperator.NOT_CONTAINS, text: this.table.messages.notContains},
+      {value: FilterOperator.IS_EMPTY, text: this.table.messages.isEmpty},
+      {value: FilterOperator.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
     ];
   }
 

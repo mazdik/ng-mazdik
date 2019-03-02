@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
-import {Column, DataTable, DataFilter} from '../../base';
+import {Column, DataTable, FilterOperator} from '../../base';
 import {inputFormattedDate} from '../../../common/utils';
 
 @Component({
@@ -22,22 +22,22 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   value: any;
   valueTo: any;
   operators: any[];
-  defaultMatchMode = DataFilter.EQUALS;
+  defaultMatchMode = FilterOperator.EQUALS;
 
   constructor() {
   }
 
   ngOnInit() {
     this.operators = [
-      {value: DataFilter.EQUALS, text: this.table.messages.equals},
-      {value: DataFilter.NOT_EQUAL, text: this.table.messages.notEqual},
-      {value: DataFilter.GREATER_THAN, text: this.table.messages.greaterThan},
-      {value: DataFilter.GREATER_THAN_OR_EQUAL, text: this.table.messages.greaterThanOrEqual},
-      {value: DataFilter.LESS_THAN, text: this.table.messages.lessThan},
-      {value: DataFilter.LESS_THAN_OR_EQUAL, text: this.table.messages.lessThanOrEqual},
-      {value: DataFilter.IN_RANGE, text: this.table.messages.inRange},
-      {value: DataFilter.IS_EMPTY, text: this.table.messages.isEmpty},
-      {value: DataFilter.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
+      {value: FilterOperator.EQUALS, text: this.table.messages.equals},
+      {value: FilterOperator.NOT_EQUAL, text: this.table.messages.notEqual},
+      {value: FilterOperator.GREATER_THAN, text: this.table.messages.greaterThan},
+      {value: FilterOperator.GREATER_THAN_OR_EQUAL, text: this.table.messages.greaterThanOrEqual},
+      {value: FilterOperator.LESS_THAN, text: this.table.messages.lessThan},
+      {value: FilterOperator.LESS_THAN_OR_EQUAL, text: this.table.messages.lessThanOrEqual},
+      {value: FilterOperator.IN_RANGE, text: this.table.messages.inRange},
+      {value: FilterOperator.IS_EMPTY, text: this.table.messages.isEmpty},
+      {value: FilterOperator.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
     ];
   }
 
@@ -57,7 +57,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   get isRangeFilter() {
-    return this.matchMode === DataFilter.IN_RANGE;
+    return this.matchMode === FilterOperator.IN_RANGE;
   }
 
   saveFilter() {
@@ -97,7 +97,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     } else if (name === 'hour') {
       dt = new Date(Date.now() + -1 * 3600 * 1000);
     }
-    this.matchMode = DataFilter.GREATER_THAN_OR_EQUAL;
+    this.matchMode = FilterOperator.GREATER_THAN_OR_EQUAL;
     this.value = inputFormattedDate(this.column.type, dt.toISOString());
     this.saveFilter();
     this.filterClose.emit(true);

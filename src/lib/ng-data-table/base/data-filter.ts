@@ -1,22 +1,24 @@
 import {FilterMeta, FilterMetadata, DataType} from './types';
 import {isBlank} from '../../common/utils';
 
-export class DataFilter {
+export enum FilterOperator {
+  EQUALS = 'equals', // ==
+  NOT_EQUAL = 'notEqual', // !=
+  LESS_THAN = 'lessThan', // <
+  LESS_THAN_OR_EQUAL = 'lessThanOrEqual', // <=
+  GREATER_THAN = 'greaterThan', // >
+  GREATER_THAN_OR_EQUAL = 'greaterThanOrEqual', // >=
+  IN_RANGE = 'inRange', // 3-7
+  IN = 'in', // in
+  CONTAINS = 'contains', // like lower(%val%);
+  NOT_CONTAINS = 'notContains', // not like lower(%val%);
+  STARTS_WITH = 'startsWith', // like val%;
+  ENDS_WITH = 'endsWith', // like %val;
+  IS_EMPTY = 'isEmpty', // is null
+  IS_NOT_EMPTY = 'isNotEmpty', // is not null
+}
 
-  static EQUALS = 'equals'; // ==
-  static NOT_EQUAL = 'notEqual'; // !=
-  static LESS_THAN = 'lessThan'; // <
-  static LESS_THAN_OR_EQUAL = 'lessThanOrEqual'; // <=
-  static GREATER_THAN = 'greaterThan'; // >
-  static GREATER_THAN_OR_EQUAL = 'greaterThanOrEqual'; // >=
-  static IN_RANGE = 'inRange'; // 3-7
-  static IN = 'in'; // in
-  static CONTAINS = 'contains'; // like lower(%val%);
-  static NOT_CONTAINS = 'notContains'; // not like lower(%val%);
-  static STARTS_WITH = 'startsWith'; // like val%;
-  static ENDS_WITH = 'endsWith'; // like %val;
-  static IS_EMPTY = 'isEmpty'; // is null
-  static IS_NOT_EMPTY = 'isNotEmpty'; // is not null
+export class DataFilter {
 
   filters: FilterMetadata = <FilterMetadata>{};
   globalFilterValue: string;
@@ -28,11 +30,7 @@ export class DataFilter {
     for (const key in filters) {
       if (filters[key]) {
         filteredRows = filteredRows.filter((row: any) => {
-          if (key in row) {
-            return this.compare(row[key], filters[key]);
-          } else {
-            return false;
-          }
+          return (key in row) ? this.compare(row[key], filters[key]) : false;
         });
       }
     }
@@ -64,56 +62,56 @@ export class DataFilter {
         filterValueTo = new Date(filter.valueTo).setSeconds(0, 0);
       }
       switch (filter.matchMode) {
-        case DataFilter.EQUALS:
+        case FilterOperator.EQUALS:
           return this.dateEquals(value, filterValue);
-        case DataFilter.NOT_EQUAL:
+        case FilterOperator.NOT_EQUAL:
           return !this.equals(value, filterValue);
-        case DataFilter.IN_RANGE:
+        case FilterOperator.IN_RANGE:
           return this.inRange(value, filterValue, filterValueTo);
-        case DataFilter.LESS_THAN:
+        case FilterOperator.LESS_THAN:
           return this.lessThan(value, filterValue);
-        case DataFilter.LESS_THAN_OR_EQUAL:
+        case FilterOperator.LESS_THAN_OR_EQUAL:
           return this.lessThanOrEqual(value, filterValue);
-        case DataFilter.GREATER_THAN:
+        case FilterOperator.GREATER_THAN:
           return this.greaterThan(value, filterValue);
-        case DataFilter.GREATER_THAN_OR_EQUAL:
+        case FilterOperator.GREATER_THAN_OR_EQUAL:
           return this.greaterThanOrEqual(value, filterValue);
-        case DataFilter.IS_EMPTY:
+        case FilterOperator.IS_EMPTY:
           return isBlank(value);
-        case DataFilter.IS_NOT_EMPTY:
+        case FilterOperator.IS_NOT_EMPTY:
           return !isBlank(value);
         default:
           return this.dateEquals(value, filterValue);
       }
     } else {
       switch (filter.matchMode) {
-        case DataFilter.EQUALS:
+        case FilterOperator.EQUALS:
           return this.equals(value, filter.value);
-        case DataFilter.NOT_EQUAL:
+        case FilterOperator.NOT_EQUAL:
           return !this.equals(value, filter.value);
-        case DataFilter.IN_RANGE:
+        case FilterOperator.IN_RANGE:
           return this.inRange(value, filter.value, filter.valueTo);
-        case DataFilter.IN:
+        case FilterOperator.IN:
           return this.in(value, filter.value);
-        case DataFilter.CONTAINS:
+        case FilterOperator.CONTAINS:
           return this.contains(value, filter.value);
-        case DataFilter.NOT_CONTAINS:
+        case FilterOperator.NOT_CONTAINS:
           return !this.contains(value, filter.value);
-        case DataFilter.STARTS_WITH:
+        case FilterOperator.STARTS_WITH:
           return this.startsWith(value, filter.value);
-        case DataFilter.ENDS_WITH:
+        case FilterOperator.ENDS_WITH:
           return this.endsWith(value, filter.value);
-        case DataFilter.LESS_THAN:
+        case FilterOperator.LESS_THAN:
           return this.lessThan(value, filter.value);
-        case DataFilter.LESS_THAN_OR_EQUAL:
+        case FilterOperator.LESS_THAN_OR_EQUAL:
           return this.lessThanOrEqual(value, filter.value);
-        case DataFilter.GREATER_THAN:
+        case FilterOperator.GREATER_THAN:
           return this.greaterThan(value, filter.value);
-        case DataFilter.GREATER_THAN_OR_EQUAL:
+        case FilterOperator.GREATER_THAN_OR_EQUAL:
           return this.greaterThanOrEqual(value, filter.value);
-        case DataFilter.IS_EMPTY:
+        case FilterOperator.IS_EMPTY:
           return isBlank(value);
-        case DataFilter.IS_NOT_EMPTY:
+        case FilterOperator.IS_NOT_EMPTY:
           return !isBlank(value);
         default:
           return this.equals(value, filter.value);
@@ -299,7 +297,7 @@ export class DataFilter {
   }
 
   isNonValueFilter(matchMode: string) {
-    return (matchMode === DataFilter.IS_EMPTY || matchMode === DataFilter.IS_NOT_EMPTY);
+    return (matchMode === FilterOperator.IS_EMPTY || matchMode === FilterOperator.IS_NOT_EMPTY);
   }
 
 }

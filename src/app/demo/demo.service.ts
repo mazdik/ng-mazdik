@@ -32,7 +32,7 @@ export class DemoService implements DataSource {
         const rows: any[] = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
         const sortedData = this.dataSort.sortRows(filteredData);
-        const pageData = this.page(sortedData, page, perPage);
+        const pageData = this.paginate(sortedData, page, perPage);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
         const result = <PagedResult>{
@@ -62,7 +62,7 @@ export class DemoService implements DataSource {
       .then(data => data.items[0]);
   }
 
-  page(data: any, page: any, perPage: number): Array<any> {
+  paginate(data: any[], page: any, perPage: number): any[] {
     const start = (page - 1) * perPage;
     const end = perPage > -1 ? (start + perPage) : data.length;
     return data.slice(start, end);

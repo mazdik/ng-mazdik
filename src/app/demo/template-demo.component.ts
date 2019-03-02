@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
-import {DataFilter} from '../../lib/ng-data-table/base';
+import {FilterOperator} from '../../lib/ng-data-table/base';
 
 @Component({
   selector: 'app-template-demo',
@@ -60,7 +60,7 @@ export class TemplateDemoComponent implements OnInit {
   }
 
   clickRaceFilter(value: string) {
-    this.table.dataFilter.setFilter(value, 'race', DataFilter.EQUALS);
+    this.table.dataFilter.setFilter(value, 'race', FilterOperator.EQUALS);
     this.table.events.onFilter();
   }
 

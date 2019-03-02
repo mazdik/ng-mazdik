@@ -2,7 +2,7 @@ import {ColumnBase} from './column-base';
 import {isBlank} from '../../common/utils';
 import {DataType} from './types';
 import {Settings} from './settings';
-import {DataFilter} from './data-filter';
+import {DataFilter, FilterOperator} from './data-filter';
 import {SelectItem} from '../../common';
 
 export class Column extends ColumnBase {
@@ -157,7 +157,7 @@ export class Column extends ColumnBase {
   }
 
   setFilter(value: any, matchMode?: string, valueTo?: any) {
-    matchMode = matchMode || DataFilter.EQUALS;
+    matchMode = matchMode || FilterOperator.EQUALS;
     this.dataFilter.setFilter(value, this.name, matchMode, valueTo, this.dataType);
   }
 

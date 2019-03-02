@@ -1,7 +1,7 @@
 import {
   Component, OnChanges, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {Column, DataTable, DataFilter} from '../../base';
+import {Column, DataTable, FilterOperator} from '../../base';
 
 @Component({
   selector: 'app-list-filter',
@@ -38,7 +38,7 @@ export class ListFilterComponent implements OnChanges {
 
   saveFilter(value) {
     const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
-    this.table.dataFilter.setFilter([...value], field, DataFilter.IN, null, this.column.dataType);
+    this.table.dataFilter.setFilter([...value], field, FilterOperator.IN, null, this.column.dataType);
     this.table.events.onFilter();
   }
 
