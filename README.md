@@ -381,4 +381,6 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | [appDropdown]                  |                    |
 
 ### Templates
+```typescript
 <ng-template dt-header-template></ng-template>
+```
