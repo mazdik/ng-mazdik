@@ -1,12 +1,13 @@
 import {
   Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef, HostBinding,
-  ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy
+  ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ContentChild
 } from '@angular/core';
 import {DataTable, ColumnResizeMode} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyComponent} from '../body/body.component';
 import {HeaderComponent} from '../header/header.component';
 import {PageEvent} from '../../../pagination';
+import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 
 @Component({
   selector: 'app-datatable, app-data-table',
@@ -29,6 +30,8 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+
+  @ContentChild(HeaderTemplateDirective) headerTemplate: HeaderTemplateDirective;
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;

@@ -28,6 +28,7 @@ import {BodyKeydownDirective} from './directives/body-keydown.directive';
 import {BodyClickDirective} from './directives/body-click.directive';
 import {BodyDblClickDirective} from './directives/body-dblclick.directive';
 import {BodyContextMenuDirective} from './directives/body-contextmenu.directive';
+import {HeaderTemplateDirective} from './directives/header-template.directive';
 
 @NgModule({
   imports: [
@@ -60,9 +61,11 @@ import {BodyContextMenuDirective} from './directives/body-contextmenu.directive'
     BodyClickDirective,
     BodyDblClickDirective,
     BodyContextMenuDirective,
+    HeaderTemplateDirective,
   ],
   exports: [
     DataTableComponent,
+    HeaderTemplateDirective,
   ],
   providers: []
 })

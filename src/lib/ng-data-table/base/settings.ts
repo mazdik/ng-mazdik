@@ -15,7 +15,6 @@ export class Settings {
   selectionMode?: SelectionMode;
   virtualScroll?: boolean;
   rowClass?: string | Function;
-  headerTemplate?: TemplateRef<any>;
   headerRowHeight?: number;
   rowHeight?: number = 30;
   rowNumber?: boolean = true;

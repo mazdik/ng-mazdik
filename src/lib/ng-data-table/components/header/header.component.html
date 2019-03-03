@@ -1,7 +1,6 @@
-<ng-template #headerTemplate
-            *ngIf="table.settings.headerTemplate"
-            [ngTemplateOutlet]="table.settings.headerTemplate"
-            [ngTemplateOutletContext]="table">
+<ng-template #headerTemplateView
+  *ngIf="headerTemplate && headerTemplate.template"
+  [ngTemplateOutlet]="headerTemplate.template">
 </ng-template>
 
 <div class="datatable-header-row" [style.height.px]="table.dimensions.headerRowHeight">

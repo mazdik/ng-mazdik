@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
@@ -6,20 +6,21 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-header-demo',
   template: `
-    <app-data-table [table]="table"></app-data-table>
-    <ng-template #template>
-    <div class="datatable-header-row" [style.height.px]="40">
-    <div class="datatable-row-left">
-            <div class="datatable-header-cell" [style.width.px]="getWidth(0, 2)">Group 1</div>
+    <app-data-table [table]="table">
+      <ng-template dt-header-template>
+        <div class="datatable-header-row" [style.height.px]="40">
+            <div class="datatable-row-left">
+                <div class="datatable-header-cell" [style.width.px]="getWidth(0, 2)">Group 1</div>
+            </div>
+            <div class="datatable-row-center" [style.transform]="translate3d()">
+                <div class="datatable-header-cell" [style.width.px]="getWidth(2, 5)">Group 2</div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(5, 8)">Group 3</div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(8, 12)">Group 4</div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(12, 17)">Group 5</div>
+            </div>
         </div>
-        <div class="datatable-row-center" [style.transform]="translate3d()">
-            <div class="datatable-header-cell" [style.width.px]="getWidth(2, 5)">Group 2</div>
-            <div class="datatable-header-cell" [style.width.px]="getWidth(5, 8)">Group 3</div>
-            <div class="datatable-header-cell" [style.width.px]="getWidth(8, 12)">Group 4</div>
-            <div class="datatable-header-cell" [style.width.px]="getWidth(12, 17)">Group 5</div>
-        </div>
-  </div>
-    </ng-template>
+      </ng-template>
+    </app-data-table>
   `,
   styles: ['.datatable-header-cell {justify-content: center;}']
 })
@@ -29,7 +30,6 @@ export class HeaderDemoComponent implements OnInit {
   table: DataTable;
   columns: Column[];
   settings: Settings = <Settings>{};
-  @ViewChild('template') template: TemplateRef<any>;
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -46,7 +46,6 @@ export class HeaderDemoComponent implements OnInit {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
-    this.table.settings.headerTemplate = this.template;
   }
 
   getWidth(from: number, to: number) {

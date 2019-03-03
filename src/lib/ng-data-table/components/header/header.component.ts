@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Column} from '../../base';
 import {Subscription} from 'rxjs';
+import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 
 @Component({
   selector: 'dt-header',
@@ -14,9 +15,10 @@ import {Subscription} from 'rxjs';
 export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() table: DataTable;
+  @Input() headerTemplate: HeaderTemplateDirective;
 
   @HostBinding('class.datatable-header') cssClass = true;
-  @ViewChild('headerTemplate', { read: ViewContainerRef }) headerTemplate: ViewContainerRef;
+  @ViewChild('headerTemplateView', { read: ViewContainerRef }) headerTemplateView: ViewContainerRef;
   @ViewChild('rowCenter') rowCenter: ElementRef;
 
   private subscriptions: Subscription[] = [];
@@ -43,14 +45,14 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.headerTemplate) {
-      this.table.dimensions.headerTemplateHeight = this.headerTemplate.element.nativeElement.nextSibling.offsetHeight;
+    if (this.headerTemplate && this.headerTemplate.template) {
+      this.table.dimensions.headerTemplateHeight = this.headerTemplateView.element.nativeElement.nextSibling.offsetHeight;
     }
   }
 
   ngOnDestroy() {
-    if (this.headerTemplate) {
-      this.headerTemplate.clear();
+    if (this.headerTemplateView) {
+      this.headerTemplateView.clear();
     }
     this.subscriptions.forEach(s => s.unsubscribe());
   }

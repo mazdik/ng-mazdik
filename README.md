@@ -271,7 +271,6 @@ export interface PageMetadata {
 | selectionMode    | checkbox / radio | null |          |
 | virtualScroll    | boolean    | false   |             |
 | rowClass         | string / Function | false |        |
-| headerTemplate   | TemplateRef | null |               |
 | headerRowHeight  | number     | null    | px, 0 - hide header |
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
@@ -380,3 +379,6 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | [appDroppable]                 | html5              |
 | app-dual-list-box              |                    |
 | [appDropdown]                  |                    |
+
+### Templates
+<ng-template dt-header-template></ng-template>
