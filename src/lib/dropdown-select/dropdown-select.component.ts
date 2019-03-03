@@ -1,7 +1,8 @@
 import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding
 } from '@angular/core';
-import {Dropdown, SelectItem} from '../common';
+import {Dropdown} from '../dropdown';
+import {SelectItem} from '../common';
 
 @Component({
   selector: 'app-dropdown-select',

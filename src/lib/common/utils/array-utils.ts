@@ -19,3 +19,12 @@ export function arrayTransfer<T = any>(arrayFrom: T[], arrayTo: T[], fromIndex: 
 function clamp(a: number, b: number): number {
   return Math.max(0, Math.min(a, b));
 }
+
+export function arrayPaginate<T = any>(array: T[], currentPage: number, perPage: number): T[] {
+  if (!array || !currentPage || !perPage) {
+    return array;
+  }
+  const start = (currentPage - 1) * perPage;
+  const end = perPage > -1 ? (start + perPage) : array.length;
+  return array.slice(start, end);
+}

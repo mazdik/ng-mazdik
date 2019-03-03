@@ -3,7 +3,8 @@ import {
   HostBinding, ElementRef, ViewEncapsulation
 } from '@angular/core';
 import { MenuEventArgs } from './types';
-import { Dropdown, MenuItem } from '../common';
+import { Dropdown } from '../dropdown';
+import { MenuItem } from '../common';
 import { isBlank } from '../common/utils';
 
 @Component({

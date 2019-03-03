@@ -1,4 +1,5 @@
 import {Pipe, PipeTransform, NgModule} from '@angular/core';
+import {arrayPaginate} from '../common/utils';
 
 @Pipe({
   name: 'paginate'
@@ -6,12 +7,7 @@ import {Pipe, PipeTransform, NgModule} from '@angular/core';
 export class PaginatePipe implements PipeTransform {
 
   transform(array: any[], itemsPerPage: number, currentPage: number): any[] {
-    if (!array || !itemsPerPage || !currentPage) {
-      return array;
-    }
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = itemsPerPage > -1 ? (start + itemsPerPage) : array.length;
-    return array.slice(start, end);
+    return arrayPaginate(array, currentPage, itemsPerPage);
   }
 }
 

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {DataSource, RequestMetadata, PagedResult} from '../../lib/ng-crud-table';
 import {DataSort, DataFilter} from '../../lib/ng-data-table/base';
+import {arrayPaginate} from '../../lib/common/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class DemoService implements DataSource {
         const rows: any[] = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
         const sortedData = this.dataSort.sortRows(filteredData);
-        const pageData = this.paginate(sortedData, page, perPage);
+        const pageData = arrayPaginate(sortedData, page, perPage);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
         const result = <PagedResult>{
@@ -60,12 +61,6 @@ export class DemoService implements DataSource {
     };
     return this.getItems(requestMeta)
       .then(data => data.items[0]);
-  }
-
-  paginate(data: any[], page: any, perPage: number): any[] {
-    const start = (page - 1) * perPage;
-    const end = perPage > -1 ? (start + perPage) : data.length;
-    return data.slice(start, end);
   }
 
   post(item: any): Promise<any> {
