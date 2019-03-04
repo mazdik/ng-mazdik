@@ -282,7 +282,6 @@ export interface PageMetadata {
 | paginator        | boolean    | true    |              |
 | rowHeightProp    | string     | null    | row.$$height |
 | isEditableCellProp | string   | null    | row.$$editable |
-| rowGroupTemplate | TemplateRef | null   |              |
 
 ### CdtSettings extends Settings
 | Attribute        | Type       | Default | Description |
@@ -382,5 +381,8 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 
 ### Templates
 ```typescript
-<ng-template dt-header-template></ng-template>
+<app-data-table[table]="table">
+  <ng-template dtHeaderTemplate></ng-template>
+  <ng-template dtRowGroupTemplate let-row="row"></ng-template>
+</app-data-table>
 ```

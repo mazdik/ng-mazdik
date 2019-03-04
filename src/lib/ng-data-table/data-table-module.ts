@@ -29,6 +29,7 @@ import {BodyClickDirective} from './directives/body-click.directive';
 import {BodyDblClickDirective} from './directives/body-dblclick.directive';
 import {BodyContextMenuDirective} from './directives/body-contextmenu.directive';
 import {HeaderTemplateDirective} from './directives/header-template.directive';
+import {RowGroupTemplateDirective} from './directives/row-group-template.directive';
 
 @NgModule({
   imports: [
@@ -62,10 +63,12 @@ import {HeaderTemplateDirective} from './directives/header-template.directive';
     BodyDblClickDirective,
     BodyContextMenuDirective,
     HeaderTemplateDirective,
+    RowGroupTemplateDirective,
   ],
   exports: [
     DataTableComponent,
     HeaderTemplateDirective,
+    RowGroupTemplateDirective,
   ],
   providers: []
 })

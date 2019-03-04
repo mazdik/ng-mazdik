@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
@@ -6,13 +6,14 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-row-group-demo',
   template: `
-    <app-data-table [table]="table"></app-data-table>
-    <ng-template #rowGroupTemplate let-row="row">
-      <div class="datatable-body-cell" (click)="onExpand(row)">
-        <i [class]="getExpanderIcon(row)"></i>
-        {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
-      </div>
-    </ng-template>
+    <app-data-table [table]="table">
+      <ng-template dtRowGroupTemplate let-row="row">
+        <div class="datatable-body-cell" (click)="onExpand(row)">
+          <i [class]="getExpanderIcon(row)"></i>
+          {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+        </div>
+      </ng-template>
+    </app-data-table>
   `
 })
 
@@ -25,7 +26,6 @@ export class RowGroupDemoComponent implements OnInit {
     groupRowsBy: ['race'],
     rowHeightProp: '$$height',
   };
-  @ViewChild('rowGroupTemplate') rowGroupTemplate: TemplateRef<any>;
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -34,10 +34,9 @@ export class RowGroupDemoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.table.settings.rowGroupTemplate = this.rowGroupTemplate;
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
-      data.forEach(x => x.expanded = true)
+      data.forEach(x => x.expanded = true);
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

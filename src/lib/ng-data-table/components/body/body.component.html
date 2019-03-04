@@ -11,7 +11,8 @@
     <dt-body-group-row
       *ngIf="table.rowGroup.isRowGroup(row)"
       [table]="table"
-      [row]="row">
+      [row]="row"
+      [rowGroupTemplate]="rowGroupTemplate">
     </dt-body-group-row>
 
     <dt-body-row

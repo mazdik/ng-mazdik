@@ -7,7 +7,7 @@ import {getColumnsPlayers} from './columns';
   selector: 'app-header-demo',
   template: `
     <app-data-table [table]="table">
-      <ng-template dt-header-template>
+      <ng-template dtHeaderTemplate>
         <div class="datatable-header-row" [style.height.px]="40">
             <div class="datatable-row-left">
                 <div class="datatable-header-cell" [style.width.px]="getWidth(0, 2)">Group 1</div>

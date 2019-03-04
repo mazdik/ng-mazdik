@@ -4,6 +4,7 @@ import {
 import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {ScrollerComponent} from '../../../scroller';
+import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
 
 @Component({
   selector: 'dt-body',
@@ -14,6 +15,7 @@ export class BodyComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() loading: boolean;
+  @Input() rowGroupTemplate: RowGroupTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body';
   @ViewChild(ScrollerComponent) scroller: ScrollerComponent;

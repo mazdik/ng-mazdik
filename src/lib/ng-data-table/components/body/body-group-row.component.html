@@ -1,9 +1,9 @@
 <div #rowLeft class="datatable-row-left">
-  <div class="datatable-body-cell" *ngIf="!table.settings.rowGroupTemplate">
+  <div class="datatable-body-cell" *ngIf="!rowGroupTemplate">
     {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
   </div>
-  <ng-template *ngIf="table.settings.rowGroupTemplate"
-              [ngTemplateOutlet]="table.settings.rowGroupTemplate"
+  <ng-template *ngIf="rowGroupTemplate && rowGroupTemplate.template"
+              [ngTemplateOutlet]="rowGroupTemplate.template"
               [ngTemplateOutletContext]="{row: row}">
   </ng-template>
 </div>

@@ -8,6 +8,7 @@ import {BodyComponent} from '../body/body.component';
 import {HeaderComponent} from '../header/header.component';
 import {PageEvent} from '../../../pagination';
 import {HeaderTemplateDirective} from '../../directives/header-template.directive';
+import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
 
 @Component({
   selector: 'app-datatable, app-data-table',
@@ -32,6 +33,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ContentChild(HeaderTemplateDirective) headerTemplate: HeaderTemplateDirective;
+  @ContentChild(RowGroupTemplateDirective) rowGroupTemplate: RowGroupTemplateDirective;
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;
@@ -54,8 +56,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   loading: boolean;
   private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
-  }
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     const subSelection = this.table.events.selectionSource$.subscribe(() => {
@@ -77,18 +78,14 @@ export class DataTableComponent implements OnInit, OnDestroy {
       this.onColumnResizeEnd();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      requestAnimationFrame(() => {
-        this.cd.detectChanges();
-      });
+      requestAnimationFrame(() => this.cd.detectChanges());
     });
     const subLoading = this.table.events.loadingSource$.subscribe((event) => {
       this.loading = event;
       this.cd.markForCheck();
       // for server-side virtual scroll
       if (this.table.settings.virtualScroll) {
-        requestAnimationFrame(() => {
-          this.cd.detectChanges();
-        });
+        requestAnimationFrame(() => this.cd.detectChanges());
       }
     });
     this.subscriptions.push(subSelection);

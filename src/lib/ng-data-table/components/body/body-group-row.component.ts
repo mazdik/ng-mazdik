@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row} from '../../base';
 import {Subscription} from 'rxjs';
+import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
 
 @Component({
   selector: 'dt-body-group-row',
@@ -13,6 +14,7 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() row: Row;
+  @Input() rowGroupTemplate: RowGroupTemplateDirective;
 
   @ViewChild('rowLeft') rowLeft: ElementRef;
 

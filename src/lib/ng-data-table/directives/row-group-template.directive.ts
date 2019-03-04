@@ -1,6 +1,6 @@
 import { Directive, TemplateRef } from '@angular/core';
 
-@Directive({ selector: '[dtHeaderTemplate]' })
-export class HeaderTemplateDirective {
+@Directive({ selector: '[dtRowGroupTemplate]' })
+export class RowGroupTemplateDirective {
   constructor(public template: TemplateRef<any>) { }
 }
