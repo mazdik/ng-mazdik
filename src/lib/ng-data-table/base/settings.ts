@@ -1,5 +1,4 @@
 import {SelectionMode, ColumnResizeMode, EditMode} from './types';
-import {TemplateRef} from '@angular/core';
 
 export class Settings {
   tableWidth?: number;
@@ -22,7 +21,6 @@ export class Settings {
   contextMenu?: boolean;
   editMode?: EditMode;
   actionColumnWidth?: number = 40;
-  rowActionTemplate?: TemplateRef<any>;
   paginator?: boolean = true;
   rowHeightProp?: string;
   isEditableCellProp?: string;

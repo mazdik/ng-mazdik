@@ -1,6 +1,6 @@
 import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation,
-  TemplateRef, HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
+  HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
 import {DataManager, Row} from '../../base';
@@ -28,7 +28,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
-  @ViewChild('rowActionTemplate') rowActionTemplate: TemplateRef<any>;
   @ViewChild('rowMenu') rowMenu: ContextMenuComponent;
   @ViewChild('alert') alert: ElementRef;
   @ViewChild('toolbar') toolbar: any;
@@ -47,8 +46,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     if (this.dataManager.settings.initLoad) {
       this.dataManager.loadItems().catch(() => this.cd.markForCheck());
     }
-    this.dataManager.settings.rowActionTemplate = this.rowActionTemplate;
-
     const subSelection = this.dataManager.events.selectionSource$.subscribe(() => {
       this.onSelectedRow();
     });
@@ -66,9 +63,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     });
     const subScroll = this.dataManager.events.scrollSource$.subscribe(() => {
       this.rowMenu.hide();
-      requestAnimationFrame(() => {
-        this.cd.detectChanges();
-      });
+      requestAnimationFrame(() => this.cd.detectChanges());
     });
     this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
@@ -133,8 +128,8 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     forkJoin(observables).subscribe(res => {
       this.actionMenu.forEach((el, i) => {
         el.label = res[i];
-        if (el.icon == 'dt-icon dt-icon-remove') {
-          el.command = (row) => confirm(res[i] + '?') ? this.dataManager.delete(row) : null
+        if (el.icon === 'dt-icon dt-icon-remove') {
+          el.command = (row) => confirm(res[i] + '?') ? this.dataManager.delete(row) : null;
         }
       });
     });

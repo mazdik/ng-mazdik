@@ -1,10 +1,10 @@
 import {
-  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef,
-  ViewChild, ViewContainerRef
+  Component, Input, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {isBlank} from '../../../common/utils';
+import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'dt-body-cell-action',
@@ -14,14 +14,8 @@ import {isBlank} from '../../../common/utils';
 export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
-
-  @Input()
-  get row(): Row { return this._row; }
-  set row(row: Row) {
-    this._row = row;
-    this.cellContext.row = row;
-  }
-  private _row: Row;
+  @Input() row: Row;
+  @Input() rowActionTemplate: RowActionTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
   @HostBinding('attr.role') role = 'gridcell';
@@ -31,14 +25,11 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
     return this.table.dimensions.actionColumnWidth;
   }
 
-  @ViewChild('rowActionTemplate', {read: ViewContainerRef}) rowActionTemplate: ViewContainerRef;
-
   get rowNum() {
     return (this.row && !isBlank(this.row.$$index)) ? this.row.$$index + 1 : null;
   }
 
   checked: boolean;
-  cellContext: any = {row: this.row};
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {
@@ -54,9 +45,6 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-    if (this.rowActionTemplate) {
-      this.rowActionTemplate.clear();
-    }
   }
 
   onCheckboxClick(event) {

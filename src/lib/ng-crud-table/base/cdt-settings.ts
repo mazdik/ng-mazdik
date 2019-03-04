@@ -8,6 +8,7 @@ export class CdtSettings extends Settings {
   zIndexModal?: number;
   exportAction?: boolean;
   columnToggleAction?: boolean;
+  clearAllFiltersAction?: boolean;
 
   constructor(init: Partial<CdtSettings>) {
     super(init);
