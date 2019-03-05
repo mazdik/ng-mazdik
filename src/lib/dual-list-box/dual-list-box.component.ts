@@ -158,7 +158,7 @@ export class DualListBoxComponent {
   }
 
   onDragStart(event: DragEvent, index: number) {
-    event.dataTransfer.setData("text", index.toString());
+    event.dataTransfer.setData('text', index.toString());
     event.dataTransfer.effectAllowed = 'move';
     this.dragElementEvent = { event, index };
   }

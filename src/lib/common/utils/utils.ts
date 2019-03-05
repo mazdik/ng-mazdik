@@ -28,7 +28,7 @@ export function inputFormattedDate(type: string, value: any) {
 }
 
 export function isLeftButton(event: MouseEvent | TouchEvent) {
-  return (event.type === 'mousedown' && (<MouseEvent>event).which === 1);
+  return (event.type === 'mousedown' && (<MouseEvent>event).button === 0);
 }
 
 export function getEvent(event: MouseEvent | TouchEvent): MouseEvent | Touch {

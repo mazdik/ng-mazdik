@@ -75,18 +75,12 @@ export class Column extends ColumnBase {
   }
 
   getOptionName(value: any) {
-    if (!this.options) {
+    const options = this.getOptions();
+    if (!options || isBlank(value)) {
       return value;
     }
-    const options: SelectItem[] = this.getOptions();
-    let name;
-    if (options && !isBlank(value)) {
-      const el: SelectItem = options.find(o => {
-        return o.id.toString() === value.toString();
-      });
-      name = (el) ? el.name : null;
-    }
-    return name || value;
+    const el = options.find(o => o.id.toString() === value.toString());
+    return (el) ? el.name : null;
   }
 
   validate(value: any): string[] {

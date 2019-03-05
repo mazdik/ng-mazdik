@@ -1,14 +1,13 @@
-import { Directive, HostListener, ElementRef, OnDestroy } from '@angular/core';
+import { Directive, HostListener, ElementRef, OnDestroy, HostBinding } from '@angular/core';
 import { DropdownService } from './dropdown.service';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[appDropdown]',
-  host: { '[class.open]': 'isOpen' }
+  selector: '[appDropdown]'
 })
 export class DropdownDirective implements OnDestroy {
 
-  isOpen: boolean = false;
+  @HostBinding('class.open') isOpen: boolean = false;
   private subscription: Subscription;
 
   constructor(private elementRef: ElementRef, private service: DropdownService) {
