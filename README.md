@@ -7,7 +7,7 @@ Feature-rich data table component for Angular with CRUD operations. (<a target="
 import {Component}  from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, CdtSettings, DataSource, DataManager} from './lib/ng-crud-table';
-import {Validators} from './lib/validation/validators';
+import {Validators} from './lib/common';
 import {NotifyService} from './lib/notify/notify.service';
 import {YiiService} from './samples/services';
 
@@ -359,7 +359,6 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | app-context-menu               |                    |
 | app-dropdown-select            |                    |
 | app-dynamic-form               |                    |
-| export                         | csv                |
 | app-inline-edit, [inline-edit] |                    |
 | app-notify                     | with NotifyService |
 | app-modal                      |                    |
@@ -372,7 +371,6 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | dt-toolbar                     |                    |
 | tree                           |                    |
 | app-tree-view                  |                    |
-| validation                     |                    |
 | [appResizable]                 |                    |
 | [appDraggable]                 |                    |
 | [appDroppable]                 | html5              |

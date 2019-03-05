@@ -1,5 +1,5 @@
 import {Column} from '../../lib/ng-crud-table';
-import {Validators} from '../../lib/validation/validators';
+import {Validators} from '../../lib/common';
 
 export function getColumnsPlayers(): Column[] {
   const columnsPlayers: Column[] = [

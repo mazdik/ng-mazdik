@@ -1,4 +1,4 @@
-import {isBlank} from '../common/utils';
+import {isBlank} from './utils';
 
 export interface Validation {
   required?: boolean;

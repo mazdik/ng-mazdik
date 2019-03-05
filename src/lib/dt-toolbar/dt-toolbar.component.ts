@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { DataTable } from '../ng-data-table/base';
 import { Subscription } from 'rxjs';
-import { ExportCSV } from '../export/export-csv';
+import { downloadCSV } from '../common/export-csv';
 
 @Component({
   selector: 'dt-toolbar',
@@ -38,7 +38,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, private cd: ChangeDetectorRef, private exportCSV: ExportCSV) {
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -65,7 +65,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
   downloadCsv() {
     const keys = this.table.columns.map(col => col.name);
     const titles = this.table.columns.map(col => col.title);
-    this.exportCSV.downloadCSV(this.table.rows, null, keys, titles);
+    downloadCSV({rows: this.table.rows, keys, titles});
   }
 
   createActionClick() {

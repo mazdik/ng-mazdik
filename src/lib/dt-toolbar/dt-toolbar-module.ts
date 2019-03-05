@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {DtTranslateModule} from '../dt-translate';
 import {DtToolbarComponent} from './dt-toolbar.component';
-import {ExportCSV} from '../export/export-csv';
 import {DtColumnTogglerModule} from '../dt-column-toggler';
 import {DropdownModule} from '../dropdown';
 
@@ -20,7 +19,6 @@ import {DropdownModule} from '../dropdown';
   ],
   exports: [
     DtToolbarComponent,
-  ],
-  providers: [ExportCSV]
+  ]
 })
 export class DtToolbarModule {}
