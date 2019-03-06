@@ -1,5 +1,5 @@
 import {FilterMeta, FilterMetadata, DataType} from './types';
-import {isBlank} from '../../common/utils';
+import {isBlank, isNumeric} from '../../common/utils';
 
 export enum FilterOperator {
   EQUALS = 'equals', // ==
@@ -263,15 +263,11 @@ export class DataFilter {
     }
   }
 
-  isNumeric(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-  }
-
   toNumber(value: any, valueTo?: any, dataType?: DataType) {
-    if (!isBlank(value) && dataType === DataType.Number && this.isNumeric(value)) {
+    if (!isBlank(value) && dataType === DataType.Number && isNumeric(value)) {
       value = parseFloat(value);
     }
-    if (!isBlank(valueTo) && dataType === DataType.Number && this.isNumeric(valueTo)) {
+    if (!isBlank(valueTo) && dataType === DataType.Number && isNumeric(valueTo)) {
       valueTo = parseFloat(valueTo);
     }
     return [value, valueTo];

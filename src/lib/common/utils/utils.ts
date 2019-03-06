@@ -11,6 +11,10 @@ export function isBlank(val: any): boolean {
   return true;
 }
 
+export function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 export function inputFormattedDate(type: string, value: any) {
   if (value) {
     if (value instanceof Date) {
