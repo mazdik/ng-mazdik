@@ -77,7 +77,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
   }
 
   clearAllFilters() {
-    if (this.table.dataFilter.hasFilter()) {
+    if (this.table.dataFilter.hasFilters()) {
       this.table.dataFilter.clear();
       this.table.events.onFilter();
     }

@@ -79,7 +79,7 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
 
   isFiltered(): boolean {
     const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
-    return this.table.dataFilter.isFilter(field);
+    return this.table.dataFilter.hasFilter(field);
   }
 
 }

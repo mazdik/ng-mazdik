@@ -1,5 +1,5 @@
 import {
-  Component, Input, ViewChild, ViewContainerRef, OnInit, OnDestroy, Output, EventEmitter, ViewEncapsulation,
+  Component, Input, ViewChild, ViewContainerRef, OnDestroy, Output, EventEmitter, ViewEncapsulation,
   ChangeDetectionStrategy
 } from '@angular/core';
 import {getOptionsFunction} from './types';
@@ -18,7 +18,7 @@ import {DynamicFormElement} from './dynamic-form-element';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class DynamicFormComponent implements OnInit, OnDestroy {
+export class DynamicFormComponent implements OnDestroy {
 
   @Input() dynElements: DynamicFormElement[];
   @Input() item: any;
@@ -33,11 +33,7 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
 
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+  constructor() {}
 
   ngOnDestroy(): void {
     if (this.cellTemplate) {
@@ -55,14 +51,8 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   isValid() {
-    let result: boolean;
-    for (const key of Object.keys(this.validElements)) {
-      result = this.validElements[key];
-      if (!result) {
-        break;
-      }
-    }
-    this.valid.emit(result);
+    const result = Object.keys(this.validElements).some(x => this.validElements[x] === false);
+    this.valid.emit(!result);
   }
 
   onKeyElementChange(event) {

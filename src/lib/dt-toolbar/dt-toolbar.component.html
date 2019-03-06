@@ -27,7 +27,7 @@
       <div class="dt-list-menu-item"
           *ngIf="clearAllFiltersAction"
           (click)="clearAllFilters()"
-          [ngClass]="{'disabled':!table.dataFilter.hasFilter()}">
+          [ngClass]="{'disabled':!table.dataFilter.hasFilters()}">
           {{table.messages.clearFilters | dtTranslate}}
         </div>
     </div>

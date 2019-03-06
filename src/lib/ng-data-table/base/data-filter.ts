@@ -246,19 +246,12 @@ export class DataFilter {
     this.globalFilterValue = null;
   }
 
-  isFilter(columnName: string): boolean {
+  hasFilter(columnName: string): boolean {
     return !isBlank(this.filters[columnName]);
   }
 
-  hasFilter() {
-    let empty = true;
-    for (const prop in this.filters) {
-      if (this.filters.hasOwnProperty(prop)) {
-        empty = false;
-        break;
-      }
-    }
-    return !empty || this.globalFilterValue;
+  hasFilters(): boolean {
+    return !(Object.keys(this.filters).length === 0 && this.filters.constructor === Object) || !isBlank(this.globalFilterValue);
   }
 
   setFilter(value: any, field: string, matchMode: string, valueTo?: any, dataType?: DataType) {

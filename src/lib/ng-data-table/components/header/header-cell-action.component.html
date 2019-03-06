@@ -7,7 +7,7 @@
 </span>
 <button class="filter-action"
         *ngIf="filterActionEnabled()"
-        [style.visibility]="(!table.dataFilter.hasFilter()) ? 'hidden' : 'visible' "
+        [style.visibility]="(!table.dataFilter.hasFilters()) ? 'hidden' : 'visible' "
         (click)="clearAllFilters()"
         [title]="table.messages.clearFilters | dtTranslate">
   <i class="dt-icon-filter"></i>

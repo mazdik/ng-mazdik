@@ -3,7 +3,7 @@ import {DataPager} from '../data-pager';
 describe('DataPager', () => {
 
   describe('pager', () => {
-    let array: number[] = Array.from(Array(30), (d, i) => ++i);
+    const array: number[] = Array.from(Array(30), (d, i) => ++i);
     const dataPager = new DataPager();
     dataPager.total = array.length;
 
