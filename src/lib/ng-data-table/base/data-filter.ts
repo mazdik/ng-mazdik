@@ -1,5 +1,5 @@
-import {FilterMeta, FilterMetadata, DataType} from './types';
-import {isBlank, isNumeric} from '../../common/utils';
+import { FilterMeta, FilterMetadata, DataType } from './types';
+import { isBlank, isNumeric } from '../../common/utils';
 
 export enum FilterOperator {
   EQUALS = 'equals', // ==
@@ -48,7 +48,7 @@ export class DataFilter {
     }
   }
 
-  compare(value: any, filter: FilterMeta) {
+  private compare(value: any, filter: FilterMeta) {
     if (filter.type === DataType.Date) {
       let filterValue;
       let filterValueTo;
@@ -119,7 +119,7 @@ export class DataFilter {
     }
   }
 
-  equals(value, filter): boolean {
+  private equals(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -129,22 +129,20 @@ export class DataFilter {
     return value.toString().toLowerCase() === filter.toString().toLowerCase();
   }
 
-  in(value, filter: any[]): boolean {
+  private in(value, filter: any[]): boolean {
     if (isBlank(filter)) {
       return true;
     }
     if (isBlank(value)) {
       return false;
     }
-    for (let i = 0; i < filter.length; i++) {
-      if (filter[i] === value) {
-        return true;
-      }
+    if (!Array.isArray(filter)) {
+      return value === filter;
     }
-    return false;
+    return filter.some(x => x === value);
   }
 
-  startsWith(value, filter): boolean {
+  private startsWith(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -155,7 +153,7 @@ export class DataFilter {
     return value.toString().toLowerCase().slice(0, filterValue.length) === filterValue;
   }
 
-  endsWith(value, filter): boolean {
+  private endsWith(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -166,7 +164,7 @@ export class DataFilter {
     return value.toString().toLowerCase().indexOf(filterValue, value.toString().length - filterValue.length) !== -1;
   }
 
-  contains(value, filter): boolean {
+  private contains(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -176,7 +174,7 @@ export class DataFilter {
     return value.toString().toLowerCase().indexOf(filter.toLowerCase()) !== -1;
   }
 
-  lessThan(value, filter): boolean {
+  private lessThan(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -186,7 +184,7 @@ export class DataFilter {
     return value < filter;
   }
 
-  lessThanOrEqual(value, filter): boolean {
+  private lessThanOrEqual(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -196,7 +194,7 @@ export class DataFilter {
     return value <= filter;
   }
 
-  greaterThan(value, filter): boolean {
+  private greaterThan(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -206,7 +204,7 @@ export class DataFilter {
     return value > filter;
   }
 
-  greaterThanOrEqual(value, filter): boolean {
+  private greaterThanOrEqual(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -216,7 +214,7 @@ export class DataFilter {
     return value >= filter;
   }
 
-  inRange(value, from, to): boolean {
+  private inRange(value, from, to): boolean {
     if (isBlank(from)) {
       return this.lessThan(value, to);
     }
@@ -229,7 +227,7 @@ export class DataFilter {
     return value > from && value < to;
   }
 
-  dateEquals(value, filter): boolean {
+  private dateEquals(value, filter): boolean {
     if (isBlank(filter)) {
       return true;
     }
@@ -256,21 +254,19 @@ export class DataFilter {
 
   setFilter(value: any, field: string, matchMode: string, valueTo?: any, dataType?: DataType) {
     if (!isBlank(value) || !isBlank(valueTo)) {
-      [value, valueTo] = this.toNumber(value, valueTo, dataType);
-      this.filters[field] = {value: value, matchMode: matchMode, valueTo: valueTo, type: dataType};
+      value = this.toNumberIfNumeric(value, dataType);
+      valueTo = this.toNumberIfNumeric(valueTo, dataType);
+      this.filters[field] = { value: value, matchMode: matchMode, valueTo: valueTo, type: dataType };
     } else if (this.filters[field]) {
       delete this.filters[field];
     }
   }
 
-  toNumber(value: any, valueTo?: any, dataType?: DataType) {
+  private toNumberIfNumeric(value: any, dataType?: DataType) {
     if (!isBlank(value) && dataType === DataType.Number && isNumeric(value)) {
       value = parseFloat(value);
     }
-    if (!isBlank(valueTo) && dataType === DataType.Number && isNumeric(valueTo)) {
-      valueTo = parseFloat(valueTo);
-    }
-    return [value, valueTo];
+    return value;
   }
 
   getFilterValue(columnName: string) {
