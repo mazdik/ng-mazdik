@@ -155,7 +155,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   onColumnResizeEnd() {
     this.resizeHelper.nativeElement.style.display = 'none';
     this.element.nativeElement.classList.remove('datatable-unselectable');
-    this.table.dimensions.calcColumnsTotalWidth(this.table.columns);
+    this.table.dimensions.calcColumnsTotalWidth();
   }
 
   get headerVisible(): boolean {

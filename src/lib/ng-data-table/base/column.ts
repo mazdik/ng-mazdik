@@ -1,9 +1,9 @@
-import {ColumnBase} from './column-base';
-import {isBlank} from '../../common/utils';
-import {DataType} from './types';
-import {Settings} from './settings';
-import {DataFilter, FilterOperator} from './data-filter';
-import {SelectItem} from '../../common';
+import { ColumnBase } from './column-base';
+import { isBlank } from '../../common/utils';
+import { DataType } from './types';
+import { Settings } from './settings';
+import { DataFilter, FilterOperator } from './data-filter';
+import { SelectItem } from '../../common';
 
 export class Column extends ColumnBase {
 
@@ -12,6 +12,10 @@ export class Column extends ColumnBase {
 
   get containsDots(): boolean {
     return (this.name.indexOf('.') >= 0);
+  }
+
+  get isDateType(): boolean {
+    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
   constructor(init: Partial<ColumnBase>, private settings: Settings, private dataFilter: DataFilter) {
@@ -120,10 +124,10 @@ export class Column extends ColumnBase {
     const fields = path.split('.');
     let currentObject = data;
     for (let i = 0; i < fields.length; i++) {
-        currentObject = currentObject[fields[i]];
-        if (isBlank(currentObject)) {
-            return null;
-        }
+      currentObject = currentObject[fields[i]];
+      if (isBlank(currentObject)) {
+        return null;
+      }
     }
     return currentObject;
   }
@@ -159,10 +163,6 @@ export class Column extends ColumnBase {
     if (this.dataFilter.filters[this.name]) {
       delete this.dataFilter.filters[this.name];
     }
-  }
-
-  get isDateType(): boolean {
-    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
 }

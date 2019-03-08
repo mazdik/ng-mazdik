@@ -22,15 +22,15 @@ export class Dimensions {
     this.rowHeight = this.settings.rowHeight;
     this.headerRowHeight = this.settings.headerRowHeight;
     this.actionColumnWidth = this.settings.actionColumnWidth;
-    this.calcColumnsTotalWidth(this.columns);
+    this.calcColumnsTotalWidth();
   }
 
-  calcColumnsTotalWidth(columns: Column[]) {
+  calcColumnsTotalWidth() {
     let totalWidth = 0;
     let frozenWidth = 0;
     let scrollWidth = 0;
 
-    for (const column of columns) {
+    for (const column of this.columns) {
       if (!column.tableHidden) {
         totalWidth = totalWidth + column.width;
 
