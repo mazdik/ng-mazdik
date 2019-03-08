@@ -54,9 +54,11 @@ export interface AggregateMeta {
 }
 
 export interface GroupMeta {
-  [name: string]: any;
   index: number;
   size: number;
+  aggRow?: {
+    [name: string]: any;
+  };
 }
 
 export interface GroupMetadata {

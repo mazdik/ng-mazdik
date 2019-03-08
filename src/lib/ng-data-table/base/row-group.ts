@@ -1,4 +1,4 @@
-import { Row, GroupMetadata } from './types';
+import { Row, GroupMetadata, AggregateMeta } from './types';
 import { Settings } from './settings';
 import { DataAggregation } from './data-aggregation';
 import { DataSort } from './data-sort';
@@ -8,15 +8,18 @@ export class RowGroup {
 
   rowGroupMetadata: GroupMetadata;
   grandTotalRow: any;
+
+  get aggregationEnabled() {
+    return this.dataAggregation.enabled;
+  }
+
   private dataAggregation: DataAggregation;
 
   constructor(private settings: Settings, private sorter: DataSort, private columns: Column[]) {
     this.dataAggregation = new DataAggregation();
-    for (const column of this.columns) {
-      if (column.aggregation) {
-        this.dataAggregation.aggregates.push({ field: column.name, type: column.aggregation });
-      }
-    }
+    this.dataAggregation.aggregates = this.columns
+      .filter(x => x.aggregation)
+      .map(x => <AggregateMeta>{ field: x.name, type: x.aggregation });
   }
 
   setSortMetaGroup() {
@@ -30,9 +33,7 @@ export class RowGroup {
     if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
       this.rowGroupMetadata = this.dataAggregation.groupMetaData(rows, this.settings.groupRowsBy);
     }
-    if (this.dataAggregation.enabled) {
-      this.grandTotalRow = this.dataAggregation.grandTotal(rows);
-    }
+    this.grandTotalRow = this.dataAggregation.grandTotal(rows);
   }
 
   getRowGroupName(row: Row) {
@@ -65,14 +66,7 @@ export class RowGroup {
 
   getRowGroupSummary(row: Row) {
     const group = this.dataAggregation.groupStringValues(row, this.settings.groupRowsBy);
-    const summaryRow = Object.assign({}, this.rowGroupMetadata[group]);
-    delete summaryRow.index;
-    delete summaryRow.size;
-    return summaryRow;
-  }
-
-  aggregationEnabled() {
-    return this.dataAggregation.enabled;
+    return Object.assign({}, this.rowGroupMetadata[group].aggRow);
   }
 
   getGroupRows(row: Row, rows: Row[]): Row[] {

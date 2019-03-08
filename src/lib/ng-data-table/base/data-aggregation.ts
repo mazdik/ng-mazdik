@@ -1,5 +1,5 @@
 import {isBlank} from '../../common/utils';
-import {AggregateType, AggregateMeta, GroupMetadata, GroupMeta} from './types';
+import {AggregateType, AggregateMeta, GroupMetadata} from './types';
 
 export class DataAggregation {
 
@@ -31,39 +31,40 @@ export class DataAggregation {
         const group = this.groupStringValues(row, keys);
         if (i === 0) {
           groupMetadata[group] = {index: 0, size: 1};
-          groupMetadata[group] = this.summaryIterator(groupMetadata[group], row);
+          groupMetadata[group].aggRow = this.summaryIterator(groupMetadata[group].aggRow, row);
         } else {
           const previousRow = array[i - 1];
           const previousRowGroup = this.groupStringValues(previousRow, keys);
           if (group === previousRowGroup) {
             groupMetadata[group].size++;
-            groupMetadata[group] = this.summaryIterator(groupMetadata[group], row);
+            groupMetadata[group].aggRow = this.summaryIterator(groupMetadata[group].aggRow, row);
           } else {
             groupMetadata[group] = {index: i, size: 1};
-            groupMetadata[group] = this.summaryIterator(groupMetadata[group], row);
+            groupMetadata[group].aggRow = this.summaryIterator(groupMetadata[group].aggRow, row);
           }
         }
       }
       for (const key of Object.keys(groupMetadata)) {
-        groupMetadata[key] = this.average(groupMetadata[key]);
+        groupMetadata[key].aggRow = this.average(groupMetadata[key].aggRow, groupMetadata[key].size);
       }
     }
     return groupMetadata;
   }
 
-  summaryIterator(groupMeta: GroupMeta, currentRow: any): GroupMeta {
+  private summaryIterator(aggRow: any, currentRow: any) {
+    aggRow = aggRow || {};
     if (this.enabled) {
       for (const agg of this.aggregates) {
-        const previousValue = groupMeta[agg.field] || null;
-        groupMeta[agg.field] = this.aggregate(previousValue, currentRow[agg.field], agg.type);
+        const previousValue = aggRow[agg.field] || null;
+        aggRow[agg.field] = this.aggregate(previousValue, currentRow[agg.field], agg.type);
       }
     }
-    return groupMeta;
+    return aggRow;
   }
 
-  aggregate(previousValue: any, currentValue: any, aggregateType: AggregateType) {
+  private aggregate(previousValue: any, currentValue: any, aggregateType: AggregateType) {
     if (aggregateType === 'sum' || aggregateType === 'average') {
-      return parseFloat(previousValue || 0) + parseFloat(currentValue);
+      return parseFloat(previousValue || 0) + parseFloat(currentValue || 0);
     } else if (aggregateType === 'max') {
       return (parseFloat(previousValue || 0) < parseFloat(currentValue)) ? currentValue : previousValue;
     } else if (aggregateType === 'min') {
@@ -76,25 +77,24 @@ export class DataAggregation {
     }
   }
 
-  average(groupMeta: GroupMeta): GroupMeta {
+  private average(aggRow: any, count: number) {
     if (this.enabled) {
       this.aggregates.filter(x => x.type === 'average').forEach(agg => {
-        groupMeta[agg.field] = +(groupMeta[agg.field] / groupMeta.size).toFixed(5);
+        aggRow[agg.field] = +(aggRow[agg.field] / count).toFixed(5);
       });
     }
-    return groupMeta;
+    return aggRow;
   }
 
-  grandTotal(array: any[]): GroupMeta {
-    let total: GroupMeta = <GroupMeta>{};
+  grandTotal(array: any[]) {
+    let total = {};
     if (array && this.enabled) {
-      total.size = array.length;
       array.forEach((row, i) => {
         for (const agg of this.aggregates) {
           total[agg.field] = this.aggregate((i === 0) ? null : total[agg.field], row[agg.field], agg.type);
         }
       });
-      total = this.average(total);
+      total = this.average(total, array.length);
     }
     return total;
   }
