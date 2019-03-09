@@ -44,9 +44,9 @@ export class DataAggregation {
           }
         }
       }
-      for (const key of Object.keys(groupMetadata)) {
+      Object.keys(groupMetadata).forEach(key => {
         groupMetadata[key].aggRow = this.average(groupMetadata[key].aggRow, groupMetadata[key].size);
-      }
+      });
     }
     return groupMetadata;
   }

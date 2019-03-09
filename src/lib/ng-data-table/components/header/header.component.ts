@@ -21,10 +21,10 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('headerTemplateView', { read: ViewContainerRef }) headerTemplateView: ViewContainerRef;
   @ViewChild('rowCenter') rowCenter: ElementRef;
 
+  columnTrackingFn = (i: number, col: Column) => col.name;
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {
-  }
+  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {}
 
   ngOnInit() {
     if (this.table.settings.columnResizeMode === ColumnResizeMode.Aminated) {

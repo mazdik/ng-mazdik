@@ -92,11 +92,7 @@ export class DataTable {
     }
   }
 
-  columnTrackingFn(index: number, column: Column): any {
-    return column.name;
-  }
-
-  addRow(newRow: Row) {
+  addRow(newRow: any) {
     newRow = this.generateRow(newRow);
 
     if (this.clientSide) {
@@ -129,14 +125,14 @@ export class DataTable {
   }
 
   mergeRow(oldRow: Row, newRow: any) {
-    const rowIndex = this.rows.findIndex(x => x.$$uid === oldRow.$$uid);
+    let row = this.rows.find(x => x.$$uid === oldRow.$$uid);
 
-    for (const key of Object.keys(newRow)) {
-      if (key in this.rows[rowIndex]) {
-        this.rows[rowIndex][key] = newRow[key];
+    Object.keys(newRow).forEach(key => {
+      if (key in row) {
+        row[key] = newRow[key];
       }
-    }
-    this.rows[rowIndex] = this.generateRow(this.rows[rowIndex]);
+    });
+    row = this.generateRow(row);
     this.events.onRowsChanged();
   }
 
@@ -144,12 +140,7 @@ export class DataTable {
     this.events.onCellEditMode(<CellEventArgs>{columnIndex, rowIndex, editMode});
   }
 
-  updateCell(rowIndex: number, field: string, value: string | number | boolean | Date): void {
-    this.rows[rowIndex][field] = value;
-    this.events.onRowsChanged();
-  }
-
-  protected generateRow(row: Row): Row {
+  private generateRow(row: Row): Row {
     this.columns.forEach((column) => {
       if (column.containsDots) {
         row[column.name] = column.getDeepValue(row, column.name);

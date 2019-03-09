@@ -20,8 +20,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @ViewChild('rowLeft') rowLeft: ElementRef;
 
-  private subscriptions: Subscription[] = [];
-
   @HostBinding('class.datatable-body-row') cssClass = true;
   @HostBinding('class.row-selected')
   get cssSelected(): boolean {
@@ -45,8 +43,10 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     return this.table.dimensions.columnsTotalWidth + 1;
   }
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  columnTrackingFn = (i: number, col: Column) => col.name;
+  private subscriptions: Subscription[] = [];
+
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (this.table.settings.columnResizeMode === ColumnResizeMode.Aminated) {
