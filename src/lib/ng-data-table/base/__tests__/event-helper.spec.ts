@@ -9,13 +9,13 @@ import {EventHelper} from '../event-helper';
   template: `
   <div class="datatable-row">
     <div class="datatable-body-cell" data-column-index="1" data-row-index="4">
-      <div class="dt-inline-data" (click)="clickEvent=$event"></div>
+      <div class="dt-inline-data" (click)="evt=$event"></div>
     </div>
   </div>
   `
 })
 class TestFixtureComponent {
-  clickEvent: any;
+  evt: any;
 }
 
 describe('EventHelper', () => {
@@ -41,7 +41,7 @@ describe('EventHelper', () => {
     const debugElement = fixture.debugElement.query(By.css('.dt-inline-data'));
     debugElement.nativeElement.click();
 
-    const result = EventHelper.findCellEvent(component.clickEvent, element);
+    const result = EventHelper.findCellEvent(component.evt, element);
     expect(result.columnIndex).toBe(1);
     expect(result.rowIndex).toBe(4);
   });

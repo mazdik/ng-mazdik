@@ -1,12 +1,27 @@
-import { DataTable } from '../base/data-table';
+import { Events } from './events';
+import { DataSelection } from './data-selection';
 import { CellEventArgs, Keys } from './types';
 import { isBlank } from '../../common/utils';
+import { EventHelper } from './event-helper';
+
+export interface FindCellArgs {
+  columnIndex: number;
+  rowIndex: number;
+  keyCode: number;
+  shiftKey: boolean;
+  maxColIndex: number;
+  maxRowIndex: number;
+}
 
 export class KeyboardAction {
 
-  constructor(private table: DataTable) {}
+  constructor(private events: Events, private selection: DataSelection<number>) {}
 
-  handleEvent(event: KeyboardEvent, target: HTMLElement) {
+  handleEvent(event: KeyboardEvent, element: HTMLElement, maxColIndex: number, maxRowIndex: number) {
+    const target = EventHelper.findCellEventTarget(event, element);
+    if (!target) {
+      return;
+    }
     const keyCode = event.keyCode;
     const shiftKey = event.shiftKey;
     if (!this.isAction(keyCode) && !this.isNavigationKey(keyCode)) {
@@ -18,15 +33,14 @@ export class KeyboardAction {
     if (!isBlank(dataColIndex) && !isBlank(dataRowIndex)) {
       let columnIndex = parseInt(dataColIndex, 10);
       let rowIndex = parseInt(dataRowIndex, 10);
-
       if (this.isAction(keyCode)) {
-        this.table.events.onKeydownCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
+        this.events.onKeydownCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
       }
       if (this.isNavigationKey(keyCode) && !isEditing) {
-        [columnIndex, rowIndex] = this.findNextCell(columnIndex, rowIndex, keyCode, shiftKey);
-        this.table.events.onActivateCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
-        if (!this.table.selection.multiple) {
-          this.table.selectRow(rowIndex);
+        [columnIndex, rowIndex] = this.findNextCell({columnIndex, rowIndex, keyCode, shiftKey, maxColIndex, maxRowIndex});
+        this.events.onActivateCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
+        if (!this.selection.multiple) {
+          this.selection.selectValue(rowIndex);
         }
         event.preventDefault();
         event.stopPropagation();
@@ -34,24 +48,21 @@ export class KeyboardAction {
     }
   }
 
-  private findNextCell(columnIndex: number, rowIndex: number, keyCode: number, shiftKey: boolean) {
-    const maxRowIndex = this.table.rows.length;
-    const maxColIndex = this.table.columns.length;
-
-    if (keyCode === Keys.LEFT) {
-      columnIndex = (columnIndex > 0) ? columnIndex - 1 : 0;
-    } else if (keyCode === Keys.RIGHT) {
-      columnIndex = (columnIndex < maxColIndex) ? columnIndex + 1 : 0;
-    } else if (keyCode === Keys.UP) {
-      rowIndex = (rowIndex > 0) ? rowIndex - 1 : 0;
-    } else if (keyCode === Keys.DOWN) {
-      rowIndex = (rowIndex < maxRowIndex) ? rowIndex + 1 : 0;
-    } else if (keyCode === Keys.TAB && shiftKey) {
-      columnIndex = (columnIndex > 0) ? columnIndex - 1 : 0;
-    } else if (keyCode === Keys.TAB) {
-      columnIndex = (columnIndex < maxColIndex) ? columnIndex + 1 : 0;
+  private findNextCell(args: FindCellArgs): number[] {
+    if (args.keyCode === Keys.LEFT) {
+      args.columnIndex = (args.columnIndex > 0) ? args.columnIndex - 1 : 0;
+    } else if (args.keyCode === Keys.RIGHT) {
+      args.columnIndex = (args.columnIndex < args.maxColIndex) ? args.columnIndex + 1 : 0;
+    } else if (args.keyCode === Keys.UP) {
+      args.rowIndex = (args.rowIndex > 0) ? args.rowIndex - 1 : 0;
+    } else if (args.keyCode === Keys.DOWN) {
+      args.rowIndex = (args.rowIndex < args.maxRowIndex) ? args.rowIndex + 1 : 0;
+    } else if (args.keyCode === Keys.TAB && args.shiftKey) {
+      args.columnIndex = (args.columnIndex > 0) ? args.columnIndex - 1 : 0;
+    } else if (args.keyCode === Keys.TAB) {
+      args.columnIndex = (args.columnIndex < args.maxColIndex) ? args.columnIndex + 1 : 0;
     }
-    return [columnIndex, rowIndex];
+    return [args.columnIndex, args.rowIndex];
   }
 
   private isAction(keyCode: number): boolean {

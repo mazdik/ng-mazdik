@@ -17,7 +17,7 @@ export class BodyKeydownDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.keyboardAction = new KeyboardAction(this.table);
+    this.keyboardAction = new KeyboardAction(this.table.events, this.table.selection);
     this.ngZone.runOutsideAngular(() => {
       this.keydownListener = this.onKeydown.bind(this);
       this.element.addEventListener('keydown', this.keydownListener);
@@ -29,12 +29,11 @@ export class BodyKeydownDirective implements OnInit, OnDestroy {
   }
 
   onKeydown(event: any): void {
-    const target = EventHelper.findCellEventTarget(event, this.element);
-    if (target) {
-      this.ngZone.run(() => {
-        this.keyboardAction.handleEvent(event, target);
-      });
-    }
+    const maxColIndex = this.table.columns.length;
+    const maxRowIndex = this.table.rows.length;
+    this.ngZone.run(() => {
+      this.keyboardAction.handleEvent(event, this.element, maxColIndex, maxRowIndex);
+    });
   }
 
 }

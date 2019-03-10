@@ -103,9 +103,9 @@ describe('DataTable', () => {
   it('should be able to clone row', () => {
     const newRow = dataTable.cloneRow(dataTable.rows[0]);
 
-    expect(newRow.$$uid).toBe(null);
-    expect(newRow.$$index).toBe(null);
-    expect(newRow.$$data).toBe(null);
+    expect(newRow.$$uid).toBeNull();
+    expect(newRow.$$index).toBeNull();
+    expect(newRow.$$data).toBeNull();
   });
 
 });
