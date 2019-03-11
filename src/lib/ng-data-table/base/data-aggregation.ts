@@ -5,8 +5,8 @@ export class DataAggregation {
 
   aggregates: AggregateMeta[] = [];
 
-  get enabled() {
-    return (this.aggregates && this.aggregates.length);
+  get enabled(): boolean {
+    return this.aggregates && this.aggregates.length > 0;
   }
 
   groupStringValues(item: any, keys: any[]): string {

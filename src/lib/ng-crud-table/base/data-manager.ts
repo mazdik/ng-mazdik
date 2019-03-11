@@ -41,7 +41,7 @@ export class DataManager extends DataTable {
       return Promise.resolve();
     }
     this.events.onLoading(true);
-    this.rowGroup.setSortMetaGroup();
+    this.setSortMetaGroup();
     const requestMeta = <RequestMetadata> {
       pageMeta: {currentPage: this.pager.current, perPage: this.pager.perPage},
       filters: this.dataFilter.filters,

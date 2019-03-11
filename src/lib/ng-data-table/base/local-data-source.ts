@@ -1,7 +1,6 @@
 import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
-import {RowGroup} from './row-group';
 import {Settings} from './settings';
 import {Row} from './types';
 
@@ -10,7 +9,7 @@ export class LocalDataSource {
   localRows: Row[] = [];
 
   constructor(private dataFilter: DataFilter, private pager: DataPager, private sorter: DataSort,
-    private rowGroup: RowGroup, private settings: Settings) {
+    private settings: Settings) {
   }
 
   setRows(data: Row[]) {
@@ -24,7 +23,6 @@ export class LocalDataSource {
     if (this.localRows) {
       const data = this.dataFilter.filterRows(this.localRows);
       this.pager.total = data.length;
-      this.rowGroup.setSortMetaGroup();
       let rows = this.sorter.sortRows(data);
       if (!this.settings.virtualScroll) {
         rows = this.pager.pager(rows);

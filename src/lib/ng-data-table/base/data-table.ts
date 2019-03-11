@@ -36,6 +36,7 @@ export class DataTable {
     val = val.map(this.generateRow.bind(this));
     if (this.clientSide) {
       this.localDataSource.setRows(val);
+      this.setSortMetaGroup();
       this._rows = this.localDataSource.getRows();
     } else {
       this._rows = val;
@@ -56,8 +57,8 @@ export class DataTable {
     this.sorter = new DataSort(this.settings.multipleSort);
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events.selectionSource);
     this.dimensions = new Dimensions(this.settings, this.columns);
-    this.rowGroup = new RowGroup(this.settings, this.sorter, this.columns);
-    this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.rowGroup, this.settings);
+    this.rowGroup = new RowGroup(this.settings, this.columns);
+    this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.settings);
     if (messages) {
       Object.assign(this.messages, messages);
     }
@@ -180,6 +181,13 @@ export class DataTable {
     this._rows = this.localDataSource.getRows();
     this.rowGroup.updateRowGroupMetadata(this._rows);
     this._rows = this.sequence.setRowIndexes(this._rows);
+  }
+
+  protected setSortMetaGroup() {
+    if (this.rowGroup.groupEnabled) {
+      this.sorter.multiple = true;
+      this.sorter.set(this.rowGroup.groupRowsBy);
+    }
   }
 
 }
