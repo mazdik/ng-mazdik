@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {EventHelper} from '../event-helper';
 
 @Component({
-  selector: 'test-fixture-component',
+  selector: 'app-test-fixture-component',
   template: `
   <div class="datatable-row">
     <div class="datatable-body-cell" data-column-index="1" data-row-index="4">

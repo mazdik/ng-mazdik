@@ -75,7 +75,7 @@ describe('DataAggregation', () => {
 
     it('should be able to aggregate grand total sum', () => {
       dataAggregation.aggregates = [{field: 'id', type: 'sum'}];
-      const result = dataAggregation.grandTotal(rows);;
+      const result = dataAggregation.grandTotal(rows);
 
       expect(result['id']).toBe(100);
     });
@@ -149,7 +149,7 @@ describe('DataAggregation', () => {
 
     it('should be able to aggregate grand total sum', () => {
       dataAggregation.aggregates = [{field: 'id', type: 'sum'}];
-      const result = dataAggregation.grandTotal(rows);;
+      const result = dataAggregation.grandTotal(rows);
 
       expect(result['id']).toBe(100);
     });

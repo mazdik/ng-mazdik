@@ -8,7 +8,7 @@ import { DataSelection } from '../data-selection';
 import { Keys } from '../types';
 
 @Component({
-  selector: 'test-fixture-component',
+  selector: 'app-test-fixture-component',
   template: `
   <div class="datatable-row">
     <div class="datatable-body-cell" data-column-index="1" data-row-index="4">

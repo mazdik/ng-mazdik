@@ -21,8 +21,8 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('headerTemplateView', { read: ViewContainerRef }) headerTemplateView: ViewContainerRef;
   @ViewChild('rowCenter') rowCenter: ElementRef;
 
-  columnTrackingFn = (i: number, col: Column) => col.name;
   private subscriptions: Subscription[] = [];
+  columnTrackingFn = (i: number, col: Column) => col.name;
 
   constructor(private cd: ChangeDetectorRef, private element: ElementRef) {}
 

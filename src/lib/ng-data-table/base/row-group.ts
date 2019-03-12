@@ -17,6 +17,10 @@ export class RowGroup {
     return this.groupRowsBy && this.groupRowsBy.length > 0;
   }
 
+  get aggregates(): AggregateMeta[] {
+    return this.dataAggregation.aggregates;
+  }
+
   private dataAggregation: DataAggregation;
 
   constructor(settings: Settings, private columns: Column[]) {

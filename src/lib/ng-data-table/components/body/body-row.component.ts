@@ -43,8 +43,8 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     return this.table.dimensions.columnsTotalWidth + 1;
   }
 
-  columnTrackingFn = (i: number, col: Column) => col.name;
   private subscriptions: Subscription[] = [];
+  columnTrackingFn = (i: number, col: Column) => col.name;
 
   constructor(private cd: ChangeDetectorRef) {}
 
