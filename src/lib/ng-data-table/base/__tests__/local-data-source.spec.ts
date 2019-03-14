@@ -35,19 +35,19 @@ describe('LocalDataSource', () => {
   });
 
   it('should be able add row', () => {
-    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 50, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} }
+    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 50, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} };
     dataSource.post(newRow);
     expect(dataSource.localRows.length).toBe(5);
   });
 
   it('should be able edit row', () => {
-    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} }
+    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} };
     dataSource.put(newRow);
     expect(dataSource.localRows[4].id).toBe(55);
   });
 
   it('should be able delete row', () => {
-    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} }
+    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} };
     dataSource.delete(newRow);
     expect(dataSource.localRows.length).toBe(4);
   });

@@ -123,22 +123,22 @@ export class PlayersComponent {
 ```
 ### Sample data-table
 ```typescript
-import {Column, Settings, DataTable} from './lib/ng-crud-table';
+import {Column, Settings, DataTable} from './lib/ng-data-table';
 
 @Component({
   selector: 'app-data-table-demo',
-  template: `<app-data-table [table]="table"></app-data-table>`
+  template: `<app-data-table [table]="dataTable"></app-data-table>`
 })
 
 export class DataTableDemoComponent {
 
-  table: DataTable;
+  dataTable: DataTable;
   columns: Column[];
   settings: Settings;
 
   constructor() {
-    this.table = new DataTable(this.columns, this.settings);
-    this.table.rows = data[];
+    this.dataTable = new DataTable(this.columns, this.settings);
+    this.dataTable.rows = data[];
   }
 }
 ```

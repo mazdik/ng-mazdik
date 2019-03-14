@@ -8,7 +8,6 @@ import { DataSelection } from '../data-selection';
 import { Keys } from '../../../common';
 
 @Component({
-  selector: 'app-test-fixture-component',
   template: `
   <div class="datatable-row">
     <div class="datatable-body-cell" data-column-index="1" data-row-index="4">
@@ -22,25 +21,23 @@ class TestFixtureComponent {
 }
 
 describe('KeyboardAction', () => {
-  let fixture: ComponentFixture<TestFixtureComponent>;
   let component: TestFixtureComponent;
-  let element: HTMLElement;
+  let fixture: ComponentFixture<TestFixtureComponent>;
   let debugElement: DebugElement;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestFixtureComponent]
-    });
-  });
-
   beforeEach(async(() => {
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(TestFixtureComponent);
-      component = fixture.componentInstance;
-      element = fixture.nativeElement;
-      debugElement = fixture.debugElement.query(By.css('.dt-inline-data'));
-    });
+    TestBed.configureTestingModule({
+      declarations: [TestFixtureComponent],
+    })
+    .compileComponents();
   }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TestFixtureComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement.query(By.css('.dt-inline-data'));
+    fixture.detectChanges();
+  });
 
   const events = new Events();
   const dataSelection = new DataSelection<number>(false, events.selectionSource);
@@ -104,7 +101,7 @@ describe('KeyboardAction', () => {
   });
 
   function testKey(spy, col: number, row: number) {
-    keyboardAction.handleEvent(component.evt, element, 6, 6);
+    keyboardAction.handleEvent(component.evt, fixture.nativeElement, 6, 6);
     const event = spy.calls.mostRecent().args[0];
 
     expect(spy).toHaveBeenCalled();

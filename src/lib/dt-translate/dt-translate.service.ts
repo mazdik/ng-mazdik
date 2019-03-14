@@ -25,6 +25,7 @@ export class DtTranslateService {
   }
 
   private getValue(target: any, key: string): any {
+    if (!key) { return key; }
     const keys = key.split('.');
     key = '';
     do {
