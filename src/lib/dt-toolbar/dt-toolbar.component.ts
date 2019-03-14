@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { DataTable } from '../ng-data-table/base';
 import { Subscription } from 'rxjs';
-import { downloadCSV } from '../common/export-csv';
+import { downloadCSV, Keys } from '../common';
 
 @Component({
   selector: 'dt-toolbar',
@@ -57,7 +57,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
   }
 
   onKeyPressGlobalSearch(event: KeyboardEvent) {
-    if (event.which === 13) {
+    if (event.which === Keys.ENTER) {
       this.table.events.onFilter();
     }
   }

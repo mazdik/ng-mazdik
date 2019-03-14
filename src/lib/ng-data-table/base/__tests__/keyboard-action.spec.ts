@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { KeyboardAction } from '../keyboard-action';
 import { Events } from '../events';
 import { DataSelection } from '../data-selection';
-import { Keys } from '../types';
+import { Keys } from '../../../common';
 
 @Component({
   selector: 'app-test-fixture-component',

@@ -2,6 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, FilterOperator} from '../../base';
+import {Keys} from '../../../common';
 
 @Component({
   selector: 'app-string-filter',
@@ -92,7 +93,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   onKeyPressFilterInput(event: KeyboardEvent) {
-    if (event.which === 13) {
+    if (event.which === Keys.ENTER) {
       this.onClickOk();
     }
   }

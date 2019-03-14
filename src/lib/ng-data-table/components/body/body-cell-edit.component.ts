@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {BodyCellComponent} from './body-cell.component';
-import {Keys, Row, CellEventArgs, EditMode} from '../../base';
+import {Row, CellEventArgs, EditMode} from '../../base';
+import {Keys} from '../../../common';
 
 @Component({
   selector: 'dt-body-cell-edit',

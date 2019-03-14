@@ -1,7 +1,8 @@
 import { Events } from './events';
 import { DataSelection } from './data-selection';
-import { CellEventArgs, Keys } from './types';
+import { CellEventArgs } from './types';
 import { isBlank } from '../../common/utils';
+import { Keys } from '../../common';
 import { EventHelper } from './event-helper';
 
 export interface FindCellArgs {
