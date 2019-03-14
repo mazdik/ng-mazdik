@@ -2,7 +2,7 @@ import {
   Component, Input, ViewChild, ViewContainerRef, OnDestroy, Output, EventEmitter, ViewEncapsulation,
   ChangeDetectionStrategy
 } from '@angular/core';
-import {getOptionsFunction} from './types';
+import {getOptionsFunction, KeyElementChangeEventArgs} from './types';
 import {DynamicFormElement} from './dynamic-form-element';
 
 @Component({
@@ -55,7 +55,7 @@ export class DynamicFormComponent implements OnDestroy {
     this.valid.emit(!result);
   }
 
-  onKeyElementChange(event) {
+  onKeyElementChange(event: KeyElementChangeEventArgs) {
     this.item[event.keyElementName] = event.keyElementValue;
     this.item[event.elementName] = event.elementValue;
   }

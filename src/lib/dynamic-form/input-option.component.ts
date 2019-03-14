@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {getOptionsFunction} from './types';
+import {getOptionsFunction, KeyElementChangeEventArgs} from './types';
 import {InputComponent} from './input.component';
 import {SelectItem} from '../common';
 
@@ -12,7 +12,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
 
   @Input() getOptionsFunc: getOptionsFunction;
   @Input() searchInputPlaceholder: string;
-  @Output() keyElementChange: EventEmitter<any> = new EventEmitter();
+  @Output() keyElementChange: EventEmitter<KeyElementChangeEventArgs> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
   @Input()
@@ -71,10 +71,10 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   onValueChange() {
     if (this.dynElement.keyElement) {
       this.keyElementChange.emit({
-        'keyElementName': this.dynElement.keyElement,
-        'keyElementValue': this.model,
-        'elementName': this.dynElement.name,
-        'elementValue': this.getName(),
+        keyElementName: this.dynElement.keyElement,
+        keyElementValue: this.model,
+        elementName: this.dynElement.name,
+        elementValue: this.getName(),
       });
     }
   }
@@ -93,9 +93,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
 
   getName() {
     if (this._options) {
-      const option = this._options.find((x) => {
-        return x.id === this.model;
-      });
+      const option = this._options.find(x => x.id === this.model);
       return (option) ? option.name : '';
     }
   }
