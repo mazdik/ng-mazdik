@@ -53,5 +53,42 @@ describe('DataTableComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should be able to render header', () => {
+    const header = fixture.nativeElement.querySelector('dt-header');
+    expect(header).toBeTruthy();
+    expect(header.classList).toContain('datatable-header');
+
+    const headerRow = header.querySelector('.datatable-header-row');
+    expect(headerRow).toBeTruthy();
+
+    const headerRowLeft = headerRow.querySelector('.datatable-row-left');
+    expect(headerRowLeft).toBeTruthy();
+
+    const headerRowCenter = headerRow.querySelector('.datatable-row-center');
+    expect(headerRowCenter).toBeTruthy();
+  });
+
+  it('should be able to render header with the right number of cells', () => {
+    let cells = fixture.nativeElement.querySelectorAll('.datatable-row-left dt-header-cell');
+    expect(cells).toBeTruthy();
+    expect(cells.length).toBe(2);
+
+    cells = fixture.nativeElement.querySelectorAll('.datatable-row-center dt-header-cell');
+    expect(cells).toBeTruthy();
+    expect(cells.length).toBe(3);
+  });
+
+  it('should be able to render body', () => {
+    let body = fixture.nativeElement.querySelector('dt-body');
+    expect(body).toBeTruthy();
+    expect(body.classList).toContain('datatable-body');
+  });
+
+  it('should be able to render body with the right number of rows', () => {
+    let rows = fixture.nativeElement.querySelectorAll('dt-body-row');
+    expect(rows).toBeTruthy();
+    expect(rows.length).toBe(component.dataTable.rows.length);
+  });
+
 });
 
