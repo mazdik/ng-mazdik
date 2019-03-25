@@ -15,6 +15,7 @@ import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { TreeViewModule } from '../lib/tree-view';
 import { ContextMenuModule } from '../lib/context-menu';
 import { NotifyModule } from '../lib/notify';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -104,6 +105,7 @@ const ROUTES: Routes = [
     TreeTableCustomDemoComponent,
     PipeDemoComponent,
     ColumnResizeModeDemoComponent,
+    DateFormatPipe,
   ],
   imports: [
     BrowserModule,

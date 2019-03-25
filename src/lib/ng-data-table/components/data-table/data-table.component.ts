@@ -159,10 +159,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
   }
 
   get headerVisible(): boolean {
-    if (this.table.dimensions.headerRowHeight === 0) {
-      return false;
-    }
-    return true;
+    return this.table.dimensions.headerRowHeight === 0 ? false : true;
   }
 
 }

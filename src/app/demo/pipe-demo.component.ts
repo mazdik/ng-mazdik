@@ -16,9 +16,9 @@ export class PipeDemoComponent implements OnInit {
   columns: Column[];
   settings: Settings = <Settings>{};
 
-  constructor(private http: HttpClient, private dateFormatPipe: DateFormatPipe) {
+  constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
-    this.columns.find(x => x.name === 'last_online').pipe = this.dateFormatPipe;
+    this.columns.find(x => x.name === 'last_online').pipe = new DateFormatPipe('en-US');
     this.table = new DataTable(this.columns, this.settings);
   }
 
