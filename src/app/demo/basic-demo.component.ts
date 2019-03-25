@@ -21,6 +21,7 @@ export class BasicDemoComponent implements OnInit {
     exportAction: true,
     globalFilter: true,
     columnToggleAction: true,
+    clearAllFiltersAction: true,
   };
 
   messages: DtMessages = <DtMessages>{

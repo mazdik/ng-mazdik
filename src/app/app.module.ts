@@ -40,6 +40,8 @@ import { VerticalGroupDemoComponent } from './demo/vertical-group-demo.component
 import { TreeViewDemoComponent } from './demo/tree-view-demo.component';
 import { EditableConditionDemoComponent } from './demo/editable-condition-demo.component';
 import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.component';
+import { PipeDemoComponent } from './demo/pipe-demo.component';
+import { ColumnResizeModeDemoComponent } from './demo/column-resize-mode-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -67,6 +69,8 @@ const ROUTES: Routes = [
   {path: 'tree-view-demo', component: TreeViewDemoComponent},
   {path: 'editable-condition-demo', component: EditableConditionDemoComponent},
   {path: 'tree-table-custom-demo', component: TreeTableCustomDemoComponent},
+  {path: 'pipe-demo', component: PipeDemoComponent},
+  {path: 'column-resize-mode-demo', component: ColumnResizeModeDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -98,6 +102,8 @@ const ROUTES: Routes = [
     TreeViewDemoComponent,
     EditableConditionDemoComponent,
     TreeTableCustomDemoComponent,
+    PipeDemoComponent,
+    ColumnResizeModeDemoComponent,
   ],
   imports: [
     BrowserModule,

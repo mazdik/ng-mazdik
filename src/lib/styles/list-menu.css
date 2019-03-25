@@ -1,6 +1,6 @@
 .dt-list-menu {
   list-style: none;
-  padding: 0;
+  padding: 1px;
   margin: 0;
 }
 
@@ -8,10 +8,12 @@
   cursor: pointer;
   display: block;
   padding: 4px 3px;
+  margin: 2px 0;
 }
 
 .dt-list-menu-item:hover:not(.active) {
-  background-color: #ccc;
+  background-color: #e8eff7;
+  box-shadow: 0 0 2px #0a6aa1;
 }
 
 .dt-list-menu-item.active {
