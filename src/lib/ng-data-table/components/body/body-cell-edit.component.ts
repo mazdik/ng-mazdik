@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {BodyCellComponent} from './body-cell.component';
-import {Row, CellEventArgs, EditMode} from '../../base';
+import {CellEventArgs, EditMode} from '../../base';
 import {Keys} from '../../../common';
 
 @Component({
@@ -19,21 +19,21 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   ngOnInit(): void {
     super.ngOnInit();
     const subDblClickCell = this.table.events.dblClickCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
+      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
         if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
           this.switchCellToEditMode();
         }
       }
     });
     const subKeydownCell = this.table.events.keydownCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
+      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
         if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
           this.onCellKeydown(ev.event);
         }
       }
     });
     const subCellEditMode = this.table.events.cellEditModeSource$.subscribe((ev: CellEventArgs) => {
-      if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
+      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
         if (ev.editMode) {
           this.switchCellToEditMode();
         } else {
@@ -48,21 +48,21 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   }
 
   switchCellToEditMode() {
-    if (this.column.editable) {
+    if (this.cell.column.editable) {
       this.editing = true;
-      this.validate();
+      this.cell.validate();
       this.cd.markForCheck();
     }
   }
 
   switchCellToViewMode() {
     this.editing = false;
-    if (this.row[this.column.name] !== this.tempValue) {
+    if (this.cell.row[this.cell.column.name] !== this.tempValue) {
       this.updateValue();
       this.table.events.onCellValueChanged({
-        columnIndex: this.column.index,
-        rowIndex: this.row.$$index,
-        oldValue: this.row[this.column.name],
+        columnIndex: this.cell.column.index,
+        rowIndex: this.cell.row.$$index,
+        oldValue: this.cell.row[this.cell.column.name],
         newValue: this.tempValue,
       });
     }
@@ -76,7 +76,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
         this.switchCellToEditMode();
       }
     }
-    if (!this.column.options) {
+    if (!this.cell.column.options) {
       event.preventDefault();
     }
   }
@@ -87,14 +87,10 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
       this.element.nativeElement.focus();
     } else if (event.keyCode === Keys.ESCAPE) {
       this.editing = false;
-      this.row[this.column.name] = this.tempValue;
+      this.cell.row[this.cell.column.name] = this.tempValue;
       this.updateValue();
       this.element.nativeElement.focus();
     }
-  }
-
-  getOptions(row: Row[]) {
-    return this.column.getOptions(row[this.column.dependsColumn]);
   }
 
   onInputBlur() {
@@ -104,7 +100,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   }
 
   onInputFocus() {
-    this.tempValue = this.row[this.column.name];
+    this.tempValue = this.cell.row[this.cell.column.name];
   }
 
 }

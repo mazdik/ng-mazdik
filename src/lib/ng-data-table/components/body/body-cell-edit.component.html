@@ -1,10 +1,10 @@
 <app-inline-edit
-  [(value)]="row[column.name]"
+  [(value)]="cell.row[cell.column.name]"
   [editing]=editing
-  [type]="(column.isDateType || column.type === 'number') ? column.type : 'text'"
-  [options]="column.options"
-  [pipe]="column.pipe"
-  (change)="validate()"
+  [type]="(cell.column.isDateType || cell.column.type === 'number') ? cell.column.type : 'text'"
+  [options]="cell.column.options"
+  [pipe]="cell.column.pipe"
+  (change)="cell.validate()"
   (focus)="onInputFocus()"
   (blur)="onInputBlur()">
 </app-inline-edit>

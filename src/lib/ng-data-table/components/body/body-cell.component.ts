@@ -2,7 +2,7 @@ import {
   Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {Column, DataTable, Row, CellEventArgs} from '../../base';
+import {DataTable, Cell, CellEventArgs} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -15,73 +15,56 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
 
   @Input()
-  get column(): Column { return this._column; }
-  set column(column: Column) {
-    this._column = column;
-    this.cellContext.column = column;
+  get cell(): Cell { return this._cell; }
+  set cell(val: Cell) {
+    this._cell = val;
     this.updateValue();
   }
-  private _column: Column;
-
-  @Input()
-  get row(): Row { return this._row; }
-  set row(row: Row) {
-    this._row = row;
-    this.cellContext.row = row;
-    this.updateValue();
-  }
-  private _row: Row;
+  private _cell: Cell;
 
   @HostBinding('class.datatable-body-cell') cssClass = true;
   @HostBinding('class.cell-editing') get cssEditing(): boolean {
     return this.editing;
   }
   @HostBinding('class.cell-changed') get cssChanged(): boolean {
-    return (this.row && this.row.$$data && this.cellContext.value !== this.column.getValue(this.row.$$data));
+    return this.cell.isChanged;
   }
   @HostBinding('class.cell-error') get cssError(): boolean {
-    return this.hasError;
+    return this.cell.hasError;
   }
 
   @HostBinding('attr.role') role = 'gridcell';
 
   @HostBinding('style.width.px')
   get width(): number {
-    return this.column.width;
+    return this.cell.column.width;
   }
 
   @HostBinding('attr.data-column-index')
   get attrColumnIndex(): number {
-    return this.column.index;
+    return this.cell.column.index;
   }
 
   @HostBinding('attr.data-row-index')
   get attrRowIndex(): number {
-    return (this.row) ? this.row.$$index : null;
+    return (this.cell.row) ? this.cell.row.$$index : null;
   }
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
 
   value: any;
   oldValue: any;
-  cellContext: any = {
-    row: this.row,
-    value: this.value,
-    column: this.column,
-  };
   editing: boolean;
   subscriptions: Subscription[] = [];
-  hasError: boolean;
 
-  constructor(public cd: ChangeDetectorRef, public element: ElementRef) {
-  }
+  constructor(public cd: ChangeDetectorRef, public element: ElementRef) {}
 
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
       this.updateValue();
     });
     const subActivateCell = this.table.events.activateCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.row.$$index === ev.rowIndex && this.column.index === ev.columnIndex) {
+      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
         this.element.nativeElement.focus();
       }
     });
@@ -101,22 +84,12 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
 
   updateValue(): void {
-    if (this.column) {
-      this.cellContext.value = this.column.getValue(this.row);
-      if (this.cellContext.value !== this.oldValue) {
-        this.oldValue = this.cellContext.value;
-        this.value = this.column.getValueView(this.row);
-      }
-      if (this.row) {
-        this.validate();
-      }
+    if (this.cell.value !== this.oldValue) {
+      this.oldValue = this.cell.value;
+      this.value = this.cell.column.getValueView(this.cell.row);
     }
+    this.cell.validate();
     this.cd.markForCheck();
-  }
-
-  validate() {
-    const errors = this.column.validate(this.row[this.column.name]);
-    this.hasError = (errors && errors.length > 0);
   }
 
 }

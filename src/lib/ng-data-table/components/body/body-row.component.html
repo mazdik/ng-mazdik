@@ -13,16 +13,14 @@
       [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
-      [row]="row"
-      [column]="column">
+      [cell]="generateCell(row, column)">
     </dt-body-cell>
     <dt-body-cell-edit
       *ngIf="isEditableCell(row, column)"
       [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
-      [row]="row"
-      [column]="column">
+      [cell]="generateCell(row, column)">
     </dt-body-cell-edit>
   </ng-container>
 
@@ -35,16 +33,14 @@
       [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
-      [row]="row"
-      [column]="column">
+      [cell]="generateCell(row, column)">
     </dt-body-cell>
     <dt-body-cell-edit
       *ngIf="isEditableCell(row, column)"
       [ngClass]="getCellClass(row, column)"
       tabindex="-1"
       [table]="table"
-      [row]="row"
-      [column]="column">
+      [cell]="generateCell(row, column)">
     </dt-body-cell-edit>
   </ng-container>
 </div>

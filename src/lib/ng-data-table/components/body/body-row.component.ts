@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ViewChild, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
+import {DataTable, ColumnResizeMode, Row, Column, Cell} from '../../base';
 import {Subscription} from 'rxjs';
 import {isBlank} from '../../../common/utils';
 import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
@@ -93,6 +93,10 @@ export class BodyRowComponent implements OnInit, OnDestroy {
         return column.cellClass({row, column, value: row[column.name]});
       }
     }
+  }
+
+  generateCell(row: Row, column: Column): Cell {
+    return new Cell(row, column);
   }
 
 }

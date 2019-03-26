@@ -12,4 +12,5 @@ export { Events } from './events';
 export { KeyboardAction } from './keyboard-action';
 export { Settings } from './settings';
 export { Sequence } from './sequence';
+export { Cell } from './cell';
 export * from './types';
