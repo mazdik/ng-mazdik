@@ -107,7 +107,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
         this.oldValue = this.cellContext.value;
         this.value = this.column.getValueView(this.row);
       }
-      if (this.hasError) {
+      if (this.row) {
         this.validate();
       }
     }

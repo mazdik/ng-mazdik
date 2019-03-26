@@ -79,13 +79,13 @@ describe('DataTableComponent', () => {
   });
 
   it('should be able to render body', () => {
-    let body = fixture.nativeElement.querySelector('dt-body');
+    const body = fixture.nativeElement.querySelector('dt-body');
     expect(body).toBeTruthy();
     expect(body.classList).toContain('datatable-body');
   });
 
   it('should be able to render body with the right number of rows', () => {
-    let rows = fixture.nativeElement.querySelectorAll('dt-body-row');
+    const rows = fixture.nativeElement.querySelectorAll('dt-body-row');
     expect(rows).toBeTruthy();
     expect(rows.length).toBe(component.dataTable.rows.length);
   });
