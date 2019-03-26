@@ -81,7 +81,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     if (this.dataManager.settings.singleRowView) {
       this.actionMenu.push(
         {
-          label: this.dataManager.messages.titleDetailView,
+          id: this.dataManager.messages.titleDetailView,
           icon: 'dt-icon dt-icon-rightwards',
           command: (row) => this.viewAction(row),
         }
@@ -90,45 +90,45 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     if (this.dataManager.settings.crud) {
       this.actionMenu.push(
         {
-          label: this.dataManager.messages.titleUpdate,
+          id: this.dataManager.messages.titleUpdate,
           icon: 'dt-icon dt-icon-pencil',
           command: (row) => this.updateAction(row),
         },
         {
-          label: this.dataManager.messages.refresh,
+          id: this.dataManager.messages.refresh,
           icon: 'dt-icon dt-icon-reload',
           command: (row) => this.dataManager.refreshRow(row),
         },
         {
-          label: this.dataManager.messages.revertChanges,
+          id: this.dataManager.messages.revertChanges,
           icon: 'dt-icon dt-icon-return',
           command: (row) => this.dataManager.revertRowChanges(row),
           disabled: true,
         },
         {
-          label: this.dataManager.messages.save,
+          id: this.dataManager.messages.save,
           icon: 'dt-icon dt-icon-ok',
           command: (row) => this.dataManager.update(row),
           disabled: true,
         },
         {
-          label: this.dataManager.messages.delete,
+          id: this.dataManager.messages.delete,
           icon: 'dt-icon dt-icon-remove',
           command: (row) => confirm('Delete ?') ? this.dataManager.delete(row) : null,
         },
         {
-          label: this.dataManager.messages.duplicate,
+          id: this.dataManager.messages.duplicate,
           icon: 'dt-icon dt-icon-plus',
           command: (row) => this.duplicateAction(row),
         },
       );
     }
     const observables: Observable<string>[] = [];
-    this.actionMenu.forEach(x => observables.push(this.dtTranslateService.get(x.label)));
+    this.actionMenu.forEach(x => observables.push(this.dtTranslateService.get(x.id)));
     forkJoin(observables).subscribe(res => {
       this.actionMenu.forEach((el, i) => {
         el.label = res[i];
-        if (el.icon === 'dt-icon dt-icon-remove') {
+        if (el.id === this.dataManager.messages.delete) {
           el.command = (row) => confirm(res[i] + '?') ? this.dataManager.delete(row) : null;
         }
       });
@@ -141,11 +141,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     const rowTop = el.offsetTop + rowHeight;
 
     const rowChanged = this.dataManager.rowChanged(row);
-    let menuIndex = this.actionMenu.findIndex(x => x.label === this.dataManager.messages.revertChanges);
+    let menuIndex = this.actionMenu.findIndex(x => x.id === this.dataManager.messages.revertChanges);
     if (menuIndex > -1) {
       this.actionMenu[menuIndex].disabled = !rowChanged;
     }
-    menuIndex = this.actionMenu.findIndex(x => x.label === this.dataManager.messages.save);
+    menuIndex = this.actionMenu.findIndex(x => x.id === this.dataManager.messages.save);
     if (menuIndex > -1) {
       const rowIsValid = this.dataManager.rowIsValid(row);
       this.actionMenu[menuIndex].disabled = !rowChanged || !rowIsValid;

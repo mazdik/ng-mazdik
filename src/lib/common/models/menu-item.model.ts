@@ -1,4 +1,5 @@
 export class MenuItem {
+  id?: string;
   label?: string;
   icon?: string;
   command?: (event?: any) => void;
