@@ -88,7 +88,7 @@ export class Column extends ColumnBase {
   }
 
   validate(value: any): string[] {
-    if (this.validatorFunc) {
+    if (this.validatorFunc && this.editable) {
       return this.validatorFunc(this.title, value);
     }
     return [];

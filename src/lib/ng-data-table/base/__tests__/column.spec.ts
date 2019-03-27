@@ -24,6 +24,7 @@ describe('Column', () => {
       { id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS' },
     ],
     dependsColumn: 'race',
+    editable: true,
     validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
   }, settings, dataFilter);
   const row = {column1: 'ELY1', race: 'ELYOS', 'quest': {'status': 'COMPLETE'}};

@@ -32,6 +32,10 @@ describe('Cell', () => {
     expect(cell.value).toBe('ELY1');
   });
 
+  it('should cell view value', () => {
+    expect(cell.viewValue).toBe('ELY note 1');
+  });
+
   it('should cell is changed', () => {
     cell.value = 'ELY2';
     expect(cell.isChanged).toBe(true);
@@ -56,7 +60,7 @@ describe('Cell', () => {
   });
 
   it('should be able to get dependent option values', () => {
-    let result = cell.getOptions();
+    const result = cell.getOptions();
     expect(result.length).toBe(3);
   });
 

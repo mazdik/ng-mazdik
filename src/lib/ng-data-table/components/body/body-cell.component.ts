@@ -47,13 +47,11 @@ export class BodyCellComponent implements OnInit, OnDestroy {
 
   @HostBinding('attr.data-row-index')
   get attrRowIndex(): number {
-    return (this.cell.row) ? this.cell.row.$$index : null;
+    return this.cell.rowIndex;
   }
 
   @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
 
-  value: any;
-  oldValue: any;
   editing: boolean;
   subscriptions: Subscription[] = [];
 
@@ -84,10 +82,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
 
   updateValue(): void {
-    if (this.cell.value !== this.oldValue) {
-      this.oldValue = this.cell.value;
-      this.value = this.cell.column.getValueView(this.cell.row);
-    }
+    this.cell.updateViewValue();
     this.cell.validate();
     this.cd.markForCheck();
   }

@@ -57,12 +57,12 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
   switchCellToViewMode() {
     this.editing = false;
-    if (this.cell.row[this.cell.column.name] !== this.tempValue) {
+    if (this.cell.value !== this.tempValue) {
       this.updateValue();
       this.table.events.onCellValueChanged({
         columnIndex: this.cell.column.index,
-        rowIndex: this.cell.row.$$index,
-        oldValue: this.cell.row[this.cell.column.name],
+        rowIndex: this.cell.rowIndex,
+        oldValue: this.cell.value,
         newValue: this.tempValue,
       });
     }
@@ -87,7 +87,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
       this.element.nativeElement.focus();
     } else if (event.keyCode === Keys.ESCAPE) {
       this.editing = false;
-      this.cell.row[this.cell.column.name] = this.tempValue;
+      this.cell.value = this.tempValue;
       this.updateValue();
       this.element.nativeElement.focus();
     }
@@ -100,7 +100,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
   }
 
   onInputFocus() {
-    this.tempValue = this.cell.row[this.cell.column.name];
+    this.tempValue = this.cell.value;
   }
 
 }

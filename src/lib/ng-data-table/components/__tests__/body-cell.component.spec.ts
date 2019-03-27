@@ -59,7 +59,7 @@ describe('BodyCellComponent', () => {
     fixture.detectChanges();
     const cell = fixture.nativeElement.querySelector('.cell-data');
 
-    expect(cell.innerText === component.cell.row[component.cell.column.name].toString()).toBe(true);
+    expect(cell.innerText === component.cell.value.toString()).toBe(true);
   });
 
   it('should contain error class after validate', () => {

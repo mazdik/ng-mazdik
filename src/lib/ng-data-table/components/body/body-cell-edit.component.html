@@ -1,5 +1,5 @@
 <app-inline-edit
-  [(value)]="cell.row[cell.column.name]"
+  [(value)]="cell.value"
   [editing]=editing
   [type]="(cell.column.isDateType || cell.column.type === 'number') ? cell.column.type : 'text'"
   [options]="cell.column.options"
