@@ -15,8 +15,10 @@ export class Cell {
   }
 
   validate() {
-    const errors = this.column.validate(this.value);
-    this.hasError = (errors && errors.length > 0);
+    if (this.column.editable) {
+      const errors = this.column.validate(this.value);
+      this.hasError = (errors && errors.length > 0);
+    }
   }
 
   exist(rowIndex: number, columnIndex: number): boolean {

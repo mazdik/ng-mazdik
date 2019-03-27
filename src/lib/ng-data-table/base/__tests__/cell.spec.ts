@@ -21,6 +21,7 @@ describe('Cell', () => {
       { id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS' },
     ],
     dependsColumn: 'race',
+    editable: true,
     validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
   }, settings, dataFilter);
   column.index = 0;
