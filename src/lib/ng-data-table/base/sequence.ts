@@ -21,7 +21,11 @@ export class Sequence {
   }
 
   getUidRow() {
-    return this.uidRow++;
+    return ++this.uidRow;
+  }
+
+  curUidRow() {
+    return this.uidRow;
   }
 
 }

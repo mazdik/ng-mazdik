@@ -12,13 +12,18 @@ describe('DataTable', () => {
     <ColumnBase>{name: 'test3', frozen: false, width: 100},
     <ColumnBase>{name: 'test4', tableHidden: true, width: 100},
   ];
-  const dataTable = new DataTable(columns, settings);
-  const rows = [
-    { date: new Date(2017, 8, 5), gender: 'f' },
-    { date: new Date(2016, 11, 1), gender: 'm' },
-    { date: new Date(2019, 3, 7), gender: 'f' },
-    { date: new Date(2018, 4, 3), gender: 'm' }
-  ];
+  let dataTable: DataTable;
+
+  beforeEach(() => {
+    dataTable = new DataTable(columns, settings);
+    const rows = [
+      { date: new Date(2017, 8, 5), gender: 'f' },
+      { date: new Date(2016, 11, 1), gender: 'm' },
+      { date: new Date(2019, 3, 7), gender: 'f' },
+      { date: new Date(2018, 4, 3), gender: 'm' }
+    ];
+    dataTable.rows = rows;
+  });
 
   it('should be able to init columns', () => {
     dataTable.initColumns();
@@ -26,8 +31,7 @@ describe('DataTable', () => {
     expect(dataTable.scrollableColumns.length).toBe(3);
   });
 
-  it('should be able to get set rows', () => {
-    dataTable.rows = rows;
+  it('should be able to get rows', () => {
     expect(dataTable.rows.length).toBe(4);
     expect(Object.keys(dataTable.rows[0])).toContain('$$uid');
     expect(Object.keys(dataTable.rows[0])).toContain('$$index');
@@ -60,12 +64,12 @@ describe('DataTable', () => {
     const spy = jasmine.createSpy('changed spy');
     dataTable.events.rowsChanged$.subscribe(spy);
 
-    expect(dataTable.rows.length).toBe(5);
+    expect(dataTable.rows.length).toBe(4);
     dataTable.deleteRow(dataTable.rows[dataTable.rows.length - 1]);
 
     expect(spy).toHaveBeenCalledTimes(1);
-    expect(dataTable.rows.length).toBe(4);
-    expect(dataTable.pager.total).toBe(4);
+    expect(dataTable.rows.length).toBe(3);
+    expect(dataTable.pager.total).toBe(3);
   });
 
   it('should be able to merge row', () => {
@@ -106,6 +110,27 @@ describe('DataTable', () => {
     expect(newRow.$$uid).toBeNull();
     expect(newRow.$$index).toBeNull();
     expect(newRow.$$data).toBeNull();
+  });
+
+  it('should be able to concat rows', () => {
+    const dataTable = new DataTable(columns, settings);
+    const rows = [
+      { date: new Date(2017, 8, 5), gender: 'f' },
+      { date: new Date(2016, 11, 1), gender: 'm' },
+      { date: new Date(2019, 3, 7), gender: 'f' },
+      { date: new Date(2018, 4, 3), gender: 'm' }
+    ];
+    dataTable.rows = rows;
+    expect(dataTable.rows.length).toBe(4);
+    expect(dataTable.sequence.curUidRow()).toBe(4);
+
+    const newRows = [
+      { date: new Date(2020, 8, 5), gender: 'f' },
+      { date: new Date(2020, 8, 6), gender: 'm' }
+    ];
+    dataTable.rows = dataTable.rows.concat(newRows);
+    expect(dataTable.rows.length).toBe(6);
+    expect(dataTable.sequence.curUidRow()).toBe(6);
   });
 
 });
