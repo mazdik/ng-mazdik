@@ -66,12 +66,8 @@ export class BodyCellComponent implements OnInit, OnDestroy {
         this.element.nativeElement.focus();
       }
     });
-    const subSelection = this.table.events.selectionSource$.subscribe(() => {
-      this.cd.markForCheck();
-    });
     this.subscriptions.push(subRows);
     this.subscriptions.push(subActivateCell);
-    this.subscriptions.push(subSelection);
   }
 
   ngOnDestroy(): void {

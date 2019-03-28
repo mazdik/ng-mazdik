@@ -23,8 +23,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   operators: any[];
   defaultMatchMode = FilterOperator.STARTS_WITH;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.operators = [

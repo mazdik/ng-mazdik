@@ -24,8 +24,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   operators: any[];
   defaultMatchMode = FilterOperator.EQUALS;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.operators = [

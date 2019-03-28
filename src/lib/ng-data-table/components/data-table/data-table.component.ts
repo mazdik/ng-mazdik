@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, ViewEncapsulation, EventEmitter, ElementRef, HostBinding,
+  Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding,
   ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ContentChild
 } from '@angular/core';
 import {DataTable, ColumnResizeMode} from '../../base';
@@ -31,7 +31,6 @@ import {RowActionTemplateDirective} from '../../directives/row-action-template.d
 export class DataTableComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
-  @Output() selectionChange: EventEmitter<any> = new EventEmitter();
 
   @ContentChild(HeaderTemplateDirective) headerTemplate: HeaderTemplateDirective;
   @ContentChild(RowGroupTemplateDirective) rowGroupTemplate: RowGroupTemplateDirective;
@@ -61,9 +60,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    const subSelection = this.table.events.selectionSource$.subscribe(() => {
-      this.onSelectedRow();
-    });
     const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.onFilter();
     });
@@ -90,7 +86,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
         requestAnimationFrame(() => this.cd.detectChanges());
       }
     });
-    this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subColumnBeginResize);
@@ -131,10 +126,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
       this.table.loadLocalRows();
     }
     this.table.selection.clearSelection();
-  }
-
-  onSelectedRow() {
-    this.selectionChange.emit(this.table.selection.getSelection());
   }
 
   onColumnResizeBegin() {

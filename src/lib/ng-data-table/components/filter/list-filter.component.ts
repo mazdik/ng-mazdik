@@ -18,8 +18,7 @@ export class ListFilterComponent implements OnChanges {
   loading: boolean;
   selectedOptions: any[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnChanges() {
     if (this.isOpen) {

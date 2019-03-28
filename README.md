@@ -20,15 +20,6 @@ import {YiiService} from './samples/services';
 export class PlayersComponent {
 
     dataManager: DataManager;
-  
-    constructor(private http: HttpClient, private notifyService: NotifyService) {
-      // YiiService | RestlessService | your custom service
-      const service = new YiiService(this.http, this.notifyService);
-      service.url = 'http://host3/players';
-      service.primaryKeys = ['id'];
-      this.dataManager = new DataManager(this.columns, this.settings, service);
-    }
-
     columns: Column[] = [
         {
             title: 'Id', 
@@ -112,13 +103,19 @@ export class PlayersComponent {
           tableHidden: true,
         }
     ];
-
     settings: CdtSettings = {
         crud: true,
         tableWidth: 820,
-        bodyHeight: 380,
-        multipleSort: true
+        bodyHeight: 380
     };
+
+    constructor(private http: HttpClient, private notifyService: NotifyService) {
+      // YiiService | RestlessService | your custom service
+      const service = new YiiService(this.http, this.notifyService);
+      service.url = 'http://host3/players';
+      service.primaryKeys = ['id'];
+      this.dataManager = new DataManager(this.columns, this.settings, service);
+    }
 }
 ```
 ### Sample data-table
