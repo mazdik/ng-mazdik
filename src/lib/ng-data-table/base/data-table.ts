@@ -144,7 +144,7 @@ export class DataTable {
   private generateRow(row: Row): Row {
     this.columns.forEach((column) => {
       if (column.containsDots) {
-        row[column.name] = column.getDeepValue(row, column.name);
+        row[column.name] = column.getValue(row);
       }
     });
     if (!row.$$uid) {

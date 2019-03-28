@@ -1,5 +1,5 @@
 import { ColumnBase } from './column-base';
-import { isBlank } from '../../common/utils';
+import { isBlank, getDeepValue } from '../../common/utils';
 import { DataType } from './types';
 import { Settings } from './settings';
 import { DataFilter, FilterOperator } from './data-filter';
@@ -108,28 +108,10 @@ export class Column extends ColumnBase {
       return '';
     }
     if (this.containsDots) {
-      return this.getDeepValue(row, this.name);
+      return getDeepValue(row, this.name);
     } else {
       return row[this.name];
     }
-  }
-
-  getDeepValue(data: any, path: string): any {
-    if (!data) {
-      return '';
-    }
-    if (data[path] !== undefined) {
-      return data[path];
-    }
-    const fields = path.split('.');
-    let currentObject = data;
-    for (let i = 0; i < fields.length; i++) {
-      currentObject = currentObject[fields[i]];
-      if (isBlank(currentObject)) {
-        return null;
-      }
-    }
-    return currentObject;
   }
 
   getValueView(row: any) {

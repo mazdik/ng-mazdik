@@ -67,8 +67,10 @@ describe('Column', () => {
   });
 
   it('should be able to get deep value', () => {
-    const result = column.getDeepValue(row, 'quest.status');
+    column.name = 'quest.status';
+    const result = column.getValue(row);
     expect(result).toBe('COMPLETE');
+    column.name = 'column1';
   });
 
   it('should be able to get value view', () => {
