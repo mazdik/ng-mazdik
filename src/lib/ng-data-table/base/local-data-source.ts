@@ -2,7 +2,7 @@ import {DataPager} from './data-pager';
 import {DataSort} from './data-sort';
 import {DataFilter} from './data-filter';
 import {Settings} from './settings';
-import {Row} from './types';
+import {Row} from './row';
 
 export class LocalDataSource {
 

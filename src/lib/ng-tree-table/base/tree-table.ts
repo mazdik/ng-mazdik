@@ -41,7 +41,7 @@ export class TreeTable extends DataTable {
   transformer = (node: TreeNode, level: number) => {
     const data = {
       expandable: !!node.expanded,
-      level: level,
+      $$level: level,
       node: node,
     };
     return Object.assign(data, node.data);
@@ -54,7 +54,7 @@ export class TreeTable extends DataTable {
 
   getDescendants(row: Row) {
     const results = [];
-    for (let i = row.$$index + 1; i < this.rows.length && row.level < this.rows[i].level; i++) {
+    for (let i = row.$$index + 1; i < this.rows.length && row.$$level < this.rows[i].$$level; i++) {
       results.push(this.rows[i]);
     }
     return results;

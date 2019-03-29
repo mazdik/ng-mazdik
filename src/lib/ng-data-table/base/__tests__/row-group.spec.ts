@@ -2,7 +2,7 @@ import { RowGroup } from '../row-group';
 import { Column } from '../column';
 import { Settings } from '../settings';
 import { DataFilter } from '../data-filter';
-import { Row } from '../types';
+import { Row } from '../row';
 
 describe('RowGroup', () => {
   const groupBy = ['cityId', 'gender'];
@@ -14,10 +14,10 @@ describe('RowGroup', () => {
     new Column({ name: 'id', aggregation: 'max' }, settings, dataFilter),
   ];
   const rows: Row[] = [
-    { date: new Date(2017, 8, 5), gender: 'f', id: 10, name: 'Anastasia', cityId: 1, $$index: 0, $$uid: 0, $$data: {} },
-    { date: new Date(2019, 3, 7), gender: 'f', id: 30, name: 'Gabriela', cityId: 1, $$index: 1, $$uid: 1, $$data: {} },
-    { date: new Date(2016, 11, 1), gender: 'm', id: 20, name: 'Aaron', cityId: 1, $$index: 2, $$uid: 2, $$data: {} },
-    { date: new Date(2018, 4, 3), gender: 'm', id: 40, name: 'Daniel', cityId: 2, $$index: 3, $$uid: 3, $$data: {} },
+    new Row({ date: new Date(2017, 8, 5), gender: 'f', id: 10, name: 'Anastasia', cityId: 1, $$index: 0, $$uid: 0, $$data: {} }),
+    new Row({ date: new Date(2019, 3, 7), gender: 'f', id: 30, name: 'Gabriela', cityId: 1, $$index: 1, $$uid: 1, $$data: {} }),
+    new Row({ date: new Date(2016, 11, 1), gender: 'm', id: 20, name: 'Aaron', cityId: 1, $$index: 2, $$uid: 2, $$data: {} }),
+    new Row({ date: new Date(2018, 4, 3), gender: 'm', id: 40, name: 'Daniel', cityId: 2, $$index: 3, $$uid: 3, $$data: {} }),
   ];
   const rowGroup = new RowGroup(settings, columns);
 

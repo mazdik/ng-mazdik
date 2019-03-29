@@ -1,15 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {HttpClient} from '@angular/common/http';
 import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-master-detail-demo',
   template: `
-    <app-data-table
-      [table]="dtPlayers"
-      (selectionChange)="masterChanged()">
-    </app-data-table>
+    <app-data-table [table]="dtPlayers"></app-data-table>
     <div style="display:flex;">
       <div style="width: 59%;">
         <app-data-table [table]="dtInventory"></app-data-table>
@@ -22,7 +20,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
   `
 })
 
-export class MasterDetailDemoComponent implements OnInit {
+export class MasterDetailDemoComponent implements OnInit, OnDestroy {
 
   dtPlayers: DataTable;
   dtInventory: DataTable;
@@ -45,6 +43,7 @@ export class MasterDetailDemoComponent implements OnInit {
 
   private _rank: any = [];
   private _inventory: any = [];
+  private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
     this.columnsPlayers = getColumnsPlayers();
@@ -57,6 +56,11 @@ export class MasterDetailDemoComponent implements OnInit {
     this.dtPlayers = new DataTable(this.columnsPlayers, this.settingsPlayers);
     this.dtInventory = new DataTable(this.columnsInventory, this.settingsInventory);
     this.dtRank = new DataTable(this.columnsRank, this.settingsRank);
+
+    const subSelection = this.dtPlayers.events.selectionSource$.subscribe(() => {
+      this.masterChanged();
+    });
+    this.subscriptions.push(subSelection);
   }
 
   ngOnInit() {
@@ -79,6 +83,10 @@ export class MasterDetailDemoComponent implements OnInit {
       });
 
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   masterChanged() {

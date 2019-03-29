@@ -65,13 +65,6 @@ export interface GroupMetadata {
   [s: string]: GroupMeta;
 }
 
-export interface Row {
-  [name: string]: any;
-  $$uid: number;
-  $$index: number;
-  $$data: Object;
-}
-
 export interface ColumnMenuEventArgs {
   left: number;
   top: number;

@@ -1,4 +1,4 @@
-import {DataFilter, FilterOperator} from '../data-filter';
+import { DataFilter, FilterOperator } from '../data-filter';
 
 describe('DataFilter', () => {
 

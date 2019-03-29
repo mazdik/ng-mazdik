@@ -113,14 +113,6 @@ describe('DataTable', () => {
   });
 
   it('should be able to concat rows', () => {
-    const dataTable = new DataTable(columns, settings);
-    const rows = [
-      { date: new Date(2017, 8, 5), gender: 'f' },
-      { date: new Date(2016, 11, 1), gender: 'm' },
-      { date: new Date(2019, 3, 7), gender: 'f' },
-      { date: new Date(2018, 4, 3), gender: 'm' }
-    ];
-    dataTable.rows = rows;
     expect(dataTable.rows.length).toBe(4);
     expect(dataTable.sequence.curUidRow()).toBe(4);
 

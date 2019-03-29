@@ -1,4 +1,4 @@
-import {DataPager} from '../data-pager';
+import { DataPager } from '../data-pager';
 
 describe('DataPager', () => {
 
@@ -7,7 +7,7 @@ describe('DataPager', () => {
     const dataPager = new DataPager();
     dataPager.total = array.length;
 
-    beforeEach(() => {});
+    beforeEach(() => { });
 
     it('should be able to paginate 1', () => {
       dataPager.current = 1;

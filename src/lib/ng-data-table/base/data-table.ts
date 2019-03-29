@@ -1,4 +1,4 @@
-import {Row, CellEventArgs} from './types';
+import {CellEventArgs} from './types';
 import {ColumnBase} from './column-base';
 import {Column} from './column';
 import {Settings} from './settings';
@@ -12,6 +12,7 @@ import {DtMessages} from '../../dt-translate';
 import {RowGroup} from './row-group';
 import {Sequence} from './sequence';
 import {LocalDataSource} from './local-data-source';
+import {Row} from './row';
 
 export class DataTable {
 

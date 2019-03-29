@@ -1,7 +1,8 @@
-import { Row, GroupMetadata, AggregateMeta } from './types';
+import { GroupMetadata, AggregateMeta } from './types';
 import { Settings } from './settings';
 import { DataAggregation } from './data-aggregation';
 import { Column } from './column';
+import { Row } from './row';
 
 export class RowGroup {
 

@@ -64,7 +64,7 @@ export class TreeTableCustomDemoComponent implements OnInit {
   transformer = (node: TreeNode, level: number) => {
     const data = {
       expandable: true,
-      level: level,
+      $$level: level,
       expanded: false,
       hasChildren: (node.children && node.children.length > 0)
     };
@@ -76,8 +76,8 @@ export class TreeTableCustomDemoComponent implements OnInit {
     tree.nodes = nodes;
     const rows = this.treeFlattener.flattenNodes(tree.nodes);
     rows.forEach(x => {
-      x.$$height = (x.level > 1) ? 0 : null;
-      x.expanded = !(x.level > 0);
+      x.$$height = (x.$$level > 1) ? 0 : null;
+      x.expanded = !(x.$$level > 0);
       x.$$editable = !x.hasChildren;
       x['cube_size'] = x.hasChildren ? null : x['cube_size'];
     });
@@ -87,11 +87,11 @@ export class TreeTableCustomDemoComponent implements OnInit {
   getRowClass(row): any {
     return {
       'row-warrior': row.$$editable,
-      'row-sorcerer': (row.level === 0),
+      'row-sorcerer': (row.$$level === 0),
     };
   }
 
-  getSum(row: any, column: Column, value: any) {
+  getSum(row: Row, column: Column, value: any) {
     if (value) {
       return value;
     }
@@ -103,8 +103,8 @@ export class TreeTableCustomDemoComponent implements OnInit {
     }
   }
 
-  paddingIndent(row: any): number {
-    return row.level * 10;
+  paddingIndent(row: Row): number {
+    return row.$$level * 10;
   }
 
   onExpand(row: any) {
@@ -115,7 +115,7 @@ export class TreeTableCustomDemoComponent implements OnInit {
         descendants.forEach(x => { x.$$height = 0; x.expanded = true; });
       }
     } else {
-      const descendants = this.getDescendantsByLevel(row, this.dataTable.rows, row.level + 1);
+      const descendants = this.getDescendantsByLevel(row, this.dataTable.rows, row.$$level + 1);
       descendants.forEach(x => { x.$$height = null; x.expanded = false; });
     }
   }
@@ -130,7 +130,7 @@ export class TreeTableCustomDemoComponent implements OnInit {
 
   getDescendants(row: Row, rows: Row[]) {
     const results = [];
-    for (let i = row.$$index + 1; i < rows.length && row.level < rows[i].level; i++) {
+    for (let i = row.$$index + 1; i < rows.length && row.$$level < rows[i].$$level; i++) {
       results.push(rows[i]);
     }
     return results;
@@ -138,8 +138,8 @@ export class TreeTableCustomDemoComponent implements OnInit {
 
   getDescendantsByLevel(row: Row, rows: Row[], level: number) {
     const results = [];
-    for (let i = row.$$index + 1; i < rows.length && row.level < rows[i].level; i++) {
-      if (rows[i].level === level) {
+    for (let i = row.$$index + 1; i < rows.length && row.$$level < rows[i].$$level; i++) {
+      if (rows[i].$$level === level) {
         results.push(rows[i]);
       }
     }

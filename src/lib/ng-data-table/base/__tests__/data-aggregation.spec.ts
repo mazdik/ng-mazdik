@@ -1,5 +1,5 @@
-import {DataAggregation} from '../data-aggregation';
-import {DataSort} from '../data-sort';
+import { DataAggregation } from '../data-aggregation';
+import { DataSort } from '../data-sort';
 
 describe('DataAggregation', () => {
 
@@ -34,7 +34,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate sum', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'sum'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'sum' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['f'].aggRow.id).toBe(40);
@@ -42,7 +42,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate min', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'min'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'min' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['f'].aggRow.id).toBe(10);
@@ -50,7 +50,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate max', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'max'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'max' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['f'].aggRow.id).toBe(30);
@@ -58,7 +58,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate count', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'count'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'count' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['f'].aggRow.id).toBe(2);
@@ -66,7 +66,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate average', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'average'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'average' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['f'].aggRow.id).toBe(20);
@@ -74,7 +74,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate grand total sum', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'sum'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'sum' }];
       const result = dataAggregation.grandTotal(rows);
 
       expect(result['id']).toBe(100);
@@ -103,7 +103,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate sum', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'sum'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'sum' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['1, f'].aggRow.id).toBe(40);
@@ -112,7 +112,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate min', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'min'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'min' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['1, f'].aggRow.id).toBe(10);
@@ -121,7 +121,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate max', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'max'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'max' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['1, f'].aggRow.id).toBe(30);
@@ -130,7 +130,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate count', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'count'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'count' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['1, f'].aggRow.id).toBe(2);
@@ -139,7 +139,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate average', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'average'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'average' }];
       const result = dataAggregation.groupMetaData(sortedRows, groupBy);
 
       expect(result['1, f'].aggRow.id).toBe(20);
@@ -148,7 +148,7 @@ describe('DataAggregation', () => {
     });
 
     it('should be able to aggregate grand total sum', () => {
-      dataAggregation.aggregates = [{field: 'id', type: 'sum'}];
+      dataAggregation.aggregates = [{ field: 'id', type: 'sum' }];
       const result = dataAggregation.grandTotal(rows);
 
       expect(result['id']).toBe(100);

@@ -3,7 +3,7 @@ import { DataPager } from '../data-pager';
 import { DataSort } from '../data-sort';
 import { DataFilter } from '../data-filter';
 import { Settings } from '../settings';
-import { Row } from '../types';
+import { Row } from '../row';
 
 describe('LocalDataSource', () => {
 
@@ -14,10 +14,10 @@ describe('LocalDataSource', () => {
   const dataSource = new LocalDataSource(dataFilter, pager, sorter, settings);
 
   const rows: Row[] = [
-    { date: new Date(2017, 8, 5), gender: 'f', id: 10, name: 'Anastasia', cityId: 1, $$index: 0, $$uid: 0, $$data: {} },
-    { date: new Date(2019, 3, 7), gender: 'f', id: 30, name: 'Gabriela', cityId: 1, $$index: 1, $$uid: 1, $$data: {} },
-    { date: new Date(2016, 11, 1), gender: 'm', id: 20, name: 'Aaron', cityId: 1, $$index: 2, $$uid: 2, $$data: {} },
-    { date: new Date(2018, 4, 3), gender: 'm', id: 40, name: 'Daniel', cityId: 2, $$index: 3, $$uid: 3, $$data: {} },
+    new Row({ date: new Date(2017, 8, 5), gender: 'f', id: 10, name: 'Anastasia', cityId: 1, $$index: 0, $$uid: 0, $$data: {} }),
+    new Row({ date: new Date(2019, 3, 7), gender: 'f', id: 30, name: 'Gabriela', cityId: 1, $$index: 1, $$uid: 1, $$data: {} }),
+    new Row({ date: new Date(2016, 11, 1), gender: 'm', id: 20, name: 'Aaron', cityId: 1, $$index: 2, $$uid: 2, $$data: {} }),
+    new Row({ date: new Date(2018, 4, 3), gender: 'm', id: 40, name: 'Daniel', cityId: 2, $$index: 3, $$uid: 3, $$data: {} }),
   ];
 
   it('should be able set rows', () => {
@@ -35,19 +35,19 @@ describe('LocalDataSource', () => {
   });
 
   it('should be able add row', () => {
-    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 50, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} };
+    const newRow = new Row({ date: new Date(2018, 7, 3), gender: 'm', id: 50, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} });
     dataSource.post(newRow);
     expect(dataSource.localRows.length).toBe(5);
   });
 
   it('should be able edit row', () => {
-    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} };
+    const newRow = new Row({ date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} });
     dataSource.put(newRow);
-    expect(dataSource.localRows[4].id).toBe(55);
+    expect(dataSource.localRows[4]['id']).toBe(55);
   });
 
   it('should be able delete row', () => {
-    const newRow = { date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} };
+    const newRow = new Row({ date: new Date(2018, 7, 3), gender: 'm', id: 55, name: 'Bob', cityId: 2, $$index: 4, $$uid: 4, $$data: {} });
     dataSource.delete(newRow);
     expect(dataSource.localRows.length).toBe(4);
   });

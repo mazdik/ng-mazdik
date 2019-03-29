@@ -1,5 +1,5 @@
 import { Column } from './column';
-import { Row } from './types';
+import { Row } from './row';
 
 export class Cell {
 
@@ -10,12 +10,12 @@ export class Cell {
   }
   private _value: any;
 
-  viewValue: any;
   oldValue: any;
+  viewValue: any;
   hasError: boolean;
 
   get isChanged(): boolean {
-    return (this.row && this.row.$$data && this.value !== this.column.getValue(this.row.$$data));
+    return (this.row && this.row.$$data && this.value !== this.oldValue);
   }
 
   get rowIndex(): number {
@@ -24,6 +24,9 @@ export class Cell {
 
   constructor(public row: Row, public column: Column) {
     this._value = this.column.getValue(this.row);
+    if (this.row && this.row.$$data) {
+      this.oldValue = this.column.getValue(this.row.$$data);
+    }
     this.updateViewValue();
   }
 
@@ -37,10 +40,7 @@ export class Cell {
   }
 
   updateViewValue(): void {
-    if (this.value !== this.oldValue) {
-      this.oldValue = this.value;
-      this.viewValue = this.column.getValueView(this.row);
-    }
+    this.viewValue = this.column.getValueView(this.row);
   }
 
   getOptions() {

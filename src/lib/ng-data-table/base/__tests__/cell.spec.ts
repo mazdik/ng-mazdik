@@ -1,7 +1,7 @@
 import { Column } from '../column';
 import { Settings } from '../settings';
 import { DataFilter } from '../data-filter';
-import { Row } from '../types';
+import { Row } from '../row';
 import { Cell } from '../cell';
 
 describe('Cell', () => {
@@ -25,7 +25,7 @@ describe('Cell', () => {
     validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
   }, settings, dataFilter);
   column.index = 0;
-  const row = <Row>{column1: 'ELY1', race: 'ELYOS', $$index: 3, $$uid: 3, $$data: {column1: 'ELY1'}};
+  const row = new Row({column1: 'ELY1', race: 'ELYOS', $$index: 3, $$uid: 3, $$data: {column1: 'ELY1'}});
   const cell = new Cell(row, column);
 
   it('should cell value', () => {

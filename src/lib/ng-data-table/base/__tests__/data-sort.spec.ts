@@ -1,4 +1,4 @@
-import {DataSort} from '../data-sort';
+import { DataSort } from '../data-sort';
 
 describe('DataSort', () => {
 
