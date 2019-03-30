@@ -87,4 +87,13 @@ describe('RowGroup', () => {
     expect(result[1]).toEqual(rows[1]);
   });
 
+  it('grand total row should be instanceof Row', () => {
+    expect(rowGroup.grandTotalRow instanceof Row).toBe(true);
+  });
+
+  it('row group summary should be instanceof Row', () => {
+    const result = rowGroup.getRowGroupSummary(rows[0]);
+    expect(result instanceof Row).toBe(true);
+  });
+
 });

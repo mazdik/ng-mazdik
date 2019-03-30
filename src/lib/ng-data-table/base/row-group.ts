@@ -7,7 +7,7 @@ import { Row } from './row';
 export class RowGroup {
 
   rowGroupMetadata: GroupMetadata;
-  grandTotalRow: any;
+  grandTotalRow: Row;
   groupRowsBy: string[];
 
   get aggregationEnabled(): boolean {
@@ -36,7 +36,7 @@ export class RowGroup {
     if (this.groupEnabled) {
       this.rowGroupMetadata = this.dataAggregation.groupMetaData(rows, this.groupRowsBy);
     }
-    this.grandTotalRow = this.dataAggregation.grandTotal(rows);
+    this.grandTotalRow = new Row(this.dataAggregation.grandTotal(rows));
   }
 
   getRowGroupName(row: Row) {
@@ -67,9 +67,9 @@ export class RowGroup {
     }
   }
 
-  getRowGroupSummary(row: Row) {
+  getRowGroupSummary(row: Row): Row {
     const group = this.getRowGroupName(row);
-    return Object.assign({}, this.rowGroupMetadata[group].aggRow);
+    return new Row(this.rowGroupMetadata[group].aggRow);
   }
 
   getGroupRows(row: Row, rows: Row[]): Row[] {

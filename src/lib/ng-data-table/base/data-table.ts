@@ -142,7 +142,10 @@ export class DataTable {
     this.events.onCellEditMode(<CellEventArgs>{columnIndex, rowIndex, editMode});
   }
 
-  private generateRow(row: Row): Row {
+  private generateRow(row: any): Row {
+    if (!(row instanceof Row)) {
+      row = new Row(row);
+    }
     this.columns.forEach((column) => {
       if (column.containsDots) {
         row[column.name] = column.getValue(row);

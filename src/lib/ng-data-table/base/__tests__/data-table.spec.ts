@@ -1,6 +1,4 @@
-import { DataTable } from '../data-table';
-import { Settings } from '../settings';
-import { ColumnBase } from '../column-base';
+import { ColumnBase, Settings, DataTable, Row } from '../index';
 
 describe('DataTable', () => {
   const settings = new Settings({});
@@ -123,6 +121,10 @@ describe('DataTable', () => {
     dataTable.rows = dataTable.rows.concat(newRows);
     expect(dataTable.rows.length).toBe(6);
     expect(dataTable.sequence.curUidRow()).toBe(6);
+  });
+
+  it('row should be instanceof Row', () => {
+    expect(dataTable.rows[0] instanceof Row).toBe(true);
   });
 
 });
