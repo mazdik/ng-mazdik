@@ -144,7 +144,7 @@ export class DataTable {
 
   private generateRow(row: any): Row {
     if (!(row instanceof Row)) {
-      row = new Row(row);
+      row = new Row(row, this.settings);
     }
     this.columns.forEach((column) => {
       if (column.containsDots) {
@@ -167,14 +167,6 @@ export class DataTable {
 
   rowChanged(row: Row): boolean {
     return this.columns.some(x => x.getValue(row) !== x.getValue(row.$$data));
-  }
-
-  cloneRow(row: Row): Row {
-    const newRow = Object.assign({}, row);
-    newRow.$$uid = null;
-    newRow.$$index = null;
-    newRow.$$data = null;
-    return newRow;
   }
 
   getSelection() {

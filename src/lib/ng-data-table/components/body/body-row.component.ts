@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ViewChild, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnResizeMode, Row, Column, Cell} from '../../base';
+import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
 import {Subscription} from 'rxjs';
 import {isBlank} from '../../../common/utils';
 import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
@@ -76,27 +76,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  isEditableCell(row: Row, column: Column): boolean {
-    if (column.editable && row.hasOwnProperty(this.table.settings.isEditableCellProp)) {
-      return row[this.table.settings.isEditableCellProp];
-    }
-    return column.editable;
-  }
-
-  getCellClass(row: Row, column: Column) {
-    if (column.cellClass) {
-      if (typeof column.cellClass === 'string') {
-        return column.cellClass;
-      } else if (typeof column.cellClass === 'function') {
-        return column.cellClass({row, column, value: row[column.name]});
-      }
-    }
-  }
-
-  generateCell(row: Row, column: Column): Cell {
-    return new Cell(row, column);
   }
 
 }

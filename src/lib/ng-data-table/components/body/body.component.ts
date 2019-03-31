@@ -1,7 +1,7 @@
 import {
   Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import {DataTable, Row} from '../../base';
+import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {ScrollerComponent} from '../../../scroller';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
@@ -65,17 +65,6 @@ export class BodyComponent implements OnInit, OnDestroy {
       this.updatePage(event.direction);
     }
     this.cd.markForCheck();
-  }
-
-  getRowClass(row: Row) {
-    const rowClass = this.table.settings.rowClass;
-    if (rowClass) {
-      if (typeof rowClass === 'string') {
-        return rowClass;
-      } else if (typeof rowClass === 'function') {
-        return rowClass(row);
-      }
-    }
   }
 
 }

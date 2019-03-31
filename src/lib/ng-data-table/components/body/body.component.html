@@ -16,7 +16,7 @@
     </dt-body-group-row>
 
     <dt-body-row
-      [ngClass]="getRowClass(row)"
+      [ngClass]="row.getRowClass()"
       [table]="table"
       [row]="row"
       [rowActionTemplate]="rowActionTemplate">
@@ -34,7 +34,7 @@
     class="datatable-group-row"
     *ngIf="table.rowGroup.aggregationEnabled"
     [table]="table"
-    [row]="table.rowGroup.grandTotalRow">
+    [row]="table.rowGroup.getRowSummary()">
   </dt-body-row>
 
   <div class="datatable-empty-row"

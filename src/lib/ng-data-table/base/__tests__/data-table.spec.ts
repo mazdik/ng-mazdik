@@ -102,14 +102,6 @@ describe('DataTable', () => {
     expect(dataTable.rows[3].date).toEqual(new Date(2018, 4, 3));
   });
 
-  it('should be able to clone row', () => {
-    const newRow = dataTable.cloneRow(dataTable.rows[0]);
-
-    expect(newRow.$$uid).toBeNull();
-    expect(newRow.$$index).toBeNull();
-    expect(newRow.$$data).toBeNull();
-  });
-
   it('should be able to concat rows', () => {
     expect(dataTable.rows.length).toBe(4);
     expect(dataTable.sequence.curUidRow()).toBe(4);

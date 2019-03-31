@@ -34,7 +34,7 @@ describe('RowGroup', () => {
   it('should be able update row group metadata', () => {
     rowGroup.updateRowGroupMetadata(rows);
     expect(rowGroup.rowGroupMetadata).not.toBeUndefined();
-    expect(rowGroup.grandTotalRow).not.toBeUndefined();
+    expect(rowGroup.getRowSummary()).not.toBeUndefined();
   });
 
   it('should be able get row group name', () => {
@@ -88,7 +88,7 @@ describe('RowGroup', () => {
   });
 
   it('grand total row should be instanceof Row', () => {
-    expect(rowGroup.grandTotalRow instanceof Row).toBe(true);
+    expect(rowGroup.getRowSummary() instanceof Row).toBe(true);
   });
 
   it('row group summary should be instanceof Row', () => {

@@ -9,18 +9,18 @@
 
   <ng-container *ngFor="let column of table.frozenColumns; trackBy: columnTrackingFn">
     <dt-body-cell
-      *ngIf="!isEditableCell(row, column)"
-      [ngClass]="getCellClass(row, column)"
+      *ngIf="!row.isEditableCell(column)"
+      [ngClass]="row.getCellClass(column)"
       tabindex="-1"
       [table]="table"
-      [cell]="generateCell(row, column)">
+      [cell]="row.createCell(column)">
     </dt-body-cell>
     <dt-body-cell-edit
-      *ngIf="isEditableCell(row, column)"
-      [ngClass]="getCellClass(row, column)"
+      *ngIf="row.isEditableCell(column)"
+      [ngClass]="row.getCellClass(column)"
       tabindex="-1"
       [table]="table"
-      [cell]="generateCell(row, column)">
+      [cell]="row.createCell(column)">
     </dt-body-cell-edit>
   </ng-container>
 
@@ -29,18 +29,18 @@
 <div class="datatable-row-center">
   <ng-container *ngFor="let column of table.scrollableColumns; trackBy: columnTrackingFn">
     <dt-body-cell
-      *ngIf="!isEditableCell(row, column)"
-      [ngClass]="getCellClass(row, column)"
+      *ngIf="!row.isEditableCell(column)"
+      [ngClass]="row.getCellClass(column)"
       tabindex="-1"
       [table]="table"
-      [cell]="generateCell(row, column)">
+      [cell]="row.createCell(column)">
     </dt-body-cell>
     <dt-body-cell-edit
-      *ngIf="isEditableCell(row, column)"
-      [ngClass]="getCellClass(row, column)"
+      *ngIf="row.isEditableCell(column)"
+      [ngClass]="row.getCellClass(column)"
       tabindex="-1"
       [table]="table"
-      [cell]="generateCell(row, column)">
+      [cell]="row.createCell(column)">
     </dt-body-cell-edit>
   </ng-container>
 </div>
