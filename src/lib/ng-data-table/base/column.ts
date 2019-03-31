@@ -2,7 +2,6 @@ import { ColumnBase } from './column-base';
 import { isBlank, getDeepValue } from '../../common/utils';
 import { DataType } from './types';
 import { Settings } from './settings';
-import { DataFilter, FilterOperator } from './data-filter';
 import { SelectItem } from '../../common';
 
 export class Column extends ColumnBase {
@@ -18,7 +17,7 @@ export class Column extends ColumnBase {
     return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
-  constructor(init: Partial<ColumnBase>, private settings: Settings, private dataFilter: DataFilter) {
+  constructor(init: Partial<ColumnBase>, private settings: Settings) {
     super();
     Object.assign(this, init);
     this.setSettings();
@@ -134,17 +133,6 @@ export class Column extends ColumnBase {
       return Promise.resolve(this.options);
     }
     return Promise.resolve([]);
-  }
-
-  setFilter(value: any, matchMode?: string, valueTo?: any) {
-    matchMode = matchMode || FilterOperator.EQUALS;
-    this.dataFilter.setFilter(value, this.name, matchMode, valueTo, this.dataType);
-  }
-
-  clearFilter() {
-    if (this.dataFilter.filters[this.name]) {
-      delete this.dataFilter.filters[this.name];
-    }
   }
 
 }

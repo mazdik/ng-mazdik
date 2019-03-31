@@ -60,7 +60,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   saveFilter() {
-    this.column.setFilter(this.value, this.matchMode, this.valueTo);
+    this.table.dataFilter.setFilter(this.value, this.column.name, this.matchMode, this.valueTo, this.column.dataType);
     this.table.events.onFilter();
   }
 

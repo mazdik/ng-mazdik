@@ -1,12 +1,10 @@
 import { Column } from '../column';
 import { Settings } from '../settings';
-import { DataFilter } from '../data-filter';
 import { UpperCasePipe } from '@angular/common';
 
 describe('Column', () => {
 
   const settings = new Settings({});
-  const dataFilter = new DataFilter();
   const column = new Column({
     name: 'column1',
     title: 'column1',
@@ -26,7 +24,7 @@ describe('Column', () => {
     dependsColumn: 'race',
     editable: true,
     validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
-  }, settings, dataFilter);
+  }, settings);
   const row = {column1: 'ELY1', race: 'ELYOS', 'quest': {'status': 'COMPLETE'}};
 
   it('should be able to get options', () => {

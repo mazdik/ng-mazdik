@@ -1,15 +1,13 @@
 import { Row } from '../row';
 import { Column } from '../column';
 import { Settings } from '../settings';
-import { DataFilter } from '../data-filter';
 
 describe('Row', () => {
 
   const settings = new Settings({
     rowClass: 'row-class'
   });
-  const dataFilter = new DataFilter();
-  const column = new Column({ name: 'id', cellClass: 'cell-class', editable: true }, settings, dataFilter);
+  const column = new Column({ name: 'id', cellClass: 'cell-class', editable: true }, settings);
   const data = { id: 10, name: 'Anastasia', $$uid: 9999, $$height: 40 };
   let row: Row;
 

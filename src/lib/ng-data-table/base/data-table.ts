@@ -66,7 +66,7 @@ export class DataTable {
   }
 
   createColumns(columns: ColumnBase[]) {
-    this.columns = columns.map(column => new Column(column, this.settings, this.dataFilter));
+    this.columns = columns.map(column => new Column(column, this.settings));
     this.initColumns();
   }
 

@@ -1,17 +1,15 @@
 import { RowGroup } from '../row-group';
 import { Column } from '../column';
 import { Settings } from '../settings';
-import { DataFilter } from '../data-filter';
 import { Row } from '../row';
 
 describe('RowGroup', () => {
   const groupBy = ['cityId', 'gender'];
   const settings = new Settings({ groupRowsBy: groupBy });
-  const dataFilter = new DataFilter();
   const columns = [
-    new Column({ name: 'cityId' }, settings, dataFilter),
-    new Column({ name: 'gender' }, settings, dataFilter),
-    new Column({ name: 'id', aggregation: 'max' }, settings, dataFilter),
+    new Column({ name: 'cityId' }, settings),
+    new Column({ name: 'gender' }, settings),
+    new Column({ name: 'id', aggregation: 'max' }, settings),
   ];
   const rows: Row[] = [
     new Row({ date: new Date(2017, 8, 5), gender: 'f', id: 10, name: 'Anastasia', cityId: 1, $$index: 0, $$uid: 0, $$data: {} }),

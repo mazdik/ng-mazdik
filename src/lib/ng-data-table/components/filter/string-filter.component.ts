@@ -53,7 +53,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   saveFilter() {
-    this.column.setFilter(this.value, this.matchMode);
+    this.table.dataFilter.setFilter(this.value, this.column.name, this.matchMode, null, this.column.dataType);
     this.table.events.onFilter();
   }
 
