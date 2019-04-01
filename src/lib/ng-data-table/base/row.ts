@@ -11,8 +11,9 @@ export class Row {
   $$editable: boolean;
   $$level: number;
 
-  constructor(options: { [x: string]: Object }, private settings?: Settings) {
+  constructor(options: { [x: string]: any }, private settings?: Settings) {
     Object.assign(this, options);
+    this.$$data = options;
   }
 
   clone(): Row {
@@ -50,9 +51,28 @@ export class Row {
       if (typeof column.cellClass === 'string') {
         return column.cellClass;
       } else if (typeof column.cellClass === 'function') {
-        return column.cellClass({row: this, column, value: this[column.name]});
+        return column.cellClass({ row: this, column, value: this[column.name] });
       }
     }
+  }
+
+  merge(newRow: any) {
+    Object.keys(newRow).forEach(key => {
+      if (key in this) {
+        this[key] = newRow[key];
+      }
+    });
+    this.backup();
+  }
+
+  backup(): void {
+    this.$$data = Object.assign({}, this);
+  }
+
+  revertChanges(columns: Column[]) {
+    columns.forEach((column) => {
+      this[column.name] = this.$$data[column.name];
+    });
   }
 
 }

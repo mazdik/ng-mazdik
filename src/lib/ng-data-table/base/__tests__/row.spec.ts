@@ -18,6 +18,7 @@ describe('Row', () => {
   it('should create', () => {
     expect(row['id']).toBe(data.id);
     expect(row['name']).toBe(data.name);
+    expect(Object.keys(row)).toContain('$$data');
   });
 
   it('should be able to merge properties', () => {
@@ -46,7 +47,7 @@ describe('Row', () => {
   });
 
   it('should be able to get row class via the function', () => {
-    settings.rowClass = (row) => row['id'] === 10 ? 'row-10' : 'row-class';
+    settings.rowClass = (r) => r['id'] === 10 ? 'row-10' : 'row-class';
     const cls = row.getRowClass();
     expect(cls).toBe('row-10');
   });
@@ -57,7 +58,7 @@ describe('Row', () => {
   });
 
   it('should be able to get cell class via the function', () => {
-    column.cellClass = ({row, column, value}) => value === 10 ? 'cell-10' : 'cell-class';
+    column.cellClass = ({r, col, value}) => value === 10 ? 'cell-10' : 'cell-class';
     const cls = row.getCellClass(column);
     expect(cls).toBe('cell-10');
   });
@@ -70,6 +71,33 @@ describe('Row', () => {
     row.$$editable = false;
     result = row.isEditableCell(column);
     expect(result).toBe(false);
+  });
+
+  it('should be able to merge row', () => {
+    const newRow = { id: 11, name: 'Test'};
+    row.merge(newRow);
+
+    expect(row['id']).toBe(newRow.id);
+    expect(row['name']).toBe(newRow.name);
+    expect(row.$$data['id']).toBe(newRow.id);
+    expect(row.$$data['name']).toBe(newRow.name);
+  });
+
+  it('should be able to backup row', () => {
+    row.backup();
+    row['id'] = 33;
+
+    expect(row['id']).toBe(33);
+    expect(row.$$data['id']).toBe(data.id);
+  });
+
+  it('should be able to revert row changes', () => {
+    row['id'] = 33;
+    expect(row['id']).toBe(33);
+
+    row.revertChanges([column]);
+    expect(row['id']).not.toBe(33);
+    expect(row['id']).toBe(data.id);
   });
 
 });

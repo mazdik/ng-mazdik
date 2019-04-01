@@ -127,14 +127,7 @@ export class DataTable {
   }
 
   mergeRow(oldRow: Row, newRow: any) {
-    let row = this.rows.find(x => x.$$uid === oldRow.$$uid);
-
-    Object.keys(newRow).forEach(key => {
-      if (key in row) {
-        row[key] = newRow[key];
-      }
-    });
-    row = this.generateRow(row);
+    oldRow.merge(newRow);
     this.events.onRowsChanged();
   }
 
@@ -154,14 +147,11 @@ export class DataTable {
     if (!row.$$uid) {
       row.$$uid = this.sequence.getUidRow();
     }
-    row.$$data = Object.assign({}, row);
     return row;
   }
 
   revertRowChanges(row: Row) {
-    this.columns.forEach((column) => {
-      this.rows[row.$$index][column.name] = this.rows[row.$$index].$$data[column.name];
-    });
+    row.revertChanges(this.columns);
     this.events.onRowsChanged();
   }
 
