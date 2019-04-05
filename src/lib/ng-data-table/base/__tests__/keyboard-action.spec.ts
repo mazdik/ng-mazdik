@@ -45,7 +45,7 @@ describe('KeyboardAction', () => {
 
   describe('action keys', () => {
     const spy = jasmine.createSpy('changed spy');
-    events.keydownCellSource$.subscribe(spy);
+    events.cellSource$.subscribe(spy);
 
     it('should be able to handle event Keys.ENTER', () => {
       triggerKeydown(Keys.ENTER);
@@ -66,7 +66,7 @@ describe('KeyboardAction', () => {
 
   describe('navigation keys', () => {
     const spy = jasmine.createSpy('changed spy');
-    events.activateCellSource$.subscribe(spy);
+    events.cellSource$.subscribe(spy);
 
     it('should be able to handle event Keys.TAB', () => {
       triggerKeydown(Keys.TAB);

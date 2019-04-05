@@ -61,7 +61,10 @@ export class BodyMouseoverDirective implements OnInit, OnDestroy {
       }
     }
     this.currentElem = null;
-    this.table.events.onMouseout(true);
+    const cellEventArgs = EventHelper.findCellEvent(event, this.element);
+    if (cellEventArgs) {
+      this.table.events.onMouseout(cellEventArgs);
+    }
   }
 
 }

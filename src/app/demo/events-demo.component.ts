@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, CellEventType} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 
@@ -50,30 +50,29 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
       this.table.events.onLoading(false);
     });
 
-    const subMouseover = this.table.events.mouseoverSource$.subscribe((data) => {
-      this.printEvent('mouseove', data);
-      if (this.timer) {
-        clearTimeout(this.timer);
+    const subCell = this.table.events.cellSource$.subscribe((data) => {
+      if (data.type === CellEventType.ContextMenu) {
+        this.printEvent('contextmenu', data);
       }
-      this.timer = setTimeout(() => {
-        this.showTooltip(data.event);
-        this.timer = null;
-      }, 700);
+      if (data.type === CellEventType.Mouseover) {
+        this.printEvent('mouseover', data);
+        if (this.timer) {
+          clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+          this.showTooltip(data.event);
+          this.timer = null;
+        }, 700);
+      }
+      if (data.type === CellEventType.Mouseout) {
+        this.printEvent('mouseout', data);
+        this.hideTooltip();
+      }
+      if (data.type === CellEventType.ValueChanged) {
+        this.cellValueChangedEvent = JSON.stringify(data);
+      }
     });
-    const subMouseout = this.table.events.mouseoutSource$.subscribe((data) => {
-      this.printEvent('mouseout', data);
-      this.hideTooltip();
-    });
-    const subContextMenu = this.table.events.contextMenuSource$.subscribe((data) => {
-      this.printEvent('contextmenu', data);
-    });
-    const subCellValueChanged = this.table.events.cellValueChangedSource$.subscribe((data) => {
-      this.cellValueChangedEvent = JSON.stringify(data);
-    });
-    this.subscriptions.push(subMouseover);
-    this.subscriptions.push(subMouseout);
-    this.subscriptions.push(subContextMenu);
-    this.subscriptions.push(subCellValueChanged);
+    this.subscriptions.push(subCell);
   }
 
   ngOnDestroy() {
@@ -93,11 +92,9 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   }
 
   showTooltip(event: MouseEvent) {
-    if (this.eventName === 'mouseove') {
-      this.tooltip.nativeElement.style.left = event.pageX + 'px';
-      this.tooltip.nativeElement.style.top = event.pageY + 'px';
-      this.tooltip.nativeElement.style.visibility = 'visible';
-    }
+    this.tooltip.nativeElement.style.left = event.pageX + 'px';
+    this.tooltip.nativeElement.style.top = event.pageY + 'px';
+    this.tooltip.nativeElement.style.visibility = 'visible';
   }
 
   hideTooltip() {

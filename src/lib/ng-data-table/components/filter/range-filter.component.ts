@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
 import {Column, DataTable, FilterOperator} from '../../base';
-import {inputFormattedDate} from '../../../common/utils';
+import {inputFormattedDate, getLastDate, LastDateType} from '../../../common/utils';
 
 @Component({
   selector: 'app-range-filter',
@@ -83,21 +83,9 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  lastDate(name: string) {
-    let dt: Date;
-    if (name === 'year') {
-      dt = new Date();
-      dt.setMonth(dt.getMonth() - 12);
-    } else if (name === 'month') {
-      dt = new Date();
-      dt.setMonth(dt.getMonth() - 1);
-    } else if (name === 'day') {
-      dt = new Date(Date.now() + -1 * 24 * 3600 * 1000);
-    } else if (name === 'hour') {
-      dt = new Date(Date.now() + -1 * 3600 * 1000);
-    }
+  lastDate(name: LastDateType) {
     this.matchMode = FilterOperator.GREATER_THAN_OR_EQUAL;
-    this.value = inputFormattedDate(this.column.type, dt.toISOString());
+    this.value = inputFormattedDate(this.column.type, getLastDate(name).toISOString());
     this.saveFilter();
     this.filterClose.emit(true);
   }

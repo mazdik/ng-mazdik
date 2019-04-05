@@ -15,22 +15,6 @@ export function isNumeric(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-export function inputFormattedDate(type: string, value: any) {
-  if (value) {
-    if (value instanceof Date) {
-      value = value.toISOString();
-    }
-    if (type === 'datetime-local') {
-      return value.slice(0, 16);
-    } else if (type === 'date') {
-      return value.slice(0, 10);
-    } else if (type === 'month') {
-      return value.slice(0, 7);
-    }
-  }
-  return value;
-}
-
 export function isLeftButton(event: MouseEvent | TouchEvent) {
   return (event.type === 'mousedown' && (<MouseEvent>event).button === 0);
 }

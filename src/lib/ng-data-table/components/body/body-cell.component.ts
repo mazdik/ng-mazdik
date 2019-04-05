@@ -2,7 +2,7 @@ import {
   Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Cell, CellEventArgs} from '../../base';
+import {DataTable, Cell, CellEventArgs, CellEventType} from '../../base';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -61,13 +61,13 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
       this.updateValue();
     });
-    const subActivateCell = this.table.events.activateCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
+    const subCell = this.table.events.cellSource$.subscribe((ev: CellEventArgs) => {
+      if (this.cell.exist(ev.rowIndex, ev.columnIndex) && ev.type === CellEventType.Activate) {
         this.element.nativeElement.focus();
       }
     });
     this.subscriptions.push(subRows);
-    this.subscriptions.push(subActivateCell);
+    this.subscriptions.push(subCell);
   }
 
   ngOnDestroy(): void {

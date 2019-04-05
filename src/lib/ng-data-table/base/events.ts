@@ -1,5 +1,5 @@
 import { Subject, BehaviorSubject } from 'rxjs';
-import { ColumnMenuEventArgs, CellEventArgs } from './types';
+import { ColumnMenuEventArgs, CellEventArgs, CellEventType } from './types';
 
 export class Events {
 
@@ -7,45 +7,29 @@ export class Events {
   private sortSource = new Subject();
   private filterSource = new Subject();
   private pageSource = new Subject();
-  private cellValueChangedSource = new Subject<any>();
   private columnMenuSource = new Subject<ColumnMenuEventArgs>();
   private resizeBeginSource = new Subject();
   private resizeSource = new Subject<any>();
   private resizeEndSource = new Subject();
   private rowsChanged = new Subject();
   private scrollSource = new Subject<any>();
-  private mouseoverSource = new Subject<CellEventArgs>();
-  private mouseoutSource = new Subject<boolean>();
-  private activateCellSource = new Subject<CellEventArgs>();
-  private clickCellSource = new Subject<CellEventArgs>();
-  private dblClickCellSource = new Subject<CellEventArgs>();
-  private keydownCellSource = new Subject<CellEventArgs>();
-  private contextMenuSource = new Subject<CellEventArgs>();
   private loadingSource = new BehaviorSubject<boolean>(false);
-  private cellEditModeSource = new Subject<CellEventArgs>();
   private checkboxSource = new Subject<any>();
+  private cellSource = new Subject<CellEventArgs>();
 
   sortSource$ = this.sortSource.asObservable();
   filterSource$ = this.filterSource.asObservable();
   selectionSource$ = this.selectionSource.asObservable();
   pageSource$ = this.pageSource.asObservable();
-  cellValueChangedSource$ = this.cellValueChangedSource.asObservable();
   columnMenuSource$ = this.columnMenuSource.asObservable();
   resizeBeginSource$ = this.resizeBeginSource.asObservable();
   resizeSource$ = this.resizeSource.asObservable();
   resizeEndSource$ = this.resizeEndSource.asObservable();
   rowsChanged$ = this.rowsChanged.asObservable();
   scrollSource$ = this.scrollSource.asObservable();
-  mouseoverSource$ = this.mouseoverSource.asObservable();
-  mouseoutSource$ = this.mouseoutSource.asObservable();
-  activateCellSource$ = this.activateCellSource.asObservable();
-  clickCellSource$ = this.clickCellSource.asObservable();
-  dblClickCellSource$ = this.dblClickCellSource.asObservable();
-  keydownCellSource$ = this.keydownCellSource.asObservable();
-  contextMenuSource$ = this.contextMenuSource.asObservable();
   loadingSource$ = this.loadingSource.asObservable();
-  cellEditModeSource$ = this.cellEditModeSource.asObservable();
   checkboxSource$ = this.checkboxSource.asObservable();
+  cellSource$ = this.cellSource.asObservable();
 
   onSort() {
     this.sortSource.next();
@@ -61,10 +45,6 @@ export class Events {
 
   onPage() {
     this.pageSource.next();
-  }
-
-  onCellValueChanged(data: any) {
-    this.cellValueChangedSource.next(data);
   }
 
   onColumnMenuClick(data: ColumnMenuEventArgs) {
@@ -91,44 +71,61 @@ export class Events {
     this.scrollSource.next(data);
   }
 
-  onMouseover(data: CellEventArgs) {
-    this.mouseoverSource.next(data);
-  }
-
-  onMouseout(data: boolean) {
-    this.mouseoutSource.next(data);
-  }
-
-  onActivateCell(data: CellEventArgs) {
-    this.activateCellSource.next(data);
-  }
-
-  onClickCell(data: CellEventArgs) {
-    this.clickCellSource.next(data);
-  }
-
-  onDblClickCell(data: CellEventArgs) {
-    this.dblClickCellSource.next(data);
-  }
-
-  onKeydownCell(data: CellEventArgs) {
-    this.keydownCellSource.next(data);
-  }
-
-  onContextMenu(data: CellEventArgs) {
-    this.contextMenuSource.next(data);
-  }
-
   onLoading(data: boolean) {
     this.loadingSource.next(data);
   }
 
-  onCellEditMode(data: CellEventArgs) {
-    this.cellEditModeSource.next(data);
-  }
-
   onCheckbox(data: any) {
     this.checkboxSource.next(data);
+  }
+
+  onCell(data: CellEventArgs) {
+    this.cellSource.next(data);
+  }
+
+  onMouseover(data: CellEventArgs) {
+    data.type = CellEventType.Mouseover;
+    this.onCell(data);
+  }
+
+  onMouseout(data: CellEventArgs) {
+    data.type = CellEventType.Mouseout;
+    this.onCell(data);
+  }
+
+  onActivateCell(data: CellEventArgs) {
+    data.type = CellEventType.Activate;
+    this.onCell(data);
+  }
+
+  onClickCell(data: CellEventArgs) {
+    data.type = CellEventType.Click;
+    this.onCell(data);
+  }
+
+  onDblClickCell(data: CellEventArgs) {
+    data.type = CellEventType.DblClick;
+    this.onCell(data);
+  }
+
+  onKeydownCell(data: CellEventArgs) {
+    data.type = CellEventType.Keydown;
+    this.onCell(data);
+  }
+
+  onContextMenu(data: CellEventArgs) {
+    data.type = CellEventType.ContextMenu;
+    this.onCell(data);
+  }
+
+  onCellEditMode(data: CellEventArgs) {
+    data.type = CellEventType.EditMode;
+    this.onCell(data);
+  }
+
+  onCellValueChanged(data: CellEventArgs) {
+    data.type = CellEventType.ValueChanged;
+    this.onCell(data);
   }
 
 }

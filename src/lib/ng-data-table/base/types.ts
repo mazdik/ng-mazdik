@@ -71,7 +71,20 @@ export interface ColumnMenuEventArgs {
   column: any;
 }
 
+export enum CellEventType {
+  Activate = 'Activate',
+  Click = 'Click',
+  DblClick = 'DblClick',
+  EditMode = 'EditMode',
+  Keydown = 'Keydown',
+  ContextMenu = 'ContextMenu',
+  Mouseover = 'Mouseover',
+  Mouseout = 'Mouseout',
+  ValueChanged = 'ValueChanged',
+}
+
 export interface CellEventArgs {
+  type: CellEventType;
   columnIndex: number;
   rowIndex: number;
   event?: any;

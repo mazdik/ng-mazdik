@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 import {BodyCellComponent} from './body-cell.component';
-import {CellEventArgs, EditMode} from '../../base';
+import {CellEventArgs, EditMode, CellEventType} from '../../base';
 import {Keys} from '../../../common';
 
 @Component({
@@ -18,22 +18,23 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
 
   ngOnInit(): void {
     super.ngOnInit();
-    const subDblClickCell = this.table.events.dblClickCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
+    const subCell = this.table.events.cellSource$.subscribe((ev: CellEventArgs) => this.eventHandler(ev));
+    this.subscriptions.push(subCell);
+  }
+
+  eventHandler(ev: CellEventArgs) {
+    if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
+      if (ev.type === CellEventType.DblClick) {
         if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
           this.switchCellToEditMode();
         }
       }
-    });
-    const subKeydownCell = this.table.events.keydownCellSource$.subscribe((ev: CellEventArgs) => {
-      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
+      if (ev.type === CellEventType.Keydown) {
         if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
           this.onCellKeydown(ev.event);
         }
       }
-    });
-    const subCellEditMode = this.table.events.cellEditModeSource$.subscribe((ev: CellEventArgs) => {
-      if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
+      if (ev.type === CellEventType.EditMode) {
         if (ev.editMode) {
           this.switchCellToEditMode();
         } else {
@@ -41,10 +42,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
           this.cd.markForCheck();
         }
       }
-    });
-    this.subscriptions.push(subDblClickCell);
-    this.subscriptions.push(subKeydownCell);
-    this.subscriptions.push(subCellEditMode);
+    }
   }
 
   switchCellToEditMode() {
@@ -59,11 +57,9 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     this.editing = false;
     if (this.cell.value !== this.tempValue) {
       this.updateValue();
-      this.table.events.onCellValueChanged({
+      this.table.events.onCellValueChanged(<CellEventArgs>{
         columnIndex: this.cell.column.index,
-        rowIndex: this.cell.rowIndex,
-        oldValue: this.cell.value,
-        newValue: this.tempValue,
+        rowIndex: this.cell.rowIndex
       });
     }
   }

@@ -84,7 +84,7 @@ describe('DataTable', () => {
 
   it('should be able cell to edit mode', () => {
     const spy = jasmine.createSpy('changed spy');
-    dataTable.events.cellEditModeSource$.subscribe(spy);
+    dataTable.events.cellSource$.subscribe(spy);
 
     dataTable.editCell(0, 1, true);
     expect(spy).toHaveBeenCalledTimes(1);
