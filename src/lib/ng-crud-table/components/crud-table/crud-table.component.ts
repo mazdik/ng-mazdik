@@ -172,14 +172,14 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   viewAction(row: Row) {
-    this.dataManager.item = Object.assign({}, row);
+    this.dataManager.item = row;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = true;
     this.modalEditForm.open();
   }
 
   updateAction(row: Row) {
-    this.dataManager.item = Object.assign({}, row);
+    this.dataManager.item = row;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = false;
     this.modalEditForm.open();

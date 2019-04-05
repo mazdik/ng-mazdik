@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
@@ -18,7 +18,7 @@ import {getColumnsPlayers} from './columns';
   `
 })
 
-export class ModalFormDemoComponent implements OnInit {
+export class ModalFormDemoComponent {
 
   columns: Column[];
   dataManager: DataManager;
@@ -29,7 +29,7 @@ export class ModalFormDemoComponent implements OnInit {
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
-  private _item: any = {
+  private item: any = {
     'id': 96491,
     'name': 'Defunct',
     'account_id': 19,
@@ -65,10 +65,6 @@ export class ModalFormDemoComponent implements OnInit {
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 
-  ngOnInit() {
-    this.dataManager.item = Object.assign({}, this._item);
-  }
-
   onSaved(event) {
     console.log(event);
   }
@@ -84,7 +80,7 @@ export class ModalFormDemoComponent implements OnInit {
   }
 
   updateItem() {
-    this.dataManager.item = Object.assign({}, this._item);
+    this.dataManager.item = this.item;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.open();
   }
