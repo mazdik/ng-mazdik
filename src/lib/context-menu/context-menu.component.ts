@@ -1,6 +1,6 @@
 import {
   Component, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
-  HostBinding, ElementRef, ViewEncapsulation
+  HostBinding, ElementRef, ViewEncapsulation, OnDestroy
 } from '@angular/core';
 import { MenuEventArgs } from './types';
 import { Dropdown } from '../dropdown';
@@ -14,7 +14,7 @@ import { isBlank } from '../common/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class ContextMenuComponent extends Dropdown {
+export class ContextMenuComponent implements OnDestroy {
 
   @Input() menu: MenuItem[] = [];
 
@@ -35,18 +35,23 @@ export class ContextMenuComponent extends Dropdown {
 
   @HostBinding('style.display')
   get getDisplay(): string {
-    return (this.isOpen && this.menu.length > 0) ? 'block' : 'none';
+    return (this.dropdown.isOpen && this.menu.length > 0) ? 'block' : 'none';
   }
 
   private eventArgs: MenuEventArgs;
+  private dropdown: Dropdown;
 
-  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
-    super(cd);
+  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement, cd);
+  }
+
+  ngOnDestroy() {
+    this.dropdown.removeEventListeners();
   }
 
   @HostListener('window:resize')
   onWindowResize(): void {
-    this.closeDropdown();
+    this.dropdown.closeDropdown();
   }
 
   getPositionMenu(left: number, top: number) {
@@ -90,24 +95,24 @@ export class ContextMenuComponent extends Dropdown {
     let coords;
     if (!isBlank(event.left) && !isBlank(event.top)) {
       coords = this.getPositionMenu(event.left, event.top);
-      this.selectContainerClicked = true;
+      this.dropdown.selectContainerClicked = true;
     } else {
       coords = this.getPositionMenu(event.originalEvent.pageX + 1, event.originalEvent.pageY + 1);
     }
     event.originalEvent.preventDefault();
 
     if (this.top === coords.top && this.left === coords.left) {
-      this.toggleDropdown();
+      this.dropdown.toggleDropdown();
     } else {
       this.top = coords.top;
       this.left = coords.left;
-      this.closeDropdown();
-      this.openDropdown();
+      this.dropdown.closeDropdown();
+      this.dropdown.openDropdown();
     }
   }
 
   hide() {
-    this.closeDropdown();
+    this.dropdown.closeDropdown();
   }
 
   itemClick(event, item: MenuItem) {
@@ -121,7 +126,7 @@ export class ContextMenuComponent extends Dropdown {
     if (item.command) {
       item.command(this.eventArgs.data);
     }
-    this.isOpen = false;
+    this.dropdown.isOpen = false;
   }
 
 }

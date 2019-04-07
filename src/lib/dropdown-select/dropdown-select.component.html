@@ -5,16 +5,16 @@
          placeholder="{{placeholder}}"
          [disabled]="disabled">
   <button class="dt-button dt-white" [disabled]="disabled">
-    <i class="dt-icon asc" *ngIf="isOpen"></i>
-    <i class="dt-icon desc" *ngIf="!isOpen"></i>
+    <i class="dt-icon asc" *ngIf="dropdown.isOpen"></i>
+    <i class="dt-icon desc" *ngIf="!dropdown.isOpen"></i>
   </button>
 </div>
-<div class="dt-dropdown-select-list" *ngIf="isOpen">
+<div class="dt-dropdown-select-list" *ngIf="dropdown.isOpen">
   <app-select-list
       [options]="options"
       [selected]="selectedOptions"
       [multiple]="multiple"
-      [isOpen]="isOpen"
+      [isOpen]="dropdown.isOpen"
       [selectAllMessage]="selectAllMessage"
       [cancelMessage]="cancelMessage"
       [clearMessage]="clearMessage"

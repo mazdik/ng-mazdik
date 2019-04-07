@@ -12,7 +12,7 @@ import {Dropdown} from '../../../dropdown';
   templateUrl: './filter.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterComponent extends Dropdown implements OnInit, OnDestroy {
+export class FilterComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
 
@@ -39,13 +39,14 @@ export class FilterComponent extends Dropdown implements OnInit, OnDestroy {
 
   @HostBinding('style.display')
   get getDisplay(): string {
-    return (this.isOpen && this.column.filter) ? 'block' : 'none';
+    return (this.dropdown.isOpen && this.column.filter) ? 'block' : 'none';
   }
 
+  dropdown: Dropdown;
   private subscriptions: Subscription[] = [];
 
-  constructor(cd: ChangeDetectorRef, private element: ElementRef) {
-    super(cd);
+  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement, cd);
   }
 
   ngOnInit() {
@@ -61,28 +62,29 @@ export class FilterComponent extends Dropdown implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+    this.dropdown.removeEventListeners();
   }
 
   show(event: ColumnMenuEventArgs) {
     this.element.nativeElement.style.width = this.table.dimensions.columnMenuWidth + 'px';
     this.column = event.column;
-    this.selectContainerClicked = true;
+    this.dropdown.selectContainerClicked = true;
     if (this.top === event.top && this.left === event.left) {
-      this.toggleDropdown();
+      this.dropdown.toggleDropdown();
     } else {
       this.top = event.top;
       this.left = event.left;
-      this.closeDropdown();
-      this.openDropdown();
+      this.dropdown.closeDropdown();
+      this.dropdown.openDropdown();
     }
   }
 
   hide() {
-    this.closeDropdown();
+    this.dropdown.closeDropdown();
   }
 
   onFilterClose() {
-    this.toggleDropdown();
+    this.dropdown.toggleDropdown();
   }
 
   get isListFilter(): boolean {

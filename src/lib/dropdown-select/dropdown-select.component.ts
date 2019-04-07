@@ -1,5 +1,6 @@
 import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef,
+  HostBinding, ElementRef, OnDestroy
 } from '@angular/core';
 import {Dropdown} from '../dropdown';
 import {SelectItem} from '../common';
@@ -18,7 +19,7 @@ import {SelectItem} from '../common';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class DropdownSelectComponent extends Dropdown {
+export class DropdownSelectComponent implements OnDestroy {
 
   @Input() multiple: boolean;
   @Input() disabled: boolean;
@@ -56,25 +57,30 @@ export class DropdownSelectComponent extends Dropdown {
 
   selectedOptions: SelectItem[] = [];
   selectedName: string;
+  dropdown: Dropdown;
 
-  constructor(cd: ChangeDetectorRef) {
-    super(cd);
+  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement, cd);
+  }
+
+  ngOnDestroy() {
+    this.dropdown.removeEventListeners();
   }
 
   open() {
     if (!this.disabled) {
-      this.toggleDropdown();
+      this.dropdown.toggleDropdown();
     }
   }
 
   onSelectionChange(event) {
     this.selectedName = this.getName(event);
     this.selectionChangeEmit(event);
-    this.isOpen = false;
+    this.dropdown.isOpen = false;
   }
 
   onSelectionCancel() {
-    this.isOpen = false;
+    this.dropdown.isOpen = false;
   }
 
   getName(items: any) {
