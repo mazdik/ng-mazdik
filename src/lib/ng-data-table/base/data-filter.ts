@@ -21,7 +21,7 @@ export enum FilterOperator {
 export class DataFilter {
 
   filters: FilterMetadata = <FilterMetadata>{};
-  globalFilterValue: string;
+  globalFilterValue: string = null;
 
   filterRows(data: any[]) {
     const filters = this.filters;

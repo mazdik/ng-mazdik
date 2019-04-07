@@ -8,9 +8,9 @@ import {InputComponent} from './input.component';
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <input type="text"
              class="dt-input"
+             placeholder="{{dynElement.title}}"
+             id="{{dynElement.name}}"
              [(ngModel)]="model"
-             [attr.placeholder]="dynElement.title"
-             [id]="dynElement.name"
              [disabled]="disabled"/>
       <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>

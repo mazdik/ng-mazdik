@@ -30,6 +30,9 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
   @Input() goMessage: string = 'Go';
   @Input() exportMessage: string = 'Export';
   @Input() searchMessage: string = 'Search...';
+  @Input() actionsMessage: string = 'Actions';
+  @Input() columnsMessage: string = 'Columns';
+  @Input() clearFiltersMessage: string = 'Clear all filters';
   @Input() zIndexColumnToggler: number;
 
   @Output() create: EventEmitter<any> = new EventEmitter();

@@ -6,6 +6,13 @@
             [clearAllFiltersAction]="dataManager.settings.clearAllFiltersAction"
             [columnToggleAction]="dataManager.settings.columnToggleAction"
             [zIndexColumnToggler]="dataManager.settings.zIndexModal + 2"
+            [createMessage]="dataManager.messages.create | dtTranslate"
+            [goMessage]="dataManager.messages.go | dtTranslate"
+            [exportMessage]="dataManager.messages.export | dtTranslate"
+            [searchMessage]="dataManager.messages.search | dtTranslate"
+            [actionsMessage]="dataManager.messages.actions | dtTranslate"
+            [columnsMessage]="dataManager.messages.columns | dtTranslate"
+            [clearFiltersMessage]="dataManager.messages.clearFilters | dtTranslate"
             (create)="createAction()">
 </dt-toolbar>
 

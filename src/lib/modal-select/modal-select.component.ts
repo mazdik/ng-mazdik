@@ -61,7 +61,7 @@ export class ModalSelectComponent {
 
   @HostBinding('class.dt-modal-select') cssClass = true;
   @ViewChild('modal') readonly modal: any;
-  searchFilterText: string;
+  searchFilterText: string = null;
   currentPage: number = 1;
   sortOrder: number = 1;
   totalItems: number;

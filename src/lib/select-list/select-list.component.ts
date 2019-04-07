@@ -47,7 +47,7 @@ export class SelectListComponent implements OnInit, AfterViewInit {
   @Output() selectionCancel: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('filterInput') filterInput: any;
-  searchFilterText: string;
+  searchFilterText: string = null;
   private selectedOptions: any[] = [];
 
   constructor() {

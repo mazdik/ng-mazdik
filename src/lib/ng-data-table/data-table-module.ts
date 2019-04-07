@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
 
 import {PaginationModule} from '../pagination';
 import {ScrollerModule} from '../scroller';
@@ -35,7 +34,6 @@ import {RowActionTemplateDirective} from './directives/row-action-template.direc
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     PaginationModule,
     ScrollerModule,
     SelectListModule,

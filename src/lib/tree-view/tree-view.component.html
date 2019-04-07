@@ -18,7 +18,8 @@
     <input class="dt-input"
            placeholder="Search"
            #filterInput
-           [(ngModel)]="searchFilterText"
+           [value]="searchFilterText"
+           (input)="searchFilterText = $event.target.value"
            (keyup)="onFilterKeyup()">
     <span class="dt-loader"
           style="top: 25%; cursor:auto;"

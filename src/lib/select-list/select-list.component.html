@@ -1,7 +1,8 @@
 <input class="dt-input dt-form-group"
        #filterInput
        placeholder="{{searchMessage}}"
-       [(ngModel)]="searchFilterText"/>
+       [value]="searchFilterText"
+       (input)="searchFilterText = $event.target.value">
 
 <ul class="dt-list-menu dt-list-menu-scroll">
     <li class="dt-list-menu-item" *ngIf="multiple" (click)="onCheckboxAllClick()">

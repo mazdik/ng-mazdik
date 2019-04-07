@@ -49,7 +49,7 @@ export class TreeViewComponent implements OnInit {
   tree: Tree = new Tree();
   filterTimeout: any;
   loading: boolean;
-  searchFilterText: any;
+  searchFilterText: any = null;
 
   constructor() {}
 
@@ -91,7 +91,7 @@ export class TreeViewComponent implements OnInit {
   }
 
   onClickClearSearch() {
-    this.searchFilterText = '';
+    this.searchFilterText = null;
     this.onFilterKeyup();
   }
 

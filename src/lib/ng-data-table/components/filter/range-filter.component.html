@@ -1,19 +1,22 @@
 <select class="dt-input sm dt-form-group"
-        [(ngModel)]="matchMode"
-        (change)="onModeChange()">
-  <option *ngFor="let opt of operators" [value]="opt.value">{{opt.text | dtTranslate}}</option>
+        (change)="matchMode = $event.target.value; onModeChange()">
+  <option *ngFor="let opt of operators" [value]="opt.value" [selected]="(opt.value === matchMode)">
+    {{opt.text | dtTranslate}}
+  </option>
 </select>
 <input class="dt-input dt-form-group"
        #filterInput
-       [attr.type]="column.type"
-       [attr.placeholder]="isRangeFilter ? '>' : column.name"
+       type="{{column.type}}"
+       placeholder="{{isRangeFilter ? '>' : column.name}}"
        *ngIf="isValueFilter"
-       [(ngModel)]="value"/>
+       [value]="value"
+       (input)="value = $event.target.value">
 <input class="dt-input dt-form-group"
-       [attr.type]="column.type"
-       [attr.placeholder]="'<'"
+       type="{{column.type}}"
+       placeholder="<"
        *ngIf="isRangeFilter"
-       [(ngModel)]="valueTo"/>
+       [value]="valueTo"
+       (input)="valueTo = $event.target.value">
 <ul class="dt-list-menu">
   <ng-template [ngIf]="column.isDateType">
     <li class="dt-list-menu-item" (click)="lastDate('year')">{{table.messages.lastYear | dtTranslate}}</li>

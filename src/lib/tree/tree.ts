@@ -1,5 +1,6 @@
 import {TreeNode} from './tree-node';
 import {TreeDataSource, FilterState} from './types';
+import {isBlank} from '../common/utils';
 
 export class Tree {
 
@@ -195,7 +196,7 @@ export class Tree {
   }
 
   filterServerSide(filterValue: string) {
-    if (!filterValue.trim()) {
+    if (isBlank(filterValue)) {
       this.clearSearchState();
       return;
     }
