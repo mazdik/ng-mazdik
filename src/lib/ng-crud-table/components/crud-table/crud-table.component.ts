@@ -135,11 +135,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  onRowMenuClick(event: any, row: Row) {
-    const el = event.target.parentNode.parentNode.parentNode; // row
-    const rowHeight = el.offsetHeight;
-    const rowTop = el.offsetTop + rowHeight;
-
+  rowMenuBeforeOpen(row: Row) {
     const rowChanged = this.dataManager.rowChanged(row);
     let menuIndex = this.actionMenu.findIndex(x => x.id === this.dataManager.messages.revertChanges);
     if (menuIndex > -1) {
@@ -150,7 +146,12 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       const rowIsValid = this.dataManager.rowIsValid(row);
       this.actionMenu[menuIndex].disabled = !rowChanged || !rowIsValid;
     }
+  }
 
+  onRowMenuClick(event: any, row: Row) {
+    const el = event.target.parentNode.parentNode.parentNode; // row
+    const rowHeight = el.offsetHeight;
+    const rowTop = el.offsetTop + rowHeight;
     const left = 0;
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
@@ -161,6 +162,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     } else {
       top -= this.dataManager.dimensions.offsetY;
     }
+    this.rowMenuBeforeOpen(row);
     this.rowMenu.show(<MenuEventArgs>{originalEvent: event, data: row, left: left, top: top});
   }
 
