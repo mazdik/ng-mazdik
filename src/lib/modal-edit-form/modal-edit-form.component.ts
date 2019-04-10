@@ -92,7 +92,7 @@ export class ModalEditFormComponent implements OnInit {
       element.type = column.type;
       element.validatorFunc = column.validatorFunc;
       element.dependsElement = column.dependsColumn;
-      element.cellTemplate = column.cellTemplate;
+      element.cellTemplate = column.formTemplate ? column.formTemplate : column.cellTemplate;
       element.hidden = column.formHidden;
       element.keyElement = column.keyColumn;
       element.disableOnEdit = column.formDisableOnEdit;

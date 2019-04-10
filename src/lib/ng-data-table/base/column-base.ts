@@ -20,6 +20,7 @@ export class ColumnBase {
   resizeable?: boolean = true;
   dependsColumn?: string;
   cellTemplate?: TemplateRef<any>;
+  formTemplate?: TemplateRef<any>;
   headerCellTemplate?: TemplateRef<any>;
   formHidden?: boolean;
   tableHidden?: boolean;

@@ -33,7 +33,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @ViewChild('toolbar') toolbar: any;
   @ViewChild(DataTableComponent) dt: DataTableComponent;
 
-  @HostBinding('class') cssClass = 'datatable crud-table';
+  @HostBinding('class.datatable') cssClass = true;
 
   actionMenu: MenuItem[] = [];
   private subscriptions: Subscription[] = [];
