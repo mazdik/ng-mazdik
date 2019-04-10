@@ -105,7 +105,6 @@ export class PlayersComponent {
     ];
     settings: CdtSettings = {
         crud: true,
-        tableWidth: 820,
         bodyHeight: 380
     };
 
@@ -256,7 +255,6 @@ export interface PageMetadata {
 
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
-| tableWidth       | number     | null    |             |
 | bodyHeight       | number     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |

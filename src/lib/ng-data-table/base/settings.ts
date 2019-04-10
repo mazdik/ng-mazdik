@@ -1,7 +1,6 @@
 import {SelectionMode, ColumnResizeMode, EditMode} from './types';
 
 export class Settings {
-  tableWidth?: number;
   bodyHeight?: number;
   sortable?: boolean = true;
   filter?: boolean = true;

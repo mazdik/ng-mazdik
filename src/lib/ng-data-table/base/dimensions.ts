@@ -3,7 +3,6 @@ import {Settings} from './settings';
 
 export class Dimensions {
 
-  tableWidth: number;
   bodyHeight: number;
   actionColumnWidth: number = 40;
   columnMenuWidth: number = 220;
@@ -17,7 +16,6 @@ export class Dimensions {
   headerTemplateHeight: number = 0;
 
   constructor(private settings: Settings, private columns: Column[]) {
-    this.tableWidth = this.settings.tableWidth;
     this.bodyHeight = this.settings.bodyHeight;
     this.rowHeight = this.settings.rowHeight;
     this.headerRowHeight = this.settings.headerRowHeight;

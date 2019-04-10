@@ -49,11 +49,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
     return (this.table.dimensions.headerRowHeight) ? true : false;
   }
 
-  @HostBinding('style.width.px')
-  get tableWidth() {
-    return this.table.dimensions.tableWidth;
-  }
-
   loading: boolean;
   private subscriptions: Subscription[] = [];
 

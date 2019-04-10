@@ -6,7 +6,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
 @Component({
   selector: 'app-modal-data-table-demo',
   template: `
-    <app-data-table [table]="dtPlayers"></app-data-table>
+    <app-data-table [table]="dtPlayers" style="width: 1100px;"></app-data-table>
     <ng-template #template1 let-row="row" let-value="value">
       <a (click)="onClickCell1($event, value, row)" href="#">
         {{value}}
@@ -50,10 +50,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   @ViewChild('rankModal') rankModal: any;
   @ViewChild('inventoryModal') inventoryModal: any;
 
-  settingsPlayers: Settings = <Settings>{
-    tableWidth: 1100,
-  };
-
+  settings: Settings = <Settings>{};
   settingsRank: Settings = <Settings>{};
   settingsInventory: Settings = <Settings>{};
 
@@ -67,7 +64,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.columnsRank = getColumnsRank();
     this.columnsInventory = getColumnsInventory();
 
-    this.dtPlayers = new DataTable(this.columnsPlayers, this.settingsPlayers);
+    this.dtPlayers = new DataTable(this.columnsPlayers, this.settings);
     this.dtInventory = new DataTable(this.columnsInventory, this.settingsInventory);
     this.dtRank = new DataTable(this.columnsRank, this.settingsRank);
   }
