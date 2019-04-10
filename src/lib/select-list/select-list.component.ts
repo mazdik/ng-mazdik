@@ -78,7 +78,8 @@ export class SelectListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setSelected(value: any) {
+  setSelected(event: MouseEvent, value: any) {
+    event.stopPropagation();
     this.setSelectedOptions(value);
     if (!this.multiple) {
       this.selectionChangeEmit();
@@ -104,16 +105,19 @@ export class SelectListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onClickOk() {
+  onClickOk(event: MouseEvent) {
+    event.stopPropagation();
     this.selectionChangeEmit();
   }
 
-  onClickCancel() {
+  onClickCancel(event: MouseEvent) {
+    event.stopPropagation();
     this.selectedOptions = this.model.slice(0);
     this.selectionCancel.emit(true);
   }
 
-  onClickClear() {
+  onClickClear(event: MouseEvent) {
+    event.stopPropagation();
     if (this.selectedOptions.length > 0) {
       this.selectedOptions = [];
     }
@@ -131,7 +135,8 @@ export class SelectListComponent implements OnInit, AfterViewInit {
     return this.selectedOptions.length !== 0 && !this.allSelected;
   }
 
-  onCheckboxAllClick() {
+  onCheckboxAllClick(event: MouseEvent) {
+    event.stopPropagation();
     if (this.allSelected) {
       this.selectedOptions = [];
     } else {

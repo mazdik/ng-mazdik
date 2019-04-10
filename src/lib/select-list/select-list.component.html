@@ -5,7 +5,7 @@
        (input)="searchFilterText = $event.target.value">
 
 <ul class="dt-list-menu dt-list-menu-scroll">
-    <li class="dt-list-menu-item" *ngIf="multiple" (click)="onCheckboxAllClick()">
+    <li class="dt-list-menu-item" *ngIf="multiple" (click)="onCheckboxAllClick($event)">
       <span class="dt-checkbox">
         <input type="checkbox"
                [checked]="allSelected"
@@ -18,7 +18,7 @@
     <ng-container *ngIf="!multiple">
       <li class="dt-list-menu-item"
         *ngFor="let option of options | filterBy: 'name':searchFilterText"
-        (click)="setSelected(option.id)"
+        (click)="setSelected($event, option.id)"
         [ngClass]="{'active': isSelected(option.id)}">
         <i class="dt-icon" [class.dt-icon-ok]="isSelected(option.id)"></i>&nbsp;&nbsp;{{option.name}}
       </li>
@@ -27,7 +27,7 @@
     <ng-container *ngIf="multiple">
       <li class="dt-list-menu-item"
         *ngFor="let option of options | filterBy: 'name':searchFilterText"
-        (click)="setSelected(option.id)">
+        (click)="setSelected($event, option.id)">
         <span class="dt-checkbox">
             <input type="checkbox" [checked]="isSelected(option.id)"/>
             <label>{{option.name}}</label>
@@ -38,7 +38,7 @@
 
 <div class="dt-list-divider"></div>
 <div class="dt-list-menu-row">
-  <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="multiple">OK</button>
-  <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{cancelMessage}}</button>
-  <button class="dt-button dt-button-sm" (click)="onClickClear()">{{clearMessage}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickOk($event)" *ngIf="multiple">OK</button>
+  <button class="dt-button dt-button-sm" (click)="onClickCancel($event)">{{cancelMessage}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickClear($event)">{{clearMessage}}</button>
 </div>

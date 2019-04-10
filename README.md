@@ -236,6 +236,7 @@ export interface PageMetadata {
 | resizeable       | boolean    | true    |             |
 | dependsColumn    | string     | null    |             |
 | cellTemplate     | TemplateRef | null   |             |
+| formTemplate     | TemplateRef | null   |             |
 | headerCellTemplate | TemplateRef | null |             |
 | formHidden       | boolean    | false   |             |
 | tableHidden      | boolean    | false   |             |

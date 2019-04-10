@@ -67,7 +67,8 @@ export class DropdownSelectComponent implements OnDestroy {
     this.dropdown.removeEventListeners();
   }
 
-  open() {
+  open(event: MouseEvent) {
+    event.stopPropagation();
     if (!this.disabled) {
       this.dropdown.toggleDropdown();
     }
