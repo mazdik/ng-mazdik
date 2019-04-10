@@ -15,6 +15,7 @@ import { TreeViewModule } from '../lib/tree-view';
 import { ContextMenuModule } from '../lib/context-menu';
 import { NotifyModule } from '../lib/notify';
 import { DateFormatPipe } from './pipes/date-format.pipe';
+import { DropdownSelectModule } from '../lib/dropdown-select';
 
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -42,6 +43,7 @@ import { EditableConditionDemoComponent } from './demo/editable-condition-demo.c
 import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.component';
 import { PipeDemoComponent } from './demo/pipe-demo.component';
 import { ColumnResizeModeDemoComponent } from './demo/column-resize-mode-demo.component';
+import { MultiSelectDemoComponent } from './demo/multi-select-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -71,6 +73,7 @@ const ROUTES: Routes = [
   {path: 'tree-table-custom-demo', component: TreeTableCustomDemoComponent},
   {path: 'pipe-demo', component: PipeDemoComponent},
   {path: 'column-resize-mode-demo', component: ColumnResizeModeDemoComponent},
+  {path: 'multi-select-demo', component: MultiSelectDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -105,6 +108,7 @@ const ROUTES: Routes = [
     PipeDemoComponent,
     ColumnResizeModeDemoComponent,
     DateFormatPipe,
+    MultiSelectDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -119,6 +123,7 @@ const ROUTES: Routes = [
     TreeViewModule,
     ContextMenuModule,
     NotifyModule,
+    DropdownSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
