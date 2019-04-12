@@ -43,7 +43,7 @@ export class Dropdown {
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    if (event.keyCode === Keys.ESCAPE || event.key == 'Escape') {
+    if (event.keyCode === Keys.ESCAPE || event.key === 'Escape') {
       this.closeDropdown();
     }
   }

@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
 import {DataTableModule} from '../ng-data-table';
-import {TreeTableComponent} from './components/tree-table/tree-table.component';
+import {TreeTableComponent} from './tree-table.component';
 
 @NgModule({
   imports: [

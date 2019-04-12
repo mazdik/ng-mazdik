@@ -1,8 +1,9 @@
-import {DataTable} from '../../ng-data-table/base/data-table';
-import {ColumnBase} from '../../ng-data-table/base/column-base';
-import {Settings} from '../../ng-data-table/base/settings';
-import {Tree, TreeNode, TreeDataSource, TreeFlattener} from '../../tree';
-import {Row, DtMessages} from './index';
+import {DataTable} from '../ng-data-table/base/data-table';
+import {ColumnBase} from '../ng-data-table/base/column-base';
+import {Settings} from '../ng-data-table/base/settings';
+import {Tree, TreeNode, TreeDataSource, TreeFlattener} from '../tree';
+import {Row} from '../ng-data-table';
+import {DtMessages} from '../dt-translate';
 
 export class TreeTable extends DataTable {
 
@@ -58,6 +59,14 @@ export class TreeTable extends DataTable {
       results.push(this.rows[i]);
     }
     return results;
+  }
+
+  selectionToggle(row: Row): void {
+    let descendants = this.getDescendants(row);
+    descendants = descendants.map(x => x.$$index);
+    this.selection.isSelected(row.$$index)
+      ? this.selection.select(...descendants)
+      : this.selection.deselect(...descendants);
   }
 
 }

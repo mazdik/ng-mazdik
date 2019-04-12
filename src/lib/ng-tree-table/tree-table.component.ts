@@ -2,14 +2,14 @@ import {
   Component, OnInit, OnDestroy, Input, ViewEncapsulation, HostBinding, ViewChild, TemplateRef,
   ChangeDetectionStrategy
 } from '@angular/core';
-import {TreeTable, Row} from '../../base';
+import {TreeTable} from './tree-table';
 import {Subscription} from 'rxjs';
-import {TreeNode, TreeHelper} from '../../../tree';
+import {TreeNode, TreeHelper} from '../tree';
 
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../../../styles/icons.css'],
+  styleUrls: ['../styles/icons.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -29,7 +29,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     this.initGetNodes();
 
     const subCheckbox = this.treeTable.events.checkboxSource$.subscribe((event) => {
-      this.selectionToggle(event);
+      this.treeTable.selectionToggle(event);
     });
     this.subscriptions.push(subCheckbox);
   }
@@ -71,14 +71,6 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     } else {
       return node.icon;
     }
-  }
-
-  selectionToggle(row: Row): void {
-    let descendants = this.treeTable.getDescendants(row);
-    descendants = descendants.map(x => x.$$index);
-    this.treeTable.selection.isSelected(row.$$index)
-      ? this.treeTable.selection.select(...descendants)
-      : this.treeTable.selection.deselect(...descendants);
   }
 
   paddingIndent(row: any): number {
