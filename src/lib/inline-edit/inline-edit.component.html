@@ -5,19 +5,18 @@
 <select
   *ngIf="editing && options"
   appAfterViewFocus
-  [(ngModel)]="value"
-  (change)="onInputChange()"
+  (change)="value = $event.target.value; onInputChange()"
   (focus)="onInputFocus()"
   (blur)="onInputBlur()">
-  <option *ngFor="let opt of options" [value]="opt.id">{{opt.name}}</option>
+  <option *ngFor="let opt of options" [value]="opt.id" [selected]="(opt.id === value)">{{opt.name}}</option>
 </select>
 
 <input *ngIf="editing && !options"
         appAfterViewFocus
         [attr.type]="type"
         [attr.step]="(type === 'number') ? 'any' : null"
-        [ngModel]=inputFormattedValue
-        (ngModelChange)="value = $event"
+        [value]="inputFormattedValue || null"
+        (input)="value = $event.target.value"
         (keyup)="onInputChange()"
         (focus)="onInputFocus()"
         (blur)="onInputBlur()"/>

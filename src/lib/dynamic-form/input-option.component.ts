@@ -64,7 +64,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     }
   }
 
-  getOptions() {
+  getOptions(): SelectItem[] {
     return this._options;
   }
 

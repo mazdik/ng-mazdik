@@ -8,12 +8,11 @@ import {InputOptionComponent} from './input-option.component';
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="dt-loader" *ngIf="loading"></i>
       <select class="dt-input"
-              [(ngModel)]="model"
-              [id]="dynElement.name"
-              (change)="onValueChange()"
+              id="{{dynElement.name}}"
+              (change)="model = $event.target.value; onValueChange()"
               [disabled]="disabled">
         <option value="" disabled selected hidden>{{placeholder}}</option>
-        <option *ngFor="let opt of getOptions()" [value]="opt.id">{{opt.name}}</option>
+        <option *ngFor="let opt of getOptions()" [value]="opt.id" [selected]="(opt.id === model)">{{opt.name}}</option>
       </select>
       <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>

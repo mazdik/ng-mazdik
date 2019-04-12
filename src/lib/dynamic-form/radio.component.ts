@@ -11,7 +11,6 @@ import {InputOptionComponent} from './input-option.component';
         <span class="dt-radio">
           <input
             type="radio"
-            [(ngModel)]="model"
             [name]="dynElement.name"
             [value]="o.id"
             [checked]="model === o.id"

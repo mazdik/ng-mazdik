@@ -7,8 +7,9 @@ import {InputComponent} from './input.component';
     <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <textarea class="dt-input"
-                [(ngModel)]="model"
-                [id]="dynElement.name"
+                id="{{dynElement.name}}"
+                [value]="model || null"
+                (input)="model = $event.target.value"
                 [disabled]="disabled">
       </textarea>
       <div class="dt-help-block">

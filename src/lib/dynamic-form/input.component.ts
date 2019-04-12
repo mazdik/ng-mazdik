@@ -28,8 +28,7 @@ export class InputComponent implements OnInit {
   errors: any[] = [];
   loading: boolean;
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.validate();

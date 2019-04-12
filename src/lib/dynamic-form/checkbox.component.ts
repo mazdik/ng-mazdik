@@ -1,5 +1,6 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {InputOptionComponent} from './input-option.component';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { InputOptionComponent } from './input-option.component';
+import { SelectItem } from '../common';
 
 @Component({
   selector: 'app-form-checkbox',
@@ -11,10 +12,10 @@ import {InputOptionComponent} from './input-option.component';
         <span class="dt-checkbox">
           <input
             type="checkbox"
-            [(ngModel)]="model"
             [name]="dynElement.name"
             [value]="o.id"
             [checked]="isSelectActive(o)"
+            (change)="onChecked($event, o)"
             [disabled]="disabled"/>
           <label>{{o.name ? o.name : o.id}}</label>
         </span>
@@ -28,11 +29,37 @@ import {InputOptionComponent} from './input-option.component';
 })
 export class CheckboxComponent extends InputOptionComponent {
 
-  isSelectActive(option) {
+  isSelectActive(option: SelectItem): boolean {
     if (Array.isArray(this.model)) {
       return this.model.some(a => a === option.id);
     } else {
       return this.model === option.id;
+    }
+  }
+
+  onChecked(e: Event, option: SelectItem) {
+    const checkbox = e.target as HTMLInputElement;
+    (checkbox.checked) ? this.check(option) : this.uncheck(option);
+  }
+
+  check(option: SelectItem) {
+    if (Array.isArray(this.model)) {
+      if (this.model.indexOf(option.id) === -1) {
+        this.model.push(option.id);
+      }
+    } else {
+      return this.model = option.id;
+    }
+  }
+
+  uncheck(option: SelectItem) {
+    if (Array.isArray(this.model)) {
+      const index = this.model.indexOf(option.id);
+      if (index > -1) {
+        this.model.splice(index, 1);
+      }
+    } else {
+      return this.model = null;
     }
   }
 

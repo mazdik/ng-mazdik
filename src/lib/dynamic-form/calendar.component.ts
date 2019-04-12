@@ -9,9 +9,9 @@ import {inputFormattedDate} from '../common/utils';
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <input class="dt-input"
              [attr.type]="dynElement.type"
-             [disabled]="disabled"
-             [ngModel]=formattedDate
-             (ngModelChange)="model = $event">
+             [value]="formattedDate"
+             (input)="model = $event.target.value"
+             [disabled]="disabled">
       <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
       </div>

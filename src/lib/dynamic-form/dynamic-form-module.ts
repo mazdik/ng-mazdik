@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
 import {ModalSelectModule} from '../modal-select';
 import {DropdownSelectModule} from '../dropdown-select';
 
@@ -19,7 +18,6 @@ import {SelectDropdownComponent} from './select-dropdown.component';
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     ModalSelectModule,
     DropdownSelectModule,
   ],

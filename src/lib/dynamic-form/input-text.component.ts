@@ -10,7 +10,8 @@ import {InputComponent} from './input.component';
              class="dt-input"
              placeholder="{{dynElement.title}}"
              id="{{dynElement.name}}"
-             [(ngModel)]="model"
+             [value]="model || null"
+             (input)="model = $event.target.value"
              [disabled]="disabled"/>
       <div class="dt-help-block">
         <span *ngFor="let err of errors">{{err}}<br></span>
