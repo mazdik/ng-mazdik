@@ -44,6 +44,7 @@ import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.comp
 import { PipeDemoComponent } from './demo/pipe-demo.component';
 import { ColumnResizeModeDemoComponent } from './demo/column-resize-mode-demo.component';
 import { MultiSelectDemoComponent } from './demo/multi-select-demo.component';
+import { CustomRowActionDemoComponent } from './demo/custom-row-action-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -74,6 +75,7 @@ const ROUTES: Routes = [
   {path: 'pipe-demo', component: PipeDemoComponent},
   {path: 'column-resize-mode-demo', component: ColumnResizeModeDemoComponent},
   {path: 'multi-select-demo', component: MultiSelectDemoComponent},
+  {path: 'custom-row-action-demo', component: CustomRowActionDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -109,6 +111,7 @@ const ROUTES: Routes = [
     ColumnResizeModeDemoComponent,
     DateFormatPipe,
     MultiSelectDemoComponent,
+    CustomRowActionDemoComponent,
   ],
   imports: [
     BrowserModule,
