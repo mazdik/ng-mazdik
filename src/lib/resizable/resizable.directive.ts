@@ -1,5 +1,5 @@
 import {
-  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit, Renderer2
+  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit
 } from '@angular/core';
 import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -38,7 +38,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   private resizingE: boolean; // east
   private resizingSE: boolean; // south-east
 
-  constructor(element: ElementRef, private renderer: Renderer2) {
+  constructor(element: ElementRef) {
     this.element = element.nativeElement;
   }
 
@@ -117,9 +117,9 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   }
 
   private createHandle(edgeClass: string) {
-    const node = this.renderer.createElement('span');
-    this.renderer.addClass(node, edgeClass);
-    this.renderer.appendChild(this.element, node);
+    const node = document.createElement('span');
+    node.className = edgeClass;
+    this.element.appendChild(node);
   }
 
   initResize(event: MouseEvent | TouchEvent, isSouth: boolean, isEast: boolean, isSouthEast: boolean) {
