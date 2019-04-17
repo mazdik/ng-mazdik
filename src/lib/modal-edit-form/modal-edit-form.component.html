@@ -1,4 +1,4 @@
-<app-modal #childModal [modalTitle]="modalTitle | dtTranslate" [width]="500" [zIndex]="dataManager.settings.zIndexModal">
+<app-modal #childModal [modalTitle]="modalTitle" [width]="500" [zIndex]="dataManager.settings.zIndexModal">
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-dynamic-form
@@ -7,16 +7,16 @@
         [item]="dataManager.item"
         [isNewItem]="isNewItem"
         [getOptionsFunc]="getOptionsFunc"
-        [selectPlaceholder]="dataManager.messages.selectPlaceholder | dtTranslate"
-        [searchInputPlaceholder]="dataManager.messages.search | dtTranslate"
+        [selectPlaceholder]="dataManager.messages.selectPlaceholder"
+        [searchInputPlaceholder]="dataManager.messages.search"
         (valid)="onFormValid($event)"
         (loaded)="loaded.emit($event)">
       </app-dynamic-form>
       <app-row-view
         *ngIf="detailView"
         [transposedData]="transposedData"
-        [headerKeyMessage]="dataManager.messages.column | dtTranslate"
-        [headerValueMessage]="dataManager.messages.value | dtTranslate">
+        [headerKeyMessage]="dataManager.messages.column"
+        [headerValueMessage]="dataManager.messages.value">
       </app-row-view>
     </div>
   </ng-container>
@@ -24,11 +24,11 @@
     <button class="dt-button"
             [style.visibility]="!detailView ? 'visible': 'hidden'"
             (click)="save()"
-            [disabled]="!formValid">{{dataManager.messages.save | dtTranslate}}
+            [disabled]="!formValid">{{dataManager.messages.save}}
     </button>
     <button class="dt-button dt-green"
             style="float: right;"
-            (click)="close()">{{dataManager.messages.close | dtTranslate}}
+            (click)="close()">{{dataManager.messages.close}}
     </button>
   </ng-container>
 </app-modal>

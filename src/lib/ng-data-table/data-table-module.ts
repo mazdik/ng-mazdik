@@ -6,7 +6,6 @@ import {ScrollerModule} from '../scroller';
 import {SelectListModule} from '../select-list';
 import {InlineEditModule} from '../inline-edit';
 import {ResizableModule} from '../resizable';
-import {DtTranslateModule} from '../dt-translate';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
@@ -39,7 +38,6 @@ import {RowActionTemplateDirective} from './directives/row-action-template.direc
     SelectListModule,
     InlineEditModule,
     ResizableModule,
-    DtTranslateModule.forChild(),
   ],
   declarations: [
     HeaderComponent,

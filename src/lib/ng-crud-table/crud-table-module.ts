@@ -7,7 +7,6 @@ import {DtToolbarModule} from '../dt-toolbar';
 import {NotifyModule} from '../notify';
 import {ModalEditFormModule} from '../modal-edit-form';
 import {ContextMenuModule} from '../context-menu';
-import {DtTranslateModule} from '../dt-translate';
 import {CrudTableComponent} from './components/crud-table/crud-table.component';
 
 @NgModule({
@@ -19,7 +18,6 @@ import {CrudTableComponent} from './components/crud-table/crud-table.component';
     NotifyModule,
     ModalEditFormModule,
     ContextMenuModule,
-    DtTranslateModule.forChild(),
   ],
   declarations: [
     CrudTableComponent,

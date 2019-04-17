@@ -1,7 +1,7 @@
 <select class="dt-input sm dt-form-group"
         (change)="matchMode = $event.target.value; onModeChange()">
   <option *ngFor="let opt of operators" [value]="opt.value" [selected]="(opt.value === matchMode)">
-    {{opt.text | dtTranslate}}
+    {{opt.text}}
   </option>
 </select>
 <input class="dt-input dt-form-group"
@@ -14,7 +14,7 @@
 
 <div class="dt-list-divider"></div>
 <div class="dt-list-menu-row">
-  <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="isValueFilter">{{table.messages.ok | dtTranslate}}</button>
-  <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{table.messages.cancel | dtTranslate}}</button>
-  <button class="dt-button dt-button-sm" (click)="onClickClear()">{{table.messages.clear | dtTranslate}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="isValueFilter">{{table.messages.ok}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{table.messages.cancel}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickClear()">{{table.messages.clear}}</button>
 </div>

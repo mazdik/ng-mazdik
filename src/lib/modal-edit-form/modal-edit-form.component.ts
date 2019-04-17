@@ -2,11 +2,9 @@ import {
   Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
   ViewEncapsulation
 } from '@angular/core';
-import {Observable, forkJoin} from 'rxjs';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../ng-crud-table/base';
 import {DynamicFormElement} from '../dynamic-form';
-import {DtTranslateService} from '../dt-translate';
 import {KeyValuePair} from '../row-view';
 
 @Component({
@@ -37,8 +35,7 @@ export class ModalEditFormComponent implements OnInit {
   transposedData: KeyValuePair[];
   getOptionsFunc: Function;
 
-  constructor(private cd: ChangeDetectorRef, private dtTranslateService: DtTranslateService) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.getOptionsFunc = this.dataManager.service.getOptions.bind(this.dataManager.service);
@@ -80,7 +77,6 @@ export class ModalEditFormComponent implements OnInit {
 
   createDynamicFormElements() {
     const temp: DynamicFormElement[] = [];
-    const observables: Observable<string>[] = [];
     const tempDetailView: KeyValuePair[] = [];
 
     for (const column of this.dataManager.columns) {
@@ -98,19 +94,9 @@ export class ModalEditFormComponent implements OnInit {
       element.disableOnEdit = column.formDisableOnEdit;
       temp.push(element);
       tempDetailView.push({key: column.title, value: column.getValueView(this.dataManager.item)});
-      observables.push(this.dtTranslateService.get(element.title));
     }
-
-    forkJoin(observables).subscribe(res => {
-      temp.forEach((el, i) => {
-        el.title = res[i];
-      });
-      tempDetailView.forEach((el, i) => {
-        el.key = res[i];
-      });
-      this.dynElements = temp;
-      this.transposedData = tempDetailView;
-    });
+    this.dynElements = temp;
+    this.transposedData = tempDetailView;
   }
 
 }

@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { EN } from './dt-messages';
+import { DtMessagesEn } from './dt-messages';
 
 @Injectable()
 export class DtTranslateService {
@@ -9,7 +9,7 @@ export class DtTranslateService {
   private _onLangChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
-    this.data = {DT: EN};
+    this.data = {DT: DtMessagesEn};
   }
 
   get(key: any): Observable<string | any> {

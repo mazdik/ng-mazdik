@@ -8,7 +8,7 @@ import {DataFilter} from './data-filter';
 import {Events} from './events';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
-import {DtMessages} from '../../dt-translate';
+import {DtMessages, DtMessagesEn} from '../../dt-translate';
 import {RowGroup} from './row-group';
 import {Sequence} from './sequence';
 import {LocalDataSource} from './local-data-source';
@@ -17,7 +17,7 @@ import {Row} from './row';
 export class DataTable {
 
   settings: Settings;
-  messages: DtMessages = new DtMessages();
+  messages: DtMessages = DtMessagesEn;
   sequence: Sequence;
   columns: Column[] = [];
   frozenColumns: Column[] = [];

@@ -45,7 +45,7 @@ export class DtMessages {
   actions = PREF + 'actions';
 }
 
-export const EN = <DtMessages> {
+export const DtMessagesEn = <DtMessages> {
   empty: 'No data to display',
   loading: 'Loading...',
   clearFilters: 'Clear all filters',

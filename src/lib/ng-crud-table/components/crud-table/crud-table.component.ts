@@ -4,11 +4,10 @@ import {
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
 import {DataManager, Row} from '../../base';
-import {Subscription, Observable, forkJoin} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
 import {DataTableComponent} from '../../../ng-data-table';
 import {MenuItem} from '../../../common';
-import {DtTranslateService} from '../../../dt-translate';
 
 @Component({
   selector: 'app-crud-table',
@@ -38,8 +37,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   actionMenu: MenuItem[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef, private dtTranslateService: DtTranslateService) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.initRowMenu();
@@ -82,6 +80,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.actionMenu.push(
         {
           id: this.dataManager.messages.titleDetailView,
+          label: this.dataManager.messages.titleDetailView,
           icon: 'dt-icon dt-icon-rightwards',
           command: (row) => this.viewAction(row),
         }
@@ -91,48 +90,44 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.actionMenu.push(
         {
           id: this.dataManager.messages.titleUpdate,
+          label: this.dataManager.messages.titleUpdate,
           icon: 'dt-icon dt-icon-pencil',
           command: (row) => this.updateAction(row),
         },
         {
           id: this.dataManager.messages.refresh,
+          label: this.dataManager.messages.refresh,
           icon: 'dt-icon dt-icon-reload',
           command: (row) => this.dataManager.refreshRow(row),
         },
         {
           id: this.dataManager.messages.revertChanges,
+          label: this.dataManager.messages.revertChanges,
           icon: 'dt-icon dt-icon-return',
           command: (row) => this.dataManager.revertRowChanges(row),
           disabled: true,
         },
         {
           id: this.dataManager.messages.save,
+          label: this.dataManager.messages.save,
           icon: 'dt-icon dt-icon-ok',
           command: (row) => this.dataManager.update(row),
           disabled: true,
         },
         {
           id: this.dataManager.messages.delete,
+          label: this.dataManager.messages.delete,
           icon: 'dt-icon dt-icon-remove',
           command: (row) => confirm('Delete ?') ? this.dataManager.delete(row) : null,
         },
         {
           id: this.dataManager.messages.duplicate,
+          label: this.dataManager.messages.duplicate,
           icon: 'dt-icon dt-icon-plus',
           command: (row) => this.duplicateAction(row),
         },
       );
     }
-    const observables: Observable<string>[] = [];
-    this.actionMenu.forEach(x => observables.push(this.dtTranslateService.get(x.id)));
-    forkJoin(observables).subscribe(res => {
-      this.actionMenu.forEach((el, i) => {
-        el.label = res[i];
-        if (el.id === this.dataManager.messages.delete) {
-          el.command = (row) => confirm(res[i] + '?') ? this.dataManager.delete(row) : null;
-        }
-      });
-    });
   }
 
   rowMenuBeforeOpen(row: Row) {

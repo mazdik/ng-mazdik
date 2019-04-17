@@ -10,7 +10,6 @@ import { BodyCellEditComponent } from '../body/body-cell-edit.component';
 import { BodyCellComponent } from '../body/body-cell.component';
 import { InlineEditModule } from '../../../inline-edit';
 import { ScrollerModule } from '../../../scroller';
-import { DtTranslateModule } from '../../../dt-translate';
 
 @Component({
   template: `<dt-body [table]="dataTable"></dt-body>`
@@ -48,7 +47,6 @@ describe('BodyComponent', () => {
       imports: [
         InlineEditModule,
         ScrollerModule,
-        DtTranslateModule.forChild(),
       ],
     })
       .compileComponents();

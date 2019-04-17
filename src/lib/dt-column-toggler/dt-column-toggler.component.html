@@ -1,4 +1,4 @@
-<app-modal #childModal [modalTitle]="table.messages.columns | dtTranslate" [width]="740" [zIndex]="zIndex">
+<app-modal #childModal [modalTitle]="table.messages.columns" [width]="740" [zIndex]="zIndex">
   <ng-container class="app-modal-body">
       <app-dual-list-box
         *ngIf="childModal.visible"
@@ -9,11 +9,11 @@
   </ng-container>
   <ng-container class="app-modal-footer">
     <button class="dt-button"
-            (click)="save()">{{table.messages.save | dtTranslate}}
+            (click)="save()">{{table.messages.save}}
     </button>
     <button class="dt-button dt-green"
             style="float: right;"
-            (click)="close()">{{table.messages.close | dtTranslate}}
+            (click)="close()">{{table.messages.close}}
     </button>
   </ng-container>
 </app-modal>
