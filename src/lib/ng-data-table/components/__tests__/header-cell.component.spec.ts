@@ -1,15 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
-import { ColumnBase, Settings, DataTable, Row } from '../../base';
-import { BodyRowComponent } from '../body/body-row.component';
-import { BodyCellActionComponent } from '../body/body-cell-action.component';
-import { BodyCellEditComponent } from '../body/body-cell-edit.component';
-import { BodyCellComponent } from '../body/body-cell.component';
-import { InlineEditModule } from '../../../inline-edit';
+import { ColumnBase, Column, Settings, DataTable } from '../../base';
+import { HeaderCellComponent } from '../header/header-cell.component';
 
 @Component({
-  template: `<dt-body-row [table]="dataTable" [row]="row"></dt-body-row>`
+  template: `<dt-header-cell [table]="dataTable" [column]="column"></dt-header-cell>`
 })
 class TestFixtureComponent {
   dataTable: DataTable;
@@ -18,17 +14,17 @@ class TestFixtureComponent {
     <ColumnBase>{ name: 'date', editable: true },
     <ColumnBase>{ name: 'gender', frozen: true },
   ];
-  row: Row;
+  column: Column;
   constructor() {
     this.dataTable = new DataTable(this.columns, this.settings);
     this.dataTable.rows = [
       { date: new Date(2017, 8, 5), gender: 'f' },
     ];
-    this.row = this.dataTable.rows[0];
+    this.column = this.dataTable.columns[0];
   }
 }
 
-describe('BodyRowComponent', () => {
+describe('HeaderCellComponent', () => {
   let component: TestFixtureComponent;
   let fixture: ComponentFixture<TestFixtureComponent>;
 
@@ -36,12 +32,8 @@ describe('BodyRowComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TestFixtureComponent,
-        BodyRowComponent,
-        BodyCellActionComponent,
-        BodyCellEditComponent,
-        BodyCellComponent
-      ],
-      imports: [InlineEditModule]
+        HeaderCellComponent,
+      ]
     })
       .compileComponents();
   }));
@@ -56,9 +48,9 @@ describe('BodyRowComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should be able to render row', () => {
-    const element = fixture.nativeElement.querySelector('dt-body-row');
-    expect(element.classList).toContain('datatable-body-row');
+  it('should be able to render header cell', () => {
+    const element = fixture.nativeElement.querySelector('dt-header-cell');
+    expect(element.classList).toContain('datatable-header-cell');
   });
 
 });

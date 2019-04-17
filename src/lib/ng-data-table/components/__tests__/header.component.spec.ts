@@ -1,15 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
-import { ColumnBase, Settings, DataTable, Row } from '../../base';
-import { BodyRowComponent } from '../body/body-row.component';
-import { BodyCellActionComponent } from '../body/body-cell-action.component';
-import { BodyCellEditComponent } from '../body/body-cell-edit.component';
-import { BodyCellComponent } from '../body/body-cell.component';
-import { InlineEditModule } from '../../../inline-edit';
+import { ColumnBase, Settings, DataTable } from '../../base';
+import { HeaderComponent } from '../header/header.component';
+import { HeaderCellComponent } from '../header/header-cell.component';
+import { HeaderCellActionComponent } from '../header/header-cell-action.component';
+import { ResizableModule } from '../../../resizable';
 
 @Component({
-  template: `<dt-body-row [table]="dataTable" [row]="row"></dt-body-row>`
+  template: `<dt-header [table]="dataTable"></dt-header>`
 })
 class TestFixtureComponent {
   dataTable: DataTable;
@@ -18,17 +17,15 @@ class TestFixtureComponent {
     <ColumnBase>{ name: 'date', editable: true },
     <ColumnBase>{ name: 'gender', frozen: true },
   ];
-  row: Row;
   constructor() {
     this.dataTable = new DataTable(this.columns, this.settings);
     this.dataTable.rows = [
       { date: new Date(2017, 8, 5), gender: 'f' },
     ];
-    this.row = this.dataTable.rows[0];
   }
 }
 
-describe('BodyRowComponent', () => {
+describe('HeaderComponent', () => {
   let component: TestFixtureComponent;
   let fixture: ComponentFixture<TestFixtureComponent>;
 
@@ -36,12 +33,11 @@ describe('BodyRowComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         TestFixtureComponent,
-        BodyRowComponent,
-        BodyCellActionComponent,
-        BodyCellEditComponent,
-        BodyCellComponent
+        HeaderComponent,
+        HeaderCellComponent,
+        HeaderCellActionComponent,
       ],
-      imports: [InlineEditModule]
+      imports: [ResizableModule]
     })
       .compileComponents();
   }));
@@ -56,9 +52,9 @@ describe('BodyRowComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should be able to render row', () => {
-    const element = fixture.nativeElement.querySelector('dt-body-row');
-    expect(element.classList).toContain('datatable-body-row');
+  it('should be able to render header', () => {
+    const element = fixture.nativeElement.querySelector('dt-header');
+    expect(element.classList).toContain('datatable-header');
   });
 
 });

@@ -44,8 +44,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     if (!this.zIndex) {
-      this.zIndex = this.getMaxModalIndex() + 1;
-      this.zIndex = this.zIndex || 1100;
+      this.zIndex = this.getMaxModalIndex();
+      this.zIndex = (this.zIndex || 1000) + 1;
     }
     this.contentzIndex = this.zIndex + 1;
   }

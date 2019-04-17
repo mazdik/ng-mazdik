@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
-import { ColumnBase, Settings, DataTable, Row } from '../../base';
+import { ColumnBase, Settings, DataTable } from '../../base';
 import { BodyComponent } from '../body/body.component';
 import { BodyGroupRowComponent } from '../body/body-group-row.component';
 import { BodyRowComponent } from '../body/body-row.component';
@@ -47,7 +47,7 @@ describe('BodyComponent', () => {
       imports: [
         InlineEditModule,
         ScrollerModule,
-      ],
+      ]
     })
       .compileComponents();
   }));
