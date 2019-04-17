@@ -1,16 +1,19 @@
-import {ChangeDetectorRef} from '@angular/core';
 import {Keys} from '../common';
+import {Subject} from 'rxjs';
 
 export class Dropdown {
 
   isOpen: boolean;
   selectContainerClicked: boolean;
 
+  private isOpenSource = new Subject<boolean>();
+  isOpenSource$ = this.isOpenSource.asObservable();
+
   private clickListener: any;
   private windowClickListener: any;
   private windowKeydownListener: any;
 
-  constructor(private element: HTMLElement, private cd: ChangeDetectorRef) {
+  constructor(private element: HTMLElement) {
     this.addEventListeners();
   }
 
@@ -55,14 +58,14 @@ export class Dropdown {
   openDropdown() {
     if (!this.isOpen) {
       this.isOpen = true;
-      this.cd.markForCheck();
+      this.isOpenSource.next(this.isOpen);
     }
   }
 
   closeDropdown() {
     if (this.isOpen) {
       this.isOpen = false;
-      this.cd.markForCheck();
+      this.isOpenSource.next(this.isOpen);
     }
   }
 

@@ -1,11 +1,12 @@
 import {
   Component, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
-  HostBinding, ElementRef, ViewEncapsulation, OnDestroy
+  HostBinding, ElementRef, ViewEncapsulation, OnInit, OnDestroy
 } from '@angular/core';
 import { MenuEventArgs } from './types';
 import { Dropdown } from '../dropdown';
 import { MenuItem } from '../common';
 import { isBlank } from '../common/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-context-menu',
@@ -14,7 +15,7 @@ import { isBlank } from '../common/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
-export class ContextMenuComponent implements OnDestroy {
+export class ContextMenuComponent implements OnInit, OnDestroy {
 
   @Input() menu: MenuItem[] = [];
 
@@ -40,13 +41,22 @@ export class ContextMenuComponent implements OnDestroy {
 
   private eventArgs: MenuEventArgs;
   private dropdown: Dropdown;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement, cd);
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement);
+  }
+
+  ngOnInit() {
+    const subDropdown = this.dropdown.isOpenSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subDropdown);
   }
 
   ngOnDestroy() {
     this.dropdown.removeEventListeners();
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('window:resize')

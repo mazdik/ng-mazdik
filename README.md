@@ -342,7 +342,7 @@ import { DtTranslateModule, DtTranslateService } from '../lib/dt-translate';
 import {DtMessages} from '../lib/dt-translate';
 
 messages: DtMessages = <DtMessages>{
-  empty: 'DT.empty',
+  empty: 'No data to display',
   titleDetailView: 'Item details',
   titleCreate: 'Create a new item'
 };

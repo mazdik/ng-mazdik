@@ -1,9 +1,10 @@
 import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef,
-  HostBinding, ElementRef, OnDestroy
+  HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
 import {Dropdown} from '../dropdown';
 import {SelectItem} from '../common';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-dropdown-select',
@@ -19,7 +20,7 @@ import {SelectItem} from '../common';
   encapsulation: ViewEncapsulation.None,
 })
 
-export class DropdownSelectComponent implements OnDestroy {
+export class DropdownSelectComponent implements OnInit, OnDestroy {
 
   @Input() multiple: boolean;
   @Input() disabled: boolean;
@@ -58,13 +59,22 @@ export class DropdownSelectComponent implements OnDestroy {
   selectedOptions: SelectItem[] = [];
   selectedName: string;
   dropdown: Dropdown;
+  private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement, cd);
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement);
+  }
+
+  ngOnInit() {
+    const subDropdown = this.dropdown.isOpenSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subDropdown);
   }
 
   ngOnDestroy() {
     this.dropdown.removeEventListeners();
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   open(event: MouseEvent) {

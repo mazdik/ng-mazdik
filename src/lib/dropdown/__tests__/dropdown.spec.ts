@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 
 import { Dropdown } from '../dropdown';
 
@@ -8,8 +8,8 @@ import { Dropdown } from '../dropdown';
 })
 class TestFixtureComponent {
   dropdown: Dropdown;
-  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement, cd);
+  constructor(private element: ElementRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement);
   }
 }
 
@@ -65,6 +65,25 @@ describe('Dropdown', () => {
 
   it('should be remove event listeners', () => {
     component.dropdown.removeEventListeners();
+  });
+
+  it('should be able to observe when opening', () => {
+    const spy = jasmine.createSpy('changed spy');
+    component.dropdown.isOpenSource$.subscribe(spy);
+
+    component.dropdown.openDropdown();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(true);
+  });
+
+  it('should be able to observe when closing', () => {
+    const spy = jasmine.createSpy('changed spy');
+    component.dropdown.isOpenSource$.subscribe(spy);
+
+    component.dropdown.isOpen = true;
+    component.dropdown.closeDropdown();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(false);
   });
 
 });

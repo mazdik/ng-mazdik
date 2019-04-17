@@ -45,8 +45,8 @@ export class FilterComponent implements OnInit, OnDestroy {
   dropdown: Dropdown;
   private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement, cd);
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement);
   }
 
   ngOnInit() {
@@ -56,8 +56,12 @@ export class FilterComponent implements OnInit, OnDestroy {
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
       this.hide();
     });
+    const subDropdown = this.dropdown.isOpenSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subColumnMenu);
     this.subscriptions.push(subScroll);
+    this.subscriptions.push(subDropdown);
   }
 
   ngOnDestroy() {
