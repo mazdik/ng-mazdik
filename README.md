@@ -1,4 +1,4 @@
-# Angular 7 data table with CRUD operations
+# Angular data table component
 
 Feature-rich data table component for Angular with CRUD operations. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 
@@ -317,27 +317,7 @@ private subscriptions: Subscription[] = [];
   }
 ```
 
-### Sample add ngx-translate
-```typescript
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { DtTranslateModule, DtTranslateService } from '../lib/dt-translate';
-
-  DtTranslateModule.forRoot({
-    service: {
-      provide: DtTranslateService,
-      useClass: TranslateService,
-    }
-  })
-```
-### Sample lang.json (full list in lib/dt-translate/dt-messages)
-```json
-{
-  "DT": {
-    "empty": "No data to display",
-    ...
-  }
-}
-```
+### Sample translate
 ```typescript
 import {DtMessages} from '../lib/dt-translate';
 
