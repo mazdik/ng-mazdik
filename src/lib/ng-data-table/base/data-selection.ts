@@ -6,7 +6,7 @@ export class DataSelection<T> {
     return this._multiple;
   }
 
-  private selection: T[] = [];
+  private selection = new Set<T>();
 
   constructor(private _multiple = false, private selectionSource: Subject<any>) {
   }
@@ -31,17 +31,17 @@ export class DataSelection<T> {
   }
 
   isSelected(value: T): boolean {
-    return this.selection.indexOf(value) !== -1;
+    return this.selection.has(value);
   }
 
   getSelection(): T[] {
-    return this.selection;
+    return Array.from(this.selection.values());
   }
 
   allSelected(values: T[]): boolean {
     return(values &&
       this.selection &&
-      this.selection.length === values.length &&
+      this.selection.size === values.length &&
       values.length !== 0);
   }
 
@@ -61,7 +61,7 @@ export class DataSelection<T> {
   }
 
   isEmpty(): boolean {
-    return this.selection.length === 0;
+    return this.selection.size === 0;
   }
 
   private _markSelected(value: T) {
@@ -69,19 +69,20 @@ export class DataSelection<T> {
       if (!this.multiple) {
         this._unmarkAll();
       }
-      this.selection.push(value);
+      this.selection.add(value);
     }
   }
 
   private _unmarkSelected(value: T) {
-    const index = this.selection.indexOf(value);
-    if (index !== -1) {
-      this.selection.splice(index, 1);
+    if (this.isSelected(value)) {
+      this.selection.delete(value);
     }
   }
 
   private _unmarkAll() {
-    this.selection = [];
+    if (!this.isEmpty()) {
+      this.selection.forEach(value => this._unmarkSelected(value));
+    }
   }
 
 }

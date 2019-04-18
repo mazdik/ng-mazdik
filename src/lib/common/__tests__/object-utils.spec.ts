@@ -3,7 +3,7 @@ import { getDeepValue } from '../utils';
 describe('getDeepValue', () => {
 
   it('should get values one level deep', () => {
-    let data = {
+    const data = {
       a: {
         value: 123
       }
@@ -12,7 +12,7 @@ describe('getDeepValue', () => {
   });
 
   it('should get values two levels deep', () => {
-    let data = {
+    const data = {
       a: {
         b: {
           value: 'foo'
@@ -23,35 +23,35 @@ describe('getDeepValue', () => {
   });
 
   it('should return empty string on missing nested field', () => {
-    let data = {
+    const data = {
       a: {}
     };
     expect(getDeepValue(data, 'a.x.value')).toEqual('');
   });
 
   it('should return empty string on missing final field', () => {
-    let data = {
+    const data = {
       a: {}
     };
     expect(getDeepValue(data, 'a.value')).toEqual('');
   });
 
   it('should return empty string on missing root field', () => {
-    let data = {
+    const data = {
       a: {}
     };
     expect(getDeepValue(data, 'x.value')).toEqual('');
   });
 
   it('should check for root-level fields with dots in name', () => {
-    let data = {
-      "a.b.value": 5
+    const data = {
+      'a.b.value': 5
     };
     expect(getDeepValue(data, 'a.b.value')).toEqual(5);
   });
 
   it('should get array-element two-level deep', () => {
-    let data = {
+    const data = {
       a: {
         b: [
           123
@@ -63,7 +63,7 @@ describe('getDeepValue', () => {
   });
 
   it('should get value of object inside an array-element', () => {
-    let data = {
+    const data = {
       a: {
         b: [
           { c: 123 }
@@ -74,7 +74,7 @@ describe('getDeepValue', () => {
   });
 
   it('should get value of object inside a double array-element', () => {
-    let data = {
+    const data = {
       a: {
         b: [
           [
@@ -87,7 +87,7 @@ describe('getDeepValue', () => {
   });
 
   it('should check for root-level fields with square brackets in name', () => {
-    let data = {
+    const data = {
       'a.b.1.value': 5
     };
     expect(getDeepValue(data, 'a.b.1.value')).toEqual(5);
