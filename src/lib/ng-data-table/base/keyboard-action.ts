@@ -16,7 +16,7 @@ export interface FindCellArgs {
 
 export class KeyboardAction {
 
-  constructor(private events: Events, private selection: DataSelection<number>) {}
+  constructor(private readonly events: Events, private readonly selection: DataSelection<number>) {}
 
   handleEvent(event: KeyboardEvent, element: HTMLElement, maxColIndex: number, maxRowIndex: number) {
     const target = EventHelper.findCellEventTarget(event, element);

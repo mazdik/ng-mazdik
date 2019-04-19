@@ -8,7 +8,7 @@ export class DataSelection<T> {
 
   private selection = new Set<T>();
 
-  constructor(private _multiple = false, private selectionSource: Subject<any>) {
+  constructor(private readonly _multiple = false, private readonly selectionSource: Subject<any>) {
   }
 
   selectValue(value: T) {

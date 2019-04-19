@@ -15,11 +15,11 @@ export class Dimensions {
   offsetY: number = 0;
   headerTemplateHeight: number = 0;
 
-  constructor(private settings: Settings, private columns: Column[]) {
-    this.bodyHeight = this.settings.bodyHeight;
-    this.rowHeight = this.settings.rowHeight;
-    this.headerRowHeight = this.settings.headerRowHeight;
-    this.actionColumnWidth = this.settings.actionColumnWidth;
+  constructor(settings: Settings, private readonly columns: Column[]) {
+    this.bodyHeight = settings.bodyHeight;
+    this.rowHeight = settings.rowHeight;
+    this.headerRowHeight = settings.headerRowHeight;
+    this.actionColumnWidth = settings.actionColumnWidth;
     this.calcColumnsTotalWidth();
   }
 

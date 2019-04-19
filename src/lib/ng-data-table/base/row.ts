@@ -11,7 +11,7 @@ export class Row {
   $$editable: boolean;
   $$level: number;
 
-  constructor(options: { [x: string]: any }, private settings?: Settings) {
+  constructor(options: { [x: string]: any }, private readonly settings?: Settings) {
     Object.assign(this, options);
     this.$$data = options;
   }
@@ -73,6 +73,10 @@ export class Row {
     columns.forEach((column) => {
       this[column.name] = this.$$data[column.name];
     });
+  }
+
+  dispose() {
+    this.$$data = null;
   }
 
 }

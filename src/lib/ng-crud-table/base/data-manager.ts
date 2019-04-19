@@ -7,8 +7,8 @@ import {DtMessages} from '../../dt-translate';
 
 export class DataManager extends DataTable {
 
-  settings: CdtSettings;
-  service: DataSource;
+  readonly settings: CdtSettings;
+  readonly service: DataSource;
   item: any;
   refreshRowOnSave: boolean;
   pagerCache: any = {};

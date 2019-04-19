@@ -3,33 +3,33 @@ import { ColumnMenuEventArgs, CellEventArgs, CellEventType } from './types';
 
 export class Events {
 
-  selectionSource = new Subject();
-  private sortSource = new Subject();
-  private filterSource = new Subject();
-  private pageSource = new Subject();
-  private columnMenuSource = new Subject<ColumnMenuEventArgs>();
-  private resizeBeginSource = new Subject();
-  private resizeSource = new Subject<any>();
-  private resizeEndSource = new Subject();
-  private rowsChanged = new Subject();
-  private scrollSource = new Subject<any>();
-  private loadingSource = new BehaviorSubject<boolean>(false);
-  private checkboxSource = new Subject<any>();
-  private cellSource = new Subject<CellEventArgs>();
+  readonly selectionSource = new Subject();
+  private readonly sortSource = new Subject();
+  private readonly filterSource = new Subject();
+  private readonly pageSource = new Subject();
+  private readonly columnMenuSource = new Subject<ColumnMenuEventArgs>();
+  private readonly resizeBeginSource = new Subject();
+  private readonly resizeSource = new Subject<any>();
+  private readonly resizeEndSource = new Subject();
+  private readonly rowsChanged = new Subject();
+  private readonly scrollSource = new Subject<any>();
+  private readonly loadingSource = new BehaviorSubject<boolean>(false);
+  private readonly checkboxSource = new Subject<any>();
+  private readonly cellSource = new Subject<CellEventArgs>();
 
-  sortSource$ = this.sortSource.asObservable();
-  filterSource$ = this.filterSource.asObservable();
-  selectionSource$ = this.selectionSource.asObservable();
-  pageSource$ = this.pageSource.asObservable();
-  columnMenuSource$ = this.columnMenuSource.asObservable();
-  resizeBeginSource$ = this.resizeBeginSource.asObservable();
-  resizeSource$ = this.resizeSource.asObservable();
-  resizeEndSource$ = this.resizeEndSource.asObservable();
-  rowsChanged$ = this.rowsChanged.asObservable();
-  scrollSource$ = this.scrollSource.asObservable();
-  loadingSource$ = this.loadingSource.asObservable();
-  checkboxSource$ = this.checkboxSource.asObservable();
-  cellSource$ = this.cellSource.asObservable();
+  readonly sortSource$ = this.sortSource.asObservable();
+  readonly filterSource$ = this.filterSource.asObservable();
+  readonly selectionSource$ = this.selectionSource.asObservable();
+  readonly pageSource$ = this.pageSource.asObservable();
+  readonly columnMenuSource$ = this.columnMenuSource.asObservable();
+  readonly resizeBeginSource$ = this.resizeBeginSource.asObservable();
+  readonly resizeSource$ = this.resizeSource.asObservable();
+  readonly resizeEndSource$ = this.resizeEndSource.asObservable();
+  readonly rowsChanged$ = this.rowsChanged.asObservable();
+  readonly scrollSource$ = this.scrollSource.asObservable();
+  readonly loadingSource$ = this.loadingSource.asObservable();
+  readonly checkboxSource$ = this.checkboxSource.asObservable();
+  readonly cellSource$ = this.cellSource.asObservable();
 
   onSort() {
     this.sortSource.next();

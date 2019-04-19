@@ -28,8 +28,8 @@ export class TreeTable extends DataTable {
 
   getIconFunc: (node?: TreeNode) => string;
   indent: number = 10;
-  tree: Tree;
-  private treeFlattener: TreeFlattener;
+  readonly tree: Tree;
+  private readonly treeFlattener: TreeFlattener;
 
   constructor(columns: ColumnBase[], settings: Settings, dataSource: TreeDataSource, messages?: DtMessages) {
     super(columns, settings, messages);

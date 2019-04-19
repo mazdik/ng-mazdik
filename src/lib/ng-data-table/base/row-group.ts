@@ -24,10 +24,10 @@ export class RowGroup {
   private dataAggregation: DataAggregation;
   private grandTotalRow: Row;
 
-  constructor(settings: Settings, private columns: Column[]) {
+  constructor(settings: Settings, columns: Column[]) {
     this.groupRowsBy = settings.groupRowsBy;
     this.dataAggregation = new DataAggregation();
-    this.dataAggregation.aggregates = this.columns
+    this.dataAggregation.aggregates = columns
       .filter(x => x.aggregation)
       .map(x => <AggregateMeta>{ field: x.name, type: x.aggregation });
   }

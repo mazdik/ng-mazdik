@@ -1,16 +1,18 @@
-import {DataPager} from './data-pager';
-import {DataSort} from './data-sort';
-import {DataFilter} from './data-filter';
-import {Settings} from './settings';
-import {Row} from './row';
+import { DataPager } from './data-pager';
+import { DataSort } from './data-sort';
+import { DataFilter } from './data-filter';
+import { Settings } from './settings';
+import { Row } from './row';
 
 export class LocalDataSource {
 
   localRows: Row[] = [];
 
-  constructor(private dataFilter: DataFilter, private pager: DataPager, private sorter: DataSort,
-    private settings: Settings) {
-  }
+  constructor(
+    private readonly dataFilter: DataFilter,
+    private readonly pager: DataPager,
+    private readonly sorter: DataSort,
+    private readonly settings: Settings) {}
 
   setRows(data: Row[]) {
     this.dataFilter.clear();

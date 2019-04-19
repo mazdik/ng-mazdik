@@ -17,7 +17,7 @@ export class Column extends ColumnBase {
     return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
-  constructor(init: Partial<ColumnBase>, private settings: Settings) {
+  constructor(init: Partial<ColumnBase>, private readonly settings: Settings) {
     super();
     Object.assign(this, init);
     this.setSettings();

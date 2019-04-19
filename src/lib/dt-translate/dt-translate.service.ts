@@ -9,7 +9,7 @@ export class DtTranslateService {
   private _onLangChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {
-    this.data = {DT: DtMessagesEn};
+    this.data = {DT: new DtMessagesEn()};
   }
 
   get(key: any): Observable<string | any> {

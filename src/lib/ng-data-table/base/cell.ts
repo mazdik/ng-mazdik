@@ -22,7 +22,7 @@ export class Cell {
     return (this.row) ? this.row.$$index : null;
   }
 
-  constructor(public row: Row, public column: Column) {
+  constructor(public readonly row: Row, public readonly column: Column) {
     this._value = this.column.getValue(this.row);
     if (this.row && this.row.$$data) {
       this.oldValue = this.column.getValue(this.row.$$data);

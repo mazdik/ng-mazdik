@@ -16,20 +16,20 @@ import {Row} from './row';
 
 export class DataTable {
 
-  settings: Settings;
-  messages: DtMessages = DtMessagesEn;
-  sequence: Sequence;
+  readonly settings: Settings;
+  readonly messages: DtMessages;
+  readonly sequence: Sequence;
+  readonly pager: DataPager;
+  readonly sorter: DataSort;
+  readonly dataFilter: DataFilter;
+  readonly events: Events;
+  readonly selection: DataSelection<number>;
+  readonly dimensions: Dimensions;
+  readonly rowGroup: RowGroup;
+  readonly localDataSource: LocalDataSource;
   columns: Column[] = [];
   frozenColumns: Column[] = [];
   scrollableColumns: Column[] = [];
-  pager: DataPager;
-  sorter: DataSort;
-  dataFilter: DataFilter;
-  events: Events;
-  selection: DataSelection<number>;
-  dimensions: Dimensions;
-  rowGroup: RowGroup;
-  localDataSource: LocalDataSource;
   clientSide: boolean = true;
 
   get rows(): any { return this._rows; }
@@ -60,6 +60,7 @@ export class DataTable {
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.columns);
     this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.settings);
+    this.messages = new DtMessagesEn();
     if (messages) {
       Object.assign(this.messages, messages);
     }
