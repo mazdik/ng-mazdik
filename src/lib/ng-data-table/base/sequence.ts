@@ -5,19 +5,17 @@ export class Sequence {
 
   private uidRow: number = 0;
 
-  setColumnIndexes(columns: Column[]): Column[] {
+  setColumnIndexes(columns: Column[]): void {
     let columnIndex = 0;
     columns.forEach(column => {
       if (!column.tableHidden) {
         column.index = columnIndex++;
       }
     });
-    return columns;
   }
 
-  setRowIndexes(rows: Row[]): Row[] {
+  setRowIndexes(rows: Row[]): void {
     rows.forEach((row, i) => row.$$index = i);
-    return rows;
   }
 
   getUidRow() {

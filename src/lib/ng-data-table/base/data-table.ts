@@ -27,7 +27,7 @@ export class DataTable {
   readonly dimensions: Dimensions;
   readonly rowGroup: RowGroup;
   readonly localDataSource: LocalDataSource;
-  columns: Column[] = [];
+  readonly columns: Column[] = [];
   frozenColumns: Column[] = [];
   scrollableColumns: Column[] = [];
   clientSide: boolean = true;
@@ -43,7 +43,7 @@ export class DataTable {
       this._rows = val;
     }
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this._rows = this.sequence.setRowIndexes(this._rows);
+    this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
   private _rows: Row[] = [];
@@ -52,7 +52,8 @@ export class DataTable {
     this.settings = new Settings(settings);
     this.sequence = new Sequence();
     this.dataFilter = new DataFilter();
-    this.createColumns(columns);
+    this.columns = columns.map(column => new Column(column, this.settings));
+    this.initColumns();
     this.events = new Events();
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings.multipleSort);
@@ -64,11 +65,6 @@ export class DataTable {
     if (messages) {
       Object.assign(this.messages, messages);
     }
-  }
-
-  createColumns(columns: ColumnBase[]) {
-    this.columns = columns.map(column => new Column(column, this.settings));
-    this.initColumns();
   }
 
   initColumns(): void {
@@ -84,7 +80,7 @@ export class DataTable {
         }
       }
     });
-    this.columns = this.sequence.setColumnIndexes(this.columns);
+    this.sequence.setColumnIndexes(this.columns);
   }
 
   selectRow(rowIndex: number) {
@@ -106,7 +102,7 @@ export class DataTable {
       this.pager.total += 1;
     }
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this._rows = this.sequence.setRowIndexes(this._rows);
+    this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
     setTimeout(() => {
       this.events.onActivateCell(<CellEventArgs>{columnIndex: 0, rowIndex: newRow.$$index});
@@ -123,7 +119,7 @@ export class DataTable {
       this.pager.total -= 1;
     }
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this._rows = this.sequence.setRowIndexes(this._rows);
+    this.sequence.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
 
@@ -167,7 +163,7 @@ export class DataTable {
   loadLocalRows() {
     this._rows = this.localDataSource.getRows();
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this._rows = this.sequence.setRowIndexes(this._rows);
+    this.sequence.setRowIndexes(this._rows);
   }
 
   protected setSortMetaGroup() {
