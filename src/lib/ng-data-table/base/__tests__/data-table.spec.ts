@@ -104,7 +104,7 @@ describe('DataTable', () => {
 
   it('should be able to concat rows', () => {
     expect(dataTable.rows.length).toBe(4);
-    expect(dataTable.sequence.curUidRow()).toBe(4);
+    expect(dataTable.rowModelGenerator.curUidRow()).toBe(4);
 
     const newRows = [
       { date: new Date(2020, 8, 5), gender: 'f' },
@@ -112,7 +112,7 @@ describe('DataTable', () => {
     ];
     dataTable.rows = dataTable.rows.concat(newRows);
     expect(dataTable.rows.length).toBe(6);
-    expect(dataTable.sequence.curUidRow()).toBe(6);
+    expect(dataTable.rowModelGenerator.curUidRow()).toBe(6);
   });
 
   it('row should be instanceof Row', () => {

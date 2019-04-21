@@ -11,7 +11,7 @@ export { EventHelper } from './event-helper';
 export { Events } from './events';
 export { KeyboardAction } from './keyboard-action';
 export { Settings } from './settings';
-export { Sequence } from './sequence';
+export { RowModelGenerator } from './row-model-generator';
 export { Row } from './row';
 export { Cell } from './cell';
 export * from './types';

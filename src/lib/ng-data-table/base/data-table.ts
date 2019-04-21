@@ -10,7 +10,7 @@ import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
 import {DtMessages, DtMessagesEn} from '../../dt-translate';
 import {RowGroup} from './row-group';
-import {Sequence} from './sequence';
+import {RowModelGenerator} from './row-model-generator';
 import {LocalDataSource} from './local-data-source';
 import {Row} from './row';
 
@@ -18,7 +18,6 @@ export class DataTable {
 
   readonly settings: Settings;
   readonly messages: DtMessages;
-  readonly sequence: Sequence;
   readonly pager: DataPager;
   readonly sorter: DataSort;
   readonly dataFilter: DataFilter;
@@ -27,6 +26,7 @@ export class DataTable {
   readonly dimensions: Dimensions;
   readonly rowGroup: RowGroup;
   readonly localDataSource: LocalDataSource;
+  readonly rowModelGenerator: RowModelGenerator;
   readonly columns: Column[] = [];
   frozenColumns: Column[] = [];
   scrollableColumns: Column[] = [];
@@ -34,7 +34,7 @@ export class DataTable {
 
   get rows(): any { return this._rows; }
   set rows(val: any) {
-    val = val.map(this.generateRow.bind(this));
+    val = this.rowModelGenerator.generateRows(val);
     if (this.clientSide) {
       this.localDataSource.setRows(val);
       this.setSortMetaGroup();
@@ -43,14 +43,13 @@ export class DataTable {
       this._rows = val;
     }
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this.sequence.setRowIndexes(this._rows);
+    this.rowModelGenerator.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
   private _rows: Row[] = [];
 
   constructor(columns: ColumnBase[], settings: Settings, messages?: DtMessages) {
     this.settings = new Settings(settings);
-    this.sequence = new Sequence();
     this.dataFilter = new DataFilter();
     this.columns = columns.map(column => new Column(column, this.settings));
     this.initColumns();
@@ -61,6 +60,7 @@ export class DataTable {
     this.dimensions = new Dimensions(this.settings, this.columns);
     this.rowGroup = new RowGroup(this.settings, this.columns);
     this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.settings);
+    this.rowModelGenerator = new RowModelGenerator(this.settings, this.columns);
     this.messages = new DtMessagesEn();
     if (messages) {
       Object.assign(this.messages, messages);
@@ -70,6 +70,7 @@ export class DataTable {
   initColumns(): void {
     this.frozenColumns = [];
     this.scrollableColumns = [];
+    let columnIndex = 0;
 
     this.columns.forEach((column) => {
       if (!column.tableHidden) {
@@ -78,9 +79,9 @@ export class DataTable {
         } else {
           this.scrollableColumns.push(column);
         }
+        column.index = columnIndex++;
       }
     });
-    this.sequence.setColumnIndexes(this.columns);
   }
 
   selectRow(rowIndex: number) {
@@ -92,7 +93,7 @@ export class DataTable {
   }
 
   addRow(newRow: any) {
-    newRow = this.generateRow(newRow);
+    newRow = this.rowModelGenerator.generateRow(newRow);
 
     if (this.clientSide) {
       this.localDataSource.post(newRow);
@@ -102,7 +103,7 @@ export class DataTable {
       this.pager.total += 1;
     }
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this.sequence.setRowIndexes(this._rows);
+    this.rowModelGenerator.setRowIndexes(this._rows);
     this.events.onRowsChanged();
     setTimeout(() => {
       this.events.onActivateCell(<CellEventArgs>{columnIndex: 0, rowIndex: newRow.$$index});
@@ -119,7 +120,7 @@ export class DataTable {
       this.pager.total -= 1;
     }
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this.sequence.setRowIndexes(this._rows);
+    this.rowModelGenerator.setRowIndexes(this._rows);
     this.events.onRowsChanged();
   }
 
@@ -130,21 +131,6 @@ export class DataTable {
 
   editCell(rowIndex: number, columnIndex: number, editMode: boolean) {
     this.events.onCellEditMode(<CellEventArgs>{columnIndex, rowIndex, editMode});
-  }
-
-  private generateRow(row: any): Row {
-    if (!(row instanceof Row)) {
-      row = new Row(row, this.settings);
-    }
-    this.columns.forEach((column) => {
-      if (column.containsDots) {
-        row[column.name] = column.getValue(row);
-      }
-    });
-    if (!row.$$uid) {
-      row.$$uid = this.sequence.getUidRow();
-    }
-    return row;
   }
 
   revertRowChanges(row: Row) {
@@ -163,7 +149,7 @@ export class DataTable {
   loadLocalRows() {
     this._rows = this.localDataSource.getRows();
     this.rowGroup.updateRowGroupMetadata(this._rows);
-    this.sequence.setRowIndexes(this._rows);
+    this.rowModelGenerator.setRowIndexes(this._rows);
   }
 
   protected setSortMetaGroup() {
