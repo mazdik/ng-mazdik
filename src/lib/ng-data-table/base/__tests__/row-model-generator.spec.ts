@@ -5,12 +5,10 @@ import { Row } from '../row';
 
 describe('RowModelGenerator', () => {
 
-  const settings = new Settings({
-    rowClass: 'row-class'
-  });
+  const settings = new Settings({});
   const columns = [
-    new Column({ name: 'date' }, settings),
-    new Column({ name: 'gender' }, settings),
+    new Column({ name: 'date' }),
+    new Column({ name: 'gender' }),
   ];
   let rowModelGenerator: RowModelGenerator;
   const rows = [

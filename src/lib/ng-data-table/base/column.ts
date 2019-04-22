@@ -1,7 +1,6 @@
 import { ColumnBase } from './column-base';
 import { isBlank, getDeepValue } from '../../common/utils';
 import { DataType } from './types';
-import { Settings } from './settings';
 import { SelectItem } from '../../common';
 
 export class Column extends ColumnBase {
@@ -17,27 +16,9 @@ export class Column extends ColumnBase {
     return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
-  constructor(init: Partial<ColumnBase>, private readonly settings: Settings) {
+  constructor(init: Partial<ColumnBase>) {
     super();
     Object.assign(this, init);
-    this.setSettings();
-  }
-
-  private setSettings() {
-    /* disable sort for all column */
-    if (this.settings.sortable === false) {
-      this.sortable = false;
-    }
-    /* disable filter for all column */
-    if (this.settings.filter === false) {
-      this.filter = false;
-    }
-    // hide if column is grouped
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      if (this.settings.groupRowsBy.indexOf(this.name) >= 0) {
-        this.tableHidden = true;
-      }
-    }
     this.setDefaults();
   }
 

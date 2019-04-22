@@ -1,11 +1,9 @@
 import { Column } from '../column';
-import { Settings } from '../settings';
 import { Row } from '../row';
 import { Cell } from '../cell';
 
 describe('Cell', () => {
 
-  const settings = new Settings({});
   const column = new Column({
     name: 'column1',
     title: 'column1',
@@ -21,7 +19,7 @@ describe('Cell', () => {
     dependsColumn: 'race',
     editable: true,
     validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
-  }, settings);
+  });
   column.index = 0;
   const row = new Row({column1: 'ELY1', race: 'ELYOS', $$index: 3, $$uid: 3, $$data: {column1: 'ELY1'}});
   const cell = new Cell(row, column);

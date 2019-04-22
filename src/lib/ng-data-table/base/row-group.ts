@@ -1,5 +1,4 @@
 import { GroupMetadata, AggregateMeta } from './types';
-import { Settings } from './settings';
 import { DataAggregation } from './data-aggregation';
 import { Column } from './column';
 import { Row } from './row';
@@ -24,8 +23,8 @@ export class RowGroup {
   private dataAggregation: DataAggregation;
   private grandTotalRow: Row;
 
-  constructor(settings: Settings, columns: Column[]) {
-    this.groupRowsBy = settings.groupRowsBy;
+  constructor(groupRowsBy: string[], columns: Column[]) {
+    this.groupRowsBy = groupRowsBy;
     this.dataAggregation = new DataAggregation();
     this.dataAggregation.aggregates = columns
       .filter(x => x.aggregation)

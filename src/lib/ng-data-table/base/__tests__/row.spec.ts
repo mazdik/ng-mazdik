@@ -7,7 +7,7 @@ describe('Row', () => {
   const settings = new Settings({
     rowClass: 'row-class'
   });
-  const column = new Column({ name: 'id', cellClass: 'cell-class', editable: true }, settings);
+  const column = new Column({ name: 'id', cellClass: 'cell-class', editable: true });
   const data = { id: 10, name: 'Anastasia', $$uid: 9999, $$height: 40 };
   let row: Row;
 

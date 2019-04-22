@@ -1,15 +1,13 @@
 import { RowGroup } from '../row-group';
 import { Column } from '../column';
-import { Settings } from '../settings';
 import { Row } from '../row';
 
 describe('RowGroup', () => {
   const groupBy = ['cityId', 'gender'];
-  const settings = new Settings({ groupRowsBy: groupBy });
   const columns = [
-    new Column({ name: 'cityId' }, settings),
-    new Column({ name: 'gender' }, settings),
-    new Column({ name: 'id', aggregation: 'max' }, settings),
+    new Column({ name: 'cityId' }),
+    new Column({ name: 'gender' }),
+    new Column({ name: 'id', aggregation: 'max' }),
   ];
   const rows: Row[] = [
     new Row({ date: new Date(2017, 8, 5), gender: 'f', id: 10, name: 'Anastasia', cityId: 1, $$index: 0, $$uid: 0, $$data: {} }),
@@ -17,7 +15,7 @@ describe('RowGroup', () => {
     new Row({ date: new Date(2016, 11, 1), gender: 'm', id: 20, name: 'Aaron', cityId: 1, $$index: 2, $$uid: 2, $$data: {} }),
     new Row({ date: new Date(2018, 4, 3), gender: 'm', id: 40, name: 'Daniel', cityId: 2, $$index: 3, $$uid: 3, $$data: {} }),
   ];
-  const rowGroup = new RowGroup(settings, columns);
+  const rowGroup = new RowGroup(groupBy, columns);
 
   it('should be able group enabled', () => {
     expect(rowGroup.groupEnabled).toBe(true);

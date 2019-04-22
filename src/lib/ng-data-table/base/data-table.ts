@@ -51,14 +51,14 @@ export class DataTable {
   constructor(columns: ColumnBase[], settings: Settings, messages?: DtMessages) {
     this.settings = new Settings(settings);
     this.dataFilter = new DataFilter();
-    this.columns = columns.map(column => new Column(column, this.settings));
+    this.columns = columns.map(x => new Column(x));
     this.initColumns();
     this.events = new Events();
     this.pager = new DataPager();
     this.sorter = new DataSort(this.settings.multipleSort);
     this.selection = new DataSelection(this.settings.selectionMultiple, this.events.selectionSource);
     this.dimensions = new Dimensions(this.settings, this.columns);
-    this.rowGroup = new RowGroup(this.settings, this.columns);
+    this.rowGroup = new RowGroup(this.settings.groupRowsBy, this.columns);
     this.localDataSource = new LocalDataSource(this.dataFilter, this.pager, this.sorter, this.settings);
     this.rowModelGenerator = new RowModelGenerator(this.settings, this.columns);
     this.messages = new DtMessagesEn();
@@ -80,8 +80,24 @@ export class DataTable {
           this.scrollableColumns.push(column);
         }
         column.index = columnIndex++;
+        this.setColumnSettings(column);
       }
     });
+  }
+
+  private setColumnSettings(column: Column) {
+    if (this.settings.sortable === false) {
+      column.sortable = false;
+    }
+    if (this.settings.filter === false) {
+      column.filter = false;
+    }
+    // hide if column is grouped
+    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
+      if (this.settings.groupRowsBy.indexOf(column.name) >= 0) {
+        column.tableHidden = true;
+      }
+    }
   }
 
   selectRow(rowIndex: number) {
