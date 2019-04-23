@@ -6,18 +6,20 @@ export class Row {
 
   $$uid: number;
   $$index: number;
-  $$data: Object;
+  $$data: any;
   $$height: number;
   $$editable: boolean;
   $$level: number;
+  private readonly $$settings: Settings;
 
-  constructor(options: { [x: string]: any }, private readonly settings?: Settings) {
+  constructor(options: { [x: string]: any }, settings?: Settings) {
     Object.assign(this, options);
     this.$$data = options;
+    this.$$settings = settings;
   }
 
   clone(): Row {
-    const newRow = new Row(Object.assign({}, this), this.settings);
+    const newRow = new Row(Object.assign({}, this), this.$$settings);
     newRow.$$uid = null;
     newRow.$$index = null;
     newRow.$$data = null;
@@ -29,14 +31,14 @@ export class Row {
   }
 
   isEditableCell(column: Column): boolean {
-    if (column.editable && this.settings && this.hasOwnProperty(this.settings.isEditableCellProp)) {
-      return this[this.settings.isEditableCellProp];
+    if (column.editable && this.$$settings && this.hasOwnProperty(this.$$settings.isEditableCellProp)) {
+      return this[this.$$settings.isEditableCellProp];
     }
     return column.editable;
   }
 
   getRowClass() {
-    const rowClass = this.settings ? this.settings.rowClass : null;
+    const rowClass = this.$$settings ? this.$$settings.rowClass : null;
     if (rowClass) {
       if (typeof rowClass === 'string') {
         return rowClass;

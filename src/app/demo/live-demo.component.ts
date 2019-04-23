@@ -1,27 +1,29 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
+import {Subscription, interval} from 'rxjs';
 
 @Component({
   selector: 'app-live-demo',
   template: `
-    <button class="dt-button" style="margin-bottom: 5px;" (click)="stop=true">stop</button>
+    <button class="dt-button" style="margin-bottom: 5px;" (click)="stop=!stop">{{stop ? 'start' : 'stop'}}</button>
     <app-data-table [table]="table"></app-data-table>
   `
 })
 
-export class LiveDemoComponent implements OnInit {
+export class LiveDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
   columns: Column[];
   tempRows: any;
-  stop: boolean;
+  stop: boolean = false;
 
   settings: Settings = <Settings>{
     sortable: false,
     filter: false,
   };
+  private subInterval: Subscription;
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -41,8 +43,18 @@ export class LiveDemoComponent implements OnInit {
       this.table.rows = data;
       this.table.events.onLoading(false);
       this.tempRows = [...data];
-      this.updateRandom();
+
+      this.subInterval = interval(500).subscribe(x => {
+        if (this.stop) {
+          return;
+        }
+        this.updateRandom();
+      });
     });
+  }
+
+  ngOnDestroy() {
+    this.subInterval.unsubscribe();
   }
 
   randomNum(start: number, end: number): number {
@@ -61,10 +73,6 @@ export class LiveDemoComponent implements OnInit {
       this.tempRows[rowIndex].changed = Date.now().toString();
     }
     this.table.rows = [...this.tempRows];
-    if (this.stop) {
-      return;
-    }
-    setTimeout(this.updateRandom.bind(this), 500);
   }
 
 }
