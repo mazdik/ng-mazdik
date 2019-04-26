@@ -64,21 +64,18 @@ export class DemoService implements DataSource {
   }
 
   post(item: any): Promise<any> {
-    // this.data.items.push(item); // exist in component
     return new Promise((resolve) => {
       setTimeout(() => resolve(item), 250);
     });
   }
 
   put(item: any): Promise<any> {
-    // this.data.items[this.findSelectedItemIndex(item)] = item; // exist in component
     return new Promise((resolve) => {
       setTimeout(() => resolve(item), 250);
     });
   }
 
   delete(item: any): Promise<any> {
-    // this.data.items.splice(this.findSelectedItemIndex(item), 1); // exist in component
     return new Promise((resolve) => {
       setTimeout(() => resolve(item), 250);
     });

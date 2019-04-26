@@ -190,6 +190,9 @@ export class TreeTableDemoComponent {
 
 ### Custom service
 ```typescript
+export class YourService implements DataSource {
+}
+
 interface DataSource {
   getItems(requestMeta: RequestMetadata): Promise<PagedResult>;
   getItem(row: any): Promise<any>;

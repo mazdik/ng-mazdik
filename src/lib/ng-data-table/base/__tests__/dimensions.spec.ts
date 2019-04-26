@@ -17,8 +17,6 @@ describe('Dimensions', () => {
   it('should be able to calc columns widths', () => {
     dimensions.calcColumnsTotalWidth();
     expect(dimensions.columnsTotalWidth).toBe(540);
-    expect(dimensions.frozenColumnsWidth).toBe(200);
-    expect(dimensions.scrollableColumnsWidth).toBe(300);
   });
 
 });
