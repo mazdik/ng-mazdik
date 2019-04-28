@@ -21,9 +21,9 @@ export class GlobalFilterDemoComponent implements OnInit {
   dataManager: DataManager;
 
   settings: CdtSettings;
-  serverSideSettings: CdtSettings = <CdtSettings>{
+  serverSideSettings: CdtSettings = new CdtSettings({
     globalFilter: true
-  };
+  });
 
   constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();

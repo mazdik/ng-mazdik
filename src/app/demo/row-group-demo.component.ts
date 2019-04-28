@@ -22,10 +22,10 @@ export class RowGroupDemoComponent implements OnInit {
   table: DataTable;
   columns: Column[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     groupRowsBy: ['race'],
     rowHeightProp: '$$height',
-  };
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

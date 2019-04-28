@@ -24,8 +24,7 @@ export class TreeViewDemoComponent implements OnInit {
   items: MenuItem[];
   getIconFunc = (node) => (!node.isLeaf()) ? 'tree-icon tree-folder' : 'tree-icon tree-file';
 
-  constructor(public treeService: TreeDemoService) {
-  }
+  constructor(public treeService: TreeDemoService) {}
 
   ngOnInit() {
     this.items = [

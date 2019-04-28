@@ -32,10 +32,10 @@ export class YiiService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    const requestMeta = <RequestMetadata> {
+    const requestMeta = {
       pageMeta: {currentPage: 1},
-      filters: filters,
-    };
+      filters,
+    } as RequestMetadata;
     return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }

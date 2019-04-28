@@ -31,11 +31,11 @@ export class TemplateDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     headerRowHeight: 40,
     rowHeight: 40,
     actionColumnWidth: 0
-  };
+  });
   @ViewChild('headerCellTemplate') headerCellTemplate: TemplateRef<any>;
   @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
 

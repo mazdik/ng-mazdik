@@ -19,10 +19,10 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
   tempRows: any;
   stop: boolean = false;
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     sortable: false,
     filter: false,
-  };
+  });
   private subInterval: Subscription;
 
   constructor(private http: HttpClient) {
@@ -36,7 +36,7 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.table.events.onLoading(true);
     this.http.get('assets/players.json').subscribe((data: any[]) => {
-       data = data.map(d => {
+      data = data.map(d => {
         d.changed = Date.now().toString();
         return d;
       });

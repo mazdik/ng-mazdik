@@ -15,19 +15,19 @@ export class BasicDemoComponent implements OnInit {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: CdtSettings = <CdtSettings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
     bodyHeight: 380,
     exportAction: true,
     globalFilter: true,
     columnToggleAction: true,
     clearAllFiltersAction: true,
-  };
+  });
 
-  messages: DtMessages = <DtMessages>{
+  messages: DtMessages = {
     titleDetailView: 'Player details',
     titleCreate: 'Create a new player'
-  };
+  } as DtMessages;
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();

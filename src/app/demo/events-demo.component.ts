@@ -26,10 +26,10 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   table: DataTable;
   columns: Column[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     hoverEvents: true,
     contextMenu: true,
-  };
+  });
   eventName: string = 'Event name';
   eventValue: any = 'event value';
   cellValueChangedEvent: any;

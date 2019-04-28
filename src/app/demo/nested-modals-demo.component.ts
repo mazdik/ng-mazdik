@@ -23,11 +23,11 @@ export class NestedModalsDemoComponent implements OnInit {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: CdtSettings = <CdtSettings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
     bodyHeight: 380,
     zIndexModal: 1110
-  };
+  });
 
   @ViewChild('modal') modal: any;
 

@@ -29,14 +29,14 @@ import {Tree, TreeNode, TreeFlattener} from '../../lib/tree';
 export class TreeTableCustomDemoComponent implements OnInit {
 
   dataTable: DataTable;
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     paginator: false,
     filter: false,
     sortable: false,
     rowClass: this.getRowClass,
     isEditableCellProp: '$$editable',
     rowHeightProp: '$$height',
-  };
+  });
   columns: Column[];
 
   @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;

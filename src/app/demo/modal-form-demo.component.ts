@@ -23,9 +23,9 @@ export class ModalFormDemoComponent {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: CdtSettings = <CdtSettings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
-  };
+  });
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 

@@ -103,10 +103,10 @@ export class PlayersComponent {
           tableHidden: true,
         }
     ];
-    settings: CdtSettings = {
+    settings: CdtSettings = new CdtSettings({
         crud: true,
         bodyHeight: 380
-    };
+    });
 
     constructor(private http: HttpClient, private notifyService: NotifyService) {
       // YiiService | RestlessService | your custom service

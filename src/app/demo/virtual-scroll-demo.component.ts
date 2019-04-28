@@ -20,14 +20,14 @@ export class VirtualScrollDemoComponent implements OnInit {
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     virtualScroll: true,
     rowHeightProp: '$$height',
-  };
+  });
 
-  serverSideSettings: CdtSettings = <CdtSettings>{
+  serverSideSettings: CdtSettings = new CdtSettings({
     virtualScroll: true,
-  };
+  });
 
   constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();

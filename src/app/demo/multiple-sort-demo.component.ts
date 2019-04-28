@@ -15,9 +15,9 @@ export class MultipleSortDemoComponent implements OnInit {
   table: DataTable;
   columns: Column[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     multipleSort: true,
-  };
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

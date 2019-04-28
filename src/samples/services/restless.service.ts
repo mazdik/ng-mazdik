@@ -43,10 +43,10 @@ export class RestlessService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    const requestMeta = <RequestMetadata> {
+    const requestMeta = {
       pageMeta: {currentPage: 1},
-      filters: filters,
-    };
+      filters,
+    } as RequestMetadata;
     return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }
@@ -97,11 +97,11 @@ export class RestlessService implements DataSource {
   private extractData(res: any) {
     let body = res;
     const meta = {
-      'totalCount': body.num_results,
-      'perPage': body.limit || 10
+      totalCount: body.num_results,
+      perPage: body.limit || 10
     };
     const items = (body.objects) ? body.objects : body;
-    body = {'items': items, '_meta': meta};
+    body = {items, _meta: meta};
     return body;
   }
 
@@ -118,34 +118,29 @@ export class RestlessService implements DataSource {
     const filters = [];
     let orderby = {};
     let result = '';
-    const filterObject = {};
 
     if (sortMeta && sortMeta.length) {
       const sortField: string = sortMeta[0].field;
       const sortOrder: number = sortMeta[0].order;
       const direction = sortOrder > 0 ? 'asc' : (sortOrder < 0 ? 'desc' : null);
       if (direction) {
-        orderby = [{'field': sortField, 'direction': direction}];
+        orderby = [{field: sortField, direction}];
       }
     }
 
     for (const key in obj) {
       if (obj[key] && obj[key].value) {
         filters.push({
-          'name': key,
-          'op': 'eq',
-          'val': Array.isArray(obj[key].value) ? obj[key].value[0] : obj[key].value
+          name: key,
+          op: 'eq',
+          val: Array.isArray(obj[key].value) ? obj[key].value[0] : obj[key].value
         });
       }
     }
-
-    if (Object.keys(filters).length !== 0) {
-      filterObject['filters'] = filters;
-    }
-    if (Object.keys(orderby).length !== 0) {
-      filterObject['order_by'] = orderby;
-    }
-
+    const filterObject = {
+      filters,
+      order_by: orderby
+    };
     if (Object.keys(filterObject).length !== 0) {
       result = 'q=' + JSON.stringify(filterObject);
     }

@@ -57,11 +57,11 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
   columns: Column[];
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     headerRowHeight: 40,
     bodyHeight: 380,
     filter: false,
-  };
+  });
 
   @ViewChild('dtv1') dtv1: ElementRef;
   @ViewChild('dtv2') dtv2: ElementRef;

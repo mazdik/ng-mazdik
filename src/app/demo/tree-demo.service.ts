@@ -9,8 +9,7 @@ export class TreeDemoService implements TreeDataSource {
 
   url: string = 'assets/tree.json';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getNodes(node: TreeNode): Promise<TreeNode[]> {
     const children: any[] = [
@@ -35,11 +34,8 @@ export class TreeDemoService implements TreeDataSource {
         setTimeout(() => resolve(children), 500);
       });
     } else {
-      return this.http.get(this.url)
-        .toPromise()
-        .then(function (data) {
-          return <TreeNode[]>data;
-        });
+      return this.http.get<TreeNode[]>(this.url)
+        .toPromise();
     }
   }
 

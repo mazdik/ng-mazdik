@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, ColumnResizeMode} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -16,12 +16,12 @@ export class ColumnResizeModeDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
-  settings: Settings = <Settings>{};
+  settings: Settings = new Settings({});
 
   table2: DataTable;
-  settings2: Settings = <Settings>{
-    columnResizeMode: 'aminated',
-  };
+  settings2: Settings = new Settings({
+    columnResizeMode: ColumnResizeMode.Aminated,
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

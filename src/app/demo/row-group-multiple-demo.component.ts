@@ -15,9 +15,9 @@ export class RowGroupMultipleDemoComponent implements OnInit {
   table: DataTable;
   columns: Column[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     groupRowsBy: ['race', 'gender']
-  };
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

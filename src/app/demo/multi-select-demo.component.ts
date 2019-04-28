@@ -44,9 +44,9 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     { title: 'Test', name: 'test', width: 250 }
   ];
   dataManager: DataManager;
-  settings: CdtSettings = <CdtSettings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
-  };
+  });
   @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
   @ViewChild('formTemplate') formTemplate: TemplateRef<any>;
   options: SelectItem[] = [

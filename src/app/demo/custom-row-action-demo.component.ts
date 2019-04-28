@@ -12,7 +12,9 @@ export class CustomRowActionDemoComponent implements AfterViewInit {
 
   columns: Column[];
   dataManager: DataManager;
-  settings: CdtSettings = <CdtSettings>{ crud: true };
+  settings: CdtSettings = new CdtSettings({
+    crud: true
+  });
   @ViewChild('cdt') cdt: CrudTableComponent;
 
   constructor(private service: DemoService) {

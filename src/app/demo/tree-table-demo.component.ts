@@ -17,12 +17,12 @@ import {TreeBuilder} from '../../lib/tree';
 export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   treeTable: TreeTable;
-  settings: Settings = <Settings> {
+  settings: Settings = new Settings({
     selectionMultiple: true,
     selectionMode: 'checkbox',
     filter: false,
     sortable: false,
-  };
+  });
   columns: Column[];
   flattenTreeTable: TreeTable;
 

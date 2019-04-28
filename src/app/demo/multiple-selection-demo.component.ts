@@ -29,15 +29,15 @@ export class MultipleSelectionDemoComponent implements OnInit {
   selectedRows: any[];
   selectedRows2: any[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     selectionMultiple: true,
     selectionMode: 'checkbox',
-  };
+  });
 
-  settings2: Settings = <Settings>{
+  settings2: Settings = new Settings({
     selectionMultiple: true,
     selectionMode: 'radio',
-  };
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

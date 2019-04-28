@@ -14,9 +14,9 @@ export class EditableConditionDemoComponent implements OnInit {
   table: DataTable;
   columns: Column[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     isEditableCellProp: '$$editable',
-  };
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

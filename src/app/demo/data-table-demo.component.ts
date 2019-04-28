@@ -12,7 +12,7 @@ export class DataTableDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
-  settings: Settings = <Settings>{};
+  settings: Settings = new Settings({});
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

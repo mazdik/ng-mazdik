@@ -44,18 +44,15 @@ export class ModalDataTableDemoComponent implements OnInit {
   columnsPlayers: Column[];
   columnsRank: Column[];
   columnsInventory: Column[];
+  settings: Settings = new Settings({});
 
   @ViewChild('template1') template1: TemplateRef<any>;
   @ViewChild('template2') template2: TemplateRef<any>;
   @ViewChild('rankModal') rankModal: any;
   @ViewChild('inventoryModal') inventoryModal: any;
 
-  settings: Settings = <Settings>{};
-  settingsRank: Settings = <Settings>{};
-  settingsInventory: Settings = <Settings>{};
-
-  private _rank: any = [];
-  private _inventory: any = [];
+  private rank: any = [];
+  private inventory: any = [];
 
   constructor(private http: HttpClient) {
     this.columnsPlayers = getColumnsPlayers();
@@ -65,8 +62,8 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.columnsInventory = getColumnsInventory();
 
     this.dtPlayers = new DataTable(this.columnsPlayers, this.settings);
-    this.dtInventory = new DataTable(this.columnsInventory, this.settingsInventory);
-    this.dtRank = new DataTable(this.columnsRank, this.settingsRank);
+    this.dtInventory = new DataTable(this.columnsInventory, this.settings);
+    this.dtRank = new DataTable(this.columnsRank, this.settings);
   }
 
   ngOnInit() {
@@ -77,11 +74,11 @@ export class ModalDataTableDemoComponent implements OnInit {
       this.dtPlayers.rows = data;
     });
     this.http.get('assets/rank.json').subscribe(rank => {
-      this._rank = rank;
+      this.rank = rank;
       this.dtRank.rows = rank;
     });
     this.http.get('assets/inventory.json').subscribe(inventory => {
-      this._inventory = inventory;
+      this.inventory = inventory;
       this.dtInventory.rows = inventory;
     });
   }
@@ -89,7 +86,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   onClickCell1(event, value, row) {
     event.preventDefault();
 
-    this.dtRank.rows = this._rank.filter((item: any) => {
+    this.dtRank.rows = this.rank.filter((item: any) => {
       return item['player_id'] === value;
     });
     this.rankModal.show();
@@ -98,7 +95,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   onClickCell2(event, value, row) {
     event.preventDefault();
 
-    this.dtInventory.rows = this._inventory.filter((item: any) => {
+    this.dtInventory.rows = this.inventory.filter((item: any) => {
       return item['itemOwner'] === row['id'];
     });
     this.inventoryModal.show();

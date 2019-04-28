@@ -21,7 +21,7 @@ export class DemoService implements DataSource {
   }
 
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
-    const page = requestMeta.pageMeta.currentPage;
+    const currentPage = requestMeta.pageMeta.currentPage;
     this.dataFilter.filters = requestMeta.filters;
     this.dataFilter.globalFilterValue = requestMeta.globalFilterValue;
     this.dataSort.sortMeta = requestMeta.sortMeta;
@@ -29,22 +29,22 @@ export class DemoService implements DataSource {
 
     return this.http.get<PagedResult>(this.url)
       .toPromise()
-      .then(function (res) {
+      .then(function(res) {
         const rows: any[] = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
         const sortedData = this.dataSort.sortRows(filteredData);
-        const pageData = arrayPaginate(sortedData, page, perPage);
+        const pageData = arrayPaginate(sortedData, currentPage, perPage);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
-        const result = <PagedResult>{
-          'items': pageData,
-          '_meta': {
-            'totalCount': totalCount,
-            'pageCount': pageCount,
-            'currentPage': page,
-            'perPage': perPage
+        const result = {
+          items: pageData,
+          _meta: {
+            totalCount,
+            pageCount,
+            currentPage,
+            perPage
           }
-        };
+        } as PagedResult;
         return result;
       }.bind(this))
       .catch(this.handleError);
@@ -55,10 +55,10 @@ export class DemoService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    const requestMeta = <RequestMetadata> {
+    const requestMeta = {
       pageMeta: {currentPage: 1},
-      filters: filters,
-    };
+      filters,
+    } as RequestMetadata;
     return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }
@@ -86,7 +86,7 @@ export class DemoService implements DataSource {
       .toPromise()
       .then((response: any) => {
         const result = response.filter((value: any) => {
-          return value['parentId'] === parentId;
+          return value.parentId === parentId;
         });
         return new Promise((resolve) => {
           setTimeout(() => resolve(result), 1000);
