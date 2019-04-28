@@ -10,7 +10,7 @@ export class TreeNode {
   parent?: TreeNode;
 
   get children(): TreeNode[] { return this._children; }
-  set children (val: TreeNode[]) {
+  set children(val: TreeNode[]) {
     this._children = [];
     if (val) {
       this._children = val.map((c) => new TreeNode(c, this, this.tree));

@@ -64,7 +64,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     if (!isLeftButton(event)) {
       return;
     }
-    const classList = (<HTMLElement>(event.target)).classList;
+    const classList = ((event.target) as HTMLElement).classList;
     const isSouth = classList.contains('resize-handle-s');
     const isEast = classList.contains('resize-handle-e');
     const isSouthEast = classList.contains('resize-handle-se');

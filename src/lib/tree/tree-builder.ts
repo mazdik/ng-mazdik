@@ -6,19 +6,19 @@ export class TreeBuilder {
     const map = {};
     const roots: TreeNode[] = [];
 
-    for (let i = 0; i < rows.length; i++) {
-      const id = rows[i][to];
-      map[id] = <TreeNode>{
-        id: id,
-        name: (rows[i].name) ? rows[i].name : null,
-        data: Object.assign({}, rows[i]),
-        icon: (rows[i].icon) ? rows[i].icon : null,
+    for (const row of rows) {
+      const id = row[to];
+      map[id] = {
+        id,
+        name: (row.name) ? row.name : null,
+        data: Object.assign({}, row),
+        icon: (row.icon) ? row.icon : null,
         children: [],
-      };
+      } as TreeNode;
     }
 
-    for (let i = 0; i < rows.length; i++) {
-      const id = rows[i][to];
+    for (const row of rows) {
+      const id = row[to];
       const node = map[id];
       const parentId = node.data[from];
       if (parentId !== 0) {

@@ -69,7 +69,7 @@ export class PaginationComponent {
     }
     if (page > 0 && page <= this.totalPages() && page !== this.currentPage) {
       this.currentPage = page;
-      this.pageChanged.emit(<PageEvent>{currentPage: this.currentPage, perPage: this.perPage});
+      this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
     }
   }
 
@@ -116,7 +116,7 @@ export class PaginationComponent {
 
   onChangePageSize(pageSize: number) {
     this.perPage = pageSize;
-    this.pageChanged.emit(<PageEvent>{currentPage: this.currentPage, perPage: this.perPage});
+    this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
   }
 
 }

@@ -43,7 +43,7 @@ export class TreeTable extends DataTable {
     const data = {
       expandable: !!node.expanded,
       $$level: level,
-      node: node,
+      node,
     };
     return Object.assign(data, node.data);
   }

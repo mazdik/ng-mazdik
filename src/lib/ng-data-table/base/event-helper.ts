@@ -26,7 +26,7 @@ export class EventHelper {
       if (!isBlank(dataColIndex) && !isBlank(dataRowIndex)) {
         const columnIndex = parseInt(dataColIndex, 10);
         const rowIndex = parseInt(dataRowIndex, 10);
-        return <CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target };
+        return { columnIndex, rowIndex, event, fromCell: target } as CellEventArgs;
       }
     }
   }

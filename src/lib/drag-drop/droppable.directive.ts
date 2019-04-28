@@ -29,7 +29,7 @@ export class DroppableDirective  {
   @HostListener('drop', ['$event'])
   onDrop(event: DragEvent) {
     event.preventDefault();
-    const dragParentElement = (<HTMLElement>this.dragElementEvent.event.target).parentElement;
+    const dragParentElement = (this.dragElementEvent.event.target as HTMLElement).parentElement;
     const position = Math.max(0, this.getNumberPosition(event.target));
 
     if (dragParentElement === this.element.nativeElement) {
@@ -40,7 +40,7 @@ export class DroppableDirective  {
   }
 
   private getNumberPosition(elem) {
-    const dragTarget: HTMLElement = (<HTMLElement>this.dragElementEvent.event.target).parentElement;
+    const dragTarget: HTMLElement = (this.dragElementEvent.event.target as HTMLElement).parentElement;
     const dropTarget: HTMLElement = this.element.nativeElement;
     if (elem === dragTarget) {
       return dragTarget.children ? dragTarget.children.length : 0;

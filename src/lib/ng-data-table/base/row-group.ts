@@ -28,7 +28,7 @@ export class RowGroup {
     this.dataAggregation = new DataAggregation();
     this.dataAggregation.aggregates = columns
       .filter(x => x.aggregation)
-      .map(x => <AggregateMeta>{ field: x.name, type: x.aggregation });
+      .map(x => ({ field: x.name, type: x.aggregation }) as AggregateMeta);
   }
 
   updateRowGroupMetadata(rows: Row[]) {

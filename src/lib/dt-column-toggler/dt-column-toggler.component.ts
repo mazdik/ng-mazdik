@@ -30,8 +30,8 @@ export class DtColumnTogglerComponent implements OnInit {
   }
 
   createSelectItems() {
-    this.selectedColumns = this.table.columns.filter(x => !x.tableHidden).map(x => <SelectItem>{ id: x.name, name: x.title });
-    this.selectColumns = this.table.columns.map(x => <SelectItem>{ id: x.name, name: x.title });
+    this.selectedColumns = this.table.columns.filter(x => !x.tableHidden).map(x => ({ id: x.name, name: x.title }) as SelectItem);
+    this.selectColumns = this.table.columns.map(x => ({ id: x.name, name: x.title }) as SelectItem);
   }
 
   save() {

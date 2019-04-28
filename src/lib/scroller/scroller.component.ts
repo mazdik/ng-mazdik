@@ -82,7 +82,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   }
 
   onScrolled(event: MouseEvent) {
-    const dom: Element = <Element>event.currentTarget;
+    const dom: Element = event.currentTarget as Element;
     this.scrollYPos = dom.scrollTop;
     this.scrollXPos = dom.scrollLeft;
 

@@ -122,7 +122,7 @@ export class DataTable {
     this.rowModelGenerator.setRowIndexes(this._rows);
     this.events.onRowsChanged();
     setTimeout(() => {
-      this.events.onActivateCell(<CellEventArgs>{columnIndex: 0, rowIndex: newRow.$$index});
+      this.events.onActivateCell({columnIndex: 0, rowIndex: newRow.$$index} as CellEventArgs);
     }, 10);
   }
 
@@ -146,7 +146,7 @@ export class DataTable {
   }
 
   editCell(rowIndex: number, columnIndex: number, editMode: boolean) {
-    this.events.onCellEditMode(<CellEventArgs>{columnIndex, rowIndex, editMode});
+    this.events.onCellEditMode({columnIndex, rowIndex, editMode} as CellEventArgs);
   }
 
   revertRowChanges(row: Row) {

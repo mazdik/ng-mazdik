@@ -74,7 +74,7 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {
       left = left + column.width - width;
     }
-    this.table.events.onColumnMenuClick(<ColumnMenuEventArgs>{left, top, column});
+    this.table.events.onColumnMenuClick({left, top, column} as ColumnMenuEventArgs);
   }
 
   isFiltered(): boolean {

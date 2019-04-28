@@ -129,7 +129,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   getMaxModalIndex() {
     let zIndex = 0;
     const modals = document.querySelectorAll('.ui-modal');
-    [].forEach.call(modals, function (modal) {
+    [].forEach.call(modals, (modal) => {
       const indexCurrent = parseInt(modal.style.zIndex, 10);
       if (indexCurrent > zIndex) {
         zIndex = indexCurrent;

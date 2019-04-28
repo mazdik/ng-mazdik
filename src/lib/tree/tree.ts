@@ -126,7 +126,7 @@ export class Tree {
   }
 
   getNodeBy(predicate, startNode = null): TreeNode {
-    startNode = startNode || {'children': this.nodes};
+    startNode = startNode || {children: this.nodes};
     if (!startNode.children) {
       return null;
     }

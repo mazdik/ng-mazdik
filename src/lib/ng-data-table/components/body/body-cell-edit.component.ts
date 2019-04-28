@@ -57,10 +57,10 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     this.editing = false;
     if (this.cell.value !== this.tempValue) {
       this.updateValue();
-      this.table.events.onCellValueChanged(<CellEventArgs>{
+      this.table.events.onCellValueChanged({
         columnIndex: this.cell.column.index,
         rowIndex: this.cell.rowIndex
-      });
+      } as CellEventArgs);
     }
   }
 

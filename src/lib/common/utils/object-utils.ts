@@ -9,8 +9,8 @@ export function getDeepValue(data: any, path: string): any {
   }
   const fields = path.split('.');
   let currentObject = data;
-  for (let i = 0; i < fields.length; i++) {
-    currentObject = currentObject[fields[i]];
+  for (const field of fields) {
+    currentObject = currentObject[field];
     if (isBlank(currentObject)) {
       return '';
     }

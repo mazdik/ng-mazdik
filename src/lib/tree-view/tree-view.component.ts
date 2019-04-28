@@ -75,7 +75,7 @@ export class TreeViewComponent implements OnInit {
 
   onNodeRightClick(event) {
     if (this.contextMenu) {
-      this.contextMenu.show(<MenuEventArgs>{originalEvent: event['event'], data: event['node']});
+      this.contextMenu.show({originalEvent: event.event, data: event.node} as MenuEventArgs);
     }
   }
 

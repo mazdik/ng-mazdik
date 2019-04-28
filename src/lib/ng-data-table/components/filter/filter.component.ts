@@ -18,7 +18,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   left: number;
   top: number;
-  column: Column = <Column>{};
+  column: Column = new Column({});
 
   @HostBinding('class') cssClass = 'dropdown-filter-menu';
 

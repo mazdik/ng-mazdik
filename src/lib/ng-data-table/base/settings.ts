@@ -1,5 +1,7 @@
 import {SelectionMode, ColumnResizeMode, EditMode} from './types';
 
+type RowClassFunc = (row) => any;
+
 export class Settings {
   bodyHeight?: number;
   sortable?: boolean = true;
@@ -12,7 +14,7 @@ export class Settings {
   selectionMultiple?: boolean;
   selectionMode?: SelectionMode;
   virtualScroll?: boolean;
-  rowClass?: string | Function;
+  rowClass?: string | RowClassFunc;
   headerRowHeight?: number;
   rowHeight?: number = 30;
   rowNumber?: boolean = true;

@@ -90,7 +90,7 @@ export class TreeViewNodeComponent implements OnInit {
 
   onNodeRightClick(event: MouseEvent) {
     this.onSelectNode(this.node);
-    this.nodeRightClick.emit({'event': event, 'node': this.node});
+    this.nodeRightClick.emit({event, node: this.node});
   }
 
 }

@@ -21,7 +21,7 @@ export class DtTranslateService {
   }
 
   use(lang: string) {
-    this._onLangChange.emit({lang: lang, translations: ''});
+    this._onLangChange.emit({lang, translations: ''});
   }
 
   private getValue(target: any, key: string): any {

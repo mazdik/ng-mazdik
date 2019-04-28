@@ -55,7 +55,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   editing: boolean;
   subscriptions: Subscription[] = [];
 
-  constructor(public cd: ChangeDetectorRef, public element: ElementRef) {}
+  constructor(protected cd: ChangeDetectorRef, protected element: ElementRef) {}
 
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {

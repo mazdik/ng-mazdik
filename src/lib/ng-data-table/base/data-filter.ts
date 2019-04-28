@@ -20,7 +20,7 @@ export enum FilterOperator {
 
 export class DataFilter {
 
-  filters: FilterMetadata = <FilterMetadata>{};
+  filters: FilterMetadata = {} as FilterMetadata;
   globalFilterValue: string = null;
 
   filterRows(data: any[]) {
@@ -240,7 +240,7 @@ export class DataFilter {
   }
 
   clear() {
-    this.filters = <FilterMetadata>{};
+    this.filters = {} as FilterMetadata;
     this.globalFilterValue = null;
   }
 
@@ -256,7 +256,7 @@ export class DataFilter {
     if (!isBlank(value) || !isBlank(valueTo)) {
       value = this.toNumberIfNumeric(value, dataType);
       valueTo = this.toNumberIfNumeric(valueTo, dataType);
-      this.filters[field] = { value: value, matchMode: matchMode, valueTo: valueTo, type: dataType };
+      this.filters[field] = { value, matchMode, valueTo, type: dataType };
     } else if (this.filters[field]) {
       delete this.filters[field];
     }

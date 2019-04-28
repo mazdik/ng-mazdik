@@ -22,14 +22,10 @@ export class BodyComponent implements OnInit, OnDestroy {
   @HostBinding('class') cssClass = 'datatable-body';
   @ViewChild(ScrollerComponent) scroller: ScrollerComponent;
 
-  rowTrackingFn: Function;
   private subscriptions: Subscription[] = [];
+  rowTrackingFn = (index: number, row: any) => (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;
 
-  constructor(private cd: ChangeDetectorRef) {
-    this.rowTrackingFn = function (index: number, row: any): any {
-      return (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;
-    }.bind(this);
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
