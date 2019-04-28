@@ -3,12 +3,12 @@ import { ColumnBase, Settings, DataTable, Row } from '../index';
 describe('DataTable', () => {
   const settings = new Settings({});
   const columns = [
-    <ColumnBase>{name: 'date', frozen: true, width: 100},
-    <ColumnBase>{name: 'gender', frozen: true, width: 100},
-    <ColumnBase>{name: 'test1', frozen: false, width: 100},
-    <ColumnBase>{name: 'test2', frozen: false, width: 100},
-    <ColumnBase>{name: 'test3', frozen: false, width: 100},
-    <ColumnBase>{name: 'test4', tableHidden: true, width: 100},
+    {name: 'date', frozen: true, width: 100} as ColumnBase,
+    {name: 'gender', frozen: true, width: 100} as ColumnBase,
+    {name: 'test1', frozen: false, width: 100} as ColumnBase,
+    {name: 'test2', frozen: false, width: 100} as ColumnBase,
+    {name: 'test3', frozen: false, width: 100} as ColumnBase,
+    {name: 'test4', tableHidden: true, width: 100} as ColumnBase,
   ];
   let dataTable: DataTable;
 

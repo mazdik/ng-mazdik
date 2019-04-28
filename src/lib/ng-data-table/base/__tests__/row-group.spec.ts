@@ -17,6 +17,10 @@ describe('RowGroup', () => {
   ];
   const rowGroup = new RowGroup(groupBy, columns);
 
+  beforeEach(() => {
+    rowGroup.updateRowGroupMetadata(rows);
+  });
+
   it('should be able group enabled', () => {
     expect(rowGroup.groupEnabled).toBe(true);
     expect(rowGroup.groupRowsBy).toEqual(groupBy);

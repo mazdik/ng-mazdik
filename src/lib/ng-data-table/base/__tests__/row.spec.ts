@@ -4,14 +4,16 @@ import { Settings } from '../settings';
 
 describe('Row', () => {
 
-  const settings = new Settings({
-    rowClass: 'row-class'
-  });
-  const column = new Column({ name: 'id', cellClass: 'cell-class', editable: true });
   const data = { id: 10, name: 'Anastasia', $$uid: 9999, $$height: 40 };
+  let column: Column;
   let row: Row;
 
   beforeEach(() => {
+    column = new Column({ name: 'id', cellClass: 'cell-class', editable: true });
+    const settings = new Settings({
+      rowClass: 'row-class',
+      isEditableCellProp: '$$editable',
+    });
     row = new Row(data, settings);
   });
 
@@ -43,11 +45,15 @@ describe('Row', () => {
 
   it('should be able to get row class', () => {
     const cls = row.getRowClass();
-    expect(cls).toBe(settings.rowClass);
+    expect(cls).toBe('row-class');
   });
 
   it('should be able to get row class via the function', () => {
-    settings.rowClass = (r) => r['id'] === 10 ? 'row-10' : 'row-class';
+    const settings = new Settings({
+      rowClass: (r) => r['id'] === 10 ? 'row-10' : 'row-class'
+    });
+    row = new Row(data, settings);
+
     const cls = row.getRowClass();
     expect(cls).toBe('row-10');
   });
@@ -67,7 +73,6 @@ describe('Row', () => {
     let result = row.isEditableCell(column);
     expect(result).toBe(true);
 
-    settings.isEditableCellProp = '$$editable';
     row.$$editable = false;
     result = row.isEditableCell(column);
     expect(result).toBe(false);

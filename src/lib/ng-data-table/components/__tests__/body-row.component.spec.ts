@@ -15,8 +15,8 @@ class TestFixtureComponent {
   dataTable: DataTable;
   settings = new Settings({});
   columns = [
-    <ColumnBase>{ name: 'date', editable: true },
-    <ColumnBase>{ name: 'gender', frozen: true },
+    { name: 'date', editable: true } as ColumnBase,
+    { name: 'gender', frozen: true } as ColumnBase,
   ];
   row: Row;
   constructor() {

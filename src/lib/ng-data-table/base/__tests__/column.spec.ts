@@ -3,27 +3,31 @@ import { UpperCasePipe } from '@angular/common';
 
 describe('Column', () => {
 
-  const column = new Column({
-    name: 'column1',
-    title: 'column1',
-    frozen: true,
-    width: 150,
-    minWidth: 100,
-    maxWidth: 300,
-    options: [
-      { id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS' },
-      { id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS' },
-      { id: 'ASM3', name: 'ASM note 3', parentId: 'ASMODIANS' },
-      { id: 'ASM4', name: 'ASM note 4', parentId: 'ASMODIANS' },
-      { id: 'ELY1', name: 'ELY note 1', parentId: 'ELYOS' },
-      { id: 'ELY2', name: 'ELY note 2', parentId: 'ELYOS' },
-      { id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS' },
-    ],
-    dependsColumn: 'race',
-    editable: true,
-    validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
+  let column: Column;
+  const row = {column1: 'ELY1', race: 'ELYOS', quest: {status: 'COMPLETE'}};
+
+  beforeEach(() => {
+    column = new Column({
+      name: 'column1',
+      title: 'column1',
+      frozen: true,
+      width: 150,
+      minWidth: 100,
+      maxWidth: 300,
+      options: [
+        { id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS' },
+        { id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS' },
+        { id: 'ASM3', name: 'ASM note 3', parentId: 'ASMODIANS' },
+        { id: 'ASM4', name: 'ASM note 4', parentId: 'ASMODIANS' },
+        { id: 'ELY1', name: 'ELY note 1', parentId: 'ELYOS' },
+        { id: 'ELY2', name: 'ELY note 2', parentId: 'ELYOS' },
+        { id: 'ELY3', name: 'ELY note 3', parentId: 'ELYOS' },
+      ],
+      dependsColumn: 'race',
+      editable: true,
+      validatorFunc: (title, value) => (!value) ? [title + ' is not valid'] : []
+    });
   });
-  const row = {column1: 'ELY1', race: 'ELYOS', 'quest': {'status': 'COMPLETE'}};
 
   it('should be able to get options', () => {
     let result = column.getOptions();
@@ -80,26 +84,29 @@ describe('Column', () => {
     expect(result).toBe('ELY NOTE 1');
   });
 
-  it('should be able to get filter values (options)', () => {
+  it('should be able to get filter values (options)', (done) => {
     column.getFilterValues().then(result => {
       expect(result.length).toBe(7);
+      done();
     });
   });
 
-  it('should be able to get filter values (array)', () => {
+  it('should be able to get filter values (array)', (done) => {
     column.filterValues = [{id: 1, name: 'test1'}];
     column.getFilterValues().then(result => {
       expect(result.length).toBe(1);
+      done();
     });
   });
 
-  it('should be able to get filter values (function)', () => {
+  it('should be able to get filter values (function)', (done) => {
     column.filterValues = () => Promise.resolve([
       {id: 1, name: 'test1'},
       {id: 2, name: 'test2'}
     ]);
     column.getFilterValues().then(result => {
       expect(result.length).toBe(2);
+      done();
     });
   });
 

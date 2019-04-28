@@ -2,15 +2,23 @@ import { DataSort } from '../data-sort';
 
 describe('DataSort', () => {
 
-  const rows = [
-    { date: new Date(2017, 8, 5), gender: 'f' },
-    { date: new Date(2016, 11, 1), gender: 'm' },
-    { date: new Date(2019, 3, 7), gender: 'f' },
-    { date: new Date(2018, 4, 3), gender: 'm' }
-  ];
+  let dataSort: DataSort;
+  let rows: any[];
+
+  beforeEach(() => {
+    rows = [
+      { date: new Date(2017, 8, 5), gender: 'f' },
+      { date: new Date(2016, 11, 1), gender: 'm' },
+      { date: new Date(2019, 3, 7), gender: 'f' },
+      { date: new Date(2018, 4, 3), gender: 'm' }
+    ];
+  });
 
   describe('single sort', () => {
-    const dataSort = new DataSort();
+
+    beforeEach(() => {
+      dataSort = new DataSort();
+    });
 
     it('should be able to set order', () => {
       dataSort.setOrder('date');
@@ -36,26 +44,32 @@ describe('DataSort', () => {
 
     it('should sort date values asc', () => {
       dataSort.setOrder('date');
-      const result = dataSort.sortRows([...rows]);
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2016, 11, 1), gender: 'm' });
     });
 
     it('should sort date values desc', () => {
-      dataSort.setOrder('date');
-      const result = dataSort.sortRows([...rows]);
+      dataSort.setOrder('date'); // asc
+      dataSort.setOrder('date'); // desc
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2019, 3, 7), gender: 'f' });
     });
 
     it('should sort date values none', () => {
-      dataSort.setOrder('date');
-      const result = dataSort.sortRows([...rows]);
+      dataSort.setOrder('date'); // asc
+      dataSort.setOrder('date'); // desc
+      dataSort.setOrder('date'); // none
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2017, 8, 5), gender: 'f' });
     });
 
   });
 
   describe('multiple sort', () => {
-    const dataSort = new DataSort(true);
+
+    beforeEach(() => {
+      dataSort = new DataSort(true);
+    });
 
     it('should be able to set order columns', () => {
       dataSort.setOrder('date');
@@ -76,10 +90,9 @@ describe('DataSort', () => {
     });
 
     it('should sort gender asc, date asc', () => {
-      dataSort.clear();
       dataSort.setOrder('gender');
       dataSort.setOrder('date');
-      const result = dataSort.sortRows([...rows]);
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2017, 8, 5), gender: 'f' });
       expect(result[1]).toEqual({ date: new Date(2019, 3, 7), gender: 'f' });
       expect(result[2]).toEqual({ date: new Date(2016, 11, 1), gender: 'm' });
@@ -87,11 +100,10 @@ describe('DataSort', () => {
     });
 
     it('should sort gender asc, date desc', () => {
-      dataSort.clear();
       dataSort.setOrder('gender');
       dataSort.setOrder('date'); // asc
       dataSort.setOrder('date'); // desc
-      const result = dataSort.sortRows([...rows]);
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2019, 3, 7), gender: 'f' });
       expect(result[1]).toEqual({ date: new Date(2017, 8, 5), gender: 'f' });
       expect(result[2]).toEqual({ date: new Date(2018, 4, 3), gender: 'm' });
@@ -99,11 +111,10 @@ describe('DataSort', () => {
     });
 
     it('should sort gender desc, date asc', () => {
-      dataSort.clear();
       dataSort.setOrder('gender'); // asc
       dataSort.setOrder('gender'); // desc
       dataSort.setOrder('date');
-      const result = dataSort.sortRows([...rows]);
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2016, 11, 1), gender: 'm' });
       expect(result[1]).toEqual({ date: new Date(2018, 4, 3), gender: 'm' });
       expect(result[2]).toEqual({ date: new Date(2017, 8, 5), gender: 'f' });
@@ -111,12 +122,11 @@ describe('DataSort', () => {
     });
 
     it('should sort gender desc, date desc', () => {
-      dataSort.clear();
       dataSort.setOrder('gender'); // asc
       dataSort.setOrder('gender'); // desc
       dataSort.setOrder('date'); // asc
       dataSort.setOrder('date'); // desc
-      const result = dataSort.sortRows([...rows]);
+      const result = dataSort.sortRows(rows);
       expect(result[0]).toEqual({ date: new Date(2018, 4, 3), gender: 'm' });
       expect(result[1]).toEqual({ date: new Date(2016, 11, 1), gender: 'm' });
       expect(result[2]).toEqual({ date: new Date(2019, 3, 7), gender: 'f' });

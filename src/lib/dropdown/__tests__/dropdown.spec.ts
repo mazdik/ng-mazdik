@@ -58,13 +58,9 @@ describe('Dropdown', () => {
 
   it('should be dropdown closed on keydown esc', () => {
     component.dropdown.isOpen = true;
-    document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'Escape'}));
+    document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'}));
 
     expect(component.dropdown.isOpen).toBe(false);
-  });
-
-  it('should be remove event listeners', () => {
-    component.dropdown.removeEventListeners();
   });
 
   it('should be able to observe when opening', () => {

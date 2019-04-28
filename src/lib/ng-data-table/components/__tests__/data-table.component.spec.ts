@@ -10,11 +10,11 @@ class TestFixtureComponent {
   dataTable: DataTable;
   settings = new Settings({});
   columns = [
-    <Column>{ name: 'date', frozen: true },
-    <Column>{ name: 'gender', frozen: true },
-    <Column>{ name: 'test1', frozen: false },
-    <Column>{ name: 'test2', frozen: false },
-    <Column>{ name: 'test3', frozen: false },
+    { name: 'date', frozen: true } as Column,
+    { name: 'gender', frozen: true } as Column,
+    { name: 'test1', frozen: false } as Column,
+    { name: 'test2', frozen: false } as Column,
+    { name: 'test3', frozen: false } as Column,
   ];
   constructor() {
     this.dataTable = new DataTable(this.columns, this.settings);
