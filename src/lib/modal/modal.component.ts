@@ -3,6 +3,7 @@ import {
   HostListener, HostBinding, EventEmitter
 } from '@angular/core';
 import {ResizableEvent} from '../resizable';
+import {maxZIndex, findAncestor} from '../common/utils';
 
 @Component({
   selector: 'app-modal',
@@ -127,28 +128,14 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   getMaxModalIndex() {
-    let zIndex = 0;
-    const modals = document.querySelectorAll('.ui-modal');
-    [].forEach.call(modals, (modal) => {
-      const indexCurrent = parseInt(modal.style.zIndex, 10);
-      if (indexCurrent > zIndex) {
-        zIndex = indexCurrent;
-      }
-    });
-    return zIndex;
+    return maxZIndex('.ui-modal');
   }
 
   focusLastModal() {
-    const modal = this.findAncestor(this.element.nativeElement, 'app-modal');
+    const modal = findAncestor(this.element.nativeElement.parentElement, 'app-modal');
     if (modal && modal.children[1]) {
       modal.children[1].focus();
     }
-  }
-
-  findAncestor(el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls)) {
-    }
-    return el;
   }
 
   onCloseIcon(event: Event) {
