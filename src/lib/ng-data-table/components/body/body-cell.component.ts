@@ -23,12 +23,18 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   private _cell: Cell;
 
   @HostBinding('class.datatable-body-cell') cssClass = true;
+
+  @HostBinding('class.dt-sticky') get cssSticky() {
+    return this.cell.column.frozen;
+  }
   @HostBinding('class.cell-editing') get cssEditing(): boolean {
     return this.editing;
   }
+
   @HostBinding('class.cell-changed') get cssChanged(): boolean {
     return this.cell.isChanged;
   }
+
   @HostBinding('class.cell-error') get cssError(): boolean {
     return this.cell.hasError;
   }
@@ -38,6 +44,11 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   @HostBinding('style.width.px')
   get width(): number {
     return this.cell.column.width;
+  }
+
+  @HostBinding('style.left.px')
+  get left() {
+    return (this.cell.column.frozen) ? this.cell.column.left : null;
   }
 
   @HostBinding('attr.data-column-index')

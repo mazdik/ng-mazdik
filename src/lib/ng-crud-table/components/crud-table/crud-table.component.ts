@@ -144,7 +144,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onRowMenuClick(event: any, row: Row) {
-    const el = event.target.parentNode.parentNode.parentNode; // row
+    const el = event.target.parentNode.parentNode; // row
     const rowHeight = el.offsetHeight;
     const rowTop = el.offsetTop + rowHeight;
     const left = 0;

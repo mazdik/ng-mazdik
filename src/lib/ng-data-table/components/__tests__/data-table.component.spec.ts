@@ -60,20 +60,14 @@ describe('DataTableComponent', () => {
 
     const headerRow = header.querySelector('.datatable-header-row');
     expect(headerRow).toBeTruthy();
-
-    const headerRowLeft = headerRow.querySelector('.datatable-row-left');
-    expect(headerRowLeft).toBeTruthy();
-
-    const headerRowCenter = headerRow.querySelector('.datatable-row-center');
-    expect(headerRowCenter).toBeTruthy();
   });
 
   it('should be able to render header with the right number of cells', () => {
-    let cells = fixture.nativeElement.querySelectorAll('.datatable-row-left dt-header-cell');
+    let cells = fixture.nativeElement.querySelectorAll('.datatable-header-row .dt-sticky:not(.action-cell)');
     expect(cells).toBeTruthy();
     expect(cells.length).toBe(2);
 
-    cells = fixture.nativeElement.querySelectorAll('.datatable-row-center dt-header-cell');
+    cells = fixture.nativeElement.querySelectorAll('.datatable-header-row .dt-sticky');
     expect(cells).toBeTruthy();
     expect(cells.length).toBe(3);
   });

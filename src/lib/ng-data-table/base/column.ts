@@ -7,6 +7,7 @@ export class Column extends ColumnBase {
 
   index: number;
   filterValuesTemp: SelectItem[] = [];
+  left: number;
 
   get containsDots(): boolean {
     return (this.name.indexOf('.') >= 0);

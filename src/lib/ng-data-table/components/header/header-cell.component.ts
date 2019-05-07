@@ -17,6 +17,10 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   @Input() column: Column;
 
   @HostBinding('class.datatable-header-cell') cssClass = true;
+  @HostBinding('class.dt-sticky') get cssSticky() {
+    return this.column.frozen;
+  }
+
   @HostBinding('attr.role') role = 'columnheader';
 
   @HostBinding('style.width.px')
@@ -64,12 +68,9 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   clickColumnMenu(event: any, column: Column, isLast: boolean) {
     const el = event.target.parentNode;
     let left = el.offsetLeft;
-    let top = el.offsetTop;
-    top = top + el.offsetHeight + (this.table.dimensions.headerTemplateHeight || 0);
-    // datatable-row-left + offsetLeft
-    if (el.parentNode.offsetLeft > 0) {
-      left = left + el.parentNode.offsetLeft - this.table.dimensions.offsetX;
-    }
+    const top = el.offsetTop + el.offsetHeight + (this.table.dimensions.headerTemplateHeight || 0);
+    // left - scroll
+    left = left - this.table.dimensions.offsetX;
     const width = this.table.dimensions.columnMenuWidth;
     if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {
       left = left + column.width - width;

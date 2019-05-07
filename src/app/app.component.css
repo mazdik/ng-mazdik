@@ -138,13 +138,13 @@
   text-align: right;
 }
 
-.row-warrior,
-.row-warrior .datatable-row-left {
+.datatable-body-row.row-warrior,
+.datatable-body-row.row-warrior .dt-sticky {
   background-color: lightyellow;
 }
 
 .datatable-body-row.row-sorcerer,
-.datatable-body-row.row-sorcerer .datatable-row-left {
+.datatable-body-row.row-sorcerer .dt-sticky {
   background-color: LightSlateGray;
   color: white;
 }

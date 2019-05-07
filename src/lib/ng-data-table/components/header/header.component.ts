@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostBinding('class.datatable-header') cssClass = true;
   @ViewChild('headerTemplateView', { read: ViewContainerRef }) headerTemplateView: ViewContainerRef;
-  @ViewChild('rowCenter') rowCenter: ElementRef;
+  @ViewChild('headerRow') headerRow: ElementRef;
 
   private subscriptions: Subscription[] = [];
   columnTrackingFn = (i: number, col: Column) => col.name;
@@ -37,7 +37,11 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
       this.cd.markForCheck();
     });
     const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      this.rowCenter.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
+      const stickyCells = this.headerRow.nativeElement.querySelectorAll('.dt-sticky');
+      this.headerRow.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
+      for (const cell of stickyCells) {
+        cell.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
+      }
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);

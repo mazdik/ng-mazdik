@@ -73,6 +73,7 @@ export class DataTable {
     let columnIndex = 0;
 
     this.columns.forEach((column) => {
+      this.setColumnSettings(column);
       if (!column.tableHidden) {
         if (column.frozen) {
           this.frozenColumns.push(column);
@@ -80,7 +81,6 @@ export class DataTable {
           this.scrollableColumns.push(column);
         }
         column.index = columnIndex++;
-        this.setColumnSettings(column);
       }
     });
   }

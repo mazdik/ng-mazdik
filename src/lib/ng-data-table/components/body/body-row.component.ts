@@ -1,6 +1,5 @@
 import {
-  Component, OnInit, Input, HostBinding, OnDestroy, ViewChild, ElementRef,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
 import {Subscription} from 'rxjs';
@@ -17,8 +16,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
   @Input() row: Row;
   @Input() rowActionTemplate: RowActionTemplateDirective;
-
-  @ViewChild('rowLeft') rowLeft: ElementRef;
 
   @HostBinding('class.datatable-body-row') cssClass = true;
   @HostBinding('class.row-selected')
@@ -40,7 +37,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.width.px')
   get rowWidth(): number {
-    return this.table.dimensions.columnsTotalWidth + 1;
+    return this.table.dimensions.columnsTotalWidth;
   }
 
   private subscriptions: Subscription[] = [];
@@ -58,10 +55,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      this.rowLeft.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
-      this.cd.markForCheck();
-    });
     const subSort = this.table.events.sortSource$.subscribe(() => {
       this.cd.markForCheck();
     });
@@ -69,7 +62,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
-    this.subscriptions.push(subScroll);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
   }

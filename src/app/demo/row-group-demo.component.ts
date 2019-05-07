@@ -8,7 +8,7 @@ import {getColumnsPlayers} from './columns';
   template: `
     <app-data-table [table]="table">
       <ng-template dtRowGroupTemplate let-row="row">
-        <div class="datatable-body-cell" (click)="onExpand(row)">
+        <div class="datatable-body-cell dt-sticky" style="left: 0;" (click)="onExpand(row)">
           <i [class]="getExpanderIcon(row)"></i>
           {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
         </div>
