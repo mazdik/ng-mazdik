@@ -4,8 +4,8 @@ describe('DataTable', () => {
   const settings = new Settings({});
   const columns = [
     {name: 'date', frozen: true, width: 100} as ColumnBase,
-    {name: 'gender', frozen: true, width: 100} as ColumnBase,
     {name: 'test1', frozen: false, width: 100} as ColumnBase,
+    {name: 'gender', frozen: true, width: 100} as ColumnBase,
     {name: 'test2', frozen: false, width: 100} as ColumnBase,
     {name: 'test3', frozen: false, width: 100} as ColumnBase,
     {name: 'test4', tableHidden: true, width: 100} as ColumnBase,
@@ -25,8 +25,25 @@ describe('DataTable', () => {
 
   it('should be able to init columns', () => {
     dataTable.initColumns();
-    expect(dataTable.frozenColumns.length).toBe(2);
-    expect(dataTable.scrollableColumns.length).toBe(3);
+    const frozenColumns = dataTable.preparedColumns.filter(x => x.frozen);
+    const scrollableColumns = dataTable.preparedColumns.filter(x => !x.frozen);
+    expect(frozenColumns.length).toBe(2);
+    expect(scrollableColumns.length).toBe(3);
+  });
+
+  it('should be able to first sorted frozen columns', () => {
+    dataTable.initColumns();
+    expect(dataTable.preparedColumns[0].frozen).toBe(true);
+    expect(dataTable.preparedColumns[1].frozen).toBe(true);
+    expect(dataTable.preparedColumns[2].frozen).toBe(false);
+  });
+
+  it('should be able to set column index', () => {
+    dataTable.initColumns();
+    expect(dataTable.preparedColumns[0].index).toBe(0); // frozen column sorted
+    expect(dataTable.preparedColumns[1].index).toBe(2); // frozen column sorted
+    expect(dataTable.preparedColumns[2].index).toBe(1);
+    expect(dataTable.preparedColumns[3].index).toBe(3);
   });
 
   it('should be able to get rows', () => {

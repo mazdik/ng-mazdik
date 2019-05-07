@@ -5,24 +5,7 @@
   [rowActionTemplate]="rowActionTemplate">
 </dt-body-cell-action>
 
-<ng-container *ngFor="let column of table.frozenColumns; trackBy: columnTrackingFn">
-  <dt-body-cell
-    *ngIf="!row.isEditableCell(column)"
-    [ngClass]="row.getCellClass(column)"
-    tabindex="-1"
-    [table]="table"
-    [cell]="row.createCell(column)">
-  </dt-body-cell>
-  <dt-body-cell-edit
-    *ngIf="row.isEditableCell(column)"
-    [ngClass]="row.getCellClass(column)"
-    tabindex="-1"
-    [table]="table"
-    [cell]="row.createCell(column)">
-  </dt-body-cell-edit>
-</ng-container>
-
-<ng-container *ngFor="let column of table.scrollableColumns; trackBy: columnTrackingFn">
+<ng-container *ngFor="let column of table.preparedColumns; trackBy: columnTrackingFn">
   <dt-body-cell
     *ngIf="!row.isEditableCell(column)"
     [ngClass]="row.getCellClass(column)"
