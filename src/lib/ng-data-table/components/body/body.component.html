@@ -5,7 +5,7 @@
   [scrollHeight]="table.dimensions.bodyHeight"
   [itemsPerRow]="table.pager.perPage"
   [rowHeightProp]="table.settings.rowHeightProp"
-  (scroll)=onScroll($event)>
+  (scrollChange)=onScroll($event)>
   <ng-container *ngFor="let row of scroller.viewRows; trackBy: rowTrackingFn">
 
     <dt-body-group-row

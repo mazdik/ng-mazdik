@@ -36,13 +36,15 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      const stickyCells = this.headerRow.nativeElement.querySelectorAll('.dt-sticky');
-      this.headerRow.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
-      for (const cell of stickyCells) {
-        cell.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
+    const subScroll = this.table.events.scrollSource$.subscribe((event) => {
+      if (!event.direction) {
+        const stickyCells = this.headerRow.nativeElement.querySelectorAll('.dt-sticky');
+        this.headerRow.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
+        for (const cell of stickyCells) {
+          cell.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
+        }
+        this.cd.markForCheck();
       }
-      this.cd.markForCheck();
     });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);

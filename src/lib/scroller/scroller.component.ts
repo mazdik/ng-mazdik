@@ -3,6 +3,7 @@ import {
   ViewEncapsulation, NgZone, ChangeDetectionStrategy
 } from '@angular/core';
 import {RowHeightCache} from './row-height-cache';
+import {ScrollerEventArgs} from './types';
 
 @Component({
   selector: 'app-scroller, [scroller]',
@@ -35,7 +36,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   @HostBinding('style.width.px')
   @Input() scrollWidth: number;
 
-  @Output() scroll: EventEmitter<any> = new EventEmitter();
+  @Output() scrollChange: EventEmitter<ScrollerEventArgs> = new EventEmitter();
 
   @HostBinding('class.dt-scroller') cssClass = true;
   @HostBinding('class.dt-virtual-scroll')
@@ -86,7 +87,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     this.scrollYPos = dom.scrollTop;
     this.scrollXPos = dom.scrollLeft;
 
-    let direction: string;
+    let direction = null;
     if (this.scrollYPos < this.prevScrollYPos) {
       direction = 'up';
     } else if (this.scrollYPos > this.prevScrollYPos) {
@@ -107,7 +108,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
         });
       }
 
-      this.scroll.emit({
+      this.scrollChange.emit({
         direction,
         scrollYPos: this.scrollYPos,
         scrollXPos: this.scrollXPos
