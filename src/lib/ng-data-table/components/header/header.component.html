@@ -3,46 +3,27 @@
   [ngTemplateOutlet]="headerTemplate.template">
 </ng-template>
 
-<div class="datatable-header-row" [style.height.px]="table.dimensions.headerRowHeight">
+<div #headerRow class="datatable-header-row" [style.height.px]="table.dimensions.headerRowHeight">
 
-  <div class="datatable-row-left">
-    <dt-header-cell-action
-      *ngIf="table.dimensions.actionColumnWidth"
-      [table]="table">
-    </dt-header-cell-action>
+  <dt-header-cell-action
+    *ngIf="table.dimensions.actionColumnWidth"
+    [table]="table">
+  </dt-header-cell-action>
 
-    <dt-header-cell
-        *ngFor="let column of table.frozenColumns; trackBy: columnTrackingFn"
-        [ngClass]="column.headerCellClass"
-        [table]="table"
-        [column]="column"
-        appResizable
-        [east]="column.resizeable"
-        [minWidth]="column.minWidth"
-        [maxWidth]="column.maxWidth"
-        [ghost]="isGhostResize"
-        (resizeBegin)="onResizeBegin()"
-        (resize)="onResize($event, column)"
-        (resizeEnd)="onResizeEnd($event, column)">
-    </dt-header-cell>
-  </div>
-
-  <div #rowCenter class="datatable-row-center">
-      <dt-header-cell
-          *ngFor="let column of table.scrollableColumns; trackBy: columnTrackingFn"
-          [ngClass]="column.headerCellClass"
-          [table]="table"
-          [column]="column"
-          appResizable
-          [east]="column.resizeable"
-          [minWidth]="column.minWidth"
-          [maxWidth]="column.maxWidth"
-          [ghost]="isGhostResize"
-          (resizeBegin)="onResizeBegin()"
-          (resize)="onResize($event, column)"
-          (resizeEnd)="onResizeEnd($event, column)">
-      </dt-header-cell>
-  </div>
+  <dt-header-cell
+    *ngFor="let column of table.preparedColumns; trackBy: columnTrackingFn"
+    [ngClass]="column.headerCellClass"
+    [table]="table"
+    [column]="column"
+    appResizable
+    [east]="column.resizeable"
+    [minWidth]="column.minWidth"
+    [maxWidth]="column.maxWidth"
+    [ghost]="isGhostResize"
+    (resizeBegin)="onResizeBegin()"
+    (resize)="onResize($event, column)"
+    (resizeEnd)="onResizeEnd($event, column)">
+  </dt-header-cell>
 
 </div>
 

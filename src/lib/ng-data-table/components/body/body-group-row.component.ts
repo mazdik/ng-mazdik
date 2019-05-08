@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef
+  Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Row} from '../../base';
 import {Subscription} from 'rxjs';
@@ -16,8 +16,6 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
   @Input() row: Row;
   @Input() rowGroupTemplate: RowGroupTemplateDirective;
 
-  @ViewChild('rowLeft') rowLeft: ElementRef;
-
   private subscriptions: Subscription[] = [];
 
   @HostBinding('class') cssClass = 'datatable-body-row datatable-group-header';
@@ -31,7 +29,7 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.width.px')
   get rowWidth(): number {
-    return this.table.dimensions.columnsTotalWidth + 1;
+    return this.table.dimensions.columnsTotalWidth;
   }
 
   constructor(private cd: ChangeDetectorRef) {
@@ -50,13 +48,8 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
       this.cd.markForCheck();
     });
-    const subScroll = this.table.events.scrollSource$.subscribe(() => {
-      this.rowLeft.nativeElement.style.transform = `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
-      this.cd.markForCheck();
-    });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subRows);
-    this.subscriptions.push(subScroll);
   }
 
   ngOnDestroy() {

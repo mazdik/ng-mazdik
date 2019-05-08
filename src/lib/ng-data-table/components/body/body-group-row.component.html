@@ -1,10 +1,7 @@
-<div #rowLeft class="datatable-row-left">
-  <div class="datatable-body-cell" *ngIf="!rowGroupTemplate">
-    {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
-  </div>
-  <ng-template *ngIf="rowGroupTemplate && rowGroupTemplate.template"
-              [ngTemplateOutlet]="rowGroupTemplate.template"
-              [ngTemplateOutletContext]="{row: row}">
-  </ng-template>
+<div class="datatable-body-cell dt-sticky" style="left: 0;" *ngIf="!rowGroupTemplate">
+  {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
 </div>
-<div class="datatable-row-center"></div>
+<ng-template *ngIf="rowGroupTemplate && rowGroupTemplate.template"
+            [ngTemplateOutlet]="rowGroupTemplate.template"
+            [ngTemplateOutletContext]="{row: row}">
+</ng-template>

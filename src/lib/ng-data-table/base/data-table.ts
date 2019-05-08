@@ -28,8 +28,7 @@ export class DataTable {
   readonly localDataSource: LocalDataSource;
   readonly rowModelGenerator: RowModelGenerator;
   readonly columns: Column[] = [];
-  frozenColumns: Column[] = [];
-  scrollableColumns: Column[] = [];
+  preparedColumns: Column[] = [];
   clientSide: boolean = true;
 
   get rows(): any { return this._rows; }
@@ -68,21 +67,22 @@ export class DataTable {
   }
 
   initColumns(): void {
-    this.frozenColumns = [];
-    this.scrollableColumns = [];
+    const frozenColumns = [];
+    const scrollableColumns = [];
     let columnIndex = 0;
 
     this.columns.forEach((column) => {
+      this.setColumnSettings(column);
       if (!column.tableHidden) {
         if (column.frozen) {
-          this.frozenColumns.push(column);
+          frozenColumns.push(column);
         } else {
-          this.scrollableColumns.push(column);
+          scrollableColumns.push(column);
         }
         column.index = columnIndex++;
-        this.setColumnSettings(column);
       }
     });
+    this.preparedColumns = [...frozenColumns, ...scrollableColumns];
   }
 
   private setColumnSettings(column: Column) {

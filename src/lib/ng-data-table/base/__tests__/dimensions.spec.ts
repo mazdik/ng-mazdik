@@ -19,4 +19,10 @@ describe('Dimensions', () => {
     expect(dimensions.columnsTotalWidth).toBe(540);
   });
 
+  it('should be able to calc left positions', () => {
+    dimensions.calcColumnsLeftPosition();
+    expect(columns[0].left).toBe(40);
+    expect(columns[1].left).toBe(140);
+  });
+
 });

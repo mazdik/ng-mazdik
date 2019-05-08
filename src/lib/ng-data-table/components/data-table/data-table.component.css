@@ -11,15 +11,14 @@
 }
 
 .datatable-header-cell,
-.datatable-body-cell,
-.datatable-body-group-cell {
+.datatable-body-cell {
   display: flex;
   align-items: center;
   position: relative;
+  flex-shrink: 0;
 }
 
-.datatable-body-cell,
-.datatable-body-group-cell {
+.datatable-body-cell {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -29,12 +28,7 @@
   white-space: nowrap;
 }
 
-.fixed-header .datatable-header-cell {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
+.fixed-header .datatable-header-cell,
 .fixed-header .dt-sort-header {
   white-space: nowrap;
   overflow: hidden;
@@ -42,12 +36,9 @@
 }
 
 .datatable-body-row,
-.datatable-body-row > div,
-.datatable-header-row,
-.datatable-header-row > div {
-  display: -webkit-box;
-  display: -ms-flexbox;
+.datatable-header-row {
   display: flex;
+  position: relative;
 }
 
 .datatable-body-cell:focus,
@@ -55,20 +46,9 @@
   outline: none;
 }
 
-.datatable-row-left,
-.datatable-row-right {
-  z-index: 1;
-}
-
-.datatable-row-left,
-.datatable-row-center,
-.datatable-row-right {
-  position: relative;
-  flex-shrink: 0;
-}
-
 .datatable-header {
-  display: block;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
@@ -80,7 +60,16 @@
 .datatable-body-row {
   white-space: nowrap;
   outline: none;
-  overflow: hidden;
+}
+
+/* sticky columns */
+.dt-sticky {
+  z-index: 1;
+  position: sticky;
+}
+
+.datatable-body-cell.dt-sticky {
+  background-color: white;
 }
 
 /******/
@@ -102,8 +91,9 @@
   visibility: visible;
 }
 
-.datatable-row-left {
-  background-color: white;
+.datatable-body-cell:first-child,
+.datatable-header-cell:first-child {
+  border-left: 1px solid #c6c6c6;
 }
 
 .datatable-body-cell,
@@ -115,10 +105,6 @@
 
 .datatable-body-cell:focus {
   box-shadow:0px 0px 0px 2px #5b9bd5 inset;
-}
-
-.datatable-row-left {
-  border-left: 1px solid #c6c6c6;
 }
 
 .dt-dropdown + .datatable-body {
@@ -162,7 +148,7 @@
   color: black;
 }
 
-.row-selected .datatable-row-left {
+.row-selected .dt-sticky {
   background-color: #ecf3ff;
   color: black;
 }
@@ -172,18 +158,19 @@
 }
 
 .datatable-group-header {
-  border-right: solid 1px #D9D8D9;
-  border-bottom: solid 1px #D9D8D9;
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
 }
 
 .datatable-group-header .datatable-body-cell {
   border: none;
+  border-left: 1px solid #c6c6c6;
 }
 
 .datatable-group-header,
-.datatable-group-header .datatable-row-left,
+.datatable-group-header .dt-sticky,
 .datatable-group-row,
-.datatable-group-row .datatable-row-left {
+.datatable-group-row .dt-sticky {
   background: #f5f5f5;
   color: grey;
   font-weight: bold;

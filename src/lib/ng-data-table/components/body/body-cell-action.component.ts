@@ -17,13 +17,18 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
   @Input() row: Row;
   @Input() rowActionTemplate: RowActionTemplateDirective;
 
-  @HostBinding('class') cssClass = 'datatable-body-cell action-cell';
+  @HostBinding('class') cssClass = 'datatable-body-cell';
+  @HostBinding('class.action-cell') cssAction = true;
+  @HostBinding('class.dt-sticky') cssSticky = true;
+
   @HostBinding('attr.role') role = 'gridcell';
 
   @HostBinding('style.width.px')
   get width(): number {
     return this.table.dimensions.actionColumnWidth;
   }
+
+  @HostBinding('style.left.px') get left() { return 0; }
 
   get rowNum() {
     return (this.row && !isBlank(this.row.$$index)) ? this.row.$$index + 1 : null;
