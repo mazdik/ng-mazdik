@@ -2,9 +2,9 @@
   [(value)]="cell.value"
   [editing]=editing
   [type]="(cell.column.isDateType || cell.column.type === 'number') ? cell.column.type : 'text'"
-  [options]="cell.column.options"
-  [pipe]="cell.column.pipe"
-  (change)="cell.validate()"
-  (focus)="onInputFocus()"
-  (blur)="onInputBlur()">
+  [options]="cell.getOptions()"
+  [viewValue]="cell.viewValue"
+  (inputChange)="cell.validate()"
+  (focusChange)="onInputFocus()"
+  (blurChange)="onInputBlur()">
 </app-inline-edit>
