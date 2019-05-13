@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../ng-crud-table/base';
-import {DynamicFormElement} from '../dynamic-form';
+import {DynamicFormElement, GetOptionsFunc} from '../dynamic-form';
 import {KeyValuePair} from '../row-view';
 
 @Component({
@@ -33,7 +33,7 @@ export class ModalEditFormComponent implements OnInit {
   dynElements: DynamicFormElement[];
   formValid: boolean = true;
   transposedData: KeyValuePair[];
-  getOptionsFunc: Function;
+  getOptionsFunc: GetOptionsFunc;
 
   constructor(private cd: ChangeDetectorRef) {}
 

@@ -2,7 +2,7 @@ import {
   Component, Input, ViewChild, ViewContainerRef, OnDestroy, Output, EventEmitter, ViewEncapsulation,
   ChangeDetectionStrategy
 } from '@angular/core';
-import {getOptionsFunction, KeyElementChangeEventArgs} from './types';
+import {GetOptionsFunc, KeyElementChangeEventArgs} from './types';
 import {DynamicFormElement} from './dynamic-form-element';
 
 @Component({
@@ -23,7 +23,7 @@ export class DynamicFormComponent implements OnDestroy {
   @Input() dynElements: DynamicFormElement[];
   @Input() item: any;
   @Input() isNewItem: boolean = true;
-  @Input() getOptionsFunc: getOptionsFunction;
+  @Input() getOptionsFunc: GetOptionsFunc;
   @Input() selectPlaceholder: string;
   @Input() searchInputPlaceholder: string;
 

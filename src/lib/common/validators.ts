@@ -10,9 +10,7 @@ export interface Validation {
 export class Validators {
 
   static get(validation: Validation): (name: string, value: any) => string[] {
-    return function(name: string, value: any) {
-      return Validators.validate(name, value, validation);
-    };
+    return (name: string, value: any) => Validators.validate(name, value, validation);
   }
 
   static validate(name: string, value: any, validation: Validation): string[] {

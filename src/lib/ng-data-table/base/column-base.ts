@@ -3,6 +3,7 @@ import {TemplateRef, PipeTransform} from '@angular/core';
 import {SelectItem} from '../../common';
 
 type FilterValuesFunc = (columnName: string) => Promise<SelectItem[]>;
+type CellClassFunc = (obj: any) => any;
 
 export class ColumnBase {
 
@@ -24,7 +25,7 @@ export class ColumnBase {
   headerCellTemplate?: TemplateRef<any>;
   formHidden?: boolean;
   tableHidden?: boolean;
-  cellClass?: string | Function;
+  cellClass?: string | CellClassFunc;
   headerCellClass?: string;
   keyColumn?: string;
   multiSelectFilter?: boolean;

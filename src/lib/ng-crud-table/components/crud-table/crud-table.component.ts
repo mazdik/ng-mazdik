@@ -23,7 +23,6 @@ import {MenuItem} from '../../../common';
 export class CrudTableComponent implements OnInit, OnDestroy {
 
   @Input() dataManager: DataManager;
-  @Output() select: EventEmitter<any> = new EventEmitter();
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
@@ -44,9 +43,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     if (this.dataManager.settings.initLoad) {
       this.dataManager.loadItems().catch(() => this.cd.markForCheck());
     }
-    const subSelection = this.dataManager.events.selectionSource$.subscribe(() => {
-      this.onSelectedRow();
-    });
     const subFilter = this.dataManager.events.filterSource$.subscribe(() => {
       this.onFilter();
     });
@@ -63,7 +59,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.rowMenu.hide();
       requestAnimationFrame(() => this.cd.detectChanges());
     });
-    this.subscriptions.push(subSelection);
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
@@ -211,10 +206,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
       this.dataManager.clear();
     }
     this.dataManager.loadItems();
-  }
-
-  onSelectedRow() {
-    this.select.emit(this.dataManager.getSelection());
   }
 
   onLoadedForm() {

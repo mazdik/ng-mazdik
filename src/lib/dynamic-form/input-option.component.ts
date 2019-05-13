@@ -1,5 +1,5 @@
 import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {getOptionsFunction, KeyElementChangeEventArgs} from './types';
+import {GetOptionsFunc, KeyElementChangeEventArgs} from './types';
 import {InputComponent} from './input.component';
 import {SelectItem} from '../common';
 
@@ -10,7 +10,7 @@ import {SelectItem} from '../common';
 })
 export class InputOptionComponent extends InputComponent implements OnInit {
 
-  @Input() getOptionsFunc: getOptionsFunction;
+  @Input() getOptionsFunc: GetOptionsFunc;
   @Input() searchInputPlaceholder: string;
   @Output() keyElementChange: EventEmitter<KeyElementChangeEventArgs> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
