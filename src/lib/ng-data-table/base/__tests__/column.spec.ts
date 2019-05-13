@@ -45,6 +45,20 @@ describe('Column', () => {
     expect(result).toBe('ELY note 1');
   });
 
+  it('should be able to get option name with depends value', () => {
+    let result = column.getOptionName('ASM1', 'ASMODIANS');
+    expect(result).toBe('ASM note 1');
+
+    result = column.getOptionName('ELY1', 'ELYOS');
+    expect(result).toBe('ELY note 1');
+
+    result = column.getOptionName('ASM1', 'ELYOS');
+    expect(result).toBeNull();
+
+    result = column.getOptionName('ELY1', 'ASMODIANS');
+    expect(result).toBeNull();
+  });
+
   it('should be able to validate', () => {
     let result = column.validate(null);
     expect(result).toEqual(['column1 is not valid']);

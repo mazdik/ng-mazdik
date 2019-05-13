@@ -59,8 +59,8 @@ export class Column extends ColumnBase {
     }
   }
 
-  getOptionName(value: any) {
-    const options = this.getOptions();
+  getOptionName(value: any, dependsValue?: any) {
+    const options = this.getOptions(dependsValue);
     if (!options || isBlank(value)) {
       return value;
     }
@@ -97,8 +97,9 @@ export class Column extends ColumnBase {
 
   getValueView(row: any) {
     let value = this.getValue(row);
+    const dependsValue = row[this.dependsColumn] ? row[this.dependsColumn] : null;
     if (value) {
-      value = this.getOptionName(value);
+      value = this.getOptionName(value, dependsValue);
     }
     if (this.pipe) {
       value = this.pipe.transform(value);
