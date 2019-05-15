@@ -1,6 +1,5 @@
 import {
-  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked,
-  HostListener, HostBinding, EventEmitter
+  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, HostListener, HostBinding, EventEmitter, ViewEncapsulation
 } from '@angular/core';
 import {ResizableEvent} from '../resizable';
 import {maxZIndex, findAncestor} from '../common/utils';
@@ -8,7 +7,8 @@ import {maxZIndex, findAncestor} from '../common/utils';
 @Component({
   selector: 'app-modal',
   templateUrl: 'modal.component.html',
-  styleUrls: ['modal.component.css']
+  styleUrls: ['modal.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalComponent implements OnInit, AfterViewChecked {
 
