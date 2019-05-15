@@ -15,6 +15,7 @@ export class InlineEditComponent {
   @Input() type = 'text';
   @Input() options: SelectItem[];
   @Input() viewValue: string | number;
+  @Input() selectPlaceholder: string;
 
   @Input()
   get value(): string | number { return this._value; }

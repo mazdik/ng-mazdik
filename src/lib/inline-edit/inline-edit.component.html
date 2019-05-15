@@ -8,6 +8,7 @@
   (change)="value = $event.target.value; onInputChange()"
   (focus)="onInputFocus()"
   (blur)="onInputBlur()">
+  <option value="" disabled selected hidden>{{selectPlaceholder}}</option>
   <option *ngFor="let opt of options" [value]="opt.id" [selected]="(opt.id === value)">{{opt.name}}</option>
 </select>
 
