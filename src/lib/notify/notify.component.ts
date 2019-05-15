@@ -9,7 +9,7 @@ import { Message, PositionType } from './types';
   selector: 'app-notify',
   template: `
     <app-notify-item *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i"
-    (close)="onMessageClose($event)"></app-notify-item>
+    (closeNotify)="onCloseNotify($event)"></app-notify-item>
 `,
   styleUrls: ['notify.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,7 +40,7 @@ export class NotifyComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onMessageClose(event) {
+  onCloseNotify(event) {
     this.messages.splice(event.index, 1);
   }
 

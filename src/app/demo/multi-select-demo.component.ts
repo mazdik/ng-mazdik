@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-multi-select-demo',
   template: `<app-crud-table class="multi-select-demo" [dataManager]="dataManager"></app-crud-table>
-    <ng-template #cellTemplate let-rowIndex="rowIndex" let-value="value" let-value="column">
+    <ng-template #cellTemplate let-rowIndex="rowIndex" let-value="value">
       <span *ngIf="!editing[rowIndex]">
         {{value}}
       </span>
@@ -20,7 +20,7 @@ import {Subscription} from 'rxjs';
         [(value)]="value">
       </app-dropdown-select>
     </ng-template>
-    <ng-template #formTemplate let-value="value" let-value="column">
+    <ng-template #formTemplate let-value="value">
       <app-dropdown-select
         class="dt-dropdown-select-fixed"
         [multiple]="true"
@@ -30,8 +30,10 @@ import {Subscription} from 'rxjs';
     </ng-template>
   `,
   styles: [
-    '.multi-select-demo {width: 600px;}',
-    '.multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}',
+    `.multi-select-demo {width: 600px;}
+    .multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
+    .multi-select-demo .datatable-body-cell > div:first-child,
+    .multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}`,
   ],
   encapsulation: ViewEncapsulation.None,
 })

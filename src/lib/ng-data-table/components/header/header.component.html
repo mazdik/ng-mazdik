@@ -21,7 +21,7 @@
     [maxWidth]="column.maxWidth"
     [ghost]="isGhostResize"
     (resizeBegin)="onResizeBegin()"
-    (resize)="onResize($event, column)"
+    (resizing)="onResize($event, column)"
     (resizeEnd)="onResizeEnd($event, column)">
   </dt-header-cell>
 

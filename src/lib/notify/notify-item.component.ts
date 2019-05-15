@@ -16,7 +16,7 @@ export class NotifyItemComponent implements AfterViewInit, OnDestroy {
 
   @Input() message: Message;
   @Input() index: number;
-  @Output() close: EventEmitter<any> = new EventEmitter();
+  @Output() closeNotify: EventEmitter<any> = new EventEmitter();
 
   timeout: any;
 
@@ -40,7 +40,7 @@ export class NotifyItemComponent implements AfterViewInit, OnDestroy {
   initTimeout() {
     if (!this.message.sticky) {
       this.timeout = setTimeout(() => {
-        this.close.emit(this.index);
+        this.closeNotify.emit(this.index);
       }, this.message.life || 3000);
     }
   }
@@ -54,7 +54,7 @@ export class NotifyItemComponent implements AfterViewInit, OnDestroy {
 
   onCloseClick() {
     this.clearTimeout();
-    this.close.emit(this.index);
+    this.closeNotify.emit(this.index);
   }
 
 }

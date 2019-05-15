@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {DataSource, RequestMetadata, PagedResult} from '../../lib/ng-crud-table';
 import {DataSort, DataFilter} from '../../lib/ng-data-table/base';
 import {arrayPaginate} from '../../lib/common/utils';
+import {NotifyService} from '../../lib/notify/notify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class DemoService implements DataSource {
   private dataFilter: DataFilter;
   private dataSort: DataSort;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notifyService: NotifyService) {
     this.dataFilter = new DataFilter();
     this.dataSort = new DataSort();
   }
@@ -47,7 +48,7 @@ export class DemoService implements DataSource {
         } as PagedResult;
         return result;
       }.bind(this))
-      .catch(this.handleError);
+      .catch(this.handleError.bind(this));
   }
 
   getItem(row: any): Promise<any> {
@@ -104,6 +105,7 @@ export class DemoService implements DataSource {
       // server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
+    this.notifyService.sendMessage({title: 'HttpErrorResponse', text: errorMessage, severity: 'error'});
     return Promise.reject(errorMessage);
   }
 

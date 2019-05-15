@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @Input() maximizable: boolean;
   @Input() backdrop: boolean = true;
 
-  @Output() close: EventEmitter<boolean> = new EventEmitter();
+  @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
   @ViewChild('modalRoot') modalRoot: ElementRef;
   @ViewChild('modalBody') modalBody: ElementRef;
@@ -84,7 +84,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   hide(): void {
     this.visible = false;
-    this.close.emit(true);
+    this.closeModal.emit(true);
     this.focusLastModal();
   }
 

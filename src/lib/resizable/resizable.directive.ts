@@ -27,7 +27,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   @Input() maxHeight: number;
 
   @Output() resizeBegin: EventEmitter<any> = new EventEmitter();
-  @Output() resize: EventEmitter<ResizableEvent> = new EventEmitter();
+  @Output() resizing: EventEmitter<ResizableEvent> = new EventEmitter();
   @Output() resizeEnd: EventEmitter<ResizableEvent> = new EventEmitter();
 
   element: HTMLElement;
@@ -157,7 +157,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
         if (!this.ghost) {
           this.element.style.width = `${this.newWidth}px`;
         }
-        this.resize.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'horizontal' });
+        this.resizing.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'horizontal' });
       }
     }
   }
@@ -171,7 +171,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
         if (!this.ghost) {
           this.element.style.height = `${this.newHeight}px`;
         }
-        this.resize.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'vertical' });
+        this.resizing.emit({ event, width: this.newWidth, height: this.newHeight, direction: 'vertical' });
       }
     }
   }
