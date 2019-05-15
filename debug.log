@@ -1,3 +1,0 @@
-[0515/115316.692:ERROR:process_reader_win.cc(151)] SuspendThread: Отказано в доступе. (0x5)
-[0515/115316.693:ERROR:exception_snapshot_win.cc(98)] thread ID 12808 not found in process
-[0515/115316.693:ERROR:scoped_process_suspend.cc(40)] NtResumeProcess: Попытка доступа к процессу, выполняющему процедуру завершения. (0xc000010a)
