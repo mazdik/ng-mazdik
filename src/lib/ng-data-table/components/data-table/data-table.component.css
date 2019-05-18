@@ -73,10 +73,6 @@
 }
 
 /******/
-.datatable-header-row {
-  min-height: 40px;
-}
-
 .datatable-header-cell {
   background-color: #5b9bd5;
   color: white;

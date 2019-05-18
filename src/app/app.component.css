@@ -117,6 +117,9 @@
 }
 
 /****/
+.datatable-header-row {
+  min-height: 40px;
+}
 
 .cell-big-value {
   background-color: lightsalmon;
