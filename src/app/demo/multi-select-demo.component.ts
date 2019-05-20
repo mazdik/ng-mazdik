@@ -17,7 +17,8 @@ import {Subscription} from 'rxjs';
         *ngIf="editing[rowIndex]"
         [multiple]="true"
         [options]="options"
-        [(value)]="value">
+        [value]="value"
+        (valueChange)="value=$event">
       </app-dropdown-select>
     </ng-template>
     <ng-template #formTemplate let-value="value">
@@ -25,7 +26,8 @@ import {Subscription} from 'rxjs';
         class="dt-dropdown-select-fixed"
         [multiple]="true"
         [options]="options"
-        [(value)]="value">
+        [value]="value"
+        (valueChange)="value=$event">
       </app-dropdown-select>
     </ng-template>
   `,
