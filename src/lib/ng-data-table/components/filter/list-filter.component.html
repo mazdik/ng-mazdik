@@ -1,0 +1,13 @@
+<i class="dt-loader" *ngIf="loading"></i>
+<app-select-list *ngIf="!loading"
+                 [options]="column.filterValuesTemp"
+                 [selected]="selectedOptions"
+                 [multiple]="column.multiSelectFilter"
+                 [isOpen]="isOpen"
+                 [selectAllMessage]="table.messages.selectAll"
+                 [cancelMessage]="table.messages.cancel"
+                 [clearMessage]="table.messages.clear"
+                 [searchMessage]="table.messages.search"
+                 (selectionChange)="onSelectionChange($event)"
+                 (selectionCancel)="onSelectionCancel()">
+</app-select-list>

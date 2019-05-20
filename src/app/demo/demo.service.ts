@@ -1,24 +1,28 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {DataSource, RequestMetadata, PagedResult} from '../../ng-crud-table';
-import {DataSort, DataFilter} from '../../ng-data-table/base';
+import {DataSource, RequestMetadata, PagedResult} from '../../lib/ng-crud-table';
+import {DataSort, DataFilter} from '../../lib/ng-data-table/base';
+import {arrayPaginate} from '../../lib/common/utils';
+import {NotifyService} from '../../lib/notify/notify.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DemoService implements DataSource {
 
-  url: string;
-  primaryKeys: any;
+  url: string = 'assets/players.json';
+  primaryKeys: string[] = ['id'];
 
   private dataFilter: DataFilter;
   private dataSort: DataSort;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notifyService: NotifyService) {
     this.dataFilter = new DataFilter();
     this.dataSort = new DataSort();
   }
 
   getItems(requestMeta: RequestMetadata): Promise<PagedResult> {
-    const page = requestMeta.pageMeta.currentPage;
+    const currentPage = requestMeta.pageMeta.currentPage;
     this.dataFilter.filters = requestMeta.filters;
     this.dataFilter.globalFilterValue = requestMeta.globalFilterValue;
     this.dataSort.sortMeta = requestMeta.sortMeta;
@@ -26,24 +30,25 @@ export class DemoService implements DataSource {
 
     return this.http.get<PagedResult>(this.url)
       .toPromise()
-      .then(function (res) {
+      .then(function(res) {
         const rows: any[] = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
         const sortedData = this.dataSort.sortRows(filteredData);
-        const pageData = this.page(sortedData, page, perPage);
+        const pageData = arrayPaginate(sortedData, currentPage, perPage);
         const totalCount = sortedData.length;
         const pageCount = pageData.length;
-        const result = <PagedResult>{
-          'items': pageData,
-          '_meta': {
-            'totalCount': totalCount,
-            'pageCount': pageCount,
-            'currentPage': page,
-            'perPage': perPage
+        const result = {
+          items: pageData,
+          _meta: {
+            totalCount,
+            pageCount,
+            currentPage,
+            perPage
           }
-        };
+        } as PagedResult;
         return result;
-      }.bind(this));
+      }.bind(this))
+      .catch(this.handleError.bind(this));
   }
 
   getItem(row: any): Promise<any> {
@@ -51,36 +56,27 @@ export class DemoService implements DataSource {
     for (const key of this.primaryKeys) {
       filters[key] = {value: row[key]};
     }
-    const requestMeta = <RequestMetadata> {
+    const requestMeta = {
       pageMeta: {currentPage: 1},
-      filters: filters,
-    };
+      filters,
+    } as RequestMetadata;
     return this.getItems(requestMeta)
       .then(data => data.items[0]);
   }
 
-  page(data: any, page: any, perPage: number): Array<any> {
-    const start = (page - 1) * perPage;
-    const end = perPage > -1 ? (start + perPage) : data.length;
-    return data.slice(start, end);
-  }
-
   post(item: any): Promise<any> {
-    // this.data.items.push(item); // exist in component
     return new Promise((resolve) => {
       setTimeout(() => resolve(item), 250);
     });
   }
 
   put(item: any): Promise<any> {
-    // this.data.items[this.findSelectedItemIndex(item)] = item; // exist in component
     return new Promise((resolve) => {
       setTimeout(() => resolve(item), 250);
     });
   }
 
   delete(item: any): Promise<any> {
-    // this.data.items.splice(this.findSelectedItemIndex(item), 1); // exist in component
     return new Promise((resolve) => {
       setTimeout(() => resolve(item), 250);
     });
@@ -91,7 +87,7 @@ export class DemoService implements DataSource {
       .toPromise()
       .then((response: any) => {
         const result = response.filter((value: any) => {
-          return value['parentId'] === parentId;
+          return value.parentId === parentId;
         });
         return new Promise((resolve) => {
           setTimeout(() => resolve(result), 1000);
@@ -101,8 +97,16 @@ export class DemoService implements DataSource {
   }
 
   private handleError(error: any) {
-    const errMsg = error.message ? error.message : error.toString();
-    return Promise.reject(errMsg);
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    this.notifyService.sendMessage({title: 'HttpErrorResponse', text: errorMessage, severity: 'error'});
+    return Promise.reject(errorMessage);
   }
 
 }

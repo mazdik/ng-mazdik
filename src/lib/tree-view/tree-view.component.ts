@@ -1,58 +1,33 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {TreeNode, Tree, TreeDataSource} from '../tree';
+import {ContextMenuComponent, MenuEventArgs} from '../context-menu';
 
 @Component({
   selector: 'app-tree-view',
-  styleUrls: ['./tree-view.component.css', './tree-view.css'],
+  templateUrl: 'tree-view.component.html',
+  styleUrls: [
+    './tree-view.component.css',
+    './tree-view.css',
+    '../styles/clearable-input.css',
+    '../styles/input.css',
+    '../styles/spinners.css',
+    '../styles/icons.css',
+  ],
   encapsulation: ViewEncapsulation.None,
-  template: `
-    <div class="tree-header">
-      <button class="tree-button" (click)="collapseAll()"><i class="icon icon-return"></i></button>
-      <button class="tree-button" (click)="refresh()"><i class="icon icon-reload"></i></button>
-      <div class="clearable-input tree-filter-input">
-        <input class="tree-input"
-               placeholder="Search"
-               #filterInput
-               [(ngModel)]="searchFilterText"
-               (keyup)="onFilterKeyup()">
-        <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "
-              (click)="onClickClearSearch()">&times;</span>
-      </div>
-      <i class="icon-collapsing" [style.visibility]="!filterLoading ? 'hidden' : 'visible' "></i>
-    </div>
-    <div class="tree-body">
-      <div *ngIf="loading" class="tree-loading-content"><i class="icon-collapsing"></i></div>
-      <ul class="tree-container" style="padding-left: 0;">
-        <app-tree-view-node
-          *ngFor="let node of nodes"
-          [node]="node"
-          [getIconFunc]="getIconFunc"
-          (selectedChanged)="selectedChanged.emit($event)"
-          (nodeRightClick)="onNodeRightClick($event)">
-        </app-tree-view-node>
-      </ul>
-    </div>
-  `
 })
 export class TreeViewComponent implements OnInit {
 
   @Input()
+  get service(): TreeDataSource { return this.tree.service; }
   set service(val: TreeDataSource) {
     this.tree.service = val;
     this.tree.nodes = [];
   }
 
-  get service(): TreeDataSource {
-    return this.tree.service;
-  }
-
   @Input()
+  get nodes(): TreeNode[] { return this.tree.nodes; }
   set nodes(val: TreeNode[]) {
     this.tree.nodes = val;
-  }
-
-  get nodes(): TreeNode[] {
-    return this.tree.nodes;
   }
 
   @Input()
@@ -60,7 +35,7 @@ export class TreeViewComponent implements OnInit {
     this.tree.serverSideFiltering = val;
   }
 
-  @Input() contextMenu: any;
+  @Input() contextMenu: ContextMenuComponent;
   @Input() filterDelay = 500;
   @Input() getIconFunc: (node?: TreeNode) => string;
 
@@ -71,12 +46,12 @@ export class TreeViewComponent implements OnInit {
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
   @ViewChild('filterInput') filterInput: any;
 
+  tree: Tree = new Tree();
   filterTimeout: any;
   loading: boolean;
-  searchFilterText: any;
+  searchFilterText: any = null;
 
-  constructor(private tree: Tree) {
-  }
+  constructor() {}
 
   ngOnInit() {
     this.initGetNodes();
@@ -84,11 +59,7 @@ export class TreeViewComponent implements OnInit {
 
   initGetNodes() {
     this.loading = true;
-    this.tree.initLoadNodes().then(() => {
-      this.loading = false;
-    }).catch(() => {
-      this.loading = false;
-    });
+    this.tree.initLoadNodes().finally(() => { this.loading = false; });
   }
 
   onFilterKeyup() {
@@ -104,7 +75,7 @@ export class TreeViewComponent implements OnInit {
 
   onNodeRightClick(event) {
     if (this.contextMenu) {
-      this.contextMenu.show(event['event']);
+      this.contextMenu.show({originalEvent: event.event, data: event.node} as MenuEventArgs);
     }
   }
 
@@ -120,8 +91,12 @@ export class TreeViewComponent implements OnInit {
   }
 
   onClickClearSearch() {
-    this.searchFilterText = '';
+    this.searchFilterText = null;
     this.onFilterKeyup();
+  }
+
+  getNodeById(nodeId: string) {
+    return this.tree.getNodeById(nodeId);
   }
 
 }

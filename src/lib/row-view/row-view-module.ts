@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {OrderPipeModule} from '../pipes';
 import {RowViewComponent} from './row-view.component';
-import {OrderPipe} from './order.pipe';
 
 @NgModule({
   imports: [
     CommonModule,
+    OrderPipeModule,
   ],
   declarations: [
     RowViewComponent,
-    OrderPipe,
   ],
   exports: [
     RowViewComponent,

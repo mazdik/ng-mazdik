@@ -1,8 +1,7 @@
-import {Injectable} from '@angular/core';
 import {TreeNode} from './tree-node';
 import {TreeDataSource, FilterState} from './types';
+import {isBlank} from '../common/utils';
 
-@Injectable()
 export class Tree {
 
   service: TreeDataSource;
@@ -10,18 +9,15 @@ export class Tree {
   filterLoading: boolean;
   serverSideFiltering: boolean;
 
+  get nodes(): TreeNode[] { return this._nodes; }
   set nodes(val: TreeNode[]) {
     this._nodes = [];
     for (const node of val) {
-      this._nodes.push(new TreeNode(node, null, this.id.bind(this)));
+      this._nodes.push(new TreeNode(node, null, this));
     }
   }
-
-  get nodes(): TreeNode[] {
-    return this._nodes;
-  }
-
   private _nodes: TreeNode[];
+
   private uidNode: number = 0;
 
   constructor() {
@@ -125,13 +121,12 @@ export class Tree {
     });
   }
 
-  getNodeById(nodeId) {
-    const idStr = nodeId.toString();
-    return this.getNodeBy((node) => node.id.toString() === idStr);
+  getNodeById(nodeId: string): TreeNode {
+    return this.getNodeBy((node) => node.id && node.id.toString() === nodeId.toString());
   }
 
-  getNodeBy(predicate, startNode = null) {
-    startNode = startNode || {'children': this.nodes};
+  getNodeBy(predicate, startNode = null): TreeNode {
+    startNode = startNode || {children: this.nodes};
     if (!startNode.children) {
       return null;
     }
@@ -201,7 +196,7 @@ export class Tree {
   }
 
   filterServerSide(filterValue: string) {
-    if (!filterValue.trim()) {
+    if (isBlank(filterValue)) {
       this.clearSearchState();
       return;
     }

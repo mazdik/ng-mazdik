@@ -1,24 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-data-table-demo',
-  template: `
-    <app-data-table [table]="table"></app-data-table>
-  `
+  template: `<app-data-table [table]="table"></app-data-table>`
 })
 
 export class DataTableDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
-
-  settings: Settings = <Settings>{
-    clientSide: true,
-    columnResizeMode: 'aminated',
-  };
+  settings: Settings = new Settings({});
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

@@ -1,4 +1,4 @@
-<app-modal #childModal [modalTitle]="modalTitle()" [width]="500" [zIndex]="dataManager.settings.zIndexModal">
+<app-modal #childModal [modalTitle]="modalTitle" [width]="500" [zIndex]="dataManager.settings.zIndexModal">
   <ng-container class="app-modal-body">
     <div *ngIf="childModal.visible">
       <app-dynamic-form
@@ -7,6 +7,8 @@
         [item]="dataManager.item"
         [isNewItem]="isNewItem"
         [getOptionsFunc]="getOptionsFunc"
+        [selectPlaceholder]="dataManager.messages.selectPlaceholder"
+        [searchInputPlaceholder]="dataManager.messages.search"
         (valid)="onFormValid($event)"
         (loaded)="loaded.emit($event)">
       </app-dynamic-form>
@@ -19,14 +21,12 @@
     </div>
   </ng-container>
   <ng-container class="app-modal-footer">
-    <button type="button"
-            class="modal-form-button save"
+    <button class="dt-button"
             [style.visibility]="!detailView ? 'visible': 'hidden'"
             (click)="save()"
             [disabled]="!formValid">{{dataManager.messages.save}}
     </button>
-    <button type="button"
-            class="modal-form-button close"
+    <button class="dt-button dt-green"
             style="float: right;"
             (click)="close()">{{dataManager.messages.close}}
     </button>

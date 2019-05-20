@@ -1,0 +1,36 @@
+<div class="dt-spinner" [style.visibility]="loading ? 'visible': 'hidden'"></div>
+<app-filter
+  appResizable
+  [minWidth]="table.dimensions.columnMenuWidth"
+  [maxWidth]="table.dimensions.columnMenuWidth * 2"
+  [east]="true"
+  [table]="table">
+</app-filter>
+<dt-header
+  *ngIf="headerVisible"
+  [table]="table"
+  [headerTemplate]="headerTemplate">
+</dt-header>
+<dt-body
+  appBodyMouseover
+  appBodyKeydown
+  appBodyClick
+  appBodyDblClick
+  appBodyContextMenu
+  [table]="table"
+  [loading]="loading"
+  [rowGroupTemplate]="rowGroupTemplate"
+  [rowActionTemplate]="rowActionTemplate">
+</dt-body>
+
+<div #footer class="datatable-footer">
+    <app-pagination
+      *ngIf="table.settings.paginator"
+      [totalItems]="table.pager.total"
+      [perPage]="table.pager.perPage"
+      [currentPage]="table.pager.current"
+      [pageSizeOptions]="(table.settings.virtualScroll) ? [] : table.pager.pageSizeOptions"
+      (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+</div>
+<div #resizeHelper class="column-resizer-helper"></div>

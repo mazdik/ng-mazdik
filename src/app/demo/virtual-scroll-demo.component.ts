@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, Settings} from '../../lib/ng-data-table';
+import {CdtSettings, DataTable, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -17,25 +18,23 @@ export class VirtualScrollDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
-  service: DataSource;
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
-    virtualScroll: true
-  };
+  settings: Settings = new Settings({
+    virtualScroll: true,
+    rowHeightProp: '$$height',
+  });
 
-  serverSideSettings: Settings = <Settings>{
-    virtualScroll: true
-  };
+  serverSideSettings: CdtSettings = new CdtSettings({
+    virtualScroll: true,
+  });
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();
     for (const column of this.columns) {
       column.editable = false;
     }
     this.table = new DataTable(this.columns, this.settings);
-    this.service = new DemoService(this.http);
-    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }
 

@@ -1,6 +1,5 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource, DataManager} from '../../ng-crud-table';
+import {Component, ViewChild} from '@angular/core';
+import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -9,51 +8,36 @@ import {getColumnsPlayers} from './columns';
   template: `
     <app-modal #modal [modalTitle]="'Data-table'" [maximizable]="true" [width]="1100">
       <ng-container class="app-modal-body">
-        <app-crud-table
-          [dataManager]="dataManager"
-          (select)="onSelect($event)">
-        </app-crud-table>
+        <app-crud-table [dataManager]="dataManager"></app-crud-table>
       </ng-container>
     </app-modal>
-    <button type="button"
-            class="button"
-            (click)="openModal()">open modal
-    </button>
+    <button class="dt-button" (click)="openModal()">open modal</button>
   `
 })
 
-export class NestedModalsDemoComponent implements OnInit {
+export class NestedModalsDemoComponent {
 
-  service: DataSource;
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
     bodyHeight: 380,
     zIndexModal: 1110
-  };
+  });
 
   @ViewChild('modal') modal: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
     for (const column of this.columns) {
       column.editable = false;
     }
-    this.service = new DemoService(this.http);
-    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
-  }
-  ngOnInit() {
   }
 
   openModal() {
     this.modal.show();
-  }
-
-  onSelect(event) {
-    console.log(event);
   }
 
 }

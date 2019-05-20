@@ -1,0 +1,18 @@
+<ng-template
+    *ngIf="column.headerCellTemplate"
+    [ngTemplateOutlet]="column.headerCellTemplate"
+    [ngTemplateOutletContext]="{column: column}">
+</ng-template>
+
+<ng-template [ngIf]="!column.headerCellTemplate">
+    <span class="dt-sort-header"
+          (click)="onSort()">
+        {{column.title}}
+        <i class="dt-icon" *ngIf="column.sortable" [ngClass]="direction"></i>
+    </span>
+    <i *ngIf="column.filter"
+        (click)="clickColumnMenu($event, column)"
+        [ngClass]="{'is-filter': isFiltered()}"
+        class="dt-icon-filter column-menu-icon">
+    </i>
+</ng-template>

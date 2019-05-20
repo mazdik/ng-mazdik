@@ -1,20 +1,21 @@
 import {TemplateRef} from '@angular/core';
-import {SelectOption, ElementType} from './types';
+import {ElementType} from './types';
+import {SelectItem} from '../common';
 
 export class DynamicFormElement {
   title: string;
   name: string;
-  options?: SelectOption[];
+  options?: SelectItem[];
   optionsUrl?: string;
   type?: ElementType;
   validatorFunc?: (name: string, value: any) => string[];
   dependsElement?: string;
   cellTemplate?: TemplateRef<any>;
-  formHidden?: boolean;
-  isPrimaryKey?: boolean;
+  hidden?: boolean;
   keyElement?: string;
+  disableOnEdit?: boolean;
 
-  getOptions(dependsValue?: any): SelectOption[] {
+  getOptions(dependsValue?: any): SelectItem[] {
     if (this.options) {
       if (this.dependsElement && dependsValue) {
         return this.options.filter((value) => value.parentId === dependsValue);
@@ -29,6 +30,10 @@ export class DynamicFormElement {
       return this.validatorFunc(this.title, value);
     }
     return [];
+  }
+
+  get isDateType(): boolean {
+    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
   }
 
 }

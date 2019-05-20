@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {ModalEditFormComponent} from '../../lib/modal-edit-form/modal-edit-form.component';
 import {getColumnsPlayers} from './columns';
@@ -13,30 +13,23 @@ import {getColumnsPlayers} from './columns';
                          (saved)="onSaved($event)"
                          (updated)="onUpdated($event)">
     </app-modal-edit-form>
-    <button type="button"
-            class="button"
-            (click)="createItem()">Create
-    </button>&nbsp;
-    <button type="button"
-            class="button"
-            (click)="updateItem()">Edit
-    </button>
+    <button class="dt-button" (click)="createItem()">Create</button>&nbsp;
+    <button class="dt-button" (click)="updateItem()">Edit</button>
   `
 })
 
-export class ModalFormDemoComponent implements OnInit {
+export class ModalFormDemoComponent {
 
-  service: DataSource;
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
-  };
+  });
 
   @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
 
-  private _item: any = {
+  private item: any = {
     'id': 96491,
     'name': 'Defunct',
     'account_id': 19,
@@ -64,19 +57,12 @@ export class ModalFormDemoComponent implements OnInit {
     'online': 1
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();
     this.columns[3].options = null;
     this.columns[3].optionsUrl = 'assets/options.json';
     this.columns[9].validatorFunc = this.customValidation;
-
-    this.service = new DemoService(this.http);
-    this.service.url = 'assets/players.json';
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
-  }
-
-  ngOnInit() {
-    this.dataManager.item = Object.assign({}, this._item);
   }
 
   onSaved(event) {
@@ -94,7 +80,7 @@ export class ModalFormDemoComponent implements OnInit {
   }
 
   updateItem() {
-    this.dataManager.item = Object.assign({}, this._item);
+    this.dataManager.item = this.item;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.open();
   }

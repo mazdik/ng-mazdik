@@ -4,7 +4,7 @@ import {Router, NavigationEnd} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
+  styleUrls: ['app.component.css', '../lib/styles/buttons.css', '../lib/tree-view/tree-view.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {

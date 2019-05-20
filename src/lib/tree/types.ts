@@ -1,7 +1,6 @@
 import {TreeNode} from './tree-node';
 
 export interface TreeDataSource {
-  url: string;
   getNodes(node?: TreeNode): Promise<TreeNode[]>;
   searchNodes(name: string): Promise<any>;
 }

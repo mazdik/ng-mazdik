@@ -1,0 +1,23 @@
+<dt-body-cell-action
+  *ngIf="table.dimensions.actionColumnWidth"
+  [table]="table"
+  [row]="row"
+  [rowActionTemplate]="rowActionTemplate">
+</dt-body-cell-action>
+
+<ng-container *ngFor="let column of table.preparedColumns; trackBy: columnTrackingFn">
+  <dt-body-cell
+    *ngIf="!row.isEditableCell(column)"
+    [ngClass]="row.getCellClass(column)"
+    tabindex="-1"
+    [table]="table"
+    [cell]="row.createCell(column)">
+  </dt-body-cell>
+  <dt-body-cell-edit
+    *ngIf="row.isEditableCell(column)"
+    [ngClass]="row.getCellClass(column)"
+    tabindex="-1"
+    [table]="table"
+    [cell]="row.createCell(column)">
+  </dt-body-cell-edit>
+</ng-container>

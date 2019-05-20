@@ -1,15 +1,18 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {DataManager} from '../../ng-crud-table/base';
-import {DynamicFormElement} from '../dynamic-form';
+import {DataManager} from '../ng-crud-table/base';
+import {DynamicFormElement, GetOptionsFunc} from '../dynamic-form';
+import {KeyValuePair} from '../row-view';
 
 @Component({
   selector: 'app-modal-edit-form',
   templateUrl: './modal-edit-form.component.html',
-  styleUrls: ['modal-edit-form.component.css'],
+  styleUrls: ['../styles/buttons.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalEditFormComponent implements OnInit {
 
@@ -17,16 +20,11 @@ export class ModalEditFormComponent implements OnInit {
   @Input() isNewItem: boolean;
 
   @Input()
-  get detailView(): boolean {
-    return this._detailView;
-  }
+  get detailView(): boolean { return this._detailView; }
   set detailView(val: boolean) {
     this._detailView = val;
-    this.transposedData = [];
-    for (const column of this.dataManager.columns) {
-      this.transposedData.push({key: column.title, value: column.getValueView(this.dataManager.item)});
-    }
   }
+  private _detailView: boolean;
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
@@ -34,19 +32,16 @@ export class ModalEditFormComponent implements OnInit {
 
   dynElements: DynamicFormElement[];
   formValid: boolean = true;
-  transposedData: any[];
-  getOptionsFunc: Function;
+  transposedData: KeyValuePair[];
+  getOptionsFunc: GetOptionsFunc;
 
-  private _detailView: boolean;
-
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.getOptionsFunc = this.dataManager.service.getOptions.bind(this.dataManager.service);
   }
 
-  modalTitle() {
+  get modalTitle() {
     if (!this.detailView) {
       return this.isNewItem ? this.dataManager.messages.titleCreate :
         this.dataManager.messages.titleUpdate;
@@ -81,7 +76,9 @@ export class ModalEditFormComponent implements OnInit {
   }
 
   createDynamicFormElements() {
-    this.dynElements = [];
+    const temp: DynamicFormElement[] = [];
+    const tempDetailView: KeyValuePair[] = [];
+
     for (const column of this.dataManager.columns) {
       const element = new DynamicFormElement();
       element.name = column.name;
@@ -91,12 +88,15 @@ export class ModalEditFormComponent implements OnInit {
       element.type = column.type;
       element.validatorFunc = column.validatorFunc;
       element.dependsElement = column.dependsColumn;
-      element.cellTemplate = column.cellTemplate;
-      element.formHidden = column.formHidden;
-      element.isPrimaryKey = column.isPrimaryKey;
+      element.cellTemplate = column.formTemplate ? column.formTemplate : column.cellTemplate;
+      element.hidden = column.formHidden;
       element.keyElement = column.keyColumn;
-      this.dynElements.push(element);
+      element.disableOnEdit = column.formDisableOnEdit;
+      temp.push(element);
+      tempDetailView.push({key: column.title, value: column.getValueView(this.dataManager.item)});
     }
+    this.dynElements = temp;
+    this.transposedData = tempDetailView;
   }
 
 }

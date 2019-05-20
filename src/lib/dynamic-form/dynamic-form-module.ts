@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
 import {ModalSelectModule} from '../modal-select';
+import {DropdownSelectModule} from '../dropdown-select';
 
 import {DynamicFormComponent} from './dynamic-form.component';
 import {InputComponent} from './input.component';
@@ -12,13 +12,14 @@ import {RadioComponent} from './radio.component';
 import {InputTextComponent} from './input-text.component';
 import {TextareaComponent} from './textarea.component';
 import {CalendarComponent} from './calendar.component';
-import {PopupSelectComponent} from './select-popup.component';
+import {SelectPopupComponent} from './select-popup.component';
+import {SelectDropdownComponent} from './select-dropdown.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
     ModalSelectModule,
+    DropdownSelectModule,
   ],
   declarations: [
     DynamicFormComponent,
@@ -30,7 +31,8 @@ import {PopupSelectComponent} from './select-popup.component';
     InputTextComponent,
     TextareaComponent,
     CalendarComponent,
-    PopupSelectComponent,
+    SelectPopupComponent,
+    SelectDropdownComponent,
   ],
   exports: [
     DynamicFormComponent,

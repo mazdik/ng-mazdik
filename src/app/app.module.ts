@@ -1,20 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent} from './not-found.component';
-import { CrudTableModule } from '../ng-crud-table';
-import { DataTableModule } from '../ng-data-table';
-import { TreeTableModule } from '../ng-tree-table';
-import { ToolbarModule } from '../lib/toolbar';
-import { MessageModule } from '../lib/message';
+import { CrudTableModule } from '../lib/ng-crud-table';
+import { DataTableModule } from '../lib/ng-data-table';
+import { TreeTableModule } from '../lib/ng-tree-table';
+import { DtToolbarModule } from '../lib/dt-toolbar';
 import { ModalModule } from '../lib//modal';
 import { ModalEditFormModule } from '../lib/modal-edit-form';
 import { TreeViewModule } from '../lib/tree-view';
 import { ContextMenuModule } from '../lib/context-menu';
+import { NotifyModule } from '../lib/notify';
+import { DateFormatPipe } from './pipes/date-format.pipe';
+import { DropdownSelectModule } from '../lib/dropdown-select';
 
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -38,6 +39,12 @@ import { TemplateDemoComponent } from './demo/template-demo.component';
 import { EventsDemoComponent } from './demo/events-demo.component';
 import { VerticalGroupDemoComponent } from './demo/vertical-group-demo.component';
 import { TreeViewDemoComponent } from './demo/tree-view-demo.component';
+import { EditableConditionDemoComponent } from './demo/editable-condition-demo.component';
+import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.component';
+import { PipeDemoComponent } from './demo/pipe-demo.component';
+import { ColumnResizeModeDemoComponent } from './demo/column-resize-mode-demo.component';
+import { MultiSelectDemoComponent } from './demo/multi-select-demo.component';
+import { CustomRowActionDemoComponent } from './demo/custom-row-action-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -63,6 +70,12 @@ const ROUTES: Routes = [
   {path: 'events-demo', component: EventsDemoComponent},
   {path: 'vertical-group-demo', component: VerticalGroupDemoComponent},
   {path: 'tree-view-demo', component: TreeViewDemoComponent},
+  {path: 'editable-condition-demo', component: EditableConditionDemoComponent},
+  {path: 'tree-table-custom-demo', component: TreeTableCustomDemoComponent},
+  {path: 'pipe-demo', component: PipeDemoComponent},
+  {path: 'column-resize-mode-demo', component: ColumnResizeModeDemoComponent},
+  {path: 'multi-select-demo', component: MultiSelectDemoComponent},
+  {path: 'custom-row-action-demo', component: CustomRowActionDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -92,21 +105,28 @@ const ROUTES: Routes = [
     EventsDemoComponent,
     VerticalGroupDemoComponent,
     TreeViewDemoComponent,
+    EditableConditionDemoComponent,
+    TreeTableCustomDemoComponent,
+    PipeDemoComponent,
+    ColumnResizeModeDemoComponent,
+    DateFormatPipe,
+    MultiSelectDemoComponent,
+    CustomRowActionDemoComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
     CrudTableModule,
     DataTableModule,
     TreeTableModule,
-    ToolbarModule,
-    MessageModule,
+    DtToolbarModule,
     ModalModule,
     ModalEditFormModule,
     TreeViewModule,
     ContextMenuModule,
+    NotifyModule,
+    DropdownSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

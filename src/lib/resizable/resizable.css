@@ -1,0 +1,31 @@
+.resize-handle-e {
+  position: absolute;
+  cursor: e-resize;
+  height: 100%;
+  width: 7px;
+  right: -5px;
+  top: 0;
+}
+
+.resize-handle-se {
+  position:absolute;
+  cursor: se-resize;
+  height: 15px;
+  width: 15px;
+  right: 0;
+  bottom: 0;
+}
+
+.resize-handle-s {
+  position:absolute;
+  cursor: s-resize;
+  height: 7px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+}
+
+.resizing {
+  -webkit-user-select: none;
+  user-select: none;
+}

@@ -1,0 +1,38 @@
+<div class="dt-toolbar-row">
+    <div class="dt-toolbar-col" *ngIf="createAction">
+        <button class="dt-button"
+                (click)="createActionClick()">{{createMessage}}
+        </button>
+    </div>
+    <div class="dt-toolbar-col dt-global-filter" *ngIf="globalFilter">
+        <div class="dt-input-group">
+            <input class="dt-input"
+                    placeholder="{{searchMessage}}"
+                    [value]="table.dataFilter.globalFilterValue"
+                    (input)="table.dataFilter.globalFilterValue = $event.target.value"
+                    (keypress)="onKeyPressGlobalSearch($event)">
+            <button class="dt-button"
+                    (click)="onClickGlobalSearch()">{{goMessage}}
+            </button>
+        </div>
+    </div>
+  <div class="dt-toolbar-col" appDropdown *ngIf="exportAction || columnToggleAction || clearAllFiltersAction">
+    <button class="dt-button">{{actionsMessage}} <i class="dt-icon-node"></i></button>
+    <div class="dt-context-menu">
+      <div class="dt-list-menu-item" *ngIf="columnToggleAction" (click)="modalColumnToggler.open()">
+        {{columnsMessage}}
+      </div>
+      <div class="dt-list-menu-item" *ngIf="exportAction" (click)="downloadCsv()">
+        {{exportMessage}}
+      </div>
+      <div class="dt-list-menu-item"
+          *ngIf="clearAllFiltersAction"
+          (click)="clearAllFilters()"
+          [ngClass]="{'disabled':!table.dataFilter.hasFilters()}">
+          {{clearFiltersMessage}}
+        </div>
+    </div>
+  </div>
+
+</div>
+<dt-column-toggler #modalColumnToggler [table]="table" [zIndex]="zIndexColumnToggler"></dt-column-toggler>

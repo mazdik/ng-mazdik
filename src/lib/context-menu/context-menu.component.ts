@@ -1,101 +1,128 @@
-import {Component, OnInit, Input, ViewChild, HostListener} from '@angular/core';
-import {MenuItem} from './types';
+import {
+  Component, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
+  HostBinding, ElementRef, ViewEncapsulation, OnInit, OnDestroy
+} from '@angular/core';
+import { MenuEventArgs } from './types';
+import { Dropdown } from '../dropdown';
+import { MenuItem } from '../common';
+import { isBlank } from '../common/utils';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
-  styleUrls: ['./context-menu.component.css']
+  styleUrls: ['../styles/context-menu.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
-export class ContextMenuComponent implements OnInit {
+export class ContextMenuComponent implements OnInit, OnDestroy {
 
-  @Input() items: MenuItem[];
+  @Input() menu: MenuItem[] = [];
 
-  @ViewChild('menu') menu: any;
-  isVisible: boolean;
-  selectContainerClicked: boolean;
+  left: number;
+  top: number;
 
-  constructor() {
+  @HostBinding('class.dt-context-menu') cssClass = true;
+
+  @HostBinding('style.left.px')
+  get getLeft(): number {
+    return this.left;
+  }
+
+  @HostBinding('style.top.px')
+  get getTop(): number {
+    return this.top;
+  }
+
+  @HostBinding('style.display')
+  get getDisplay(): string {
+    return (this.dropdown.isOpen && this.menu.length > 0) ? 'block' : 'none';
+  }
+
+  private eventArgs: MenuEventArgs;
+  private dropdown: Dropdown;
+  private subscriptions: Subscription[] = [];
+
+  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
+    this.dropdown = new Dropdown(this.element.nativeElement);
   }
 
   ngOnInit() {
+    const subDropdown = this.dropdown.isOpenSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
+    this.subscriptions.push(subDropdown);
   }
 
-  positionMenu(event) {
-    let left = event.pageX + 1;
-    let top = event.pageY + 1;
-    const menu = this.menu.nativeElement;
-    const width = menu.offsetParent ? menu.offsetWidth : this.getHiddenElementOuterWidth(menu);
-    const height = menu.offsetParent ? menu.offsetHeight : this.getHiddenElementOuterHeight(menu);
-    // flip
-    if (left + width - document.body.scrollLeft > window.innerWidth) {
-        left -= width;
-    }
-    // flip
-    if (top + height - document.body.scrollTop > window.innerHeight) {
-        top -= height;
-    }
-    // fit
-    if (left < document.body.scrollLeft) {
-        left = document.body.scrollLeft;
-    }
-    // fit
-    if (top < document.body.scrollTop) {
-        top = document.body.scrollTop;
-    }
-    menu.style.left = left + 'px';
-    menu.style.top = top + 'px';
-  }
-
-  getHiddenElementOuterHeight(element: any): number {
-      element.style.visibility = 'hidden';
-      element.style.display = 'block';
-      const elementHeight = element.offsetHeight;
-      element.style.display = 'none';
-      element.style.visibility = 'visible';
-
-      return elementHeight;
-  }
-
-  getHiddenElementOuterWidth(element: any): number {
-      element.style.visibility = 'hidden';
-      element.style.display = 'block';
-      const elementWidth = element.offsetWidth;
-      element.style.display = 'none';
-      element.style.visibility = 'visible';
-
-      return elementWidth;
-  }
-
-  show(event: MouseEvent) {
-    this.positionMenu(event);
-    this.isVisible = true;
-    event.preventDefault();
-  }
-
-  @HostListener('click', ['$event'])
-  onClick(event: MouseEvent): void {
-    this.selectContainerClicked = true;
-    if (this.isVisible && event.button !== 2) {
-      this.isVisible = false;
-    }
-  }
-
-  @HostListener('window:click', ['$event'])
-  onWindowClick(event: MouseEvent): void {
-    if (!this.selectContainerClicked) {
-      this.isVisible = false;
-    }
-    this.selectContainerClicked = false;
-  }
-
-  @HostListener('keydown.esc', ['$event'])
-  onKeyDown(event: KeyboardEvent): void {
-    this.isVisible = false;
+  ngOnDestroy() {
+    this.dropdown.removeEventListeners();
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   @HostListener('window:resize')
   onWindowResize(): void {
-    this.isVisible = false;
+    this.dropdown.closeDropdown();
+  }
+
+  getPositionMenu(left: number, top: number) {
+    const menu = this.element.nativeElement;
+    const {height, width} = this.getHiddenElementOuterSizes(menu);
+    // flip
+    if (left + width - window.pageXOffset > window.innerWidth) {
+      left -= width;
+    }
+    // flip
+    if (top + height - window.pageYOffset > window.innerHeight) {
+      top -= height;
+    }
+    // fit
+    if (left < document.body.scrollLeft) {
+      left = document.body.scrollLeft;
+    }
+    // fit
+    if (top < document.body.scrollTop) {
+      top = document.body.scrollTop;
+    }
+    return { left, top };
+  }
+
+  getHiddenElementOuterSizes(element: HTMLElement) {
+    if (element.offsetParent) {
+      return { height: element.offsetHeight, width: element.offsetWidth };
+    }
+    element.style.visibility = 'hidden';
+    element.style.display = 'block';
+    const elementHeight = element.offsetHeight;
+    const elementWidth = element.offsetWidth;
+    element.style.display = 'none';
+    element.style.visibility = 'visible';
+
+    return { height: elementHeight, width: elementWidth };
+  }
+
+  show(event: MenuEventArgs) {
+    this.eventArgs = event;
+    let coords;
+    if (!isBlank(event.left) && !isBlank(event.top)) {
+      coords = this.getPositionMenu(event.left, event.top);
+      this.dropdown.selectContainerClicked = true;
+    } else {
+      coords = this.getPositionMenu(event.originalEvent.pageX + 1, event.originalEvent.pageY + 1);
+    }
+    event.originalEvent.preventDefault();
+
+    if (this.top === coords.top && this.left === coords.left) {
+      this.dropdown.toggleDropdown();
+    } else {
+      this.top = coords.top;
+      this.left = coords.left;
+      this.dropdown.closeDropdown();
+      this.dropdown.openDropdown();
+    }
+  }
+
+  hide() {
+    this.dropdown.closeDropdown();
   }
 
   itemClick(event, item: MenuItem) {
@@ -103,17 +130,13 @@ export class ContextMenuComponent implements OnInit {
       event.preventDefault();
       return;
     }
-
     if (!item.url) {
       event.preventDefault();
     }
-
     if (item.command) {
-      item.command({
-        originalEvent: event,
-        item: item
-      });
+      item.command(this.eventArgs.data);
     }
+    this.dropdown.isOpen = false;
   }
 
 }

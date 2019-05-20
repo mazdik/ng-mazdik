@@ -1,25 +1,23 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-multiple-selection-demo',
-  template: `<button class="button" (click)="clearSelection()">Clear all selections</button>
+  template: `<button class="dt-button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
     <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
-  <dt-message style="margin-right:5px;"
-              [severity]="'success'"
-              *ngFor="let row of selectedRows"
-              [text]="row.id + '-' + row.name">
-  </dt-message>
+  <div class="dt-message dt-message-success" style="margin-right:5px;"
+              *ngFor="let row of selectedRows">
+              {{row.id + '-' + row.name}}
+  </div>
     <p>Selection type: multiple. Selection mode: radio</p>
     <app-data-table [table]="table2" (selectionChange)="onSelection2()"></app-data-table>
-    <dt-message style="margin-right:5px;"
-                [severity]="'success'"
-                *ngFor="let row of selectedRows2"
-                [text]="row.id + '-' + row.name">
-    </dt-message>
+    <div class="dt-message dt-message-success" style="margin-right:5px;"
+                *ngFor="let row of selectedRows2">
+                {{row.id + '-' + row.name}}
+    </div>
   `
 })
 
@@ -31,15 +29,15 @@ export class MultipleSelectionDemoComponent implements OnInit {
   selectedRows: any[];
   selectedRows2: any[];
 
-  settings: Settings = <Settings>{
+  settings: Settings = new Settings({
     selectionMultiple: true,
     selectionMode: 'checkbox',
-  };
+  });
 
-  settings2: Settings = <Settings>{
+  settings2: Settings = new Settings({
     selectionMultiple: true,
     selectionMode: 'radio',
-  };
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();

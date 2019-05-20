@@ -1,0 +1,62 @@
+.dt-checkbox {
+  position: relative;
+  margin: 0;
+  cursor: pointer;
+  vertical-align: middle;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.dt-checkbox input[type='checkbox'] {
+  position: relative;
+  margin: 0 1rem 0 0;
+  cursor: pointer;
+  outline: none;
+}
+
+.dt-checkbox input[type='checkbox']:before {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 0;
+  z-index: 1;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.dt-checkbox input[type='checkbox']:checked:before {
+  transform: rotate(-45deg);
+  height: 1rem;
+  border: 3px solid #5b9bd5;
+  border-top-style: none;
+  border-right-style: none;
+  top: -5%;
+}
+
+.dt-checkbox input[type='checkbox']:after {
+  content: "";
+  position: absolute;
+  top: -25%;
+  left: 0;
+  width: 2rem;
+  height: 2rem;
+  background: #fff;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.dt-checkbox input + label {
+  padding-left: 3px;
+}
+
+.dt-checkbox input[type='checkbox']:indeterminate:before {
+  transform: rotate(0deg);
+  height: 1rem;
+  border: 3px #5b9bd5;
+  border-bottom-style: solid;
+  top: -8%;
+}

@@ -1,3 +1,5 @@
+import { Tree } from './tree';
+
 export class TreeNode {
   id: string;
   name: string;
@@ -7,24 +9,21 @@ export class TreeNode {
   leaf?: boolean;
   parent?: TreeNode;
 
-  set children (val: TreeNode[]) {
+  get children(): TreeNode[] { return this._children; }
+  set children(val: TreeNode[]) {
     this._children = [];
     if (val) {
-      this._children = val.map((c) => new TreeNode(c, this, this.genUid));
+      this._children = val.map((c) => new TreeNode(c, this, this.tree));
     }
   }
-
-  get children(): TreeNode[] {
-    return this._children;
-  }
+  private _children: TreeNode[];
 
   $$id?: number;
   $$level?: number;
   $$filterState?: number;
+  $$loading?: boolean;
 
-  private _children: TreeNode[];
-
-  constructor(init: Partial<TreeNode>, parentNode: TreeNode, private genUid: () => number) {
+  constructor(init: Partial<TreeNode>, parentNode: TreeNode, public tree: Tree) {
     this.id = init.id;
     this.name = init.name;
     this.data = init.data;
@@ -33,22 +32,34 @@ export class TreeNode {
     this.leaf = init.leaf;
     this.parent = parentNode;
 
-    this.$$id = this.uid();
+    this.$$id = this.tree.id();
     this.$$level = (parentNode) ? parentNode.$$level + 1 : 0;
 
     this.children = init.children;
   }
 
-  private uid(): number {
-    if (this.genUid) {
-      return this.genUid();
-    } else {
-      return Math.floor(Math.random() * 10000000000000);
-    }
+  get path(): string[] {
+    return this.parent ? [...this.parent.path, this.id] : [];
+  }
+
+  get hasChildren(): boolean {
+    return (this.children && this.children.length > 0);
+  }
+
+  get isSelected() {
+    return this === this.tree.selectedNode;
   }
 
   isLeaf(): boolean {
-    return this.leaf === false ? false : !(this.children && this.children.length);
+    return this.leaf === false ? false : !this.hasChildren;
+  }
+
+  ensureVisible() {
+    if (this.parent) {
+      this.parent.expanded = true;
+      this.parent.ensureVisible();
+    }
+    return this;
   }
 
 }

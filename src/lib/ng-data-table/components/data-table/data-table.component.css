@@ -1,0 +1,226 @@
+.datatable *,
+.datatable *::before,
+.datatable *::after {
+  box-sizing: border-box;
+}
+
+.datatable {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.datatable-header-cell,
+.datatable-body-cell {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.datatable-body-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fixed-header .datatable-header-row {
+  white-space: nowrap;
+}
+
+.fixed-header .datatable-header-cell,
+.fixed-header .dt-sort-header {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.datatable-body-row,
+.datatable-header-row {
+  display: flex;
+  position: relative;
+}
+
+.datatable-body-cell:focus,
+.datatable-header-cell:focus {
+  outline: none;
+}
+
+.datatable-header {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.datatable-body {
+  position: relative;
+  display: block;
+}
+
+.datatable-body-row {
+  white-space: nowrap;
+  outline: none;
+}
+
+/* sticky columns */
+.dt-sticky {
+  z-index: 1;
+  position: sticky;
+}
+
+.datatable-body-cell.dt-sticky {
+  background-color: white;
+}
+
+/******/
+.datatable-header-cell {
+  background-color: #5b9bd5;
+  color: white;
+  user-select: none;
+}
+
+.datatable-header-cell:hover {
+  background-color: #337ab7;
+}
+
+.datatable-header-cell:hover .column-menu-icon {
+  visibility: visible;
+}
+
+.datatable-body-cell:first-child,
+.datatable-header-cell:first-child {
+  border-left: 1px solid #c6c6c6;
+}
+
+.datatable-body-cell,
+.datatable-header-cell {
+  padding: 4px 3px;
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+}
+
+.datatable-body-cell:focus {
+  box-shadow:0px 0px 0px 2px #5b9bd5 inset;
+}
+
+.dt-dropdown + .datatable-body {
+  border-top: 1px solid #c6c6c6;
+}
+
+.dt-sort-header {
+  cursor: pointer;
+}
+
+.column-menu-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* - resize-handle */
+  margin-top: -6px; /* (height + padding)/2 */
+  text-align: right;
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.is-filter {
+  visibility: visible;
+}
+
+.cell-editing {
+  padding: 0;
+  margin: 0;
+}
+
+.cell-error input:focus,
+.cell-error select:focus {
+  border: 1px solid red;
+}
+
+.cell-error {
+  box-shadow:0px 0px 0px 1px red inset;
+}
+
+.row-selected {
+  background-color: #ecf3ff;
+  color: black;
+}
+
+.row-selected .dt-sticky {
+  background-color: #ecf3ff;
+  color: black;
+}
+
+.datatable-empty-row {
+  padding: 0 0 5px 5px;
+}
+
+.datatable-group-header {
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+}
+
+.datatable-group-header .datatable-body-cell {
+  border: none;
+  border-left: 1px solid #c6c6c6;
+}
+
+.datatable-group-header,
+.datatable-group-header .dt-sticky,
+.datatable-group-row,
+.datatable-group-row .dt-sticky {
+  background: #f5f5f5;
+  color: grey;
+  font-weight: bold;
+}
+
+.column-resizer-helper {
+  width: 2px;
+  position: absolute;
+  z-index: 10;
+  display: none;
+  background: green;
+  top: 0;
+}
+
+.datatable-unselectable .datatable-header-cell:hover {
+  background-color: #5b9bd5;
+}
+
+.datatable-unselectable .datatable-header-cell:hover .column-menu-icon {
+  visibility: hidden;
+}
+
+.action-cell {
+  justify-content: center;
+}
+
+.cell-changed::before {
+  content: '';
+  border: 3px solid;
+  border-color: currentColor currentColor transparent transparent;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #5b9bd5;
+}
+
+.dropdown-filter-menu {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.filter-action {
+  margin: 0;
+  padding: 8px 10px;
+  background-color: transparent;
+  border: none;
+  outline:none;
+  cursor:pointer;
+  color: white;
+}

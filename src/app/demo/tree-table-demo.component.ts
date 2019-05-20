@@ -1,9 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {TreeDataSource, Column, Settings, TreeTable} from '../../ng-tree-table';
 import {HttpClient} from '@angular/common/http';
+import {Column, Settings, TreeTable} from '../../lib/ng-tree-table';
 import {TreeDemoService} from './tree-demo.service';
 import {getTreeColumns} from './columns';
 import {Subscription} from 'rxjs';
+import {TreeBuilder} from '../../lib/tree';
 
 @Component({
   selector: 'app-tree-table-demo',
@@ -15,22 +16,20 @@ import {Subscription} from 'rxjs';
 })
 export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
-  treeService: TreeDataSource;
   treeTable: TreeTable;
-  settings: Settings = <Settings> {
+  settings: Settings = new Settings({
     selectionMultiple: true,
     selectionMode: 'checkbox',
     filter: false,
     sortable: false,
-  };
+  });
   columns: Column[];
   flattenTreeTable: TreeTable;
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private treeService: TreeDemoService,  private http: HttpClient) {
     this.columns = getTreeColumns();
-    this.treeService = new TreeDemoService(this.http);
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
     this.treeTable.pager.perPage = 1000;
     this.treeTable.getIconFunc = (node) => (!node.isLeaf()) ? 'tree-icon tree-folder' : 'tree-icon tree-file';
@@ -41,7 +40,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.flattenTreeTable.events.onLoading(true);
     this.http.get<any[]>('assets/flatten-tree.json').subscribe(data => {
-      const nodes = this.flattenTreeTable.rowsToTree(data, 'parentId', 'id');
+      const nodes = TreeBuilder.rowsToTree(data, 'parentId', 'id');
       this.flattenTreeTable.nodes = nodes;
       this.flattenTreeTable.events.onLoading(false);
     });

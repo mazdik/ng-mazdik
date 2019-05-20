@@ -1,0 +1,71 @@
+.dt-context-menu {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  padding: 2px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.dt-context-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dt-context-menu li {
+  display: block;
+}
+
+.dt-context-menu li > a {
+  display: block;
+  padding: 0 2em 0 2em;
+  text-decoration: none;
+  width: auto;
+  color: black;
+  white-space: nowrap;
+  line-height: 2.4em;
+  text-shadow: 1px 1px 0 white;
+  border-radius: 1px;
+}
+
+.dt-context-menu li > a:hover {
+  background-color: #e8eff7;
+  box-shadow: 0 0 2px #0a6aa1;
+}
+
+.dt-context-menu .disabled a,
+.dt-context-menu .disabled a:hover {
+  color: silver;
+  background-color: transparent;
+  border: 0;
+  box-shadow: 0 0 0;
+}
+
+.dt-context-menu li > a > i {
+  text-decoration: none;
+  display: inline-block;
+  width: 2.4em;
+  height: 2.4em;
+  background: transparent;
+  margin: 0 0 0 -2em;
+  vertical-align: top;
+  text-align: center;
+  line-height: 2.4em;
+}
+
+.dt-context-menu li > a > i:empty {
+  width: 2.4em;
+  line-height: 2.4em;
+}
+
+.dt-context-menu li > a .context-menu-sep {
+  display: inline-block;
+  width: 1px;
+  height: 2.4em;
+  background: white;
+  margin: 0 0.5em 0 0;
+  border-left: 1px solid #e2e3e3;
+}

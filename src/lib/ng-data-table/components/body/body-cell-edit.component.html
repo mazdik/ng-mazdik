@@ -1,0 +1,11 @@
+<app-inline-edit
+  [(value)]="cell.value"
+  [editing]=editing
+  [type]="(cell.column.isDateType || cell.column.type === 'number') ? cell.column.type : 'text'"
+  [options]="cell.getOptions()"
+  [viewValue]="cell.viewValue"
+  [selectPlaceholder]="table.messages.selectPlaceholder"
+  (inputChange)="cell.validate()"
+  (focusChange)="onInputFocus()"
+  (blurChange)="onInputBlur()">
+</app-inline-edit>

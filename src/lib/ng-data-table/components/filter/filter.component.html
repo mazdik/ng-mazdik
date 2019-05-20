@@ -1,0 +1,21 @@
+<app-list-filter
+  *ngIf="isListFilter"
+  [table]="table"
+  [column]="column"
+  [isOpen]="dropdown.isOpen"
+  (filterClose)="onFilterClose()">
+</app-list-filter>
+<app-range-filter
+  *ngIf="isRangeFilter"
+  [table]="table"
+  [column]="column"
+  [isOpen]="dropdown.isOpen"
+  (filterClose)="onFilterClose()">
+</app-range-filter>
+<app-string-filter
+  *ngIf="isStringFilter"
+  [table]="table"
+  [column]="column"
+  [isOpen]="dropdown.isOpen"
+  (filterClose)="onFilterClose()">
+</app-string-filter>

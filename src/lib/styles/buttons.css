@@ -1,0 +1,34 @@
+.dt-button {
+  background-color: #5b9bd5;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  user-select: none;
+  outline: 0;
+}
+
+.dt-button:active {
+  box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+
+.dt-button[disabled] {
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.dt-green {background-color: #4CAF50;}
+.dt-blue {background-color: #008CBA;}
+.dt-red {background-color: #f44336;}
+.dt-orange {background-color: #ff9800;}
+
+.dt-white {
+  background-color: white;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.dt-button-sm {
+  padding: 4px 8px;
+}

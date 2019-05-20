@@ -10,7 +10,7 @@ export class PageEvent {
 @Component({
   selector: 'app-pagination',
   templateUrl: 'pagination.component.html',
-  styleUrls: ['pagination.css'],
+  styleUrls: ['pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
@@ -56,7 +56,7 @@ export class PaginationComponent {
 
   pages: number[];
 
-  @HostBinding('class') cssClass = 'pagination';
+  @HostBinding('class.pagination') cssClass = true;
 
   setPage(page: number, event ?: MouseEvent): void {
     if (event) {
@@ -69,7 +69,7 @@ export class PaginationComponent {
     }
     if (page > 0 && page <= this.totalPages() && page !== this.currentPage) {
       this.currentPage = page;
-      this.pageChanged.emit(<PageEvent>{currentPage: this.currentPage, perPage: this.perPage});
+      this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
     }
   }
 
@@ -116,7 +116,7 @@ export class PaginationComponent {
 
   onChangePageSize(pageSize: number) {
     this.perPage = pageSize;
-    this.pageChanged.emit(<PageEvent>{currentPage: this.currentPage, perPage: this.perPage});
+    this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
   }
 
 }

@@ -1,5 +1,5 @@
-import {Column} from '../../ng-crud-table';
-import {Validators} from '../../lib/validation/validators';
+import {Column} from '../../lib/ng-crud-table';
+import {Validators} from '../../lib/common';
 
 export function getColumnsPlayers(): Column[] {
   const columnsPlayers: Column[] = [
@@ -12,7 +12,6 @@ export function getColumnsPlayers(): Column[] {
       width: 100,
       formHidden: true,
       type: 'number',
-      isPrimaryKey: true,
     },
     {
       title: 'Name',
@@ -41,7 +40,7 @@ export function getColumnsPlayers(): Column[] {
       title: 'Cascading Select',
       name: 'note',
       editable: true,
-      type: 'select',
+      type: 'select-dropdown',
       options: [
         {id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS'},
         {id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS'},
@@ -102,7 +101,7 @@ export function getColumnsPlayers(): Column[] {
         {id: 1, name: 'Online'}
       ]
     },
-    {title: 'Cube size', name: 'cube_size', editable: true},
+    {title: 'Cube size', name: 'cube_size', editable: true, type: 'number'},
     {title: 'Broker Kinah', name: 'brokerKinah', editable: true},
     {title: 'Bind point', name: 'bind_point', editable: true},
     {title: 'X', name: 'x', editable: true},
@@ -120,10 +119,6 @@ export function getColumnsPlayers(): Column[] {
     {title: 'Repletion state', name: 'repletionstate', editable: true},
     {title: 'Rebirth id', name: 'rebirth_id', editable: true},
     {title: 'Member points', name: 'memberpoints', editable: true},
-    {title: 'Marry player id', name: 'marry_player_id', editable: true},
-    {title: 'Marry title', name: 'marrytitle', editable: true},
-    {title: 'Bg points', name: 'bg_points', editable: true},
-    {title: 'Personal rating', name: 'personal_rating', editable: true},
     {title: 'Quest status', name: 'quest.status', editable: true}
   ];
   return columnsPlayers;
@@ -162,14 +157,6 @@ export function getColumnsInventory(): Column[] {
     {title: 'isEquiped', name: 'isEquiped'},
     {title: 'isSoulBound', name: 'isSoulBound'},
     {title: 'slot', name: 'slot'},
-    {title: 'itemLocation', name: 'itemLocation'},
-    {title: 'enchant', name: 'enchant'},
-    {title: 'itemSkin', name: 'itemSkin'},
-    {title: 'fusionedItem', name: 'fusionedItem'},
-    {title: 'optionalSocket', name: 'optionalSocket'},
-    {title: 'optionalFusionSocket', name: 'optionalFusionSocket'},
-    {title: 'charge', name: 'charge'},
-    {title: 'sealStats', name: 'sealStats'},
     {title: 'sealEndTime', name: 'sealEndTime'}
   ];
   return columnsInventory;
@@ -206,6 +193,7 @@ export function getTreeColumns(): Column[] {
       name: 'cube_size',
       editable: true,
       width: 250,
+      type: 'number',
     },
     {
       title: 'Exp',

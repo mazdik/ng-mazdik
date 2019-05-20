@@ -22,6 +22,8 @@
         [getOptionsFunc]="getOptionsFunc"
         (keyElementChange)="onKeyElementChange($event)"
         [disabled]="isDisabled(dynElement)"
+        [placeholder]="selectPlaceholder"
+        [searchInputPlaceholder]="searchInputPlaceholder"
         (loaded)="loaded.emit($event)">
       </app-form-select>
 
@@ -34,9 +36,25 @@
         [getOptionsFunc]="getOptionsFunc"
         (keyElementChange)="onKeyElementChange($event)"
         [disabled]="isDisabled(dynElement)"
+        [placeholder]="selectPlaceholder"
+        [searchInputPlaceholder]="searchInputPlaceholder"
         (nameChanged)="onSelectPopupNameChanged($event, dynElement)"
         (loaded)="loaded.emit($event)">
       </app-form-select-popup>
+
+      <app-form-select-dropdown
+        *ngSwitchCase="'select-dropdown'"
+        [dynElement]="dynElement"
+        [(value)]="(dynElement.keyElement) ? item[dynElement.keyElement] : item[dynElement.name]"
+        [dependsValue]="item[dynElement.dependsElement]"
+        (valid)="onValid($event, dynElement)"
+        [getOptionsFunc]="getOptionsFunc"
+        (keyElementChange)="onKeyElementChange($event)"
+        [disabled]="isDisabled(dynElement)"
+        [placeholder]="selectPlaceholder"
+        [searchInputPlaceholder]="searchInputPlaceholder"
+        (loaded)="loaded.emit($event)">
+      </app-form-select-dropdown>
 
       <app-form-checkbox
         *ngSwitchCase="'checkbox'"
@@ -69,7 +87,7 @@
       </app-form-textarea>
 
       <app-form-calendar
-        *ngSwitchCase="(dynElement.type ==='date' || dynElement.type ==='datetime-local') ? dynElement.type : ''"
+        *ngSwitchCase="(dynElement.isDateType) ? dynElement.type : ''"
         [dynElement]="dynElement"
         [(value)]="item[dynElement.name]"
         (valid)="onValid($event, dynElement)"

@@ -1,0 +1,34 @@
+<select class="dt-input sm dt-form-group"
+        (change)="matchMode = $event.target.value; onModeChange()">
+  <option *ngFor="let opt of operators" [value]="opt.value" [selected]="(opt.value === matchMode)">
+    {{opt.text}}
+  </option>
+</select>
+<input class="dt-input dt-form-group"
+       #filterInput
+       type="{{column.type}}"
+       placeholder="{{isRangeFilter ? '>' : column.name}}"
+       *ngIf="isValueFilter"
+       [value]="value"
+       (input)="value = $event.target.value">
+<input class="dt-input dt-form-group"
+       type="{{column.type}}"
+       placeholder="<"
+       *ngIf="isRangeFilter"
+       [value]="valueTo"
+       (input)="valueTo = $event.target.value">
+<ul class="dt-list-menu">
+  <ng-template [ngIf]="column.isDateType">
+    <li class="dt-list-menu-item" (click)="lastDate('year')">{{table.messages.lastYear}}</li>
+    <li class="dt-list-menu-item" (click)="lastDate('month')">{{table.messages.lastMonth}}</li>
+    <li class="dt-list-menu-item" (click)="lastDate('day')">{{table.messages.lastDay}}</li>
+    <li class="dt-list-menu-item" (click)="lastDate('hour')">{{table.messages.lastHour}}</li>
+  </ng-template>
+</ul>
+
+<div class="dt-list-divider"></div>
+<div class="dt-list-menu-row">
+  <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="isValueFilter">{{table.messages.ok}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickCancel()">{{table.messages.cancel}}</button>
+  <button class="dt-button dt-button-sm" (click)="onClickClear()">{{table.messages.clear}}</button>
+</div>

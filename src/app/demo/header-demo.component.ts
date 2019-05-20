@@ -1,25 +1,23 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-header-demo',
   template: `
-    <app-data-table [table]="table"></app-data-table>
-    <ng-template #template>
-    <div class="datatable-header-row" [style.height.px]="40">
-    <div class="datatable-row-left">
-            <div class="datatable-header-cell" [style.width.px]="getWidth(0, 2)">Group 1</div>
+    <app-data-table [table]="table">
+      <ng-template dtHeaderTemplate>
+        <div class="datatable-header-row" [style.height.px]="40" [style.transform]="translate3d()">
+                <div class="datatable-header-cell dt-sticky" [style.width.px]="getWidth(0, 2)" [style.transform]="translate3dCell()">Group 1
+                </div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(2, 5)">Group 2</div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(5, 8)">Group 3</div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(8, 12)">Group 4</div>
+                <div class="datatable-header-cell" [style.width.px]="getWidth(12, 17)">Group 5</div>
         </div>
-        <div class="datatable-row-center" [style.transform]="translate3d()">
-            <div class="datatable-header-cell" [style.width.px]="getWidth(2, 5)">Group 2</div>
-            <div class="datatable-header-cell" [style.width.px]="getWidth(5, 8)">Group 3</div>
-            <div class="datatable-header-cell" [style.width.px]="getWidth(8, 12)">Group 4</div>
-            <div class="datatable-header-cell" [style.width.px]="getWidth(12, 17)">Group 5</div>
-        </div>
-  </div>
-    </ng-template>
+      </ng-template>
+    </app-data-table>
   `,
   styles: ['.datatable-header-cell {justify-content: center;}']
 })
@@ -28,8 +26,7 @@ export class HeaderDemoComponent implements OnInit {
 
   table: DataTable;
   columns: Column[];
-  settings: Settings = <Settings>{};
-  @ViewChild('template') template: TemplateRef<any>;
+  settings: Settings = new Settings({});
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -46,7 +43,6 @@ export class HeaderDemoComponent implements OnInit {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
-    this.table.settings.headerTemplate = this.template;
   }
 
   getWidth(from: number, to: number) {
@@ -59,6 +55,10 @@ export class HeaderDemoComponent implements OnInit {
 
   translate3d() {
     return `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
+  }
+
+  translate3dCell() {
+    return `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
   }
 
 }

@@ -1,33 +1,33 @@
-<div class="select-input-group">
-  <input class="select-input"
+<div class="dt-input-group" [ngClass]="styleClass" (click)="open()">
+  <input class="dt-input dt-select-input"
          readonly="readonly"
          value="{{selectedName}}"
-         placeholder="Select"
+         placeholder="{{placeholder}}"
          [disabled]="disabled">
-  <button type="button" class="select-button-open" (click)="open()">
-    <i class="select-icon-return"></i>
+  <button class="dt-button dt-white" [disabled]="disabled">
+    <i class="dt-icon dt-icon-return"></i>
   </button>
 </div>
-<input type="hidden" [(ngModel)]="model">
 
 <app-modal #modal [modalTitle]="modalTitle" [width]="400" [zIndex]="zIndex">
   <ng-container class="app-modal-body">
-    <div class="select-header">
-      <div class="clearable-input">
-        <input class="select-input"
-               placeholder="Search..."
-               [(ngModel)]="searchFilterText"
+    <div class="dt-select-header">
+      <div class="dt-clearable-input">
+        <input class="dt-input select-input"
+               placeholder={{searchInputPlaceholder}}
+               [value]="searchFilterText"
+               (input)="searchFilterText = $event.target.value"
                (keyup)="onFilterKeyup()">
         <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "
               (click)="onClickClearSearch()">&times;</span>
       </div>
     </div>
-    <ul class="select-list">
-      <li *ngFor="let option of options">
-          <span (click)="setSelected(option)"
-                [ngClass]="{'active': isSelected(option)}">
-            {{option.name}}
-          </span>
+    <ul class="dt-list-menu">
+      <li class="dt-list-menu-item"
+          *ngFor="let option of options | paginate: itemsPerPage:currentPage"
+          (click)="setSelected(option)"
+          [ngClass]="{'active': isSelected(option)}">
+          {{option.name}}
       </li>
     </ul>
   </ng-container>

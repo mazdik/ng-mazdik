@@ -1,3 +1,5 @@
+@import "../resizable/resizable.css";
+
 .ui-modal-overlay {
   display: none;
   position: fixed;
@@ -77,36 +79,4 @@
   box-shadow: 0 4px 8px rgba(102,175,233,.6), 0 6px 20px rgba(0,0,0,.2);
   -webkit-user-select: none;
   user-select: none;
-}
-
-.resizing {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.ui-resizable-se {
-  position:absolute;
-  cursor: se-resize;
-  height: 15px;
-  width: 15px;
-  right: 0;
-  bottom: 0;
-}
-
-.ui-resizable-e {
-  position:absolute;
-  cursor: e-resize;
-  height: 100%;
-  width: 7px;
-  right: -5px;
-  top: 0;
-}
-
-.ui-resizable-s {
-  position:absolute;
-  cursor: s-resize;
-  height: 7px;
-  width: 100%;
-  bottom: -5px;
-  left: 0;
 }

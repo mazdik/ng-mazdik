@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataSource, Message, DataManager} from '../../ng-crud-table';
+import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
-import {SelectOption} from '../../ng-data-table';
+import {SelectItem} from '../../lib/common';
+import {DtMessages} from '../../lib/dt-translate';
 
 @Component({
   selector: 'app-basic-demo',
@@ -12,27 +12,26 @@ import {SelectOption} from '../../ng-data-table';
 
 export class BasicDemoComponent implements OnInit {
 
-  service: DataSource;
   columns: Column[];
   dataManager: DataManager;
 
-  settings: Settings = <Settings>{
+  settings: CdtSettings = new CdtSettings({
     crud: true,
     bodyHeight: 380,
     exportAction: true,
     globalFilter: true,
-  };
+    columnToggleAction: true,
+    clearAllFiltersAction: true,
+  });
 
-  messages: Message = <Message>{
+  messages: DtMessages = {
     titleDetailView: 'Player details',
     titleCreate: 'Create a new player'
-  };
+  } as DtMessages;
 
-  constructor(private http: HttpClient) {
+  constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
-    this.columns[4].filterValuesFunc = this.filterValuesFunc;
-    this.service = new DemoService(this.http);
-    this.service.url = 'assets/players.json';
+    this.columns[4].filterValues = this.filterValuesFunc;
     this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
     this.dataManager.pager.perPage = 20;
   }
@@ -40,7 +39,7 @@ export class BasicDemoComponent implements OnInit {
   ngOnInit() {
   }
 
-  filterValuesFunc(columnName: string): Promise<SelectOption[]> {
+  filterValuesFunc(columnName: string): Promise<SelectItem[]> {
     return new Promise((resolve) => {
       setTimeout(() => resolve(
         [

@@ -1,32 +1,25 @@
-# Angular 6 CRUD data table using REST backend
+# Angular data table component
 
-Feature-rich CRUD data table component for Angular using REST backend. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
-The module contains services for: Yii2 RESTful (php), ORDS (Oracle REST Data Services), Flask-Restless (python)
+Feature-rich data table component for Angular with CRUD operations. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 
 ### Sample crud-table
 ```typescript
 import {Component}  from '@angular/core';
-import {Column, Settings, DataSource, YiiService, DataManager} from '../ng-crud-table';
 import {HttpClient} from '@angular/common/http';
-import {Validators} from '../../lib/validation/validators';
+import {Column, CdtSettings, DataSource, DataManager} from './lib/ng-crud-table';
+import {Validators} from './lib/common';
+import {NotifyService} from './lib/notify/notify.service';
+import {YiiService} from './samples/services';
 
 @Component({
   selector: 'my-app',
-  template: `<app-crud-table [dataManager]="dataManager"></app-crud-table>`
+  template: `<app-crud-table [dataManager]="dataManager"></app-crud-table>
+  <app-notify></app-notify>`
 })
 
 export class PlayersComponent {
-  
-    service: DataSource;
-    dataManager: DataManager;
-  
-    constructor(private http: HttpClient) {
-      // YiiService | RestlessService | OrdsService | your custom service
-      this.service = new YiiService(this.http);
-      this.service.url = 'http://host3/players';
-      this.dataManager = new DataManager(this.columns, this.settings, this.service);
-    }
 
+    dataManager: DataManager;
     columns: Column[] = [
         {
             title: 'Id', 
@@ -36,7 +29,6 @@ export class PlayersComponent {
             frozen: true,
             resizeable: false,
             formHidden: true,
-            isPrimaryKey: true,
         },
         {
             title: 'Name', 
@@ -60,7 +52,7 @@ export class PlayersComponent {
             title: 'Cascading Select',
             name: 'note',
             editable: true,
-            type: 'select',
+            type: 'select-dropdown',
             options: [
                 { id: 'ASM1', name: 'ASM note 1', parentId: 'ASMODIANS' },
                 { id: 'ASM2', name: 'ASM note 2', parentId: 'ASMODIANS' },
@@ -111,39 +103,45 @@ export class PlayersComponent {
           tableHidden: true,
         }
     ];
-
-    settings: Settings = {
+    settings: CdtSettings = new CdtSettings({
         crud: true,
-        tableWidth: 820,
-        bodyHeight: 380,
-        multipleSort: true
-    };
+        bodyHeight: 380
+    });
+
+    constructor(private http: HttpClient, private notifyService: NotifyService) {
+      // YiiService | RestlessService | your custom service
+      const service = new YiiService(this.http, this.notifyService);
+      service.url = 'http://host3/players';
+      service.primaryKeys = ['id'];
+      this.dataManager = new DataManager(this.columns, this.settings, service);
+    }
 }
 ```
 ### Sample data-table
 ```typescript
-import {Column, Settings, DataTable} from '../ng-crud-table';
+import {Column, Settings, DataTable} from './lib/ng-data-table';
 
 @Component({
   selector: 'app-data-table-demo',
-  template: `<app-data-table [table]="table"></app-data-table>`
+  template: `<app-data-table [table]="dataTable"></app-data-table>`
 })
 
 export class DataTableDemoComponent {
 
-  table: DataTable;
+  dataTable: DataTable;
   columns: Column[];
   settings: Settings;
 
   constructor() {
-    this.table = new DataTable(this.columns, this.settings);
-    this.table.rows = data[];
+    this.dataTable = new DataTable(this.columns, this.settings);
+    this.dataTable.rows = data[];
   }
 }
 ```
 ### Sample tree-table
 ```typescript
-import {TreeDataSource, Column, Settings, TreeTable} from '../ng-tree-table';
+import {Column, Settings, TreeTable} from './lib/ng-tree-table';
+import {TreeDemoService} from './tree-demo.service';
 
 @Component({
   selector: 'app-tree-table-demo',
@@ -152,13 +150,11 @@ import {TreeDataSource, Column, Settings, TreeTable} from '../ng-tree-table';
 
 export class TreeTableDemoComponent {
 
-  treeService: TreeDataSource;
   treeTable: TreeTable;
   settings: Settings;
   columns: Column[];
 
-  constructor() {
-    this.treeService = new TreeDemoService(this.http);
+  constructor(private treeService: TreeDemoService) {
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
   }
 }
@@ -194,9 +190,10 @@ export class TreeTableDemoComponent {
 
 ### Custom service
 ```typescript
+export class YourService implements DataSource {
+}
+
 interface DataSource {
-  url: string;
-  primaryKeys: string[];
   getItems(requestMeta: RequestMetadata): Promise<PagedResult>;
   getItem(row: any): Promise<any>;
   post(row: any): Promise<any>;
@@ -207,7 +204,7 @@ interface DataSource {
 export interface RequestMetadata {
   pageMeta: PageMetadata;
   sortMeta: SortMetadata[];
-  filters: Filter;
+  filters: FilterMetadata;
   globalFilterValue?: string;
 }
 export interface PagedResult {
@@ -231,76 +228,77 @@ export interface PageMetadata {
 | name             | string     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
-| options          | SelectOption[] | null | |
+| options          | SelectItem[] | null | |
 | optionsUrl       | string     | null    |             |
 | width            | number     | null    |             |
 | frozen           | boolean    | false   |             |
-| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / select-popup | null | |
+| type             | text / password / number / select / radio / checkbox / textarea / date / datetime-local / month / select-popup / select-dropdown | null | |
 | validatorFunc    | (name: string, value: any) => string[] | null | |
 | editable         | boolean    | false   |             |
 | resizeable       | boolean    | true    |             |
 | dependsColumn    | string     | null    |             |
 | cellTemplate     | TemplateRef | null   |             |
+| formTemplate     | TemplateRef | null   |             |
 | headerCellTemplate | TemplateRef | null |             |
 | formHidden       | boolean    | false   |             |
 | tableHidden      | boolean    | false   |             |
 | cellClass        | string / Function | null |         |
 | headerCellClass  | string     | null    |             |
-| isPrimaryKey     | boolean    | false   |             |
 | keyColumn        | string     | null    |             |
 | multiSelectFilter | boolean   | false   |             |
 | minWidth         | number     | 50      |             |
 | maxWidth         | number     | 500     |             |
 | aggregation      | sum / average / max / min / count | null | |
-| filterValuesFunc | (columnName: string) => Promise<SelectOption[]> | null | |
+| filterValues     | (columnName: string) => Promise<SelectItem[]> / SelectItem[] / string | null | |
 | dataType         | string /number /date | null |      |
+| formDisableOnEdit | boolean   | false   |             |
+| pipe             | PipeTransform | null |             |
 
 ### Settings
 
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
-| crud             | boolean    | false   |             |
-| tableWidth       | number     | null    |             |
 | bodyHeight       | number     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
-| initLoad         | boolean    | true    |             |
-| clientSide       | boolean    | true    |             |
 | multipleSort     | boolean    | false   |             |
 | trackByProp      | string     | null    |             |
 | groupRowsBy      | string[]   | null    |             |
 | clearAllFiltersIcon | boolean | true    |             |
-| globalFilter     | boolean    | false   |             |
 | columnResizeMode | simple / aminated | simple |       |
 | selectionMultiple | boolean   | false   |             |
 | selectionMode    | checkbox / radio | null |          |
-| singleRowView    | boolean    | true    |             |
 | virtualScroll    | boolean    | false   |             |
 | rowClass         | string / Function | false |        |
-| headerTemplate   | TemplateRef | null |               |
 | headerRowHeight  | number     | null    | px, 0 - hide header |
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
-| zIndexModal      | number     | null    |             |
 | hoverEvents      | boolean    | false   | mouseover/mouseout |
 | contextMenu      | boolean    | false   | event       |
-| exportAction     | boolean    | false   | csv         |
 | editMode         | editCellOnDblClick / editProgrammatically | editCellOnDblClick |             |
 | actionColumnWidth | number    | 40      | px, 0 - hide |
-| rowActionTemplate | TemplateRef | null  |              |
 | paginator        | boolean    | true    |              |
+| rowHeightProp    | string     | null    | row.$$height |
+| isEditableCellProp | string   | null    | row.$$editable |
+
+### CdtSettings extends Settings
+| Attribute        | Type       | Default | Description |
+|------------------|------------|---------|-------------|
+| crud             | boolean    | false   |             |
+| initLoad         | boolean    | true    |             |
+| globalFilter     | boolean    | false   |             |
+| singleRowView    | boolean    | true    |             |
+| zIndexModal      | number     | null    |             |
+| exportAction     | boolean    | false   | csv         |
+| columnToggleAction | boolean  | false   |             |
+| clearAllFiltersAction | boolean | false |             |
+
 
 ```typescript
-interface SelectOption {
+export class SelectItem {
   id: any;
   name: string;
   parentId?: any;
-}
-interface Validation {
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: string | RegExp;
 }
 ```
 
@@ -320,4 +318,49 @@ private subscriptions: Subscription[] = [];
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
+```
+
+### Sample translate
+```typescript
+import {DtMessages} from '../lib/dt-translate';
+
+messages: DtMessages = <DtMessages>{
+  empty: 'No data to display',
+  titleDetailView: 'Item details',
+  titleCreate: 'Create a new item'
+};
+this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
+```
+
+### Lib
+| Componnent                     | Description        |
+|--------------------------------|--------------------|
+| app-context-menu               |                    |
+| app-dropdown-select            |                    |
+| app-dynamic-form               |                    |
+| app-inline-edit, [inline-edit] |                    |
+| app-notify                     | with NotifyService |
+| app-modal                      |                    |
+| app-modal-edit-form            |                    |
+| app-modal-select               |                    |
+| app-pagination                 |                    |
+| app-row-view                   |                    |
+| app-scroller, [scroller]       | virtual scroll     |
+| app-select-list                |                    |
+| dt-toolbar                     |                    |
+| tree                           |                    |
+| app-tree-view                  |                    |
+| [appResizable]                 |                    |
+| [appDraggable]                 |                    |
+| [appDroppable]                 | html5              |
+| app-dual-list-box              |                    |
+| [appDropdown]                  |                    |
+
+### Templates
+```typescript
+<app-data-table[table]="table">
+  <ng-template dtHeaderTemplate></ng-template>
+  <ng-template dtRowGroupTemplate let-row="row"></ng-template>
+  <ng-template dtRowActionTemplate let-row="row"></ng-template>
+</app-data-table>
 ```

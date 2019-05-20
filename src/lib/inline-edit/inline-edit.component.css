@@ -1,0 +1,29 @@
+.dt-inline-data {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.dt-inline-editor {
+  width: 100%;
+  height: 100%;
+}
+
+.dt-inline-editor input,
+.dt-inline-editor select {
+  width: 100%;
+  height: 100%;
+  padding: 0 3px;
+  outline: 0;
+  border: 1px solid #5b9bd5;
+}
+
+.dt-inline-editor input:focus,
+.dt-inline-editor select:focus {
+  border: 1px solid #5b9bd5;
+}
+
+.dt-inline-editor select {
+  cursor: pointer;
+  background: #ffffff;
+}

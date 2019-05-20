@@ -1,12 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-row-group-demo',
   template: `
-    <app-data-table [table]="table"></app-data-table>
+    <app-data-table [table]="table">
+      <ng-template dtRowGroupTemplate let-row="row">
+        <div class="datatable-body-cell dt-sticky" style="left: 0;" (click)="onExpand(row)">
+          <i [class]="getExpanderIcon(row)"></i>
+          {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+        </div>
+      </ng-template>
+    </app-data-table>
   `
 })
 
@@ -15,9 +22,10 @@ export class RowGroupDemoComponent implements OnInit {
   table: DataTable;
   columns: Column[];
 
-  settings: Settings = <Settings>{
-    groupRowsBy: ['race']
-  };
+  settings: Settings = new Settings({
+    groupRowsBy: ['race'],
+    rowHeightProp: '$$height',
+  });
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
@@ -27,10 +35,26 @@ export class RowGroupDemoComponent implements OnInit {
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
+      data.forEach(x => x.expanded = true);
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
+  }
+
+  onExpand(row: any) {
+    row.expanded = !row.expanded;
+    if (!row.expanded) {
+      const descendants = this.table.rowGroup.getGroupRows(row, this.table.rows);
+      descendants.forEach(x => x.$$height = 0);
+    } else {
+      const descendants = this.table.rowGroup.getGroupRows(row, this.table.rows);
+      descendants.forEach(x => x.$$height = null);
+    }
+  }
+
+  getExpanderIcon(row: any) {
+    return (!row.expanded) ? 'dt-icon-node dt-icon-collapsed' : 'dt-icon-node';
   }
 
 }

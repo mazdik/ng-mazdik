@@ -1,0 +1,25 @@
+<div class="dt-input-group" [ngClass]="styleClass" (click)="open($event)">
+  <input class="dt-input dt-select-input"
+         readonly="readonly"
+         value="{{selectedName}}"
+         placeholder="{{placeholder}}"
+         [disabled]="disabled">
+  <button class="dt-button dt-white" [disabled]="disabled">
+    <i class="dt-icon asc" *ngIf="dropdown.isOpen"></i>
+    <i class="dt-icon desc" *ngIf="!dropdown.isOpen"></i>
+  </button>
+</div>
+<div class="dt-dropdown-select-list" *ngIf="dropdown.isOpen">
+  <app-select-list
+      [options]="options"
+      [selected]="selectedOptions"
+      [multiple]="multiple"
+      [isOpen]="dropdown.isOpen"
+      [selectAllMessage]="selectAllMessage"
+      [cancelMessage]="cancelMessage"
+      [clearMessage]="clearMessage"
+      [searchMessage]="searchInputPlaceholder"
+      (selectionChange)="onSelectionChange($event)"
+      (selectionCancel)="onSelectionCancel()">
+  </app-select-list>
+</div>

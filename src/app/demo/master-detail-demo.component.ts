@@ -1,15 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Column, Settings, DataTable} from '../../ng-data-table';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Column, Settings, DataTable} from '../../lib/ng-data-table';
 import {HttpClient} from '@angular/common/http';
 import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-master-detail-demo',
   template: `
-    <app-data-table
-      [table]="dtPlayers"
-      (selectionChange)="masterChanged()">
-    </app-data-table>
+    <app-data-table [table]="dtPlayers"></app-data-table>
     <div style="display:flex;">
       <div style="width: 59%;">
         <app-data-table [table]="dtInventory"></app-data-table>
@@ -22,7 +20,7 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
   `
 })
 
-export class MasterDetailDemoComponent implements OnInit {
+export class MasterDetailDemoComponent implements OnInit, OnDestroy {
 
   dtPlayers: DataTable;
   dtInventory: DataTable;
@@ -31,20 +29,13 @@ export class MasterDetailDemoComponent implements OnInit {
   columnsRank: Column[];
   columnsInventory: Column[];
 
-  settingsPlayers: Settings = <Settings>{
+  settings: Settings = new Settings({
     bodyHeight: 250,
-  };
+  });
 
-  settingsRank: Settings = <Settings>{
-    bodyHeight: 250,
-  };
-
-  settingsInventory: Settings = <Settings>{
-    bodyHeight: 250,
-  };
-
-  private _rank: any = [];
-  private _inventory: any = [];
+  private rank: any = [];
+  private inventory: any = [];
+  private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
     this.columnsPlayers = getColumnsPlayers();
@@ -54,9 +45,14 @@ export class MasterDetailDemoComponent implements OnInit {
     this.columnsRank = getColumnsRank();
     this.columnsInventory = getColumnsInventory();
 
-    this.dtPlayers = new DataTable(this.columnsPlayers, this.settingsPlayers);
-    this.dtInventory = new DataTable(this.columnsInventory, this.settingsInventory);
-    this.dtRank = new DataTable(this.columnsRank, this.settingsRank);
+    this.dtPlayers = new DataTable(this.columnsPlayers, this.settings);
+    this.dtInventory = new DataTable(this.columnsInventory, this.settings);
+    this.dtRank = new DataTable(this.columnsRank, this.settings);
+
+    const subSelection = this.dtPlayers.events.selectionSource$.subscribe(() => {
+      this.masterChanged();
+    });
+    this.subscriptions.push(subSelection);
   }
 
   ngOnInit() {
@@ -66,14 +62,14 @@ export class MasterDetailDemoComponent implements OnInit {
       this.dtPlayers.selectRow(0);
 
       this.http.get('assets/rank.json').subscribe(rank => {
-        this._rank = rank;
-        this.dtRank.rows = this._rank.filter((value: any) => {
+        this.rank = rank;
+        this.dtRank.rows = this.rank.filter((value: any) => {
           return value['player_id'] === masterId;
         });
       });
       this.http.get('assets/inventory.json').subscribe(inventory => {
-        this._inventory = inventory;
-        this.dtInventory.rows = this._inventory.filter((value: any) => {
+        this.inventory = inventory;
+        this.dtInventory.rows = this.inventory.filter((value: any) => {
           return value['itemOwner'] === masterId;
         });
       });
@@ -81,15 +77,19 @@ export class MasterDetailDemoComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
   masterChanged() {
     const selection = this.dtPlayers.selection.getSelection();
     if (this.dtPlayers.rows.length > 0 && selection.length !== 0 && this.dtPlayers.rows[selection[0]]) {
 
       const masterId = this.dtPlayers.rows[selection[0]]['id'];
-      this.dtRank.rows = this._rank.filter((value: any) => {
+      this.dtRank.rows = this.rank.filter((value: any) => {
         return value['player_id'] === masterId;
       });
-      this.dtInventory.rows = this._inventory.filter((value: any) => {
+      this.dtInventory.rows = this.inventory.filter((value: any) => {
         return value['itemOwner'] === masterId;
       });
     } else {

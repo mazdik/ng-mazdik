@@ -1,5 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {TreeNode, Tree, FilterState} from '../tree';
+import {TreeNode, FilterState, TreeHelper} from '../tree';
 
 @Component({
   selector: 'app-tree-view-node',
@@ -15,7 +15,7 @@ import {TreeNode, Tree, FilterState} from '../tree';
         <i *ngIf="node.icon || getIconFunc" [ngClass]="getIcon(node)"></i>
         {{node.name}}
       </span>
-      <ul class="tree-container" *ngIf="node.children && node.expanded">
+      <ul class="tree-container" *ngIf="node.hasChildren && node.expanded">
         <app-tree-view-node
           *ngFor="let childNode of node.children"
           [node]="childNode"
@@ -35,21 +35,14 @@ export class TreeViewNodeComponent implements OnInit {
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
   @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
 
-  loading: boolean;
-
-  constructor(private tree: Tree) {
-  }
+  constructor() {}
 
   ngOnInit() {
   }
 
-  isSelected(node: TreeNode) {
-    return node === this.tree.selectedNode;
-  }
-
   onSelectNode(node: TreeNode) {
-    if (this.tree.selectedNode !== node) {
-      this.tree.selectedNode = node;
+    if (this.node.tree.selectedNode !== node) {
+      this.node.tree.selectedNode = node;
       this.selectedChanged.emit(node);
     }
   }
@@ -57,26 +50,13 @@ export class TreeViewNodeComponent implements OnInit {
   onExpand(node: TreeNode) {
     node.expanded = !node.expanded;
     if (node.expanded) {
-      this.loading = true;
-      this.tree.loadNode(node).then(() => {
-        this.loading = false;
-      }).catch(() => {
-        this.loading = false;
-      });
+      node.$$loading = true;
+      this.node.tree.loadNode(node).finally(() => { node.$$loading = false; });
     }
   }
 
-  getExpanderIcon(node: TreeNode): string {
-    let icon: string;
-    if (this.loading) {
-      return 'icon-collapsing';
-    }
-    if (!node.isLeaf() && node.expanded) {
-      icon = 'icon-node icon-collapsed';
-    } else if (!node.isLeaf()) {
-      icon = 'icon-node';
-    }
-    return icon;
+  getExpanderIcon(node: TreeNode) {
+    return TreeHelper.getExpanderIcon(node);
   }
 
   getIcon(node: TreeNode) {
@@ -102,7 +82,7 @@ export class TreeViewNodeComponent implements OnInit {
     } else if (this.node.$$filterState === FilterState.ON_FOUND_PATH) {
       cls += ' filter-on-path';
     }
-    if (this.isSelected(this.node)) {
+    if (this.node.isSelected) {
       cls += ' highlight';
     }
     return cls;
@@ -110,7 +90,7 @@ export class TreeViewNodeComponent implements OnInit {
 
   onNodeRightClick(event: MouseEvent) {
     this.onSelectNode(this.node);
-    this.nodeRightClick.emit({'event': event, 'node': this.node});
+    this.nodeRightClick.emit({event, node: this.node});
   }
 
 }

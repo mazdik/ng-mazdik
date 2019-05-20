@@ -1,83 +1,76 @@
 import {
-  Component, OnInit, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy,
+  Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, HostBinding,
   ChangeDetectorRef
 } from '@angular/core';
 import {PageEvent} from '../../lib/pagination';
-
-export interface SelectItem {
-  id: any;
-  name: string;
-}
+import {SelectItem} from '../common';
 
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: ['modal-select.component.css'],
+  styleUrls: [
+    'modal-select.component.css',
+    '../styles/input-group.css',
+    '../styles/clearable-input.css',
+    '../styles/list-menu.css',
+    '../styles/input.css',
+    '../styles/buttons.css',
+    '../styles/icons.css',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 
-export class ModalSelectComponent implements OnInit {
+export class ModalSelectComponent {
 
   @Input()
+  get options(): SelectItem[] { return this._options; }
   set options(val: SelectItem[]) {
     this._options = val;
     if (this._options) {
       this.optionsCopy = [...val];
       this.selectedName = this.getName();
-      if (this.selectedName) {
-        this.nameChanged.emit(this.selectedName);
-      }
+      this.nameChanged.emit(this.selectedName);
     }
   }
-
-  get options(): SelectItem[] {
-    return this._options;
-  }
+  private _options: SelectItem[];
 
   @Input('value')
+  get model() { return this._model; }
   set model(value) {
     if (this._model !== value) {
       this._model = value;
       this.valueChange.emit(this._model);
       this.selectedName = this.getName();
-      if (this.selectedName) {
-        this.nameChanged.emit(this.selectedName);
-      }
+      this.nameChanged.emit(this.selectedName);
     }
   }
-
-  get model() {
-    return this._model;
-  }
+  private _model: any;
 
   @Input() zIndex: number;
   @Input() filterDelay: number = 300;
   @Input() disabled: boolean;
   @Input() modalTitle: string = 'Search Dialog';
   @Input() itemsPerPage: number = 10;
+  @Input() placeholder: string = 'Select';
+  @Input() searchInputPlaceholder: string = 'Search...';
+  @Input() styleClass: string;
 
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
+  @HostBinding('class.dt-modal-select') cssClass = true;
   @ViewChild('modal') readonly modal: any;
-  searchFilterText: any;
+  searchFilterText: string = null;
   currentPage: number = 1;
   sortOrder: number = 1;
   totalItems: number;
-  pageCount: number;
   filterTimeout: any;
   selectedName: string;
 
-  private _options: SelectItem[];
-  private optionsCopy: SelectItem[];
-  private _model: any;
+  private optionsCopy: SelectItem[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
-
-  ngOnInit() {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   open() {
     if (!this.disabled) {
@@ -99,54 +92,13 @@ export class ModalSelectComponent implements OnInit {
   }
 
   getOptions() {
-    if (this.optionsCopy && this.optionsCopy.length) {
-      let data: any[] = this.optionsCopy;
-      if (this.searchFilterText) {
-        const filters = [];
-        filters['name'] = {'value': this.searchFilterText};
-        data = this.filter(data, filters);
-      }
-      const sortedData = this.sort(data, 'name', this.sortOrder);
-      const pageData = this.pager(sortedData, this.currentPage);
-      this.totalItems = sortedData.length;
-      this.pageCount = pageData.length;
-      return pageData;
-    } else {
-      return [];
+    if (this.optionsCopy && this.optionsCopy.length && this.searchFilterText) {
+      const data = this.optionsCopy.filter(x => x.name.toLocaleLowerCase().indexOf(this.searchFilterText.toLocaleLowerCase()) > -1);
+      this.totalItems = data.length;
+      return data;
     }
-  }
-
-  filter(data: any[], filters: any[]) {
-    let filteredData: Array<any> = data;
-    for (const key in filters) {
-      if (filters[key]['value']) {
-        filteredData = filteredData.filter((item: any) => {
-          if (item[key]) {
-            return item[key].toString().match(filters[key]['value']);
-          } else {
-            return false;
-          }
-        });
-      }
-    }
-    return filteredData;
-  }
-
-  sort(data: any, sortField ?: string, sortOrder ?: number) {
-    return data.sort((previous: any, current: any) => {
-      if (previous[sortField] > current[sortField]) {
-        return sortOrder === -1 ? -1 : 1;
-      } else if (previous[sortField] < current[sortField]) {
-        return sortOrder === 1 ? -1 : 1;
-      }
-      return 0;
-    });
-  }
-
-  pager(data: any, page: any): Array<any> {
-    const start = (page - 1) * this.itemsPerPage;
-    const end = this.itemsPerPage > -1 ? (start + this.itemsPerPage) : data.length;
-    return data.slice(start, end);
+    this.totalItems = this.optionsCopy.length;
+    return this.optionsCopy;
   }
 
   onPageChanged(event: PageEvent) {

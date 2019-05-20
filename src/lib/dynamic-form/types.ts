@@ -1,10 +1,4 @@
-export interface SelectOption {
-    id: any;
-    name: string;
-    parentId?: any;
-  }
-
-  export type ElementType =
+export type ElementType =
   'text'
   | 'password'
   | 'number'
@@ -14,6 +8,15 @@ export interface SelectOption {
   | 'textarea'
   | 'date'
   | 'datetime-local'
-  | 'select-popup';
+  | 'month'
+  | 'select-popup'
+  | 'select-dropdown';
 
-export type getOptionsFunction = (url: string, parentId: any) => Promise<any>;
+export type GetOptionsFunc = (url: string, parentId: any) => Promise<any>;
+
+export interface KeyElementChangeEventArgs {
+  keyElementName: string;
+  keyElementValue: any;
+  elementName: string;
+  elementValue: string;
+}

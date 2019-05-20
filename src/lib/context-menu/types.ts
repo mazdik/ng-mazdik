@@ -1,8 +1,6 @@
-export interface MenuItem {
-  label?: string;
-  icon?: string;
-  command?: (event?: any) => void;
-  url?: string;
-  routerLink?: any;
-  disabled?: boolean;
+export interface MenuEventArgs {
+  originalEvent: MouseEvent;
+  data: any;
+  left: number;
+  top: number;
 }

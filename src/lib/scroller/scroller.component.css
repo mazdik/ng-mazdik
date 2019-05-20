@@ -1,0 +1,25 @@
+.dt-scroller {
+  display: block;
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.dt-virtual-scroll {
+  contain: strict;
+  transform: translateZ(0);
+  will-change: scroll-position;
+}
+.dt-scrollable-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  contain: content;
+}
+.dt-total-padding {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 1px;
+  width: 1px;
+  transform-origin: 0 0;
+}
