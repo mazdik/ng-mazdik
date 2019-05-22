@@ -224,8 +224,8 @@ export interface PageMetadata {
 
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
-| title            | string     | null    |             |
 | name             | string     | null    |             |
+| title            | string     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
 | options          | SelectItem[] | null | |

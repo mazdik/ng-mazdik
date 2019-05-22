@@ -5,6 +5,19 @@ import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {CdtSettings} from './cdt-settings';
 import {DtMessages} from '../../dt-translate';
 
+const actionColumn: ColumnBase = {
+  name: 'action',
+  title: 'Row actions',
+  sortable: false,
+  filter: false,
+  frozen: true,
+  width: 40,
+  minWidth: 40,
+  formHidden: true,
+  cellClass: 'action-cell',
+  headerCellClass: 'action-cell',
+};
+
 export class DataManager extends DataTable {
 
   readonly settings: CdtSettings;
@@ -14,7 +27,7 @@ export class DataManager extends DataTable {
   pagerCache: any = {};
 
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: DtMessages) {
-    super(columns, settings, messages);
+    super(((x) => { columns.unshift(x); return columns; })(actionColumn), settings, messages);
     this.settings = new CdtSettings(settings);
     this.clientSide = false;
     this.service = dataSource;
