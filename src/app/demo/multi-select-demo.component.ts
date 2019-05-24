@@ -67,11 +67,12 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.dataManager.columns[2].cellTemplate = this.cellTemplate;
-    this.dataManager.columns[2].formTemplate = this.formTemplate;
+    const column = this.dataManager.columns.find(x => x.name === 'test');
+    column.cellTemplate = this.cellTemplate;
+    column.formTemplate = this.formTemplate;
 
     const subCell = this.dataManager.events.cellSource$.subscribe((data) => {
-      if (data.type === CellEventType.Click && data.columnIndex === 2) {
+      if (data.type === CellEventType.Click && data.columnIndex === 3) {
         Object.keys(this.editing).forEach(x => this.editing[x] = false);
         this.editing[data.rowIndex] = true;
       }
