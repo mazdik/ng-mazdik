@@ -9,7 +9,6 @@ import {HeaderComponent} from '../header/header.component';
 import {PageEvent} from '../../../pagination';
 import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
-import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'app-datatable, app-data-table',
@@ -34,7 +33,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   @ContentChild(HeaderTemplateDirective) headerTemplate: HeaderTemplateDirective;
   @ContentChild(RowGroupTemplateDirective) rowGroupTemplate: RowGroupTemplateDirective;
-  @ContentChild(RowActionTemplateDirective) rowActionTemplate: RowActionTemplateDirective;
 
   @ViewChild('resizeHelper') resizeHelper: ElementRef;
   @ViewChild('footer') footerViewChild: ElementRef;

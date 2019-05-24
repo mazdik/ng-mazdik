@@ -11,6 +11,7 @@ const actionColumn: ColumnBase = {
   sortable: false,
   filter: false,
   frozen: true,
+  resizeable: false,
   width: 40,
   minWidth: 40,
   formHidden: true,

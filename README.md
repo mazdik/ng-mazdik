@@ -361,6 +361,5 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 <app-data-table[table]="table">
   <ng-template dtHeaderTemplate></ng-template>
   <ng-template dtRowGroupTemplate let-row="row"></ng-template>
-  <ng-template dtRowActionTemplate let-row="row"></ng-template>
 </app-data-table>
 ```

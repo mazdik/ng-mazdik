@@ -1,4 +1,4 @@
-<span *ngIf="!rowActionTemplate && !table.settings.selectionMode
+<span *ngIf="!table.settings.selectionMode
      && table.settings.rowNumber && table.dimensions.actionColumnWidth">
     {{rowNum}}
 </span>
@@ -8,7 +8,3 @@
              [checked]="checked"
              (click)="onCheckboxClick($event)"/>
 </span>
-<ng-template *ngIf="rowActionTemplate && rowActionTemplate.template && table.dimensions.actionColumnWidth"
-             [ngTemplateOutlet]="rowActionTemplate.template"
-             [ngTemplateOutletContext]="{row: row}">
-</ng-template>

@@ -4,7 +4,6 @@ import {
 import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {isBlank} from '../../../common/utils';
-import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'dt-body-cell-action',
@@ -15,7 +14,6 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() row: Row;
-  @Input() rowActionTemplate: RowActionTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body-cell';
   @HostBinding('class.action-cell') cssAction = true;

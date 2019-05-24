@@ -24,6 +24,7 @@
   </ng-template>
   <ng-template #headerActionTemplate>
     <button class="filter-action"
+            *ngIf="dataManager.settings.clearAllFiltersIcon"
             [style.visibility]="(!dataManager.dataFilter.hasFilters()) ? 'hidden' : 'visible' "
             (click)="clearAllFilters()"
             [title]="dataManager.messages.clearFilters">
