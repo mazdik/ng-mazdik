@@ -156,6 +156,7 @@
 .datatable-group-header {
   border-right: 1px solid #c6c6c6;
   border-bottom: 1px solid #c6c6c6;
+  z-index: 1;
 }
 
 .datatable-group-header .datatable-body-cell {
