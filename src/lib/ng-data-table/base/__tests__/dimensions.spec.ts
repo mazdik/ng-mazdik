@@ -16,13 +16,13 @@ describe('Dimensions', () => {
 
   it('should be able to calc columns widths', () => {
     dimensions.calcColumnsTotalWidth();
-    expect(dimensions.columnsTotalWidth).toBe(540);
+    expect(dimensions.columnsTotalWidth).toBe(500);
   });
 
   it('should be able to calc left positions', () => {
     dimensions.calcColumnsLeftPosition();
-    expect(columns[0].left).toBe(40);
-    expect(columns[1].left).toBe(140);
+    expect(columns[0].left).toBe(0);
+    expect(columns[1].left).toBe(100);
   });
 
 });

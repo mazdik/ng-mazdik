@@ -40,8 +40,7 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     const subFilter = this.table.events.filterSource$.subscribe(() => {
@@ -58,11 +57,6 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  clearAllFilters() {
-    this.table.dataFilter.clear();
-    this.table.events.onFilter();
-  }
-
   onHeaderCheckboxClick() {
     if (this.allRowsSelected) {
       this.table.selection.clearSelection();
@@ -70,10 +64,6 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
       const selectedIndexes = this.table.rows.map(x => x.$$index);
       this.table.selection.selectAll(selectedIndexes);
     }
-  }
-
-  filterActionEnabled(): boolean {
-    return !this.isCheckboxable && this.table.dimensions.actionColumnWidth > 0 && this.table.settings.clearAllFiltersIcon;
   }
 
 }

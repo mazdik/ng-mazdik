@@ -1,7 +1,3 @@
-<span *ngIf="!table.settings.selectionMode
-     && table.settings.rowNumber && table.dimensions.actionColumnWidth">
-    {{rowNum}}
-</span>
 <span *ngIf="table.settings.selectionMode && table.dimensions.actionColumnWidth"
       class="{{'dt-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"

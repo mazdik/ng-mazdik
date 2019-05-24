@@ -4,7 +4,7 @@ import {Settings} from './settings';
 export class Dimensions {
 
   bodyHeight: number;
-  actionColumnWidth: number = 40;
+  actionColumnWidth: number;
   columnMenuWidth: number = 220;
   columnsTotalWidth: number;
   headerRowHeight: number;
@@ -17,7 +17,7 @@ export class Dimensions {
     this.bodyHeight = settings.bodyHeight;
     this.rowHeight = settings.rowHeight;
     this.headerRowHeight = settings.headerRowHeight;
-    this.actionColumnWidth = settings.actionColumnWidth;
+    this.actionColumnWidth = settings.selectionMode ? 40 : 0;
     this.recalcColumns();
   }
 

@@ -9,7 +9,6 @@ export class Settings {
   multipleSort?: boolean;
   trackByProp?: string;
   groupRowsBy?: string[];
-  clearAllFiltersIcon?: boolean = true;
   columnResizeMode?: ColumnResizeMode;
   selectionMultiple?: boolean;
   selectionMode?: SelectionMode;
@@ -21,7 +20,6 @@ export class Settings {
   hoverEvents?: boolean;
   contextMenu?: boolean;
   editMode?: EditMode;
-  actionColumnWidth?: number = 40;
   paginator?: boolean = true;
   rowHeightProp?: string;
   isEditableCellProp?: string;
