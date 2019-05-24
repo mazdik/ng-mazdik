@@ -59,9 +59,15 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     const subPage = this.table.events.pageSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      if (this.table.selection.isSelected(this.row.$$index)) {
+        this.cd.markForCheck();
+      }
+    });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
+    this.subscriptions.push(subSelection);
   }
 
   ngOnDestroy() {
