@@ -60,7 +60,7 @@ export class ModalSelectComponent {
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class.dt-modal-select') cssClass = true;
-  @ViewChild('modal') readonly modal: any;
+  @ViewChild('modal', {static: false}) modal: any;
   searchFilterText: string = null;
   currentPage: number = 1;
   sortOrder: number = 1;

@@ -28,7 +28,7 @@ export class ModalEditFormComponent implements OnInit {
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('childModal') childModal: ModalComponent;
+  @ViewChild('childModal', {static: false}) childModal: ModalComponent;
 
   dynElements: DynamicFormElement[];
   formValid: boolean = true;

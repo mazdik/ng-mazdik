@@ -39,8 +39,8 @@ export class TreeTableCustomDemoComponent implements OnInit {
   });
   columns: Column[];
 
-  @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
-  @ViewChild('cellNodeTemplate') cellNodeTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
+  @ViewChild('cellNodeTemplate', {static: true}) cellNodeTemplate: TemplateRef<any>;
 
   private treeFlattener: TreeFlattener;
 

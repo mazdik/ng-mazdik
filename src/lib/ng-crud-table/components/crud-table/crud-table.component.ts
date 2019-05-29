@@ -26,13 +26,13 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @Input() dataManager: DataManager;
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
-  @ViewChild('rowMenu') rowMenu: ContextMenuComponent;
-  @ViewChild('alert') alert: ElementRef;
-  @ViewChild('toolbar') toolbar: any;
-  @ViewChild(DataTableComponent) dt: DataTableComponent;
-  @ViewChild('rowActionTemplate') rowActionTemplate: TemplateRef<any>;
-  @ViewChild('headerActionTemplate') headerActionTemplate: TemplateRef<any>;
+  @ViewChild('modalEditForm', {static: false}) modalEditForm: ModalEditFormComponent;
+  @ViewChild('rowMenu', {static: true}) rowMenu: ContextMenuComponent;
+  @ViewChild('alert', {static: false}) alert: ElementRef;
+  @ViewChild('toolbar', {static: false}) toolbar: any;
+  @ViewChild(DataTableComponent, {static: true}) dt: DataTableComponent;
+  @ViewChild('rowActionTemplate', {static: true}) rowActionTemplate: TemplateRef<any>;
+  @ViewChild('headerActionTemplate', {static: true}) headerActionTemplate: TemplateRef<any>;
 
   @HostBinding('class.datatable') cssClass = true;
 

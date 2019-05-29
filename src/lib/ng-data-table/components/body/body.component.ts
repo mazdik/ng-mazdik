@@ -18,7 +18,7 @@ export class BodyComponent implements OnInit, OnDestroy {
   @Input() rowGroupTemplate: RowGroupTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body';
-  @ViewChild(ScrollerComponent) scroller: ScrollerComponent;
+  @ViewChild(ScrollerComponent, {static: true}) scroller: ScrollerComponent;
 
   private subscriptions: Subscription[] = [];
   rowTrackingFn = (index: number, row: any) => (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;

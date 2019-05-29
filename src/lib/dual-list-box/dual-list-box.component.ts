@@ -42,8 +42,8 @@ export class DualListBoxComponent {
   @Output() targetChange: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class.dt-listbox') cssClass = true;
-  @ViewChild('sourceList') sourceList: ElementRef;
-  @ViewChild('targetList') targetList: ElementRef;
+  @ViewChild('sourceList', {static: false}) sourceList: ElementRef;
+  @ViewChild('targetList', {static: false}) targetList: ElementRef;
 
   sourceModel: any;
   targetModel: any;

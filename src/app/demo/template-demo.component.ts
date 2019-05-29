@@ -46,10 +46,10 @@ export class TemplateDemoComponent implements OnInit {
     headerRowHeight: 40,
     rowHeight: 40,
   });
-  @ViewChild('headerCellTemplate') headerCellTemplate: TemplateRef<any>;
-  @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
-  @ViewChild('headerRnCellTemplate') headerRnCellTemplate: TemplateRef<any>;
-  @ViewChild('cellRnTemplate') cellRnTemplate: TemplateRef<any>;
+  @ViewChild('headerCellTemplate', {static: true}) headerCellTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
+  @ViewChild('headerRnCellTemplate', {static: true}) headerRnCellTemplate: TemplateRef<any>;
+  @ViewChild('cellRnTemplate', {static: true}) cellRnTemplate: TemplateRef<any>;
 
   rnColumn: Column = {
     name: 'rn',

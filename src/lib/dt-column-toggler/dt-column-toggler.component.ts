@@ -15,7 +15,7 @@ export class DtColumnTogglerComponent implements OnInit {
   @Input() table: DataTable;
   @Input() zIndex: number;
 
-  @ViewChild('childModal') childModal: ModalComponent;
+  @ViewChild('childModal', {static: false}) childModal: ModalComponent;
   selectColumns: SelectItem[] = [];
   selectedColumns: SelectItem[] = [];
 

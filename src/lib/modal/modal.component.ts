@@ -23,10 +23,10 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('modalRoot') modalRoot: ElementRef;
-  @ViewChild('modalBody') modalBody: ElementRef;
-  @ViewChild('modalHeader') modalHeader: ElementRef;
-  @ViewChild('modalFooter') modalFooter: ElementRef;
+  @ViewChild('modalRoot', {static: false}) modalRoot: ElementRef;
+  @ViewChild('modalBody', {static: false}) modalBody: ElementRef;
+  @ViewChild('modalHeader', {static: false}) modalHeader: ElementRef;
+  @ViewChild('modalFooter', {static: false}) modalFooter: ElementRef;
 
   @HostBinding('class.app-modal') cssClass = true;
 

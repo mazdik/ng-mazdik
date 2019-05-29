@@ -51,8 +51,8 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
   settings: CdtSettings = new CdtSettings({
     crud: true,
   });
-  @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
-  @ViewChild('formTemplate') formTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
+  @ViewChild('formTemplate', {static: true}) formTemplate: TemplateRef<any>;
   options: SelectItem[] = [
     {id: 1, name: 'Select 1'},
     {id: 2, name: 'Select 2'},

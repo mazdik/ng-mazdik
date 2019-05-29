@@ -26,7 +26,7 @@ export class NestedModalsDemoComponent {
     zIndexModal: 1110
   });
 
-  @ViewChild('modal') modal: any;
+  @ViewChild('modal', {static: false}) modal: any;
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();

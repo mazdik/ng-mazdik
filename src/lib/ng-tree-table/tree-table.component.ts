@@ -18,7 +18,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   @Input() treeTable: TreeTable;
 
   @HostBinding('class.datatable') cssClass = true;
-  @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
 
   private subscriptions: Subscription[] = [];
 

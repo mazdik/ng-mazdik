@@ -11,7 +11,6 @@ export class Dimensions {
   rowHeight: number = 30;
   offsetX: number = 0;
   offsetY: number = 0;
-  headerTemplateHeight: number = 0;
 
   constructor(settings: Settings, private readonly columns: Column[]) {
     this.bodyHeight = settings.bodyHeight;

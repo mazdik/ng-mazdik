@@ -46,10 +46,10 @@ export class ModalDataTableDemoComponent implements OnInit {
   columnsInventory: Column[];
   settings: Settings = new Settings({});
 
-  @ViewChild('template1') template1: TemplateRef<any>;
-  @ViewChild('template2') template2: TemplateRef<any>;
-  @ViewChild('rankModal') rankModal: any;
-  @ViewChild('inventoryModal') inventoryModal: any;
+  @ViewChild('template1', {static: true}) template1: TemplateRef<any>;
+  @ViewChild('template2', {static: true}) template2: TemplateRef<any>;
+  @ViewChild('rankModal', {static: false}) rankModal: any;
+  @ViewChild('inventoryModal', {static: false}) inventoryModal: any;
 
   private rank: any = [];
   private inventory: any = [];

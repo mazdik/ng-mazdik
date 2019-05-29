@@ -15,7 +15,7 @@ export class CustomRowActionDemoComponent implements AfterViewInit {
   settings: CdtSettings = new CdtSettings({
     crud: true
   });
-  @ViewChild('cdt') cdt: CrudTableComponent;
+  @ViewChild('cdt', {static: false}) cdt: CrudTableComponent;
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();

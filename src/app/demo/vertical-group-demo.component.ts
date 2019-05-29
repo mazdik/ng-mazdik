@@ -63,8 +63,8 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     filter: false,
   });
 
-  @ViewChild('dtv1') dtv1: ElementRef;
-  @ViewChild('dtv2') dtv2: ElementRef;
+  @ViewChild('dtv1', {static: true}) dtv1: ElementRef;
+  @ViewChild('dtv2', {static: true}) dtv2: ElementRef;
 
   private raceGroupMetadata: GroupMetadata;
   private genderGroupMetadata: GroupMetadata;

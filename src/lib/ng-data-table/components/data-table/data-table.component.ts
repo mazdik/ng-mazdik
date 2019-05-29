@@ -31,13 +31,13 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
 
-  @ContentChild(HeaderTemplateDirective) headerTemplate: HeaderTemplateDirective;
-  @ContentChild(RowGroupTemplateDirective) rowGroupTemplate: RowGroupTemplateDirective;
+  @ContentChild(HeaderTemplateDirective, {static: true}) headerTemplate: HeaderTemplateDirective;
+  @ContentChild(RowGroupTemplateDirective, {static: true}) rowGroupTemplate: RowGroupTemplateDirective;
 
-  @ViewChild('resizeHelper') resizeHelper: ElementRef;
-  @ViewChild('footer') footerViewChild: ElementRef;
-  @ViewChild(BodyComponent) body: BodyComponent;
-  @ViewChild(HeaderComponent) header: HeaderComponent;
+  @ViewChild('resizeHelper', {static: true}) resizeHelper: ElementRef;
+  @ViewChild('footer', {static: true}) footerViewChild: ElementRef;
+  @ViewChild(BodyComponent, {static: false}) body: BodyComponent;
+  @ViewChild(HeaderComponent, {static: false}) header: HeaderComponent;
 
   @HostBinding('class.datatable') cssClass = true;
   @HostBinding('attr.role') role = 'grid';

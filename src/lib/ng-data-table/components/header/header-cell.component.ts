@@ -4,6 +4,7 @@ import {
 import {Column, DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
+import {findAncestor} from '../../../common/utils';
 
 @Component({
   selector: 'dt-header-cell',
@@ -67,8 +68,9 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
 
   clickColumnMenu(event: any, column: Column, isLast: boolean) {
     const el = event.target.parentNode;
+    const header = findAncestor(event.target, 'dt-header');
     let left = el.offsetLeft;
-    const top = el.offsetTop + el.offsetHeight + (this.table.dimensions.headerTemplateHeight || 0);
+    const top = header.offsetHeight;
     // left - scroll
     left = left - this.table.dimensions.offsetX;
     const width = this.table.dimensions.columnMenuWidth;

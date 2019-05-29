@@ -34,7 +34,7 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   eventValue: any = 'event value';
   cellValueChangedEvent: any;
   timer: any;
-  @ViewChild('tooltip') tooltip: ElementRef;
+  @ViewChild('tooltip', {static: false}) tooltip: ElementRef;
 
   private subscriptions: Subscription[] = [];
 

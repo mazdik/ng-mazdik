@@ -61,7 +61,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     return this.cell.rowIndex;
   }
 
-  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: ViewContainerRef;
 
   editing: boolean;
   subscriptions: Subscription[] = [];

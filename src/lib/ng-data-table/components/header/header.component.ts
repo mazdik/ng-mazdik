@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ElementRef,
-  ViewChild, ViewContainerRef, AfterViewInit
+  ViewChild, ViewContainerRef
 } from '@angular/core';
 import {DataTable, ColumnResizeMode, Column} from '../../base';
 import {Subscription} from 'rxjs';
@@ -12,14 +12,14 @@ import {HeaderTemplateDirective} from '../../directives/header-template.directiv
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() headerTemplate: HeaderTemplateDirective;
 
   @HostBinding('class.datatable-header') cssClass = true;
-  @ViewChild('headerTemplateView', { read: ViewContainerRef }) headerTemplateView: ViewContainerRef;
-  @ViewChild('headerRow') headerRow: ElementRef;
+  @ViewChild('headerTemplateView', {static: true}) headerTemplateView: ViewContainerRef;
+  @ViewChild('headerRow', {static: true}) headerRow: ElementRef;
 
   private subscriptions: Subscription[] = [];
   columnTrackingFn = (i: number, col: Column) => col.name;
@@ -48,12 +48,6 @@ export class HeaderComponent implements OnInit, OnDestroy, AfterViewInit {
     });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
-  }
-
-  ngAfterViewInit() {
-    if (this.headerTemplate && this.headerTemplate.template) {
-      this.table.dimensions.headerTemplateHeight = this.headerTemplateView.element.nativeElement.nextSibling.offsetHeight;
-    }
   }
 
   ngOnDestroy() {
