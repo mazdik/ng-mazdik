@@ -24,6 +24,17 @@ import {FilterOperator} from '../../lib/ng-data-table/base';
       <img *ngIf="value === 'ELYOS'" width="40" src="assets/elyos.png" title="ELYOS"/>
       {{value}}
     </ng-template>
+    <ng-template #headerRnCellTemplate>
+      <button class="filter-action"
+        [style.visibility]="(!table.dataFilter.hasFilters()) ? 'hidden' : 'visible' "
+        (click)="clearAllFilters()"
+        [title]="table.messages.clearFilters">
+        <i class="dt-icon-filter"></i>
+      </button>
+    </ng-template>
+    <ng-template #cellRnTemplate let-row="row">
+      {{row.$$index + 1}}
+    </ng-template>
   `
 })
 
@@ -37,14 +48,30 @@ export class TemplateDemoComponent implements OnInit {
   });
   @ViewChild('headerCellTemplate') headerCellTemplate: TemplateRef<any>;
   @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
+  @ViewChild('headerRnCellTemplate') headerRnCellTemplate: TemplateRef<any>;
+  @ViewChild('cellRnTemplate') cellRnTemplate: TemplateRef<any>;
+
+  rnColumn: Column = {
+    name: 'rn',
+    title: '#',
+    sortable: false,
+    filter: false,
+    frozen: true,
+    resizeable: false,
+    width: 40,
+    minWidth: 40,
+    formHidden: true,
+    cellClass: 'action-cell',
+    headerCellClass: 'action-cell',
+  };
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
     for (const column of this.columns) {
       column.editable = false;
+      column.frozen = false;
     }
-    this.columns[0].frozen = false;
-    this.columns[1].frozen = false;
+    this.columns.unshift(this.rnColumn);
     this.table = new DataTable(this.columns, this.settings);
   }
 
@@ -54,12 +81,22 @@ export class TemplateDemoComponent implements OnInit {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
-    this.table.columns[2].headerCellTemplate = this.headerCellTemplate;
-    this.table.columns[2].cellTemplate = this.cellTemplate;
+    let column = this.table.columns.find(x => x.name === 'race');
+    column.headerCellTemplate = this.headerCellTemplate;
+    column.cellTemplate = this.cellTemplate;
+
+    column = this.table.columns.find(x => x.name === 'rn');
+    column.headerCellTemplate = this.headerRnCellTemplate;
+    column.cellTemplate = this.cellRnTemplate;
   }
 
   clickRaceFilter(value: string) {
     this.table.dataFilter.setFilter(value, 'race', FilterOperator.EQUALS);
+    this.table.events.onFilter();
+  }
+
+  clearAllFilters() {
+    this.table.dataFilter.clear();
     this.table.events.onFilter();
   }
 

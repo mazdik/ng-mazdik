@@ -30,9 +30,6 @@ export class NestedModalsDemoComponent {
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 

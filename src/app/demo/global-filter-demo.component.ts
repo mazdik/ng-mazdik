@@ -27,9 +27,6 @@ export class GlobalFilterDemoComponent implements OnInit {
 
   constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.table = new DataTable(this.columns, this.settings);
     this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }

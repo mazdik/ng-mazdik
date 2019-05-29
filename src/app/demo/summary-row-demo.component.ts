@@ -19,9 +19,7 @@ export class SummaryRowDemoComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
     this.columns.splice(17);
-    for (const column of this.columns) {
-      column.editable = false;
-    }
+
     this.columns[1].title += ' (count)';
     this.columns[5].title += ' (sum)';
     this.columns[14].title += ' (min)';

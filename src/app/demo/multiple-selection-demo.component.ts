@@ -41,10 +41,6 @@ export class MultipleSelectionDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
-
     this.table = new DataTable(this.columns, this.settings);
     this.table2 = new DataTable(this.columns, this.settings2);
   }

@@ -31,9 +31,6 @@ export class HeaderDemoComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
     this.columns.splice(17);
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.table = new DataTable(this.columns, this.settings);
   }
 

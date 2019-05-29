@@ -30,6 +30,9 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   constructor(private treeService: TreeDemoService,  private http: HttpClient) {
     this.columns = getTreeColumns();
+    for (const column of this.columns) {
+      column.editable = false;
+    }
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
     this.treeTable.pager.perPage = 1000;
     this.treeTable.getIconFunc = (node) => (!node.isLeaf()) ? 'tree-icon tree-folder' : 'tree-icon tree-file';
