@@ -17,12 +17,12 @@ export function maxZIndex(selectors: string = 'body *') {
     .pop() || 0;
 }
 
-export function findAncestor(el, cls) {
+export function findAncestor(el, selectors) {
   if (typeof el.closest === 'function') {
-      return el.closest(cls) || null;
+      return el.closest(selectors) || null;
   }
   while (el) {
-    if (el.classList.contains(cls)) {
+    if (el.matches(selectors)) {
       return el;
     }
     el = el.parentElement;

@@ -1,8 +1,7 @@
 <dt-body-cell-action
   *ngIf="table.dimensions.actionColumnWidth"
   [table]="table"
-  [row]="row"
-  [rowActionTemplate]="rowActionTemplate">
+  [row]="row">
 </dt-body-cell-action>
 
 <ng-container *ngFor="let column of table.preparedColumns; trackBy: columnTrackingFn">

@@ -224,8 +224,8 @@ export interface PageMetadata {
 
 | Attribute        | Type       | Default | Description |
 |------------------|------------|---------|-------------|
-| title            | string     | null    |             |
 | name             | string     | null    |             |
+| title            | string     | null    |             |
 | sortable         | boolean    | true    |             |
 | filter           | boolean    | true    |             |
 | options          | SelectItem[] | null | |
@@ -264,7 +264,6 @@ export interface PageMetadata {
 | multipleSort     | boolean    | false   |             |
 | trackByProp      | string     | null    |             |
 | groupRowsBy      | string[]   | null    |             |
-| clearAllFiltersIcon | boolean | true    |             |
 | columnResizeMode | simple / aminated | simple |       |
 | selectionMultiple | boolean   | false   |             |
 | selectionMode    | checkbox / radio | null |          |
@@ -276,7 +275,6 @@ export interface PageMetadata {
 | hoverEvents      | boolean    | false   | mouseover/mouseout |
 | contextMenu      | boolean    | false   | event       |
 | editMode         | editCellOnDblClick / editProgrammatically | editCellOnDblClick |             |
-| actionColumnWidth | number    | 40      | px, 0 - hide |
 | paginator        | boolean    | true    |              |
 | rowHeightProp    | string     | null    | row.$$height |
 | isEditableCellProp | string   | null    | row.$$editable |
@@ -292,6 +290,7 @@ export interface PageMetadata {
 | exportAction     | boolean    | false   | csv         |
 | columnToggleAction | boolean  | false   |             |
 | clearAllFiltersAction | boolean | false |             |
+| clearAllFiltersIcon | boolean | true    |             |
 
 
 ```typescript
@@ -361,6 +360,5 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 <app-data-table[table]="table">
   <ng-template dtHeaderTemplate></ng-template>
   <ng-template dtRowGroupTemplate let-row="row"></ng-template>
-  <ng-template dtRowActionTemplate let-row="row"></ng-template>
 </app-data-table>
 ```

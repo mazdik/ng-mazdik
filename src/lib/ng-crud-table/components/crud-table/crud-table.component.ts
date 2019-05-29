@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation,
+  Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation, TemplateRef,
   HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
@@ -8,6 +8,7 @@ import {Subscription} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
 import {DataTableComponent} from '../../../ng-data-table';
 import {MenuItem} from '../../../common';
+import {findAncestor} from '../../../common/utils';
 
 @Component({
   selector: 'app-crud-table',
@@ -30,6 +31,8 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @ViewChild('alert') alert: ElementRef;
   @ViewChild('toolbar') toolbar: any;
   @ViewChild(DataTableComponent) dt: DataTableComponent;
+  @ViewChild('rowActionTemplate') rowActionTemplate: TemplateRef<any>;
+  @ViewChild('headerActionTemplate') headerActionTemplate: TemplateRef<any>;
 
   @HostBinding('class.datatable') cssClass = true;
 
@@ -39,6 +42,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    const actionColumn = this.dataManager.columns.find(x => x.name === 'action');
+    if (actionColumn) {
+      actionColumn.cellTemplate = this.rowActionTemplate;
+      actionColumn.headerCellTemplate = this.headerActionTemplate;
+    }
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
       this.dataManager.loadItems().catch(() => this.cd.markForCheck());
@@ -139,10 +147,10 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   }
 
   onRowMenuClick(event: any, row: Row) {
-    const el = event.target.parentNode.parentNode; // row
-    const rowHeight = el.offsetHeight;
-    const rowTop = el.offsetTop + rowHeight;
-    const left = 0;
+    const rowElement = findAncestor(event.target, '.datatable-body-row');
+    const rowTop = rowElement.offsetTop + rowElement.offsetHeight;
+    const cell = findAncestor(event.target, '.datatable-body-cell');
+    const left = cell ? cell.offsetLeft : 0;
     const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
     const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
     let top = alertHeight + toolbarHeight + this.dt.header.getHeight();
@@ -210,6 +218,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onLoadedForm() {
     this.cd.markForCheck();
+  }
+
+  clearAllFilters() {
+    this.dataManager.dataFilter.clear();
+    this.dataManager.events.onFilter();
   }
 
 }

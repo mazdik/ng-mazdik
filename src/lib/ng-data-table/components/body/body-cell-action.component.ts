@@ -3,8 +3,6 @@ import {
 } from '@angular/core';
 import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
-import {isBlank} from '../../../common/utils';
-import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'dt-body-cell-action',
@@ -15,7 +13,6 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() row: Row;
-  @Input() rowActionTemplate: RowActionTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body-cell';
   @HostBinding('class.action-cell') cssAction = true;
@@ -30,15 +27,10 @@ export class BodyCellActionComponent implements OnInit, OnDestroy {
 
   @HostBinding('style.left.px') get left() { return 0; }
 
-  get rowNum() {
-    return (this.row && !isBlank(this.row.$$index)) ? this.row.$$index + 1 : null;
-  }
-
   checked: boolean;
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     const subSelection = this.table.events.selectionSource$.subscribe(() => {

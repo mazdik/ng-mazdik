@@ -7,8 +7,8 @@ type CellClassFunc = (obj: any) => any;
 
 export class ColumnBase {
 
-  title: string;
   name: string;
+  title: string;
   sortable?: boolean = true;
   filter?: boolean = true;
   options?: SelectItem[];
