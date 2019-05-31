@@ -2,7 +2,7 @@ import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ElementRef,
   ViewChild, ViewContainerRef
 } from '@angular/core';
-import {DataTable, ColumnResizeMode, Column} from '../../base';
+import {DataTable, Column} from '../../base';
 import {Subscription} from 'rxjs';
 import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 
@@ -27,12 +27,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef, private element: ElementRef) {}
 
   ngOnInit() {
-    if (this.table.settings.columnResizeMode === ColumnResizeMode.Aminated) {
-      const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
-        this.cd.markForCheck();
-      });
-      this.subscriptions.push(subColumnResize);
-    }
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
@@ -68,19 +62,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onResize(event: any, column: Column) {
-    if (!this.isGhostResize) {
-      column.setWidth(event.width);
-    }
     this.table.events.onResize(event.event);
   }
 
   onResizeEnd(event, column: Column) {
     column.setWidth(event.width);
     this.table.events.onResizeEnd();
-  }
-
-  get isGhostResize(): boolean {
-    return (this.table.settings.columnResizeMode !== ColumnResizeMode.Aminated);
   }
 
 }

@@ -42,7 +42,6 @@ import { TreeViewDemoComponent } from './demo/tree-view-demo.component';
 import { EditableConditionDemoComponent } from './demo/editable-condition-demo.component';
 import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.component';
 import { PipeDemoComponent } from './demo/pipe-demo.component';
-import { ColumnResizeModeDemoComponent } from './demo/column-resize-mode-demo.component';
 import { MultiSelectDemoComponent } from './demo/multi-select-demo.component';
 import { CustomRowActionDemoComponent } from './demo/custom-row-action-demo.component';
 
@@ -73,7 +72,6 @@ const ROUTES: Routes = [
   {path: 'editable-condition-demo', component: EditableConditionDemoComponent},
   {path: 'tree-table-custom-demo', component: TreeTableCustomDemoComponent},
   {path: 'pipe-demo', component: PipeDemoComponent},
-  {path: 'column-resize-mode-demo', component: ColumnResizeModeDemoComponent},
   {path: 'multi-select-demo', component: MultiSelectDemoComponent},
   {path: 'custom-row-action-demo', component: CustomRowActionDemoComponent},
   {path: '**', component: PageNotFoundComponent},
@@ -108,7 +106,6 @@ const ROUTES: Routes = [
     EditableConditionDemoComponent,
     TreeTableCustomDemoComponent,
     PipeDemoComponent,
-    ColumnResizeModeDemoComponent,
     DateFormatPipe,
     MultiSelectDemoComponent,
     CustomRowActionDemoComponent,

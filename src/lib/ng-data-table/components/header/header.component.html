@@ -19,7 +19,7 @@
     [east]="column.resizeable"
     [minWidth]="column.minWidth"
     [maxWidth]="column.maxWidth"
-    [ghost]="isGhostResize"
+    [ghost]="true"
     (resizeBegin)="onResizeBegin()"
     (resizing)="onResize($event, column)"
     (resizeEnd)="onResizeEnd($event, column)">

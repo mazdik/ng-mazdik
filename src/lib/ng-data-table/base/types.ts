@@ -22,11 +22,6 @@ export type AggregateType = 'sum' | 'average' | 'max' | 'min' | 'count';
 
 export type SelectionMode = 'checkbox' | 'radio';
 
-export enum ColumnResizeMode {
-  Simple = 'simple',
-  Aminated = 'aminated',
-}
-
 export enum EditMode {
   EditCellOnDblClick = 'editCellOnDblClick',
   EditProgrammatically = 'editProgrammatically',

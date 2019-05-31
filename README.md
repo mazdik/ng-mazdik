@@ -264,7 +264,6 @@ export interface PageMetadata {
 | multipleSort     | boolean    | false   |             |
 | trackByProp      | string     | null    |             |
 | groupRowsBy      | string[]   | null    |             |
-| columnResizeMode | simple / aminated | simple |       |
 | selectionMultiple | boolean   | false   |             |
 | selectionMode    | checkbox / radio | null |          |
 | virtualScroll    | boolean    | false   |             |

@@ -2,7 +2,7 @@ import {
   Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding,
   ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ContentChild
 } from '@angular/core';
-import {DataTable, ColumnResizeMode} from '../../base';
+import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyComponent} from '../body/body.component';
 import {HeaderComponent} from '../header/header.component';
@@ -59,7 +59,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     const subSort = this.table.events.sortSource$.subscribe(() => {
       this.onSort();
     });
-    const subColumnBeginResize = this.table.events.resizeBeginSource$.subscribe(() => {
+    const subColumnResizeBegin = this.table.events.resizeBeginSource$.subscribe(() => {
       this.onColumnResizeBegin();
     });
     const subColumnResize = this.table.events.resizeSource$.subscribe((event) => {
@@ -81,7 +81,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
-    this.subscriptions.push(subColumnBeginResize);
+    this.subscriptions.push(subColumnResizeBegin);
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
@@ -128,12 +128,10 @@ export class DataTableComponent implements OnInit, OnDestroy {
   }
 
   onColumnResize(event) {
-    if (this.table.settings.columnResizeMode === ColumnResizeMode.Simple) {
-      const rect = this.element.nativeElement.getBoundingClientRect();
-      const containerLeft = rect.left + document.body.scrollLeft;
-      this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';
-      this.resizeHelper.nativeElement.style.display = 'block';
-    }
+    const rect = this.element.nativeElement.getBoundingClientRect();
+    const containerLeft = rect.left + document.body.scrollLeft;
+    this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';
+    this.resizeHelper.nativeElement.style.display = 'block';
   }
 
   onColumnResizeEnd() {
