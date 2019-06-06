@@ -11,12 +11,8 @@ import {Subscription} from 'rxjs';
       <b>{{this.eventName}}</b>: {{this.eventValue}}
     </div>
     <app-data-table [table]="table"></app-data-table>
-    <div class="dt-message dt-message-success" style="word-break: break-all;"
-    *ngIf="this.cellValueChangedEvent">
-      <b>cellValueChanged:</b> {{this.cellValueChangedEvent}}
-    </div><br>
     <div class="dt-message dt-message-success" style="word-break: break-all;">
-    <b>{{this.eventName}}:</b> {{this.eventValue}}
+      <b>{{this.eventName}}:</b> {{this.eventValue}}
     </div>
   `,
 })
@@ -32,7 +28,6 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   });
   eventName: string = 'Event name';
   eventValue: any = 'event value';
-  cellValueChangedEvent: any;
   timer: any;
   @ViewChild('tooltip', {static: false}) tooltip: ElementRef;
 
@@ -65,11 +60,7 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
         }, 700);
       }
       if (data.type === CellEventType.Mouseout) {
-        this.printEvent('mouseout', data);
         this.hideTooltip();
-      }
-      if (data.type === CellEventType.ValueChanged) {
-        this.cellValueChangedEvent = JSON.stringify(data);
       }
     });
     this.subscriptions.push(subCell);
@@ -81,13 +72,9 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
   printEvent(name: string, event: any) {
     this.eventName = name;
-    if (this.eventName === 'mouseout') {
-      this.eventValue = JSON.stringify(event);
-    } else {
-      const columnName = this.table.columns[event.columnIndex].name;
-      const cell = this.table.rows[event.rowIndex][columnName];
-      this.eventValue = JSON.stringify({columnName, cell});
-    }
+    const columnName = this.table.columns[event.columnIndex].name;
+    const cell = this.table.rows[event.rowIndex][columnName];
+    this.eventValue = JSON.stringify({columnName, cell}, null, 2);
     this.cd.detectChanges();
   }
 

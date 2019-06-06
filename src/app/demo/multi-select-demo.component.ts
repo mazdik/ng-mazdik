@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-multi-select-demo',
   template: `<app-crud-table class="multi-select-demo" [dataManager]="dataManager"></app-crud-table>
-    <ng-template #cellTemplate let-rowIndex="rowIndex" let-value="value">
+    <ng-template #cellTemplate let-rowIndex="rowIndex" let-value="value" let-column="column">
       <span *ngIf="!editing[rowIndex]">
         {{value}}
       </span>
@@ -18,16 +18,16 @@ import {Subscription} from 'rxjs';
         [multiple]="true"
         [options]="options"
         [value]="value"
-        (valueChange)="value=$event">
+        (valueChange)="onCellValueChange(column, $event, rowIndex)">
       </app-dropdown-select>
     </ng-template>
-    <ng-template #formTemplate let-value="value">
+    <ng-template #formTemplate let-value="value" let-column="column">
       <app-dropdown-select
         class="dt-dropdown-select-fixed"
         [multiple]="true"
         [options]="options"
         [value]="value"
-        (valueChange)="value=$event">
+        (valueChange)="onFormValueChange(column, $event)">
       </app-dropdown-select>
     </ng-template>
   `,
@@ -82,6 +82,14 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  onCellValueChange(column: Column, value: any, rowIndex: number) {
+    this.dataManager.rows[rowIndex][column.name] = value;
+  }
+
+  onFormValueChange(column: Column, value: any) {
+    this.dataManager.item[column.name] = value;
   }
 
 }

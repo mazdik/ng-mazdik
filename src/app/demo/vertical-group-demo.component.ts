@@ -45,10 +45,10 @@ import {Subscription} from 'rxjs';
   </div>
   `,
   styles: [
-    'app-data-table {overflow-x: auto;}',
-    '.vertical .cell-data {transform: rotate(-90deg); overflow: visible;}',
-    '.vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}',
-    '.vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}',
+    `app-data-table {overflow-x: auto;}
+    .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
+    .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}
+    .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}`,
   ],
   encapsulation: ViewEncapsulation.None,
 })
