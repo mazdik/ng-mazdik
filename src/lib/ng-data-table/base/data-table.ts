@@ -31,8 +31,8 @@ export class DataTable {
   preparedColumns: Column[] = [];
   clientSide: boolean = true;
 
-  get rows(): any { return this._rows; }
-  set rows(val: any) {
+  get rows(): any[] { return this._rows; }
+  set rows(val: any[]) {
     val = this.rowModelGenerator.generateRows(val);
     if (this.clientSide) {
       this.localDataSource.setRows(val);

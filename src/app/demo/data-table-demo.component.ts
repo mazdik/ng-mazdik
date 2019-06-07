@@ -22,7 +22,7 @@ export class DataTableDemoComponent implements OnInit {
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

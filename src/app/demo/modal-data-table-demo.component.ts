@@ -70,14 +70,14 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.dtPlayers.columns[0].cellTemplate = this.template1;
     this.dtPlayers.columns[1].cellTemplate = this.template2;
 
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.dtPlayers.rows = data;
     });
-    this.http.get('assets/rank.json').subscribe(rank => {
+    this.http.get<any[]>('assets/rank.json').subscribe(rank => {
       this.rank = rank;
       this.dtRank.rows = rank;
     });
-    this.http.get('assets/inventory.json').subscribe(inventory => {
+    this.http.get<any[]>('assets/inventory.json').subscribe(inventory => {
       this.inventory = inventory;
       this.dtInventory.rows = inventory;
     });
