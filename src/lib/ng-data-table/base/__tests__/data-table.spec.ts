@@ -136,4 +136,45 @@ describe('DataTable', () => {
     expect(dataTable.rows[0] instanceof Row).toBe(true);
   });
 
+  describe('DataTable multiple selection', () => {
+
+    beforeEach(() => {
+      const options = new Settings({ selectionMultiple: true});
+      dataTable = new DataTable(columns, options);
+      const rows = [
+        { date: new Date(2017, 8, 5), gender: 'f' },
+        { date: new Date(2016, 11, 1), gender: 'm' },
+        { date: new Date(2019, 3, 7), gender: 'f' },
+        { date: new Date(2018, 4, 3), gender: 'm' }
+      ];
+      dataTable.rows = rows;
+    });
+
+    it('should be able all row selected', () => {
+      dataTable.selection.selectAll([0, 1, 2, 3]);
+      const result = dataTable.allRowsSelected();
+      expect(result).toBe(true);
+    });
+
+    it('should be able partially selected', () => {
+      dataTable.selectRow(1);
+      const result = dataTable.partiallySelected();
+      expect(result).toBe(true);
+    });
+
+    it('should be able to select all rows', () => {
+      dataTable.selectAllRows();
+      const result = dataTable.allRowsSelected();
+      expect(result).toBe(true);
+    });
+
+    it('should be able to togle select all rows', () => {
+      dataTable.selectAllRows();
+      dataTable.selectAllRows();
+      const result = dataTable.allRowsSelected();
+      expect(result).toBe(false);
+    });
+
+  });
+
 });

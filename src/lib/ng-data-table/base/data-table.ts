@@ -175,4 +175,22 @@ export class DataTable {
     }
   }
 
+  allRowsSelected(): boolean {
+    const selectedIndexes = this.rows.map(x => x.$$index);
+    return this.selection.allSelected(selectedIndexes);
+  }
+
+  partiallySelected(): boolean {
+    return !this.selection.isEmpty() && !this.allRowsSelected();
+  }
+
+  selectAllRows() {
+    if (this.allRowsSelected()) {
+      this.selection.clearSelection();
+    } else {
+      const selectedIndexes = this.rows.map(x => x.$$index);
+      this.selection.selectAll(selectedIndexes);
+    }
+  }
+
 }

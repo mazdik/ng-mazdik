@@ -1,7 +1,7 @@
-<span *ngIf="isCheckboxable && table.settings.selectionMode"
+<span *ngIf="table.selection.multiple && table.settings.selectionMode"
       class="{{'dt-' + table.settings.selectionMode}}">
       <input [type]="table.settings.selectionMode"
-             [checked]="allRowsSelected"
-             [indeterminate]="partiallySelected"
-             (click)="onHeaderCheckboxClick()"/>
+             [checked]="table.allRowsSelected()"
+             [indeterminate]="table.partiallySelected()"
+             (click)="table.selectAllRows()"/>
 </span>

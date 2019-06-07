@@ -25,19 +25,6 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
     return this.table.dimensions.actionColumnWidth;
   }
 
-  get isCheckboxable(): boolean {
-    return this.table.selection.multiple;
-  }
-
-  get allRowsSelected(): boolean {
-    const selectedIndexes = this.table.rows.map(x => x.$$index);
-    return this.table.selection.allSelected(selectedIndexes);
-  }
-
-  get partiallySelected(): boolean {
-    return !this.table.selection.isEmpty() && !this.allRowsSelected;
-  }
-
   private subscriptions: Subscription[] = [];
 
   constructor(private cd: ChangeDetectorRef) {}
@@ -55,15 +42,6 @@ export class HeaderCellActionComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  onHeaderCheckboxClick() {
-    if (this.allRowsSelected) {
-      this.table.selection.clearSelection();
-    } else {
-      const selectedIndexes = this.table.rows.map(x => x.$$index);
-      this.table.selection.selectAll(selectedIndexes);
-    }
   }
 
 }
