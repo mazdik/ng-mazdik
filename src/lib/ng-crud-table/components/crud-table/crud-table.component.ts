@@ -1,14 +1,13 @@
 import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation, TemplateRef,
-  HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
+  HostBinding, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
 import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
-import {DataTableComponent} from '../../../ng-data-table';
+import {DataTableComponent, EventHelper} from '../../../ng-data-table';
 import {MenuItem} from '../../../common';
-import {findAncestor} from '../../../common/utils';
 
 @Component({
   selector: 'app-crud-table',
@@ -28,8 +27,6 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   @ViewChild('modalEditForm', {static: false}) modalEditForm: ModalEditFormComponent;
   @ViewChild('rowMenu', {static: true}) rowMenu: ContextMenuComponent;
-  @ViewChild('alert', {static: false}) alert: ElementRef;
-  @ViewChild('toolbar', {static: false}) toolbar: any;
   @ViewChild(DataTableComponent, {static: true}) dt: DataTableComponent;
   @ViewChild('rowActionTemplate', {static: true}) rowActionTemplate: TemplateRef<any>;
   @ViewChild('headerActionTemplate', {static: true}) headerActionTemplate: TemplateRef<any>;
@@ -146,20 +143,8 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRowMenuClick(event: any, row: Row) {
-    const rowElement = findAncestor(event.target, '.datatable-body-row');
-    const rowTop = rowElement.offsetTop + rowElement.offsetHeight;
-    const cell = findAncestor(event.target, '.datatable-body-cell');
-    const left = cell ? cell.offsetLeft : 0;
-    const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
-    const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
-    let top = alertHeight + toolbarHeight + this.dt.header.getHeight();
-    top += rowTop;
-    if (this.dataManager.settings.virtualScroll) {
-      top -= (this.dataManager.dimensions.offsetY) ? 17 : 0;
-    } else {
-      top -= this.dataManager.dimensions.offsetY;
-    }
+  onRowMenuClick(event: Event, row: Row) {
+    const {left, top} = EventHelper.getRowPosition(event, this.dataManager.settings.virtualScroll);
     this.rowMenuBeforeOpen(row);
     this.rowMenu.show({originalEvent: event, data: row, left, top} as MenuEventArgs);
   }

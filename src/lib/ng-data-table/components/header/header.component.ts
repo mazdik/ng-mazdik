@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   columnTrackingFn = (i: number, col: Column) => col.name;
 
-  constructor(private cd: ChangeDetectorRef, private element: ElementRef) {}
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
@@ -49,12 +49,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.headerTemplateView.clear();
     }
     this.subscriptions.forEach(s => s.unsubscribe());
-  }
-
-  getHeight() {
-    if (this.element.nativeElement) {
-      return this.element.nativeElement.offsetHeight;
-    }
   }
 
   onResizeBegin() {

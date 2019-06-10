@@ -5,7 +5,6 @@ import {
 import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyComponent} from '../body/body.component';
-import {HeaderComponent} from '../header/header.component';
 import {PageEvent} from '../../../pagination';
 import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
@@ -37,7 +36,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
   @ViewChild('resizeHelper', {static: true}) resizeHelper: ElementRef;
   @ViewChild('footer', {static: true}) footerViewChild: ElementRef;
   @ViewChild(BodyComponent, {static: false}) body: BodyComponent;
-  @ViewChild(HeaderComponent, {static: false}) header: HeaderComponent;
 
   @HostBinding('class.datatable') cssClass = true;
   @HostBinding('attr.role') role = 'grid';

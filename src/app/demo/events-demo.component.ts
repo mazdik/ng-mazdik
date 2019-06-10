@@ -1,12 +1,13 @@
 import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, CellEventType} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, CellEventType, EventHelper} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-events-demo',
   template: `
+  <div style="position: relative;">
     <div #tooltip class="tooltip">
       <b>{{this.eventName}}</b>: {{this.eventValue}}
     </div>
@@ -14,6 +15,7 @@ import {Subscription} from 'rxjs';
     <div class="dt-message dt-message-success" style="word-break: break-all;">
       <b>{{this.eventName}}:</b> {{this.eventValue}}
     </div>
+  </div>
   `,
 })
 
@@ -79,8 +81,9 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   }
 
   showTooltip(event: MouseEvent) {
-    this.tooltip.nativeElement.style.left = event.pageX + 'px';
-    this.tooltip.nativeElement.style.top = event.pageY + 'px';
+    const {left, top} = EventHelper.getRowPosition(event);
+    this.tooltip.nativeElement.style.left = left + 'px';
+    this.tooltip.nativeElement.style.top = top + 'px';
     this.tooltip.nativeElement.style.visibility = 'visible';
   }
 

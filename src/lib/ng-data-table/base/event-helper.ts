@@ -1,5 +1,5 @@
 import { CellEventArgs } from './types';
-import { isBlank } from '../../common/utils';
+import { isBlank, findAncestor } from '../../common/utils';
 
 export class EventHelper {
 
@@ -29,6 +29,32 @@ export class EventHelper {
         return { columnIndex, rowIndex, event, fromCell: target } as CellEventArgs;
       }
     }
+  }
+
+  static getRowPosition(event: Event, virtualScroll: boolean = false) {
+    const rowElement = findAncestor(event.target, '.datatable-body-row');
+    let top = rowElement.offsetTop + rowElement.offsetHeight;
+    const cell = findAncestor(event.target, '.datatable-body-cell');
+    let left = cell ? cell.offsetLeft : 0;
+    const datatable = findAncestor(event.target, '.datatable');
+
+    if (datatable && datatable.previousSibling && datatable.previousSibling.classList.contains('dt-toolbar')) {
+      top += datatable.previousSibling.offsetHeight;
+    }
+    const header = datatable.querySelector('.datatable-header');
+    if (header) {
+      top += header.offsetHeight;
+    }
+    const scroller = findAncestor(event.target, '.dt-scroller');
+    const scrollTop = scroller ? scroller.scrollTop : 0;
+    const scrollLeft = scroller ? scroller.scrollLeft : 0;
+    left -= scrollLeft;
+    if (virtualScroll) {
+      top -= scrollTop ? 17 : 0;
+    } else {
+      top -= scrollTop;
+    }
+    return {left, top};
   }
 
 }
