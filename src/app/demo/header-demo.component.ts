@@ -43,7 +43,7 @@ export class HeaderDemoComponent implements OnInit {
   }
 
   getWidth(from: number, to: number) {
-    let width = (from === 0 && this.table.settings.selectionMode) ? this.table.dimensions.actionColumnWidth : 0;
+    let width = 0;
     for (let index = from; index < to; index++) {
       width += this.table.columns[index].width;
     }

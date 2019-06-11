@@ -25,7 +25,6 @@ export class MultipleSelectionDemoComponent implements OnInit {
 
   table: DataTable;
   table2: DataTable;
-  columns: Column[];
   selectedRows: any[];
   selectedRows2: any[];
 
@@ -40,9 +39,10 @@ export class MultipleSelectionDemoComponent implements OnInit {
   });
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.table = new DataTable(this.columns, this.settings);
-    this.table2 = new DataTable(this.columns, this.settings2);
+    const columns = getColumnsPlayers();
+    const columns2 = getColumnsPlayers();
+    this.table = new DataTable(columns, this.settings);
+    this.table2 = new DataTable(columns2, this.settings2);
   }
 
   ngOnInit() {

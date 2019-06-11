@@ -12,6 +12,7 @@ export { Events } from './events';
 export { KeyboardAction } from './keyboard-action';
 export { Settings } from './settings';
 export { RowModelGenerator } from './row-model-generator';
+export { ColumnModelGenerator } from './column-model-generator';
 export { Row } from './row';
 export { Cell } from './cell';
 export * from './types';

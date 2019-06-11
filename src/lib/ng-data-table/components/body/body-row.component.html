@@ -1,9 +1,3 @@
-<dt-body-cell-action
-  *ngIf="table.dimensions.actionColumnWidth"
-  [table]="table"
-  [row]="row">
-</dt-body-cell-action>
-
 <ng-container *ngFor="let column of table.preparedColumns; trackBy: columnTrackingFn">
   <dt-body-cell
     *ngIf="!row.isEditableCell(column)"

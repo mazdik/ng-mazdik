@@ -51,8 +51,12 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     const subSort = this.table.events.sortSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
+    this.subscriptions.push(subSelection);
   }
 
   ngOnDestroy() {

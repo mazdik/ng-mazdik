@@ -2,22 +2,9 @@ import {DataSource, RequestMetadata} from './types';
 import {Row, FilterMetadata} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
+import {ColumnModelGenerator} from '../../ng-data-table/base/column-model-generator';
 import {CdtSettings} from './cdt-settings';
 import {DtMessages} from '../../dt-translate';
-
-const actionColumn: ColumnBase = {
-  name: 'action',
-  title: 'Row actions',
-  sortable: false,
-  filter: false,
-  frozen: true,
-  resizeable: false,
-  width: 40,
-  minWidth: 40,
-  formHidden: true,
-  cellClass: 'action-cell',
-  headerCellClass: 'action-cell',
-};
 
 export class DataManager extends DataTable {
 
@@ -28,7 +15,7 @@ export class DataManager extends DataTable {
   pagerCache: any = {};
 
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: DtMessages) {
-    super(((x) => { columns.unshift(x); return columns; })(actionColumn), settings, messages);
+    super(((x) => { columns.unshift(x); return columns; })(ColumnModelGenerator.actionColumn), settings, messages);
     this.settings = new CdtSettings(settings);
     this.clientSide = false;
     this.service = dataSource;

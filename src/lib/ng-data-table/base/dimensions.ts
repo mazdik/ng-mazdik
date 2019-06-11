@@ -4,7 +4,6 @@ import {Settings} from './settings';
 export class Dimensions {
 
   bodyHeight: number;
-  actionColumnWidth: number;
   columnMenuWidth: number = 220;
   columnsTotalWidth: number;
   headerRowHeight: number;
@@ -16,19 +15,18 @@ export class Dimensions {
     this.bodyHeight = settings.bodyHeight;
     this.rowHeight = settings.rowHeight;
     this.headerRowHeight = settings.headerRowHeight;
-    this.actionColumnWidth = settings.selectionMode ? 40 : 0;
     this.recalcColumns();
   }
 
   calcColumnsTotalWidth() {
-    this.columnsTotalWidth = this.columns.filter(x => !x.tableHidden).reduce((acc, cur) => acc + cur.width, this.actionColumnWidth || 0);
+    this.columnsTotalWidth = this.columns.filter(x => !x.tableHidden).reduce((acc, cur) => acc + cur.width, 0);
   }
 
   calcColumnsLeftPosition() {
     this.columns.filter(x => x.frozen).reduce((acc, cur) => {
       cur.left = acc;
       return acc + cur.width;
-    }, this.actionColumnWidth || 0);
+    }, 0);
   }
 
   recalcColumns() {

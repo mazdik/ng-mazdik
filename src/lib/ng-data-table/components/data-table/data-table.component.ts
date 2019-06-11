@@ -1,8 +1,8 @@
 import {
-  Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding,
+  Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding, TemplateRef,
   ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ContentChild
 } from '@angular/core';
-import {DataTable} from '../../base';
+import {DataTable, ColumnModelGenerator, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyComponent} from '../body/body.component';
 import {PageEvent} from '../../../pagination';
@@ -36,6 +36,8 @@ export class DataTableComponent implements OnInit, OnDestroy {
   @ViewChild('resizeHelper', {static: true}) resizeHelper: ElementRef;
   @ViewChild('footer', {static: true}) footerViewChild: ElementRef;
   @ViewChild(BodyComponent, {static: false}) body: BodyComponent;
+  @ViewChild('rowCheckboxTemplate', {static: true}) rowCheckboxTemplate: TemplateRef<any>;
+  @ViewChild('headerCheckboxTemplate', {static: true}) headerCheckboxTemplate: TemplateRef<any>;
 
   @HostBinding('class.datatable') cssClass = true;
   @HostBinding('attr.role') role = 'grid';
@@ -51,6 +53,12 @@ export class DataTableComponent implements OnInit, OnDestroy {
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    const actionColumn = this.table.columns.find(x => x.name === ColumnModelGenerator.checkboxColumn.name);
+    if (actionColumn) {
+      actionColumn.cellTemplate = this.rowCheckboxTemplate;
+      actionColumn.headerCellTemplate = this.headerCheckboxTemplate;
+    }
+
     const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.onFilter();
     });
@@ -140,6 +148,11 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   get headerVisible(): boolean {
     return this.table.dimensions.headerRowHeight === 0 ? false : true;
+  }
+
+  onCheckboxClick(row: Row) {
+    this.table.selection.toggle(row.$$index);
+    this.table.events.onCheckbox(row);
   }
 
 }

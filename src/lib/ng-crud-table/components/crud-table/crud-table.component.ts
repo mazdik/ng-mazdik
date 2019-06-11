@@ -6,7 +6,8 @@ import {ModalEditFormComponent} from '../../../modal-edit-form';
 import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
-import {DataTableComponent, EventHelper} from '../../../ng-data-table';
+import {DataTableComponent} from '../../../ng-data-table';
+import {EventHelper, ColumnModelGenerator} from '../../../ng-data-table/base';
 import {MenuItem} from '../../../common';
 
 @Component({
@@ -39,7 +40,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    const actionColumn = this.dataManager.columns.find(x => x.name === 'action');
+    const actionColumn = this.dataManager.columns.find(x => x.name === ColumnModelGenerator.actionColumn.name);
     if (actionColumn) {
       actionColumn.cellTemplate = this.rowActionTemplate;
       actionColumn.headerCellTemplate = this.headerActionTemplate;

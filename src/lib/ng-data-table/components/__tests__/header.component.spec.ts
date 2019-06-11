@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { ColumnBase, Settings, DataTable } from '../../base';
 import { HeaderComponent } from '../header/header.component';
 import { HeaderCellComponent } from '../header/header-cell.component';
-import { HeaderCellActionComponent } from '../header/header-cell-action.component';
 import { ResizableModule } from '../../../resizable';
 
 @Component({
@@ -35,7 +34,6 @@ describe('HeaderComponent', () => {
         TestFixtureComponent,
         HeaderComponent,
         HeaderCellComponent,
-        HeaderCellActionComponent,
       ],
       imports: [ResizableModule]
     })

@@ -1,7 +1,0 @@
-<span *ngIf="table.selection.multiple && table.settings.selectionMode"
-      class="{{'dt-' + table.settings.selectionMode}}">
-      <input [type]="table.settings.selectionMode"
-             [checked]="table.allRowsSelected()"
-             [indeterminate]="table.partiallySelected()"
-             (click)="table.selectAllRows()"/>
-</span>

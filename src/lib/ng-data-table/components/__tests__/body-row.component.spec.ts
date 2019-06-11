@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 
 import { ColumnBase, Settings, DataTable, Row } from '../../base';
 import { BodyRowComponent } from '../body/body-row.component';
-import { BodyCellActionComponent } from '../body/body-cell-action.component';
 import { BodyCellEditComponent } from '../body/body-cell-edit.component';
 import { BodyCellComponent } from '../body/body-cell.component';
 import { InlineEditModule } from '../../../inline-edit';
@@ -37,7 +36,6 @@ describe('BodyRowComponent', () => {
       declarations: [
         TestFixtureComponent,
         BodyRowComponent,
-        BodyCellActionComponent,
         BodyCellEditComponent,
         BodyCellComponent
       ],
