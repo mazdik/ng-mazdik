@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({

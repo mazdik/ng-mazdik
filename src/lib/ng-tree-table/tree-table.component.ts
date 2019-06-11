@@ -25,7 +25,8 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit() {
-    this.treeTable.columns[0].cellTemplate = this.cellTemplate;
+    const index = this.treeTable.settings.selectionMode ? 1 : 0;
+    this.treeTable.columns[index].cellTemplate = this.cellTemplate;
     this.initGetNodes();
 
     const subCheckbox = this.treeTable.events.checkboxSource$.subscribe((event) => {
