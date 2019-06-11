@@ -13,6 +13,7 @@ import {RowGroup} from './row-group';
 import {RowModelGenerator} from './row-model-generator';
 import {LocalDataSource} from './local-data-source';
 import {Row} from './row';
+import {supportsStickyPosition} from '../../common/utils';
 
 export class DataTable {
 
@@ -70,8 +71,10 @@ export class DataTable {
     const frozenColumns = [];
     const scrollableColumns = [];
     let columnIndex = 0;
+    const canSticky = supportsStickyPosition();
 
     this.columns.forEach((column) => {
+      column.frozen = column.frozen && canSticky;
       this.setColumnSettings(column);
       if (!column.tableHidden) {
         if (column.frozen) {

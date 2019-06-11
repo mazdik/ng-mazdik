@@ -19,7 +19,7 @@ export function maxZIndex(selectors: string = 'body *') {
 
 export function findAncestor(el, selectors) {
   if (typeof el.closest === 'function') {
-      return el.closest(selectors) || null;
+    return el.closest(selectors) || null;
   }
   while (el) {
     if (el.matches(selectors)) {
@@ -28,4 +28,14 @@ export function findAncestor(el, selectors) {
     el = el.parentElement;
   }
   return null;
+}
+
+export function supportsStickyPosition(): boolean {
+  if (!('CSS' in window)) {
+    return false;
+  }
+  return (
+    CSS.supports('position', 'sticky') ||
+    CSS.supports('position', '-webkit-sticky')
+  );
 }
