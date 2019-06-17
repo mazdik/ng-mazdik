@@ -188,4 +188,20 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  get dialogStyles() {
+    return {
+      display: this.visible ? 'block' : 'none',
+      width: this.width,
+      'min-width': this.minWidth,
+      'z-index': this.contentzIndex,
+    };
+  }
+
+  get overlayStyles() {
+    return {
+      display: (this.visible && this.backdrop) ? 'block' : 'none',
+      'z-index': this.zIndex,
+    };
+  }
+
 }
