@@ -191,9 +191,9 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   get dialogStyles() {
     return {
       display: this.visible ? 'block' : 'none',
-      width: this.width,
-      'min-width': this.minWidth,
       'z-index': this.contentzIndex,
+      'width.px': this.width,
+      'min-width.px': this.minWidth,
     };
   }
 
