@@ -36,7 +36,10 @@ export class InlineEditComponent {
     return inputFormattedDate(this.type, this.value);
   }
 
-  constructor() {
+  constructor() {}
+
+  onInput(event: any) {
+    this.value = (this.type === 'number') ? parseFloat(event.target.value) : event.target.value;
   }
 
   onInputChange() {
