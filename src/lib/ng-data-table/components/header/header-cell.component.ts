@@ -1,7 +1,7 @@
 import {
   Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy
 } from '@angular/core';
-import {Column, DataTable} from '../../base';
+import {Column, DataTable, EventHelper} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
 import {findAncestor} from '../../../common/utils';
@@ -70,17 +70,8 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     }
   }
 
-  clickColumnMenu(event: any, column: Column, isLast: boolean) {
-    const el = event.target.parentNode;
-    const header = findAncestor(event.target, 'dt-header');
-    let left = el.offsetLeft;
-    const top = header.offsetHeight;
-    // left - scroll
-    left = left - this.table.dimensions.offsetX;
-    const width = this.table.dimensions.columnMenuWidth;
-    if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {
-      left = left + column.width - width;
-    }
+  clickColumnMenu(event: MouseEvent, column: Column) {
+    const {left, top} = EventHelper.getColumnPosition(event, this.table.dimensions.columnMenuWidth);
     this.table.events.onColumnMenuClick({left, top, column} as ColumnMenuEventArgs);
   }
 
