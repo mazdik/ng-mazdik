@@ -16,6 +16,7 @@ import { ContextMenuModule } from '../lib/context-menu';
 import { NotifyModule } from '../lib/notify';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { DropdownSelectModule } from '../lib/dropdown-select';
+import { SelectListModule } from '../lib/select-list';
 
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
@@ -124,6 +125,7 @@ const ROUTES: Routes = [
     ContextMenuModule,
     NotifyModule,
     DropdownSelectModule,
+    SelectListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
