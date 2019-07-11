@@ -26,10 +26,6 @@ export class Row {
     return newRow;
   }
 
-  createCell(column: Column): Cell {
-    return new Cell(this, column);
-  }
-
   isEditableCell(column: Column): boolean {
     if (column.editable && this.$$settings && this.hasOwnProperty(this.$$settings.isEditableCellProp)) {
       return this[this.$$settings.isEditableCellProp];

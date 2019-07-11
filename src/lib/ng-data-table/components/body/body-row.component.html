@@ -4,13 +4,13 @@
     [ngClass]="row.getCellClass(column)"
     tabindex="-1"
     [table]="table"
-    [cell]="row.createCell(column)">
+    [cell]="createCell(row, column)">
   </dt-body-cell>
   <dt-body-cell-edit
     *ngIf="row.isEditableCell(column)"
     [ngClass]="row.getCellClass(column)"
     tabindex="-1"
     [table]="table"
-    [cell]="row.createCell(column)">
+    [cell]="createCell(row, column)">
   </dt-body-cell-edit>
 </ng-container>

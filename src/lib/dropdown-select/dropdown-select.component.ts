@@ -29,7 +29,6 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
   @Input() clearMessage: string;
   @Input() placeholder: string = 'Select';
   @Input() searchInputPlaceholder: string = 'Search...';
-  @Input() styleClass: string;
 
   @Input()
   get options(): SelectItem[] { return this._options; }

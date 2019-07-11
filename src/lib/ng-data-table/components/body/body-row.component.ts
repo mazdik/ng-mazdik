@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Row, Column} from '../../base';
+import {DataTable, Row, Column, Cell} from '../../base';
 import {Subscription} from 'rxjs';
 import {isBlank} from '../../../common/utils';
 
@@ -66,6 +66,10 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  createCell(row: Row, column: Column): Cell {
+    return new Cell(row, column);
   }
 
 }

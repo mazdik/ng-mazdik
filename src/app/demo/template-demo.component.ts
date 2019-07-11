@@ -12,7 +12,7 @@ import {FilterOperator} from '../../lib/ng-data-table/base';
       <img width="40" src="assets/asmodian.png" title="ASMODIANS"
         (click)="clickRaceFilter('ASMODIANS')"
         style="cursor: pointer;"/>
-      <strong title="Clear filter" (click)="clickRaceFilter()" style="cursor: pointer;">
+      <strong title="Clear filter" (click)="clickRaceFilter(null)" style="cursor: pointer;">
         {{column.title}}
       </strong>
       <img width="40" src="assets/elyos.png" title="ELYOS"
