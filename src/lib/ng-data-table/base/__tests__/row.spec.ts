@@ -1,4 +1,5 @@
 import { Row } from '../row';
+import { Cell } from '../cell';
 import { Column } from '../column';
 import { Settings } from '../settings';
 
@@ -38,7 +39,7 @@ describe('Row', () => {
   });
 
   it('should be able to create cell', () => {
-    const cell = row.createCell(column);
+    const cell = new Cell(row, column);
     expect(cell.row).toBeDefined();
     expect(cell.row['id']).toBe(data.id);
   });

@@ -1,15 +1,13 @@
 import {
-  Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding,
+  Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding, TemplateRef,
   ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ContentChild
 } from '@angular/core';
-import {DataTable, ColumnResizeMode} from '../../base';
+import {DataTable, ColumnModelGenerator, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyComponent} from '../body/body.component';
-import {HeaderComponent} from '../header/header.component';
 import {PageEvent} from '../../../pagination';
 import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
-import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'app-datatable, app-data-table',
@@ -32,14 +30,14 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
 
-  @ContentChild(HeaderTemplateDirective) headerTemplate: HeaderTemplateDirective;
-  @ContentChild(RowGroupTemplateDirective) rowGroupTemplate: RowGroupTemplateDirective;
-  @ContentChild(RowActionTemplateDirective) rowActionTemplate: RowActionTemplateDirective;
+  @ContentChild(HeaderTemplateDirective, {static: true}) headerTemplate: HeaderTemplateDirective;
+  @ContentChild(RowGroupTemplateDirective, {static: true}) rowGroupTemplate: RowGroupTemplateDirective;
 
-  @ViewChild('resizeHelper') resizeHelper: ElementRef;
-  @ViewChild('footer') footerViewChild: ElementRef;
-  @ViewChild(BodyComponent) body: BodyComponent;
-  @ViewChild(HeaderComponent) header: HeaderComponent;
+  @ViewChild('resizeHelper', {static: true}) resizeHelper: ElementRef;
+  @ViewChild('footer', {static: true}) footerViewChild: ElementRef;
+  @ViewChild(BodyComponent, {static: false}) body: BodyComponent;
+  @ViewChild('rowCheckboxTemplate', {static: true}) rowCheckboxTemplate: TemplateRef<any>;
+  @ViewChild('headerCheckboxTemplate', {static: true}) headerCheckboxTemplate: TemplateRef<any>;
 
   @HostBinding('class.datatable') cssClass = true;
   @HostBinding('attr.role') role = 'grid';
@@ -55,13 +53,19 @@ export class DataTableComponent implements OnInit, OnDestroy {
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    const actionColumn = this.table.columns.find(x => x.name === ColumnModelGenerator.checkboxColumn.name);
+    if (actionColumn) {
+      actionColumn.cellTemplate = this.rowCheckboxTemplate;
+      actionColumn.headerCellTemplate = this.headerCheckboxTemplate;
+    }
+
     const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.onFilter();
     });
     const subSort = this.table.events.sortSource$.subscribe(() => {
       this.onSort();
     });
-    const subColumnBeginResize = this.table.events.resizeBeginSource$.subscribe(() => {
+    const subColumnResizeBegin = this.table.events.resizeBeginSource$.subscribe(() => {
       this.onColumnResizeBegin();
     });
     const subColumnResize = this.table.events.resizeSource$.subscribe((event) => {
@@ -83,7 +87,7 @@ export class DataTableComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
-    this.subscriptions.push(subColumnBeginResize);
+    this.subscriptions.push(subColumnResizeBegin);
     this.subscriptions.push(subColumnResize);
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subScroll);
@@ -130,12 +134,10 @@ export class DataTableComponent implements OnInit, OnDestroy {
   }
 
   onColumnResize(event) {
-    if (this.table.settings.columnResizeMode === ColumnResizeMode.Simple) {
-      const rect = this.element.nativeElement.getBoundingClientRect();
-      const containerLeft = rect.left + document.body.scrollLeft;
-      this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';
-      this.resizeHelper.nativeElement.style.display = 'block';
-    }
+    const rect = this.element.nativeElement.getBoundingClientRect();
+    const containerLeft = rect.left + document.body.scrollLeft;
+    this.resizeHelper.nativeElement.style.left = (event.pageX - containerLeft + this.element.nativeElement.scrollLeft) + 'px';
+    this.resizeHelper.nativeElement.style.display = 'block';
   }
 
   onColumnResizeEnd() {
@@ -146,6 +148,11 @@ export class DataTableComponent implements OnInit, OnDestroy {
 
   get headerVisible(): boolean {
     return this.table.dimensions.headerRowHeight === 0 ? false : true;
+  }
+
+  onCheckboxClick(row: Row) {
+    this.table.selection.toggle(row.$$index);
+    this.table.events.onCheckbox(row);
   }
 
 }

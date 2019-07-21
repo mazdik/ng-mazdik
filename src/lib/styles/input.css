@@ -37,10 +37,12 @@
   margin-bottom: 1rem;
 }
 
+.dt-has-error .dt-input-group > .dt-input,
 .dt-has-error > .dt-input {
   border-color: #a94442;
 }
 
+.dt-has-error .dt-input-group > .dt-input:focus,
 .dt-has-error > .dt-input:focus {
   outline: 0;
   border-color: #843534;

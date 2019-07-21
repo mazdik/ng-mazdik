@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnInit, OnDestroy, ViewEncapsulation,
+  Component, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy, ViewEncapsulation,
   ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
 import { DataTable } from '../ng-data-table/base';
@@ -37,12 +37,11 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
   @Output() create: EventEmitter<any> = new EventEmitter();
 
-  @HostBinding('class.datatable-toolbar') cssClass = true;
+  @HostBinding('class.dt-toolbar') cssClass = true;
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
-  }
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     const subFilter = this.table.events.filterSource$.subscribe(() => {
@@ -73,10 +72,6 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
   createActionClick() {
     this.create.emit();
-  }
-
-  getHeight() {
-    return this.element.nativeElement.offsetHeight;
   }
 
   clearAllFilters() {

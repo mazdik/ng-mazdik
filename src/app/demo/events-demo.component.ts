@@ -1,23 +1,22 @@
 import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Column, Settings, DataTable, CellEventType} from '../../lib/ng-data-table';
+import {EventHelper} from '../../lib/ng-data-table/base';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-events-demo',
   template: `
+  <div style="position: relative;">
     <div #tooltip class="tooltip">
       <b>{{this.eventName}}</b>: {{this.eventValue}}
     </div>
     <app-data-table [table]="table"></app-data-table>
-    <div class="dt-message dt-message-success" style="word-break: break-all;"
-    *ngIf="this.cellValueChangedEvent">
-      <b>cellValueChanged:</b> {{this.cellValueChangedEvent}}
-    </div><br>
     <div class="dt-message dt-message-success" style="word-break: break-all;">
-    <b>{{this.eventName}}:</b> {{this.eventValue}}
+      <b>{{this.eventName}}:</b> {{this.eventValue}}
     </div>
+  </div>
   `,
 })
 
@@ -32,9 +31,8 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   });
   eventName: string = 'Event name';
   eventValue: any = 'event value';
-  cellValueChangedEvent: any;
   timer: any;
-  @ViewChild('tooltip') tooltip: ElementRef;
+  @ViewChild('tooltip', {static: false}) tooltip: ElementRef;
 
   private subscriptions: Subscription[] = [];
 
@@ -45,7 +43,7 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
@@ -65,11 +63,7 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
         }, 700);
       }
       if (data.type === CellEventType.Mouseout) {
-        this.printEvent('mouseout', data);
         this.hideTooltip();
-      }
-      if (data.type === CellEventType.ValueChanged) {
-        this.cellValueChangedEvent = JSON.stringify(data);
       }
     });
     this.subscriptions.push(subCell);
@@ -81,19 +75,16 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
   printEvent(name: string, event: any) {
     this.eventName = name;
-    if (this.eventName === 'mouseout') {
-      this.eventValue = JSON.stringify(event);
-    } else {
-      const columnName = this.table.columns[event.columnIndex].name;
-      const cell = this.table.rows[event.rowIndex][columnName];
-      this.eventValue = JSON.stringify({columnName, cell});
-    }
+    const columnName = this.table.columns[event.columnIndex].name;
+    const cell = this.table.rows[event.rowIndex][columnName];
+    this.eventValue = JSON.stringify({columnName, cell}, null, 2);
     this.cd.detectChanges();
   }
 
   showTooltip(event: MouseEvent) {
-    this.tooltip.nativeElement.style.left = event.pageX + 'px';
-    this.tooltip.nativeElement.style.top = event.pageY + 'px';
+    const {left, top} = EventHelper.getRowPosition(event);
+    this.tooltip.nativeElement.style.left = left + 'px';
+    this.tooltip.nativeElement.style.top = top + 'px';
     this.tooltip.nativeElement.style.visibility = 'visible';
   }
 

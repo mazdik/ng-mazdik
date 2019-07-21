@@ -9,6 +9,7 @@ export class CdtSettings extends Settings {
   exportAction?: boolean;
   columnToggleAction?: boolean;
   clearAllFiltersAction?: boolean;
+  clearAllFiltersIcon?: boolean = true;
 
   constructor(init: Partial<CdtSettings>) {
     super(init);

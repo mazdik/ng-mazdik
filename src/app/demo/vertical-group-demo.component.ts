@@ -45,10 +45,10 @@ import {Subscription} from 'rxjs';
   </div>
   `,
   styles: [
-    'app-data-table {overflow-x: auto;}',
-    '.vertical .cell-data {transform: rotate(-90deg); overflow: visible;}',
-    '.vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}',
-    '.vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}',
+    `app-data-table {overflow-x: auto;}
+    .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
+    .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}
+    .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}`,
   ],
   encapsulation: ViewEncapsulation.None,
 })
@@ -63,8 +63,8 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     filter: false,
   });
 
-  @ViewChild('dtv1') dtv1: ElementRef;
-  @ViewChild('dtv2') dtv2: ElementRef;
+  @ViewChild('dtv1', {static: true}) dtv1: ElementRef;
+  @ViewChild('dtv2', {static: true}) dtv2: ElementRef;
 
   private raceGroupMetadata: GroupMetadata;
   private genderGroupMetadata: GroupMetadata;

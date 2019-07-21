@@ -12,7 +12,6 @@ import {InputOptionComponent} from './input-option.component';
                            [disabled]="disabled"
                            [placeholder]="placeholder"
                            [searchInputPlaceholder]="searchInputPlaceholder"
-                           [styleClass]="{'dt-has-error':hasError()}"
                            (valueChange)="model=$event; onValueChange()">
       </app-dropdown-select>
       <div class="dt-help-block">

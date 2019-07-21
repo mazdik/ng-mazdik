@@ -30,7 +30,7 @@ export class DynamicFormComponent implements OnDestroy {
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
 
   constructor() {}

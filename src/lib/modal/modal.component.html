@@ -1,7 +1,4 @@
-<div class="ui-modal-overlay"
-     [style.zIndex]="zIndex"
-     [ngStyle]="{'display': (visible && backdrop) ? 'block' : 'none'}">
-</div>
+<div class="ui-modal-overlay" [ngStyle]="overlayStyles"></div>
 
 <div class="ui-modal" tabindex="-1" role="dialog"
      #modalRoot
@@ -14,10 +11,7 @@
      (resizing)="onResize($event)"
      appDraggable
      [dragEventTarget]="dragEventTarget"
-     [ngStyle]="{'display': visible ? 'block' : 'none'}"
-     [style.width.px]="width"
-     [style.minWidth.px]="minWidth"
-     [style.zIndex]="contentzIndex"
+     [ngStyle]="dialogStyles"
      (mousedown)="moveOnTop()"
      (touchstart)="moveOnTop()">
     <div class="ui-modal-header" #modalHeader

@@ -44,7 +44,7 @@ export class TreeViewComponent implements OnInit {
   }
 
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
-  @ViewChild('filterInput') filterInput: any;
+  @ViewChild('filterInput', {static: false}) filterInput: any;
 
   tree: Tree = new Tree();
   filterTimeout: any;

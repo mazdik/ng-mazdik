@@ -16,12 +16,13 @@ export class DataTableDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
+    this.columns.forEach((x, i) => (i > 0) ? x.editable = true : x.editable = false);
     this.table = new DataTable(this.columns, this.settings);
   }
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

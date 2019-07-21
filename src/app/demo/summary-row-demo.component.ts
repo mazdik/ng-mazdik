@@ -19,9 +19,7 @@ export class SummaryRowDemoComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
     this.columns.splice(17);
-    for (const column of this.columns) {
-      column.editable = false;
-    }
+
     this.columns[1].title += ' (count)';
     this.columns[5].title += ' (sum)';
     this.columns[14].title += ' (min)';
@@ -41,7 +39,7 @@ export class SummaryRowDemoComponent implements OnInit {
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

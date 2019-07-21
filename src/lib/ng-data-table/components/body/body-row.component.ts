@@ -1,10 +1,9 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnResizeMode, Row, Column} from '../../base';
+import {DataTable, Row, Column, Cell} from '../../base';
 import {Subscription} from 'rxjs';
 import {isBlank} from '../../../common/utils';
-import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'dt-body-row',
@@ -15,7 +14,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() row: Row;
-  @Input() rowActionTemplate: RowActionTemplateDirective;
 
   @HostBinding('class.datatable-body-row') cssClass = true;
   @HostBinding('class.row-selected')
@@ -46,12 +44,6 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    if (this.table.settings.columnResizeMode === ColumnResizeMode.Aminated) {
-      const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
-        this.cd.markForCheck();
-      });
-      this.subscriptions.push(subColumnResize);
-    }
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });
@@ -61,13 +53,23 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     const subPage = this.table.events.pageSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      if (this.table.selection.isSelected(this.row.$$index)) {
+        this.cd.markForCheck();
+      }
+    });
     this.subscriptions.push(subColumnResizeEnd);
     this.subscriptions.push(subSort);
     this.subscriptions.push(subPage);
+    this.subscriptions.push(subSelection);
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(s => s.unsubscribe());
+  }
+
+  createCell(row: Row, column: Column): Cell {
+    return new Cell(row, column);
   }
 
 }

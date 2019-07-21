@@ -27,16 +27,13 @@ export class GlobalFilterDemoComponent implements OnInit {
 
   constructor(private service: DemoService, private http: HttpClient) {
     this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.table = new DataTable(this.columns, this.settings);
     this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
   }
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

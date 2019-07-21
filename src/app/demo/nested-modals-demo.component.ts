@@ -26,13 +26,10 @@ export class NestedModalsDemoComponent {
     zIndexModal: 1110
   });
 
-  @ViewChild('modal') modal: any;
+  @ViewChild('modal', {static: false}) modal: any;
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 

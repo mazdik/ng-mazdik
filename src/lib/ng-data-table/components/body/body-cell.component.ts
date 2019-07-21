@@ -61,7 +61,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     return this.cell.rowIndex;
   }
 
-  @ViewChild('cellTemplate', {read: ViewContainerRef}) cellTemplate: ViewContainerRef;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: ViewContainerRef;
 
   editing: boolean;
   subscriptions: Subscription[] = [];
@@ -77,8 +77,12 @@ export class BodyCellComponent implements OnInit, OnDestroy {
         this.element.nativeElement.focus();
       }
     });
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subRows);
     this.subscriptions.push(subCell);
+    this.subscriptions.push(subSelection);
   }
 
   ngOnDestroy(): void {

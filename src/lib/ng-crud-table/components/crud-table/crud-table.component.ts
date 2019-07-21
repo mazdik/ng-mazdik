@@ -1,12 +1,13 @@
 import {
-  Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation,
-  HostBinding, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
+  Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation, TemplateRef,
+  HostBinding, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
 import {DataManager, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
 import {DataTableComponent} from '../../../ng-data-table';
+import {EventHelper, ColumnModelGenerator} from '../../../ng-data-table/base';
 import {MenuItem} from '../../../common';
 
 @Component({
@@ -25,11 +26,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @Input() dataManager: DataManager;
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
-  @ViewChild('rowMenu') rowMenu: ContextMenuComponent;
-  @ViewChild('alert') alert: ElementRef;
-  @ViewChild('toolbar') toolbar: any;
-  @ViewChild(DataTableComponent) dt: DataTableComponent;
+  @ViewChild('modalEditForm', {static: false}) modalEditForm: ModalEditFormComponent;
+  @ViewChild('rowMenu', {static: true}) rowMenu: ContextMenuComponent;
+  @ViewChild(DataTableComponent, {static: true}) dt: DataTableComponent;
+  @ViewChild('rowActionTemplate', {static: true}) rowActionTemplate: TemplateRef<any>;
+  @ViewChild('headerActionTemplate', {static: true}) headerActionTemplate: TemplateRef<any>;
 
   @HostBinding('class.datatable') cssClass = true;
 
@@ -39,6 +40,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    const actionColumn = this.dataManager.columns.find(x => x.name === ColumnModelGenerator.actionColumn.name);
+    if (actionColumn) {
+      actionColumn.cellTemplate = this.rowActionTemplate;
+      actionColumn.headerCellTemplate = this.headerActionTemplate;
+    }
     this.initRowMenu();
     if (this.dataManager.settings.initLoad) {
       this.dataManager.loadItems().catch(() => this.cd.markForCheck());
@@ -138,20 +144,8 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRowMenuClick(event: any, row: Row) {
-    const el = event.target.parentNode.parentNode; // row
-    const rowHeight = el.offsetHeight;
-    const rowTop = el.offsetTop + rowHeight;
-    const left = 0;
-    const alertHeight = (this.alert) ? this.alert.nativeElement.offsetHeight : 0;
-    const toolbarHeight = (this.toolbar) ? this.toolbar.getHeight() : 0;
-    let top = alertHeight + toolbarHeight + this.dt.header.getHeight();
-    top += rowTop;
-    if (this.dataManager.settings.virtualScroll) {
-      top -= (this.dataManager.dimensions.offsetY) ? 17 : 0;
-    } else {
-      top -= this.dataManager.dimensions.offsetY;
-    }
+  onRowMenuClick(event: Event, row: Row) {
+    const {left, top} = EventHelper.getRowPosition(event, this.dataManager.settings.virtualScroll);
     this.rowMenuBeforeOpen(row);
     this.rowMenu.show({originalEvent: event, data: row, left, top} as MenuEventArgs);
   }
@@ -210,6 +204,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
 
   onLoadedForm() {
     this.cd.markForCheck();
+  }
+
+  clearAllFilters() {
+    this.dataManager.dataFilter.clear();
+    this.dataManager.events.onFilter();
   }
 
 }

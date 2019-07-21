@@ -23,29 +23,6 @@ describe('DataTable', () => {
     dataTable.rows = rows;
   });
 
-  it('should be able to init columns', () => {
-    dataTable.initColumns();
-    const frozenColumns = dataTable.preparedColumns.filter(x => x.frozen);
-    const scrollableColumns = dataTable.preparedColumns.filter(x => !x.frozen);
-    expect(frozenColumns.length).toBe(2);
-    expect(scrollableColumns.length).toBe(3);
-  });
-
-  it('should be able to first sorted frozen columns', () => {
-    dataTable.initColumns();
-    expect(dataTable.preparedColumns[0].frozen).toBe(true);
-    expect(dataTable.preparedColumns[1].frozen).toBe(true);
-    expect(dataTable.preparedColumns[2].frozen).toBe(false);
-  });
-
-  it('should be able to set column index', () => {
-    dataTable.initColumns();
-    expect(dataTable.preparedColumns[0].index).toBe(0); // frozen column sorted
-    expect(dataTable.preparedColumns[1].index).toBe(2); // frozen column sorted
-    expect(dataTable.preparedColumns[2].index).toBe(1);
-    expect(dataTable.preparedColumns[3].index).toBe(3);
-  });
-
   it('should be able to get rows', () => {
     expect(dataTable.rows.length).toBe(4);
     expect(Object.keys(dataTable.rows[0])).toContain('$$uid');
@@ -134,6 +111,47 @@ describe('DataTable', () => {
 
   it('row should be instanceof Row', () => {
     expect(dataTable.rows[0] instanceof Row).toBe(true);
+  });
+
+  describe('DataTable multiple selection', () => {
+
+    beforeEach(() => {
+      const options = new Settings({ selectionMultiple: true});
+      dataTable = new DataTable(columns, options);
+      const rows = [
+        { date: new Date(2017, 8, 5), gender: 'f' },
+        { date: new Date(2016, 11, 1), gender: 'm' },
+        { date: new Date(2019, 3, 7), gender: 'f' },
+        { date: new Date(2018, 4, 3), gender: 'm' }
+      ];
+      dataTable.rows = rows;
+    });
+
+    it('should be able all row selected', () => {
+      dataTable.selection.selectAll([0, 1, 2, 3]);
+      const result = dataTable.allRowsSelected();
+      expect(result).toBe(true);
+    });
+
+    it('should be able partially selected', () => {
+      dataTable.selectRow(1);
+      const result = dataTable.partiallySelected();
+      expect(result).toBe(true);
+    });
+
+    it('should be able to select all rows', () => {
+      dataTable.selectAllRows();
+      const result = dataTable.allRowsSelected();
+      expect(result).toBe(true);
+    });
+
+    it('should be able to togle select all rows', () => {
+      dataTable.selectAllRows();
+      dataTable.selectAllRows();
+      const result = dataTable.allRowsSelected();
+      expect(result).toBe(false);
+    });
+
   });
 
 });

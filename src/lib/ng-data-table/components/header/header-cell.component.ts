@@ -1,9 +1,10 @@
 import {
   Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy
 } from '@angular/core';
-import {Column, DataTable} from '../../base';
+import {Column, DataTable, EventHelper} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
+import {findAncestor} from '../../../common/utils';
 
 @Component({
   selector: 'dt-header-cell',
@@ -50,8 +51,12 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     const subSort = this.table.events.sortSource$.subscribe(() => {
       this.cd.markForCheck();
     });
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      this.cd.markForCheck();
+    });
     this.subscriptions.push(subFilter);
     this.subscriptions.push(subSort);
+    this.subscriptions.push(subSelection);
   }
 
   ngOnDestroy() {
@@ -65,16 +70,8 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     }
   }
 
-  clickColumnMenu(event: any, column: Column, isLast: boolean) {
-    const el = event.target.parentNode;
-    let left = el.offsetLeft;
-    const top = el.offsetTop + el.offsetHeight + (this.table.dimensions.headerTemplateHeight || 0);
-    // left - scroll
-    left = left - this.table.dimensions.offsetX;
-    const width = this.table.dimensions.columnMenuWidth;
-    if ((event.pageX + 1 + width - document.body.scrollLeft > window.innerWidth) || isLast) {
-      left = left + column.width - width;
-    }
+  clickColumnMenu(event: MouseEvent, column: Column) {
+    const {left, top} = EventHelper.getColumnPosition(event, this.table.dimensions.columnMenuWidth);
     this.table.events.onColumnMenuClick({left, top, column} as ColumnMenuEventArgs);
   }
 

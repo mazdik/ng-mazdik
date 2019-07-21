@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from '../../lib/ng-data-table';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -8,10 +8,10 @@ import {getColumnsPlayers} from './columns';
   template: `<button class="dt-button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
     <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
-  <div class="dt-message dt-message-success" style="margin-right:5px;"
-              *ngFor="let row of selectedRows">
-              {{row.id + '-' + row.name}}
-  </div>
+    <div class="dt-message dt-message-success" style="margin-right:5px;"
+                *ngFor="let row of selectedRows">
+                {{row.id + '-' + row.name}}
+    </div>
     <p>Selection type: multiple. Selection mode: radio</p>
     <app-data-table [table]="table2" (selectionChange)="onSelection2()"></app-data-table>
     <div class="dt-message dt-message-success" style="margin-right:5px;"
@@ -25,7 +25,6 @@ export class MultipleSelectionDemoComponent implements OnInit {
 
   table: DataTable;
   table2: DataTable;
-  columns: Column[];
   selectedRows: any[];
   selectedRows2: any[];
 
@@ -40,18 +39,15 @@ export class MultipleSelectionDemoComponent implements OnInit {
   });
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
-
-    this.table = new DataTable(this.columns, this.settings);
-    this.table2 = new DataTable(this.columns, this.settings2);
+    const columns = getColumnsPlayers();
+    const columns2 = getColumnsPlayers();
+    this.table = new DataTable(columns, this.settings);
+    this.table2 = new DataTable(columns2, this.settings2);
   }
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table2.rows = data;
       this.table.events.onLoading(false);

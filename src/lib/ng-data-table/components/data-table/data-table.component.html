@@ -19,8 +19,7 @@
   appBodyContextMenu
   [table]="table"
   [loading]="loading"
-  [rowGroupTemplate]="rowGroupTemplate"
-  [rowActionTemplate]="rowActionTemplate">
+  [rowGroupTemplate]="rowGroupTemplate">
 </dt-body>
 
 <div #footer class="datatable-footer">
@@ -34,3 +33,19 @@
     </app-pagination>
 </div>
 <div #resizeHelper class="column-resizer-helper"></div>
+
+<ng-template #rowCheckboxTemplate let-row="row">
+  <span class="{{'dt-' + table.settings.selectionMode}}">
+        <input [type]="table.settings.selectionMode"
+              [checked]="table.selection.isSelected(this.row.$$index)"
+              (click)="onCheckboxClick(row)"/>
+  </span>
+</ng-template>
+<ng-template #headerCheckboxTemplate>
+  <span class="{{'dt-' + table.settings.selectionMode}}">
+        <input [type]="table.settings.selectionMode"
+              [checked]="table.allRowsSelected()"
+              [indeterminate]="table.partiallySelected()"
+              (click)="table.selectAllRows()"/>
+  </span>
+</ng-template>

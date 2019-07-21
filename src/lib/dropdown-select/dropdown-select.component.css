@@ -22,8 +22,3 @@
 input.dt-select-input[readonly]:not([disabled]) {
   background-color: white;
 }
-
-.dt-dropdown-select-fixed .dt-dropdown-select-list {
-  position: fixed;
-  width: auto;
-}

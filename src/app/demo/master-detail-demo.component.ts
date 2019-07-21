@@ -56,7 +56,7 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.dtPlayers.rows = data;
       const masterId = this.dtPlayers.rows[0]['id'];
       this.dtPlayers.selectRow(0);

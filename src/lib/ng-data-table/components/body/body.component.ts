@@ -5,7 +5,6 @@ import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {ScrollerComponent} from '../../../scroller';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
-import {RowActionTemplateDirective} from '../../directives/row-action-template.directive';
 
 @Component({
   selector: 'dt-body',
@@ -17,10 +16,9 @@ export class BodyComponent implements OnInit, OnDestroy {
   @Input() table: DataTable;
   @Input() loading: boolean;
   @Input() rowGroupTemplate: RowGroupTemplateDirective;
-  @Input() rowActionTemplate: RowActionTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body';
-  @ViewChild(ScrollerComponent) scroller: ScrollerComponent;
+  @ViewChild(ScrollerComponent, {static: true}) scroller: ScrollerComponent;
 
   private subscriptions: Subscription[] = [];
   rowTrackingFn = (index: number, row: any) => (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;

@@ -23,10 +23,10 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('modalRoot') modalRoot: ElementRef;
-  @ViewChild('modalBody') modalBody: ElementRef;
-  @ViewChild('modalHeader') modalHeader: ElementRef;
-  @ViewChild('modalFooter') modalFooter: ElementRef;
+  @ViewChild('modalRoot', {static: false}) modalRoot: ElementRef;
+  @ViewChild('modalBody', {static: false}) modalBody: ElementRef;
+  @ViewChild('modalHeader', {static: false}) modalHeader: ElementRef;
+  @ViewChild('modalFooter', {static: false}) modalFooter: ElementRef;
 
   @HostBinding('class.app-modal') cssClass = true;
 
@@ -186,6 +186,22 @@ export class ModalComponent implements OnInit, AfterViewChecked {
         this.contentzIndex = zIndex + 1;
       }
     }
+  }
+
+  get dialogStyles() {
+    return {
+      display: this.visible ? 'block' : 'none',
+      'z-index': this.contentzIndex,
+      'width.px': this.width,
+      'min-width.px': this.minWidth,
+    };
+  }
+
+  get overlayStyles() {
+    return {
+      display: (this.visible && this.backdrop) ? 'block' : 'none',
+      'z-index': this.zIndex,
+    };
   }
 
 }

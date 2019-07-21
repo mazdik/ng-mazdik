@@ -1,5 +1,4 @@
-<dt-toolbar #toolbar
-            [table]="dataManager"
+<dt-toolbar [table]="dataManager"
             [createAction]="dataManager.settings.crud"
             [globalFilter]="dataManager.settings.globalFilter"
             [exportAction]="dataManager.settings.exportAction"
@@ -16,15 +15,24 @@
             (create)="createAction()">
 </dt-toolbar>
 
-<app-data-table [table]="dataManager">
-  <ng-template dtRowActionTemplate let-row="row">
-    <button class="dt-button-actions" (click)="onRowMenuClick($event, row)">
-      <i class="dt-icon-actions"></i>
-    </button>
-  </ng-template>
-</app-data-table>
+<app-data-table [table]="dataManager"></app-data-table>
 
 <app-modal-edit-form #modalEditForm [dataManager]="dataManager" (loaded)="onLoadedForm()">
 </app-modal-edit-form>
 
 <app-context-menu #rowMenu [menu]="actionMenu"></app-context-menu>
+
+<ng-template #rowActionTemplate let-row="row">
+  <button class="dt-button-actions" (click)="onRowMenuClick($event, row)">
+    <i class="dt-icon-actions"></i>
+  </button>
+</ng-template>
+<ng-template #headerActionTemplate>
+  <button class="filter-action"
+          *ngIf="dataManager.settings.clearAllFiltersIcon"
+          [style.visibility]="(!dataManager.dataFilter.hasFilters()) ? 'hidden' : 'visible' "
+          (click)="clearAllFilters()"
+          [title]="dataManager.messages.clearFilters">
+    <i class="dt-icon-filter"></i>
+  </button>
+</ng-template>

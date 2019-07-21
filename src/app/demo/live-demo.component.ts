@@ -27,9 +27,6 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.table = new DataTable(this.columns, this.settings);
   }
 

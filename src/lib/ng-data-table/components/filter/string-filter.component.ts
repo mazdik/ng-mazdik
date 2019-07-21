@@ -16,7 +16,7 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() isOpen: boolean;
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('filterInput') filterInput: any;
+  @ViewChild('filterInput', {static: false}) filterInput: any;
 
   matchMode: string;
   value: any;

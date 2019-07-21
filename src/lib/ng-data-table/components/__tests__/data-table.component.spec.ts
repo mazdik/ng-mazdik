@@ -69,7 +69,7 @@ describe('DataTableComponent', () => {
 
     cells = fixture.nativeElement.querySelectorAll('.datatable-header-row .dt-sticky');
     expect(cells).toBeTruthy();
-    expect(cells.length).toBe(3);
+    expect(cells.length).toBe(2);
   });
 
   it('should be able to render body', () => {

@@ -18,14 +18,15 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   @Input() treeTable: TreeTable;
 
   @HostBinding('class.datatable') cssClass = true;
-  @ViewChild('cellTemplate') cellTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
 
   private subscriptions: Subscription[] = [];
 
   constructor() {}
 
   ngOnInit() {
-    this.treeTable.columns[0].cellTemplate = this.cellTemplate;
+    const index = this.treeTable.settings.selectionMode ? 1 : 0;
+    this.treeTable.columns[index].cellTemplate = this.cellTemplate;
     this.initGetNodes();
 
     const subCheckbox = this.treeTable.events.checkboxSource$.subscribe((event) => {

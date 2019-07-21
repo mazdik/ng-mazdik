@@ -5,11 +5,6 @@
 
 <div #headerRow class="datatable-header-row" [style.height.px]="table.dimensions.headerRowHeight">
 
-  <dt-header-cell-action
-    *ngIf="table.dimensions.actionColumnWidth"
-    [table]="table">
-  </dt-header-cell-action>
-
   <dt-header-cell
     *ngFor="let column of table.preparedColumns; trackBy: columnTrackingFn"
     [ngClass]="column.headerCellClass"
@@ -19,7 +14,7 @@
     [east]="column.resizeable"
     [minWidth]="column.minWidth"
     [maxWidth]="column.maxWidth"
-    [ghost]="isGhostResize"
+    [ghost]="true"
     (resizeBegin)="onResizeBegin()"
     (resizing)="onResize($event, column)"
     (resizeEnd)="onResizeEnd($event, column)">

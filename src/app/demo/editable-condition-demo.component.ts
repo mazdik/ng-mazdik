@@ -20,6 +20,7 @@ export class EditableConditionDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
+    this.columns.forEach((x, i) => (i > 0) ? x.editable = true : x.editable = false);
     this.table = new DataTable(this.columns, this.settings);
   }
 

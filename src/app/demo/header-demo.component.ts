@@ -9,12 +9,12 @@ import {getColumnsPlayers} from './columns';
     <app-data-table [table]="table">
       <ng-template dtHeaderTemplate>
         <div class="datatable-header-row" [style.height.px]="40" [style.transform]="translate3d()">
-                <div class="datatable-header-cell dt-sticky" [style.width.px]="getWidth(0, 2)" [style.transform]="translate3dCell()">Group 1
-                </div>
-                <div class="datatable-header-cell" [style.width.px]="getWidth(2, 5)">Group 2</div>
-                <div class="datatable-header-cell" [style.width.px]="getWidth(5, 8)">Group 3</div>
-                <div class="datatable-header-cell" [style.width.px]="getWidth(8, 12)">Group 4</div>
-                <div class="datatable-header-cell" [style.width.px]="getWidth(12, 17)">Group 5</div>
+          <div class="datatable-header-cell dt-sticky" [style.width.px]="getWidth(0, 2)" [style.transform]="translate3dCell()">Group 1
+          </div>
+          <div class="datatable-header-cell" [style.width.px]="getWidth(2, 5)">Group 2</div>
+          <div class="datatable-header-cell" [style.width.px]="getWidth(5, 8)">Group 3</div>
+          <div class="datatable-header-cell" [style.width.px]="getWidth(8, 12)">Group 4</div>
+          <div class="datatable-header-cell" [style.width.px]="getWidth(12, 17)">Group 5</div>
         </div>
       </ng-template>
     </app-data-table>
@@ -31,22 +31,19 @@ export class HeaderDemoComponent implements OnInit {
   constructor(private http: HttpClient) {
     this.columns = getColumnsPlayers();
     this.columns.splice(17);
-    for (const column of this.columns) {
-      column.editable = false;
-    }
     this.table = new DataTable(this.columns, this.settings);
   }
 
   ngOnInit() {
     this.table.events.onLoading(true);
-    this.http.get('assets/players.json').subscribe(data => {
+    this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
   }
 
   getWidth(from: number, to: number) {
-    let width = (from === 0) ? 40 : 0;
+    let width = 0;
     for (let index = from; index < to; index++) {
       width += this.table.columns[index].width;
     }

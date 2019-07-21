@@ -11,6 +11,7 @@ import {Dimensions} from './dimensions';
 import {DtMessages, DtMessagesEn} from '../../dt-translate';
 import {RowGroup} from './row-group';
 import {RowModelGenerator} from './row-model-generator';
+import {ColumnModelGenerator} from './column-model-generator';
 import {LocalDataSource} from './local-data-source';
 import {Row} from './row';
 
@@ -27,12 +28,13 @@ export class DataTable {
   readonly rowGroup: RowGroup;
   readonly localDataSource: LocalDataSource;
   readonly rowModelGenerator: RowModelGenerator;
+  readonly columnModelGenerator: ColumnModelGenerator;
   readonly columns: Column[] = [];
   preparedColumns: Column[] = [];
   clientSide: boolean = true;
 
-  get rows(): any { return this._rows; }
-  set rows(val: any) {
+  get rows(): any[] { return this._rows; }
+  set rows(val: any[]) {
     val = this.rowModelGenerator.generateRows(val);
     if (this.clientSide) {
       this.localDataSource.setRows(val);
@@ -50,7 +52,8 @@ export class DataTable {
   constructor(columns: ColumnBase[], settings: Settings, messages?: DtMessages) {
     this.settings = new Settings(settings);
     this.dataFilter = new DataFilter();
-    this.columns = columns.map(x => new Column(x));
+    this.columnModelGenerator = new ColumnModelGenerator(this.settings);
+    this.columns = this.columnModelGenerator.createColumns(columns);
     this.initColumns();
     this.events = new Events();
     this.pager = new DataPager();
@@ -67,37 +70,7 @@ export class DataTable {
   }
 
   initColumns(): void {
-    const frozenColumns = [];
-    const scrollableColumns = [];
-    let columnIndex = 0;
-
-    this.columns.forEach((column) => {
-      this.setColumnSettings(column);
-      if (!column.tableHidden) {
-        if (column.frozen) {
-          frozenColumns.push(column);
-        } else {
-          scrollableColumns.push(column);
-        }
-        column.index = columnIndex++;
-      }
-    });
-    this.preparedColumns = [...frozenColumns, ...scrollableColumns];
-  }
-
-  private setColumnSettings(column: Column) {
-    if (this.settings.sortable === false) {
-      column.sortable = false;
-    }
-    if (this.settings.filter === false) {
-      column.filter = false;
-    }
-    // hide if column is grouped
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      if (this.settings.groupRowsBy.indexOf(column.name) >= 0) {
-        column.tableHidden = true;
-      }
-    }
+    this.preparedColumns = this.columnModelGenerator.prepareColumns(this.columns);
   }
 
   selectRow(rowIndex: number) {
@@ -172,6 +145,24 @@ export class DataTable {
     if (this.rowGroup.groupEnabled) {
       this.sorter.multiple = true;
       this.sorter.set(this.rowGroup.groupRowsBy);
+    }
+  }
+
+  allRowsSelected(): boolean {
+    const selectedIndexes = this.rows.map(x => x.$$index);
+    return this.selection.allSelected(selectedIndexes);
+  }
+
+  partiallySelected(): boolean {
+    return !this.selection.isEmpty() && !this.allRowsSelected();
+  }
+
+  selectAllRows() {
+    if (this.allRowsSelected()) {
+      this.selection.clearSelection();
+    } else {
+      const selectedIndexes = this.rows.map(x => x.$$index);
+      this.selection.selectAll(selectedIndexes);
     }
   }
 

@@ -8,7 +8,6 @@ import {InlineEditModule} from '../inline-edit';
 import {ResizableModule} from '../resizable';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
-import {HeaderCellActionComponent} from './components/header/header-cell-action.component';
 import {FilterComponent} from './components/filter/filter.component';
 import {StringFilterComponent} from './components/filter/string-filter.component';
 import {ListFilterComponent} from './components/filter/list-filter.component';
@@ -17,7 +16,6 @@ import {BodyComponent} from './components/body/body.component';
 import {BodyRowComponent} from './components/body/body-row.component';
 import {BodyCellComponent} from './components/body/body-cell.component';
 import {BodyCellEditComponent} from './components/body/body-cell-edit.component';
-import {BodyCellActionComponent} from './components/body/body-cell-action.component';
 import {DataTableComponent} from './components/data-table/data-table.component';
 import {BodyGroupRowComponent} from './components/body/body-group-row.component';
 
@@ -28,7 +26,6 @@ import {BodyDblClickDirective} from './directives/body-dblclick.directive';
 import {BodyContextMenuDirective} from './directives/body-contextmenu.directive';
 import {HeaderTemplateDirective} from './directives/header-template.directive';
 import {RowGroupTemplateDirective} from './directives/row-group-template.directive';
-import {RowActionTemplateDirective} from './directives/row-action-template.directive';
 
 @NgModule({
   imports: [
@@ -42,7 +39,6 @@ import {RowActionTemplateDirective} from './directives/row-action-template.direc
   declarations: [
     HeaderComponent,
     HeaderCellComponent,
-    HeaderCellActionComponent,
     FilterComponent,
     StringFilterComponent,
     ListFilterComponent,
@@ -51,7 +47,6 @@ import {RowActionTemplateDirective} from './directives/row-action-template.direc
     BodyRowComponent,
     BodyCellComponent,
     BodyCellEditComponent,
-    BodyCellActionComponent,
     DataTableComponent,
     BodyGroupRowComponent,
     BodyMouseoverDirective,
@@ -61,13 +56,11 @@ import {RowActionTemplateDirective} from './directives/row-action-template.direc
     BodyContextMenuDirective,
     HeaderTemplateDirective,
     RowGroupTemplateDirective,
-    RowActionTemplateDirective,
   ],
   exports: [
     DataTableComponent,
     HeaderTemplateDirective,
     RowGroupTemplateDirective,
-    RowActionTemplateDirective,
   ],
   providers: []
 })

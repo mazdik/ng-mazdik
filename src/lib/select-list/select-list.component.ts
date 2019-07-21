@@ -46,7 +46,7 @@ export class SelectListComponent implements OnInit, AfterViewInit {
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
   @Output() selectionCancel: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('filterInput') filterInput: any;
+  @ViewChild('filterInput', {static: false}) filterInput: any;
   searchFilterText: string = null;
   private selectedOptions: any[] = [];
 

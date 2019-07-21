@@ -27,7 +27,7 @@ export class ModalFormDemoComponent {
     crud: true,
   });
 
-  @ViewChild('modalEditForm') modalEditForm: ModalEditFormComponent;
+  @ViewChild('modalEditForm', {static: false}) modalEditForm: ModalEditFormComponent;
 
   private item: any = {
     'id': 96491,

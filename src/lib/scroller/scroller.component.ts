@@ -44,7 +44,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     return this.virtualScroll;
   }
 
-  @ViewChild('content') content: ElementRef;
+  @ViewChild('content', {static: false}) content: ElementRef;
 
   get viewRows(): any[] {
     return (this.virtualScroll) ? this._viewRows : this.items;

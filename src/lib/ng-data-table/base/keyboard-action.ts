@@ -35,11 +35,11 @@ export class KeyboardAction {
       let columnIndex = parseInt(dataColIndex, 10);
       let rowIndex = parseInt(dataRowIndex, 10);
       if (this.isAction(keyCode)) {
-        this.events.onKeydownCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
+        this.events.onKeydownCell({ columnIndex, rowIndex, event, fromCell: target } as CellEventArgs);
       }
       if (this.isNavigationKey(keyCode) && !isEditing) {
         [columnIndex, rowIndex] = this.findNextCell({columnIndex, rowIndex, keyCode, shiftKey, maxColIndex, maxRowIndex});
-        this.events.onActivateCell(<CellEventArgs>{ columnIndex, rowIndex, event, fromCell: target });
+        this.events.onActivateCell({ columnIndex, rowIndex, event, fromCell: target } as CellEventArgs);
         if (!this.selection.multiple) {
           this.selection.selectValue(rowIndex);
         }

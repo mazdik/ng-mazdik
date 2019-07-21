@@ -1,7 +1,7 @@
 import {
   Component, OnInit, Input, HostBinding, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, ColumnResizeMode, Row} from '../../base';
+import {DataTable, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
 
@@ -36,12 +36,6 @@ export class BodyGroupRowComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.table.settings.columnResizeMode === ColumnResizeMode.Aminated) {
-      const subColumnResize = this.table.events.resizeSource$.subscribe(() => {
-        this.cd.markForCheck();
-      });
-      this.subscriptions.push(subColumnResize);
-    }
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
       this.cd.markForCheck();
     });

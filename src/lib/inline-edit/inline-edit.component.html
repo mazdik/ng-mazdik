@@ -17,7 +17,7 @@
         [attr.type]="type"
         [attr.step]="(type === 'number') ? 'any' : null"
         [value]="inputFormattedValue || null"
-        (input)="value = $event.target.value"
+        (input)="onInput($event)"
         (keyup)="onInputChange()"
         (focus)="onInputFocus()"
         (blur)="onInputBlur()"/>

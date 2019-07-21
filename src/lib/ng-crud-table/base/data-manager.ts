@@ -2,6 +2,7 @@ import {DataSource, RequestMetadata} from './types';
 import {Row, FilterMetadata} from '../../ng-data-table';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
+import {ColumnModelGenerator} from '../../ng-data-table/base/column-model-generator';
 import {CdtSettings} from './cdt-settings';
 import {DtMessages} from '../../dt-translate';
 
@@ -14,7 +15,7 @@ export class DataManager extends DataTable {
   pagerCache: any = {};
 
   constructor(columns: ColumnBase[], settings: CdtSettings, dataSource: DataSource, messages?: DtMessages) {
-    super(columns, settings, messages);
+    super(((x) => { columns.unshift(x); return columns; })(ColumnModelGenerator.actionColumn), settings, messages);
     this.settings = new CdtSettings(settings);
     this.clientSide = false;
     this.service = dataSource;
