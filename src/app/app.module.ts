@@ -45,6 +45,7 @@ import { TreeTableCustomDemoComponent } from './demo/tree-table-custom-demo.comp
 import { PipeDemoComponent } from './demo/pipe-demo.component';
 import { MultiSelectDemoComponent } from './demo/multi-select-demo.component';
 import { CustomRowActionDemoComponent } from './demo/custom-row-action-demo.component';
+import { FrozenTableDemoComponent } from './demo/frozen-table-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: BasicDemoComponent},
@@ -75,6 +76,7 @@ const ROUTES: Routes = [
   {path: 'pipe-demo', component: PipeDemoComponent},
   {path: 'multi-select-demo', component: MultiSelectDemoComponent},
   {path: 'custom-row-action-demo', component: CustomRowActionDemoComponent},
+  {path: 'frozen-table-demo', component: FrozenTableDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -110,6 +112,7 @@ const ROUTES: Routes = [
     DateFormatPipe,
     MultiSelectDemoComponent,
     CustomRowActionDemoComponent,
+    FrozenTableDemoComponent,
   ],
   imports: [
     BrowserModule,
