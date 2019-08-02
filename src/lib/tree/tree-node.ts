@@ -1,4 +1,4 @@
-import { Tree } from './tree';
+import { ITree } from './types';
 
 export class TreeNode {
   id: string;
@@ -23,7 +23,7 @@ export class TreeNode {
   $$filterState?: number;
   $$loading?: boolean;
 
-  constructor(init: Partial<TreeNode>, parentNode: TreeNode, public tree: Tree) {
+  constructor(init: Partial<TreeNode>, parentNode: TreeNode, public tree: ITree) {
     this.id = init.id;
     this.name = init.name;
     this.data = init.data;
@@ -32,7 +32,7 @@ export class TreeNode {
     this.leaf = init.leaf;
     this.parent = parentNode;
 
-    this.$$id = this.tree.id();
+    this.$$id = this.tree.generateId();
     this.$$level = (parentNode) ? parentNode.$$level + 1 : 0;
 
     this.children = init.children;

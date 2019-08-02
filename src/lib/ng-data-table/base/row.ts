@@ -1,5 +1,4 @@
 import { Column } from './column';
-import { Cell } from './cell';
 import { Settings } from './settings';
 
 export class Row {

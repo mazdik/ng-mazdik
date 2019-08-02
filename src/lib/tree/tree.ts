@@ -1,8 +1,8 @@
 import {TreeNode} from './tree-node';
-import {TreeDataSource, FilterState} from './types';
+import {TreeDataSource, FilterState, ITree} from './types';
 import {isBlank} from '../common/utils';
 
-export class Tree {
+export class Tree implements ITree {
 
   service: TreeDataSource;
   selectedNode: TreeNode;
@@ -23,7 +23,7 @@ export class Tree {
   constructor() {
   }
 
-  id(): number {
+  generateId(): number {
     return this.uidNode++;
   }
 

@@ -12,9 +12,9 @@ import { ResizableModule } from '../../../resizable';
 class TestFixtureComponent {
   dataTable: DataTable;
   settings = new Settings({});
-  columns = [
-    { name: 'date', editable: true } as ColumnBase,
-    { name: 'gender', frozen: true } as ColumnBase,
+  columns: ColumnBase[] = [
+    { name: 'date', title: '', editable: true },
+    { name: 'gender', title: '', frozen: true },
   ];
   constructor() {
     this.dataTable = new DataTable(this.columns, this.settings);

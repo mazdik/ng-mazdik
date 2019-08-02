@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
-
-import { DataTableModule, Column, Settings, DataTable } from '../../index';
+import { ColumnBase } from '../../base';
+import { DataTableModule, Settings, DataTable } from '../../index';
 
 @Component({
   template: `<app-data-table [table]="dataTable"></app-data-table>`
@@ -9,12 +9,12 @@ import { DataTableModule, Column, Settings, DataTable } from '../../index';
 class TestFixtureComponent {
   dataTable: DataTable;
   settings = new Settings({});
-  columns = [
-    { name: 'date', frozen: true } as Column,
-    { name: 'gender', frozen: true } as Column,
-    { name: 'test1', frozen: false } as Column,
-    { name: 'test2', frozen: false } as Column,
-    { name: 'test3', frozen: false } as Column,
+  columns: ColumnBase[] = [
+    { name: 'date', title: '', frozen: true },
+    { name: 'gender', title: '', frozen: true },
+    { name: 'test1', title: '', frozen: false },
+    { name: 'test2', title: '', frozen: false },
+    { name: 'test3', title: '', frozen: false },
   ];
   constructor() {
     this.dataTable = new DataTable(this.columns, this.settings);

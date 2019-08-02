@@ -10,9 +10,9 @@ import { HeaderCellComponent } from '../header/header-cell.component';
 class TestFixtureComponent {
   dataTable: DataTable;
   settings = new Settings({});
-  columns = [
-    { name: 'date', editable: true } as ColumnBase,
-    { name: 'gender', frozen: true } as ColumnBase,
+  columns: ColumnBase[] = [
+    { name: 'date', title: '', editable: true },
+    { name: 'gender', title: '', frozen: true },
   ];
   column: Column;
   constructor() {

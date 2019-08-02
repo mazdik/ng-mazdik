@@ -10,8 +10,8 @@ import { BodyCellComponent } from '../body/body-cell.component';
 class TestFixtureComponent {
   dataTable: DataTable;
   settings = new Settings({});
-  columns = [
-    { name: 'date', editable: true } as ColumnBase,
+  columns: ColumnBase[] = [
+    { name: 'date', title: '', editable: true },
   ];
   cell: Cell;
   constructor() {

@@ -3,10 +3,10 @@ import {
   HostBinding, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {ModalEditFormComponent} from '../../../modal-edit-form';
-import {DataManager, Row} from '../../base';
+import {DataManager} from '../../base';
 import {Subscription} from 'rxjs';
 import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
-import {DataTableComponent} from '../../../ng-data-table';
+import {DataTableComponent, Row} from '../../../ng-data-table';
 import {EventHelper, ColumnModelGenerator} from '../../../ng-data-table/base';
 import {MenuItem} from '../../../common';
 

@@ -43,12 +43,12 @@ export class DataManager extends DataTable {
     }
     this.events.onLoading(true);
     this.setSortMetaGroup();
-    const requestMeta = {
+    const requestMeta: RequestMetadata = {
       pageMeta: {currentPage: this.pager.current, perPage: this.pager.perPage},
       filters: this.dataFilter.filters,
       sortMeta: this.sorter.sortMeta,
       globalFilterValue: this.dataFilter.globalFilterValue,
-    } as RequestMetadata;
+    };
 
     return this.service
       .getItems(requestMeta)

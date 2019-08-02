@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import {TreeTable} from './tree-table';
+import {Row} from '../ng-data-table';
 import {Subscription} from 'rxjs';
 import {TreeNode, TreeHelper} from '../tree';
 
@@ -74,8 +75,8 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  paddingIndent(row: any): number {
-    return row.level * this.treeTable.indent;
+  paddingIndent(row: Row): number {
+    return row.$$level * this.treeTable.indent;
   }
 
 }
