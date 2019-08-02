@@ -17,7 +17,6 @@ import {BodyRowComponent} from './components/body/body-row.component';
 import {BodyCellComponent} from './components/body/body-cell.component';
 import {BodyCellEditComponent} from './components/body/body-cell-edit.component';
 import {DataTableComponent} from './components/data-table/data-table.component';
-import {BodyGroupRowComponent} from './components/body/body-group-row.component';
 
 import {BodyMouseoverDirective} from './directives/body-mouseover.directive';
 import {BodyKeydownDirective} from './directives/body-keydown.directive';
@@ -48,7 +47,6 @@ import {RowGroupTemplateDirective} from './directives/row-group-template.directi
     BodyCellComponent,
     BodyCellEditComponent,
     DataTableComponent,
-    BodyGroupRowComponent,
     BodyMouseoverDirective,
     BodyKeydownDirective,
     BodyClickDirective,

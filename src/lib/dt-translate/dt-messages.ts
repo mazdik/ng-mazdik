@@ -86,4 +86,10 @@ export class DtMessagesEn implements DtMessages {
   ok = 'OK';
   columns = 'Columns';
   actions = 'Actions';
+
+  constructor(init?: Partial<DtMessagesEn>) {
+    if (init) {
+      Object.assign(this, init);
+    }
+  }
 }

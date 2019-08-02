@@ -8,12 +8,18 @@
   (scrollChange)=onScroll($event)>
   <ng-container *ngFor="let row of scroller.viewRows; trackBy: rowTrackingFn">
 
-    <dt-body-group-row
+    <div class="datatable-body-row datatable-group-header" role="row"
       *ngIf="table.rowGroup.isRowGroup(row)"
-      [table]="table"
-      [row]="row"
-      [rowGroupTemplate]="rowGroupTemplate">
-    </dt-body-group-row>
+      [style.height.px]="table.dimensions.rowHeight"
+      [style.width.px]="table.dimensions.columnsTotalWidth">
+        <div class="datatable-body-cell dt-sticky" style="left: 0;" *ngIf="!rowGroupTemplate">
+          {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
+        </div>
+        <ng-template *ngIf="rowGroupTemplate && rowGroupTemplate.template"
+          [ngTemplateOutlet]="rowGroupTemplate.template"
+          [ngTemplateOutletContext]="{row: row}">
+        </ng-template>
+    </div>
 
     <dt-body-row
       [ngClass]="row.getRowClass()"

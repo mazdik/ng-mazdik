@@ -1,7 +1,0 @@
-<div class="datatable-body-cell dt-sticky" style="left: 0;" *ngIf="!rowGroupTemplate">
-  {{table.rowGroup.getRowGroupName(row)}} ({{table.rowGroup.getRowGroupSize(row)}})
-</div>
-<ng-template *ngIf="rowGroupTemplate && rowGroupTemplate.template"
-            [ngTemplateOutlet]="rowGroupTemplate.template"
-            [ngTemplateOutletContext]="{row: row}">
-</ng-template>

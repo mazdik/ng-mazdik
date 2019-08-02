@@ -3,7 +3,7 @@ import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 import {SelectItem} from '../../lib/common';
-import {DtMessages} from '../../lib/dt-translate';
+import {DtMessages, DtMessagesEn} from '../../lib/dt-translate';
 
 @Component({
   selector: 'app-basic-demo',
@@ -24,10 +24,10 @@ export class BasicDemoComponent implements OnInit {
     clearAllFiltersAction: true,
   });
 
-  messages: DtMessages = {
+  messages: DtMessages = new DtMessagesEn({
     titleDetailView: 'Player details',
     titleCreate: 'Create a new player'
-  } as DtMessages;
+  });
 
   constructor(private service: DemoService) {
     this.columns = getColumnsPlayers();
@@ -37,8 +37,7 @@ export class BasicDemoComponent implements OnInit {
     this.dataManager.pager.perPage = 20;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   filterValuesFunc(columnName: string): Promise<SelectItem[]> {
     return new Promise((resolve) => {

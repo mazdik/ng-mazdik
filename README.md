@@ -320,13 +320,13 @@ private subscriptions: Subscription[] = [];
 
 ### Sample translate
 ```typescript
-import {DtMessages} from '../lib/dt-translate';
+import {DtMessages, DtMessagesEn} from '../lib/dt-translate';
 
-messages: DtMessages = <DtMessages>{
+messages: DtMessages = new DtMessagesEn({
   empty: 'No data to display',
   titleDetailView: 'Item details',
   titleCreate: 'Create a new item'
-};
+});
 this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
 ```
 
