@@ -8,7 +8,7 @@
   top: 0;
   z-index: 3;
   width: 100%;
-  background-color: #5f5f5f;
+  background-color: #505f6d;
   color: #f1f1f1;
   padding: 0;
   overflow: hidden;
@@ -47,8 +47,8 @@
 
 .topnav a:hover,
 .sidenav a:hover {
-  background-color: #cccccc;
-  color: black;
+  background-color: rgba(0,0,0,.1);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15) inset;
 }
 
 .topnav a.active,
