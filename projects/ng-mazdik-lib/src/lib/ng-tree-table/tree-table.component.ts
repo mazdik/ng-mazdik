@@ -5,7 +5,7 @@ import {
 import {TreeTable} from './tree-table';
 import {Row} from '../ng-data-table';
 import {Subscription} from 'rxjs';
-import {TreeNode, TreeHelper} from '../tree';
+import {TreeNode, TreeHelper} from '../tree-lib';
 
 @Component({
   selector: 'app-tree-table',

@@ -5,7 +5,7 @@ import {
 import {Column, DataTable} from '../../base';
 import {Subscription} from 'rxjs';
 import {ColumnMenuEventArgs} from '../../base/types';
-import {Dropdown} from '../../../dropdown';
+import {DropDown} from '../../../dropdown';
 
 @Component({
   selector: 'app-filter',
@@ -42,11 +42,11 @@ export class FilterComponent implements OnInit, OnDestroy {
     return (this.dropdown.isOpen && this.column.filter) ? 'block' : 'none';
   }
 
-  dropdown: Dropdown;
+  dropdown: DropDown;
   private subscriptions: Subscription[] = [];
 
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement);
+    this.dropdown = new DropDown(this.element.nativeElement);
   }
 
   ngOnInit() {

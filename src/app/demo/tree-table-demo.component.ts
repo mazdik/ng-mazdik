@@ -5,7 +5,7 @@ import {TreeTable} from '../../lib/ng-tree-table';
 import {TreeDemoService} from './tree-demo.service';
 import {getTreeColumns} from './columns';
 import {Subscription} from 'rxjs';
-import {TreeBuilder} from '../../lib/tree';
+import {TreeBuilder} from '../../lib/tree-lib';
 
 @Component({
   selector: 'app-tree-table-demo',

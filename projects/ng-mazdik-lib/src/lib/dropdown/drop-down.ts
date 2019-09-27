@@ -1,7 +1,7 @@
 import {Keys} from '../common';
 import {Subject} from 'rxjs';
 
-export class Dropdown {
+export class DropDown {
 
   isOpen: boolean;
   selectContainerClicked: boolean;

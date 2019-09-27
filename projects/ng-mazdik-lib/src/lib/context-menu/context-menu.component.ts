@@ -3,7 +3,7 @@ import {
   HostBinding, ElementRef, ViewEncapsulation, OnInit, OnDestroy
 } from '@angular/core';
 import { MenuEventArgs } from './types';
-import { Dropdown } from '../dropdown';
+import { DropDown } from '../dropdown';
 import { MenuItem } from '../common';
 import { isBlank } from '../common/utils';
 import { Subscription } from 'rxjs';
@@ -40,11 +40,11 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
   }
 
   private eventArgs: MenuEventArgs;
-  private dropdown: Dropdown;
+  private dropdown: DropDown;
   private subscriptions: Subscription[] = [];
 
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement);
+    this.dropdown = new DropDown(this.element.nativeElement);
   }
 
   ngOnInit() {

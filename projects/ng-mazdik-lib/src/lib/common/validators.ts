@@ -10,7 +10,8 @@ export interface Validation {
 export class Validators {
 
   static get(validation: Validation): (name: string, value: any) => string[] {
-    return (name: string, value: any) => Validators.validate(name, value, validation);
+    const result = (name: string, value: any) => Validators.validate(name, value, validation);
+    return result;
   }
 
   static validate(name: string, value: any, validation: Validation): string[] {

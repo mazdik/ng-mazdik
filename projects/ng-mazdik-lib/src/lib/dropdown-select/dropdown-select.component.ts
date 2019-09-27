@@ -2,7 +2,7 @@ import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
-import {Dropdown} from '../dropdown';
+import {DropDown} from '../dropdown';
 import {SelectItem} from '../common';
 import {Subscription} from 'rxjs';
 
@@ -57,11 +57,11 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
 
   selectedOptions: SelectItem[] = [];
   selectedName: string;
-  dropdown: Dropdown;
+  dropdown: DropDown;
   private subscriptions: Subscription[] = [];
 
   constructor(private element: ElementRef, private cd: ChangeDetectorRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement);
+    this.dropdown = new DropDown(this.element.nativeElement);
   }
 
   ngOnInit() {

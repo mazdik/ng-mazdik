@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ElementRef } from '@angular/core';
 
-import { Dropdown } from '../dropdown';
+import { DropDown } from '../drop-down';
 
 @Component({
   template: `<div style="width: 100px; height: 100px;"></div>`
 })
 class TestFixtureComponent {
-  dropdown: Dropdown;
+  dropdown: DropDown;
   constructor(private element: ElementRef) {
-    this.dropdown = new Dropdown(this.element.nativeElement);
+    this.dropdown = new DropDown(this.element.nativeElement);
   }
 }
 
-describe('Dropdown', () => {
+describe('DropDown', () => {
   let component: TestFixtureComponent;
   let fixture: ComponentFixture<TestFixtureComponent>;
 
