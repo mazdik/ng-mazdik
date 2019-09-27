@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener, ElementRef} from '@angular/core';
-import {Column, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
+import {ColumnBase, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {Subscription} from 'rxjs';
 
@@ -88,7 +88,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
   @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
   @ViewChild('formTemplate', {static: true}) formTemplate: TemplateRef<any>;
 
-  columns: Column[] = [
+  columns: ColumnBase[] = [
     { title: 'Id', name: 'id' },
     { title: 'Name', name: 'name' },
     { title: 'Test', name: 'test', width: 250 }
@@ -104,7 +104,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     {id: 3, name: 'Select 3'},
     {id: 4, name: 'Select 4'},
   ];
-  column: Column;
+  column: ColumnBase;
   editing = {};
   left: number;
   top: number;
@@ -157,7 +157,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFormValueChange(column: Column, value: any) {
+  onFormValueChange(column: ColumnBase, value: any) {
     this.dataManager.item[column.name] = value;
   }
 

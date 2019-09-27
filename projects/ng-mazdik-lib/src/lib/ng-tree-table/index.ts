@@ -1,3 +1,3 @@
-export {TreeTableModule} from './tree-table-module';
-export {TreeTableComponent} from './tree-table.component';
-export {TreeTable} from './tree-table';
+export * from './tree-table-module';
+export * from './tree-table.component';
+export * from './tree-table';

@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, FilterOperator} from 'ng-mazdik-lib';
+import {ColumnBase, Settings, DataTable, FilterOperator} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -40,7 +40,7 @@ import {getColumnsPlayers} from './columns';
 export class TemplateDemoComponent implements OnInit {
 
   table: DataTable;
-  columns: Column[];
+  columns: ColumnBase[];
   settings: Settings = new Settings({
     headerRowHeight: 40,
     rowHeight: 40,
@@ -50,7 +50,7 @@ export class TemplateDemoComponent implements OnInit {
   @ViewChild('headerRnCellTemplate', {static: true}) headerRnCellTemplate: TemplateRef<any>;
   @ViewChild('cellRnTemplate', {static: true}) cellRnTemplate: TemplateRef<any>;
 
-  rnColumn: Column = {
+  rnColumn: ColumnBase = {
     name: 'rn',
     title: '#',
     sortable: false,

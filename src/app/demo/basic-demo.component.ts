@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Column, CdtSettings, DataManager, SelectItem, DtMessages, DtMessagesEn} from 'ng-mazdik-lib';
+import {CdtSettings, DataManager, SelectItem, DtMessages, DtMessagesEn} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -10,7 +10,6 @@ import {getColumnsPlayers} from './columns';
 
 export class BasicDemoComponent implements OnInit {
 
-  columns: Column[];
   dataManager: DataManager;
 
   settings: CdtSettings = new CdtSettings({
@@ -28,10 +27,10 @@ export class BasicDemoComponent implements OnInit {
   });
 
   constructor(private service: DemoService) {
-    this.columns = getColumnsPlayers();
-    this.columns.forEach((x, i) => (i > 0) ? x.editable = true : x.editable = false);
-    this.columns[4].filterValues = this.filterValuesFunc;
-    this.dataManager = new DataManager(this.columns, this.settings, this.service, this.messages);
+    const columns = getColumnsPlayers();
+    columns.forEach((x, i) => (i > 0) ? x.editable = true : x.editable = false);
+    columns[4].filterValues = this.filterValuesFunc;
+    this.dataManager = new DataManager(columns, this.settings, this.service, this.messages);
     this.dataManager.pager.perPage = 20;
   }
 

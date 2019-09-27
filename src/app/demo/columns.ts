@@ -1,4 +1,4 @@
-import {Column, Validators} from 'ng-mazdik-lib';
+import {ColumnBase as Column, Validators} from 'ng-mazdik-lib';
 
 export function getColumnsPlayers(): Column[] {
   const columnsPlayers: Column[] = [

@@ -1,4 +1,5 @@
-export {CrudTableModule} from './crud-table-module';
-export {CrudTableComponent} from './components/crud-table/crud-table.component';
-export {DataManager, DataSource, RequestMetadata, PagedResult, CdtSettings} from './base';
-export {Column, DataTable, DataType} from '../ng-data-table';
+export * from './crud-table-module';
+export * from './components/crud-table/crud-table.component';
+export * from './base/data-manager';
+export * from './base/cdt-settings';
+export * from './base/types';

@@ -1,2 +1,2 @@
 export * from './notify-module';
-export {NotifyService} from './notify.service';
+export * from './notify.service';

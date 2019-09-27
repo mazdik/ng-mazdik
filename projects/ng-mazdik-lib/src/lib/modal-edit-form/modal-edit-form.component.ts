@@ -3,7 +3,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
-import {DataManager} from '../ng-crud-table/base';
+import {DataManager} from '../ng-crud-table/base/data-manager';
 import {DynamicFormElement, GetOptionsFunc} from '../dynamic-form';
 import {KeyValuePair} from '../row-view';
 

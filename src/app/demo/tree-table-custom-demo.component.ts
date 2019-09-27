@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, Row, Tree, TreeNode, TreeFlattener} from 'ng-mazdik-lib';
+import {ColumnBase, Settings, DataTable, Row, Tree, TreeNode, TreeFlattener} from 'ng-mazdik-lib';
 import {getTreeColumns} from './columns';
 import {Subscription} from 'rxjs';
 
@@ -40,7 +40,6 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     selectionMultiple: true,
     selectionMode: 'checkbox',
   });
-  columns: Column[];
 
   @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
   @ViewChild('cellNodeTemplate', {static: true}) cellNodeTemplate: TemplateRef<any>;
@@ -49,8 +48,8 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
-    this.columns = getTreeColumns();
-    this.dataTable = new DataTable(this.columns, this.settings, null);
+    const columns = getTreeColumns();
+    this.dataTable = new DataTable(columns, this.settings, null);
     this.dataTable.pager.perPage = 1000;
     this.treeFlattener = new TreeFlattener(this.transformer);
   }
@@ -104,7 +103,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     };
   }
 
-  getSum(row: Row, column: Column, value: any) {
+  getSum(row: Row, column: ColumnBase, value: any) {
     if (value) {
       return value;
     }

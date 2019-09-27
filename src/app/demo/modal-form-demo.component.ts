@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataManager, ModalEditFormComponent} from 'ng-mazdik-lib';
+import {CdtSettings, DataManager, ModalEditFormComponent} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -19,7 +19,6 @@ import {getColumnsPlayers} from './columns';
 
 export class ModalFormDemoComponent {
 
-  columns: Column[];
   dataManager: DataManager;
 
   settings: CdtSettings = new CdtSettings({
@@ -57,11 +56,11 @@ export class ModalFormDemoComponent {
   };
 
   constructor(private service: DemoService, private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.columns[3].options = null;
-    this.columns[3].optionsUrl = 'assets/options.json';
-    this.columns[9].validatorFunc = this.customValidation;
-    this.dataManager = new DataManager(this.columns, this.settings, this.service);
+    const columns = getColumnsPlayers();
+    columns[3].options = null;
+    columns[3].optionsUrl = 'assets/options.json';
+    columns[9].validatorFunc = this.customValidation;
+    this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 
   onSaved(event) {

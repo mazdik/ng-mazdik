@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from 'ng-mazdik-lib';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 
@@ -47,7 +47,6 @@ import {Subscription} from 'rxjs';
 export class FrozenTableDemoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   table: DataTable;
-  columns: Column[];
   settings: Settings = new Settings({
     bodyHeight: 380,
   });
@@ -58,11 +57,11 @@ export class FrozenTableDemoComponent implements OnInit, AfterViewInit, OnDestro
   rowTrackingFn = (index: number, row: any) => (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.columns.forEach(x => x.frozen = false);
-    this.columns[2].tableHidden = true;
-    this.columns[4].tableHidden = true;
-    this.table = new DataTable(this.columns, this.settings);
+    const columns = getColumnsPlayers();
+    columns.forEach(x => x.frozen = false);
+    columns[2].tableHidden = true;
+    columns[4].tableHidden = true;
+    this.table = new DataTable(columns, this.settings);
     this.table.pager.perPage = 50;
   }
 

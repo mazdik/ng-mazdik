@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, CellEventType, EventHelper} from 'ng-mazdik-lib';
+import {Settings, DataTable, CellEventType, EventHelper} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 
@@ -22,7 +22,6 @@ import {Subscription} from 'rxjs';
 export class EventsDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
-  columns: Column[];
 
   settings: Settings = new Settings({
     hoverEvents: true,
@@ -36,8 +35,8 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
-    this.columns = getColumnsPlayers();
-    this.table = new DataTable(this.columns, this.settings);
+    const columns = getColumnsPlayers();
+    this.table = new DataTable(columns, this.settings);
   }
 
   ngOnInit() {

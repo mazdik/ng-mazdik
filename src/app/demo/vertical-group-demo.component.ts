@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, GroupMetadata, DataAggregation} from 'ng-mazdik-lib';
+import {Settings, DataTable, GroupMetadata, DataAggregation} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 
@@ -55,7 +55,6 @@ import {Subscription} from 'rxjs';
 export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
-  columns: Column[];
   settings: Settings = new Settings({
     headerRowHeight: 40,
     bodyHeight: 380,
@@ -71,10 +70,10 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.columns[2].tableHidden = true;
-    this.columns[4].tableHidden = true;
-    this.table = new DataTable(this.columns, this.settings);
+    const columns = getColumnsPlayers();
+    columns[2].tableHidden = true;
+    columns[4].tableHidden = true;
+    this.table = new DataTable(columns, this.settings);
     this.table.pager.perPage = 50;
     this.dataAggregation = new DataAggregation();
   }
