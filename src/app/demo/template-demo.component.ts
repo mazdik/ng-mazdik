@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, FilterOperator} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
-import {FilterOperator} from '../../lib/ng-data-table/base';
 
 @Component({
   selector: 'app-template-demo',

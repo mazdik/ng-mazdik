@@ -1,11 +1,7 @@
 import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener, ElementRef} from '@angular/core';
-import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
-import {CellEventType} from '../../lib/ng-data-table';
+import {Column, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
-import {SelectItem} from '../../lib/common';
 import {Subscription} from 'rxjs';
-import {EventHelper} from '../../lib/ng-data-table/base';
-import {findAncestor} from '../../lib/common/utils';
 
 @Component({
   selector: 'app-multi-select-demo',
@@ -60,10 +56,29 @@ import {findAncestor} from '../../lib/common/utils';
     .multi-select-demo .datatable-body-cell > .cell-data,
     .multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
     .multi-select-demo-block {position: relative;}
-    .multi-select-demo-block .dt-dropdown-select-list {width: 250px;}`,
-  ],
-  styleUrls: [
-    '../../lib/dropdown-select/dropdown-select.component.css',
+    .multi-select-demo-block .dt-dropdown-select-list {width: 250px;}
+    .dt-dropdown-select {
+      display: block;
+      position: relative;
+      width: 100%;
+    }
+    .dt-dropdown-select-list {
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+      padding: 5px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    }
+    .dt-dropdown-select .dt-input-group input:not([disabled]) {
+      cursor: pointer;
+    }
+    input.dt-select-input[readonly]:not([disabled]) {
+      background-color: white;
+    }
+    `,
   ],
   encapsulation: ViewEncapsulation.None,
 })

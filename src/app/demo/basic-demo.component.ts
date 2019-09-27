@@ -1,9 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
+import {Column, CdtSettings, DataManager, SelectItem, DtMessages, DtMessagesEn} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
-import {SelectItem} from '../../lib/common';
-import {DtMessages, DtMessagesEn} from '../../lib/dt-translate';
 
 @Component({
   selector: 'app-basic-demo',

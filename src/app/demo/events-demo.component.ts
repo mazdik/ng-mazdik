@@ -1,7 +1,6 @@
 import {Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, CellEventType} from '../../lib/ng-data-table';
-import {EventHelper} from '../../lib/ng-data-table/base';
+import {Column, Settings, DataTable, CellEventType, EventHelper} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 import {Subscription} from 'rxjs';
 

@@ -1,5 +1,5 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {Column, CdtSettings, DataManager, CrudTableComponent} from '../../lib/ng-crud-table';
+import {Column, CdtSettings, DataManager, CrudTableComponent} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 

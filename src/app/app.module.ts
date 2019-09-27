@@ -3,21 +3,13 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
+import {
+  CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule,
+  TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule
+} from 'ng-mazdik-lib';
+import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent} from './not-found.component';
-import { CrudTableModule } from '../lib/ng-crud-table';
-import { DataTableModule } from '../lib/ng-data-table';
-import { TreeTableModule } from '../lib/ng-tree-table';
-import { DtToolbarModule } from '../lib/dt-toolbar';
-import { ModalModule } from '../lib//modal';
-import { ModalEditFormModule } from '../lib/modal-edit-form';
-import { TreeViewModule } from '../lib/tree-view';
-import { ContextMenuModule } from '../lib/context-menu';
-import { NotifyModule } from '../lib/notify';
-import { DateFormatPipe } from './pipes/date-format.pipe';
-import { DropdownSelectModule } from '../lib/dropdown-select';
-import { SelectListModule } from '../lib/select-list';
-
 import { BasicDemoComponent } from './demo/basic-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';

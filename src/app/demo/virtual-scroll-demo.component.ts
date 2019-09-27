@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings} from '../../lib/ng-data-table';
-import {CdtSettings, DataTable, DataManager} from '../../lib/ng-crud-table';
+import {Column, Settings, CdtSettings, DataTable, DataManager} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 

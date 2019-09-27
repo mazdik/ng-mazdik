@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 import {DateFormatPipe} from '../pipes/date-format.pipe';
 

@@ -1,8 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, GroupMetadata} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, GroupMetadata, DataAggregation} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
-import {DataAggregation} from '../../lib/ng-data-table/base/data-aggregation';
 import {Subscription} from 'rxjs';
 
 @Component({

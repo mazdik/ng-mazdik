@@ -1,8 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
+import {Column, CdtSettings, DataManager, ModalEditFormComponent} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
-import {ModalEditFormComponent} from '../../lib/modal-edit-form/modal-edit-form.component';
 import {getColumnsPlayers} from './columns';
 
 @Component({

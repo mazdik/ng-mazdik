@@ -1,8 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable, Row} from '../../lib/ng-data-table';
+import {Column, Settings, DataTable, Row, Tree, TreeNode, TreeFlattener} from 'ng-mazdik-lib';
 import {getTreeColumns} from './columns';
-import {Tree, TreeNode, TreeFlattener} from '../../lib/tree-lib';
 import {Subscription} from 'rxjs';
 
 @Component({
