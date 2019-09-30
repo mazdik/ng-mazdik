@@ -10,7 +10,7 @@ import {
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent} from './not-found.component';
-import { BasicDemoComponent } from './demo/basic-demo.component';
+import { CrudTableDemoComponent } from './demo/crud-table-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';
 import { MasterDetailDemoComponent } from './demo/master-detail-demo.component';
@@ -40,8 +40,8 @@ import { CustomRowActionDemoComponent } from './demo/custom-row-action-demo.comp
 import { FrozenTableDemoComponent } from './demo/frozen-table-demo.component';
 
 const ROUTES: Routes = [
-  {path: '', component: BasicDemoComponent},
-  {path: 'basic-demo', component: BasicDemoComponent},
+  {path: '', component: CrudTableDemoComponent},
+  {path: 'crud-table-demo', component: CrudTableDemoComponent},
   {path: 'tree-table-demo', component: TreeTableDemoComponent},
   {path: 'data-table-demo', component: DataTableDemoComponent},
   {path: 'master-detail-demo', component: MasterDetailDemoComponent},
@@ -76,7 +76,7 @@ const ROUTES: Routes = [
   declarations: [
     AppComponent,
     PageNotFoundComponent,
-    BasicDemoComponent,
+    CrudTableDemoComponent,
     TreeTableDemoComponent,
     DataTableDemoComponent,
     MasterDetailDemoComponent,

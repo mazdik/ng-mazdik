@@ -8,7 +8,7 @@ import {getColumnsPlayers} from './columns';
   template: `<app-crud-table [dataManager]="dataManager"></app-crud-table>`
 })
 
-export class BasicDemoComponent implements OnInit {
+export class CrudTableDemoComponent implements OnInit {
 
   dataManager: DataManager;
 

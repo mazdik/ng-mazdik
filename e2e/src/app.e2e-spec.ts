@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Demo crud data table');
+    expect(page.getTitleText()).toEqual('Angular UI component library');
   });
 
   afterEach(async () => {
