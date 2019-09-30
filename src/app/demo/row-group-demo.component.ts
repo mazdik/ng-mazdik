@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -20,7 +20,6 @@ import {getColumnsPlayers} from './columns';
 export class RowGroupDemoComponent implements OnInit {
 
   table: DataTable;
-  columns: Column[];
 
   settings: Settings = new Settings({
     groupRowsBy: ['race'],
@@ -28,8 +27,8 @@ export class RowGroupDemoComponent implements OnInit {
   });
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.table = new DataTable(this.columns, this.settings);
+    const columns = getColumnsPlayers();
+    this.table = new DataTable(columns, this.settings);
     this.table.pager.perPage = 50;
   }
 

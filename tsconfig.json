@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ng-mazdik-lib": [
+        "dist/ng-mazdik-lib"
+      ],
+      "ng-mazdik-lib/*": [
+        "dist/ng-mazdik-lib/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

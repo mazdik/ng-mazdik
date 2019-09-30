@@ -1,8 +1,7 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {ColumnBase, Settings, DataTable, FilterOperator} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
-import {FilterOperator} from '../../lib/ng-data-table/base';
 
 @Component({
   selector: 'app-template-demo',
@@ -41,7 +40,7 @@ import {FilterOperator} from '../../lib/ng-data-table/base';
 export class TemplateDemoComponent implements OnInit {
 
   table: DataTable;
-  columns: Column[];
+  columns: ColumnBase[];
   settings: Settings = new Settings({
     headerRowHeight: 40,
     rowHeight: 40,
@@ -51,7 +50,7 @@ export class TemplateDemoComponent implements OnInit {
   @ViewChild('headerRnCellTemplate', {static: true}) headerRnCellTemplate: TemplateRef<any>;
   @ViewChild('cellRnTemplate', {static: true}) cellRnTemplate: TemplateRef<any>;
 
-  rnColumn: Column = {
+  rnColumn: ColumnBase = {
     name: 'rn',
     title: '#',
     sortable: false,

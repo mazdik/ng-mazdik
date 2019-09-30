@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Column, CdtSettings, DataManager} from '../../lib/ng-crud-table';
+import {CdtSettings, DataManager} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -17,7 +17,6 @@ import {getColumnsPlayers} from './columns';
 
 export class NestedModalsDemoComponent {
 
-  columns: Column[];
   dataManager: DataManager;
 
   settings: CdtSettings = new CdtSettings({
@@ -29,8 +28,8 @@ export class NestedModalsDemoComponent {
   @ViewChild('modal', {static: false}) modal: any;
 
   constructor(private service: DemoService) {
-    this.columns = getColumnsPlayers();
-    this.dataManager = new DataManager(this.columns, this.settings, this.service);
+    const columns = getColumnsPlayers();
+    this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 
   openModal() {

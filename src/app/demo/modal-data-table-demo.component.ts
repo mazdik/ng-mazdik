@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
 
 @Component({
@@ -41,9 +41,6 @@ export class ModalDataTableDemoComponent implements OnInit {
   dtPlayers: DataTable;
   dtInventory: DataTable;
   dtRank: DataTable;
-  columnsPlayers: Column[];
-  columnsRank: Column[];
-  columnsInventory: Column[];
   settings: Settings = new Settings({});
 
   @ViewChild('template1', {static: true}) template1: TemplateRef<any>;
@@ -55,15 +52,15 @@ export class ModalDataTableDemoComponent implements OnInit {
   private inventory: any = [];
 
   constructor(private http: HttpClient) {
-    this.columnsPlayers = getColumnsPlayers();
-    this.columnsPlayers.splice(7);
-    this.columnsPlayers[1].editable = false;
-    this.columnsRank = getColumnsRank();
-    this.columnsInventory = getColumnsInventory();
+    const columnsPlayers = getColumnsPlayers();
+    columnsPlayers.splice(7);
+    columnsPlayers[1].editable = false;
+    const columnsRank = getColumnsRank();
+    const columnsInventory = getColumnsInventory();
 
-    this.dtPlayers = new DataTable(this.columnsPlayers, this.settings);
-    this.dtInventory = new DataTable(this.columnsInventory, this.settings);
-    this.dtRank = new DataTable(this.columnsRank, this.settings);
+    this.dtPlayers = new DataTable(columnsPlayers, this.settings);
+    this.dtInventory = new DataTable(columnsInventory, this.settings);
+    this.dtRank = new DataTable(columnsRank, this.settings);
   }
 
   ngOnInit() {

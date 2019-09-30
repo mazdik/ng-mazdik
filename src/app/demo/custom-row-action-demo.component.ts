@@ -1,5 +1,5 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {Column, CdtSettings, DataManager, CrudTableComponent} from '../../lib/ng-crud-table';
+import {CdtSettings, DataManager, CrudTableComponent} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -10,7 +10,6 @@ import {getColumnsPlayers} from './columns';
 
 export class CustomRowActionDemoComponent implements AfterViewInit {
 
-  columns: Column[];
   dataManager: DataManager;
   settings: CdtSettings = new CdtSettings({
     crud: true
@@ -18,8 +17,8 @@ export class CustomRowActionDemoComponent implements AfterViewInit {
   @ViewChild('cdt', {static: false}) cdt: CrudTableComponent;
 
   constructor(private service: DemoService) {
-    this.columns = getColumnsPlayers();
-    this.dataManager = new DataManager(this.columns, this.settings, this.service);
+    const columns = getColumnsPlayers();
+    this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 
   ngAfterViewInit() {

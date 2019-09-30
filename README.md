@@ -1,4 +1,4 @@
-# Angular data table component
+# Angular UI component library
 
 Feature-rich data table component for Angular with CRUD operations. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 
@@ -6,9 +6,7 @@ Feature-rich data table component for Angular with CRUD operations. (<a target="
 ```typescript
 import {Component}  from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, CdtSettings, DataSource, DataManager} from './lib/ng-crud-table';
-import {Validators} from './lib/common';
-import {NotifyService} from './lib/notify/notify.service';
+import {ColumnBase, CdtSettings, DataSource, DataManager, Validators, NotifyService} from 'ng-mazdik-lib';
 import {YiiService} from './samples/services';
 
 @Component({
@@ -20,7 +18,7 @@ import {YiiService} from './samples/services';
 export class PlayersComponent {
 
     dataManager: DataManager;
-    columns: Column[] = [
+    columns: ColumnBase[] = [
         {
             title: 'Id', 
             name: 'id', 
@@ -119,7 +117,7 @@ export class PlayersComponent {
 ```
 ### Sample data-table
 ```typescript
-import {Column, Settings, DataTable} from './lib/ng-data-table';
+import {ColumnBase, Settings, DataTable} from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-data-table-demo',
@@ -129,7 +127,7 @@ import {Column, Settings, DataTable} from './lib/ng-data-table';
 export class DataTableDemoComponent {
 
   dataTable: DataTable;
-  columns: Column[];
+  columns: ColumnBase[];
   settings: Settings;
 
   constructor() {
@@ -140,7 +138,7 @@ export class DataTableDemoComponent {
 ```
 ### Sample tree-table
 ```typescript
-import {Column, Settings, TreeTable} from './lib/ng-tree-table';
+import {ColumnBase, Settings, TreeTable} from 'ng-mazdik-lib';
 import {TreeDemoService} from './tree-demo.service';
 
 @Component({
@@ -152,7 +150,7 @@ export class TreeTableDemoComponent {
 
   treeTable: TreeTable;
   settings: Settings;
-  columns: Column[];
+  columns: ColumnBase[];
 
   constructor(private treeService: TreeDemoService) {
     this.treeTable = new TreeTable(this.columns, this.settings, this.treeService);
@@ -320,7 +318,7 @@ private subscriptions: Subscription[] = [];
 
 ### Sample translate
 ```typescript
-import {DtMessages, DtMessagesEn} from '../lib/dt-translate';
+import {DtMessages, DtMessagesEn} from 'ng-mazdik-lib';
 
 messages: DtMessages = new DtMessagesEn({
   empty: 'No data to display',

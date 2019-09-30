@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -25,13 +25,12 @@ import {getColumnsPlayers} from './columns';
 export class HeaderDemoComponent implements OnInit {
 
   table: DataTable;
-  columns: Column[];
   settings: Settings = new Settings({});
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.columns.splice(17);
-    this.table = new DataTable(this.columns, this.settings);
+    const columns = getColumnsPlayers();
+    columns.splice(17);
+    this.table = new DataTable(columns, this.settings);
   }
 
   ngOnInit() {

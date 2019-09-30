@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 
 @Component({
@@ -11,15 +11,14 @@ import {getColumnsPlayers} from './columns';
 export class CssDemoComponent implements OnInit {
 
   table: DataTable;
-  columns: Column[];
   settings: Settings = new Settings({});
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.columns[5].cellClass = this.getCellClass;
+    const columns = getColumnsPlayers();
+    columns[5].cellClass = this.getCellClass;
     this.settings.rowClass = this.getRowClass;
-    this.columns[2].headerCellClass = 'header-cell-demo';
-    this.table = new DataTable(this.columns, this.settings);
+    columns[2].headerCellClass = 'header-cell-demo';
+    this.table = new DataTable(columns, this.settings);
     this.table.pager.perPage = 20;
   }
 

@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 import {Subscription, interval} from 'rxjs';
 
@@ -15,7 +15,6 @@ import {Subscription, interval} from 'rxjs';
 export class LiveDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
-  columns: Column[];
   tempRows: any;
   stop: boolean = false;
 
@@ -26,8 +25,8 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
   private subInterval: Subscription;
 
   constructor(private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.table = new DataTable(this.columns, this.settings);
+    const columns = getColumnsPlayers();
+    this.table = new DataTable(columns, this.settings);
   }
 
   ngOnInit() {

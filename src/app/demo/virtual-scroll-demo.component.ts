@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Column, Settings} from '../../lib/ng-data-table';
-import {CdtSettings, DataTable, DataManager} from '../../lib/ng-crud-table';
+import {Settings, CdtSettings, DataTable, DataManager} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
@@ -17,7 +16,6 @@ import {getColumnsPlayers} from './columns';
 export class VirtualScrollDemoComponent implements OnInit {
 
   table: DataTable;
-  columns: Column[];
   dataManager: DataManager;
 
   settings: Settings = new Settings({
@@ -30,9 +28,9 @@ export class VirtualScrollDemoComponent implements OnInit {
   });
 
   constructor(private service: DemoService, private http: HttpClient) {
-    this.columns = getColumnsPlayers();
-    this.table = new DataTable(this.columns, this.settings);
-    this.dataManager = new DataManager(this.columns, this.serverSideSettings, this.service);
+    const columns = getColumnsPlayers();
+    this.table = new DataTable(columns, this.settings);
+    this.dataManager = new DataManager(columns, this.serverSideSettings, this.service);
   }
 
   ngOnInit() {

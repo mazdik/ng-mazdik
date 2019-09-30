@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {TreeNode, TreeDataSource} from '../../lib/tree';
+import {TreeNode, TreeDataSource} from 'ng-mazdik-lib';
 
 @Injectable({
   providedIn: 'root'

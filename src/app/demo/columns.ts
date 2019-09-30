@@ -1,5 +1,4 @@
-import {Column} from '../../lib/ng-crud-table';
-import {Validators} from '../../lib/common';
+import {ColumnBase as Column, Validators} from 'ng-mazdik-lib';
 
 export function getColumnsPlayers(): Column[] {
   const columnsPlayers: Column[] = [

@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Column, Settings, DataTable} from '../../lib/ng-data-table';
+import {Settings, DataTable} from 'ng-mazdik-lib';
 import {HttpClient} from '@angular/common/http';
 import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
 import {Subscription} from 'rxjs';
@@ -25,9 +25,6 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
   dtPlayers: DataTable;
   dtInventory: DataTable;
   dtRank: DataTable;
-  columnsPlayers: Column[];
-  columnsRank: Column[];
-  columnsInventory: Column[];
 
   settings: Settings = new Settings({
     bodyHeight: 250,
@@ -38,16 +35,16 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
-    this.columnsPlayers = getColumnsPlayers();
-    for (const column of this.columnsPlayers) {
+    const columnsPlayers = getColumnsPlayers();
+    for (const column of columnsPlayers) {
       column.editable = false;
     }
-    this.columnsRank = getColumnsRank();
-    this.columnsInventory = getColumnsInventory();
+    const columnsRank = getColumnsRank();
+    const columnsInventory = getColumnsInventory();
 
-    this.dtPlayers = new DataTable(this.columnsPlayers, this.settings);
-    this.dtInventory = new DataTable(this.columnsInventory, this.settings);
-    this.dtRank = new DataTable(this.columnsRank, this.settings);
+    this.dtPlayers = new DataTable(columnsPlayers, this.settings);
+    this.dtInventory = new DataTable(columnsInventory, this.settings);
+    this.dtRank = new DataTable(columnsRank, this.settings);
 
     const subSelection = this.dtPlayers.events.selectionSource$.subscribe(() => {
       this.masterChanged();
