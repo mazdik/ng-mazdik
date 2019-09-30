@@ -8,7 +8,7 @@ import {DataFilter} from './data-filter';
 import {Events} from './events';
 import {DataSelection} from './data-selection';
 import {Dimensions} from './dimensions';
-import {DtMessages, DtMessagesEn} from '../../dt-translate';
+import {DtMessages, DtMessagesEn} from '../../dt-translate/dt-messages';
 import {RowGroup} from './row-group';
 import {RowModelGenerator} from './row-model-generator';
 import {ColumnModelGenerator} from './column-model-generator';

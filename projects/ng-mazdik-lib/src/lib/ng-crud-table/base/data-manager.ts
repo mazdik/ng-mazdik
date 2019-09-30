@@ -1,10 +1,11 @@
 import {DataSource, RequestMetadata} from './types';
-import {Row, FilterMetadata} from '../../ng-data-table';
+import {FilterMetadata} from '../../ng-data-table/base/types';
+import {Row} from '../../ng-data-table/base/row';
 import {DataTable} from '../../ng-data-table/base/data-table';
 import {ColumnBase} from '../../ng-data-table/base/column-base';
 import {ColumnModelGenerator} from '../../ng-data-table/base/column-model-generator';
 import {CdtSettings} from './cdt-settings';
-import {DtMessages} from '../../dt-translate';
+import {DtMessages} from '../../dt-translate/dt-messages';
 
 export class DataManager extends DataTable {
 

@@ -1,6 +1,9 @@
 import {DataTable, ColumnBase, Settings, Row} from '../ng-data-table/base';
-import {Tree, TreeNode, TreeDataSource, TreeFlattener} from '../tree-lib';
-import {DtMessages} from '../dt-translate';
+import {Tree} from '../tree-lib/tree';
+import {TreeNode} from '../tree-lib/tree-node';
+import {TreeFlattener} from '../tree-lib/tree-flattener';
+import {TreeDataSource} from '../tree-lib/types';
+import {DtMessages} from '../dt-translate/dt-messages';
 
 export class TreeTable extends DataTable {
 

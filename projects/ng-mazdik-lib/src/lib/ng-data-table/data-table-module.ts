@@ -1,11 +1,11 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {PaginationModule} from '../pagination';
-import {ScrollerModule} from '../scroller';
-import {SelectListModule} from '../select-list';
-import {InlineEditModule} from '../inline-edit';
-import {ResizableModule} from '../resizable';
+import {PaginationModule} from '../pagination/pagination-module';
+import {ScrollerModule} from '../scroller/scroller-module';
+import {SelectListModule} from '../select-list/select-list-module';
+import {InlineEditModule} from '../inline-edit/inline-edit-module';
+import {ResizableModule} from '../resizable/resizable-module';
 import {HeaderComponent} from './components/header/header.component';
 import {HeaderCellComponent} from './components/header/header-cell.component';
 import {FilterComponent} from './components/filter/filter.component';

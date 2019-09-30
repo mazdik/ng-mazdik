@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ModalSelectModule} from '../modal-select';
-import {DropdownSelectModule} from '../dropdown-select';
+import {ModalSelectModule} from '../modal-select/modal-select-module';
+import {DropdownSelectModule} from '../dropdown-select/dropdown-select-module';
 
 import {DynamicFormComponent} from './dynamic-form.component';
 import {InputComponent} from './input.component';

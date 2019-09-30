@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 import {DataTable} from '../../base';
 import {Subscription} from 'rxjs';
-import {ScrollerComponent} from '../../../scroller';
+import {ScrollerComponent} from '../../../scroller/scroller.component';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
 
 @Component({

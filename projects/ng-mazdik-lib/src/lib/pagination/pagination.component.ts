@@ -1,11 +1,7 @@
 import {
   Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding, ViewEncapsulation
 } from '@angular/core';
-
-export class PageEvent {
-  currentPage: number;
-  perPage: number;
-}
+import {PageEvent} from './types';
 
 @Component({
   selector: 'app-pagination',

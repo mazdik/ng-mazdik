@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { ColumnBase } from '../../base';
-import { DataTableModule, Settings, DataTable } from '../../index';
+import { Settings, DataTable } from '../../base';
+import { DataTableModule } from '../../data-table-module';
 
 @Component({
   template: `<app-data-table [table]="dataTable"></app-data-table>`

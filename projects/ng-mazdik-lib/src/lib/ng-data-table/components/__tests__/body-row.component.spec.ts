@@ -5,7 +5,7 @@ import { ColumnBase, Settings, DataTable, Row } from '../../base';
 import { BodyRowComponent } from '../body/body-row.component';
 import { BodyCellEditComponent } from '../body/body-cell-edit.component';
 import { BodyCellComponent } from '../body/body-cell.component';
-import { InlineEditModule } from '../../../inline-edit';
+import { InlineEditModule } from '../../../inline-edit/inline-edit-module';
 
 @Component({
   template: `<dt-body-row [table]="dataTable" [row]="row"></dt-body-row>`

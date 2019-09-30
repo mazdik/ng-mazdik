@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { ColumnBase, Settings, DataTable } from '../../base';
 import { HeaderComponent } from '../header/header.component';
 import { HeaderCellComponent } from '../header/header-cell.component';
-import { ResizableModule } from '../../../resizable';
+import { ResizableModule } from '../../../resizable/resizable-module';
 
 @Component({
   template: `<dt-header [table]="dataTable"></dt-header>`

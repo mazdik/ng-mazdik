@@ -2,7 +2,7 @@ import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
-import {DropDown} from '../dropdown';
+import {DropDown} from '../dropdown/drop-down';
 import {SelectItem} from '../common';
 import {Subscription} from 'rxjs';
 

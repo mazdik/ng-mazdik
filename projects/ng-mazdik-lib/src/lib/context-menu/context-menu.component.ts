@@ -3,7 +3,7 @@ import {
   HostBinding, ElementRef, ViewEncapsulation, OnInit, OnDestroy
 } from '@angular/core';
 import { MenuEventArgs } from './types';
-import { DropDown } from '../dropdown';
+import { DropDown } from '../dropdown/drop-down';
 import { MenuItem } from '../common';
 import { isBlank } from '../common/utils';
 import { Subscription } from 'rxjs';

@@ -3,9 +3,10 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import {TreeTable} from './tree-table';
-import {Row} from '../ng-data-table';
+import {Row} from '../ng-data-table/base/row';
 import {Subscription} from 'rxjs';
-import {TreeNode, TreeHelper} from '../tree-lib';
+import {TreeNode} from '../tree-lib/tree-node';
+import {TreeHelper} from '../tree-lib/tree-helper';
 
 @Component({
   selector: 'app-tree-table',

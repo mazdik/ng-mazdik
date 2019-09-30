@@ -2,11 +2,13 @@ import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, ViewEncapsulation, TemplateRef,
   HostBinding, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ModalEditFormComponent} from '../../../modal-edit-form';
+import {ModalEditFormComponent} from '../../../modal-edit-form/modal-edit-form.component';
 import {DataManager} from '../../base/data-manager';
 import {Subscription} from 'rxjs';
-import {ContextMenuComponent, MenuEventArgs} from '../../../context-menu';
-import {DataTableComponent, Row} from '../../../ng-data-table';
+import {ContextMenuComponent} from '../../../context-menu/context-menu.component';
+import {MenuEventArgs} from '../../../context-menu/types';
+import {DataTableComponent} from '../../../ng-data-table/components/data-table/data-table.component';
+import {Row} from '../../../ng-data-table/base/row';
 import {EventHelper, ColumnModelGenerator} from '../../../ng-data-table/base';
 import {MenuItem} from '../../../common';
 

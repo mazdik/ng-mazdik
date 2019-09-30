@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {DragDropModule} from '../drag-drop';
+import {DragDropModule} from '../drag-drop/drag-drop-module';
 import {DualListBoxComponent} from './dual-list-box.component';
 
 @NgModule({

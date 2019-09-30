@@ -2,7 +2,7 @@ import {
   Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, HostBinding,
   ChangeDetectorRef
 } from '@angular/core';
-import {PageEvent} from '../../lib/pagination';
+import {PageEvent} from '../../lib/pagination/types';
 import {SelectItem} from '../common';
 
 @Component({

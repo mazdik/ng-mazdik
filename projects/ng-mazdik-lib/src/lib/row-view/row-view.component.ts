@@ -1,9 +1,5 @@
 import {Component, Input, ChangeDetectionStrategy, ViewEncapsulation} from '@angular/core';
-
-export interface KeyValuePair {
-  key: string;
-  value: any;
-}
+import {KeyValuePair} from './types';
 
 @Component({
   selector: 'app-row-view',
@@ -21,8 +17,7 @@ export class RowViewComponent {
   order: string;
   reverse: boolean = true;
 
-  constructor() {
-  }
+  constructor() {}
 
   setOrder(name: string) {
     if (this.order === name) {

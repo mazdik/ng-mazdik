@@ -4,8 +4,9 @@ import {
 } from '@angular/core';
 import {ModalComponent} from '../modal/modal.component';
 import {DataManager} from '../ng-crud-table/base/data-manager';
-import {DynamicFormElement, GetOptionsFunc} from '../dynamic-form';
-import {KeyValuePair} from '../row-view';
+import {DynamicFormElement} from '../dynamic-form/dynamic-form-element';
+import {GetOptionsFunc} from '../dynamic-form/types';
+import {KeyValuePair} from '../row-view/types';
 
 @Component({
   selector: 'app-modal-edit-form',

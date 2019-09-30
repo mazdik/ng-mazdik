@@ -1,6 +1,9 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {TreeNode, Tree, TreeDataSource} from '../tree-lib';
-import {ContextMenuComponent, MenuEventArgs} from '../context-menu';
+import {TreeDataSource} from '../tree-lib/types';
+import {Tree} from '../tree-lib/tree';
+import {TreeNode} from '../tree-lib/tree-node';
+import {MenuEventArgs} from '../context-menu/types';
+import {ContextMenuComponent} from '../context-menu/context-menu.component';
 
 @Component({
   selector: 'app-tree-view',

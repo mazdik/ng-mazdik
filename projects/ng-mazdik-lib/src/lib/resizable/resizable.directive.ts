@@ -4,13 +4,7 @@ import {
 import {Subscription, fromEvent} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {isLeftButton, getEvent} from '../common/utils';
-
-export interface ResizableEvent {
-  width: number;
-  height: number;
-  event?: MouseEvent | Touch;
-  direction?: 'horizontal' | 'vertical';
-}
+import {ResizableEvent} from './types';
 
 @Directive({
   selector: '[appResizable]'

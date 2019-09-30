@@ -1,7 +1,7 @@
 import {
   Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, HostListener, HostBinding, EventEmitter, ViewEncapsulation
 } from '@angular/core';
-import {ResizableEvent} from '../resizable';
+import {ResizableEvent} from '../resizable/types';
 import {maxZIndex, findAncestor} from '../common/utils';
 
 @Component({

@@ -6,8 +6,8 @@ import { BodyComponent } from '../body/body.component';
 import { BodyRowComponent } from '../body/body-row.component';
 import { BodyCellEditComponent } from '../body/body-cell-edit.component';
 import { BodyCellComponent } from '../body/body-cell.component';
-import { InlineEditModule } from '../../../inline-edit';
-import { ScrollerModule } from '../../../scroller';
+import { InlineEditModule } from '../../../inline-edit/inline-edit-module';
+import { ScrollerModule } from '../../../scroller/scroller-module';
 
 @Component({
   template: `<dt-body [table]="dataTable"></dt-body>`

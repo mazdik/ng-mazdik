@@ -5,7 +5,7 @@ import {
 import {DataTable, ColumnModelGenerator, Row} from '../../base';
 import {Subscription} from 'rxjs';
 import {BodyComponent} from '../body/body.component';
-import {PageEvent} from '../../../pagination';
+import {PageEvent} from '../../../pagination/types';
 import {HeaderTemplateDirective} from '../../directives/header-template.directive';
 import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
 
