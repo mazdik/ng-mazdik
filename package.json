@@ -5,12 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
+    "test": "ng test ng-mazdik-lib",
+    "lint": "ng lint ng-mazdik-lib",
     "e2e": "ng e2e",
     "lib:build": "ng build ng-mazdik-lib",
     "lib:watch": "ng build ng-mazdik-lib --watch",
-    "lib:publish": "npm run lib:build && cd dist/ng-mazdik-lib && npm publish"
+    "lib:publish": "cd dist/ng-mazdik-lib && npm publish"
   },
   "private": true,
   "dependencies": {
