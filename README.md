@@ -1,5 +1,7 @@
 # Angular UI component library
 
+npm install ng-mazdik-lib -S
+
 Feature-rich data table component for Angular with CRUD operations. (<a target="_blank" href="https://mazdik.github.io/ng-crud-table/">Demo</a>)  
 
 ### Sample crud-table

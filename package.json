@@ -1,6 +1,7 @@
 {
-  "name": "ng-mazdik",
-  "version": "8.2.0",
+  "name": "ng-mazdik-lib",
+  "version": "8.2.8",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -10,9 +11,8 @@
     "e2e": "ng e2e",
     "lib:build": "ng build ng-mazdik-lib",
     "lib:watch": "ng build ng-mazdik-lib --watch",
-    "lib:publish": "npm run lib:build && cd dist/ng-mazdik-lib && npm pack npm publish"
+    "lib:publish": "npm run lib:build && cd dist/ng-mazdik-lib && npm publish"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.8",
     "@angular/common": "~8.2.8",
