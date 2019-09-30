@@ -1,7 +1,6 @@
 {
-  "name": "ng-mazdik-lib",
-  "version": "8.2.8",
-  "license": "MIT",
+  "name": "ng-mazdik",
+  "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,6 +12,7 @@
     "lib:watch": "ng build ng-mazdik-lib --watch",
     "lib:publish": "npm run lib:build && cd dist/ng-mazdik-lib && npm publish"
   },
+  "private": true,
   "dependencies": {
     "@angular/animations": "~8.2.8",
     "@angular/common": "~8.2.8",

@@ -1,8 +1,15 @@
 {
   "name": "ng-mazdik-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "description": "Angular UI component library",
   "peerDependencies": {
     "@angular/common": "^8.2.8",
     "@angular/core": "^8.2.8"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazdik/ng-mazdik.git"
+  },
+  "author": "Mazdik",
+  "license": "MIT"
 }
