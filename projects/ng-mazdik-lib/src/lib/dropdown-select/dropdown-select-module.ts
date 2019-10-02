@@ -13,7 +13,6 @@ import {DropdownSelectComponent} from './dropdown-select.component';
   ],
   exports: [
     DropdownSelectComponent,
-  ],
-  providers: []
+  ]
 })
 export class DropdownSelectModule {}

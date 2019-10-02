@@ -18,7 +18,6 @@ import {ModalSelectComponent} from './modal-select.component';
   ],
   exports: [
     ModalSelectComponent,
-  ],
-  providers: []
+  ]
 })
 export class ModalSelectModule {}

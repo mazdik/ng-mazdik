@@ -14,7 +14,6 @@ import {AfterViewFocusDirective} from './after-view-focus-directory';
   ],
   exports: [
     InlineEditComponent,
-  ],
-  providers: []
+  ]
 })
 export class InlineEditModule {}

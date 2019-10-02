@@ -11,7 +11,6 @@ import {ContextMenuComponent} from './context-menu.component';
   ],
   exports: [
     ContextMenuComponent,
-  ],
-  providers: []
+  ]
 })
 export class ContextMenuModule {}

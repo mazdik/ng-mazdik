@@ -14,7 +14,6 @@ import {DualListBoxComponent} from './dual-list-box.component';
   ],
   exports: [
     DualListBoxComponent,
-  ],
-  providers: []
+  ]
 })
 export class DualListBoxModule {}

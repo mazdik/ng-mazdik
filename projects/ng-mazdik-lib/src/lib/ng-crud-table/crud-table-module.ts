@@ -24,7 +24,6 @@ import {CrudTableComponent} from './components/crud-table/crud-table.component';
   ],
   exports: [
     CrudTableComponent,
-  ],
-  providers: []
+  ]
 })
 export class CrudTableModule {}

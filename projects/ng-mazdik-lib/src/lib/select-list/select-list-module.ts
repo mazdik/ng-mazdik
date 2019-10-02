@@ -14,7 +14,6 @@ import {SelectListComponent} from './select-list.component';
   ],
   exports: [
     SelectListComponent,
-  ],
-  providers: []
+  ]
 })
 export class SelectListModule {}

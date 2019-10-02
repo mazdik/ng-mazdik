@@ -11,7 +11,6 @@ import {ScrollerComponent} from './scroller.component';
   ],
   exports: [
     ScrollerComponent,
-  ],
-  providers: []
+  ]
 })
 export class ScrollerModule {}

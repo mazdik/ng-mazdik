@@ -59,7 +59,6 @@ import {RowGroupTemplateDirective} from './directives/row-group-template.directi
     DataTableComponent,
     HeaderTemplateDirective,
     RowGroupTemplateDirective,
-  ],
-  providers: []
+  ]
 })
 export class DataTableModule {}

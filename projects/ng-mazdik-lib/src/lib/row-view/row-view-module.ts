@@ -13,7 +13,6 @@ import {RowViewComponent} from './row-view.component';
   ],
   exports: [
     RowViewComponent,
-  ],
-  providers: []
+  ]
 })
 export class RowViewModule {}

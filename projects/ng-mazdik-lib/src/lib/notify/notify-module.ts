@@ -13,7 +13,6 @@ import {NotifyItemComponent} from './notify-item.component';
   ],
   exports: [
     NotifyComponent,
-  ],
-  providers: []
+  ]
 })
 export class NotifyModule {}

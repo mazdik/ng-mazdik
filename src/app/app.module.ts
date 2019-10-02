@@ -126,7 +126,6 @@ const ROUTES: Routes = [
     SelectListModule,
     DragDropModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

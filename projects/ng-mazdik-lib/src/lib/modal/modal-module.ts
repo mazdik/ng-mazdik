@@ -15,7 +15,6 @@ import {DraggableModule} from '../draggable/draggable-module';
   ],
   exports: [
     ModalComponent,
-  ],
-  providers: []
+  ]
 })
 export class ModalModule {}

@@ -36,7 +36,6 @@ import {SelectDropdownComponent} from './select-dropdown.component';
   ],
   exports: [
     DynamicFormComponent,
-  ],
-  providers: []
+  ]
 })
 export class DynamicFormModule {}

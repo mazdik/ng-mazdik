@@ -17,7 +17,6 @@ import {ModalEditFormComponent} from './modal-edit-form.component';
   ],
   exports: [
     ModalEditFormComponent,
-  ],
-  providers: []
+  ]
 })
 export class ModalEditFormModule {}
