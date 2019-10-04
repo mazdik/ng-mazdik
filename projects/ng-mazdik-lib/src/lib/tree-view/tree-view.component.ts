@@ -10,7 +10,7 @@ import {ContextMenuComponent} from '../context-menu/context-menu.component';
   templateUrl: 'tree-view.component.html',
   styleUrls: [
     './tree-view.component.css',
-    './tree-view.css',
+    '../styles/tree-icons.css',
     '../styles/clearable-input.css',
     '../styles/input.css',
     '../styles/spinners.css',

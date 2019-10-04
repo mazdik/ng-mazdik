@@ -4,7 +4,7 @@ import {Router, NavigationEnd} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css'],
+  styleUrls: ['app.component.css', '../../dist/ng-mazdik-lib/styles/tree-icons.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
