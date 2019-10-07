@@ -1,7 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {TreeDataSource} from '../tree-lib/types';
-import {Tree} from '../tree-lib/tree';
-import {TreeNode} from '../tree-lib/tree-node';
+import {TreeDataSource, Tree, TreeNode} from '../tree-lib';
 import {MenuEventArgs} from '../context-menu/types';
 import {ContextMenuComponent} from '../context-menu/context-menu.component';
 

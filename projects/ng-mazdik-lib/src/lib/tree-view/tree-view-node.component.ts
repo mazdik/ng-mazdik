@@ -1,7 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {TreeNode} from '../tree-lib/tree-node';
-import {TreeHelper} from '../tree-lib/tree-helper';
-import {FilterState} from '../tree-lib/types';
+import {TreeNode, TreeHelper, FilterState} from '../tree-lib';
 
 @Component({
   selector: 'app-tree-view-node',

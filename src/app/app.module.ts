@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
+import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule,
   TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule
@@ -113,6 +114,7 @@ const ROUTES: Routes = [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
+    NavMenuModule,
     CrudTableModule,
     DataTableModule,
     TreeTableModule,

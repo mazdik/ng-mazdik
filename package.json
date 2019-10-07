@@ -8,7 +8,7 @@
     "test": "ng test ng-mazdik-lib",
     "lint": "ng lint ng-mazdik-lib",
     "e2e": "ng e2e",
-    "copy-lib-assets": "cpx projects/ng-mazdik-lib/src/lib/styles/* dist/ng-mazdik-lib/styles",
+    "copy-lib-assets": "cpx \"projects/ng-mazdik-lib/src/lib/styles/*\" dist/ng-mazdik-lib/styles",
     "lib:build": "ng build ng-mazdik-lib && npm run copy-lib-assets",
     "lib:watch": "ng build ng-mazdik-lib --watch",
     "lib:publish": "cd dist/ng-mazdik-lib && npm publish"

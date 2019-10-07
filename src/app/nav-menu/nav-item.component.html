@@ -1,0 +1,41 @@
+<ng-container *ngIf="!node.hasChildren">
+  <a routerLinkActive="active" routerLink="{{node.id}}" [ngClass]="classes"
+    class="vertical-menu-item">
+    <i *ngIf="node.icon || getIconFunc" class="nav-menu-icon" [ngClass]="getIcon(node)"></i>
+    <span class="menu-item-text">{{node.name}}</span>
+  </a>
+</ng-container>
+
+<ng-container *ngIf="node.hasChildren">
+  <a *ngIf="node.id != null" routerLinkActive="active" routerLink="{{node.id}}" [ngClass]="classes"
+    (click)="headerClicked()" class="vertical-menu-item heading">
+    <i *ngIf="node.icon || getIconFunc" class="nav-menu-icon" [ngClass]="getIcon(node)"></i>
+    <span class="menu-item-text">{{node.name}}</span>
+    <div class="rotating-icon">
+        <svg focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z" />
+        </svg>
+    </div>
+  </a>
+
+  <button *ngIf="node.id == null" type="button" [ngClass]="classes"
+    (click)="headerClicked()" class="vertical-menu-item heading"
+    [attr.aria-pressed]="node.expanded">
+    <i *ngIf="node.icon || getIconFunc" class="nav-menu-icon" [ngClass]="getIcon(node)"></i>
+    <span class="menu-item-text">{{node.name}}</span>
+    <div class="rotating-icon">
+        <svg focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z" />
+        </svg>
+    </div>
+  </button>
+
+  <div class="heading-children" [ngClass]="classes" *ngIf="node.hasChildren">
+    <app-nav-item *ngFor="let childNode of node.children"
+      [node]="childNode"
+      [expandedNode]="expandedNode"
+      [getIconFunc]="getIconFunc"
+      (expand)="expand.emit($event)">
+    </app-nav-item>
+  </div>
+</ng-container>
