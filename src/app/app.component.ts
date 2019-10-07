@@ -14,6 +14,7 @@ export class AppComponent implements AfterViewInit {
   state: string;
   navMenuNodes: any[];
   @ViewChild(NavMenuComponent, {static: false}) navMenu: NavMenuComponent;
+  link = 'https://github.com/mazdik/ng-mazdik';
 
   constructor(private router: Router) {
     router.events.subscribe(event => {
@@ -33,7 +34,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   getSourceLink() {
-    const link: string = 'https://github.com/mazdik/ng-crud-table/blob/master/src/app/demo/';
+    const link: string = this.link + '/blob/master/src/app/demo/';
     return (this.state) ? link + this.state + '.component.ts' : link;
   }
 
