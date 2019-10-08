@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import {RowHeightCache} from './row-height-cache';
 import {ScrollerEventArgs} from './types';
+import {isBlank} from '../common/utils';
 
 @Component({
   selector: 'app-scroller, [scroller]',
@@ -18,15 +19,26 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   get items(): any[] { return this._items; }
   set items(val: any[]) {
     this._items = val;
-    if (this.virtualScroll) {
-      this.resetPosition();
-      this.chunkRows(true);
-    }
+    this.initChunkRows();
   }
   private _items: any[];
 
-  @Input() virtualScroll: boolean;
-  @Input() rowHeight: number;
+  @Input()
+  get virtualScroll(): boolean { return this._virtualScroll; }
+  set virtualScroll(val: boolean) {
+    this._virtualScroll = val;
+    this.initChunkRows();
+  }
+  private _virtualScroll: boolean;
+
+  @Input()
+  get rowHeight(): number { return this._rowHeight; }
+  set rowHeight(val: number) {
+    this._rowHeight = val;
+    this.initChunkRows();
+  }
+  private _rowHeight: number;
+
   @Input() itemsPerRow: number = 20;
   @Input() rowHeightProp: string;
 
@@ -80,6 +92,13 @@ export class ScrollerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.element.removeEventListener('scroll', this.scrollListener);
+  }
+
+  initChunkRows() {
+    if (this._virtualScroll && !isBlank(this.items) && !isBlank(this.rowHeight)) {
+      this.resetPosition();
+      this.chunkRows(true);
+    }
   }
 
   onScrolled(event: MouseEvent) {

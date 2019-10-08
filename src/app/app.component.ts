@@ -78,6 +78,7 @@ export class AppComponent implements AfterViewInit {
         name: 'Other',
         children: [
           { id: '/drag-drop-demo', name: 'Drag and drop' },
+          { id: '/scroller-demo', name: 'Virtual scroll' },
         ]
       },
     ];
