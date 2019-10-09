@@ -49,7 +49,6 @@ export class AppComponent implements AfterViewInit {
           { id: '/tree-table-demo', name: 'Tree table' },
           { id: '/tree-table-custom-demo', name: 'Tree table custom' },
           { id: '/master-detail-demo', name: 'Master detail' },
-          { id: '/modal-form-demo', name: 'Dynamic forms' },
           { id: '/modal-data-table-demo', name: 'Modal data table' },
           { id: '/nested-modals-demo', name: 'Nested modals' },
           { id: '/multiple-sort-demo', name: 'Multiple sorting' },
@@ -77,8 +76,10 @@ export class AppComponent implements AfterViewInit {
       {
         name: 'Other',
         children: [
+          { id: '/modal-form-demo', name: 'Dynamic forms' },
           { id: '/drag-drop-demo', name: 'Drag and drop' },
-          { id: '/scroller-demo', name: 'Virtual scroll' },
+          { id: '/scroller-demo', name: 'Virtual scroller' },
+          { id: '/dropdown-directive-demo', name: 'Dropdown directive' },
         ]
       },
     ];

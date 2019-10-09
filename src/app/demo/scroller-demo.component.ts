@@ -1,10 +1,10 @@
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { ScrollerComponent } from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-scroller-demo',
   template: `
   <app-scroller
+    #scroller
     [items]="items"
     [virtualScroll]="true"
     [rowHeight]="40"
@@ -21,7 +21,6 @@ import { ScrollerComponent } from 'ng-mazdik-lib';
 export class ScrollerDemoComponent {
 
   items = Array.from({length: 100000}).map((val, i) => `Item #${i}`);
-  @ViewChild(ScrollerComponent, {static: true}) scroller: ScrollerComponent;
 
   constructor(private cd: ChangeDetectorRef) {}
 

@@ -6,7 +6,7 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule, ScrollerModule,
-  TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule
+  TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule
 } from 'ng-mazdik-lib';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
@@ -41,6 +41,7 @@ import { CustomRowActionDemoComponent } from './demo/custom-row-action-demo.comp
 import { FrozenTableDemoComponent } from './demo/frozen-table-demo.component';
 import { DragDropDemoComponent } from './demo/drag-drop-demo.component';
 import { ScrollerDemoComponent } from './demo/scroller-demo.component';
+import { DropdownDirectiveDemoComponent } from './demo/dropdown-directive-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -74,6 +75,7 @@ const ROUTES: Routes = [
   {path: 'frozen-table-demo', component: FrozenTableDemoComponent},
   {path: 'drag-drop-demo', component: DragDropDemoComponent},
   {path: 'scroller-demo', component: ScrollerDemoComponent},
+  {path: 'dropdown-directive-demo', component: DropdownDirectiveDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -112,6 +114,7 @@ const ROUTES: Routes = [
     FrozenTableDemoComponent,
     DragDropDemoComponent,
     ScrollerDemoComponent,
+    DropdownDirectiveDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -131,6 +134,7 @@ const ROUTES: Routes = [
     DropdownSelectModule,
     SelectListModule,
     DragDropModule,
+    DropdownModule,
   ],
   bootstrap: [AppComponent]
 })
