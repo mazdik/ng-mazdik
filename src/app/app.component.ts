@@ -80,6 +80,9 @@ export class AppComponent implements AfterViewInit {
           { id: '/drag-drop-demo', name: 'Drag and drop' },
           { id: '/scroller-demo', name: 'Virtual scroller' },
           { id: '/dropdown-directive-demo', name: 'Dropdown directive' },
+          { id: '/dual-list-box-demo', name: 'Dual list box' },
+          { id: '/draggable-directive-demo', name: 'Draggable directive' },
+          { id: '/resizable-directive-demo', name: 'Resizable directive' },
         ]
       },
     ];

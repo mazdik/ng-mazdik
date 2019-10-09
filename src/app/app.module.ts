@@ -6,7 +6,8 @@ import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule, ScrollerModule,
-  TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule
+  TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule,
+  DualListBoxModule, DraggableModule, ResizableModule
 } from 'ng-mazdik-lib';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
@@ -42,6 +43,9 @@ import { FrozenTableDemoComponent } from './demo/frozen-table-demo.component';
 import { DragDropDemoComponent } from './demo/drag-drop-demo.component';
 import { ScrollerDemoComponent } from './demo/scroller-demo.component';
 import { DropdownDirectiveDemoComponent } from './demo/dropdown-directive-demo.component';
+import { DualListBoxDemoComponent } from './demo/dual-list-box-demo.component';
+import { DraggableDirectiveDemoComponent } from './demo/draggable-directive-demo.component';
+import { ResizableDirectiveDemoComponent } from './demo/resizable-directive-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -76,6 +80,9 @@ const ROUTES: Routes = [
   {path: 'drag-drop-demo', component: DragDropDemoComponent},
   {path: 'scroller-demo', component: ScrollerDemoComponent},
   {path: 'dropdown-directive-demo', component: DropdownDirectiveDemoComponent},
+  {path: 'dual-list-box-demo', component: DualListBoxDemoComponent},
+  {path: 'draggable-directive-demo', component: DraggableDirectiveDemoComponent},
+  {path: 'resizable-directive-demo', component: ResizableDirectiveDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -115,6 +122,9 @@ const ROUTES: Routes = [
     DragDropDemoComponent,
     ScrollerDemoComponent,
     DropdownDirectiveDemoComponent,
+    DualListBoxDemoComponent,
+    DraggableDirectiveDemoComponent,
+    ResizableDirectiveDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,6 +145,9 @@ const ROUTES: Routes = [
     SelectListModule,
     DragDropModule,
     DropdownModule,
+    DualListBoxModule,
+    DraggableModule,
+    ResizableModule,
   ],
   bootstrap: [AppComponent]
 })
