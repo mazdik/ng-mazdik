@@ -46,6 +46,7 @@ import { DropdownDirectiveDemoComponent } from './demo/dropdown-directive-demo.c
 import { DualListBoxDemoComponent } from './demo/dual-list-box-demo.component';
 import { DraggableDirectiveDemoComponent } from './demo/draggable-directive-demo.component';
 import { ResizableDirectiveDemoComponent } from './demo/resizable-directive-demo.component';
+import { SelectListDemoComponent } from './demo/select-list-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -83,6 +84,7 @@ const ROUTES: Routes = [
   {path: 'dual-list-box-demo', component: DualListBoxDemoComponent},
   {path: 'draggable-directive-demo', component: DraggableDirectiveDemoComponent},
   {path: 'resizable-directive-demo', component: ResizableDirectiveDemoComponent},
+  {path: 'select-list-demo', component: SelectListDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -125,6 +127,7 @@ const ROUTES: Routes = [
     DualListBoxDemoComponent,
     DraggableDirectiveDemoComponent,
     ResizableDirectiveDemoComponent,
+    SelectListDemoComponent,
   ],
   imports: [
     BrowserModule,

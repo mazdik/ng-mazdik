@@ -13,10 +13,6 @@ import {Subscription} from 'rxjs';
           [selected]="selectedOptions"
           [multiple]="true"
           [isOpen]="isOpen"
-          [selectAllMessage]="'select all'"
-          [cancelMessage]="'cancel'"
-          [clearMessage]="'clear'"
-          [searchMessage]="'search'"
           (selectionChange)="onSelectionChange($event)"
           (selectionCancel)="onSelectionCancel()">
       </app-select-list>
