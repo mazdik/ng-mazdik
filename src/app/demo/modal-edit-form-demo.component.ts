@@ -5,7 +5,7 @@ import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
 
 @Component({
-  selector: 'app-modal-form-demo',
+  selector: 'app-modal-edit-form-demo',
   template: `<p>Dependent drop down lists, lazy load, modal select list</p>
     <app-modal-edit-form #modalEditForm
                          [dataManager]="dataManager"
@@ -13,11 +13,12 @@ import {getColumnsPlayers} from './columns';
                          (updated)="onUpdated($event)">
     </app-modal-edit-form>
     <button class="dt-button" (click)="createItem()">Create</button>&nbsp;
-    <button class="dt-button" (click)="updateItem()">Edit</button>
+    <button class="dt-button" (click)="updateItem()">Edit</button>&nbsp;
+    <button class="dt-button" (click)="viewItem()">View</button>
   `
 })
 
-export class ModalFormDemoComponent {
+export class ModalEditFormDemoComponent {
 
   dataManager: DataManager;
 
@@ -74,12 +75,21 @@ export class ModalFormDemoComponent {
   createItem() {
     this.dataManager.item = {};
     this.modalEditForm.isNewItem = true;
+    this.modalEditForm.detailView = false;
     this.modalEditForm.open();
   }
 
   updateItem() {
     this.dataManager.item = this.item;
     this.modalEditForm.isNewItem = false;
+    this.modalEditForm.detailView = false;
+    this.modalEditForm.open();
+  }
+
+  viewItem() {
+    this.dataManager.item = this.item;
+    this.modalEditForm.isNewItem = false;
+    this.modalEditForm.detailView = true;
     this.modalEditForm.open();
   }
 

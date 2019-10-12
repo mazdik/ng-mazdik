@@ -16,7 +16,7 @@ import { CrudTableDemoComponent } from './demo/crud-table-demo.component';
 import { TreeTableDemoComponent } from './demo/tree-table-demo.component';
 import { DataTableDemoComponent } from './demo/data-table-demo.component';
 import { MasterDetailDemoComponent } from './demo/master-detail-demo.component';
-import { ModalFormDemoComponent } from './demo/modal-form-demo.component';
+import { ModalEditFormDemoComponent } from './demo/modal-edit-form-demo.component';
 import { ModalDataTableDemoComponent } from './demo/modal-data-table-demo.component';
 import { NestedModalsDemoComponent} from './demo/nested-modals-demo.component';
 import { MultipleSortDemoComponent } from './demo/multiple-sort-demo.component';
@@ -47,8 +47,9 @@ import { DualListBoxDemoComponent } from './demo/dual-list-box-demo.component';
 import { DraggableDirectiveDemoComponent } from './demo/draggable-directive-demo.component';
 import { ResizableDirectiveDemoComponent } from './demo/resizable-directive-demo.component';
 import { SelectListDemoComponent } from './demo/select-list-demo.component';
-import { PaginationDemoComponent } from './demo/pagination-demo';
-import { ModalSelectDemoComponent } from './demo/modal-select-demo';
+import { PaginationDemoComponent } from './demo/pagination-demo.component';
+import { ModalSelectDemoComponent } from './demo/modal-select-demo.component';
+import { NotifyDemoComponent } from './demo/notify-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -56,7 +57,7 @@ const ROUTES: Routes = [
   {path: 'tree-table-demo', component: TreeTableDemoComponent},
   {path: 'data-table-demo', component: DataTableDemoComponent},
   {path: 'master-detail-demo', component: MasterDetailDemoComponent},
-  {path: 'modal-form-demo', component: ModalFormDemoComponent},
+  {path: 'modal-edit-form-demo', component: ModalEditFormDemoComponent},
   {path: 'modal-data-table-demo', component: ModalDataTableDemoComponent},
   {path: 'nested-modals-demo', component: NestedModalsDemoComponent},
   {path: 'multiple-sort-demo', component: MultipleSortDemoComponent},
@@ -89,6 +90,7 @@ const ROUTES: Routes = [
   {path: 'select-list-demo', component: SelectListDemoComponent},
   {path: 'pagination-demo', component: PaginationDemoComponent},
   {path: 'modal-select-demo', component: ModalSelectDemoComponent},
+  {path: 'notify-demo', component: NotifyDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -100,7 +102,7 @@ const ROUTES: Routes = [
     TreeTableDemoComponent,
     DataTableDemoComponent,
     MasterDetailDemoComponent,
-    ModalFormDemoComponent,
+    ModalEditFormDemoComponent,
     ModalDataTableDemoComponent,
     NestedModalsDemoComponent,
     MultipleSortDemoComponent,
@@ -134,6 +136,7 @@ const ROUTES: Routes = [
     SelectListDemoComponent,
     PaginationDemoComponent,
     ModalSelectDemoComponent,
+    NotifyDemoComponent,
   ],
   imports: [
     BrowserModule,
