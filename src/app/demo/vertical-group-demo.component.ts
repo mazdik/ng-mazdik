@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-vertical-group-demo',
   template: `
-  <div style="display: flex;">
+  <div class="vertical-group-demo">
     <div class="datatable vertical">
       <div class="datatable-header-cell"
           [style.height.px]="table.dimensions.headerRowHeight"
@@ -40,11 +40,12 @@ import {Subscription} from 'rxjs';
         </ng-container>
       </div>
     </div>
-    <app-data-table [table]="table"></app-data-table>
+    <app-data-table class="tab2" [table]="table"></app-data-table>
   </div>
   `,
-  styles: [
-    `app-data-table {overflow-x: auto;}
+  styles: [`
+    .vertical-group-demo {display: flex;}
+    .vertical-group-demo .tab2 {overflow-x: auto;}
     .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
     .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}
     .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}`,

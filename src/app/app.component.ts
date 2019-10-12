@@ -76,13 +76,14 @@ export class AppComponent implements AfterViewInit {
         name: 'Other',
         children: [
           { id: '/modal-form-demo', name: 'Dynamic forms' },
-          { id: '/drag-drop-demo', name: 'Drag and drop' },
+          { id: '/pagination-demo', name: 'Pagination' },
           { id: '/scroller-demo', name: 'Virtual scroller' },
           { id: '/select-list-demo', name: 'Select list' },
           { id: '/tree-view-demo', name: 'Tree view' },
-          { id: '/dropdown-directive-demo', name: 'Dropdown directive' },
           { id: '/dual-list-box-demo', name: 'Dual list box' },
+          { id: '/dropdown-directive-demo', name: 'Dropdown directive' },
           { id: '/draggable-directive-demo', name: 'Draggable directive' },
+          { id: '/drag-drop-demo', name: 'Drag and drop' },
           { id: '/resizable-directive-demo', name: 'Resizable directive' },
         ]
       },

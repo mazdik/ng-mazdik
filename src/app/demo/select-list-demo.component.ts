@@ -25,8 +25,8 @@ import { SelectItem } from 'ng-mazdik-lib';
   `,
   styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
   styles: [`
-  .sl-row {display: flex;}
-  .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
+    .sl-row {display: flex;}
+    .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
   `],
   encapsulation: ViewEncapsulation.None,
 })

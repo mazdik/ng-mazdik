@@ -17,10 +17,10 @@ import { Component } from '@angular/core';
   </div>
   `,
   styles: [`
-  .dd-box {position: absolute; width: 200px; height: 200px;}
-  .box1 {background-color: #009ccc;}
-  .box2 {background-color: #f2cb1d; left: 500px;}
-  .dragging {cursor: move;}
+    .dd-box {position: absolute; width: 200px; height: 200px;}
+    .box1 {background-color: #009ccc;}
+    .box2 {background-color: #f2cb1d; left: 500px;}
+    .dragging {cursor: move;}
   `]
 })
 export class DraggableDirectiveDemoComponent {

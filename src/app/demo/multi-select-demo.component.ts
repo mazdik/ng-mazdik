@@ -46,8 +46,8 @@ import {Subscription} from 'rxjs';
       </app-dropdown-select>
     </ng-template>
   `,
-  styles: [
-    `.multi-select-demo {width: 600px;}
+  styles: [`
+    .multi-select-demo {width: 600px;}
     .multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
     .multi-select-demo .datatable-body-cell > .cell-data,
     .multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
@@ -74,8 +74,7 @@ import {Subscription} from 'rxjs';
     input.dt-select-input[readonly]:not([disabled]) {
       background-color: white;
     }
-    `,
-  ],
+  `],
   encapsulation: ViewEncapsulation.None,
 })
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-scroller-demo',
@@ -14,8 +14,9 @@ import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
     <div class="sc-row" *ngFor="let row of scroller.viewRows">{{row}}</div>
   </app-scroller>
   `,
-  styles: [`.sc-row {height: 40px;}
-  .dt-scroller{width: 200px;}
+  styles: [`
+    .sc-row {height: 40px;}
+    .dt-scroller {width: 200px;}
   `]
 })
 export class ScrollerDemoComponent {

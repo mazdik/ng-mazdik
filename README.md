@@ -352,10 +352,10 @@ this.dataManager = new DataManager(this.columns, this.settings, this.service, th
 | dt-toolbar                     |                    |
 | tree                           |                    |
 | app-tree-view                  |                    |
+| app-dual-list-box              |                    |
 | [appResizable]                 |                    |
 | [appDraggable]                 |                    |
 | [appDroppable]                 | html5              |
-| app-dual-list-box              |                    |
 | [appDropdown]                  |                    |
 
 ### Templates
