@@ -40,7 +40,7 @@ export class SelectListDemoComponent {
     {id: 5, name: 'Select 5'},
     {id: 6, name: 'Select 6'},
   ];
-  selectedOptions1: number[] = [2,4];
+  selectedOptions1: number[] = [2, 4];
   selectedOptions2: number[] = [2];
 
   constructor() { }

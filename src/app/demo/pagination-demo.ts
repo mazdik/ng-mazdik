@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-pagination-demo',
   template: `
-    <app-pagination
+    <app-pagination class="pagination-demo"
       [totalItems]="100"
       [perPage]="10"
       [currentPage]="1"
@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
       (pageChanged)="onPageChanged($event)">
     </app-pagination>
   `,
-  styles: [`app-pagination {width: 500px}`]
+  styles: [`.pagination-demo {width: 30em;}`]
 })
 export class PaginationDemoComponent {
   constructor() { }

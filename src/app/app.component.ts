@@ -76,6 +76,7 @@ export class AppComponent implements AfterViewInit {
         name: 'Other',
         children: [
           { id: '/modal-form-demo', name: 'Dynamic forms' },
+          { id: '/modal-select-demo', name: 'Modal select' },
           { id: '/pagination-demo', name: 'Pagination' },
           { id: '/scroller-demo', name: 'Virtual scroller' },
           { id: '/select-list-demo', name: 'Select list' },

@@ -7,7 +7,7 @@ import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule, ScrollerModule,
   TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule,
-  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule
+  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule
 } from 'ng-mazdik-lib';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
@@ -48,6 +48,7 @@ import { DraggableDirectiveDemoComponent } from './demo/draggable-directive-demo
 import { ResizableDirectiveDemoComponent } from './demo/resizable-directive-demo.component';
 import { SelectListDemoComponent } from './demo/select-list-demo.component';
 import { PaginationDemoComponent } from './demo/pagination-demo';
+import { ModalSelectDemoComponent } from './demo/modal-select-demo';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -87,6 +88,7 @@ const ROUTES: Routes = [
   {path: 'resizable-directive-demo', component: ResizableDirectiveDemoComponent},
   {path: 'select-list-demo', component: SelectListDemoComponent},
   {path: 'pagination-demo', component: PaginationDemoComponent},
+  {path: 'modal-select-demo', component: ModalSelectDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -131,6 +133,7 @@ const ROUTES: Routes = [
     ResizableDirectiveDemoComponent,
     SelectListDemoComponent,
     PaginationDemoComponent,
+    ModalSelectDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -155,6 +158,7 @@ const ROUTES: Routes = [
     DraggableModule,
     ResizableModule,
     PaginationModule,
+    ModalSelectModule,
   ],
   bootstrap: [AppComponent]
 })
