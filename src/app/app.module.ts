@@ -7,7 +7,7 @@ import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule, ScrollerModule,
   TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule,
-  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule
+  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule, InlineEditModule
 } from 'ng-mazdik-lib';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
@@ -50,6 +50,12 @@ import { SelectListDemoComponent } from './demo/select-list-demo.component';
 import { PaginationDemoComponent } from './demo/pagination-demo.component';
 import { ModalSelectDemoComponent } from './demo/modal-select-demo.component';
 import { NotifyDemoComponent } from './demo/notify-demo.component';
+import { InlineEditDemoComponent } from './demo/inline-edit-demo.component';
+import { DropdownSelectDemoComponent } from './demo/dropdown-select-demo.component';
+import { ContextMenuDemoComponent } from './demo/context-menu-demo.component';
+import { ModalDemoComponent } from './demo/modal-demo.component';
+import { NestedModalDemoComponent } from './demo/nested-modal-demo.component';
+import { PanelDemoComponent } from './demo/panel-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -91,6 +97,12 @@ const ROUTES: Routes = [
   {path: 'pagination-demo', component: PaginationDemoComponent},
   {path: 'modal-select-demo', component: ModalSelectDemoComponent},
   {path: 'notify-demo', component: NotifyDemoComponent},
+  {path: 'inline-edit-demo', component: InlineEditDemoComponent},
+  {path: 'dropdown-select-demo', component: DropdownSelectDemoComponent},
+  {path: 'context-menu-demo', component: ContextMenuDemoComponent},
+  {path: 'modal-demo', component: ModalDemoComponent},
+  {path: 'nested-modal-demo', component: NestedModalDemoComponent},
+  {path: 'panel-demo', component: PanelDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -137,6 +149,12 @@ const ROUTES: Routes = [
     PaginationDemoComponent,
     ModalSelectDemoComponent,
     NotifyDemoComponent,
+    InlineEditDemoComponent,
+    DropdownSelectDemoComponent,
+    ContextMenuDemoComponent,
+    ModalDemoComponent,
+    NestedModalDemoComponent,
+    PanelDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -162,6 +180,7 @@ const ROUTES: Routes = [
     ResizableModule,
     PaginationModule,
     ModalSelectModule,
+    InlineEditModule,
   ],
   bootstrap: [AppComponent]
 })

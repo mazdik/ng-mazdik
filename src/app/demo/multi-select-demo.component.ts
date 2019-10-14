@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener} from '@angular/core';
 import {ColumnBase, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {Subscription} from 'rxjs';
@@ -111,7 +111,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private service: DemoService, private element: ElementRef) {
+  constructor(private service: DemoService) {
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 

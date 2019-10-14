@@ -75,6 +75,9 @@ export class AppComponent implements AfterViewInit {
       {
         name: 'Other',
         children: [
+          { id: '/context-menu-demo', name: 'Context menu' },
+          { id: '/dropdown-select-demo', name: 'Dropdown select' },
+          { id: '/inline-edit-demo', name: 'Inline edit' },
           { id: '/notify-demo', name: 'Notify' },
           { id: '/modal-edit-form-demo', name: 'Dynamic forms' },
           { id: '/modal-select-demo', name: 'Modal select' },
@@ -87,6 +90,14 @@ export class AppComponent implements AfterViewInit {
           { id: '/draggable-directive-demo', name: 'Draggable directive' },
           { id: '/drag-drop-demo', name: 'Drag and drop' },
           { id: '/resizable-directive-demo', name: 'Resizable directive' },
+        ]
+      },
+      {
+        name: 'Modal',
+        children: [
+          { id: '/modal-demo', name: 'Basic modal' },
+          { id: '/nested-modal-demo', name: 'Nested modals' },
+          { id: '/panel-demo', name: 'Panels' },
         ]
       },
     ];
