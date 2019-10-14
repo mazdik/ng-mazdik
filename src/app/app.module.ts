@@ -7,7 +7,7 @@ import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule, ScrollerModule,
   TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule,
-  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule, InlineEditModule
+  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule, InlineEditModule, DynamicFormModule
 } from 'ng-mazdik-lib';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
@@ -56,6 +56,7 @@ import { ContextMenuDemoComponent } from './demo/context-menu-demo.component';
 import { ModalDemoComponent } from './demo/modal-demo.component';
 import { NestedModalDemoComponent } from './demo/nested-modal-demo.component';
 import { PanelDemoComponent } from './demo/panel-demo.component';
+import { DynamicFormDemoComponent } from './demo/dynamic-form-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -103,6 +104,7 @@ const ROUTES: Routes = [
   {path: 'modal-demo', component: ModalDemoComponent},
   {path: 'nested-modal-demo', component: NestedModalDemoComponent},
   {path: 'panel-demo', component: PanelDemoComponent},
+  {path: 'dynamic-form-demo', component: DynamicFormDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -155,6 +157,7 @@ const ROUTES: Routes = [
     ModalDemoComponent,
     NestedModalDemoComponent,
     PanelDemoComponent,
+    DynamicFormDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -181,6 +184,7 @@ const ROUTES: Routes = [
     PaginationModule,
     ModalSelectModule,
     InlineEditModule,
+    DynamicFormModule,
   ],
   bootstrap: [AppComponent]
 })

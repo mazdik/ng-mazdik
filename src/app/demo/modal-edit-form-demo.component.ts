@@ -60,7 +60,6 @@ export class ModalEditFormDemoComponent {
     const columns = getColumnsPlayers();
     columns[3].options = null;
     columns[3].optionsUrl = 'assets/options.json';
-    columns[9].validatorFunc = this.customValidation;
     this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 
@@ -91,14 +90,6 @@ export class ModalEditFormDemoComponent {
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = true;
     this.modalEditForm.open();
-  }
-
-  customValidation(name: string, value: any): string[] {
-    const errors = [];
-    if (value == null || value.length === 0) {
-      errors.push('Custom validator ' + name);
-    }
-    return errors;
   }
 
 }
