@@ -1,5 +1,4 @@
 import {Component, ViewChild} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {CdtSettings, DataManager, ModalEditFormComponent} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {getColumnsPlayers} from './columns';
@@ -56,10 +55,8 @@ export class ModalEditFormDemoComponent {
     'online': 1
   };
 
-  constructor(private service: DemoService, private http: HttpClient) {
+  constructor(private service: DemoService) {
     const columns = getColumnsPlayers();
-    columns[3].options = null;
-    columns[3].optionsUrl = 'assets/options.json';
     this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 

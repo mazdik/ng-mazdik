@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DynamicFormElement, GetOptionsFunc, ColumnBase } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dynamic-form-demo',
@@ -27,8 +28,12 @@ export class DynamicFormDemoComponent {
   getOptionsFunc: GetOptionsFunc;
   item: any = {};
 
-  constructor() {
+  constructor(private http: HttpClient) {
+    this.getOptionsFunc = this.getOptions.bind(this);
+
     const columns = getColumnsPlayers();
+    columns[3].options = null;
+    columns[3].optionsUrl = 'assets/options.json';
     columns[9].validatorFunc = this.customValidation;
 
     this.createDynamicFormElements(columns);
@@ -65,6 +70,20 @@ export class DynamicFormDemoComponent {
       errors.push('Custom validator ' + name);
     }
     return errors;
+  }
+
+  getOptions(url: string, parentId: any): Promise<any> {
+    return this.http.get(url)
+      .toPromise()
+      .then((response: any) => {
+        const result = response.filter((value: any) => {
+          return value.parentId === parentId;
+        });
+        return new Promise((resolve) => {
+          setTimeout(() => resolve(result), 1000);
+        });
+      })
+      .catch(err => console.log(err));
   }
 
 }
