@@ -1,5 +1,3 @@
-@import "../resizable/resizable.css";
-
 .ui-modal-overlay {
   display: none;
   position: fixed;

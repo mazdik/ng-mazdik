@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener, ElementRef} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener} from '@angular/core';
 import {ColumnBase, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {Subscription} from 'rxjs';
@@ -13,10 +13,6 @@ import {Subscription} from 'rxjs';
           [selected]="selectedOptions"
           [multiple]="true"
           [isOpen]="isOpen"
-          [selectAllMessage]="'select all'"
-          [cancelMessage]="'cancel'"
-          [clearMessage]="'clear'"
-          [searchMessage]="'search'"
           (selectionChange)="onSelectionChange($event)"
           (selectionCancel)="onSelectionCancel()">
       </app-select-list>
@@ -50,8 +46,8 @@ import {Subscription} from 'rxjs';
       </app-dropdown-select>
     </ng-template>
   `,
-  styles: [
-    `.multi-select-demo {width: 600px;}
+  styles: [`
+    .multi-select-demo {width: 600px;}
     .multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
     .multi-select-demo .datatable-body-cell > .cell-data,
     .multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
@@ -78,8 +74,7 @@ import {Subscription} from 'rxjs';
     input.dt-select-input[readonly]:not([disabled]) {
       background-color: white;
     }
-    `,
-  ],
+  `],
   encapsulation: ViewEncapsulation.None,
 })
 
@@ -116,7 +111,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private service: DemoService, private element: ElementRef) {
+  constructor(private service: DemoService) {
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 

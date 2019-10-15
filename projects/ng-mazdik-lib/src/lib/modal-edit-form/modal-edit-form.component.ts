@@ -19,13 +19,7 @@ export class ModalEditFormComponent implements OnInit {
 
   @Input() dataManager: DataManager;
   @Input() isNewItem: boolean;
-
-  @Input()
-  get detailView(): boolean { return this._detailView; }
-  set detailView(val: boolean) {
-    this._detailView = val;
-  }
-  private _detailView: boolean;
+  @Input() detailView: boolean;
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 

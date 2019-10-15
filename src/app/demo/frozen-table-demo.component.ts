@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-frozen-table-demo',
   template: `
-  <div style="display: flex;">
+  <div class="frozen-table-demo">
     <div class="datatable frozen">
       <div class="datatable-header">
         <div class="datatable-header-row">
@@ -34,11 +34,12 @@ import {Subscription} from 'rxjs';
         </div>
       </div>
     </div>
-    <app-data-table [table]="table"></app-data-table>
+    <app-data-table class="tab2" [table]="table"></app-data-table>
   </div>
   `,
-  styles: [
-    `app-data-table {overflow-x: auto;}
+  styles: [`
+    .frozen-table-demo {display: flex;}
+    .frozen-table-demo .tab2 {overflow-x: auto;}
     .frozen .dt-scroller {overflow-y: hidden; overflow-x: scroll}`,
   ],
   encapsulation: ViewEncapsulation.None,

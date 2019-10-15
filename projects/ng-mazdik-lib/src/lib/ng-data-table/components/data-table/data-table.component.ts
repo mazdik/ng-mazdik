@@ -21,7 +21,7 @@ import {RowGroupTemplateDirective} from '../../directives/row-group-template.dir
     '../../../styles/input.css',
     '../../../styles/spinners.css',
     '../../../styles/icons.css',
-    '../../../resizable/resizable.css',
+    '../../../styles/resizable.css',
   ],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

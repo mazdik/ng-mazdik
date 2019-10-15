@@ -23,8 +23,8 @@ class Item {
     </div>
   </div>
   `,
-  styles: [
-    `.dd-row { display: flex; }
+  styles: [`
+    .dd-row { display: flex; }
     .dd-column { width: 20%; height: 100%; min-height: 500px; }
     .dd-column + .dd-column { margin-left: 10px; }
     .dd-column:nth-child(1) { background: rgb(255, 255, 219); }
@@ -44,8 +44,7 @@ class Item {
     .dd-issue:hover { background: rgba(0, 0, 0, .15); }
     .dd-title { background: rgba(0, 0, 0, .1); padding: 2px 4px; }
     .dd-text { padding: 3px 4px 1px; line-height: 120%; }
-    `
-  ]
+  `]
 })
 
 export class DragDropDemoComponent {
