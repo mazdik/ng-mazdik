@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'ng-mazdik-lib';
 
 @Component({
@@ -10,8 +10,7 @@ import { SelectItem } from 'ng-mazdik-lib';
     (valueChange)="onValueChange()">
   </app-modal-select>
   `,
-  styles: [`.modal-select-demo .dt-input-group {width: 20em;}`],
-  encapsulation: ViewEncapsulation.None,
+  styles: [`.modal-select-demo {display: block; width: 20em;}`],
 })
 export class ModalSelectDemoComponent {
 

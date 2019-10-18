@@ -5,7 +5,7 @@
 <select
   *ngIf="editing && options"
   appAfterViewFocus
-  (change)="value = $event.target.value; onInputChange()"
+  (change)="onInput($event); onInputChange()"
   (focus)="onInputFocus()"
   (blur)="onInputBlur()">
   <option value="" disabled selected hidden>{{selectPlaceholder}}</option>
