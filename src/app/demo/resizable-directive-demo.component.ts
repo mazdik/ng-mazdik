@@ -15,7 +15,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
     (resizing)="onResize($event)">
   </div>
   `,
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/resizable.css'],
   styles: [`
     .dd-box {position: absolute; width: 200px; height: 200px;}
     .box1 {background-color: #009ccc;}

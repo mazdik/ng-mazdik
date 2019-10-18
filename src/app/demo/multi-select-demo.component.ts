@@ -53,27 +53,6 @@ import {Subscription} from 'rxjs';
     .multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
     .multi-select-demo-block {position: relative;}
     .multi-select-demo-block .dt-dropdown-select-list {width: 250px;}
-    .dt-dropdown-select {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
-    .dt-dropdown-select-list {
-      position: absolute;
-      width: 100%;
-      z-index: 2;
-      padding: 5px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 2px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-    }
-    .dt-dropdown-select .dt-input-group input:not([disabled]) {
-      cursor: pointer;
-    }
-    input.dt-select-input[readonly]:not([disabled]) {
-      background-color: white;
-    }
   `],
   encapsulation: ViewEncapsulation.None,
 })

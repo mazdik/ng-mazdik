@@ -5,7 +5,7 @@ import {NavMenuComponent} from './nav-menu/nav-menu.component';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css', '../../dist/ng-mazdik-lib/styles/tree-icons.css'],
+  styleUrls: ['app.component.css', '../../dist/ng-mazdik-lib/styles/bundled.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements AfterViewInit {

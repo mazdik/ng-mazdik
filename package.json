@@ -8,8 +8,9 @@
     "test": "ng test ng-mazdik-lib",
     "lint": "ng lint ng-mazdik-lib",
     "e2e": "ng e2e",
+    "build-styles" : "scss-bundle",
     "copy-lib-assets": "cpx \"projects/ng-mazdik-lib/src/lib/styles/*\" dist/ng-mazdik-lib/styles",
-    "lib:build": "ng build ng-mazdik-lib && npm run copy-lib-assets",
+    "lib:build": "ng build ng-mazdik-lib && npm run build-styles",
     "lib:watch": "ng build ng-mazdik-lib --watch",
     "lib:publish": "cd dist/ng-mazdik-lib && npm publish"
   },
@@ -24,6 +25,7 @@
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "~8.2.8",
     "rxjs": "~6.4.0",
+    "scss-bundle": "^3.0.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

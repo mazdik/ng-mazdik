@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { NotifyService } from 'ng-mazdik-lib';
 
 @Component({
@@ -9,9 +9,7 @@ import { NotifyService } from 'ng-mazdik-lib';
     <button class="dt-button" (click)="notify()">Notify</button>&nbsp;
     <button class="dt-button" (click)="success()">Success</button>&nbsp;
     <button class="dt-button" (click)="warning()">Warning</button>
-  `,
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
-  encapsulation: ViewEncapsulation.None,
+  `
 })
 export class NotifyDemoComponent {
 

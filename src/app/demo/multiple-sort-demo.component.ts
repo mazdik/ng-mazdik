@@ -5,9 +5,7 @@ import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-multiple-sort-demo',
-  template: `
-    <app-data-table [table]="table"></app-data-table>
-  `
+  template: `<app-data-table [table]="table"></app-data-table>`
 })
 
 export class MultipleSortDemoComponent implements OnInit {

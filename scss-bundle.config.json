@@ -1,0 +1,9 @@
+{
+  "bundlerOptions": {
+      "entryFile": "projects/ng-mazdik-lib/src/lib/styles/all.css",
+      "rootDir": "projects/ng-mazdik-lib/src/lib/",
+      "outFile": "dist/ng-mazdik-lib/styles/bundled.css",
+      "ignoreImports": ["~@angular/.*"],
+      "logLevel": "info"
+  }
+}

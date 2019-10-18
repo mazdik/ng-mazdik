@@ -27,7 +27,6 @@ import { SelectItem } from 'ng-mazdik-lib';
     .sl-row {display: flex;}
     .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
   `],
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
   encapsulation: ViewEncapsulation.None,
 })
 export class SelectListDemoComponent {
