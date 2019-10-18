@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef,
   HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
 import {DropDown} from '../dropdown/drop-down';
@@ -9,15 +9,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: 'app-dropdown-select',
   templateUrl: 'dropdown-select.component.html',
-  styleUrls: [
-    'dropdown-select.component.css',
-    '../styles/input-group.css',
-    '../styles/input.css',
-    '../styles/buttons.css',
-    '../styles/icons.css'
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class DropdownSelectComponent implements OnInit, OnDestroy {

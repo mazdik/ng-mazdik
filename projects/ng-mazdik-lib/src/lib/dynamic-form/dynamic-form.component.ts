@@ -1,5 +1,5 @@
 import {
-  Component, Input, ViewChild, ViewContainerRef, OnDestroy, Output, EventEmitter, ViewEncapsulation,
+  Component, Input, ViewChild, ViewContainerRef, OnDestroy, Output, EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
 import {GetOptionsFunc, KeyElementChangeEventArgs} from './types';
@@ -8,13 +8,6 @@ import {DynamicFormElement} from './dynamic-form-element';
 @Component({
   selector: 'app-dynamic-form',
   templateUrl: 'dynamic-form.component.html',
-  styleUrls: [
-    '../styles/input.css',
-    '../styles/checkbox.css',
-    '../styles/radio.css',
-    '../styles/spinners.css',
-  ],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 

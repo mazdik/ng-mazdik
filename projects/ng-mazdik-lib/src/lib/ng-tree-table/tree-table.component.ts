@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, OnDestroy, Input, ViewEncapsulation, HostBinding, ViewChild, TemplateRef,
+  Component, OnInit, OnDestroy, Input, HostBinding, ViewChild, TemplateRef,
   ChangeDetectionStrategy
 } from '@angular/core';
 import {TreeTable} from './tree-table';
@@ -10,8 +10,6 @@ import {TreeNode, TreeHelper} from '../tree-lib';
 @Component({
   selector: 'app-tree-table',
   templateUrl: './tree-table.component.html',
-  styleUrls: ['../styles/icons.css'],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TreeTableComponent implements OnInit, OnDestroy {

@@ -1,26 +1,80 @@
-*, *:before, *:after {
-  box-sizing: border-box;
+.github-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+  color: white;
+  margin-right: 20px;
 }
 
-html {
-  font-size: 10px;
-  -webkit-tap-highlight-color: transparent
+.github-icon:hover {
+  opacity: .8;
 }
 
-body {
-  background-color: #fff;
-  color: #333;
-  font-size: 14px;
-  font-family: Segoe UI, Arial, sans-serif;
-  line-height: 1.5;
+.datatable-header-row {
+  min-height: 40px;
 }
 
-html, body {
-  height: 100%;
+.cell-big-value {
+  background-color: lightsalmon;
 }
 
-a {
-  text-decoration: none;
-  transition: all 0.3s linear 0s;
-  color: #337ab7;
+.cell-zero-value {
+  background-color: lightgreen;
+}
+
+.cell-middle-value {
+  background-color: lightBlue;
+}
+
+.cell-right {
+  justify-content: flex-end;
+}
+
+.cell-right input {
+  text-align: right;
+}
+
+.datatable-body-row.row-warrior,
+.datatable-body-row.row-warrior .dt-sticky {
+  background-color: lightyellow;
+}
+
+.datatable-body-row.row-sorcerer,
+.datatable-body-row.row-sorcerer .dt-sticky {
+  background-color: LightSlateGray;
+  color: white;
+}
+
+.datatable-header-cell.header-cell-demo {
+  justify-content: center;
+  background-color: lightseagreen;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 220px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1500;
+}
+
+.dt-message {
+  display: inline-block;
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.dt-message-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }

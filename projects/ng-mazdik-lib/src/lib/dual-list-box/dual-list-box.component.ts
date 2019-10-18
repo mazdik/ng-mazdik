@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding, ViewChild, ElementRef
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding, ViewChild, ElementRef
 } from '@angular/core';
 import { SelectItem } from '../common';
 import { isBlank, arrayMove, arrayTransfer } from '../common/utils';
@@ -8,14 +8,7 @@ import { DragElementEvent, DropElementEvent } from '../drag-drop/types';
 @Component({
   selector: 'app-dual-list-box',
   templateUrl: 'dual-list-box.component.html',
-  styleUrls: [
-    'dual-list-box.component.css',
-    '../styles/input.css',
-    '../styles/buttons.css',
-    '../styles/list-menu.css',
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class DualListBoxComponent {
 

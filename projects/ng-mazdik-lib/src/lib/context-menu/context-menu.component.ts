@@ -1,6 +1,6 @@
 import {
   Component, Input, HostListener, ChangeDetectionStrategy, ChangeDetectorRef,
-  HostBinding, ElementRef, ViewEncapsulation, OnInit, OnDestroy
+  HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
 import { MenuEventArgs } from './types';
 import { DropDown } from '../dropdown/drop-down';
@@ -11,9 +11,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
-  styleUrls: ['../styles/context-menu.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class ContextMenuComponent implements OnInit, OnDestroy {
 

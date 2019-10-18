@@ -1,5 +1,5 @@
 import {
-  Component, OnInit, ViewChild, Input, ViewEncapsulation, ElementRef, HostBinding, TemplateRef,
+  Component, OnInit, ViewChild, Input, ElementRef, HostBinding, TemplateRef,
   ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ContentChild
 } from '@angular/core';
 import {DataTable, ColumnModelGenerator, Row} from '../../base';
@@ -12,18 +12,6 @@ import {RowGroupTemplateDirective} from '../../directives/row-group-template.dir
 @Component({
   selector: 'app-datatable, app-data-table',
   templateUrl: './data-table.component.html',
-  styleUrls: [
-    './data-table.component.css',
-    '../../../styles/checkbox.css',
-    '../../../styles/radio.css',
-    '../../../styles/buttons.css',
-    '../../../styles/list-menu.css',
-    '../../../styles/input.css',
-    '../../../styles/spinners.css',
-    '../../../styles/icons.css',
-    '../../../styles/resizable.css',
-  ],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataTableComponent implements OnInit, OnDestroy {

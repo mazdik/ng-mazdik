@@ -11,9 +11,7 @@ import { Message, PositionType } from './types';
     <app-notify-item *ngFor="let msg of messages; let i=index" [message]="msg" [index]="i"
     (closeNotify)="onCloseNotify($event)"></app-notify-item>
 `,
-  styleUrls: ['notify.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class NotifyComponent implements OnDestroy {
 

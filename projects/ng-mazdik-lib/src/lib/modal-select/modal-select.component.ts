@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, HostBinding,
+  Component, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, HostBinding,
   ChangeDetectorRef
 } from '@angular/core';
 import {PageEvent} from '../../lib/pagination/types';
@@ -8,17 +8,7 @@ import {SelectItem} from '../common';
 @Component({
   selector: 'app-modal-select',
   templateUrl: './modal-select.component.html',
-  styleUrls: [
-    'modal-select.component.css',
-    '../styles/input-group.css',
-    '../styles/clearable-input.css',
-    '../styles/list-menu.css',
-    '../styles/input.css',
-    '../styles/buttons.css',
-    '../styles/icons.css',
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class ModalSelectComponent {

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {TreeDataSource, Tree, TreeNode} from '../tree-lib';
 import {MenuEventArgs} from '../context-menu/types';
 import {ContextMenuComponent} from '../context-menu/context-menu.component';
@@ -6,15 +6,6 @@ import {ContextMenuComponent} from '../context-menu/context-menu.component';
 @Component({
   selector: 'app-tree-view',
   templateUrl: 'tree-view.component.html',
-  styleUrls: [
-    './tree-view.component.css',
-    '../styles/tree-icons.css',
-    '../styles/clearable-input.css',
-    '../styles/input.css',
-    '../styles/spinners.css',
-    '../styles/icons.css',
-  ],
-  encapsulation: ViewEncapsulation.None,
 })
 export class TreeViewComponent implements OnInit {
 

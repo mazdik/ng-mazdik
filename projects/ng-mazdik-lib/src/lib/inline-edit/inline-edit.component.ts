@@ -1,13 +1,11 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, HostBinding} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding} from '@angular/core';
 import {SelectItem} from '../common';
 import {inputFormattedDate} from '../common/utils';
 
 @Component({
   selector: 'app-inline-edit, [inline-edit]',
   templateUrl: 'inline-edit.component.html',
-  styleUrls: ['inline-edit.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class InlineEditComponent {
 

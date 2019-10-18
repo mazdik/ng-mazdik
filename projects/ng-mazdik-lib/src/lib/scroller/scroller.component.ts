@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnDestroy, OnInit, ViewChild,
-  ViewEncapsulation, NgZone, ChangeDetectionStrategy
+  NgZone, ChangeDetectionStrategy
 } from '@angular/core';
 import {RowHeightCache} from './row-height-cache';
 import {ScrollerEventArgs} from './types';
@@ -9,8 +9,6 @@ import {isBlank} from '../common/utils';
 @Component({
   selector: 'app-scroller, [scroller]',
   templateUrl: './scroller.component.html',
-  styleUrls: ['./scroller.component.css'],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollerComponent implements OnInit, OnDestroy {
