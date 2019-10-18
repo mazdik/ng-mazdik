@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Settings, DataTable, GroupMetadata, DataAggregation} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
@@ -43,14 +43,6 @@ import {Subscription} from 'rxjs';
     <app-data-table class="tab2" [table]="table"></app-data-table>
   </div>
   `,
-  styles: [`
-    .vertical-group-demo {display: flex;}
-    .vertical-group-demo .tab2 {overflow-x: auto;}
-    .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
-    .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}
-    .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}`,
-  ],
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class VerticalGroupDemoComponent implements OnInit, OnDestroy {

@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-panel-demo',
@@ -58,12 +58,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </ng-container>
     </app-modal>
   `,
-  styles: [`
-  .modal1 .ui-modal-header { background-color: red !important; }
-  .modal2 .ui-modal-header { background-color: #4CAF50 !important; }
-  .modal3 .ui-modal-header { background-color: #ff9800 !important; }
-  `],
-  encapsulation: ViewEncapsulation.None,
 })
 export class PanelDemoComponent {
 

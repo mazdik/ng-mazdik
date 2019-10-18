@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-modal-demo',
@@ -22,7 +22,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </ng-container>
     </app-modal>
   `,
-  encapsulation: ViewEncapsulation.None,
 })
 export class ModalDemoComponent {
 

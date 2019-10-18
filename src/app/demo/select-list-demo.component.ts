@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'ng-mazdik-lib';
 
 @Component({
@@ -27,7 +27,6 @@ import { SelectItem } from 'ng-mazdik-lib';
     .sl-row {display: flex;}
     .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
   `],
-  encapsulation: ViewEncapsulation.None,
 })
 export class SelectListDemoComponent {
 

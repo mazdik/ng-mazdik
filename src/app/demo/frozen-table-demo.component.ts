@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, AfterViewInit, ViewEncapsulation, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
@@ -37,12 +37,6 @@ import {Subscription} from 'rxjs';
     <app-data-table class="tab2" [table]="table"></app-data-table>
   </div>
   `,
-  styles: [`
-    .frozen-table-demo {display: flex;}
-    .frozen-table-demo .tab2 {overflow-x: auto;}
-    .frozen .dt-scroller {overflow-y: hidden; overflow-x: scroll}`,
-  ],
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class FrozenTableDemoComponent implements OnInit, AfterViewInit, OnDestroy {

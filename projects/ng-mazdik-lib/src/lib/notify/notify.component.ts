@@ -1,5 +1,5 @@
 import {
-  Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation, OnDestroy, HostBinding
+  Component, Input, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, HostBinding
 } from '@angular/core';
 import { NotifyService } from './notify.service';
 import { Subscription } from 'rxjs';

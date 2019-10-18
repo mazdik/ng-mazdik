@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-resizable-directive-demo',
@@ -19,7 +19,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
     .dd-box {position: absolute; width: 200px; height: 200px;}
     .box1 {background-color: #009ccc;}
   `],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ResizableDirectiveDemoComponent {
 

@@ -78,3 +78,34 @@
   background-color: #d4edda;
   border-color: #c3e6cb;
 }
+
+/* PanelDemoComponent */
+.modal1 .ui-modal-header { background-color: red !important; }
+.modal2 .ui-modal-header { background-color: #4CAF50 !important; }
+.modal3 .ui-modal-header { background-color: #ff9800 !important; }
+
+/* MultiSelectDemoComponent */
+.multi-select-demo {width: 600px;}
+.multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
+.multi-select-demo .datatable-body-cell > .cell-data,
+.multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
+.multi-select-demo-block {position: relative;}
+.multi-select-demo-block .dt-dropdown-select-list {width: 250px;}
+
+/* FrozenTableDemoComponent */
+.frozen-table-demo {display: flex;}
+.frozen-table-demo .tab2 {overflow-x: auto;}
+.frozen-table-demo .frozen .dt-scroller {overflow-y: hidden; overflow-x: scroll}
+
+/* VerticalGroupDemoComponent */
+.vertical-group-demo {display: flex;}
+.vertical-group-demo .tab2 {overflow-x: auto;}
+.vertical-group-demo .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
+.vertical-group-demo .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}
+.vertical-group-demo .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}
+
+/* DynamicFormDemoComponent */
+.dynamic-form-demo {display: block; width: 30em;}
+
+/* DualListBoxDemoComponent */
+.dual-list-box-demo {min-width: 400px; max-width: 600px}
