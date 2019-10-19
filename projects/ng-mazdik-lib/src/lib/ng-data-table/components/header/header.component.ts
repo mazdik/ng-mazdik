@@ -1,6 +1,6 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy, ElementRef,
-  ViewChild, ViewContainerRef
+  ViewChild
 } from '@angular/core';
 import {DataTable, Column} from '../../base';
 import {Subscription} from 'rxjs';
@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() headerTemplate: HeaderTemplateDirective;
 
   @HostBinding('class.datatable-header') cssClass = true;
-  @ViewChild('headerTemplateView', {static: true}) headerTemplateView: ViewContainerRef;
   @ViewChild('headerRow', {static: true}) headerRow: ElementRef;
 
   private subscriptions: Subscription[] = [];
@@ -45,9 +44,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.headerTemplateView) {
-      this.headerTemplateView.clear();
-    }
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 

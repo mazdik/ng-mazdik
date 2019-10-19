@@ -110,6 +110,7 @@ export class PaginationComponent {
 
   onChangePageSize(pageSize: number) {
     this.perPage = pageSize;
+    this.currentPage = this._currentPage;
     this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
   }
 

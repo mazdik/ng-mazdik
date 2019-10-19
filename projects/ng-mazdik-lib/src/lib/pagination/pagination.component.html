@@ -1,8 +1,8 @@
 <div class="pagination-page-size" *ngIf="totalItems > 0 && pageSizeOptions.length > 1">
   <select class="pagination-page-size-select"
-          [value]="perPage.toString()"
+          [value]="perPage"
           (change)="onChangePageSize($event.target.value)">
-    <option *ngFor="let pageSizeOption of pageSizeOptions" [value]="pageSizeOption.toString()">
+    <option *ngFor="let pageSizeOption of pageSizeOptions" [value]="pageSizeOption">
       {{pageSizeOption}}
     </option>
   </select>

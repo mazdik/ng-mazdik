@@ -1,6 +1,5 @@
 import {
-  Component, Input, ViewChild, ViewContainerRef, OnDestroy, Output, EventEmitter,
-  ChangeDetectionStrategy
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy
 } from '@angular/core';
 import {GetOptionsFunc, KeyElementChangeEventArgs} from './types';
 import {DynamicFormElement} from './dynamic-form-element';
@@ -11,7 +10,7 @@ import {DynamicFormElement} from './dynamic-form-element';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class DynamicFormComponent implements OnDestroy {
+export class DynamicFormComponent {
 
   @Input() dynElements: DynamicFormElement[];
   @Input() item: any;
@@ -23,16 +22,9 @@ export class DynamicFormComponent implements OnDestroy {
   @Output() valid: EventEmitter<boolean> = new EventEmitter();
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('cellTemplate', {static: true}) cellTemplate: ViewContainerRef;
   private validElements: any = {};
 
   constructor() {}
-
-  ngOnDestroy(): void {
-    if (this.cellTemplate) {
-      this.cellTemplate.clear();
-    }
-  }
 
   elemEnabled(dynElement: DynamicFormElement): boolean {
     return (!dynElement.hidden);

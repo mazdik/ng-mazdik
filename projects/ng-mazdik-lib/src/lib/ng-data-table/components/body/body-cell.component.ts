@@ -1,5 +1,5 @@
 import {
-  Component, Input, HostBinding, ViewContainerRef, ViewChild, OnInit, OnDestroy, ElementRef,
+  Component, Input, HostBinding, OnInit, OnDestroy, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import {DataTable, Cell, CellEventArgs, CellEventType} from '../../base';
@@ -61,8 +61,6 @@ export class BodyCellComponent implements OnInit, OnDestroy {
     return this.cell.rowIndex;
   }
 
-  @ViewChild('cellTemplate', {static: true}) cellTemplate: ViewContainerRef;
-
   editing: boolean;
   subscriptions: Subscription[] = [];
 
@@ -86,9 +84,6 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.cellTemplate) {
-      this.cellTemplate.clear();
-    }
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
