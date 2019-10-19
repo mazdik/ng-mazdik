@@ -4,7 +4,7 @@ import { SelectItem } from 'ng-mazdik-lib';
 @Component({
   selector: 'app-dropdown-select-demo',
   template: `
-  <div class="sl-row">
+  <div class="dropdown-select-demo">
     <app-dropdown-select class="sl-column"
       [value]="selectedOptions1"
       [options]="options"
@@ -19,10 +19,6 @@ import { SelectItem } from 'ng-mazdik-lib';
     </app-dropdown-select>
   </div>
   `,
-  styles: [`
-    .sl-row {display: flex;}
-    .sl-column {margin-right: 2em; width: 20em;}
-  `],
 })
 export class DropdownSelectDemoComponent {
 

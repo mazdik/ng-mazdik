@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-draggable-directive-demo',
@@ -16,18 +16,12 @@ import { Component } from '@angular/core';
     (touchstart)="dragEventTarget2 = $event">
   </div>
   `,
-  styles: [`
-    .dd-box {position: absolute; width: 200px; height: 200px;}
-    .box1 {background-color: #009ccc;}
-    .box2 {background-color: #f2cb1d; left: 500px;}
-    .dragging {cursor: move;}
-  `]
 })
 export class DraggableDirectiveDemoComponent {
 
   dragEventTarget1: MouseEvent | TouchEvent;
   dragEventTarget2: MouseEvent | TouchEvent;
 
-  constructor() { }
+  @HostBinding('class.draggable-directive-demo') cssClass = true;
 
 }

@@ -1,27 +1,26 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-multiple-selection-demo',
   template: `<button class="dt-button" (click)="clearSelection()">Clear all selections</button>
     <p>Selection type: multiple. Selection mode: checkbox</p>
-    <app-data-table [table]="table" (selectionChange)="onSelection()"></app-data-table>
-    <div class="dt-message dt-message-success" style="margin-right:5px;"
-                *ngFor="let row of selectedRows">
-                {{row.id + '-' + row.name}}
+    <app-data-table [table]="table"></app-data-table>
+    <div class="dt-message dt-message-success" style="margin-right:5px;" *ngFor="let row of selectedRows">
+      {{row.id + '-' + row.name}}
     </div>
     <p>Selection type: multiple. Selection mode: radio</p>
-    <app-data-table [table]="table2" (selectionChange)="onSelection2()"></app-data-table>
-    <div class="dt-message dt-message-success" style="margin-right:5px;"
-                *ngFor="let row of selectedRows2">
-                {{row.id + '-' + row.name}}
+    <app-data-table [table]="table2"></app-data-table>
+    <div class="dt-message dt-message-success" style="margin-right:5px;" *ngFor="let row of selectedRows2">
+      {{row.id + '-' + row.name}}
     </div>
   `
 })
 
-export class MultipleSelectionDemoComponent implements OnInit {
+export class MultipleSelectionDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
   table2: DataTable;
@@ -37,6 +36,7 @@ export class MultipleSelectionDemoComponent implements OnInit {
     selectionMultiple: true,
     selectionMode: 'radio',
   });
+  private subscriptions: Subscription[] = [];
 
   constructor(private http: HttpClient) {
     const columns = getColumnsPlayers();
@@ -52,14 +52,19 @@ export class MultipleSelectionDemoComponent implements OnInit {
       this.table2.rows = data;
       this.table.events.onLoading(false);
     });
+
+    const subSelection = this.table.events.selectionSource$.subscribe(() => {
+      this.selectedRows = this.table.getSelection();
+    });
+    const subSelection2 = this.table2.events.selectionSource$.subscribe(() => {
+      this.selectedRows2 = this.table2.getSelection();
+    });
+    this.subscriptions.push(subSelection);
+    this.subscriptions.push(subSelection2);
   }
 
-  onSelection() {
-    this.selectedRows = this.table.getSelection();
-  }
-
-  onSelection2() {
-    this.selectedRows2 = this.table2.getSelection();
+  ngOnDestroy() {
+    this.subscriptions.forEach(s => s.unsubscribe());
   }
 
   clearSelection() {

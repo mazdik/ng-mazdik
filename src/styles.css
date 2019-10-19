@@ -69,7 +69,7 @@
   position: relative;
   padding: .75rem 1.25rem;
   margin-bottom: 1rem;
-  border: 1px solid transparent;
+  border: .1rem solid transparent;
   border-radius: .25rem;
 }
 
@@ -80,9 +80,9 @@
 }
 
 /* PanelDemoComponent */
-.modal1 .ui-modal-header { background-color: red !important; }
-.modal2 .ui-modal-header { background-color: #4CAF50 !important; }
-.modal3 .ui-modal-header { background-color: #ff9800 !important; }
+.panel-demo1 .ui-modal-header { background-color: red !important; }
+.panel-demo2 .ui-modal-header { background-color: #4CAF50 !important; }
+.panel-demo3 .ui-modal-header { background-color: #ff9800 !important; }
 
 /* MultiSelectDemoComponent */
 .multi-select-demo {width: 600px;}
@@ -109,3 +109,65 @@
 
 /* DualListBoxDemoComponent */
 .dual-list-box-demo {min-width: 400px; max-width: 600px}
+
+/* ScrollerDemoComponent */
+.scroller-demo .sc-row {height: 40px;}
+.scroller-demo.dt-scroller {width: 200px;}
+
+/* SelectListDemoComponent */
+.select-list-demo {display: flex;}
+.select-list-demo .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
+
+/* DraggableDirectiveDemoComponent */
+.draggable-directive-demo .dd-box {position: absolute; width: 20rem; height: 20rem;}
+.draggable-directive-demo .box1 {background-color: #009ccc;}
+.draggable-directive-demo .box2 {background-color: #f2cb1d; left: 50rem;}
+
+/* ResizableDirectiveDemoComponent */
+.resizable-directive-demo .dd-box {position: absolute; width: 20rem; height: 20rem;}
+.resizable-directive-demo .box1 {background-color: #009ccc;}
+
+/* PaginationDemoComponent */
+.pagination-demo {width: 30em;}
+
+/* ModalSelectDemoComponent */
+.modal-select-demo {display: block; width: 20em;}
+
+/* InlineEditDemoComponent */
+.inline-edit-demo {display: flex; height: 3em;}
+.inline-edit-demo-cell.dt-inline-editor {width: 10em; line-height: 3em; border: 1px solid #eee;}
+
+/* DropdownSelectDemoComponent */
+.dropdown-select-demo {display: flex;}
+.dropdown-select-demo .sl-column {margin-right: 2em; width: 20em;}
+
+/* DragDropDemoComponent */
+.drag-drop-demo { display: flex; }
+.drag-drop-demo .dd-column { width: 20%; min-height: 500px; }
+.drag-drop-demo .dd-column + .dd-column { margin-left: 10px; }
+.drag-drop-demo .dd-column:nth-child(1) { background: rgb(255, 255, 219); }
+.drag-drop-demo .dd-column:nth-child(2) { background: rgb(236, 236, 191); }
+.drag-drop-demo .dd-column:nth-child(3) { background: rgb(253, 214, 162); }
+.drag-drop-demo .dd-column:nth-child(4) { background: rgb(162, 226, 253); }
+.drag-drop-demo .dd-column:nth-child(5) { background: rgb(162, 253, 200); }
+.drag-drop-demo .dd-issue {
+  background: rgba(0, 0, 0, .1);
+  border-radius: 4px;
+  margin-bottom: 4px;
+  cursor: move;
+  position: relative;
+  color: #000;
+  overflow: hidden;
+}
+.drag-drop-demo .dd-issue:hover { background: rgba(0, 0, 0, .15); }
+.drag-drop-demo .dd-title { background: rgba(0, 0, 0, .1); padding: 2px 4px; }
+.drag-drop-demo .dd-text { padding: 3px 4px 1px; line-height: 120%; }
+
+/* DropdownDirectiveDemoComponent */
+.dropdown-directive-demo .navbar,
+.dropdown-directive-demo .navbar-expand,
+.dropdown-directive-demo .dropdown-menu
+{ background-color: #2578cf; }
+
+/* HeaderDemoComponent */
+.header-demo .datatable-header-cell {justify-content: center;}

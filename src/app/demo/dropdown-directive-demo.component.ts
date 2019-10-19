@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-dropdown-directive-demo',
@@ -32,11 +32,8 @@ import { Component } from '@angular/core';
       </li>
     </ul>
   </nav>
-  `,
-  styles: [`
-  .navbar, .navbar-expand, .dropdown-menu {background-color: #2578cf}
-  `]
+  `
 })
 export class DropdownDirectiveDemoComponent {
-  constructor() { }
+  @HostBinding('class.dropdown-directive-demo') cssClass = true;
 }

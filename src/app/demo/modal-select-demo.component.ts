@@ -9,8 +9,7 @@ import { SelectItem } from 'ng-mazdik-lib';
     [options]="options"
     (valueChange)="onValueChange()">
   </app-modal-select>
-  `,
-  styles: [`.modal-select-demo {display: block; width: 20em;}`],
+  `
 })
 export class ModalSelectDemoComponent {
 

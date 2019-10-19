@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'app-resizable-directive-demo',
@@ -15,14 +15,10 @@ import { Component } from '@angular/core';
     (resizing)="onResize($event)">
   </div>
   `,
-  styles: [`
-    .dd-box {position: absolute; width: 200px; height: 200px;}
-    .box1 {background-color: #009ccc;}
-  `],
 })
 export class ResizableDirectiveDemoComponent {
 
-  constructor() { }
+  @HostBinding('class.resizable-directive-demo') cssClass = true;
 
   onResize($event) {}
 
