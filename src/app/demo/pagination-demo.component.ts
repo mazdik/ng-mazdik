@@ -10,11 +10,9 @@ import { Component } from '@angular/core';
       [pageSizeOptions]="[10, 20, 30, 50]"
       (pageChanged)="onPageChanged($event)">
     </app-pagination>
-  `,
-  styles: [`.pagination-demo {width: 30em;}`]
+  `
 })
 export class PaginationDemoComponent {
-  constructor() { }
 
   onPageChanged(event) {
     console.log(event);

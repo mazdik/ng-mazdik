@@ -6,7 +6,7 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-header-demo',
   template: `
-    <app-data-table [table]="table">
+    <app-data-table [table]="table" class="header-demo">
       <ng-template dtHeaderTemplate>
         <div class="datatable-header-row" [style.height.px]="40" [style.transform]="translate3d()">
           <div class="datatable-header-cell dt-sticky" [style.width.px]="getWidth(0, 2)" [style.transform]="translate3dCell()">Group 1
@@ -19,7 +19,6 @@ import {getColumnsPlayers} from './columns';
       </ng-template>
     </app-data-table>
   `,
-  styles: ['.datatable-header-cell {justify-content: center;}']
 })
 
 export class HeaderDemoComponent implements OnInit {

@@ -1,14 +1,12 @@
 import {
-  Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding, ViewEncapsulation
+  Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding
 } from '@angular/core';
 import {PageEvent} from './types';
 
 @Component({
   selector: 'app-pagination',
   templateUrl: 'pagination.component.html',
-  styleUrls: ['pagination.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class PaginationComponent {
 

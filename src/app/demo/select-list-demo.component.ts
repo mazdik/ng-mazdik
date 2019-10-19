@@ -1,10 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-select-list-demo',
   template: `
-  <div class="sl-row">
+  <div class="select-list-demo">
     <app-select-list class="sl-column"
         [options]="options"
         [selected]="selectedOptions1"
@@ -23,12 +23,6 @@ import { SelectItem } from 'ng-mazdik-lib';
     </app-select-list>
   </div>
   `,
-  styles: [`
-    .sl-row {display: flex;}
-    .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
-  `],
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class SelectListDemoComponent {
 

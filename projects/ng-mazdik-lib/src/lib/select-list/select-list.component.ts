@@ -1,18 +1,11 @@
 import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy, ViewChild, AfterViewInit
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterViewInit
 } from '@angular/core';
 import {SelectItem} from '../common';
 
 @Component({
   selector: 'app-select-list',
   templateUrl: 'select-list.component.html',
-  styleUrls: [
-    '../styles/checkbox.css',
-    '../styles/checkbox.css',
-    '../styles/list-menu.css',
-    '../styles/input.css',
-  ],
-  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectListComponent implements AfterViewInit {

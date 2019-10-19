@@ -17,9 +17,6 @@ import { HttpClient } from '@angular/common/http';
     (loaded)="onLoaded($event)">
   </app-dynamic-form>
   `,
-  styles: [`
-    .dynamic-form-demo {display: block; width: 30em;}
-  `]
 })
 export class DynamicFormDemoComponent {
 

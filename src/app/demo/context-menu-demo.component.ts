@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MenuItem, ContextMenuComponent, MenuEventArgs } from 'ng-mazdik-lib';
 
 @Component({
@@ -7,8 +7,6 @@ import { MenuItem, ContextMenuComponent, MenuEventArgs } from 'ng-mazdik-lib';
     <button class="dt-button" (click)="show($event)">context menu</button>&nbsp;
     <app-context-menu #contextMenu [menu]="items"></app-context-menu>
   `,
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class ContextMenuDemoComponent {
 

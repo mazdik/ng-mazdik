@@ -5,9 +5,7 @@ import {getColumnsPlayers} from './columns';
 
 @Component({
   selector: 'app-summary-row-demo',
-  template: `
-    <app-data-table [table]="table"></app-data-table>
-  `
+  template: `<app-data-table [table]="table"></app-data-table>`
 })
 
 export class SummaryRowDemoComponent implements OnInit {

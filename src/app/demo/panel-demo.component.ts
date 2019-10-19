@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-panel-demo',
@@ -7,7 +7,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   <button type="button" class="dt-button" (click)="modal2.show()">Open panel 2</button>&nbsp;
   <button type="button" class="dt-button" (click)="modal3.show()">Open panel 2</button>&nbsp;
     <app-modal #modal1
-               class="modal1"
+               class="panel-demo1"
                [modalTitle]="'Panel 1'"
                [width]="500"
                [maximizable]="true"
@@ -24,7 +24,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </ng-container>
     </app-modal>
     <app-modal #modal2
-               class="modal2"
+               class="panel-demo2"
                [modalTitle]="'Panel 2'"
                [width]="500"
                [maximizable]="true"
@@ -41,7 +41,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </ng-container>
     </app-modal>
     <app-modal #modal3
-               class="modal3"
+               class="panel-demo3"
                [modalTitle]="'Panel 3'"
                [width]="500"
                [maximizable]="true"
@@ -58,13 +58,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </ng-container>
     </app-modal>
   `,
-  styles: [`
-  .modal1 .ui-modal-header { background-color: red !important; }
-  .modal2 .ui-modal-header { background-color: #4CAF50 !important; }
-  .modal3 .ui-modal-header { background-color: #ff9800 !important; }
-  `],
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class PanelDemoComponent {
 

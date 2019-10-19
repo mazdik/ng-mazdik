@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'ng-mazdik-lib';
 
 @Component({
@@ -31,13 +31,7 @@ import { SelectItem } from 'ng-mazdik-lib';
     &nbsp;
     <button class="dt-button" (click)="editing2=!editing2">{{editing2 ? 'View' : 'Edit'}}</button>&nbsp;
   </div>
-  `,
-  styles: [`
-    .inline-edit-demo {display: flex; height: 3em;}
-    .inline-edit-demo-cell.dt-inline-editor {width: 10em; line-height: 3em; border: 1px solid #eee;}
-  `],
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
-  encapsulation: ViewEncapsulation.None,
+  `
 })
 export class InlineEditDemoComponent {
 

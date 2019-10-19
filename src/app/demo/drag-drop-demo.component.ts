@@ -9,7 +9,7 @@ class Item {
 @Component({
   selector: 'app-drag-drop-demo',
   template: `
-  <div class="dd-row">
+  <div class="drag-drop-demo">
     <div class="dd-column"
       *ngFor="let item of items"
       appDroppable [dragElementEvent]="dragElementEvent" (dropElement)="onDrop($event, item)">
@@ -22,29 +22,7 @@ class Item {
       </div>
     </div>
   </div>
-  `,
-  styles: [`
-    .dd-row { display: flex; }
-    .dd-column { width: 20%; height: 100%; min-height: 500px; }
-    .dd-column + .dd-column { margin-left: 10px; }
-    .dd-column:nth-child(1) { background: rgb(255, 255, 219); }
-    .dd-column:nth-child(2) { background: rgb(236, 236, 191); }
-    .dd-column:nth-child(3) { background: rgb(253, 214, 162); }
-    .dd-column:nth-child(4) { background: rgb(162, 226, 253); }
-    .dd-column:nth-child(5) { background: rgb(162, 253, 200); }
-    .dd-issue {
-      background: rgba(0, 0, 0, .1);
-      border-radius: 4px;
-      margin-bottom: 4px;
-      cursor: move;
-      position: relative;
-      color: #000;
-      overflow: hidden;
-    }
-    .dd-issue:hover { background: rgba(0, 0, 0, .15); }
-    .dd-title { background: rgba(0, 0, 0, .1); padding: 2px 4px; }
-    .dd-text { padding: 3px 4px 1px; line-height: 120%; }
-  `]
+  `
 })
 
 export class DragDropDemoComponent {

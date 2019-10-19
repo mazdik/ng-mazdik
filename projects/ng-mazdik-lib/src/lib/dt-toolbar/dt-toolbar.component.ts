@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy, ViewEncapsulation,
+  Component, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy,
   ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
 import { DataTable } from '../ng-data-table/base';
@@ -9,14 +9,7 @@ import { downloadCSV, Keys } from '../common';
 @Component({
   selector: 'dt-toolbar',
   templateUrl: './dt-toolbar.component.html',
-  styleUrls: [
-    './dt-toolbar.component.css',
-    '../styles/input-group.css',
-    '../styles/buttons.css',
-    '../styles/input.css'
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
 })
 export class DtToolbarComponent implements OnInit, OnDestroy {
 

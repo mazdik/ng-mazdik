@@ -1,26 +1,173 @@
-*, *:before, *:after {
-  box-sizing: border-box;
+.github-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+  color: white;
+  margin-right: 20px;
 }
 
-html {
-  font-size: 10px;
-  -webkit-tap-highlight-color: transparent
+.github-icon:hover {
+  opacity: .8;
 }
 
-body {
-  background-color: #fff;
-  color: #333;
-  font-size: 14px;
-  font-family: Segoe UI, Arial, sans-serif;
-  line-height: 1.5;
+.datatable-header-row {
+  min-height: 40px;
 }
 
-html, body {
-  height: 100%;
+.cell-big-value {
+  background-color: lightsalmon;
 }
 
-a {
-  text-decoration: none;
-  transition: all 0.3s linear 0s;
-  color: #337ab7;
+.cell-zero-value {
+  background-color: lightgreen;
 }
+
+.cell-middle-value {
+  background-color: lightBlue;
+}
+
+.cell-right {
+  justify-content: flex-end;
+}
+
+.cell-right input {
+  text-align: right;
+}
+
+.datatable-body-row.row-warrior,
+.datatable-body-row.row-warrior .dt-sticky {
+  background-color: lightyellow;
+}
+
+.datatable-body-row.row-sorcerer,
+.datatable-body-row.row-sorcerer .dt-sticky {
+  background-color: LightSlateGray;
+  color: white;
+}
+
+.datatable-header-cell.header-cell-demo {
+  justify-content: center;
+  background-color: lightseagreen;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 220px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1500;
+}
+
+.dt-message {
+  display: inline-block;
+  position: relative;
+  padding: .75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: .1rem solid transparent;
+  border-radius: .25rem;
+}
+
+.dt-message-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+/* PanelDemoComponent */
+.panel-demo1 .ui-modal-header { background-color: red !important; }
+.panel-demo2 .ui-modal-header { background-color: #4CAF50 !important; }
+.panel-demo3 .ui-modal-header { background-color: #ff9800 !important; }
+
+/* MultiSelectDemoComponent */
+.multi-select-demo {width: 600px;}
+.multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
+.multi-select-demo .datatable-body-cell > .cell-data,
+.multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
+.multi-select-demo-block {position: relative;}
+.multi-select-demo-block .dt-dropdown-select-list {width: 250px;}
+
+/* FrozenTableDemoComponent */
+.frozen-table-demo {display: flex;}
+.frozen-table-demo .tab2 {overflow-x: auto;}
+.frozen-table-demo .frozen .dt-scroller {overflow-y: hidden; overflow-x: scroll}
+
+/* VerticalGroupDemoComponent */
+.vertical-group-demo {display: flex;}
+.vertical-group-demo .tab2 {overflow-x: auto;}
+.vertical-group-demo .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
+.vertical-group-demo .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 50px;}
+.vertical-group-demo .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}
+
+/* DynamicFormDemoComponent */
+.dynamic-form-demo {display: block; width: 30em;}
+
+/* DualListBoxDemoComponent */
+.dual-list-box-demo {min-width: 400px; max-width: 600px}
+
+/* ScrollerDemoComponent */
+.scroller-demo .sc-row {height: 40px;}
+.scroller-demo.dt-scroller {width: 200px;}
+
+/* SelectListDemoComponent */
+.select-list-demo {display: flex;}
+.select-list-demo .sl-column {margin-right: 2em; width: 20em; padding: 1em; border: 0.1em solid #eee; border-radius: 0.1em;}
+
+/* DraggableDirectiveDemoComponent */
+.draggable-directive-demo .dd-box {position: absolute; width: 20rem; height: 20rem;}
+.draggable-directive-demo .box1 {background-color: #009ccc;}
+.draggable-directive-demo .box2 {background-color: #f2cb1d; left: 50rem;}
+
+/* ResizableDirectiveDemoComponent */
+.resizable-directive-demo .dd-box {position: absolute; width: 20rem; height: 20rem;}
+.resizable-directive-demo .box1 {background-color: #009ccc;}
+
+/* PaginationDemoComponent */
+.pagination-demo {width: 30em;}
+
+/* ModalSelectDemoComponent */
+.modal-select-demo {display: block; width: 20em;}
+
+/* InlineEditDemoComponent */
+.inline-edit-demo {display: flex; height: 3em;}
+.inline-edit-demo-cell.dt-inline-editor {width: 10em; line-height: 3em; border: 1px solid #eee;}
+
+/* DropdownSelectDemoComponent */
+.dropdown-select-demo {display: flex;}
+.dropdown-select-demo .sl-column {margin-right: 2em; width: 20em;}
+
+/* DragDropDemoComponent */
+.drag-drop-demo { display: flex; }
+.drag-drop-demo .dd-column { width: 20%; min-height: 500px; }
+.drag-drop-demo .dd-column + .dd-column { margin-left: 10px; }
+.drag-drop-demo .dd-column:nth-child(1) { background: rgb(255, 255, 219); }
+.drag-drop-demo .dd-column:nth-child(2) { background: rgb(236, 236, 191); }
+.drag-drop-demo .dd-column:nth-child(3) { background: rgb(253, 214, 162); }
+.drag-drop-demo .dd-column:nth-child(4) { background: rgb(162, 226, 253); }
+.drag-drop-demo .dd-column:nth-child(5) { background: rgb(162, 253, 200); }
+.drag-drop-demo .dd-issue {
+  background: rgba(0, 0, 0, .1);
+  border-radius: 4px;
+  margin-bottom: 4px;
+  cursor: move;
+  position: relative;
+  color: #000;
+  overflow: hidden;
+}
+.drag-drop-demo .dd-issue:hover { background: rgba(0, 0, 0, .15); }
+.drag-drop-demo .dd-title { background: rgba(0, 0, 0, .1); padding: 2px 4px; }
+.drag-drop-demo .dd-text { padding: 3px 4px 1px; line-height: 120%; }
+
+/* DropdownDirectiveDemoComponent */
+.dropdown-directive-demo .navbar,
+.dropdown-directive-demo .navbar-expand,
+.dropdown-directive-demo .dropdown-menu
+{ background-color: #2578cf; }
+
+/* HeaderDemoComponent */
+.header-demo .datatable-header-cell {justify-content: center;}

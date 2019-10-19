@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, ViewEncapsulation, HostListener} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, HostListener} from '@angular/core';
 import {ColumnBase, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
 import {DemoService} from './demo.service';
 import {Subscription} from 'rxjs';
@@ -46,36 +46,6 @@ import {Subscription} from 'rxjs';
       </app-dropdown-select>
     </ng-template>
   `,
-  styles: [`
-    .multi-select-demo {width: 600px;}
-    .multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
-    .multi-select-demo .datatable-body-cell > .cell-data,
-    .multi-select-demo .datatable-body-cell > span:first-child {padding: 4px 3px;}
-    .multi-select-demo-block {position: relative;}
-    .multi-select-demo-block .dt-dropdown-select-list {width: 250px;}
-    .dt-dropdown-select {
-      display: block;
-      position: relative;
-      width: 100%;
-    }
-    .dt-dropdown-select-list {
-      position: absolute;
-      width: 100%;
-      z-index: 2;
-      padding: 5px;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 2px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-    }
-    .dt-dropdown-select .dt-input-group input:not([disabled]) {
-      cursor: pointer;
-    }
-    input.dt-select-input[readonly]:not([disabled]) {
-      background-color: white;
-    }
-  `],
-  encapsulation: ViewEncapsulation.None,
 })
 
 export class MultiSelectDemoComponent implements OnInit, OnDestroy {

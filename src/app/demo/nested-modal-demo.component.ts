@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-nested-modal-demo',
@@ -57,8 +57,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
       </ng-container>
     </app-modal>
   `,
-  styleUrls: ['../../../dist/ng-mazdik-lib/styles/buttons.css'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class NestedModalDemoComponent {
 
