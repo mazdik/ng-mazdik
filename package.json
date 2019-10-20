@@ -24,7 +24,6 @@
     "@angular/platform-browser-dynamic": "~8.2.8",
     "@angular/router": "~8.2.8",
     "rxjs": "~6.4.0",
-    "scss-bundle": "^3.0.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
@@ -47,6 +46,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^5.4.0",
     "protractor": "~5.4.0",
+    "scss-bundle": "^3.0.1",
     "ts-node": "~7.0.0",
     "tsickle": "^0.37.0",
     "tslint": "~5.15.0",

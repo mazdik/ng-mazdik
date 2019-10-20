@@ -1,10 +1,9 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { TreeNode } from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-nav-item',
   templateUrl: 'nav-item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavItemComponent {
 

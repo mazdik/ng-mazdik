@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, ChangeDetectionStrategy, HostListener } from '@angular/core';
+import { Component, Input, HostBinding, HostListener } from '@angular/core';
 import { TreeNode, Tree } from 'ng-mazdik-lib';
 
 @Component({
@@ -9,7 +9,6 @@ import { TreeNode, Tree } from 'ng-mazdik-lib';
     [getIconFunc]="getIconFunc"
     (expand)="expandedNode = $event">
   </app-nav-item>`,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavMenuComponent {
 

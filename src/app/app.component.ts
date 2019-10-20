@@ -27,6 +27,9 @@ export class AppComponent implements AfterViewInit {
     const url = window.location.href.split('#')[1];
     const node = this.navMenu.tree.getNodeById(url || '/');
     if (node) {
+      if (this.navMenu.tree.nodes && this.navMenu.tree.nodes.length) {
+        this.navMenu.tree.nodes[0].expanded = false;
+      }
       node.ensureVisible();
     }
   }

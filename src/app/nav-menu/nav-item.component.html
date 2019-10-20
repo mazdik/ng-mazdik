@@ -19,8 +19,7 @@
   </a>
 
   <button *ngIf="node.id == null" type="button" [ngClass]="classes"
-    (click)="headerClicked()" class="vertical-menu-item heading"
-    [attr.aria-pressed]="node.expanded">
+    (click)="headerClicked()" class="vertical-menu-item heading">
     <i *ngIf="node.icon || getIconFunc" class="nav-menu-icon" [ngClass]="getIcon(node)"></i>
     <span class="menu-item-text">{{node.name}}</span>
     <div class="rotating-icon">
