@@ -167,7 +167,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
   }
 
   getIcon(row: any) {
-    return row.hasChildren ? 'tree-icon tree-folder' : 'tree-icon tree-file';
+    return row.hasChildren ? 'dt-icon-folder' : 'dt-icon-file';
   }
 
 }
