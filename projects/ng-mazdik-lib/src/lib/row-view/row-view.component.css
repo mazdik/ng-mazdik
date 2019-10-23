@@ -3,7 +3,7 @@
   border-collapse: collapse;
   width: 100%;
   max-width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .dt-detail-view, .dt-detail-view th, .dt-detail-view td {
@@ -14,7 +14,7 @@
   background-color: #f9f9f9;
 }
 .dt-detail-view th, .dt-detail-view td {
-  padding: 8px;
+  padding: .5rem;
   line-height: 1.5;
   vertical-align: top;
   text-align: left;

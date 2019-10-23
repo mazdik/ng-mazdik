@@ -45,6 +45,5 @@
 .dt-list-menu-scroll {
   height: auto;
   overflow-y: auto;
-  min-width: 16rem;
   max-height: 12.5rem;
 }

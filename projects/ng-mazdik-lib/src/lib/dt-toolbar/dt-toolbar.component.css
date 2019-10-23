@@ -1,22 +1,22 @@
 .dt-toolbar-row {
     display: flex;
-    margin-right: -5px;
-    margin-left: -5px;
+    margin-right: -.3125rem;
+    margin-left: -.3125rem;
     margin-bottom: 1rem;
   }
 
 .dt-toolbar-col {
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: .3125rem;
+    padding-left: .3125rem;
     position: relative;
 }
 
 .dt-global-filter {
-    width: 300px;
+    width: 18.75rem;
 }
 
 .dt-toolbar-col .dt-context-menu {
-  width: 170px;
+  width: 10.625rem;
   display: none;
 }
 
