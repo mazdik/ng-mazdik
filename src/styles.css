@@ -2,10 +2,10 @@
   background-repeat: no-repeat;
   display: inline-block;
   fill: currentColor;
-  height: 2.4rem;
-  width: 2.4rem;
+  height: 1.5rem;
+  width: 1.5rem;
   color: white;
-  margin-right: 2rem;
+  margin-right: 1.25rem;
 }
 
 .github-icon:hover {
@@ -13,7 +13,7 @@
 }
 
 .datatable-header-row {
-  min-height: 4rem;
+  min-height: 2.5rem;
 }
 
 .cell-big-value {
@@ -54,12 +54,12 @@
 
 .tooltip {
   visibility: hidden;
-  width: 22rem;
+  width: 13.75rem;
   background-color: #555;
   color: #fff;
   text-align: center;
-  border-radius: .6rem;
-  padding: .5rem 0;
+  border-radius: .375rem;
+  padding: .3125rem 0;
   position: absolute;
   z-index: 1500;
 }
@@ -69,7 +69,7 @@
   position: relative;
   padding: .75rem 1.25rem;
   margin-bottom: 1rem;
-  border: .1rem solid transparent;
+  border: 1px solid transparent;
   border-radius: .25rem;
 }
 
@@ -85,12 +85,12 @@
 .panel-demo3 .ui-modal-header { background-color: #ff9800 !important; }
 
 /* MultiSelectDemoComponent */
-.multi-select-demo {width: 60rem;}
+.multi-select-demo {width: 37.5rem;}
 .multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}
 .multi-select-demo .datatable-body-cell > .cell-data,
-.multi-select-demo .datatable-body-cell > span:first-child {padding: .4rem .3rem;}
+.multi-select-demo .datatable-body-cell > span:first-child {padding: .25rem .1875rem;}
 .multi-select-demo-block {position: relative;}
-.multi-select-demo-block .dt-dropdown-select-list {width: 25rem;}
+.multi-select-demo-block .dt-dropdown-select-list {width: 15.625rem;}
 
 /* FrozenTableDemoComponent */
 .frozen-table-demo {display: flex;}
@@ -101,50 +101,50 @@
 .vertical-group-demo {display: flex;}
 .vertical-group-demo .tab2 {overflow-x: auto;}
 .vertical-group-demo .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
-.vertical-group-demo .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 5rem;}
+.vertical-group-demo .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 3.125rem;}
 .vertical-group-demo .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}
 
 /* DynamicFormDemoComponent */
-.dynamic-form-demo {display: block; width: 35rem;}
+.dynamic-form-demo {display: block; width: 25rem;}
 
 /* DualListBoxDemoComponent */
-.dual-list-box-demo {min-width: 40rem; max-width: 60rem}
+.dual-list-box-demo {min-width: 25rem; max-width: 37.5rem}
 
 /* ScrollerDemoComponent */
-.scroller-demo .sc-row {height: 4rem;}
-.scroller-demo.dt-scroller {width: 20rem;}
+.scroller-demo .sc-row {height: 2.5rem;}
+.scroller-demo.dt-scroller {width: 12.5rem;}
 
 /* SelectListDemoComponent */
 .select-list-demo {display: flex;}
-.select-list-demo .sl-column {margin-right: 3rem; width: 25rem; padding: 1rem; border: .1rem solid #eee; border-radius: .1rem;}
+.select-list-demo .sl-column {margin-right: 1.875rem; width: 15.625rem; padding: .625rem; border: 1px solid #eee; border-radius: .0625rem;}
 
 /* DraggableDirectiveDemoComponent */
-.draggable-directive-demo .dd-box {position: absolute; width: 20rem; height: 20rem;}
+.draggable-directive-demo .dd-box {position: absolute; width: 12.5rem; height: 12.5rem;}
 .draggable-directive-demo .box1 {background-color: #009ccc;}
-.draggable-directive-demo .box2 {background-color: #f2cb1d; left: 50rem;}
+.draggable-directive-demo .box2 {background-color: #f2cb1d; left: 31.25rem;}
 
 /* ResizableDirectiveDemoComponent */
-.resizable-directive-demo .dd-box {position: absolute; width: 20rem; height: 20rem;}
+.resizable-directive-demo .dd-box {position: absolute; width: 12.5rem; height: 12.5rem;}
 .resizable-directive-demo .box1 {background-color: #009ccc;}
 
 /* PaginationDemoComponent */
-.pagination-demo {width: 40rem;}
+.pagination-demo {width: 25rem;}
 
 /* ModalSelectDemoComponent */
-.modal-select-demo {display: block; width: 30rem;}
+.modal-select-demo {display: block; width: 18.75rem;}
 
 /* InlineEditDemoComponent */
-.inline-edit-demo {display: flex; height: 4rem;}
-.inline-edit-demo-cell.dt-inline-editor {width: 20rem; line-height: 4rem; border: .1rem solid #eee;}
+.inline-edit-demo {display: flex; height: 2.5rem;}
+.inline-edit-demo-cell.dt-inline-editor {width: 12.5rem; line-height: 2.5rem; border: 1px solid #eee;}
 
 /* DropdownSelectDemoComponent */
 .dropdown-select-demo {display: flex;}
-.dropdown-select-demo .sl-column {margin-right: 3rem; width: 25rem;}
+.dropdown-select-demo .sl-column {margin-right: 1.875rem; width: 15.625rem;}
 
 /* DragDropDemoComponent */
 .drag-drop-demo { display: flex; }
-.drag-drop-demo .dd-column { width: 20%; min-height: 50rem; }
-.drag-drop-demo .dd-column + .dd-column { margin-left: 1rem; }
+.drag-drop-demo .dd-column { width: 20%; min-height: 31.25rem; }
+.drag-drop-demo .dd-column + .dd-column { margin-left: .625rem; }
 .drag-drop-demo .dd-column:nth-child(1) { background: rgb(255, 255, 219); }
 .drag-drop-demo .dd-column:nth-child(2) { background: rgb(236, 236, 191); }
 .drag-drop-demo .dd-column:nth-child(3) { background: rgb(253, 214, 162); }
@@ -152,16 +152,16 @@
 .drag-drop-demo .dd-column:nth-child(5) { background: rgb(162, 253, 200); }
 .drag-drop-demo .dd-issue {
   background: rgba(0, 0, 0, .1);
-  border-radius: .4rem;
-  margin-bottom: .4rem;
+  border-radius: .25rem;
+  margin-bottom: .25rem;
   cursor: move;
   position: relative;
   color: #000;
   overflow: hidden;
 }
 .drag-drop-demo .dd-issue:hover { background: rgba(0, 0, 0, .15); }
-.drag-drop-demo .dd-title { background: rgba(0, 0, 0, .1); padding: .2rem .4rem; }
-.drag-drop-demo .dd-text { padding: .3rem .4rem .1rem; line-height: 120%; }
+.drag-drop-demo .dd-title { background: rgba(0, 0, 0, .1); padding: .125rem .25rem; }
+.drag-drop-demo .dd-text { padding: .1875rem .25rem .0625rem; line-height: 1.2; }
 
 /* DropdownDirectiveDemoComponent */
 .dropdown-directive-demo .navbar,

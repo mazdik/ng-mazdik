@@ -24,6 +24,6 @@
 }
 
 .dt-input-group button:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-top-right-radius: .1875rem;
+  border-bottom-right-radius: .1875rem;
 }

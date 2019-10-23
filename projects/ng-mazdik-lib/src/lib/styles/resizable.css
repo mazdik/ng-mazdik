@@ -2,16 +2,16 @@
   position: absolute;
   cursor: e-resize;
   height: 100%;
-  width: 7px;
-  right: -5px;
+  width: .4375rem;
+  right: -.3125rem;
   top: 0;
 }
 
 .resize-handle-se {
   position:absolute;
   cursor: se-resize;
-  height: 15px;
-  width: 15px;
+  height: 1rem;
+  width: 1rem;
   right: 0;
   bottom: 0;
 }
@@ -19,9 +19,9 @@
 .resize-handle-s {
   position:absolute;
   cursor: s-resize;
-  height: 7px;
+  height: .4375rem;
   width: 100%;
-  bottom: -5px;
+  bottom: -.3125rem;
   left: 0;
 }
 

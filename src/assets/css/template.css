@@ -2,9 +2,8 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 10px;
-  -webkit-tap-highlight-color: transparent
+html, body {
+  height: 100%;
 }
 
 body {
@@ -13,10 +12,6 @@ body {
   font-size: 14px;
   font-family: Segoe UI, Arial, sans-serif;
   line-height: 1.5;
-}
-
-html, body {
-  height: 100%;
 }
 
 a {

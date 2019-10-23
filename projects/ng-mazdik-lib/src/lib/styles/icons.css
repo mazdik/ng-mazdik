@@ -45,12 +45,12 @@
   display: inline-block;
   width: 0;
   height: 0;
-  border: 7.5px solid;
+  border: .5rem solid;
   border-bottom: none;
   border-left-color: transparent;
   border-right-color: transparent;
-  padding: 2.5px;
-  box-shadow: inset 0 7px;
+  padding: .125rem;
+  box-shadow: inset 0 .4375rem;
 }
 
 .dt-icon-filter:before,
@@ -66,8 +66,7 @@
   border-top: .5em solid;
   border-right: .45em solid transparent;
   border-left: .45em solid transparent;
-  top: -1px;
-  margin-right: 4px;
+  margin-right: .25rem;
   opacity: .75;
   transition: all .3s cubic-bezier(.4,0,.2,1);
   vertical-align: middle;

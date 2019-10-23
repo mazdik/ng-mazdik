@@ -10,7 +10,7 @@
 
 .dt-radio input[type='radio'] {
   position: relative;
-  margin: 0 1rem 0 0;
+  margin: 0 .625rem 0 0;
   cursor: pointer;
   outline: none;
 }
@@ -21,20 +21,20 @@
   top: -25%;
   left: 0;
   z-index: 1;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid #ccc;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: .0625rem solid #ccc;
   border-radius: 100%;
 }
 
 .dt-radio input[type='radio']:checked:before {
-  width: 1rem;
-  height: 1rem;
+  width: .625rem;
+  height: .625rem;
   border: none;
   background: #5b9bd5;
   position: absolute;
-  left: 0.5rem;
-  top: 0.15rem;
+  left: .3125rem;
+  top: .09375rem;
 }
 
 .dt-radio input[type='radio']:after {
@@ -42,14 +42,14 @@
   position: absolute;
   top: -25%;
   left: 0;
-  width: 2rem;
-  height: 2rem;
+  width: 1.25rem;
+  height: 1.25rem;
   background: #fff;
   cursor: pointer;
-  border: 1px solid #ccc;
+  border: .0625rem solid #ccc;
   border-radius: 100%;
 }
 
 .dt-radio input + label {
-  padding-left: 3px;
+  padding-left: .1875rem;
 }

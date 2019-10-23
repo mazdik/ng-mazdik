@@ -1,11 +1,11 @@
 .dt-loader {
   box-sizing: border-box;
   display: inline-block;
-  border: 4px solid #f3f3f3;
+  border: .25rem solid #f3f3f3;
   border-radius: 50%;
-  border-top: 4px solid #3498db;
-  width: 18px;
-  height: 18px;
+  border-top: .25rem solid #3498db;
+  width: 1.125rem;
+  height: 1.125rem;
   animation: spin 2s linear infinite;
   vertical-align: middle;
 }
@@ -18,16 +18,16 @@
 /* spinner 2 */
 .dt-spinner {
   box-sizing: border-box;
-  height: 60px;
-  width: 60px;
+  height: 3.75rem;
+  width: 3.75rem;
   border-radius: 50%;
-  box-shadow: 0 -20px 0 24px #5b9bd5 inset;
+  box-shadow: 0 -1.25rem 0 1.5rem #5b9bd5 inset;
   animation: spin 1s infinite linear;
 }
 
 .dt-spinner {
   position: absolute;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
+  top: calc(50% - 1.875rem);
+  left: calc(50% - 1.875rem);
   z-index: 1000;
 }
