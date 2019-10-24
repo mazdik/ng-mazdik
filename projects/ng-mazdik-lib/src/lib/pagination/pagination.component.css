@@ -3,8 +3,8 @@
     flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
-    min-height: 48px;
-    padding: 0 8px;
+    min-height: 3rem;
+    padding: 0 .5rem;
 }
 
 .pagination-navigation {
@@ -14,7 +14,7 @@
 
 .pagination-navigation a {
     color: black;
-    padding: 5px 10px;
+    padding: .3125rem .625rem;
     text-decoration: none;
     border: 1px solid #ddd;
 }
@@ -31,13 +31,13 @@
 }
 
 .pagination-navigation a:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-top-left-radius: .3125rem;
+    border-bottom-left-radius: .3125rem;
 }
 
 .pagination-navigation a:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: .3125rem;
+    border-bottom-right-radius: .3125rem;
 }
 
 .pagination-navigation a.disabled {
@@ -49,16 +49,16 @@
   .pagination-navigation a:first-child,
   .pagination-navigation a:last-child {
     position: absolute;
-    top: -9999px;
-    left: -9999px;
+    top: -9999rem;
+    left: -9999rem;
   }
 }
 
 @media only screen and (max-width: 30.063em) {
   .pagination-navigation a {
     position: absolute;
-    top: -9999px;
-    left: -9999px;
+    top: -9999rem;
+    left: -9999rem;
   }
   .pagination-navigation a.active,
   .pagination-navigation a:first-of-type,
@@ -72,13 +72,13 @@
 }
 
 .pagination-range-label {
-    margin: 0 28px 0 20px;
+    margin: 0 1.75rem 0 1.25rem;
 }
 
 .pagination-page-size select {
-  padding: 4px 4px;
+  padding: .25rem .25rem;
   color: #555;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: .25rem;
 }

@@ -19,7 +19,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 1px;
-  width: 1px;
+  height: .125rem;
+  width: .125rem;
   transform-origin: 0 0;
 }

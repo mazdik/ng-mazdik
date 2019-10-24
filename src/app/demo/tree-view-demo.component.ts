@@ -21,7 +21,7 @@ export class TreeViewDemoComponent implements OnInit {
 
   selectedNode: TreeNode;
   items: MenuItem[];
-  getIconFunc = (node) => (!node.isLeaf()) ? 'tree-icon tree-folder' : 'tree-icon tree-file';
+  getIconFunc = (node) => (!node.isLeaf()) ? 'dt-icon-folder' : 'dt-icon-file';
 
   constructor(public treeService: TreeDemoService) {}
 

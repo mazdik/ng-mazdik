@@ -2,11 +2,11 @@
   position: absolute;
   z-index: 2;
   margin: 0;
-  padding: 2px;
+  padding: .125rem;
   background-color: #fff;
   border: 1px solid #ccc;
-  border-radius: 2px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+  border-radius: .125rem;
+  box-shadow: 0 .375rem .125rem rgba(0, 0, 0, .175);
 }
 
 .dt-context-menu ul {
@@ -33,7 +33,7 @@
 
 .dt-context-menu li > a:hover {
   background-color: #e8eff7;
-  box-shadow: 0 0 2px #0a6aa1;
+  box-shadow: 0 0 .125rem #0a6aa1;
 }
 
 .dt-context-menu .disabled a,
@@ -63,7 +63,7 @@
 
 .dt-context-menu li > a .context-menu-sep {
   display: inline-block;
-  width: 1px;
+  width: .0625rem;
   height: 2.4em;
   background: white;
   margin: 0 0.5em 0 0;

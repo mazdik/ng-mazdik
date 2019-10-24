@@ -2,13 +2,13 @@
   position: relative;
 }
 .dt-clearable-input > input {
-  padding-right: 1.4em;
+  padding-right: 1.3rem;
 }
 .dt-clearable-input > span {
   display: none;
   position: absolute;
   top: 50%;
-  right: 5px;
+  right: .3125rem;
   transform: translateY(-50%);
   font-weight: bold;
   font-size: 1.6em;

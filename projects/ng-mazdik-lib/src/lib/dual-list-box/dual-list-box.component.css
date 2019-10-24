@@ -11,7 +11,7 @@
 .dt-listbox-panel button {
   display: block;
   margin-bottom: .25em;
-  padding: 2px 6px;
+  padding: .125rem .375rem;
 }
 
 .dt-listbox-panel:nth-child(2n) {
@@ -19,11 +19,11 @@
 }
 
 .dt-listbox-panel:nth-child(2n+1) {
-  width: calc(50% - 40px);
+  width: calc(50% - 2.5rem);
 }
 
 .dt-listbox-panel .dt-list-menu {
-  height: 200px;
+  height: 12.5rem;
   overflow: auto;
   border: 1px solid #ccc;
 }
@@ -36,8 +36,8 @@
   background-repeat: no-repeat;
   display: inline-block;
   fill: currentColor;
-  height: 24px;
-  width: 24px;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .dt-backspace-right {

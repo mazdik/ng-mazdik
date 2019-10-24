@@ -2,9 +2,8 @@
   box-sizing: border-box;
 }
 
-html {
-  font-size: 10px;
-  -webkit-tap-highlight-color: transparent
+html, body {
+  height: 100%;
 }
 
 body {
@@ -13,10 +12,6 @@ body {
   font-size: 14px;
   font-family: Segoe UI, Arial, sans-serif;
   line-height: 1.5;
-}
-
-html, body {
-  height: 100%;
 }
 
 a {
@@ -28,8 +23,8 @@ a {
 /**************/
 
 .navbar {
-  height: 40px;
-  font-size: 14px;
+  height: 2.5rem;
+  font-size: .875rem;
   background-color: #505f6d;
 }
 
@@ -52,14 +47,14 @@ a {
 
 .logo {
   display: inline-block;
-  font-size: 18px;
-  margin-top: 10px;
-  margin-left: 20px;
+  font-size: 1.125rem;
+  margin-top: .625rem;
+  margin-left: 1.25rem;
 }
 
 .nav-links {
   display: block;
-  padding: 10px 0;
+  padding: .625rem 0;
 }
 
 .nav-links:hover {
@@ -67,16 +62,16 @@ a {
 }
 
 .nav-links.active {
-  box-shadow: 0 2px 1px rgba(0, 0, 0, .05), 0 0 0 1px rgba(0, 0, 0, .125) inset;
+  box-shadow: 0 .125rem .0625rem rgba(0, 0, 0, .05), 0 0 0 .0625rem rgba(0, 0, 0, .125) inset;
 }
 
 .navbar-toggle {
   position: absolute;
-  top: 5px;
-  right: 20px;
+  top: .3125rem;
+  right: 1.25rem;
   cursor: pointer;
   color: white;
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 
 .navbar-expand {
@@ -91,20 +86,20 @@ a {
 .dropdown-menu {
   display: none;
   background-color: #505f6d;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  min-width: 10rem;
+  box-shadow: 0 .5rem 1rem 0 rgba(0,0,0,0.2);
 }
 
 .open>.dropdown-menu {
   display: block;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 48rem) {
   .navbar {
     display: flex;
     justify-content: space-between;
     padding-bottom: 0;
-    height: 40px;
+    height: 2.5rem;
     align-items: center;
   }
 
@@ -124,7 +119,7 @@ a {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 15px;
+    padding: 0 1rem;
   }
 
   .logo {
@@ -142,7 +137,7 @@ a {
   }
 
   .dropdown-menu .nav-links {
-    padding: 5px 15px;
+    padding: .3125rem 1rem;
   }
 }
 
@@ -157,22 +152,22 @@ a {
 
 .body-nav {
   position: fixed;
-  top: 40px;
+  top: 2.5rem;
   z-index: 3;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 2.5rem);
   overflow-x: hidden;
-  width: 220px;
+  width: 13.75rem;
 }
 
 .body-nav.nav-collapsed {
-  width: 65px;
+  width: 4rem;
 }
 
 /**************/
 
 .main {
-  margin-left: 220px;
-  padding: 54px 20px 20px 20px;
+  margin-left: 13.75rem;
+  padding: 3.375rem 1.25rem 1.25rem 1.25rem;
   height: 100%;
 }
 
