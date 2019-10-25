@@ -1,3 +1,5 @@
+import {isBlank} from './utils';
+
 export interface CSVargs {
   rows: any[];
   keys: string[];
@@ -47,7 +49,8 @@ function convertArrayOfObjectsToCSV(args: CSVargs) {
       if (ctr > 0) {
         result += args.columnDelimiter;
       }
-      result += '"' + item[key] + '"';
+      const value = (item && !isBlank(item[key])) ? item[key] : '';
+      result += '"' + value + '"';
       ctr++;
     });
     result += args.lineDelimiter;

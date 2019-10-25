@@ -2,7 +2,7 @@ import {
   Component, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy,
   ChangeDetectionStrategy, ChangeDetectorRef,
 } from '@angular/core';
-import { DataTable } from '../ng-data-table/base';
+import { DataTable, Row, Column } from '../ng-data-table/base';
 import { Subscription } from 'rxjs';
 import { downloadCSV, Keys } from '../common';
 
@@ -53,7 +53,17 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
   downloadCsv() {
     const keys = this.table.columns.map(col => col.name);
     const titles = this.table.columns.map(col => col.title);
-    downloadCSV({rows: this.table.rows, keys, titles});
+
+    const resultRows = [];
+    this.table.rows.forEach((x: Row) => {
+      const row = x.clone();
+      this.table.columns.forEach((col: Column) => {
+        row[col.name] = col.getValueView(row);
+      });
+      resultRows.push(row);
+    });
+
+    downloadCSV({rows: resultRows, keys, titles});
   }
 
   createActionClick() {
