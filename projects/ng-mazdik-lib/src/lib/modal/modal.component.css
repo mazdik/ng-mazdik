@@ -22,7 +22,7 @@
 
 .ui-modal-header {
   position: relative;
-  padding: .125rem 1rem;
+  padding: .5rem 1rem;
   background-color: #5b9bd5;
   color: white;
   user-select: none;
@@ -59,11 +59,13 @@
 .ui-controlbar {
   display: flex;
   align-items: center;
+  background-color: inherit;
 }
 
 .ui-icon {
   cursor: pointer;
-  padding-top: .5625rem;
+  margin-left: .3em;
+  font-size: 1.5em;
 }
 
 .ui-icon:hover {
@@ -77,4 +79,64 @@
   box-shadow: 0 .25rem .5rem rgba(102,175,233,.6), 0 .375rem 1.25rem rgba(0,0,0,.2);
   -webkit-user-select: none;
   user-select: none;
+}
+
+.dt-icon-maximize {
+	position: relative;
+	display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: transparent;
+  border: .1em solid currentColor;
+  border-top-width: .2em;
+}
+
+.dt-icon-normalize {
+	position: relative;
+	display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: inherit;
+}
+.dt-icon-normalize:before,
+.dt-icon-normalize:after {
+  content: "";
+  position: absolute;
+  width: .8em;
+  height: .8em;
+  border: .1em solid currentColor;
+  background-color: inherit;
+}
+.dt-icon-normalize:before {
+  top: 0;
+  right: 0;
+}
+.dt-icon-normalize:after {
+  bottom: 0;
+  left: 0;
+  border-top-width: .2em;
+}
+
+.dt-icon-close {
+	position: relative;
+	display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: transparent;
+}
+.dt-icon-close:before,
+.dt-icon-close:after {
+	content: "";
+  position: absolute;
+  width: 1.2em;
+  height: .18em;
+  top: 50%;
+  left: 50%;
+  background-color: currentColor;
+}
+.dt-icon-close:before {
+  transform: translate(-50%, -50%) rotate(-225deg)
+}
+.dt-icon-close:after{
+  transform: translate(-50%, -50%) rotate(225deg)
 }
