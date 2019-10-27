@@ -147,3 +147,70 @@
 .dt-icon-file, .dt-icon-folder {
   font-size: 0.7rem;
 }
+
+/************/
+
+.dt-shrink {
+	position: relative;
+	display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: transparent;
+}
+.dt-shrink:before,
+.dt-shrink:after {
+	content: "";
+  position: absolute;
+	top: 50%;
+  left: 50%;
+}
+.dt-shrink:before {
+  box-sizing: content-box;
+  width: .2em;
+  height: 0;
+  border-width: 0 .4em .4em;
+  border-style: solid;
+  border-color: transparent currentColor;
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+.dt-shrink:after {
+  width: .6em;
+  height: .6em;
+  border: .18em solid currentColor;
+  border-width: 0 .18em .18em 0;
+  transform: translate(-50%, -50%);
+}
+
+/************/
+
+.dt-reload {
+	position: relative;
+	display: inline-block;
+	width: 1em;
+	height: 1em;
+	background-color: transparent;
+}
+.dt-reload:before,
+.dt-reload:after {
+  content: '';
+  position: absolute;
+}
+.dt-reload:before {
+  height: .85em;
+  width: .85em;
+  border: .125em solid transparent;
+  border-color: transparent currentColor currentColor currentColor;
+  border-radius: 50%;
+  transform: rotate(45deg);
+  top: .15em;
+  left: .1em;
+}
+.dt-reload:after {
+  height: 0;
+  width: 0;
+  border-color: transparent transparent transparent currentColor;
+  border-style: solid;
+  border-width: .25em 0 .25em .3em;
+  top: 0;
+  left: .5em;
+}
