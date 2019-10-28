@@ -14,24 +14,16 @@
 
 <div class="dt-listbox-panel">
   <button class="dt-button" (click)="moveRightAll()" title="move all to the right">
-    <div class="dt-svg-icon dt-tab-right">
-      <ng-container *ngTemplateOutlet="keyboard_tab"></ng-container>
-    </div>
+    <i class="dt-icon-quotation-r large"></i>
   </button>
   <button class="dt-button" (click)="moveRight()" [disabled]="isBlankSourceModel" title="move selected to the right">
-    <div class="dt-svg-icon dt-backspace-right">
-      <ng-container *ngTemplateOutlet="keyboard_backspace"></ng-container>
-    </div>
+    <i class="dt-icon-arrow-right large"></i>
   </button>
   <button class="dt-button" (click)="moveLeft()" [disabled]="isBlankTargetModel" title="move selected to the left">
-    <div class="dt-svg-icon dt-backspace-left">
-      <ng-container *ngTemplateOutlet="keyboard_backspace"></ng-container>
-    </div>
+    <i class="dt-icon-arrow-left large"></i>
   </button>
   <button class="dt-button" (click)="moveLeftAll()" title="move all to the left">
-    <div class="dt-svg-icon dt-tab-left">
-      <ng-container *ngTemplateOutlet="keyboard_tab"></ng-container>
-    </div>
+    <i class="dt-icon-quotation-l large"></i>
   </button>
 </div>
 
@@ -51,34 +43,15 @@
 
 <div class="dt-listbox-panel">
   <button class="dt-button" (click)="moveTop()" [disabled]="isBlankTargetModel" title="move top">
-    <div class="dt-svg-icon dt-tab-up">
-      <ng-container *ngTemplateOutlet="keyboard_tab"></ng-container>
-    </div>
+    <i class="dt-icon-tab-up large"></i>
   </button>
   <button class="dt-button" (click)="moveUp()" [disabled]="isBlankTargetModel" title="move up">
-    <div class="dt-svg-icon dt-backspace-up">
-      <ng-container *ngTemplateOutlet="keyboard_backspace"></ng-container>
-    </div>
+    <i class="dt-icon-arrow-up large"></i>
   </button>
   <button class="dt-button" (click)="moveDown()" [disabled]="isBlankTargetModel" title="move down">
-    <div class="dt-svg-icon dt-backspace-down">
-      <ng-container *ngTemplateOutlet="keyboard_backspace"></ng-container>
-    </div>
+    <i class="dt-icon-arrow-down large"></i>
   </button>
   <button class="dt-button" (click)="moveBottom()" [disabled]="isBlankTargetModel" title="move bottom">
-    <div class="dt-svg-icon dt-tab-down">
-      <ng-container *ngTemplateOutlet="keyboard_tab"></ng-container>
-    </div>
+    <i class="dt-icon-tab-down large"></i>
   </button>
 </div>
-
-<ng-template #keyboard_backspace>
-  <svg focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"/>
-  </svg>
-</ng-template>
-<ng-template #keyboard_tab>
-  <svg focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.59 7.41L15.17 11H1v2h14.17l-3.59 3.59L13 18l6-6-6-6-1.41 1.41zM20 6v12h2V6h-2z"/>
-  </svg>
-</ng-template>
