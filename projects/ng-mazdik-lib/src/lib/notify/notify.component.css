@@ -79,21 +79,21 @@
 }
 
 .dt-notify-info {
-    background: #3498db;
+    background: var(--dt-color-primary-light);
 }
 
 .dt-notify-success {
-    background: #2ecc71;
+    background: var(--dt-color-success-lighter);
 }
 
 .dt-notify-error {
-    background: #e74c3c;
+    background: var(--dt-color-danger-light);
 }
 
 .dt-notify-warning {
-    background: #f39c12;
+    background: var(--dt-color-warning-light);
 }
 
 .dt-notify-notify {
-    background: #333;
+    background: var(--dt-color-grey-darker);
 }

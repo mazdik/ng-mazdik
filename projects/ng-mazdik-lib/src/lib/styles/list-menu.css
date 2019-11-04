@@ -12,8 +12,8 @@
 }
 
 .dt-list-menu-item:hover:not(.active) {
-  background-color: #e8eff7;
-  box-shadow: 0 0 .125rem var(--dt-color-primary-hover);
+  background-color: var(--dt-color-primary-lightest);
+  box-shadow: 0 0 .125rem var(--dt-color-primary-darker);
 }
 
 .dt-list-menu-item.active {
@@ -25,7 +25,7 @@
   height: .0625rem;
   margin: .1875rem 0;
   overflow: hidden;
-  background-color: #e5e5e5;
+  background-color: var(--dt-color-secondary-lightest);
 }
 
 .dt-list-menu-row {

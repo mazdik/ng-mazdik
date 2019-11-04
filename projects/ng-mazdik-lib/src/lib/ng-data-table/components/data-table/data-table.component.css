@@ -80,7 +80,7 @@
 }
 
 .datatable-header-cell:hover {
-  background-color: var(--dt-color-primary-hover);
+  background-color: var(--dt-color-primary-darker);
 }
 
 .datatable-header-cell:hover .column-menu-icon {

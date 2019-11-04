@@ -27,6 +27,7 @@
 .treenode .highlight {
   background: var(--dt-color-primary);
   color: white;
+  border-color: var(--dt-color-primary-dark);
   border-radius: .125rem;
 }
 

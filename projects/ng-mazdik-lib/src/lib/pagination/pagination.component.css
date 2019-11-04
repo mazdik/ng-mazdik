@@ -16,7 +16,7 @@
     color: black;
     padding: .3125rem .625rem;
     text-decoration: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--dt-color-secondary-lightest);
 }
 
 .pagination-navigation a.active {
@@ -27,7 +27,7 @@
 }
 
 .pagination-navigation a:hover:not(.active) {
-    background-color: #ddd;
+    background-color: var(--dt-color-secondary-lightest);
 }
 
 .pagination-navigation a:first-child {
@@ -77,7 +77,7 @@
 
 .pagination-page-size select {
   padding: .25rem .25rem;
-  color: #555;
+  color: var(--dt-color-grey-darker);
   background-color: white;
   border: 1px solid var(--dt-color-border);
   border-radius: .25rem;
