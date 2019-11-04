@@ -15,15 +15,15 @@
   height: 100%;
   padding: 0 .1875rem;
   outline: 0;
-  border: 1px solid #5b9bd5;
+  border: 1px solid var(--dt-color-primary);
 }
 
 .dt-inline-editor input:focus,
 .dt-inline-editor select:focus {
-  border: 1px solid #5b9bd5;
+  border: 1px solid var(--dt-color-primary);
 }
 
 .dt-inline-editor select {
   cursor: pointer;
-  background: #ffffff;
+  background: white;
 }

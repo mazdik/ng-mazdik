@@ -22,8 +22,8 @@
 .pagination-navigation a.active {
     color: white;
     pointer-events: none;
-    background-color: #5b9bd5;
-    border: 1px solid #5b9bd5;
+    background-color: var(--dt-color-primary);
+    border: 1px solid var(--dt-color-primary);
 }
 
 .pagination-navigation a:hover:not(.active) {
@@ -78,7 +78,7 @@
 .pagination-page-size select {
   padding: .25rem .25rem;
   color: #555;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: white;
+  border: 1px solid var(--dt-color-border);
   border-radius: .25rem;
 }

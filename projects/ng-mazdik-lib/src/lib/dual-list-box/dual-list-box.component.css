@@ -25,7 +25,7 @@
 .dt-listbox-panel .dt-list-menu {
   height: 12.5rem;
   overflow: auto;
-  border: 1px solid #ccc;
+  border: 1px solid var(--dt-color-border);
 }
 
 .dt-listbox-panel + .dt-listbox-panel {

@@ -6,6 +6,7 @@
   --dt-color-danger: red;
 
   --dt-color-warning-medium: #ff9800;
+  --dt-color-warning-light: #f1d592;
 
   --dt-color-primary: #5b9bd5;
   --dt-color-primary-hover: #337ab7;
@@ -13,7 +14,7 @@
 
   --dt-color-primary-medium: #008CBA;
   --dt-color-primary-lighter: #66afe9;
-  --dt-color-primary-darker: #156090;
+  /* --dt-color-primary-darker: #156090; */
 
   --dt-color-border: #c6c6c6;
 
@@ -21,9 +22,9 @@
 
   --dt-color-light: #f8f9fa;
 
-  /* --dt-color-grey-dark: #273238;
+  /* --dt-color-grey-dark: #273238; */
   --dt-color-grey-darker: #333333;
-  --dt-color-grey-medium: #696969;
+  /* --dt-color-grey-medium: #696969;
   --dt-color-grey-light: #828282;
   --dt-color-grey-lighter: #b1b3b6;
   --dt-color-grey-lightest: #e9eaeb; */
