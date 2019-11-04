@@ -77,7 +77,6 @@
   border-color: #66afe9;
   outline: 0;
   box-shadow: 0 .25rem .5rem rgba(102,175,233,.6), 0 .375rem 1.25rem rgba(0,0,0,.2);
-  -webkit-user-select: none;
   user-select: none;
 }
 

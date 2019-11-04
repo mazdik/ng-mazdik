@@ -74,13 +74,13 @@
 
 /******/
 .datatable-header-cell {
-  background-color: #5b9bd5;
+  background-color: var(--dt-color-primary);
   color: white;
   user-select: none;
 }
 
 .datatable-header-cell:hover {
-  background-color: #337ab7;
+  background-color: var(--dt-color-primary-hover);
 }
 
 .datatable-header-cell:hover .column-menu-icon {
@@ -89,22 +89,22 @@
 
 .datatable-body-cell:first-child,
 .datatable-header-cell:first-child {
-  border-left: 1px solid #c6c6c6;
+  border-left: 1px solid var(--dt-color-border);
 }
 
 .datatable-body-cell,
 .datatable-header-cell {
   padding: .25rem .1875rem;
-  border-right: 1px solid #c6c6c6;
-  border-bottom: 1px solid #c6c6c6;
+  border-right: 1px solid var(--dt-color-border);
+  border-bottom: 1px solid var(--dt-color-border);
 }
 
 .datatable-body-cell:focus {
-  box-shadow: 0 0 0 .125rem #5b9bd5 inset;
+  box-shadow: 0 0 0 .125rem var(--dt-color-primary) inset;
 }
 
 .dt-dropdown + .datatable-body {
-  border-top: 1px solid #c6c6c6;
+  border-top: 1px solid var(--dt-color-border);
 }
 
 .dt-sort-header {
@@ -132,20 +132,20 @@
 
 .cell-error input:focus,
 .cell-error select:focus {
-  border: 1px solid red;
+  border: 1px solid var(--dt-color-danger);
 }
 
 .cell-error {
-  box-shadow: 0 0 0 .0625rem red inset;
+  box-shadow: 0 0 0 .0625rem var(--dt-color-danger) inset;
 }
 
 .row-selected {
-  background-color: #ecf3ff;
+  background-color: var(--dt-color-primary-lightest);
   color: black;
 }
 
 .row-selected .dt-sticky {
-  background-color: #ecf3ff;
+  background-color: var(--dt-color-primary-lightest);
   color: black;
 }
 
@@ -154,8 +154,8 @@
 }
 
 .datatable-group-header {
-  border-right: 1px solid #c6c6c6;
-  border-bottom: 1px solid #c6c6c6;
+  border-right: 1px solid var(--dt-color-border);
+  border-bottom: 1px solid var(--dt-color-border);
 }
 
 .datatable-body-row[style*="height: 0"],
@@ -165,15 +165,15 @@
 
 .datatable-group-header .datatable-body-cell {
   border: none;
-  border-left: 1px solid #c6c6c6;
+  border-left: 1px solid var(--dt-color-border);
 }
 
 .datatable-group-header,
 .datatable-group-header .dt-sticky,
 .datatable-group-row,
 .datatable-group-row .dt-sticky {
-  background: #f5f5f5;
-  color: grey;
+  background: var(--dt-color-light);
+  color: var(--dt-color-secondary);
   font-weight: bold;
 }
 
@@ -182,12 +182,12 @@
   position: absolute;
   z-index: 10;
   display: none;
-  background: green;
+  background: var(--dt-color-success);
   top: 0;
 }
 
 .datatable-unselectable .datatable-header-cell:hover {
-  background-color: #5b9bd5;
+  background-color: var(--dt-color-primary);
 }
 
 .datatable-unselectable .datatable-header-cell:hover .column-menu-icon {
@@ -206,7 +206,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  color: #5b9bd5;
+  color: var(--dt-color-primary);
 }
 
 .dropdown-filter-menu {
@@ -214,8 +214,8 @@
   z-index: 2;
   display: none;
   padding: .3125rem;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: white;
+  border: 1px solid var(--dt-color-border);
   border-radius: .125rem;
   box-shadow: 0 .375rem .75rem rgba(0, 0, 0, .175);
 }

@@ -11,7 +11,6 @@
   vertical-align: middle;
   padding: 0 .25em;
   line-height: 1.5rem;
-  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -28,7 +27,7 @@
 .treenode .highlight {
   border-color: #156090;
   background: #5b9bd5;
-  color: #FFFFFF;
+  color: white;
   border-radius: .125rem;
 }
 
