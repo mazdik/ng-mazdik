@@ -1,0 +1,260 @@
+.dt-dropdown-select-list {
+  border: 1px solid #c6c6c6;
+}
+
+.dt-listbox-panel .dt-list-menu {
+  border: 1px solid #c6c6c6;
+}
+
+.dt-inline-editor input,
+.dt-inline-editor select {
+  border: 1px solid #5b9bd5;
+}
+
+.dt-inline-editor input:focus,
+.dt-inline-editor select:focus {
+  border: 1px solid #5b9bd5;
+}
+
+.ui-modal-header {
+  background-color: #5b9bd5;
+}
+
+.dragging {
+  border-color: #66afe9;
+}
+
+.datatable-header-cell {
+  background-color: #5b9bd5;
+}
+
+.datatable-header-cell:hover {
+  background-color: #337ab7;
+}
+
+.datatable-body-cell:first-child,
+.datatable-header-cell:first-child {
+  border-left: 1px solid #c6c6c6;
+}
+
+.datatable-body-cell,
+.datatable-header-cell {
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+}
+
+.datatable-body-cell:focus {
+  box-shadow: 0 0 0 .125rem #5b9bd5 inset;
+}
+
+.dt-dropdown + .datatable-body {
+  border-top: 1px solid #c6c6c6;
+}
+
+.cell-error input:focus,
+.cell-error select:focus {
+  border: 1px solid red;
+}
+
+.cell-error {
+  box-shadow: 0 0 0 .0625rem red inset;
+}
+
+.row-selected {
+  background-color: #ecf3ff;
+}
+
+.row-selected .dt-sticky {
+  background-color: #ecf3ff;
+}
+
+.datatable-group-header {
+  border-right: 1px solid #c6c6c6;
+  border-bottom: 1px solid #c6c6c6;
+}
+
+.datatable-group-header .datatable-body-cell {
+  border-left: 1px solid #c6c6c6;
+}
+
+.datatable-group-header,
+.datatable-group-header .dt-sticky,
+.datatable-group-row,
+.datatable-group-row .dt-sticky {
+  background: #f8f9fa;
+  color: #6c757d;
+}
+
+.column-resizer-helper {
+  background: green;
+}
+
+.datatable-unselectable .datatable-header-cell:hover {
+  background-color: #5b9bd5;
+}
+
+.cell-changed::before {
+  color: #5b9bd5;
+}
+
+.dropdown-filter-menu {
+  border: 1px solid #c6c6c6;
+}
+
+.dt-notify-info {
+  background: #3498db;
+}
+
+.dt-notify-success {
+  background: #2ecc71;
+}
+
+.dt-notify-error {
+  background: #f44336;
+}
+
+.dt-notify-warning {
+  background: #f39c12;
+}
+
+.dt-notify-notify {
+  background: #333333;
+}
+
+.pagination-navigation a {
+  border: 1px solid #ddd;
+}
+
+.pagination-navigation a.active {
+  background-color: #5b9bd5;
+  border: 1px solid #5b9bd5;
+}
+
+.pagination-navigation a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.pagination-page-size select {
+  color: #333333;
+  border: 1px solid #c6c6c6;
+}
+
+.dt-detail-view, .dt-detail-view th, .dt-detail-view td {
+  border: 1px solid #c6c6c6;
+}
+
+.dt-detail-view>tbody>tr:nth-of-type(odd) {
+  background-color: #f8f9fa;
+}
+
+.treenode .highlight {
+  background: #5b9bd5;
+  border-color: #156090;
+}
+
+.treenode span:hover:not(.highlight) {
+  background: #ecf3ff;
+  box-shadow: inset 0 0 .0625rem #c6c6c6;
+}
+
+.dt-button {
+  background-color: #5b9bd5;
+}
+
+.dt-green {background-color: #4caf50;}
+.dt-blue {background-color: #008CBA;}
+.dt-red {background-color: #f44336;}
+.dt-orange {background-color: #ff9800;}
+
+.dt-white {
+  background-color: white;
+  border: 1px solid #c6c6c6;
+  color: #333333;
+}
+
+.dt-clearable-input > input::-ms-clear {
+  display: none;
+}
+
+.dt-context-menu {
+  border: 1px solid #c6c6c6;
+}
+
+.dt-context-menu li > a:hover {
+  background-color: #ecf3ff;
+  box-shadow: 0 0 .125rem #337ab7;
+}
+
+.dt-context-menu li > a .context-menu-sep {
+  border-left: 1px solid #ddd;
+}
+
+.dt-icon-folder {
+  background-color: #f1d592;
+}
+
+.dt-icon-folder:before {
+  background-color: #f1d592;
+}
+
+.dt-input {
+  color: #273238;
+  border: 1px solid #c6c6c6;
+}
+
+.dt-input:focus {
+  border-color: #66afe9;
+}
+
+.dt-input[disabled], .dt-input[readonly] {
+  background-color: #ddd;
+}
+
+.dt-has-error .dt-input-group > .dt-input,
+.dt-has-error > .dt-input {
+  border-color: #a94442;
+}
+
+.dt-has-error .dt-input-group > .dt-input:focus,
+.dt-has-error > .dt-input:focus {
+  border-color: #843534;
+  box-shadow: inset 0 .0625rem .0625rem rgba(0,0,0,.075), 0 0 .375rem #ce8483;
+}
+
+.dt-has-error > .dt-help-block {
+  color: #a94442;
+}
+
+.dt-list-menu-item:hover:not(.active) {
+  background-color: #ecf3ff;
+  box-shadow: 0 0 .125rem #337ab7;
+}
+
+.dt-list-menu-item.active {
+  background-color: #5b9bd5;
+}
+
+.dt-list-divider {
+  background-color: #ddd;
+}
+
+.dt-radio input[type='radio']:before {
+  border: .0625rem solid #c6c6c6;
+}
+
+.dt-radio input[type='radio']:checked:before {
+  background: #5b9bd5;
+}
+
+.dt-radio input[type='radio']:after {
+  border: .0625rem solid #c6c6c6;
+}
+
+.dt-loader {
+  border: .25rem solid #e9eaeb;
+  border-top: .25rem solid #5b9bd5;
+}
+
+.dt-spinner {
+  box-shadow: 0 -1.25rem 0 1.5rem #5b9bd5 inset;
+}
