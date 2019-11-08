@@ -22,6 +22,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 100%;
 }
 
 .fixed-header .datatable-header-row {
