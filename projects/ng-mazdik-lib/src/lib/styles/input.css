@@ -4,9 +4,9 @@
   padding: .375rem .75rem;
   font-size: .875rem;
   line-height: 1.5;
-  color: var(--dt-color-grey-dark);
+  color: var(--dt-color-secondary-darker);
   background-color: white;
-  border: 1px solid var(--dt-color-border);
+  border: 1px solid var(--dt-color-secondary-light);
   border-radius: .25rem;
   box-shadow: inset 0 .0625rem .0625rem rgba(0,0,0,.075);
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
@@ -20,7 +20,7 @@
 }
 
 .dt-input[disabled], .dt-input[readonly] {
-  background-color: var(--dt-color-secondary-lightest);
+  background-color: var(--dt-color-secondary-lighter);
   opacity: 1;
 }
 

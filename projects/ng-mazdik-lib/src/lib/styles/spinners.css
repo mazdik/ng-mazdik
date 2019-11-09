@@ -1,7 +1,7 @@
 .dt-loader {
   box-sizing: border-box;
   display: inline-block;
-  border: .25rem solid var(--dt-color-grey-lightest);
+  border: .25rem solid var(--dt-color-secondary-lightest);
   border-radius: 50%;
   border-top: .25rem solid var(--dt-color-primary);
   width: 1.125rem;

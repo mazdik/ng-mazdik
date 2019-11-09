@@ -23,7 +23,7 @@
   z-index: 1;
   width: 1.25rem;
   height: 1.25rem;
-  border: .0625rem solid var(--dt-color-border);
+  border: .0625rem solid var(--dt-color-secondary-light);
   border-radius: .125rem;
 }
 
@@ -45,7 +45,7 @@
   height: 1.25rem;
   background: white;
   cursor: pointer;
-  border: .0625rem solid var(--dt-color-border);
+  border: .0625rem solid var(--dt-color-secondary-light);
   border-radius: .125rem;
 }
 

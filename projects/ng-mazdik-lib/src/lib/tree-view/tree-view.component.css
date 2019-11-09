@@ -46,7 +46,7 @@
 .treenode span:hover:not(.highlight) {
   background: var(--dt-color-primary-lightest);
   border-radius: .125rem;
-  box-shadow: inset 0 0 .0625rem var(--dt-color-border);
+  box-shadow: inset 0 0 .0625rem var(--dt-color-secondary-light);
 }
 
 .tree-loading-content {
