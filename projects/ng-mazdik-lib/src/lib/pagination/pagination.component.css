@@ -16,18 +16,18 @@
     color: black;
     padding: .3125rem .625rem;
     text-decoration: none;
-    border: 1px solid #ddd;
+    border: 1px solid var(--dt-color-secondary-lighter);
 }
 
 .pagination-navigation a.active {
     color: white;
     pointer-events: none;
-    background-color: #5b9bd5;
-    border: 1px solid #5b9bd5;
+    background-color: var(--dt-color-primary);
+    border: 1px solid var(--dt-color-primary);
 }
 
 .pagination-navigation a:hover:not(.active) {
-    background-color: #ddd;
+    background-color: var(--dt-color-secondary-lighter);
 }
 
 .pagination-navigation a:first-child {
@@ -77,8 +77,8 @@
 
 .pagination-page-size select {
   padding: .25rem .25rem;
-  color: #555;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  color: var(--dt-color-secondary-darker);
+  background-color: white;
+  border: 1px solid var(--dt-color-secondary-light);
   border-radius: .25rem;
 }

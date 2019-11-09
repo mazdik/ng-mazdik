@@ -47,7 +47,7 @@
     width: 100%;
     top: 50%;
     height: .125rem;
-    background: #fff;
+    background: white;
 }
 
 .dt-notify-container .dt-n-close:before {
@@ -67,6 +67,7 @@
     margin-bottom: 1rem;
     opacity: 0.75;
     filter: alpha(opacity=75);
+    color: white;
 }
 
 .dt-notify-item:hover {
@@ -78,26 +79,21 @@
 }
 
 .dt-notify-info {
-    background: #3498db;
-    color: #fff;
+    background: var(--dt-color-primary-light);
 }
 
 .dt-notify-success {
-    background: #2ecc71;
-    color: #fff;
+    background: var(--dt-color-success-lighter);
 }
 
 .dt-notify-error {
-    background: #e74c3c;
-    color: #fff;
+    background: var(--dt-color-danger-light);
 }
 
 .dt-notify-warning {
-    background: #f39c12;
-    color: #fff;
+    background: var(--dt-color-warning-light);
 }
 
 .dt-notify-notify {
-    background: #333;
-    color: #fff;
+    background: var(--dt-color-secondary-darker);
 }

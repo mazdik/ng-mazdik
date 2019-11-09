@@ -11,7 +11,8 @@ Add global styles in angular.json
 ```json
 "styles": [
   "src/styles.css",
-  "node_modules/ng-mazdik-lib/styles/bundled.css"
+  "node_modules/ng-mazdik-lib/styles/bundled.css",
+  "node_modules/ng-mazdik-lib/styles/ie.css" // if need to support IE 11 
 ],
 ```
 

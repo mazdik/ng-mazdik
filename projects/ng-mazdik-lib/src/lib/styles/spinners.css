@@ -1,9 +1,9 @@
 .dt-loader {
   box-sizing: border-box;
   display: inline-block;
-  border: .25rem solid #f3f3f3;
+  border: .25rem solid var(--dt-color-secondary-lightest);
   border-radius: 50%;
-  border-top: .25rem solid #3498db;
+  border-top: .25rem solid var(--dt-color-primary);
   width: 1.125rem;
   height: 1.125rem;
   animation: spin 2s linear infinite;
@@ -21,7 +21,7 @@
   height: 3.75rem;
   width: 3.75rem;
   border-radius: 50%;
-  box-shadow: 0 -1.25rem 0 1.5rem #5b9bd5 inset;
+  box-shadow: 0 -1.25rem 0 1.5rem var(--dt-color-primary) inset;
   animation: spin 1s infinite linear;
 }
 

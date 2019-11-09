@@ -26,7 +26,8 @@
             "styles": [
               "src/styles.css",
               "src/app/nav-menu/nav-menu.component.css",
-              "dist/ng-mazdik-lib/styles/bundled.css"
+              "dist/ng-mazdik-lib/styles/bundled.css",
+              "dist/ng-mazdik-lib/styles/ie.css"
             ],
             "scripts": []
           },

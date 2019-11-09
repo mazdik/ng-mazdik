@@ -9,8 +9,8 @@
   width: 100%;
   z-index: 2;
   padding: .3125rem;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: white;
+  border: 1px solid var(--dt-color-secondary-light);
   border-radius: .125rem;
   box-shadow: 0 .375rem .75rem rgba(0, 0, 0, .175);
 }

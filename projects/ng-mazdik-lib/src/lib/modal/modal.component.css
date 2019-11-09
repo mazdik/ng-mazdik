@@ -15,7 +15,7 @@
   top: 0;
   max-width: 100%;
   outline: none;
-  background-color: #fefefe;
+  background-color: white;
   padding: 0;
   box-shadow: 0 .25rem .5rem 0 rgba(0, 0, 0, 0.2), 0 .375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
 }
@@ -23,7 +23,7 @@
 .ui-modal-header {
   position: relative;
   padding: .5rem 1rem;
-  background-color: #5b9bd5;
+  background-color: var(--dt-color-primary);
   color: white;
   user-select: none;
   display: flex;
@@ -74,10 +74,9 @@
 
 .dragging {
   cursor: move;
-  border-color: #66afe9;
+  border-color: var(--dt-color-primary-lighter);
   outline: 0;
   box-shadow: 0 .25rem .5rem rgba(102,175,233,.6), 0 .375rem 1.25rem rgba(0,0,0,.2);
-  -webkit-user-select: none;
   user-select: none;
 }
 

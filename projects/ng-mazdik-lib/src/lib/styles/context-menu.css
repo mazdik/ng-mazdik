@@ -3,8 +3,8 @@
   z-index: 2;
   margin: 0;
   padding: .125rem;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: white;
+  border: 1px solid var(--dt-color-secondary-light);
   border-radius: .125rem;
   box-shadow: 0 .375rem .125rem rgba(0, 0, 0, .175);
 }
@@ -32,8 +32,8 @@
 }
 
 .dt-context-menu li > a:hover {
-  background-color: #e8eff7;
-  box-shadow: 0 0 .125rem #0a6aa1;
+  background-color: var(--dt-color-primary-lightest);
+  box-shadow: 0 0 .125rem var(--dt-color-primary-darker);
 }
 
 .dt-context-menu .disabled a,
@@ -67,5 +67,5 @@
   height: 2.4em;
   background: white;
   margin: 0 0.5em 0 0;
-  border-left: 1px solid #e2e3e3;
+  border-left: 1px solid var(--dt-color-secondary-lighter);
 }

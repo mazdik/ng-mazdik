@@ -1,5 +1,5 @@
 .dt-button {
-  background-color: #5b9bd5;
+  background-color: var(--dt-color-primary);
   border: none;
   color: white;
   padding: .5rem 1rem;
@@ -18,15 +18,15 @@
   opacity: 0.6;
 }
 
-.dt-green {background-color: #4CAF50;}
-.dt-blue {background-color: #008CBA;}
-.dt-red {background-color: #f44336;}
-.dt-orange {background-color: #ff9800;}
+.dt-green {background-color: var(--dt-color-success-light);}
+.dt-blue {background-color: var(--dt-color-primary-medium);}
+.dt-red {background-color: var(--dt-color-danger-light);}
+.dt-orange {background-color: var(--dt-color-warning-medium);}
 
 .dt-white {
   background-color: white;
-  border: 1px solid #ccc;
-  color: #333;
+  border: 1px solid var(--dt-color-secondary-light);
+  color: var(--dt-color-secondary-darker);
 }
 
 .dt-button-sm {
