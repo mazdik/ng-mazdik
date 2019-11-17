@@ -14,11 +14,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   @Input() south: boolean;
   @Input() east: boolean;
   @Input() southEast: boolean;
-  @Input() minWidth: number;
-  @Input() maxWidth: number;
   @Input() ghost: boolean;
-  @Input() minHeight: number;
-  @Input() maxHeight: number;
 
   @Output() resizeBegin: EventEmitter<any> = new EventEmitter();
   @Output() resizing: EventEmitter<ResizableEvent> = new EventEmitter();
@@ -31,6 +27,11 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
   private resizingS: boolean; // south
   private resizingE: boolean; // east
   private resizingSE: boolean; // south-east
+
+  private minWidth: number;
+  private maxWidth: number;
+  private minHeight: number;
+  private maxHeight: number;
 
   constructor(element: ElementRef) {
     this.element = element.nativeElement;
@@ -46,11 +47,11 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     if (this.southEast) {
       this.createHandle('resize-handle-se');
     }
-    // const computedStyle = window.getComputedStyle(this.element);
-    // this.minWidth = parseFloat(computedStyle.minWidth);
-    // this.maxWidth = parseFloat(computedStyle.maxWidth);
-    // this.minHeight = parseFloat(computedStyle.minHeight);
-    // this.maxHeight = parseFloat(computedStyle.maxHeight);
+    const computedStyle = window.getComputedStyle(this.element);
+    this.minWidth = parseFloat(computedStyle.minWidth);
+    this.maxWidth = parseFloat(computedStyle.maxWidth);
+    this.minHeight = parseFloat(computedStyle.minHeight);
+    this.maxHeight = parseFloat(computedStyle.maxHeight);
   }
 
   ngOnDestroy(): void {

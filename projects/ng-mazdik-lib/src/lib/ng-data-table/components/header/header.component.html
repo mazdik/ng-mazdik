@@ -12,8 +12,6 @@
     [column]="column"
     appResizable
     [east]="column.resizeable"
-    [minWidth]="column.minWidth"
-    [maxWidth]="column.maxWidth"
     [ghost]="true"
     (resizeBegin)="onResizeBegin()"
     (resizing)="onResize($event, column)"

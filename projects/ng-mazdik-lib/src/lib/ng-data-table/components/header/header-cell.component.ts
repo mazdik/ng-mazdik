@@ -29,6 +29,16 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     return this.column.width;
   }
 
+  @HostBinding('style.min-width.px')
+  get minWidth(): number {
+    return this.column.minWidth;
+  }
+
+  @HostBinding('style.max-width.px')
+  get maxWidth(): number {
+    return this.column.maxWidth;
+  }
+
   @HostBinding('attr.title')
   get name(): string {
     return this.column.title;

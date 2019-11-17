@@ -137,7 +137,13 @@
 
 /* ResizableDirectiveDemoComponent */
 .resizable-directive-demo .dd-box {position: absolute; width: 12.5rem; height: 12.5rem;}
-.resizable-directive-demo .box1 {background-color: #009ccc;}
+.resizable-directive-demo .box1 {
+  background-color: #009ccc;
+  min-width: 12.5rem;
+  min-height: 12.5rem;
+  max-width: 31.25rem;
+  max-height: 31.25rem;
+}
 
 /* PaginationDemoComponent */
 .pagination-demo {width: 30rem;}

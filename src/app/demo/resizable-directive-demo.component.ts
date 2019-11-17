@@ -8,10 +8,6 @@ import { Component, HostBinding } from '@angular/core';
     [south]="true"
     [east]="true"
     [southEast]="true"
-    [minWidth]="200"
-    [minHeight]="200"
-    [maxWidth]="500"
-    [maxHeight]="500"
     (resizing)="onResize($event)">
   </div>
   `,
