@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
     <button type="button" class="dt-button" (click)="modalRoot.show()">Open modal</button>
     <app-modal #modalRoot
                [modalTitle]="'Demo modal'"
-               [width]="500"
                [zIndex]="zIndex"
                [maximizable]="true"
                (closeModal)="onCloseModal()">

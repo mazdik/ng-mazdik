@@ -84,6 +84,18 @@
 .panel-demo2 .ui-modal-header { background-color: #4CAF50 !important; }
 .panel-demo3 .ui-modal-header { background-color: #ff9800 !important; }
 
+/* NestedModalDemoComponent */
+.nested-modal-demo1 .ui-modal { width: 37.5rem; }
+.nested-modal-demo2 .ui-modal { width: 34.375rem; }
+.nested-modal-demo3 .ui-modal { width: 31.25rem; }
+
+/* NestedModalsDemoComponent */
+.nested-modals-demo .ui-modal { width: 68.75rem; }
+
+/* ModalDataTableDemoComponent */
+.rank-modal .ui-modal { width: 56.25rem; }
+.inventory-modal .ui-modal { width: 56.25rem; }
+
 /* MultiSelectDemoComponent */
 .multi-select-demo {width: 37.5rem;}
 .multi-select-demo .datatable-body-cell {padding: 0; margin: 0;}

@@ -18,6 +18,9 @@
   background-color: white;
   padding: 0;
   box-shadow: 0 .25rem .5rem 0 rgba(0, 0, 0, 0.2), 0 .375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
+  min-width: 16.25rem;
+  min-height: 12.5rem;
+  width: 31.25rem;
 }
 
 .ui-modal-header {

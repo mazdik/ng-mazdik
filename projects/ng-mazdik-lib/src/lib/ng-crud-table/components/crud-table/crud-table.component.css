@@ -18,3 +18,7 @@
 .dt-button-actions:hover {
   background-color: rgba(0,0,0,.1);
 }
+
+.dt-column-toggler-modal .ui-modal {
+  width: 46.25rem;
+}

@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
     <app-modal #modal1
                class="panel-demo1"
                [modalTitle]="'Panel 1'"
-               [width]="500"
                [maximizable]="true"
                [backdrop]="false">
       <ng-container class="app-modal-body">
@@ -26,7 +25,6 @@ import { Component } from '@angular/core';
     <app-modal #modal2
                class="panel-demo2"
                [modalTitle]="'Panel 2'"
-               [width]="500"
                [maximizable]="true"
                [backdrop]="false">
       <ng-container class="app-modal-body">
@@ -43,7 +41,6 @@ import { Component } from '@angular/core';
     <app-modal #modal3
                class="panel-demo3"
                [modalTitle]="'Panel 3'"
-               [width]="500"
                [maximizable]="true"
                [backdrop]="false">
       <ng-container class="app-modal-body">

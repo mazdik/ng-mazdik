@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   template: `
     <button type="button" class="dt-button" (click)="modalRoot.show()">Open modal</button>
     <app-modal #modalRoot
+               class="nested-modal-demo1"
                [modalTitle]="'Modal 1'"
-               [width]="600"
                [zIndex]="zIndex">
       <ng-container class="app-modal-body">
         <h3>MODAL DIALOG</h3>
@@ -15,8 +15,8 @@ import { Component } from '@angular/core';
 
         <button type="button" class="dt-button" (click)="childModal.show()">Open modal</button>
         <app-modal #childModal
+                   class="nested-modal-demo2"
                    [modalTitle]="'Modal 2'"
-                   [width]="550"
                    [zIndex]="zIndex+2">
           <ng-container class="app-modal-body">
             <h3>MODAL DIALOG</h3>
@@ -25,8 +25,8 @@ import { Component } from '@angular/core';
 
               <button type="button" class="dt-button" (click)="modal3.show()">Open modal</button>
               <app-modal #modal3
+                         class="nested-modal-demo3"
                          [modalTitle]="'Modal 3'"
-                         [width]="500"
                          [zIndex]="zIndex+4">
                 <ng-container class="app-modal-body">
                   <h3>MODAL DIALOG</h3>

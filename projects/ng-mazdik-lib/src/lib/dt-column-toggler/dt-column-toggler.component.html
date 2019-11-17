@@ -1,4 +1,4 @@
-<app-modal #childModal [modalTitle]="table.messages.columns" [width]="740" [zIndex]="zIndex">
+<app-modal #childModal class="dt-column-toggler-modal" [modalTitle]="table.messages.columns" [zIndex]="zIndex">
   <ng-container class="app-modal-body">
       <app-dual-list-box
         *ngIf="childModal.visible"

@@ -46,6 +46,11 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     if (this.southEast) {
       this.createHandle('resize-handle-se');
     }
+    // const computedStyle = window.getComputedStyle(this.element);
+    // this.minWidth = parseFloat(computedStyle.minWidth);
+    // this.maxWidth = parseFloat(computedStyle.maxWidth);
+    // this.minHeight = parseFloat(computedStyle.minHeight);
+    // this.maxHeight = parseFloat(computedStyle.maxHeight);
   }
 
   ngOnDestroy(): void {
