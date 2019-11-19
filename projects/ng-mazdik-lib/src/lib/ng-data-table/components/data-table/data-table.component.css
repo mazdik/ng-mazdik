@@ -159,8 +159,8 @@
   border-bottom: 1px solid var(--dt-color-secondary-light);
 }
 
-.datatable-body-row[style*="height: 0"],
-.datatable-body-row[style*="height:0"] {
+.dt-hide {
+  height: 0;
   overflow-y: hidden;
 }
 

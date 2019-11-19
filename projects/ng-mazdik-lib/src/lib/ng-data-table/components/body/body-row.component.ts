@@ -20,6 +20,10 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   get cssSelected(): boolean {
     return (this.row && !isBlank(this.row.$$index)) ? this.table.selection.isSelected(this.row.$$index) : false;
   }
+  @HostBinding('class.dt-hide')
+  get cssHide(): boolean {
+    return this.rowHeight === 0;
+  }
 
   @HostBinding('attr.role') role = 'row';
 
