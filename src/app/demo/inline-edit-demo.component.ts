@@ -7,11 +7,12 @@ import { SelectItem } from 'ng-mazdik-lib';
   <p>Input. Type: text</p>
   <div class="inline-edit-demo">
     <app-inline-edit class="inline-edit-demo-cell"
-      [(value)]="model1"
+      [value]="model1"
       [viewValue]="model1"
       [editing]="editing1"
       [type]="'text'"
       [selectPlaceholder]="'placeholder'"
+      (valueChange)="model1=$event"
       (inputChange)="onInputChange()"
       (focusChange)="onInputFocus()"
       (blurChange)="onInputBlur()">
@@ -22,11 +23,12 @@ import { SelectItem } from 'ng-mazdik-lib';
   <p>Select. Type: number</p>
   <div class="inline-edit-demo">
     <app-inline-edit class="inline-edit-demo-cell"
-      [(value)]="model2"
+      [value]="model2"
       [viewValue]="viewValue2()"
       [editing]="editing2"
       [type]="'number'"
-      [options]="options">
+      [options]="options"
+      (valueChange)="model2=$event">
     </app-inline-edit>
     &nbsp;
     <button class="dt-button" (click)="editing2=!editing2">{{editing2 ? 'View' : 'Edit'}}</button>&nbsp;

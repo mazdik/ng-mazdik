@@ -9,21 +9,14 @@ import {inputFormattedDate} from '../common/utils';
 })
 export class InlineEditComponent {
 
+  @Input() value: string | number | Date;
   @Input() editing: boolean;
   @Input() type = 'text';
   @Input() options: SelectItem[];
-  @Input() viewValue: string | number;
+  @Input() viewValue: string | number | Date;
   @Input() selectPlaceholder: string;
 
-  @Input()
-  get value(): string | number { return this._value; }
-  set value(value: string | number) {
-    this._value = value;
-    this.valueChange.emit(this._value);
-  }
-  private _value: string | number;
-
-  @Output() valueChange: EventEmitter<string | number> = new EventEmitter();
+  @Output() valueChange: EventEmitter<string | number | Date> = new EventEmitter();
   @Output() inputChange: EventEmitter<any> = new EventEmitter();
   @Output() focusChange: EventEmitter<any> = new EventEmitter();
   @Output() blurChange: EventEmitter<any> = new EventEmitter();
@@ -38,6 +31,7 @@ export class InlineEditComponent {
 
   onInput(event: any) {
     this.value = (this.type === 'number') ? parseFloat(event.target.value) : event.target.value;
+    this.valueChange.emit(this.value);
   }
 
   onInputChange() {

@@ -1,14 +1,12 @@
 export function inputFormattedDate(type: string, value: any) {
   if (value) {
-    if (value instanceof Date) {
-      value = value.toISOString();
-    }
+    const strDate = (value instanceof Date) ? value.toISOString() : value;
     if (type === 'datetime-local') {
-      return value.slice(0, 16);
+      return strDate.slice(0, 16);
     } else if (type === 'date') {
-      return value.slice(0, 10);
+      return strDate.slice(0, 10);
     } else if (type === 'month') {
-      return value.slice(0, 7);
+      return strDate.slice(0, 7);
     }
   }
   return value;
