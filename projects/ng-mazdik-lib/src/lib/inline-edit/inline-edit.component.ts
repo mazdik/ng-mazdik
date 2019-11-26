@@ -30,7 +30,13 @@ export class InlineEditComponent {
   constructor() {}
 
   onInput(event: any) {
-    this.value = (this.type === 'number') ? parseFloat(event.target.value) : event.target.value;
+    if (this.type === 'number') {
+      this.value = parseFloat(event.target.value);
+    } else if (this.type === 'date') {
+      this.value = new Date(event.target.value);
+    } else {
+      this.value = event.target.value;
+    }
     this.valueChange.emit(this.value);
   }
 
