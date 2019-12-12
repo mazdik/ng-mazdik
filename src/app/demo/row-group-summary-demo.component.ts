@@ -18,6 +18,8 @@ export class RowGroupSummaryDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     const columns = getColumnsPlayers();
+    columns.find(x => x.name === 'race').tableHidden = true;
+    columns.find(x => x.name === 'gender').tableHidden = true;
     columns.splice(17);
 
     columns[1].title += ' (count)';

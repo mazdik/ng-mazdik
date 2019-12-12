@@ -70,12 +70,6 @@ export class ColumnModelGenerator {
     if (this.settings.filter === false) {
       column.filter = false;
     }
-    // hide if column is grouped
-    if (this.settings.groupRowsBy && this.settings.groupRowsBy.length) {
-      if (this.settings.groupRowsBy.indexOf(column.name) >= 0) {
-        column.tableHidden = true;
-      }
-    }
   }
 
 }

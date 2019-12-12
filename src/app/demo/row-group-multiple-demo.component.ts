@@ -18,6 +18,8 @@ export class RowGroupMultipleDemoComponent implements OnInit {
 
   constructor(private http: HttpClient) {
     const columns = getColumnsPlayers();
+    columns.find(x => x.name === 'race').tableHidden = true;
+    columns.find(x => x.name === 'gender').tableHidden = true;
     this.table = new DataTable(columns, this.settings);
     this.table.pager.perPage = 50;
   }
