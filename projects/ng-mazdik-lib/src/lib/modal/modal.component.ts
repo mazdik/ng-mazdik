@@ -1,5 +1,5 @@
 import {
-  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, HostListener, HostBinding, EventEmitter
+  Component, ElementRef, ViewChild, Input, Output, OnInit, AfterViewChecked, HostListener, EventEmitter
 } from '@angular/core';
 import {ResizableEvent} from '../resizable/types';
 import {maxZIndex, findAncestor} from '../common/utils';
@@ -12,7 +12,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
 
   @Input() modalTitle: string;
   @Input() zIndex: number;
-  @Input() scrollTop: boolean = true;
+  @Input() scrollTopEnable: boolean = true;
   @Input() maximizable: boolean;
   @Input() backdrop: boolean = true;
 
@@ -22,8 +22,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @ViewChild('modalBody', {static: false}) modalBody: ElementRef;
   @ViewChild('modalHeader', {static: false}) modalHeader: ElementRef;
   @ViewChild('modalFooter', {static: false}) modalFooter: ElementRef;
-
-  @HostBinding('class.app-modal') cssClass = true;
+  @ViewChild('closeIcon', {static: false}) closeIcon: ElementRef;
 
   visible: boolean;
   contentzIndex: number;
@@ -71,7 +70,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     this.visible = true;
     setTimeout(() => {
       this.modalRoot.nativeElement.focus();
-      if (this.scrollTop) {
+      if (this.scrollTopEnable) {
         this.modalBody.nativeElement.scrollTop = 0;
       }
     }, 1);
@@ -104,6 +103,9 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   initDrag(event: MouseEvent | TouchEvent) {
+    if (event.target === this.closeIcon.nativeElement) {
+      return;
+    }
     if (!this.maximized) {
       this.dragEventTarget = event;
     }
@@ -131,10 +133,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
     if (modal && modal.children[1]) {
       modal.children[1].focus();
     }
-  }
-
-  onCloseIcon(event: Event) {
-    event.stopPropagation();
   }
 
   toggleMaximize(event) {

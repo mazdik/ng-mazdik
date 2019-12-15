@@ -25,10 +25,7 @@
              (click)="toggleMaximize($event)"
              [ngClass]="{'dt-icon-maximize': !maximized, 'dt-icon-normalize': maximized}">
           </i>
-          <i class="ui-icon dt-icon-close"
-             (click)="hide()"
-             (mousedown)="onCloseIcon($event)"
-             (touchstart)="onCloseIcon($event)">
+          <i class="ui-icon dt-icon-close" #closeIcon (click)="hide()">
           </i>
       </div>
     </div>
