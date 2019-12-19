@@ -16,7 +16,6 @@
          (mousedown)="initDrag($event)"
          (touchstart)="initDrag($event)">
       <div class="ui-titlebar">
-          <span class="ui-modal-title" *ngIf="modalTitle">{{modalTitle}}</span>
           <ng-content select=".app-modal-header"></ng-content>
       </div>
       <div class="ui-controlbar">

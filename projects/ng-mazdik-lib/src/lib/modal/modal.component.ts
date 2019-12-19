@@ -10,7 +10,6 @@ import {maxZIndex, findAncestor} from '../common/utils';
 })
 export class ModalComponent implements OnInit, AfterViewChecked {
 
-  @Input() modalTitle: string;
   @Input() zIndex: number;
   @Input() scrollTopEnable: boolean = true;
   @Input() maximizable: boolean;
@@ -25,7 +24,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   @ViewChild('closeIcon', {static: false}) closeIcon: ElementRef;
 
   visible: boolean;
-  contentzIndex: number;
   executePostDisplayActions: boolean;
   maximized: boolean;
   preMaximizeRootWidth: number;
@@ -42,7 +40,6 @@ export class ModalComponent implements OnInit, AfterViewChecked {
       this.zIndex = this.getMaxModalIndex();
       this.zIndex = (this.zIndex || 1000) + 1;
     }
-    this.contentzIndex = this.zIndex + 1;
   }
 
   ngAfterViewChecked() {
@@ -129,9 +126,9 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   }
 
   focusLastModal() {
-    const modal = findAncestor(this.element.nativeElement.parentElement, 'app-modal');
-    if (modal && modal.children[1]) {
-      modal.children[1].focus();
+    const modal = findAncestor(this.element.nativeElement.parentElement, '.ui-modal');
+    if (modal) {
+      modal.focus();
     }
   }
 
@@ -175,8 +172,8 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   moveOnTop() {
     if (!this.backdrop) {
       const zIndex = this.getMaxModalIndex();
-      if (this.contentzIndex <= zIndex) {
-        this.contentzIndex = zIndex + 1;
+      if (this.zIndex <= zIndex) {
+        this.zIndex = zIndex + 1;
       }
     }
   }
@@ -184,7 +181,7 @@ export class ModalComponent implements OnInit, AfterViewChecked {
   get dialogStyles() {
     return {
       display: this.visible ? 'block' : 'none',
-      'z-index': this.contentzIndex,
+      'z-index': this.zIndex,
     };
   }
 

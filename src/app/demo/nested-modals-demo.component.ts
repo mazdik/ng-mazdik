@@ -6,7 +6,8 @@ import {getColumnsPlayers} from './columns';
 @Component({
   selector: 'app-nested-modals-demo',
   template: `
-    <app-modal class="nested-modals-demo" #modal [modalTitle]="'Data-table'" [maximizable]="true">
+    <app-modal class="nested-modals-demo" #modal [maximizable]="true">
+      <ng-container class="app-modal-header">Data-table</ng-container>
       <ng-container class="app-modal-body">
         <app-crud-table [dataManager]="dataManager"></app-crud-table>
       </ng-container>

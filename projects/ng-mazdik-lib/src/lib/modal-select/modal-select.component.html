@@ -9,7 +9,8 @@
   </button>
 </div>
 
-<app-modal #modal [modalTitle]="modalTitle" [zIndex]="zIndex">
+<app-modal #modal [zIndex]="zIndex">
+  <ng-container class="app-modal-header">{{modalTitle}}</ng-container>
   <ng-container class="app-modal-body">
     <div class="dt-select-header">
       <div class="dt-clearable-input">

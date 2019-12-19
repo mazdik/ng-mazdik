@@ -17,7 +17,8 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
         {{value}}
       </a>
     </ng-template>
-    <app-modal class="rank-modal" #rankModal [modalTitle]="'Rank'" [maximizable]="true">
+    <app-modal class="rank-modal" #rankModal [maximizable]="true">
+      <ng-container class="app-modal-header">Rank</ng-container>
       <ng-container class="app-modal-body" *ngIf="rankModal.visible">
         <app-data-table
           *ngIf="rankModal.visible"
@@ -25,7 +26,8 @@ import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns'
         </app-data-table>
       </ng-container>
     </app-modal>
-    <app-modal class="inventory-modal" #inventoryModal [modalTitle]="'Inventory'" [maximizable]="true">
+    <app-modal class="inventory-modal" #inventoryModal [maximizable]="true">
+      <ng-container class="app-modal-header">Inventory</ng-container>
       <ng-container class="app-modal-body">
         <app-data-table
           *ngIf="inventoryModal.visible"
