@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-nested-modal-demo',
   template: `
     <button class="dt-button" (click)="modalRoot.show()">Open modal</button>
-    <app-modal #modalRoot
-               class="nested-modal-demo1"
-               [zIndex]="zIndex">
+    <app-modal #modalRoot class="nested-modal-demo1">
       <ng-container class="app-modal-header">Modal 1</ng-container>
       <ng-container class="app-modal-body">
         <h3>MODAL DIALOG</h3>
@@ -14,9 +12,7 @@ import { Component } from '@angular/core';
           Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.</p>
 
         <button class="dt-button" (click)="childModal.show()">Open modal</button>
-        <app-modal #childModal
-                   class="nested-modal-demo2"
-                   [zIndex]="zIndex+2">
+        <app-modal #childModal class="nested-modal-demo2">
           <ng-container class="app-modal-header">Modal 2</ng-container>
           <ng-container class="app-modal-body">
             <h3>MODAL DIALOG</h3>
@@ -24,9 +20,7 @@ import { Component } from '@angular/core';
               Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s.</p>
 
               <button class="dt-button" (click)="modal3.show()">Open modal</button>
-              <app-modal #modal3
-                         class="nested-modal-demo3"
-                         [zIndex]="zIndex+4">
+              <app-modal #modal3 class="nested-modal-demo3">
                 <ng-container class="app-modal-header">Modal 3</ng-container>
                 <ng-container class="app-modal-body">
                   <h3>MODAL DIALOG</h3>
@@ -59,7 +53,5 @@ import { Component } from '@angular/core';
   `,
 })
 export class NestedModalDemoComponent {
-
-  zIndex: number = 1;
 
 }

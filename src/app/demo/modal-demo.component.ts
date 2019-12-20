@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   template: `
     <button class="dt-button" (click)="modalRoot.show()">Open modal</button>
     <app-modal #modalRoot
-               [zIndex]="zIndex"
                [maximizable]="true"
                (closeModal)="onCloseModal()">
       <ng-container class="app-modal-header">Demo modal</ng-container>
@@ -23,8 +22,6 @@ import { Component } from '@angular/core';
   `,
 })
 export class ModalDemoComponent {
-
-  zIndex: number;
 
   onCloseModal() {}
 

@@ -300,7 +300,6 @@ export interface PageMetadata {
 | initLoad         | boolean    | true    |             |
 | globalFilter     | boolean    | false   |             |
 | singleRowView    | boolean    | true    |             |
-| zIndexModal      | number     | null    |             |
 | exportAction     | boolean    | false   | csv         |
 | columnToggleAction | boolean  | false   |             |
 | clearAllFiltersAction | boolean | false |             |

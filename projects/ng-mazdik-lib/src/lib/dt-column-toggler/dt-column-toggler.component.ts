@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DataTable } from '../ng-data-table/base';
 import { SelectItem } from '../common';
 import { ModalComponent } from '../modal/modal.component';
@@ -8,20 +8,15 @@ import { ModalComponent } from '../modal/modal.component';
   templateUrl: './dt-column-toggler.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtColumnTogglerComponent implements OnInit {
+export class DtColumnTogglerComponent {
 
   @Input() table: DataTable;
-  @Input() zIndex: number;
 
   @ViewChild('childModal', {static: false}) childModal: ModalComponent;
   selectColumns: SelectItem[] = [];
   selectedColumns: SelectItem[] = [];
 
   constructor(private cd: ChangeDetectorRef) {}
-
-  ngOnInit() {
-    this.zIndex = this.zIndex || 3;
-  }
 
   onSelectionChange(event: SelectItem[]) {
     this.selectedColumns = event;

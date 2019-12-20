@@ -37,7 +37,6 @@ export class ModalSelectComponent {
   }
   private _model: any;
 
-  @Input() zIndex: number;
   @Input() filterDelay: number = 300;
   @Input() disabled: boolean;
   @Input() modalTitle: string = 'Search Dialog';

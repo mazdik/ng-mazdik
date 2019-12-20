@@ -5,7 +5,6 @@ export class CdtSettings extends Settings {
   initLoad?: boolean = true;
   globalFilter?: boolean;
   singleRowView?: boolean = true;
-  zIndexModal?: number;
   exportAction?: boolean;
   columnToggleAction?: boolean;
   clearAllFiltersAction?: boolean;
