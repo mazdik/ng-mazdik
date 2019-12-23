@@ -1,4 +1,4 @@
-export class PageEvent {
+export interface PageEvent {
   currentPage: number;
   perPage: number;
 }

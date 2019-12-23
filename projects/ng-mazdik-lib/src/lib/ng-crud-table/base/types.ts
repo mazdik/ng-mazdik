@@ -9,19 +9,19 @@ export interface DataSource {
   getOptions?(url: string, parentId: any): Promise<any>;
 }
 
-export class RequestMetadata {
+export interface RequestMetadata {
   pageMeta: PageMetadata;
   sortMeta: SortMetadata[];
   filters: FilterMetadata;
   globalFilterValue?: string;
 }
 
-export class PagedResult {
+export interface PagedResult {
   items: any[];
   _meta: PageMetadata;
 }
 
-export class PageMetadata {
+export interface PageMetadata {
   currentPage: number;
   perPage: number;
   totalCount?: number;

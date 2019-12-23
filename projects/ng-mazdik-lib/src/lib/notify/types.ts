@@ -1,4 +1,4 @@
-export class Message {
+export interface Message {
   title: string;
   text: string;
   severity?: 'info' | 'success' | 'warning' | 'error' | 'notify';

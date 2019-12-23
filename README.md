@@ -1,7 +1,5 @@
 # Angular UI component library
 
-### Installation
-
 ```
 npm i ng-mazdik-lib --save
 ```
@@ -11,10 +9,10 @@ Add global styles in angular.json
 ```json
 "styles": [
   "src/styles.css",
-  "node_modules/ng-mazdik-lib/styles/bundled.css",
-  "node_modules/ng-mazdik-lib/styles/ie.css" // if need to support IE 11 
+  "node_modules/ng-mazdik-lib/styles/bundled.css"
 ],
 ```
+if need to support IE 11 add: "node_modules/ng-mazdik-lib/styles/ie.css"
 
 <a target="_blank" href="https://mazdik.github.io/ng-mazdik/">Demos</a>  
 
@@ -307,7 +305,7 @@ export interface PageMetadata {
 
 
 ```typescript
-export class SelectItem {
+export interface SelectItem {
   id: any;
   name: string;
   parentId?: any;
