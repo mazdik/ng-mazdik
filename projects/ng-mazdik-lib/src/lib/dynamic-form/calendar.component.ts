@@ -5,7 +5,7 @@ import {inputFormattedDate} from '../common/utils';
 @Component({
   selector: 'app-form-calendar',
   template: `
-    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':dynElement.hasError}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <input class="dt-input"
              [attr.type]="dynElement.type"
@@ -13,7 +13,7 @@ import {inputFormattedDate} from '../common/utils';
              (input)="model = $event.target.value"
              [disabled]="disabled">
       <div class="dt-help-block">
-        <span *ngFor="let err of errors">{{err}}<br></span>
+        <span *ngFor="let err of dynElement.errors">{{err}}<br></span>
       </div>
     </div>
   `,

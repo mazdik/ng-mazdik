@@ -4,7 +4,7 @@ import {InputOptionComponent} from './input-option.component';
 @Component({
   selector: 'app-form-select-dropdown',
   template: `
-    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':dynElement.hasError}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="dt-loader" *ngIf="loading"></i>
       <app-dropdown-select [value]="model"
@@ -15,7 +15,7 @@ import {InputOptionComponent} from './input-option.component';
                            (valueChange)="model=$event; onValueChange()">
       </app-dropdown-select>
       <div class="dt-help-block">
-        <span *ngFor="let err of errors">{{err}}<br></span>
+        <span *ngFor="let err of dynElement.errors">{{err}}<br></span>
       </div>
     </div>
   `,

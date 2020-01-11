@@ -5,7 +5,7 @@ import { SelectItem } from '../common';
 @Component({
   selector: 'app-form-checkbox',
   template: `
-    <div class="dt-group" [ngClass]="{'dt-has-error':hasError()}">
+    <div class="dt-group" [ngClass]="{'dt-has-error':dynElement.hasError}">
       <label [attr.for]="dynElement.name">{{dynElement.title}}</label>
       <i class="dt-loader" *ngIf="loading"></i>
       <div *ngFor="let o of getOptions()">
@@ -21,7 +21,7 @@ import { SelectItem } from '../common';
         </span>
       </div>
       <div class="dt-help-block">
-        <span *ngFor="let err of errors">{{err}}<br></span>
+        <span *ngFor="let err of dynElement.errors">{{err}}<br></span>
       </div>
     </div>
   `,

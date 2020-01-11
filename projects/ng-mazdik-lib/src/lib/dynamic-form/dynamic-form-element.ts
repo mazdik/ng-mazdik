@@ -3,6 +3,7 @@ import {ElementType} from './types';
 import {SelectItem} from '../common';
 
 export class DynamicFormElement {
+
   title: string;
   name: string;
   options?: SelectItem[];
@@ -15,6 +16,8 @@ export class DynamicFormElement {
   keyElement?: string;
   disableOnEdit?: boolean;
 
+  errors: string[] = [];
+
   getOptions(dependsValue?: any): SelectItem[] {
     if (this.options) {
       if (this.dependsElement && dependsValue) {
@@ -25,15 +28,18 @@ export class DynamicFormElement {
     }
   }
 
-  validate(value: any): string[] {
+  validate(value: any): void {
     if (this.validatorFunc) {
-      return this.validatorFunc(this.title, value);
+      this.errors = this.validatorFunc(this.title, value);
     }
-    return [];
   }
 
   get isDateType(): boolean {
     return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
+  }
+
+  get hasError(): boolean {
+    return (this.errors && this.errors.length > 0);
   }
 
 }

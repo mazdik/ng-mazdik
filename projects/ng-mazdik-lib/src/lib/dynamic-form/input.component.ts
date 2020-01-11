@@ -25,7 +25,6 @@ export class InputComponent implements OnInit {
   }
   private _model: any;
 
-  errors: any[] = [];
   loading: boolean;
 
   constructor() {}
@@ -35,13 +34,8 @@ export class InputComponent implements OnInit {
   }
 
   validate() {
-    this.errors = this.dynElement.validate(this.model);
-  }
-
-  hasError() {
-    const hasError = (this.errors && this.errors.length > 0);
-    this.valid.emit(!hasError);
-    return hasError;
+    this.dynElement.validate(this.model);
+    this.valid.emit(!this.dynElement.hasError);
   }
 
 }
