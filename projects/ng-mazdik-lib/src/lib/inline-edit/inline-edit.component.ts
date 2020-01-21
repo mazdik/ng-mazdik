@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding} from '@angular/core';
 import {SelectItem} from '../common';
-import {inputFormattedDate} from '../common/utils';
+import {inputFormattedDate, inputIsDateType} from '../common/utils';
 
 @Component({
   selector: 'app-inline-edit, [inline-edit]',
@@ -23,8 +23,15 @@ export class InlineEditComponent {
 
   @HostBinding('class.dt-inline-editor') cssClass = true;
 
+  get isDateType(): boolean {
+    return inputIsDateType(this.type);
+  }
+
   get inputFormattedValue() {
-    return inputFormattedDate(this.type, this.value);
+    if (this.isDateType) {
+      return inputFormattedDate(this.type, this.value);
+    }
+    return this.value;
   }
 
   constructor() {}
@@ -32,7 +39,7 @@ export class InlineEditComponent {
   onInput(event: any) {
     if (this.type === 'number') {
       this.value = parseFloat(event.target.value);
-    } else if (this.type === 'date') {
+    } else if (this.isDateType) {
       this.value = new Date(event.target.value);
     } else {
       this.value = event.target.value;

@@ -1,6 +1,6 @@
 import {TemplateRef} from '@angular/core';
 import {ElementType} from './types';
-import {SelectItem} from '../common';
+import {SelectItem, inputIsDateType} from '../common';
 
 export class DynamicFormElement {
 
@@ -35,7 +35,7 @@ export class DynamicFormElement {
   }
 
   get isDateType(): boolean {
-    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
+    return inputIsDateType(this.type);
   }
 
   get hasError(): boolean {

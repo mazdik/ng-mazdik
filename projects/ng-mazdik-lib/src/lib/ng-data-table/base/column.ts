@@ -1,5 +1,5 @@
 import { ColumnBase } from './column-base';
-import { isBlank, getDeepValue } from '../../common/utils';
+import { isBlank, getDeepValue, inputIsDateType } from '../../common/utils';
 import { DataType } from './types';
 import { SelectItem } from '../../common';
 
@@ -14,7 +14,7 @@ export class Column extends ColumnBase {
   }
 
   get isDateType(): boolean {
-    return (this.type === 'date' || this.type === 'datetime-local' || this.type === 'month');
+    return inputIsDateType(this.type);
   }
 
   constructor(init: Partial<ColumnBase>) {

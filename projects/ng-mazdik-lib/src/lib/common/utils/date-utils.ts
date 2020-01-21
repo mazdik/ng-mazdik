@@ -29,3 +29,7 @@ export function getLastDate(type: LastDateType) {
   }
   return dt;
 }
+
+export function inputIsDateType(type: string): boolean {
+  return (type === 'date' || type === 'datetime-local' || type === 'month');
+}
