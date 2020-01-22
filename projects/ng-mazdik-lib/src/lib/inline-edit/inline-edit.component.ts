@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding} from '@angular/core';
 import {SelectItem} from '../common';
-import {inputFormattedDate, inputIsDateType} from '../common/utils';
+import {inputFormattedDate, inputIsDateType, checkStrDate, isBlank} from '../common/utils';
 
 @Component({
   selector: 'app-inline-edit, [inline-edit]',
@@ -38,9 +38,11 @@ export class InlineEditComponent {
 
   onInput(event: any) {
     if (this.type === 'number') {
-      this.value = parseFloat(event.target.value);
+      this.value = !isBlank(event.target.value) ? parseFloat(event.target.value) : null;
     } else if (this.isDateType) {
-      this.value = new Date(event.target.value);
+      if (checkStrDate(event.target.value)) {
+        this.value = new Date(event.target.value);
+      }
     } else {
       this.value = event.target.value;
     }

@@ -1,6 +1,10 @@
+export function toISOStringIgnoreTZ(date: Date): string {
+  return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+}
+
 export function inputFormattedDate(type: string, value: any) {
   if (value) {
-    const strDate = (value instanceof Date) ? value.toISOString() : value;
+    const strDate = (value instanceof Date) ? toISOStringIgnoreTZ(value) : value;
     if (type === 'datetime-local') {
       return strDate.slice(0, 16);
     } else if (type === 'date') {
@@ -32,4 +36,11 @@ export function getLastDate(type: LastDateType) {
 
 export function inputIsDateType(type: string): boolean {
   return (type === 'date' || type === 'datetime-local' || type === 'month');
+}
+
+export function checkStrDate(value: string): boolean {
+  if (!value || value.substring(0, 3) === '000' || value.substring(0, 2) === '00' || value.substring(0, 1) === '0') {
+    return false;
+  }
+  return true;
 }

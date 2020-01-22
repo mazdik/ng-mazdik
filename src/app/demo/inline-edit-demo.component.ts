@@ -33,14 +33,28 @@ import { SelectItem } from 'ng-mazdik-lib';
     &nbsp;
     <button class="dt-button" (click)="editing2=!editing2">{{editing2 ? 'View' : 'Edit'}}</button>&nbsp;
   </div>
+  <p>Input. Type: date</p>
+  <div class="inline-edit-demo">
+    <app-inline-edit class="inline-edit-demo-cell"
+      [value]="model3"
+      [viewValue]="model3"
+      [editing]="editing3"
+      [type]="'date'"
+      (valueChange)="model3=$event">
+    </app-inline-edit>
+    &nbsp;
+    <button class="dt-button" (click)="editing3=!editing3">{{editing3 ? 'View' : 'Edit'}}</button>&nbsp;
+  </div>
   `
 })
 export class InlineEditDemoComponent {
 
   model1: string = 'string';
   model2: number = 2;
+  model3: Date = new Date();
   editing1: boolean;
   editing2: boolean;
+  editing3: boolean;
 
   options: SelectItem[] = [
     {id: 1, name: 'Select 1'},
