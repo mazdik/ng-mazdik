@@ -134,6 +134,11 @@
           "options": {
             "tsConfig": "projects/ng-mazdik-lib/tsconfig.lib.json",
             "project": "projects/ng-mazdik-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-mazdik-lib/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {

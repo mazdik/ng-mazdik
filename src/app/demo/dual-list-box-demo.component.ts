@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelectItem } from 'ng-mazdik-lib/lib/common';
+import { SelectItem } from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-dual-list-box-demo',

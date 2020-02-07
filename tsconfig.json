@@ -20,10 +20,8 @@
     ],
     "paths": {
       "ng-mazdik-lib": [
+        "dist/ng-mazdik-lib/ng-mazdik-lib",
         "dist/ng-mazdik-lib"
-      ],
-      "ng-mazdik-lib/*": [
-        "dist/ng-mazdik-lib/*"
       ]
     }
   },
