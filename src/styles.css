@@ -90,7 +90,7 @@
 .nested-modal-demo3 .ui-modal { width: 31.25rem; }
 
 /* NestedModalsDemoComponent */
-.nested-modals-demo .ui-modal { width: 68.75rem; }
+.nested-modals-demo > .ui-modal { width: 68.75rem; }
 
 /* ModalDataTableDemoComponent */
 .rank-modal .ui-modal { width: 56.25rem; }
