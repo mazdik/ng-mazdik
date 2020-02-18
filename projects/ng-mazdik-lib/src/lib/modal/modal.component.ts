@@ -172,16 +172,4 @@ export class ModalComponent implements AfterViewChecked {
     }
   }
 
-  get dialogStyles() {
-    return {
-      display: this.visible ? 'block' : 'none'
-    };
-  }
-
-  get overlayStyles() {
-    return {
-      display: (this.visible && this.backdrop) ? 'block' : 'none'
-    };
-  }
-
 }

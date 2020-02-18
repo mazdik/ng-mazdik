@@ -43,6 +43,7 @@ export * from './lib/inline-edit/inline-edit-module';
 
 // modal
 export * from './lib/modal/modal-module';
+export * from './lib/modal/modal.component';
 
 // modal-edit-form
 export * from './lib/modal-edit-form/modal-edit-form-module';

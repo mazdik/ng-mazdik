@@ -1,4 +1,4 @@
-<div class="ui-modal-overlay" [ngStyle]="overlayStyles"></div>
+<div class="ui-modal-overlay" [style.display]="(visible && backdrop) ? 'block' : 'none'"></div>
 
 <div class="ui-modal" tabindex="-1" role="dialog"
      #modalRoot
@@ -9,7 +9,7 @@
      (resizing)="onResize($event)"
      appDraggable
      [dragEventTarget]="dragEventTarget"
-     [ngStyle]="dialogStyles"
+     [style.display]="visible ? 'block' : 'none'"
      (mousedown)="moveOnTop()"
      (touchstart)="moveOnTop()">
     <div class="ui-modal-header" #modalHeader
