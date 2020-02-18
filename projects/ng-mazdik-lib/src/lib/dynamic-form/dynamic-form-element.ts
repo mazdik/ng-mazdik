@@ -1,6 +1,5 @@
 import {TemplateRef} from '@angular/core';
-import {ElementType} from './types';
-import {SelectItem, inputIsDateType} from '../common';
+import {SelectItem, InputType, inputIsDateType} from '../common';
 
 export class DynamicFormElement {
 
@@ -8,7 +7,7 @@ export class DynamicFormElement {
   name: string;
   options?: SelectItem[];
   optionsUrl?: string;
-  type?: ElementType;
+  type?: InputType;
   validatorFunc?: (name: string, value: any) => string[];
   dependsElement?: string;
   cellTemplate?: TemplateRef<any>;

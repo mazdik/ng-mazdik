@@ -1,17 +1,3 @@
-export type ColumnType =
-  'text'
-  | 'password'
-  | 'number'
-  | 'select'
-  | 'radio'
-  | 'checkbox'
-  | 'textarea'
-  | 'date'
-  | 'datetime-local'
-  | 'month'
-  | 'select-popup'
-  | 'select-dropdown';
-
 export enum DataType {
   String = 'string',
   Number = 'number',

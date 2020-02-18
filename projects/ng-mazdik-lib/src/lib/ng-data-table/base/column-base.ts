@@ -1,6 +1,6 @@
-import {ColumnType, AggregateType, DataType} from './types';
+import {AggregateType, DataType} from './types';
 import {TemplateRef, PipeTransform} from '@angular/core';
-import {SelectItem} from '../../common';
+import {SelectItem, InputType} from '../../common';
 
 type FilterValuesFunc = (columnName: string) => Promise<SelectItem[]>;
 type CellClassFunc = (obj: any) => any;
@@ -15,7 +15,7 @@ export class ColumnBase {
   optionsUrl?: string;
   width?: number = null;
   frozen?: boolean;
-  type?: ColumnType;
+  type?: InputType;
   validatorFunc?: (name: string, value: any) => string[];
   editable?: boolean;
   resizeable?: boolean = true;
