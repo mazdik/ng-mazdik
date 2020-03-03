@@ -9,13 +9,13 @@ import { SelectItem } from 'ng-mazdik-lib';
       [value]="selectedOptions1"
       [options]="options"
       [multiple]="true"
-      (valueChange)="onValueChange()">
+      (valueChange)="onValueChange1($event)">
     </app-dropdown-select>
     <app-dropdown-select class="sl-column"
       [value]="selectedOptions2"
       [options]="options"
       [multiple]="false"
-      (valueChange)="onValueChange()">
+      (valueChange)="onValueChange2($event)">
     </app-dropdown-select>
   </div>
   `,
@@ -35,5 +35,11 @@ export class DropdownSelectDemoComponent {
 
   constructor() { }
 
-  onValueChange(): void { }
+  onValueChange1(event): void {
+    this.selectedOptions1 = event;
+  }
+
+  onValueChange2(event): void {
+    this.selectedOptions2 = event;
+  }
 }

@@ -43,7 +43,7 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
     this.selectedName = this.getName(this.selectedOptions);
   }
 
-  @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   @HostBinding('class.dt-dropdown-select') cssClass = true;
 
