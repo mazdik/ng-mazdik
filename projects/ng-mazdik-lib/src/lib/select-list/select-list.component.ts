@@ -42,6 +42,7 @@ export class SelectListComponent implements AfterViewInit {
   @ViewChild('filterInput', {static: false}) filterInput: any;
   searchFilterText: string = null;
   private selectedOptions: any[] = [];
+  private filteredOptions: SelectItem[];
 
   constructor() {}
 
@@ -137,6 +138,22 @@ export class SelectListComponent implements AfterViewInit {
       this.model = this.selectedOptions.slice(0);
       this.selectionChange.emit(this.model);
     }
+  }
+
+  onInputFilter(event: InputEvent) {
+    this.searchFilterText = (event.target as HTMLInputElement).value;
+    this.filteredOptions = this.filterOptionsByName(this.searchFilterText);
+  }
+
+  get viewOptions(): SelectItem[] {
+    return (this.searchFilterText) ? this.filteredOptions : this.options;
+  }
+
+  filterOptionsByName(value: string): SelectItem[] {
+    if (!value || !this.options) {
+      return this.options;
+    }
+    return this.options.filter(val => val.name.toLowerCase().indexOf(value.toLowerCase()) > -1);
   }
 
 }

@@ -3,7 +3,6 @@ import {CommonModule} from '@angular/common';
 
 import {ModalModule} from '../modal/modal-module';
 import {PaginationModule} from '../pagination/pagination-module';
-import {PaginatePipeModule} from '../pipes/paginate.pipe';
 import {ModalSelectComponent} from './modal-select.component';
 
 @NgModule({
@@ -11,7 +10,6 @@ import {ModalSelectComponent} from './modal-select.component';
     CommonModule,
     ModalModule,
     PaginationModule,
-    PaginatePipeModule,
   ],
   declarations: [
     ModalSelectComponent,

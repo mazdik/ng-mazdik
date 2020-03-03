@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef
 } from '@angular/core';
 import {PageEvent} from '../../lib/pagination/types';
-import {SelectItem} from '../common';
+import {SelectItem, arrayPaginate} from '../common';
 
 @Component({
   selector: 'app-modal-select',
@@ -80,13 +80,16 @@ export class ModalSelectComponent {
   }
 
   getOptions() {
+    let data = [];
     if (this.optionsCopy && this.optionsCopy.length && this.searchFilterText) {
-      const data = this.optionsCopy.filter(x => x.name.toLocaleLowerCase().indexOf(this.searchFilterText.toLocaleLowerCase()) > -1);
-      this.totalItems = data.length;
-      return data;
+      data = this.optionsCopy.filter(x => x.name.toLocaleLowerCase().indexOf(this.searchFilterText.toLocaleLowerCase()) > -1);
+      this.currentPage = 1;
+    } else {
+      data = this.optionsCopy;
     }
-    this.totalItems = this.optionsCopy.length;
-    return this.optionsCopy;
+    this.totalItems = data.length;
+    const result = arrayPaginate(data, this.currentPage, this.itemsPerPage);
+    return result;
   }
 
   onPageChanged(event: PageEvent) {

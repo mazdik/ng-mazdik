@@ -2,7 +2,7 @@
        #filterInput
        placeholder="{{searchMessage}}"
        [value]="searchFilterText"
-       (input)="searchFilterText = $event.target.value">
+       (input)="onInputFilter($event)">
 
 <ul class="dt-list-menu dt-list-menu-scroll">
     <li class="dt-list-menu-item" *ngIf="multiple" (click)="onCheckboxAllClick($event)">
@@ -17,7 +17,7 @@
 
     <ng-container *ngIf="!multiple">
       <li class="dt-list-menu-item"
-        *ngFor="let option of options | filterBy: 'name':searchFilterText"
+        *ngFor="let option of viewOptions"
         (click)="setSelected($event, option.id)"
         [ngClass]="{'active': isSelected(option.id)}">
         <i class="dt-icon" [class.dt-icon-ok]="isSelected(option.id)"></i>&nbsp;&nbsp;{{option.name}}
@@ -26,7 +26,7 @@
 
     <ng-container *ngIf="multiple">
       <li class="dt-list-menu-item"
-        *ngFor="let option of options | filterBy: 'name':searchFilterText"
+        *ngFor="let option of viewOptions"
         (click)="setSelected($event, option.id)">
         <span class="dt-checkbox">
             <input type="checkbox" [checked]="isSelected(option.id)"/>

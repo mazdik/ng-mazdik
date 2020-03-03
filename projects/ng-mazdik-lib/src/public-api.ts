@@ -85,11 +85,6 @@ export * from './lib/notify/notify.service';
 export * from './lib/pagination/pagination-module';
 export * from './lib/pagination/pagination.component';
 
-// pipes
-export * from './lib/pipes/filter.pipe';
-export * from './lib/pipes/order.pipe';
-export * from './lib/pipes/paginate.pipe';
-
 // resizable
 export * from './lib/resizable/resizable-module';
 export * from './lib/resizable/resizable.directive';

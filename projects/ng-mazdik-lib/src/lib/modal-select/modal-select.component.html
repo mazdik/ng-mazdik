@@ -25,7 +25,7 @@
     </div>
     <ul class="dt-list-menu">
       <li class="dt-list-menu-item"
-          *ngFor="let option of options | paginate: itemsPerPage:currentPage"
+          *ngFor="let option of options"
           (click)="setSelected(option)"
           [ngClass]="{'active': isSelected(option)}">
           {{option.name}}
