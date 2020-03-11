@@ -21,6 +21,7 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
   @Input() clearMessage: string = 'Clear';
   @Input() placeholder: string = 'Select';
   @Input() searchInputPlaceholder: string = 'Search...';
+  @Input() selectedMessage: string = 'Selected';
 
   @Input()
   get options(): SelectItem[] { return this._options; }
@@ -88,7 +89,7 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
   getName(items: any) {
     if (items && items.length && this.options && this.options.length) {
       if (this.multiple && items.length > 1) {
-        return items.length + ' items selected';
+        return this.selectedMessage + ': ' + items.length;
       } else {
         const option = this.options.find((x) => {
           return x.id === items[0];
