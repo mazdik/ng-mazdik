@@ -1,11 +1,12 @@
 <input class="dt-input dt-form-group"
        #filterInput
+       [style.display]="enableFilterInput ? 'block' : 'none'"
        placeholder="{{searchMessage}}"
        [value]="searchFilterText"
        (input)="onInputFilter($event)">
 
 <ul class="dt-list-menu dt-list-menu-scroll">
-    <li class="dt-list-menu-item" *ngIf="multiple" (click)="onCheckboxAllClick($event)">
+    <li class="dt-list-menu-item" *ngIf="multiple && enableSelectAll" (click)="onCheckboxAllClick($event)">
       <span class="dt-checkbox">
         <input type="checkbox"
                [checked]="allSelected"

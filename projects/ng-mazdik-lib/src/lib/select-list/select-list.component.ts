@@ -16,6 +16,8 @@ export class SelectListComponent implements AfterViewInit {
   @Input() cancelMessage: string = 'Cancel';
   @Input() clearMessage: string = 'Clear';
   @Input() searchMessage: string = 'Search...';
+  @Input() enableSelectAll: boolean = true;
+  @Input() enableFilterInput: boolean = true;
 
   @Input('selected')
   get model(): any[] { return this._model; }
