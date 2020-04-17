@@ -47,6 +47,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   @Input() scrollWidth: number;
 
   @Output() scrollChange: EventEmitter<ScrollerEventArgs> = new EventEmitter();
+  @Output() viewRowsChange: EventEmitter<any[]> = new EventEmitter();
 
   @HostBinding('class.dt-scroller') cssClass = true;
   @HostBinding('class.dt-virtual-scroll')
@@ -61,6 +62,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   }
   set viewRows(val: any[]) {
     this._viewRows = val;
+    this.viewRowsChange.emit(val);
   }
   private _viewRows: any[];
 
