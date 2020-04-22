@@ -184,9 +184,10 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     } else {
       this.start = Math.floor(this.scrollYPos / this.rowHeight);
     }
-    this.end = Math.min(totalRecords, this.start + this.itemsPerRow + 1);
+    this.end = Math.min(totalRecords, this.start + this.itemsPerRow);
     if ((this.end - this.start) < this.itemsPerRow) {
-      this.start = totalRecords - this.itemsPerRow - 1;
+      this.start = totalRecords - this.itemsPerRow;
+      this.start = Math.max(this.start, 0);
       this.end = totalRecords;
     }
 
