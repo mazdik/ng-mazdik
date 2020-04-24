@@ -8,6 +8,7 @@ export * from './lib/context-menu/types';
 
 // drag-drop
 export * from './lib/drag-drop/drag-drop-module';
+export * from './lib/drag-drop/droppable.directive';
 export * from './lib/drag-drop/types';
 
 // draggable
@@ -16,30 +17,38 @@ export * from './lib/draggable/draggable.directive';
 
 // dropdown
 export * from './lib/dropdown/dropdown-module';
+export * from './lib/dropdown/dropdown.directive';
+export * from './lib/dropdown/dropdown.service';
 export * from './lib/dropdown/drop-down';
 
 // dropdown-select
 export * from './lib/dropdown-select/dropdown-select-module';
+export * from './lib/dropdown-select/dropdown-select.component';
 
 // dt-column-toggler
 export * from './lib/dt-column-toggler/dt-column-toggler.module';
+export * from './lib/dt-column-toggler/dt-column-toggler.component';
 
 // dt-toolbar
 export * from './lib/dt-toolbar/dt-toolbar-module';
+export * from './lib/dt-toolbar/dt-toolbar.component';
 
 // dt-translate
 export * from './lib/dt-translate/dt-messages';
 
 // dual-list-box
 export * from './lib/dual-list-box/dual-list-box-module';
+export * from './lib/dual-list-box/dual-list-box.component';
 
 // dynamic-form
 export * from './lib/dynamic-form/dynamic-form-module';
+export * from './lib/dynamic-form/dynamic-form.component';
 export * from './lib/dynamic-form/types';
 export * from './lib/dynamic-form/dynamic-form-element';
 
 // inline-edit
 export * from './lib/inline-edit/inline-edit-module';
+export * from './lib/inline-edit/inline-edit.component';
 
 // modal
 export * from './lib/modal/modal-module';
@@ -51,6 +60,7 @@ export * from './lib/modal-edit-form/modal-edit-form.component';
 
 // modal-select
 export * from './lib/modal-select/modal-select-module';
+export * from './lib/modal-select/modal-select.component';
 
 // ng-crud-table
 export * from './lib/ng-crud-table/crud-table-module';
@@ -62,6 +72,8 @@ export * from './lib/ng-crud-table/base/types';
 // ng-data-table
 export * from './lib/ng-data-table/data-table-module';
 export * from './lib/ng-data-table/components/data-table/data-table.component';
+export * from './lib/ng-data-table/directives/header-template.directive';
+export * from './lib/ng-data-table/directives/row-group-template.directive';
 export * from './lib/ng-data-table/base/types';
 export * from './lib/ng-data-table/base/column-base';
 export * from './lib/ng-data-table/base/data-table';
@@ -79,6 +91,8 @@ export * from './lib/ng-tree-table/tree-table';
 
 // notify
 export * from './lib/notify/notify-module';
+export * from './lib/notify/notify.component';
+export * from './lib/notify/notify-item.component';
 export * from './lib/notify/notify.service';
 
 // pagination
@@ -100,6 +114,7 @@ export * from './lib/scroller/types';
 
 // select-list
 export * from './lib/select-list/select-list-module';
+export * from './lib/select-list/select-list.component';
 
 // tree-lib
 export * from './lib/tree-lib';
