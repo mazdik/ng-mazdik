@@ -21,7 +21,7 @@
         *ngFor="let option of viewOptions"
         (click)="setSelected($event, option.id)"
         [ngClass]="{'active': isSelected(option.id)}">
-        <i class="dt-icon" [class.dt-icon-ok]="isSelected(option.id)"></i>&nbsp;&nbsp;{{option.name}}
+        <i class="dt-icon" [class.dt-icon-ok]="isSelected(option.id)"></i>{{option.name}}
       </li>
     </ng-container>
 
@@ -37,7 +37,6 @@
     </ng-container>
 </ul>
 
-<div class="dt-list-divider"></div>
 <div class="dt-list-menu-row">
   <button class="dt-button dt-button-sm" (click)="onClickOk($event)" *ngIf="multiple">OK</button>
   <button class="dt-button dt-button-sm" (click)="onClickCancel($event)">{{cancelMessage}}</button>

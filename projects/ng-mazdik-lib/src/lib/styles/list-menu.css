@@ -31,6 +31,9 @@
 .dt-list-menu-row {
   display: flex;
   justify-content: space-between;
+  margin-top: .1875rem;
+  padding-top: .1875rem;
+  border-top: .0625rem solid var(--dt-color-secondary-lighter);
 }
 
 .dt-list-menu-row button {
@@ -46,4 +49,8 @@
   height: auto;
   overflow-y: auto;
   max-height: 12.5rem;
+}
+
+.dt-list-menu-item i {
+  margin-right: 0.3rem;
 }
