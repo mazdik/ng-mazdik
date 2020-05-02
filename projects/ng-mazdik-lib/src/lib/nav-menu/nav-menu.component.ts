@@ -1,5 +1,5 @@
-import { Component, Input, HostBinding, HostListener } from '@angular/core';
-import { TreeNode, Tree } from 'ng-mazdik-lib';
+import { Component, Input, HostBinding, HostListener, Output, EventEmitter } from '@angular/core';
+import { TreeNode, Tree } from '../tree-lib';
 
 @Component({
   selector: 'app-nav-menu',
@@ -7,7 +7,8 @@ import { TreeNode, Tree } from 'ng-mazdik-lib';
     [node]="node"
     [expandedNode]="expandedNode"
     [getIconFunc]="getIconFunc"
-    (expand)="expandedNode = $event">
+    (expand)="expandedNode=$event"
+    (linkClicked)="onLinkClicked($event)">
   </app-nav-item>`,
 })
 export class NavMenuComponent {
@@ -19,6 +20,8 @@ export class NavMenuComponent {
   }
   @Input() getIconFunc: (node?: TreeNode) => string;
   @Input() minimize: boolean;
+
+  @Output() linkClicked: EventEmitter<string> = new EventEmitter();
 
   tree: Tree = new Tree();
   expandedNode: TreeNode;
@@ -44,5 +47,9 @@ export class NavMenuComponent {
   }
 
   constructor() {}
+
+  onLinkClicked(event) {
+    this.linkClicked.emit(event);
+  }
 
 }

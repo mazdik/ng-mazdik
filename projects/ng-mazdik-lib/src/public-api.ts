@@ -122,3 +122,11 @@ export * from './lib/tree-lib';
 // tree-view
 export * from './lib/tree-view/tree-view-module';
 export * from './lib/tree-view/tree-view.component';
+
+// tabs
+export * from './lib/tabs/tabs.module';
+export * from './lib/tabs/tabs.component';
+
+// nav-menu
+export * from './lib/nav-menu/nav-menu.module';
+export * from './lib/nav-menu/nav-menu.component';

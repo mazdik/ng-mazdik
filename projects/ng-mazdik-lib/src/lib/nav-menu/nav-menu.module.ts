@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 import { NavMenuComponent } from './nav-menu.component';
 import { NavItemComponent } from './nav-item.component';
@@ -12,7 +11,6 @@ import { NavItemComponent } from './nav-item.component';
   ],
   imports: [
     CommonModule,
-    RouterModule,
   ],
   exports: [
     NavMenuComponent,

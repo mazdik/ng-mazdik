@@ -15,7 +15,7 @@
   </nav>
 </header>
 
-<app-nav-menu class="body-nav" [nodes]="navMenuNodes" [minimize]="false"></app-nav-menu>
+<app-nav-menu class="body-nav" [nodes]="navMenuNodes" [minimize]="false" (linkClicked)="onLinkClicked($event)"></app-nav-menu>
 
 <div class="main">
   <router-outlet></router-outlet>

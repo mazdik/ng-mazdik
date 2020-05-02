@@ -1,6 +1,5 @@
 .nav-menu {
   display: block;
-  margin: 0 auto;
   background-color: #1A3147;
 }
 
@@ -95,11 +94,11 @@ button.vertical-menu-item {
 
 .nav-expanded .level-2 {
   font-weight: 400;
-  padding-left: .75rem;
+  padding-left: .625rem;
 }
 
 .nav-expanded .level-3 {
-  padding-left: .625rem;
+  padding-left: 1rem;
 }
 
 .rotating-icon {

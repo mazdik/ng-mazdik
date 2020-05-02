@@ -50,6 +50,10 @@ export class TreeNode {
     return this === this.tree.selectedNode;
   }
 
+  setSelected() {
+    this.tree.selectedNode = this;
+  }
+
   isLeaf(): boolean {
     return this.leaf === false ? false : !this.hasChildren;
   }

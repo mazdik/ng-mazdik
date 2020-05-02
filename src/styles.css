@@ -189,3 +189,6 @@
 
 /* HeaderDemoComponent */
 .header-demo .datatable-header-cell {justify-content: center;}
+
+/* NavMenuDemoComponent */
+.nav-menu-demo { width: 13.75rem; }

@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
-import { NavMenuModule } from './nav-menu/nav-menu.module';
 import {
   CrudTableModule, DataTableModule, TreeTableModule, DtToolbarModule, ModalModule, ModalEditFormModule, ScrollerModule,
   TreeViewModule, ContextMenuModule, NotifyModule, DropdownSelectModule, SelectListModule, DragDropModule, DropdownModule,
-  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule, InlineEditModule, DynamicFormModule
+  DualListBoxModule, DraggableModule, ResizableModule, PaginationModule, ModalSelectModule, InlineEditModule, DynamicFormModule,
+  TabsModule, NavMenuModule
 } from 'ng-mazdik-lib';
 import { DateFormatPipe } from './pipes/date-format.pipe';
 import { AppComponent } from './app.component';
@@ -57,6 +57,8 @@ import { ModalDemoComponent } from './demo/modal-demo.component';
 import { NestedModalDemoComponent } from './demo/nested-modal-demo.component';
 import { PanelDemoComponent } from './demo/panel-demo.component';
 import { DynamicFormDemoComponent } from './demo/dynamic-form-demo.component';
+import { TabsDemoComponent } from './demo/tabs-demo.component';
+import { NavMenuDemoComponent } from './demo/nav-menu-demo.component';
 
 const ROUTES: Routes = [
   {path: '', component: CrudTableDemoComponent},
@@ -105,6 +107,8 @@ const ROUTES: Routes = [
   {path: 'nested-modal-demo', component: NestedModalDemoComponent},
   {path: 'panel-demo', component: PanelDemoComponent},
   {path: 'dynamic-form-demo', component: DynamicFormDemoComponent},
+  {path: 'tabs-demo', component: TabsDemoComponent},
+  {path: 'nav-menu-demo', component: NavMenuDemoComponent},
   {path: '**', component: PageNotFoundComponent},
 ];
 
@@ -158,6 +162,8 @@ const ROUTES: Routes = [
     NestedModalDemoComponent,
     PanelDemoComponent,
     DynamicFormDemoComponent,
+    TabsDemoComponent,
+    NavMenuDemoComponent,
   ],
   imports: [
     BrowserModule,
@@ -185,6 +191,7 @@ const ROUTES: Routes = [
     ModalSelectModule,
     InlineEditModule,
     DynamicFormModule,
+    TabsModule,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 import {Component, ViewChild, AfterViewInit} from '@angular/core';
 import {Router, NavigationEnd} from '@angular/router';
-import {NavMenuComponent} from './nav-menu/nav-menu.component';
+import {NavMenuComponent} from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-root',
@@ -31,12 +31,17 @@ export class AppComponent implements AfterViewInit {
         this.navMenu.tree.nodes[0].expanded = false;
       }
       node.ensureVisible();
+      node.setSelected();
     }
   }
 
   getSourceLink() {
     const link: string = this.link + '/blob/master/src/app/demo/';
     return (this.state) ? link + this.state + '.component.ts' : link;
+  }
+
+  onLinkClicked(event) {
+    this.router.navigate([event]);
   }
 
   getNavMenuNodes() {
@@ -92,6 +97,8 @@ export class AppComponent implements AfterViewInit {
           { id: '/draggable-directive-demo', name: 'Draggable directive' },
           { id: '/drag-drop-demo', name: 'Drag and drop' },
           { id: '/resizable-directive-demo', name: 'Resizable directive' },
+          { id: '/tabs-demo', name: 'Tabs' },
+          { id: '/nav-menu-demo', name: 'Navigation menu' },
         ]
       },
       {
