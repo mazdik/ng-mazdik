@@ -192,23 +192,8 @@
 
 /* NavMenuDemoComponent */
 .nav-menu-demo1 { width: 13.75rem; }
-.nav-menu-demo2 { width: 13.75rem; height: 20rem; }
+.nav-menu-demo2 { width: 13.75rem; height: 18rem; }
 .nav-menu-demo2.nav-collapsed { width: 65px; }
 .nav-menu-demo2.nav-expanded { opacity: 0.95; }
 .nav-menu-demo1 .vertical-menu-item, .nav-menu-demo2 .vertical-menu-item  { display: flex; }
-
-.dt-icon-asmodian {
-  background: url(assets/asmodian.png) no-repeat;
-  background-size: cover;
-}
-
-.dt-icon-elyos {
-  background: url(assets/elyos.png) no-repeat;
-  background-size: cover;
-}
-
-.dt-icon-asmodian,
-.dt-icon-elyos {
-  width: 1.5rem;
-  height: 1.5rem;
-}
+.nav-menu-demo1 .nav-menu-icon, .nav-menu-demo2 .nav-menu-icon { padding-right: 1.4rem; }

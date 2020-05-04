@@ -38,11 +38,11 @@ export class NavMenuDemoComponent implements OnInit {
     },
     {
       name: 'With icons',
-      icon: 'dt-icon-elyos',
+      icon: 'dt-icon-reload',
       children: [
-        { id: '/crud-table-demo', name: 'Menu 2 link 1', icon: 'dt-icon-asmodian' },
-        { id: '/data-table-demo', name: 'Menu 2 link 2', icon: 'dt-icon-elyos' },
-        { id: '/tree-table-demo', name: 'Menu 2 link 3', icon: 'dt-icon-asmodian' },
+        { id: '/crud-table-demo', name: 'Menu 2 link 1', icon: 'dt-icon-shrink' },
+        { id: '/data-table-demo', name: 'Menu 2 link 2', icon: 'dt-icon-reload' },
+        { id: '/tree-table-demo', name: 'Menu 2 link 3', icon: 'dt-icon-shrink' },
       ]
     }
   ];

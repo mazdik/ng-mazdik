@@ -9,7 +9,7 @@
     "lint": "ng lint ng-mazdik-lib",
     "e2e": "ng e2e",
     "build-styles": "scss-bundle",
-    "lib:build": "ng build ng-mazdik-lib --prod && npm run build-styles && npm run copy-lib-assets",
+    "lib:build": "ng build ng-mazdik-lib --prod && npm run build-styles",
     "lib:watch": "ng build ng-mazdik-lib --watch",
     "lib:publish": "cd dist/ng-mazdik-lib && npm publish"
   },
