@@ -12,7 +12,6 @@ Add global styles in angular.json
   "node_modules/ng-mazdik-lib/styles/bundled.css"
 ],
 ```
-if need to support IE 11 add: "node_modules/ng-mazdik-lib/styles/ie.css"
 
 <a target="_blank" href="https://mazdik.github.io/ng-mazdik/">Demos</a>  
 
