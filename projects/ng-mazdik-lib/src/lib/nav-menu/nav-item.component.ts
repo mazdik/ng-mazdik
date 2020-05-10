@@ -14,8 +14,6 @@ export class NavItemComponent {
       this.node.expanded = false;
     }
   }
-  @Input() getIconFunc: (node?: TreeNode) => string;
-
   @Output() expand: EventEmitter<TreeNode> = new EventEmitter();
   @Output() linkClicked: EventEmitter<string> = new EventEmitter();
 
@@ -28,7 +26,8 @@ export class NavItemComponent {
       ['level-' + (this.node.$$level + 1)]: true,
       collapsed: !this.node.expanded,
       expanded: this.node.expanded,
-      active: this.node.isSelected
+      active: this.node.isSelected,
+      heading: this.node.hasChildren
     };
   }
 
@@ -39,27 +38,16 @@ export class NavItemComponent {
     };
   }
 
-  getIcon(node: TreeNode) {
-    if (this.getIconFunc) {
-      return this.getIconFunc(node);
-    } else {
-      return node.icon;
-    }
-  }
-
-  onClickHeader(event: MouseEvent) {
-    event.preventDefault();
-    this.node.expanded = !this.node.expanded;
-    this.expand.emit(this.node);
-    if (!isBlank(this.node.id)) {
-      this.linkClicked.emit(this.node.id);
-    }
-  }
-
   onClickLink(event: MouseEvent) {
     event.preventDefault();
     this.node.setSelected();
-    this.linkClicked.emit(this.node.id);
+    if (this.node.hasChildren) {
+      this.node.expanded = !this.node.expanded;
+      this.expand.emit(this.node);
+    }
+    if (!isBlank(this.node.id)) {
+      this.linkClicked.emit(this.node.id);
+    }
   }
 
 }

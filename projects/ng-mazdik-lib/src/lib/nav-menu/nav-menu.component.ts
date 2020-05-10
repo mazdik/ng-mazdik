@@ -3,10 +3,10 @@ import { TreeNode, Tree } from '../tree-lib';
 
 @Component({
   selector: 'app-nav-menu',
-  template: `<app-nav-item *ngFor="let node of nodes"
+  template: `
+  <app-nav-item *ngFor="let node of nodes"
     [node]="node"
     [expandedNode]="expandedNode"
-    [getIconFunc]="getIconFunc"
     (expand)="expandedNode=$event"
     (linkClicked)="onLinkClicked($event)">
   </app-nav-item>`,
@@ -18,7 +18,6 @@ export class NavMenuComponent {
   set nodes(val: TreeNode[]) {
     this.tree.nodes = val;
   }
-  @Input() getIconFunc: (node?: TreeNode) => string;
   @Input() minimize: boolean;
 
   @Output() linkClicked: EventEmitter<string> = new EventEmitter();
