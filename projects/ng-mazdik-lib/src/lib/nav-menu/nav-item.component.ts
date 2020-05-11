@@ -40,10 +40,11 @@ export class NavItemComponent {
 
   onClickLink(event: MouseEvent) {
     event.preventDefault();
-    this.node.setSelected();
     if (this.node.hasChildren) {
       this.node.expanded = !this.node.expanded;
       this.expand.emit(this.node);
+    } else {
+      this.node.setSelected();
     }
     if (!isBlank(this.node.id)) {
       this.linkClicked.emit(this.node.id);
