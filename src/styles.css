@@ -197,3 +197,6 @@
 .nav-menu-demo2.nav-expanded { opacity: 0.95; }
 .nav-menu-demo1 .vertical-menu-item, .nav-menu-demo2 .vertical-menu-item  { display: flex; }
 .nav-menu-demo1 .nav-menu-icon, .nav-menu-demo2 .nav-menu-icon { padding-right: 1.4rem; }
+
+/* TreeViewDemoComponent */
+.tree-view-demo { display: block; width: 280px; height: 500px; border-right: 1px solid #eee; }

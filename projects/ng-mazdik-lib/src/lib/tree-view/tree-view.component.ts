@@ -1,7 +1,5 @@
 import {Component, Input, Output, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {TreeDataSource, Tree, TreeNode} from '../tree-lib';
-import {MenuEventArgs} from '../context-menu/types';
-import {ContextMenuComponent} from '../context-menu/context-menu.component';
 
 @Component({
   selector: 'app-tree-view',
@@ -27,7 +25,6 @@ export class TreeViewComponent implements OnInit {
     this.tree.serverSideFiltering = val;
   }
 
-  @Input() contextMenu: ContextMenuComponent;
   @Input() filterDelay = 500;
   @Input() getIconFunc: (node?: TreeNode) => string;
 
@@ -36,6 +33,8 @@ export class TreeViewComponent implements OnInit {
   }
 
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
+  @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
+
   @ViewChild('filterInput', {static: false}) filterInput: any;
 
   tree: Tree = new Tree();
@@ -66,9 +65,7 @@ export class TreeViewComponent implements OnInit {
   }
 
   onNodeRightClick(event) {
-    if (this.contextMenu) {
-      this.contextMenu.show({originalEvent: event.event, data: event.node} as MenuEventArgs);
-    }
+    this.nodeRightClick.emit({originalEvent: event.event, data: event.node});
   }
 
   collapseAll() {

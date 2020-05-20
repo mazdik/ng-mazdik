@@ -1,26 +1,27 @@
-import {Component, OnInit} from '@angular/core';
-import {TreeNode, MenuItem} from 'ng-mazdik-lib';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TreeNode, MenuItem, MenuEventArgs, ContextMenuComponent} from 'ng-mazdik-lib';
 import {TreeDemoService} from './tree-demo.service';
 
 @Component({
   selector: 'app-tree-view-demo',
   template: `
-  <div style="width: 280px; height: 500px; border-right: 1px solid #eee">
-    <app-tree-view
+    <app-tree-view class="tree-view-demo"
       [service]="treeService"
       (selectedChanged)="onSelectNode($event)"
+      (nodeRightClick)="onNodeRightClick($event)"
       [serverSideFiltering]="true"
-      [contextMenu]="contextMenu"
       [getIconFunc]="getIconFunc">
     </app-tree-view>
     <app-context-menu #contextMenu [menu]="items"></app-context-menu>
-  </div>
   `
 })
 export class TreeViewDemoComponent implements OnInit {
 
   selectedNode: TreeNode;
   items: MenuItem[];
+
+  @ViewChild('contextMenu') contextMenu: ContextMenuComponent;
+
   getIconFunc = (node) => (!node.isLeaf()) ? 'dt-icon-folder' : 'dt-icon-file';
 
   constructor(public treeService: TreeDemoService) {}
@@ -36,6 +37,10 @@ export class TreeViewDemoComponent implements OnInit {
   onSelectNode(node: TreeNode) {
     this.selectedNode = node;
     console.log(node);
+  }
+
+  onNodeRightClick(event) {
+    this.contextMenu.show({originalEvent: event.originalEvent, data: event.data} as MenuEventArgs);
   }
 
 }
