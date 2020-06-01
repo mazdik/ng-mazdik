@@ -8,6 +8,7 @@ export class Tree implements ITree {
   selectedNode: TreeNode;
   filterLoading: boolean;
   serverSideFiltering: boolean;
+  filterLoadingFunc: (state: boolean) => void;
 
   get nodes(): TreeNode[] { return this._nodes; }
   set nodes(val: TreeNode[]) {
@@ -66,15 +67,16 @@ export class Tree implements ITree {
     }
   }
 
-  doForAll(fn: (node: TreeNode) => any) {
-    this.doForEach(this.nodes, fn).then();
+  doForAll(fn: (node: TreeNode) => any): Promise<any> {
+    return this.doForEach(this.nodes, fn);
   }
 
-  filterTree(filterValue: string) {
+  filterTree(filterValue: string): Promise<any> {
     if (this.serverSideFiltering) {
-      this.filterServerSide(filterValue);
+      return this.filterServerSide(filterValue);
     } else {
       this.filterClientSide(filterValue);
+      return Promise.resolve();
     }
   }
 
@@ -114,8 +116,8 @@ export class Tree implements ITree {
     }
   }
 
-  clearSearchState() {
-    this.doForAll((node: TreeNode) => {
+  clearSearchState(): Promise<any> {
+    return this.doForAll((node: TreeNode) => {
       node.$$filterState = null;
       node.expanded = false;
     });
@@ -145,7 +147,7 @@ export class Tree implements ITree {
     }
   }
 
-  getChildren(node: TreeNode) {
+  getChildren(node: TreeNode): Promise<any> {
     if ((!node.children || node.children.length === 0) && node.leaf === false) {
       return this.service.getNodes(node).then(data => {
         node.children = data;
@@ -155,7 +157,7 @@ export class Tree implements ITree {
     }
   }
 
-  doForEach(nodes: TreeNode[], fn: (node: TreeNode) => any) {
+  doForEach(nodes: TreeNode[], fn: (node: TreeNode) => any): Promise<any> {
     return Promise.all(nodes.map((node) => {
       return Promise.resolve(fn(node)).then(() => {
         if (node.children) {
@@ -178,7 +180,7 @@ export class Tree implements ITree {
     }).then();
   }
 
-  loadPath(path: any[]) {
+  loadPath(path: any[]): Promise<any> {
     if (path && path.length) {
       return Promise.all(path.map((p) => {
         return this.doForEach(this.nodes, (node) => {
@@ -195,17 +197,22 @@ export class Tree implements ITree {
     }
   }
 
-  filterServerSide(filterValue: string) {
+  filterServerSide(filterValue: string): Promise<any> {
     if (isBlank(filterValue)) {
-      this.clearSearchState();
-      return;
+      return this.clearSearchState();
     }
     if (this.service) {
       this.filterLoading = true;
-      this.service.searchNodes(filterValue).then(items => {
-        this.loadPath(items).then(() => {
+      if (this.filterLoadingFunc) {
+        this.filterLoadingFunc(true);
+      }
+      return this.service.searchNodes(filterValue).then(items => {
+        return this.loadPath(items).then(() => {
           this.filterClientSide(filterValue);
           this.filterLoading = false;
+          if (this.filterLoadingFunc) {
+            this.filterLoadingFunc(false);
+          }
         });
       });
     }

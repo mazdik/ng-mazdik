@@ -21,7 +21,7 @@ Feature-rich data table component for Angular with CRUD operations.
 import {Component}  from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ColumnBase, CdtSettings, DataSource, DataManager, Validators, NotifyService} from 'ng-mazdik-lib';
-import {YiiService} from './samples/services';
+import {DemoService} from './samples/services';
 
 @Component({
   selector: 'my-app',
@@ -121,10 +121,8 @@ export class PlayersComponent {
     });
 
     constructor(private http: HttpClient, private notifyService: NotifyService) {
-      // YiiService | RestlessService | your custom service
-      const service = new YiiService(this.http, this.notifyService);
-      service.url = 'http://host3/players';
-      service.primaryKeys = ['id'];
+      // your custom service
+      const service = new DemoService(this.http, this.notifyService);
       this.dataManager = new DataManager(this.columns, this.settings, service);
     }
 }
