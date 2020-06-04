@@ -27,3 +27,11 @@
   border-top-right-radius: .1875rem;
   border-bottom-right-radius: .1875rem;
 }
+
+.dt-input-group button {
+  border-left: none;
+}
+
+.dt-input-group input:focus + button {
+  border-color: var(--dt-color-primary-lighter);
+}

@@ -22,11 +22,3 @@
 input.dt-select-input[readonly]:not([disabled]) {
   background-color: white;
 }
-
-.dt-input-group button {
-  border-left: none;
-}
-
-.dt-select-input:focus + button {
-  border-color: var(--dt-color-primary-lighter);
-}
