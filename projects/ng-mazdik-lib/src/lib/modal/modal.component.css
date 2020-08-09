@@ -1,3 +1,9 @@
+.ui-modal *,
+.ui-modal *::before,
+.ui-modal *::after {
+  box-sizing: border-box;
+}
+
 .ui-modal-overlay, .ui-modal {
   z-index: 10;
 }

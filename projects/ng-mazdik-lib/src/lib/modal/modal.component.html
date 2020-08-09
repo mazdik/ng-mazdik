@@ -9,6 +9,7 @@
      (resizing)="onResize($event)"
      appDraggable
      [dragEventTarget]="dragEventTarget"
+     [inViewport]="inViewport"
      [style.display]="visible ? 'block' : 'none'"
      (mousedown)="moveOnTop()"
      (touchstart)="moveOnTop()">
