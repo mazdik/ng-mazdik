@@ -56,7 +56,6 @@ export class AppComponent implements AfterViewInit {
           { id: '/tree-table-custom-demo', name: 'Tree table custom' },
           { id: '/master-detail-demo', name: 'Master detail' },
           { id: '/modal-data-table-demo', name: 'Modal data table' },
-          { id: '/nested-modals-demo', name: 'Nested modals' },
           { id: '/multiple-sort-demo', name: 'Multiple sorting' },
           { id: '/row-group-demo', name: 'Row group' },
           { id: '/row-group-multiple-demo', name: 'Row group multiple' },

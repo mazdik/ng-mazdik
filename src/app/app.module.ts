@@ -18,7 +18,6 @@ import { DataTableDemoComponent } from './demo/data-table-demo.component';
 import { MasterDetailDemoComponent } from './demo/master-detail-demo.component';
 import { ModalEditFormDemoComponent } from './demo/modal-edit-form-demo.component';
 import { ModalDataTableDemoComponent } from './demo/modal-data-table-demo.component';
-import { NestedModalsDemoComponent} from './demo/nested-modals-demo.component';
 import { MultipleSortDemoComponent } from './demo/multiple-sort-demo.component';
 import { RowGroupDemoComponent } from './demo/row-group-demo.component';
 import { RowGroupMultipleDemoComponent } from './demo/row-group-multiple-demo.component';
@@ -68,7 +67,6 @@ const ROUTES: Routes = [
   {path: 'master-detail-demo', component: MasterDetailDemoComponent},
   {path: 'modal-edit-form-demo', component: ModalEditFormDemoComponent},
   {path: 'modal-data-table-demo', component: ModalDataTableDemoComponent},
-  {path: 'nested-modals-demo', component: NestedModalsDemoComponent},
   {path: 'multiple-sort-demo', component: MultipleSortDemoComponent},
   {path: 'row-group-demo', component: RowGroupDemoComponent},
   {path: 'row-group-multiple-demo', component: RowGroupMultipleDemoComponent},
@@ -122,7 +120,6 @@ const ROUTES: Routes = [
     MasterDetailDemoComponent,
     ModalEditFormDemoComponent,
     ModalDataTableDemoComponent,
-    NestedModalsDemoComponent,
     MultipleSortDemoComponent,
     RowGroupDemoComponent,
     RowGroupMultipleDemoComponent,
