@@ -4,7 +4,7 @@ import {Settings, DataTable} from 'ng-mazdik-lib';
 import {getColumnsPlayers} from './columns';
 
 @Component({
-  selector: 'app-header-demo',
+  selector: 'app-column-group-demo',
   template: `
     <app-data-table [table]="table" class="header-demo">
       <ng-template dtHeaderTemplate>
@@ -21,7 +21,7 @@ import {getColumnsPlayers} from './columns';
   `,
 })
 
-export class HeaderDemoComponent implements OnInit {
+export class ColumnGroupDemoComponent implements OnInit {
 
   table: DataTable;
   settings: Settings = new Settings({});

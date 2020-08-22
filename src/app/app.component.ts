@@ -66,7 +66,7 @@ export class AppComponent implements AfterViewInit {
           { id: '/live-demo', name: 'Live updates' },
           { id: '/virtual-scroll-demo', name: 'Virtual scroll' },
           { id: '/css-demo', name: 'CSS' },
-          { id: '/header-demo', name: 'Column groups template' },
+          { id: '/column-group-demo', name: 'Column group' },
           { id: '/template-demo', name: 'Templates' },
           { id: '/events-demo', name: 'Events' },
           { id: '/vertical-group-demo', name: 'Vertical group' },

@@ -28,7 +28,7 @@ import { MultipleSelectionDemoComponent } from './demo/multiple-selection-demo.c
 import { LiveDemoComponent} from './demo/live-demo.component';
 import { VirtualScrollDemoComponent } from './demo/virtual-scroll-demo.component';
 import { CssDemoComponent } from './demo/css-demo.component';
-import { HeaderDemoComponent } from './demo/header-demo.component';
+import { ColumnGroupDemoComponent } from './demo/column-group-demo.component';
 import { TemplateDemoComponent } from './demo/template-demo.component';
 import { EventsDemoComponent } from './demo/events-demo.component';
 import { VerticalGroupDemoComponent } from './demo/vertical-group-demo.component';
@@ -77,7 +77,7 @@ const ROUTES: Routes = [
   {path: 'live-demo', component: LiveDemoComponent},
   {path: 'virtual-scroll-demo', component: VirtualScrollDemoComponent},
   {path: 'css-demo', component: CssDemoComponent},
-  {path: 'header-demo', component: HeaderDemoComponent},
+  {path: 'column-group-demo', component: ColumnGroupDemoComponent},
   {path: 'template-demo', component: TemplateDemoComponent},
   {path: 'events-demo', component: EventsDemoComponent},
   {path: 'vertical-group-demo', component: VerticalGroupDemoComponent},
@@ -130,7 +130,7 @@ const ROUTES: Routes = [
     LiveDemoComponent,
     VirtualScrollDemoComponent,
     CssDemoComponent,
-    HeaderDemoComponent,
+    ColumnGroupDemoComponent,
     TemplateDemoComponent,
     EventsDemoComponent,
     VerticalGroupDemoComponent,

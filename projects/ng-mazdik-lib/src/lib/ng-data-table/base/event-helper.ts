@@ -5,8 +5,7 @@ export class EventHelper {
 
   static findCellEventTarget(event: any, element: HTMLElement): HTMLElement {
     let target = event.target;
-    if (target === null) { return; }
-    while (target !== element) {
+    while (target && target !== element) {
       if (target.classList.contains('datatable-body-cell')) {
         break;
       }
