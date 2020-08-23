@@ -9,38 +9,32 @@ import {Subscription} from 'rxjs';
   template: `
   <div class="vertical-group-demo">
     <div class="datatable vertical">
-      <div class="datatable-header-cell"
-          [style.height.px]="table.dimensions.headerRowHeight"
-          style="border-right: none; border-left: 1px solid #c6c6c6;">
+      <div class="datatable-header-cell">
           <span class="column-title">Race</span>
       </div>
       <div #dtv1 class="datatable-body" [style.height.px]="table.dimensions.bodyHeight">
         <ng-container *ngFor="let key of raceGroupKeys()">
           <div class="datatable-body-cell"
-            [style.height.px]="raceGroupHeight(key)"
-            style="border-right: none; border-left: 1px solid #c6c6c6; justify-content: center;">
+            [style.height.px]="raceGroupHeight(key)">
             <div class="cell-data">{{key}}</div>
           </div>
         </ng-container>
       </div>
     </div>
     <div class="datatable vertical">
-      <div class="datatable-header-cell"
-          [style.height.px]="table.dimensions.headerRowHeight"
-          style="border-right: none; border-left: 1px solid #c6c6c6;">
+      <div class="datatable-header-cell">
           <span class="column-title">Gender</span>
       </div>
       <div #dtv2 class="datatable-body" [style.height.px]="table.dimensions.bodyHeight">
         <ng-container *ngFor="let key of genderGroupKeys()">
           <div class="datatable-body-cell"
-            [style.height.px]="genderGroupHeight(key)"
-            style="border-right: none; border-left: 1px solid #c6c6c6; justify-content: center;">
+            [style.height.px]="genderGroupHeight(key)">
             <div class="cell-data">{{genderName(key)}}</div>
           </div>
         </ng-container>
       </div>
     </div>
-    <app-data-table class="tab2" [table]="table"></app-data-table>
+    <app-data-table class="tab2 fixed-header" [table]="table"></app-data-table>
   </div>
   `,
 })
@@ -49,7 +43,6 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
   settings: Settings = new Settings({
-    headerRowHeight: 40,
     bodyHeight: 380,
     filter: false,
   });

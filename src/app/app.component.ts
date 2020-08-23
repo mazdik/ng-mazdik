@@ -74,7 +74,6 @@ export class AppComponent implements AfterViewInit {
           { id: '/pipe-demo', name: 'Pipe on column' },
           { id: '/multi-select-demo', name: 'Multi-select' },
           { id: '/custom-row-action-demo', name: 'Custom row action' },
-          { id: '/frozen-table-demo', name: 'Frozen table' },
         ]
       },
       {

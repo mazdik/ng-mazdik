@@ -42,7 +42,6 @@ export class TemplateDemoComponent implements OnInit {
   table: DataTable;
   columns: ColumnBase[];
   settings: Settings = new Settings({
-    headerRowHeight: 40,
     rowHeight: 40,
   });
   @ViewChild('headerCellTemplate', {static: true}) headerCellTemplate: TemplateRef<any>;

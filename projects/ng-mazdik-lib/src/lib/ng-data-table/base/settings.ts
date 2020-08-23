@@ -13,7 +13,6 @@ export class Settings {
   selectionMode?: SelectionMode;
   virtualScroll?: boolean;
   rowClass?: string | RowClassFunc;
-  headerRowHeight?: number;
   rowHeight?: number = 30;
   rowNumber?: boolean = true;
   hoverEvents?: boolean;

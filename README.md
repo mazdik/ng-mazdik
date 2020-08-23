@@ -278,7 +278,6 @@ export interface PageMetadata {
 | selectionMode    | checkbox / radio | null |          |
 | virtualScroll    | boolean    | false   |             |
 | rowClass         | string / Function | false |        |
-| headerRowHeight  | number     | null    | px, 0 - hide header |
 | rowHeight        | number     | 30      | px          |
 | rowNumber        | boolean    | true    |             |
 | hoverEvents      | boolean    | false   | mouseover/mouseout |

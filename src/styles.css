@@ -16,6 +16,17 @@
   min-height: 2.5rem;
 }
 
+.fixed-header .datatable-header-row {
+  white-space: nowrap;
+}
+
+.fixed-header .datatable-header-cell,
+.fixed-header .dt-sort-header {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .cell-big-value {
   background-color: lightsalmon;
 }
@@ -104,17 +115,19 @@
 .multi-select-demo-block {position: relative;}
 .multi-select-demo-block .dt-dropdown-select-list {width: 15.625rem;}
 
-/* FrozenTableDemoComponent */
-.frozen-table-demo {display: flex;}
-.frozen-table-demo .tab2 {overflow-x: auto;}
-.frozen-table-demo .frozen .dt-scroller {overflow-y: hidden; overflow-x: scroll}
-
 /* VerticalGroupDemoComponent */
 .vertical-group-demo {display: flex;}
 .vertical-group-demo .tab2 {overflow-x: auto;}
 .vertical-group-demo .vertical .cell-data {transform: rotate(-90deg); overflow: visible;}
-.vertical-group-demo .vertical .datatable-header-cell, .vertical .datatable-body-cell {width: 3.125rem;}
+.vertical-group-demo .vertical .datatable-header-cell,
+.vertical-group-demo .vertical .datatable-body-cell {
+  width: 3.25rem;
+  border-right: none;
+  border-left: 1px solid #c6c6c6;
+  justify-content: center;
+}
 .vertical-group-demo .vertical .datatable-body {overflow-y: hidden; overflow-x: scroll}
+.vertical-group-demo .vertical .datatable-header-cell {min-height: 2.5rem;}
 
 /* DynamicFormDemoComponent */
 .dynamic-form-demo {display: block; width: 25rem;}

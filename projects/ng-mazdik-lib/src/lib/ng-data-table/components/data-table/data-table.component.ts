@@ -30,11 +30,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
   @HostBinding('class.datatable') cssClass = true;
   @HostBinding('attr.role') role = 'grid';
 
-  @HostBinding('class.fixed-header')
-  get isFixedHeader(): boolean {
-    return (this.table.dimensions.headerRowHeight) ? true : false;
-  }
-
   loading: boolean;
   private subscriptions: Subscription[] = [];
 
@@ -132,10 +127,6 @@ export class DataTableComponent implements OnInit, OnDestroy {
     this.resizeHelper.nativeElement.style.display = 'none';
     this.element.nativeElement.classList.remove('datatable-unselectable');
     this.table.dimensions.recalcColumns();
-  }
-
-  get headerVisible(): boolean {
-    return this.table.dimensions.headerRowHeight === 0 ? false : true;
   }
 
   onCheckboxClick(row: Row) {
