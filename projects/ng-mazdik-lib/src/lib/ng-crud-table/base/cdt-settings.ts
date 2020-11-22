@@ -1,4 +1,4 @@
-import {Settings} from '../../ng-data-table/base/settings';
+import { Settings } from '../../ng-data-table/base/settings';
 
 export class CdtSettings extends Settings {
   crud?: boolean;

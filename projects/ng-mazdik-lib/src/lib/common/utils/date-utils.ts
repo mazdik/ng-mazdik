@@ -2,7 +2,7 @@ export function toISOStringIgnoreTZ(date: Date): string {
   return new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
 }
 
-export function inputFormattedDate(type: string, value: any) {
+export function inputFormattedDate(type: string, value: any): string {
   if (value) {
     const strDate = (value instanceof Date) ? toISOStringIgnoreTZ(value) : value;
     if (type === 'datetime-local') {
@@ -18,7 +18,7 @@ export function inputFormattedDate(type: string, value: any) {
 
 export type LastDateType = 'year' | 'month' | 'day' | 'hour';
 
-export function getLastDate(type: LastDateType) {
+export function getLastDate(type: LastDateType): Date {
   let dt: Date;
   if (type === 'year') {
     dt = new Date();

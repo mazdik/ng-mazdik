@@ -1,9 +1,9 @@
 import {
   Component, OnInit, Input, HostBinding, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Row, Column, Cell} from '../../base';
-import {Subscription} from 'rxjs';
-import {isBlank} from '../../../common/utils';
+import { DataTable, Row, Column, Cell } from '../../base';
+import { Subscription } from 'rxjs';
+import { isBlank } from '../../../common/utils';
 
 @Component({
   selector: 'dt-body-row',
@@ -45,7 +45,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   columnTrackingFn = (i: number, col: Column) => col.name;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const subColumnResizeEnd = this.table.events.resizeEndSource$.subscribe(() => {
@@ -68,7 +68,7 @@ export class BodyRowComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subSelection);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 

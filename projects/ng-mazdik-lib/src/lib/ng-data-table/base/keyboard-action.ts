@@ -16,9 +16,9 @@ export interface FindCellArgs {
 
 export class KeyboardAction {
 
-  constructor(private readonly events: Events, private readonly selection: DataSelection<number>) {}
+  constructor(private readonly events: Events, private readonly selection: DataSelection<number>) { }
 
-  handleEvent(event: KeyboardEvent, element: HTMLElement, maxColIndex: number, maxRowIndex: number) {
+  handleEvent(event: KeyboardEvent, element: HTMLElement, maxColIndex: number, maxRowIndex: number): void {
     const target = EventHelper.findCellEventTarget(event, element);
     if (!target) {
       return;
@@ -38,7 +38,7 @@ export class KeyboardAction {
         this.events.onKeydownCell({ columnIndex, rowIndex, event, fromCell: target } as CellEventArgs);
       }
       if (this.isNavigationKey(keyCode) && !isEditing) {
-        [columnIndex, rowIndex] = this.findNextCell({columnIndex, rowIndex, keyCode, shiftKey, maxColIndex, maxRowIndex});
+        [columnIndex, rowIndex] = this.findNextCell({ columnIndex, rowIndex, keyCode, shiftKey, maxColIndex, maxRowIndex });
         this.events.onActivateCell({ columnIndex, rowIndex, event, fromCell: target } as CellEventArgs);
         if (!this.selection.multiple) {
           this.selection.selectValue(rowIndex);
@@ -74,7 +74,7 @@ export class KeyboardAction {
     return (isAction);
   }
 
-  private isNavigationKey(keyCode: number) {
+  private isNavigationKey(keyCode: number): boolean {
     const isAction =
       keyCode === Keys.UP ||
       keyCode === Keys.DOWN ||

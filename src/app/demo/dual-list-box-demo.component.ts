@@ -34,7 +34,7 @@ export class DualListBoxDemoComponent {
 
   constructor() { }
 
-  onSelectionChange(event) {
+  onSelectionChange(event): void {
     console.log(event);
   }
 }

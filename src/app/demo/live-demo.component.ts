@@ -1,8 +1,8 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
-import {Subscription, interval} from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
+import { Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-live-demo',
@@ -16,7 +16,7 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
 
   table: DataTable;
   tempRows: any;
-  stop: boolean = false;
+  stop = false;
 
   settings: Settings = new Settings({
     sortable: false,
@@ -29,7 +29,7 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
     this.table = new DataTable(columns, this.settings);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get('assets/players.json').subscribe((data: any[]) => {
       data = data.map(d => {
@@ -49,7 +49,7 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subInterval.unsubscribe();
   }
 
@@ -57,7 +57,7 @@ export class LiveDemoComponent implements OnInit, OnDestroy {
     return Math.floor(Math.random() * end) + start;
   }
 
-  updateRandom() {
+  updateRandom(): void {
     const rowIndex = this.randomNum(0, 10);
     const newRowIndex = this.randomNum(0, 20);
     const columnName1 = this.table.columns[this.randomNum(0, 7)].name;

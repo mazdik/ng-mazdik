@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 })
 export class DropdownDirective implements OnDestroy {
 
-  @HostBinding('class.open') isOpen: boolean = false;
+  @HostBinding('class.open') isOpen = false;
   private subscription: Subscription;
 
   constructor(private elementRef: ElementRef, private service: DropdownService) {
@@ -18,11 +18,11 @@ export class DropdownDirective implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  toggle() {
+  toggle(): void {
     this.isOpen = !this.isOpen;
   }
 

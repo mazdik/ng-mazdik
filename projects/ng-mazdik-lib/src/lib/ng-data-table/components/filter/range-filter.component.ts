@@ -1,8 +1,8 @@
 import {
   Component, OnInit, Input, Output, EventEmitter, AfterViewInit, ChangeDetectionStrategy, OnChanges, ViewChild
 } from '@angular/core';
-import {Column, DataTable, FilterOperator} from '../../base';
-import {inputFormattedDate, getLastDate, LastDateType} from '../../../common/utils';
+import { Column, DataTable, FilterOperator } from '../../base';
+import { inputFormattedDate, getLastDate, LastDateType } from '../../../common/utils';
 
 @Component({
   selector: 'app-range-filter',
@@ -16,7 +16,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() isOpen: boolean;
   @Output() filterClose: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('filterInput', {static: false}) filterInput: any;
+  @ViewChild('filterInput', { static: false }) filterInput: any;
 
   matchMode: string;
   value: any;
@@ -24,23 +24,23 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
   operators: any[];
   defaultMatchMode = FilterOperator.EQUALS;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.operators = [
-      {value: FilterOperator.EQUALS, text: this.table.messages.equals},
-      {value: FilterOperator.NOT_EQUAL, text: this.table.messages.notEqual},
-      {value: FilterOperator.GREATER_THAN, text: this.table.messages.greaterThan},
-      {value: FilterOperator.GREATER_THAN_OR_EQUAL, text: this.table.messages.greaterThanOrEqual},
-      {value: FilterOperator.LESS_THAN, text: this.table.messages.lessThan},
-      {value: FilterOperator.LESS_THAN_OR_EQUAL, text: this.table.messages.lessThanOrEqual},
-      {value: FilterOperator.IN_RANGE, text: this.table.messages.inRange},
-      {value: FilterOperator.IS_EMPTY, text: this.table.messages.isEmpty},
-      {value: FilterOperator.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty},
+      { value: FilterOperator.EQUALS, text: this.table.messages.equals },
+      { value: FilterOperator.NOT_EQUAL, text: this.table.messages.notEqual },
+      { value: FilterOperator.GREATER_THAN, text: this.table.messages.greaterThan },
+      { value: FilterOperator.GREATER_THAN_OR_EQUAL, text: this.table.messages.greaterThanOrEqual },
+      { value: FilterOperator.LESS_THAN, text: this.table.messages.lessThan },
+      { value: FilterOperator.LESS_THAN_OR_EQUAL, text: this.table.messages.lessThanOrEqual },
+      { value: FilterOperator.IN_RANGE, text: this.table.messages.inRange },
+      { value: FilterOperator.IS_EMPTY, text: this.table.messages.isEmpty },
+      { value: FilterOperator.IS_NOT_EMPTY, text: this.table.messages.isNotEmpty },
     ];
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.setFocus();
   }
 
@@ -51,20 +51,20 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.setFocus();
   }
 
-  get isValueFilter() {
+  get isValueFilter(): boolean {
     return !this.table.dataFilter.isNonValueFilter(this.matchMode);
   }
 
-  get isRangeFilter() {
+  get isRangeFilter(): boolean {
     return this.matchMode === FilterOperator.IN_RANGE;
   }
 
-  saveFilter() {
+  saveFilter(): void {
     this.table.dataFilter.setFilter(this.value, this.column.name, this.matchMode, this.valueTo, this.column.dataType);
     this.table.events.onFilter();
   }
 
-  setFocus() {
+  setFocus(): void {
     if (this.filterInput && this.isValueFilter) {
       setTimeout(() => {
         this.filterInput.nativeElement.focus();
@@ -72,7 +72,7 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  onModeChange() {
+  onModeChange(): void {
     if (!this.isValueFilter) {
       this.value = 0;
       this.valueTo = null;
@@ -83,23 +83,23 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  lastDate(name: LastDateType) {
+  lastDate(name: LastDateType): void {
     this.matchMode = FilterOperator.GREATER_THAN_OR_EQUAL;
     this.value = inputFormattedDate(this.column.type, getLastDate(name).toISOString());
     this.saveFilter();
     this.filterClose.emit(true);
   }
 
-  onClickOk() {
+  onClickOk(): void {
     this.saveFilter();
     this.filterClose.emit(true);
   }
 
-  onClickCancel() {
+  onClickCancel(): void {
     this.filterClose.emit(true);
   }
 
-  onClickClear() {
+  onClickClear(): void {
     this.value = null;
     this.valueTo = null;
     this.matchMode = this.defaultMatchMode;

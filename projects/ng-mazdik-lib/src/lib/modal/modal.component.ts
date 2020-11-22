@@ -1,8 +1,8 @@
 import {
   Component, ElementRef, ViewChild, Input, Output, AfterViewChecked, HostListener, EventEmitter
 } from '@angular/core';
-import {ResizableEvent} from '../resizable/types';
-import {maxZIndex, findAncestor} from '../common/utils';
+import { ResizableEvent } from '../resizable/types';
+import { maxZIndex, findAncestor } from '../common/utils';
 
 @Component({
   selector: 'app-modal',
@@ -10,18 +10,18 @@ import {maxZIndex, findAncestor} from '../common/utils';
 })
 export class ModalComponent implements AfterViewChecked {
 
-  @Input() scrollTopEnable: boolean = true;
+  @Input() scrollTopEnable = true;
   @Input() maximizable: boolean;
-  @Input() backdrop: boolean = true;
+  @Input() backdrop = true;
   @Input() inViewport: boolean;
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('modalRoot', {static: false}) modalRoot: ElementRef;
-  @ViewChild('modalBody', {static: false}) modalBody: ElementRef;
-  @ViewChild('modalHeader', {static: false}) modalHeader: ElementRef;
-  @ViewChild('modalFooter', {static: false}) modalFooter: ElementRef;
-  @ViewChild('closeIcon', {static: false}) closeIcon: ElementRef;
+  @ViewChild('modalRoot', { static: false }) modalRoot: ElementRef;
+  @ViewChild('modalBody', { static: false }) modalBody: ElementRef;
+  @ViewChild('modalHeader', { static: false }) modalHeader: ElementRef;
+  @ViewChild('modalFooter', { static: false }) modalFooter: ElementRef;
+  @ViewChild('closeIcon', { static: false }) closeIcon: ElementRef;
 
   visible: boolean;
   executePostDisplayActions: boolean;
@@ -33,9 +33,9 @@ export class ModalComponent implements AfterViewChecked {
   preMaximizePageY: number;
   dragEventTarget: MouseEvent | TouchEvent;
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef) { }
 
-  ngAfterViewChecked() {
+  ngAfterViewChecked(): void  {
     if (this.executePostDisplayActions) {
       this.center();
       this.executePostDisplayActions = false;
@@ -72,7 +72,7 @@ export class ModalComponent implements AfterViewChecked {
     this.focusLastModal();
   }
 
-  center() {
+  center(): void  {
     let elementWidth = this.modalRoot.nativeElement.offsetWidth;
     let elementHeight = this.modalRoot.nativeElement.offsetHeight;
 
@@ -92,7 +92,7 @@ export class ModalComponent implements AfterViewChecked {
     this.modalRoot.nativeElement.style.top = y + 'px';
   }
 
-  initDrag(event: MouseEvent | TouchEvent) {
+  initDrag(event: MouseEvent | TouchEvent): void  {
     if (event.target === this.closeIcon.nativeElement) {
       return;
     }
@@ -101,31 +101,31 @@ export class ModalComponent implements AfterViewChecked {
     }
   }
 
-  onResize(event: ResizableEvent) {
+  onResize(event: ResizableEvent): void  {
     if (event.direction === 'vertical') {
       this.calcBodyHeight();
     }
   }
 
-  calcBodyHeight() {
+  calcBodyHeight(): void  {
     const diffHeight = this.modalHeader.nativeElement.offsetHeight + this.modalFooter.nativeElement.offsetHeight;
     const contentHeight = this.modalRoot.nativeElement.offsetHeight - diffHeight;
     this.modalBody.nativeElement.style.height = contentHeight + 'px';
     this.modalBody.nativeElement.style.maxHeight = 'none';
   }
 
-  getMaxModalIndex() {
+  getMaxModalIndex(): number {
     return maxZIndex('.ui-modal');
   }
 
-  focusLastModal() {
+  focusLastModal(): void  {
     const modal = findAncestor(this.element.nativeElement.parentElement, '.ui-modal');
     if (modal) {
       modal.focus();
     }
   }
 
-  toggleMaximize(event) {
+  toggleMaximize(event): void  {
     if (this.maximized) {
       this.revertMaximize();
     } else {
@@ -134,7 +134,7 @@ export class ModalComponent implements AfterViewChecked {
     event.preventDefault();
   }
 
-  maximize() {
+  maximize(): void  {
     this.preMaximizePageX = parseFloat(this.modalRoot.nativeElement.style.top);
     this.preMaximizePageY = parseFloat(this.modalRoot.nativeElement.style.left);
     this.preMaximizeRootWidth = this.modalRoot.nativeElement.offsetWidth;
@@ -152,17 +152,17 @@ export class ModalComponent implements AfterViewChecked {
     this.maximized = true;
   }
 
-  revertMaximize() {
-      this.modalRoot.nativeElement.style.top = this.preMaximizePageX + 'px';
-      this.modalRoot.nativeElement.style.left = this.preMaximizePageY + 'px';
-      this.modalRoot.nativeElement.style.width = this.preMaximizeRootWidth + 'px';
-      this.modalRoot.nativeElement.style.height = this.preMaximizeRootHeight + 'px';
-      this.modalBody.nativeElement.style.height = this.preMaximizeBodyHeight + 'px';
+  revertMaximize(): void  {
+    this.modalRoot.nativeElement.style.top = this.preMaximizePageX + 'px';
+    this.modalRoot.nativeElement.style.left = this.preMaximizePageY + 'px';
+    this.modalRoot.nativeElement.style.width = this.preMaximizeRootWidth + 'px';
+    this.modalRoot.nativeElement.style.height = this.preMaximizeRootHeight + 'px';
+    this.modalBody.nativeElement.style.height = this.preMaximizeBodyHeight + 'px';
 
-      this.maximized = false;
+    this.maximized = false;
   }
 
-  moveOnTop() {
+  moveOnTop(): void  {
     if (!this.backdrop) {
       const maxModalIndex = this.getMaxModalIndex();
       let zIndex = parseFloat(window.getComputedStyle(this.modalRoot.nativeElement).zIndex) || 0;

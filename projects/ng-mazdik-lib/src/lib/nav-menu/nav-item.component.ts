@@ -21,7 +21,7 @@ export class NavItemComponent {
 
   constructor() {}
 
-  get classes() {
+  get classes(): any {
     return {
       ['level-' + (this.node.$$level + 1)]: true,
       collapsed: !this.node.expanded,
@@ -31,14 +31,14 @@ export class NavItemComponent {
     };
   }
 
-  get headingChildrenClasses() {
+  get headingChildrenClasses(): any {
     return {
       collapsed: !this.node.expanded,
       expanded: this.node.expanded
     };
   }
 
-  onClickLink(event: MouseEvent) {
+  onClickLink(event: MouseEvent): void  {
     event.preventDefault();
     if (this.node.hasChildren) {
       this.node.expanded = !this.node.expanded;

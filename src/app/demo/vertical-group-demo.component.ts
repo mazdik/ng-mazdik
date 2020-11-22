@@ -1,8 +1,8 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable, GroupMetadata, DataAggregation} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
-import {Subscription} from 'rxjs';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable, GroupMetadata, DataAggregation } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-vertical-group-demo',
@@ -47,8 +47,8 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     filter: false,
   });
 
-  @ViewChild('dtv1', {static: true}) dtv1: ElementRef;
-  @ViewChild('dtv2', {static: true}) dtv2: ElementRef;
+  @ViewChild('dtv1', { static: true }) dtv1: ElementRef;
+  @ViewChild('dtv2', { static: true }) dtv2: ElementRef;
 
   private raceGroupMetadata: GroupMetadata;
   private genderGroupMetadata: GroupMetadata;
@@ -64,7 +64,7 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     this.dataAggregation = new DataAggregation();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.sorter.multiple = true;
@@ -85,31 +85,31 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subScroll);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  raceGroupKeys() {
+  raceGroupKeys(): string[] {
     if (this.raceGroupMetadata) {
       return Object.keys(this.raceGroupMetadata);
     }
   }
 
-  raceGroupHeight(key: string) {
+  raceGroupHeight(key: string): number {
     return this.table.dimensions.rowHeight * this.raceGroupMetadata[key].size;
   }
 
-  genderGroupKeys() {
+  genderGroupKeys(): string[] {
     if (this.genderGroupMetadata) {
       return Object.keys(this.genderGroupMetadata);
     }
   }
 
-  genderGroupHeight(key: string) {
+  genderGroupHeight(key: string): number {
     return this.table.dimensions.rowHeight * this.genderGroupMetadata[key].size;
   }
 
-  genderName(key) {
+  genderName(key): string {
     return key.split(',')[1];
   }
 

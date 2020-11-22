@@ -31,23 +31,23 @@ export class RowGroup {
       .map(x => ({ field: x.name, type: x.aggregation }) as AggregateMeta);
   }
 
-  updateRowGroupMetadata(rows: Row[]) {
+  updateRowGroupMetadata(rows: Row[]): void {
     if (this.groupEnabled) {
       this.rowGroupMetadata = this.dataAggregation.groupMetaData(rows, this.groupRowsBy);
     }
     this.grandTotalRow = new Row(this.dataAggregation.grandTotal(rows));
   }
 
-  getRowGroupName(row: Row) {
+  getRowGroupName(row: Row): string {
     return this.dataAggregation.groupStringValues(row, this.groupRowsBy);
   }
 
-  getRowGroupSize(row: Row) {
+  getRowGroupSize(row: Row): number {
     const group = this.getRowGroupName(row);
     return this.rowGroupMetadata[group].size;
   }
 
-  isRowGroup(row: Row) {
+  isRowGroup(row: Row): boolean {
     if (this.groupEnabled) {
       const group = this.getRowGroupName(row);
       return this.rowGroupMetadata[group].index === row.$$index;
@@ -56,7 +56,7 @@ export class RowGroup {
     }
   }
 
-  isRowGroupSummary(row: Row) {
+  isRowGroupSummary(row: Row): boolean {
     if (this.groupEnabled && this.aggregationEnabled) {
       const group = this.getRowGroupName(row);
       const lastRowIndex = (this.rowGroupMetadata[group].index + this.rowGroupMetadata[group].size) - 1;

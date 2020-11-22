@@ -19,13 +19,13 @@ export class ContextMenuDemoComponent {
 
   constructor() { }
 
-  show(event) {
+  show(event): void {
     const left = event.target.offsetLeft + event.target.offsetWidth;
     const top = event.target.offsetTop;
     this.contextMenu.show({originalEvent: event, data: 'test', left, top} as MenuEventArgs);
   }
 
-  hide() {
+  hide(): void {
     this.contextMenu.hide();
   }
 

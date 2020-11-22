@@ -1,4 +1,4 @@
-export function isLeftButton(event: MouseEvent | TouchEvent) {
+export function isLeftButton(event: MouseEvent | TouchEvent): boolean {
   if (event.type === 'touchstart') {
     return true;
   }
@@ -12,7 +12,7 @@ export function getEvent(event: MouseEvent | TouchEvent): MouseEvent | Touch {
   return event.type.startsWith('touch') ? (event as TouchEvent).targetTouches[0] : event as MouseEvent;
 }
 
-export function maxZIndex(selectors: string = 'body *') {
+export function maxZIndex(selectors: string = 'body *'): number {
   return Array.from(document.querySelectorAll(selectors))
     .map(a => parseFloat(window.getComputedStyle(a).zIndex))
     .filter(a => !isNaN(a))
@@ -20,7 +20,7 @@ export function maxZIndex(selectors: string = 'body *') {
     .pop() || 0;
 }
 
-export function findAncestor(el, selectors) {
+export function findAncestor(el, selectors): any {
   if (typeof el.closest === 'function') {
     return el.closest(selectors) || null;
   }

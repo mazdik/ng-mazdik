@@ -1,5 +1,5 @@
-import {Component, Input, ChangeDetectionStrategy} from '@angular/core';
-import {KeyValuePair} from './types';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { KeyValuePair } from './types';
 
 @Component({
   selector: 'app-row-view',
@@ -9,16 +9,16 @@ import {KeyValuePair} from './types';
 export class RowViewComponent {
 
   @Input() transposedData: KeyValuePair[];
-  @Input() headerKeyMessage: string = 'Key';
-  @Input() headerValueMessage: string = 'Value';
+  @Input() headerKeyMessage = 'Key';
+  @Input() headerValueMessage = 'Value';
 
   order: string;
-  reverse: boolean = true;
+  reverse = true;
   private orderedData: KeyValuePair[];
 
-  constructor() {}
+  constructor() { }
 
-  setOrder(name: string) {
+  setOrder(name: string): void {
     if (this.order === name) {
       this.reverse = !this.reverse;
     }
@@ -26,11 +26,11 @@ export class RowViewComponent {
     this.orderedData = this.orderBy(this.transposedData, this.order, this.reverse);
   }
 
-  isOrder(name: string) {
+  isOrder(name: string): boolean {
     return this.order === name && this.reverse;
   }
 
-  isOrderReverse(name: string) {
+  isOrderReverse(name: string): boolean {
     return this.order === name && !this.reverse;
   }
 

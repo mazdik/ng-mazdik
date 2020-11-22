@@ -2,15 +2,15 @@ import {
   Component, OnInit, ViewChild, Input, Output, EventEmitter, OnDestroy, TemplateRef,
   HostBinding, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ModalEditFormComponent} from '../../../modal-edit-form/modal-edit-form.component';
-import {DataManager} from '../../base/data-manager';
-import {Subscription} from 'rxjs';
-import {ContextMenuComponent} from '../../../context-menu/context-menu.component';
-import {MenuEventArgs} from '../../../context-menu/types';
-import {DataTableComponent} from '../../../ng-data-table/components/data-table/data-table.component';
-import {Row} from '../../../ng-data-table/base/row';
-import {EventHelper, ColumnModelGenerator} from '../../../ng-data-table/base';
-import {MenuItem} from '../../../common';
+import { ModalEditFormComponent } from '../../../modal-edit-form/modal-edit-form.component';
+import { DataManager } from '../../base/data-manager';
+import { Subscription } from 'rxjs';
+import { ContextMenuComponent } from '../../../context-menu/context-menu.component';
+import { MenuEventArgs } from '../../../context-menu/types';
+import { DataTableComponent } from '../../../ng-data-table/components/data-table/data-table.component';
+import { Row } from '../../../ng-data-table/base/row';
+import { EventHelper, ColumnModelGenerator } from '../../../ng-data-table/base';
+import { MenuItem } from '../../../common';
 
 @Component({
   selector: 'app-crud-table',
@@ -23,20 +23,20 @@ export class CrudTableComponent implements OnInit, OnDestroy {
   @Input() dataManager: DataManager;
   @Output() rowsChanged: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('modalEditForm', {static: false}) modalEditForm: ModalEditFormComponent;
-  @ViewChild('rowMenu', {static: true}) rowMenu: ContextMenuComponent;
-  @ViewChild(DataTableComponent, {static: true}) dt: DataTableComponent;
-  @ViewChild('rowActionTemplate', {static: true}) rowActionTemplate: TemplateRef<any>;
-  @ViewChild('headerActionTemplate', {static: true}) headerActionTemplate: TemplateRef<any>;
+  @ViewChild('modalEditForm', { static: false }) modalEditForm: ModalEditFormComponent;
+  @ViewChild('rowMenu', { static: true }) rowMenu: ContextMenuComponent;
+  @ViewChild(DataTableComponent, { static: true }) dt: DataTableComponent;
+  @ViewChild('rowActionTemplate', { static: true }) rowActionTemplate: TemplateRef<any>;
+  @ViewChild('headerActionTemplate', { static: true }) headerActionTemplate: TemplateRef<any>;
 
   @HostBinding('class.datatable') cssClass = true;
 
   actionMenu: MenuItem[] = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void  {
     const actionColumn = this.dataManager.columns.find(x => x.name === ColumnModelGenerator.actionColumn.name);
     if (actionColumn) {
       actionColumn.cellTemplate = this.rowActionTemplate;
@@ -69,11 +69,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subScroll);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void  {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  initRowMenu() {
+  initRowMenu(): void  {
     if (this.dataManager.settings.singleRowView) {
       this.actionMenu.push(
         {
@@ -128,7 +128,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  rowMenuBeforeOpen(row: Row) {
+  rowMenuBeforeOpen(row: Row): void  {
     const rowChanged = this.dataManager.rowChanged(row);
     let menuIndex = this.actionMenu.findIndex(x => x.id === this.dataManager.messages.revertChanges);
     if (menuIndex > -1) {
@@ -141,45 +141,45 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRowMenuClick(event: Event, row: Row) {
-    const {left, top} = EventHelper.getRowPosition(event, this.dataManager.settings.virtualScroll);
+  onRowMenuClick(event: Event, row: Row): void  {
+    const { left, top } = EventHelper.getRowPosition(event, this.dataManager.settings.virtualScroll);
     this.rowMenuBeforeOpen(row);
-    this.rowMenu.show({originalEvent: event, data: row, left, top} as MenuEventArgs);
+    this.rowMenu.show({ originalEvent: event, data: row, left, top } as MenuEventArgs);
   }
 
-  createAction() {
+  createAction(): void  {
     this.dataManager.item = new Row({});
     this.modalEditForm.isNewItem = true;
     this.modalEditForm.detailView = false;
     this.modalEditForm.open();
   }
 
-  viewAction(row: Row) {
+  viewAction(row: Row): void  {
     this.dataManager.item = row;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = true;
     this.modalEditForm.open();
   }
 
-  updateAction(row: Row) {
+  updateAction(row: Row): void  {
     this.dataManager.item = row;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = false;
     this.modalEditForm.open();
   }
 
-  duplicateAction(row: Row) {
+  duplicateAction(row: Row): void  {
     this.dataManager.item = row.clone();
     this.modalEditForm.isNewItem = true;
     this.modalEditForm.detailView = false;
     this.modalEditForm.open();
   }
 
-  onPageChanged() {
+  onPageChanged(): void  {
     this.dataManager.loadItems();
   }
 
-  onFilter() {
+  onFilter(): void  {
     this.dataManager.pager.current = 1;
     if (this.dataManager.settings.virtualScroll) {
       this.dt.body.scroller.setOffsetY(0);
@@ -189,7 +189,7 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.dataManager.loadItems();
   }
 
-  onSort() {
+  onSort(): void  {
     if (this.dataManager.settings.virtualScroll) {
       this.dt.body.scroller.setOffsetY(0);
       this.dataManager.pager.current = 1;
@@ -199,11 +199,11 @@ export class CrudTableComponent implements OnInit, OnDestroy {
     this.dataManager.loadItems();
   }
 
-  onLoadedForm() {
+  onLoadedForm(): void  {
     this.cd.markForCheck();
   }
 
-  clearAllFilters() {
+  clearAllFilters(): void  {
     this.dataManager.dataFilter.clear();
     this.dataManager.events.onFilter();
   }

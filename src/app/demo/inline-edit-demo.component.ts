@@ -49,8 +49,8 @@ import { SelectItem } from 'ng-mazdik-lib';
 })
 export class InlineEditDemoComponent {
 
-  model1: string = 'string';
-  model2: number = 2;
+  model1 = 'string';
+  model2 = 2;
   model3: Date = new Date();
   editing1: boolean;
   editing2: boolean;
@@ -67,11 +67,11 @@ export class InlineEditDemoComponent {
 
   constructor() { }
 
-  onInputChange() {}
-  onInputFocus() {}
-  onInputBlur() {}
+  onInputChange(): void {}
+  onInputFocus(): void {}
+  onInputBlur(): void {}
 
-  viewValue2() {
+  viewValue2(): string {
     return this.options.find(x => x.id === this.model2).name;
   }
 

@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ScrollerComponent} from './scroller.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ScrollerComponent } from './scroller.component';
 
 @NgModule({
   imports: [
@@ -13,4 +13,4 @@ import {ScrollerComponent} from './scroller.component';
     ScrollerComponent,
   ]
 })
-export class ScrollerModule {}
+export class ScrollerModule { }

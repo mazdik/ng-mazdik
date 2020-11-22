@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {ResizableDirective} from './resizable.directive';
+import { NgModule } from '@angular/core';
+import { ResizableDirective } from './resizable.directive';
 
 @NgModule({
   declarations: [
@@ -9,4 +9,4 @@ import {ResizableDirective} from './resizable.directive';
     ResizableDirective,
   ]
 })
-export class ResizableModule {}
+export class ResizableModule { }

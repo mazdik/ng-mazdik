@@ -1,5 +1,5 @@
-import {NgModule} from '@angular/core';
-import {DraggableDirective} from './draggable.directive';
+import { NgModule } from '@angular/core';
+import { DraggableDirective } from './draggable.directive';
 
 @NgModule({
   declarations: [
@@ -9,4 +9,4 @@ import {DraggableDirective} from './draggable.directive';
     DraggableDirective,
   ]
 })
-export class DraggableModule {}
+export class DraggableModule { }

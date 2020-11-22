@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
-import {TreeNode, TreeHelper, FilterState} from '../tree-lib';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { TreeNode, TreeHelper, FilterState } from '../tree-lib';
 
 @Component({
   selector: 'app-tree-view-node',
@@ -35,19 +35,19 @@ export class TreeViewNodeComponent implements OnInit {
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
   @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void  {
   }
 
-  onSelectNode(node: TreeNode) {
+  onSelectNode(node: TreeNode): void  {
     if (this.node.tree.selectedNode !== node) {
       this.node.tree.selectedNode = node;
       this.selectedChanged.emit(node);
     }
   }
 
-  onExpand(node: TreeNode) {
+  onExpand(node: TreeNode): void  {
     node.expanded = !node.expanded;
     if (node.expanded) {
       node.$$loading = true;
@@ -55,11 +55,11 @@ export class TreeViewNodeComponent implements OnInit {
     }
   }
 
-  getExpanderIcon(node: TreeNode) {
+  getExpanderIcon(node: TreeNode): string {
     return TreeHelper.getExpanderIcon(node);
   }
 
-  getIcon(node: TreeNode) {
+  getIcon(node: TreeNode): string {
     if (this.getIconFunc) {
       return this.getIconFunc(node);
     } else {
@@ -88,9 +88,9 @@ export class TreeViewNodeComponent implements OnInit {
     return cls;
   }
 
-  onNodeRightClick(event: MouseEvent) {
+  onNodeRightClick(event: MouseEvent): void  {
     this.onSelectNode(this.node);
-    this.nodeRightClick.emit({event, node: this.node});
+    this.nodeRightClick.emit({ event, node: this.node });
   }
 
 }

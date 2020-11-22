@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-css-demo',
@@ -22,7 +22,7 @@ export class CssDemoComponent implements OnInit {
     this.table.pager.perPage = 20;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
@@ -30,7 +30,7 @@ export class CssDemoComponent implements OnInit {
     });
   }
 
-  getCellClass({row, column, value}): any {
+  getCellClass({ row, column, value }): any {
     return {
       'cell-big-value': parseInt(value, 10) > 1000000000,
       'cell-middle-value': parseInt(value, 10) > 1000000 && parseInt(value, 10) < 1000000000,

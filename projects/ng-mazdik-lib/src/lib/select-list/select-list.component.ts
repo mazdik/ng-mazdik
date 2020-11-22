@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewChild, AfterViewInit
 } from '@angular/core';
-import {SelectItem} from '../common';
+import { SelectItem } from '../common';
 
 @Component({
   selector: 'app-select-list',
@@ -12,12 +12,12 @@ export class SelectListComponent implements AfterViewInit {
 
   @Input() options: SelectItem[];
   @Input() multiple: boolean;
-  @Input() selectAllMessage: string = 'Select all';
-  @Input() cancelMessage: string = 'Cancel';
-  @Input() clearMessage: string = 'Clear';
-  @Input() searchMessage: string = 'Search...';
-  @Input() enableSelectAll: boolean = true;
-  @Input() enableFilterInput: boolean = true;
+  @Input() selectAllMessage = 'Select all';
+  @Input() cancelMessage = 'Cancel';
+  @Input() clearMessage = 'Clear';
+  @Input() searchMessage = 'Search...';
+  @Input() enableSelectAll = true;
+  @Input() enableFilterInput = true;
 
   @Input('selected')
   get model(): any[] { return this._model; }
@@ -41,18 +41,18 @@ export class SelectListComponent implements AfterViewInit {
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
   @Output() selectionCancel: EventEmitter<boolean> = new EventEmitter();
 
-  @ViewChild('filterInput', {static: false}) filterInput: any;
+  @ViewChild('filterInput', { static: false }) filterInput: any;
   searchFilterText: string = null;
   private selectedOptions: any[] = [];
   private filteredOptions: SelectItem[];
 
-  constructor() {}
+  constructor() { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.setFocus();
   }
 
-  setSelectedOptions(value: any) {
+  setSelectedOptions(value: any): void {
     const index = this.selectedOptions.indexOf(value);
     if (index > -1) {
       this.selectedOptions.splice(index, 1);
@@ -66,7 +66,7 @@ export class SelectListComponent implements AfterViewInit {
     }
   }
 
-  setSelected(event: MouseEvent, value: any) {
+  setSelected(event: MouseEvent, value: any): void {
     event.stopPropagation();
     this.setSelectedOptions(value);
     if (!this.multiple) {
@@ -74,7 +74,7 @@ export class SelectListComponent implements AfterViewInit {
     }
   }
 
-  checkAll() {
+  checkAll(): void {
     this.selectedOptions = this.options.map(option => option.id);
     if (!this.multiple) {
       this.selectionChangeEmit();
@@ -85,7 +85,7 @@ export class SelectListComponent implements AfterViewInit {
     return this.selectedOptions.indexOf(value) > -1;
   }
 
-  setFocus() {
+  setFocus(): void {
     if (this.filterInput) {
       setTimeout(() => {
         this.filterInput.nativeElement.focus();
@@ -93,18 +93,18 @@ export class SelectListComponent implements AfterViewInit {
     }
   }
 
-  onClickOk(event: MouseEvent) {
+  onClickOk(event: MouseEvent): void {
     event.stopPropagation();
     this.selectionChangeEmit();
   }
 
-  onClickCancel(event: MouseEvent) {
+  onClickCancel(event: MouseEvent): void {
     event.stopPropagation();
     this.selectedOptions = this.model.slice(0);
     this.selectionCancel.emit(true);
   }
 
-  onClickClear(event: MouseEvent) {
+  onClickClear(event: MouseEvent): void {
     event.stopPropagation();
     if (this.selectedOptions.length > 0) {
       this.selectedOptions = [];
@@ -113,7 +113,7 @@ export class SelectListComponent implements AfterViewInit {
   }
 
   get allSelected(): boolean {
-    return(this.options &&
+    return (this.options &&
       this.options.length !== 0 &&
       this.selectedOptions &&
       this.selectedOptions.length === this.options.length);
@@ -123,7 +123,7 @@ export class SelectListComponent implements AfterViewInit {
     return this.selectedOptions.length !== 0 && !this.allSelected;
   }
 
-  onCheckboxAllClick(event: MouseEvent) {
+  onCheckboxAllClick(event: MouseEvent): void {
     event.stopPropagation();
     if (this.allSelected) {
       this.selectedOptions = [];
@@ -132,17 +132,17 @@ export class SelectListComponent implements AfterViewInit {
     }
   }
 
-  selectionChangeEmit() {
+  selectionChangeEmit(): void {
     if (this.model.length === this.selectedOptions.length
       && this.model.every((value, index) => value === this.selectedOptions[index])) {
-        this.selectionCancel.emit(true);
+      this.selectionCancel.emit(true);
     } else {
       this.model = this.selectedOptions.slice(0);
       this.selectionChange.emit(this.model);
     }
   }
 
-  onInputFilter(event: InputEvent) {
+  onInputFilter(event: InputEvent): void {
     this.searchFilterText = (event.target as HTMLInputElement).value;
     this.filteredOptions = this.filterOptionsByName(this.searchFilterText);
   }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-row-group-demo',
@@ -33,7 +33,7 @@ export class RowGroupDemoComponent implements OnInit {
     this.table.pager.perPage = 50;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       data.forEach(x => x.expanded = true);
@@ -42,7 +42,7 @@ export class RowGroupDemoComponent implements OnInit {
     });
   }
 
-  onExpand(row: any) {
+  onExpand(row: any): void {
     row.expanded = !row.expanded;
     if (!row.expanded) {
       const descendants = this.table.rowGroup.getGroupRows(row, this.table.rows);
@@ -53,7 +53,7 @@ export class RowGroupDemoComponent implements OnInit {
     }
   }
 
-  getExpanderIcon(row: any) {
+  getExpanderIcon(row: any): string {
     return (!row.expanded) ? 'dt-icon-node dt-icon-collapsed' : 'dt-icon-node';
   }
 

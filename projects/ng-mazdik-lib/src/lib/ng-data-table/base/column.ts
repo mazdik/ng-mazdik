@@ -23,7 +23,7 @@ export class Column extends ColumnBase {
     this.setDefaults();
   }
 
-  private setDefaults() {
+  private setDefaults(): void {
     if (!this.width) {
       this.width = 150;
     }
@@ -59,7 +59,7 @@ export class Column extends ColumnBase {
     }
   }
 
-  getOptionName(value: any, dependsValue?: any) {
+  getOptionName(value: any, dependsValue?: any): any {
     const options = this.getOptions(dependsValue);
     if (!options || isBlank(value)) {
       return value;
@@ -75,7 +75,7 @@ export class Column extends ColumnBase {
     return [];
   }
 
-  setWidth(width: number) {
+  setWidth(width: number): void {
     if (width <= this.minWidth) {
       width = this.minWidth;
     } else if (width >= this.maxWidth) {
@@ -84,7 +84,7 @@ export class Column extends ColumnBase {
     this.width = width;
   }
 
-  getValue(row: any) {
+  getValue(row: any): any {
     if (!row) {
       return '';
     }
@@ -95,7 +95,7 @@ export class Column extends ColumnBase {
     }
   }
 
-  getValueView(row: any) {
+  getValueView(row: any): any {
     let value = this.getValue(row);
     const dependsValue = row[this.dependsColumn] ? row[this.dependsColumn] : null;
     if (value) {

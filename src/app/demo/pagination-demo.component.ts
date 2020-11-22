@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
 })
 export class PaginationDemoComponent {
 
-  onPageChanged(event) {
+  onPageChanged(event): void {
     console.log(event);
   }
 }

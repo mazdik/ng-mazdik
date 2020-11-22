@@ -34,11 +34,11 @@ export class NotifyComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  onCloseNotify(event) {
+  onCloseNotify(event): void {
     this.messages.splice(event.index, 1);
   }
 

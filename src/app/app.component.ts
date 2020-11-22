@@ -1,6 +1,6 @@
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {Router, NavigationEnd} from '@angular/router';
-import {NavMenuComponent} from 'ng-mazdik-lib';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { NavMenuComponent } from 'ng-mazdik-lib';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +8,12 @@ import {NavMenuComponent} from 'ng-mazdik-lib';
 })
 export class AppComponent implements AfterViewInit {
 
-  navbarExpand: boolean = false;
+  navbarExpand = false;
   state: string;
   navMenuNodes: any[];
-  @ViewChild(NavMenuComponent, {static: false}) navMenu: NavMenuComponent;
   link = 'https://github.com/mazdik/ng-mazdik';
+
+  @ViewChild(NavMenuComponent, { static: false }) navMenu: NavMenuComponent;
 
   constructor(private router: Router) {
     router.events.subscribe(event => {
@@ -23,7 +24,7 @@ export class AppComponent implements AfterViewInit {
     this.navMenuNodes = this.getNavMenuNodes();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void  {
     const url = window.location.href.split('#')[1];
     const node = this.navMenu.tree.getNodeById(url || '/');
     if (node) {
@@ -35,16 +36,16 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  getSourceLink() {
+  getSourceLink(): string {
     const link: string = this.link + '/blob/master/src/app/demo/';
     return (this.state) ? link + this.state + '.component.ts' : link;
   }
 
-  onLinkClicked(event) {
+  onLinkClicked(event): void  {
     this.router.navigate([event]);
   }
 
-  getNavMenuNodes() {
+  getNavMenuNodes(): any {
     return [
       {
         name: 'Data table',

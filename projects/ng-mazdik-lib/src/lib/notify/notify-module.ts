@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NotifyComponent} from './notify.component';
-import {NotifyItemComponent} from './notify-item.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NotifyComponent } from './notify.component';
+import { NotifyItemComponent } from './notify-item.component';
 
 @NgModule({
   imports: [
@@ -15,4 +15,4 @@ import {NotifyItemComponent} from './notify-item.component';
     NotifyComponent,
   ]
 })
-export class NotifyModule {}
+export class NotifyModule { }

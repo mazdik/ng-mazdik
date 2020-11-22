@@ -1,19 +1,19 @@
-import {CellEventArgs} from './types';
-import {ColumnBase} from './column-base';
-import {Column} from './column';
-import {Settings} from './settings';
-import {DataPager} from './data-pager';
-import {DataSort} from './data-sort';
-import {DataFilter} from './data-filter';
-import {Events} from './events';
-import {DataSelection} from './data-selection';
-import {Dimensions} from './dimensions';
-import {DtMessages, DtMessagesEn} from '../../dt-translate/dt-messages';
-import {RowGroup} from './row-group';
-import {RowModelGenerator} from './row-model-generator';
-import {ColumnModelGenerator} from './column-model-generator';
-import {LocalDataSource} from './local-data-source';
-import {Row} from './row';
+import { CellEventArgs } from './types';
+import { ColumnBase } from './column-base';
+import { Column } from './column';
+import { Settings } from './settings';
+import { DataPager } from './data-pager';
+import { DataSort } from './data-sort';
+import { DataFilter } from './data-filter';
+import { Events } from './events';
+import { DataSelection } from './data-selection';
+import { Dimensions } from './dimensions';
+import { DtMessages, DtMessagesEn } from '../../dt-translate/dt-messages';
+import { RowGroup } from './row-group';
+import { RowModelGenerator } from './row-model-generator';
+import { ColumnModelGenerator } from './column-model-generator';
+import { LocalDataSource } from './local-data-source';
+import { Row } from './row';
 
 export class DataTable {
 
@@ -31,7 +31,7 @@ export class DataTable {
   readonly columnModelGenerator: ColumnModelGenerator;
   readonly columns: Column[] = [];
   preparedColumns: Column[] = [];
-  clientSide: boolean = true;
+  clientSide = true;
 
   get rows(): any[] { return this._rows; }
   set rows(val: any[]) {
@@ -73,7 +73,7 @@ export class DataTable {
     this.preparedColumns = this.columnModelGenerator.prepareColumns(this.columns);
   }
 
-  selectRow(rowIndex: number) {
+  selectRow(rowIndex: number): void {
     if (this.rows && this.rows.length) {
       this.selection.selectValue(rowIndex);
     } else {
@@ -81,7 +81,7 @@ export class DataTable {
     }
   }
 
-  addRow(newRow: any) {
+  addRow(newRow: any): void {
     newRow = this.rowModelGenerator.generateRow(newRow);
 
     if (this.clientSide) {
@@ -95,11 +95,11 @@ export class DataTable {
     this.rowModelGenerator.setRowIndexes(this._rows);
     this.events.onRowsChanged();
     setTimeout(() => {
-      this.events.onActivateCell({columnIndex: 0, rowIndex: newRow.$$index} as CellEventArgs);
+      this.events.onActivateCell({ columnIndex: 0, rowIndex: newRow.$$index } as CellEventArgs);
     }, 10);
   }
 
-  deleteRow(row: Row) {
+  deleteRow(row: Row): void {
     if (this.clientSide) {
       this.localDataSource.delete(row);
       this._rows = this.localDataSource.getRows();
@@ -113,16 +113,16 @@ export class DataTable {
     this.events.onRowsChanged();
   }
 
-  mergeRow(oldRow: Row, newRow: any) {
+  mergeRow(oldRow: Row, newRow: any): void {
     oldRow.merge(newRow);
     this.events.onRowsChanged();
   }
 
-  editCell(rowIndex: number, columnIndex: number, editMode: boolean) {
-    this.events.onCellEditMode({columnIndex, rowIndex, editMode} as CellEventArgs);
+  editCell(rowIndex: number, columnIndex: number, editMode: boolean): void {
+    this.events.onCellEditMode({ columnIndex, rowIndex, editMode } as CellEventArgs);
   }
 
-  revertRowChanges(row: Row) {
+  revertRowChanges(row: Row): void {
     row.revertChanges(this.columns);
     this.events.onRowsChanged();
   }
@@ -131,17 +131,17 @@ export class DataTable {
     return this.columns.some(x => x.getValue(row) !== x.getValue(row.$$data));
   }
 
-  getSelection() {
+  getSelection(): any[] {
     return this.selection.getSelection().map(x => this.rows[x]);
   }
 
-  loadLocalRows() {
+  loadLocalRows(): void {
     this._rows = this.localDataSource.getRows();
     this.rowGroup.updateRowGroupMetadata(this._rows);
     this.rowModelGenerator.setRowIndexes(this._rows);
   }
 
-  protected setSortMetaGroup() {
+  protected setSortMetaGroup(): void {
     if (this.rowGroup.groupEnabled) {
       this.sorter.multiple = true;
       this.sorter.set(this.rowGroup.groupRowsBy);
@@ -157,7 +157,7 @@ export class DataTable {
     return !this.selection.isEmpty() && !this.allRowsSelected();
   }
 
-  selectAllRows() {
+  selectAllRows(): void {
     if (this.allRowsSelected()) {
       this.selection.clearSelection();
     } else {

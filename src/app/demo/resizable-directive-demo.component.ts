@@ -16,6 +16,6 @@ export class ResizableDirectiveDemoComponent {
 
   @HostBinding('class.resizable-directive-demo') cssClass = true;
 
-  onResize($event) {}
+  onResize($event): void {}
 
 }

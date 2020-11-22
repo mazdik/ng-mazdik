@@ -1,7 +1,7 @@
 import {
   Component, OnChanges, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {Column, DataTable, FilterOperator} from '../../base';
+import { Column, DataTable, FilterOperator } from '../../base';
 
 @Component({
   selector: 'app-list-filter',
@@ -18,16 +18,16 @@ export class ListFilterComponent implements OnChanges {
   loading: boolean;
   selectedOptions: any[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.isOpen) {
       this.loadFilter();
       this.loading = true;
       this.column.getFilterValues().then((res) => {
-          this.column.filterValuesTemp = res;
-        })
-        .catch(() => {})
+        this.column.filterValuesTemp = res;
+      })
+        .catch(() => { })
         .finally(() => {
           this.loading = false;
           this.cd.markForCheck();
@@ -35,23 +35,23 @@ export class ListFilterComponent implements OnChanges {
     }
   }
 
-  saveFilter(value) {
+  saveFilter(value): void {
     const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
     this.table.dataFilter.setFilter([...value], field, FilterOperator.IN, null, this.column.dataType);
     this.table.events.onFilter();
   }
 
-  loadFilter() {
+  loadFilter(): void {
     const field = (this.column.keyColumn) ? this.column.keyColumn : this.column.name;
     this.selectedOptions = this.table.dataFilter.getFilterValue(field) || [];
   }
 
-  onSelectionChange(event) {
+  onSelectionChange(event): void {
     this.saveFilter(event);
     this.filterClose.emit(true);
   }
 
-  onSelectionCancel() {
+  onSelectionCancel(): void {
     this.filterClose.emit(true);
   }
 

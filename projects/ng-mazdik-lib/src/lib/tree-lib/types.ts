@@ -1,4 +1,4 @@
-import {TreeNode} from './tree-node';
+import { TreeNode } from './tree-node';
 
 export interface TreeDataSource {
   getNodes(node?: TreeNode): Promise<TreeNode[]>;

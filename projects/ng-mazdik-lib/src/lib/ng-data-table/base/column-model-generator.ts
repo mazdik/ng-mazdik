@@ -1,7 +1,7 @@
-import {ColumnBase} from './column-base';
-import {Column} from './column';
-import {Settings} from './settings';
-import {supportsStickyPosition} from '../../common/utils';
+import { ColumnBase } from './column-base';
+import { Column } from './column';
+import { Settings } from './settings';
+import { supportsStickyPosition } from '../../common/utils';
 
 export class ColumnModelGenerator {
 
@@ -33,7 +33,7 @@ export class ColumnModelGenerator {
     headerCellClass: 'action-cell',
   };
 
-  constructor(private readonly settings: Settings) {}
+  constructor(private readonly settings: Settings) { }
 
   createColumns(columns: ColumnBase[]): Column[] {
     if (this.settings.selectionMode) {
@@ -63,7 +63,7 @@ export class ColumnModelGenerator {
     return [...frozenColumns, ...scrollableColumns];
   }
 
-  private setColumnSettings(column: Column) {
+  private setColumnSettings(column: Column): void {
     if (this.settings.sortable === false) {
       column.sortable = false;
     }

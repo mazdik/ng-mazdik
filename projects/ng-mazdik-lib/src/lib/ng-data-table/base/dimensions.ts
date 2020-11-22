@@ -1,14 +1,14 @@
-import {Column} from './column';
-import {Settings} from './settings';
+import { Column } from './column';
+import { Settings } from './settings';
 
 export class Dimensions {
 
   bodyHeight: number;
-  columnMenuWidth: number = 220;
+  columnMenuWidth = 220;
   columnsTotalWidth: number;
-  rowHeight: number = 30;
-  offsetX: number = 0;
-  offsetY: number = 0;
+  rowHeight = 30;
+  offsetX = 0;
+  offsetY = 0;
 
   constructor(settings: Settings, private readonly columns: Column[]) {
     this.bodyHeight = settings.bodyHeight;
@@ -16,18 +16,18 @@ export class Dimensions {
     this.recalcColumns();
   }
 
-  calcColumnsTotalWidth() {
+  calcColumnsTotalWidth(): void {
     this.columnsTotalWidth = this.columns.filter(x => !x.tableHidden).reduce((acc, cur) => acc + cur.width, 0);
   }
 
-  calcColumnsLeftPosition() {
+  calcColumnsLeftPosition(): void {
     this.columns.filter(x => x.frozen).reduce((acc, cur) => {
       cur.left = acc;
       return acc + cur.width;
     }, 0);
   }
 
-  recalcColumns() {
+  recalcColumns(): void {
     this.calcColumnsTotalWidth();
     this.calcColumnsLeftPosition();
   }

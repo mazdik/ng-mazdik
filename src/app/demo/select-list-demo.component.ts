@@ -39,11 +39,11 @@ export class SelectListDemoComponent {
 
   constructor() { }
 
-  onSelectionChange(event) {
+  onSelectionChange(event): void {
     console.log(event);
   }
 
-  onSelectionCancel() {
+  onSelectionCancel(): void {
   }
 
 }

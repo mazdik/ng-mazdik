@@ -11,6 +11,6 @@ export function isBlank(val: any): boolean {
   return true;
 }
 
-export function isNumeric(n) {
+export function isNumeric(n): boolean {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }

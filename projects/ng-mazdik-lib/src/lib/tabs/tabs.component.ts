@@ -18,9 +18,9 @@ export class TabsComponent implements OnChanges {
   @HostBinding('class.dt-tab') cssClass = true;
   private selected: any;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.localStorageName) {
       this.selected = localStorage.getItem(this.localStorageName);
       if (this.selected) {
@@ -33,7 +33,7 @@ export class TabsComponent implements OnChanges {
     }
   }
 
-  onClickTab(event: SelectItem) {
+  onClickTab(event: SelectItem): void {
     this.selected = event.id;
     this.selectTab.emit(this.selected);
     if (this.localStorageName) {

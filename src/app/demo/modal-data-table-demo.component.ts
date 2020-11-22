@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { getColumnsPlayers, getColumnsRank, getColumnsInventory } from './columns';
 
 @Component({
   selector: 'app-modal-data-table-demo',
@@ -45,10 +45,10 @@ export class ModalDataTableDemoComponent implements OnInit {
   dtRank: DataTable;
   settings: Settings = new Settings({});
 
-  @ViewChild('template1', {static: true}) template1: TemplateRef<any>;
-  @ViewChild('template2', {static: true}) template2: TemplateRef<any>;
-  @ViewChild('rankModal', {static: false}) rankModal: any;
-  @ViewChild('inventoryModal', {static: false}) inventoryModal: any;
+  @ViewChild('template1', { static: true }) template1: TemplateRef<any>;
+  @ViewChild('template2', { static: true }) template2: TemplateRef<any>;
+  @ViewChild('rankModal', { static: false }) rankModal: any;
+  @ViewChild('inventoryModal', { static: false }) inventoryModal: any;
 
   private rank: any = [];
   private inventory: any = [];
@@ -65,7 +65,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.dtRank = new DataTable(columnsRank, this.settings);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dtPlayers.columns[0].cellTemplate = this.template1;
     this.dtPlayers.columns[1].cellTemplate = this.template2;
 
@@ -82,7 +82,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     });
   }
 
-  onClickCell1(event, value, row) {
+  onClickCell1(event, value, row): void {
     event.preventDefault();
 
     this.dtRank.rows = this.rank.filter((item: any) => {
@@ -91,7 +91,7 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.rankModal.show();
   }
 
-  onClickCell2(event, value, row) {
+  onClickCell2(event, value, row): void {
     event.preventDefault();
 
     this.dtInventory.rows = this.inventory.filter((item: any) => {

@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ColumnBase, Settings, DataTable, FilterOperator} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ColumnBase, Settings, DataTable, FilterOperator } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-template-demo',
@@ -44,10 +44,10 @@ export class TemplateDemoComponent implements OnInit {
   settings: Settings = new Settings({
     rowHeight: 40,
   });
-  @ViewChild('headerCellTemplate', {static: true}) headerCellTemplate: TemplateRef<any>;
-  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
-  @ViewChild('headerRnCellTemplate', {static: true}) headerRnCellTemplate: TemplateRef<any>;
-  @ViewChild('cellRnTemplate', {static: true}) cellRnTemplate: TemplateRef<any>;
+  @ViewChild('headerCellTemplate', { static: true }) headerCellTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', { static: true }) cellTemplate: TemplateRef<any>;
+  @ViewChild('headerRnCellTemplate', { static: true }) headerRnCellTemplate: TemplateRef<any>;
+  @ViewChild('cellRnTemplate', { static: true }) cellRnTemplate: TemplateRef<any>;
 
   rnColumn: ColumnBase = {
     name: 'rn',
@@ -73,7 +73,7 @@ export class TemplateDemoComponent implements OnInit {
     this.table = new DataTable(this.columns, this.settings);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
@@ -88,12 +88,12 @@ export class TemplateDemoComponent implements OnInit {
     column.cellTemplate = this.cellRnTemplate;
   }
 
-  clickRaceFilter(value: string) {
+  clickRaceFilter(value: string): void {
     this.table.dataFilter.setFilter(value, 'race', FilterOperator.EQUALS);
     this.table.events.onFilter();
   }
 
-  clearAllFilters() {
+  clearAllFilters(): void {
     this.table.dataFilter.clear();
     this.table.events.onFilter();
   }

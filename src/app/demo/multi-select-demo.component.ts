@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild, TemplateRef, OnDestroy, HostListener} from '@angular/core';
-import {ColumnBase, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor} from 'ng-mazdik-lib';
-import {DemoService} from './demo.service';
-import {Subscription} from 'rxjs';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy, HostListener } from '@angular/core';
+import { ColumnBase, CdtSettings, DataManager, CellEventType, SelectItem, EventHelper, findAncestor } from 'ng-mazdik-lib';
+import { DemoService } from './demo.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-multi-select-demo',
@@ -50,8 +50,8 @@ import {Subscription} from 'rxjs';
 
 export class MultiSelectDemoComponent implements OnInit, OnDestroy {
 
-  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
-  @ViewChild('formTemplate', {static: true}) formTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', { static: true }) cellTemplate: TemplateRef<any>;
+  @ViewChild('formTemplate', { static: true }) formTemplate: TemplateRef<any>;
 
   columns: ColumnBase[] = [
     { title: 'Id', name: 'id' },
@@ -64,10 +64,10 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
   });
 
   options: SelectItem[] = [
-    {id: 1, name: 'Select 1'},
-    {id: 2, name: 'Select 2'},
-    {id: 3, name: 'Select 3'},
-    {id: 4, name: 'Select 4'},
+    { id: 1, name: 'Select 1' },
+    { id: 2, name: 'Select 2' },
+    { id: 3, name: 'Select 3' },
+    { id: 4, name: 'Select 4' },
   ];
   column: ColumnBase;
   editing = {};
@@ -85,7 +85,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     this.dataManager = new DataManager(this.columns, this.settings, this.service);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.column = this.dataManager.columns.find(x => x.name === 'test');
     this.column.cellTemplate = this.cellTemplate;
     this.column.formTemplate = this.formTemplate;
@@ -103,7 +103,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subCell);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
@@ -122,11 +122,11 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFormValueChange(column: ColumnBase, value: any) {
+  onFormValueChange(column: ColumnBase, value: any): void {
     this.dataManager.item[column.name] = value;
   }
 
-  getSelectListStyles() {
+  getSelectListStyles(): any {
     return {
       display: (this.isOpen) ? 'block' : 'none',
       left: this.left + 'px',
@@ -134,7 +134,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     };
   }
 
-  open(event: MouseEvent, value: any) {
+  open(event: MouseEvent, value: any): void {
     const pos = EventHelper.getRowPosition(event, this.dataManager.settings.virtualScroll);
     this.left = pos.left;
     this.top = pos.top;
@@ -144,17 +144,17 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
     this.isOpen = !this.isOpen;
   }
 
-  onSelectionChange(event) {
+  onSelectionChange(event): void {
     this.selectedName = this.getName(event);
     this.dataManager.rows[this.selectedRowIndex][this.column.name] = event;
     this.isOpen = false;
   }
 
-  onSelectionCancel() {
+  onSelectionCancel(): void {
     this.isOpen = false;
   }
 
-  getName(items: any) {
+  getName(items: any): string {
     if (items && items.length && this.options && this.options.length) {
       if (items.length > 1) {
         return items.length + ' items selected';

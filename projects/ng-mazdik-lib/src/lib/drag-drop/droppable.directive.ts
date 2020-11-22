@@ -12,22 +12,22 @@ export class DroppableDirective  {
   constructor(private element: ElementRef) {}
 
   @HostListener('dragenter', ['$event'])
-  onDragEnter(event: DragEvent) {
+  onDragEnter(event: DragEvent): void {
     event.preventDefault();
   }
 
   @HostListener('dragover', ['$event'])
-  onDragOver(event: DragEvent) {
+  onDragOver(event: DragEvent): void {
     event.preventDefault();
   }
 
   @HostListener('dragleave', ['$event'])
-  onDragLeave(event: DragEvent) {
+  onDragLeave(event: DragEvent): void {
     event.preventDefault();
   }
 
   @HostListener('drop', ['$event'])
-  onDrop(event: DragEvent) {
+  onDrop(event: DragEvent): void {
     event.preventDefault();
     const dragParentElement = (this.dragElementEvent.event.target as HTMLElement).parentElement;
     const position = Math.max(0, this.getNumberPosition(event.target));
@@ -39,7 +39,7 @@ export class DroppableDirective  {
     }
   }
 
-  private getNumberPosition(elem) {
+  private getNumberPosition(elem): number {
     const dragTarget: HTMLElement = (this.dragElementEvent.event.target as HTMLElement).parentElement;
     const dropTarget: HTMLElement = this.element.nativeElement;
     if (elem === dragTarget) {

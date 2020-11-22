@@ -23,7 +23,7 @@ export class DataFilter {
   filters: FilterMetadata = {} as FilterMetadata;
   globalFilterValue: string = null;
 
-  filterRows(data: any[]) {
+  filterRows(data: any[]): any[] {
     const filters = this.filters;
     let filteredRows: any[] = data;
 
@@ -38,7 +38,7 @@ export class DataFilter {
     return filteredRows;
   }
 
-  globalFilterRows(data: any[]) {
+  globalFilterRows(data: any[]): any[] {
     if (this.globalFilterValue) {
       return data.filter(item => Object.keys(item).map((key) => {
         return this.startsWith(item[key], this.globalFilterValue);
@@ -48,7 +48,7 @@ export class DataFilter {
     }
   }
 
-  private compare(value: any, filter: FilterMeta) {
+  private compare(value: any, filter: FilterMeta): boolean {
     if (filter.type === DataType.Date) {
       let filterValue;
       let filterValueTo;
@@ -239,7 +239,7 @@ export class DataFilter {
     return dt1 === dt2;
   }
 
-  clear() {
+  clear(): void {
     this.filters = {} as FilterMetadata;
     this.globalFilterValue = null;
   }
@@ -252,7 +252,7 @@ export class DataFilter {
     return !(Object.keys(this.filters).length === 0 && this.filters.constructor === Object) || !isBlank(this.globalFilterValue);
   }
 
-  setFilter(value: any, field: string, matchMode: string, valueTo?: any, dataType?: DataType) {
+  setFilter(value: any, field: string, matchMode: string, valueTo?: any, dataType?: DataType): void {
     if (!isBlank(value) || !isBlank(valueTo)) {
       value = this.toNumberIfNumeric(value, dataType);
       valueTo = this.toNumberIfNumeric(valueTo, dataType);
@@ -262,26 +262,26 @@ export class DataFilter {
     }
   }
 
-  private toNumberIfNumeric(value: any, dataType?: DataType) {
+  private toNumberIfNumeric(value: any, dataType?: DataType): any {
     if (!isBlank(value) && dataType === DataType.Number && isNumeric(value)) {
       value = parseFloat(value);
     }
     return value;
   }
 
-  getFilterValue(columnName: string) {
+  getFilterValue(columnName: string): any {
     return this.filters[columnName] ? this.filters[columnName].value : null;
   }
 
-  getFilterValueTo(columnName: string) {
+  getFilterValueTo(columnName: string): any {
     return this.filters[columnName] ? this.filters[columnName].valueTo : null;
   }
 
-  getFilterMatchMode(columnName: string) {
+  getFilterMatchMode(columnName: string): string {
     return this.filters[columnName] ? this.filters[columnName].matchMode : null;
   }
 
-  isNonValueFilter(matchMode: string) {
+  isNonValueFilter(matchMode: string): boolean {
     return (matchMode === FilterOperator.IS_EMPTY || matchMode === FilterOperator.IS_NOT_EMPTY);
   }
 

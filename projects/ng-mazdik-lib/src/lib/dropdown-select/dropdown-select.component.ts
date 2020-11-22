@@ -1,10 +1,9 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef,
-  HostBinding, ElementRef, OnInit, OnDestroy
+  Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, ElementRef, OnInit, OnDestroy
 } from '@angular/core';
-import {DropDown} from '../dropdown/drop-down';
-import {SelectItem} from '../common';
-import {Subscription} from 'rxjs';
+import { DropDown } from '../dropdown/drop-down';
+import { SelectItem } from '../common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dropdown-select',
@@ -16,14 +15,14 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
 
   @Input() multiple: boolean;
   @Input() disabled: boolean;
-  @Input() selectAllMessage: string = 'Select all';
-  @Input() cancelMessage: string = 'Cancel';
-  @Input() clearMessage: string = 'Clear';
-  @Input() placeholder: string = 'Select';
-  @Input() searchInputPlaceholder: string = 'Search...';
-  @Input() selectedMessage: string = 'Selected';
-  @Input() enableSelectAll: boolean = true;
-  @Input() enableFilterInput: boolean = true;
+  @Input() selectAllMessage = 'Select all';
+  @Input() cancelMessage = 'Cancel';
+  @Input() clearMessage = 'Clear';
+  @Input() placeholder = 'Select';
+  @Input() searchInputPlaceholder = 'Search...';
+  @Input() selectedMessage = 'Selected';
+  @Input() enableSelectAll = true;
+  @Input() enableFilterInput = true;
 
   @Input()
   get options(): SelectItem[] { return this._options; }
@@ -59,36 +58,36 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
     this.dropdown = new DropDown(this.element.nativeElement);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subDropdown = this.dropdown.isOpenSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subDropdown);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dropdown.removeEventListeners();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  open(event: MouseEvent) {
+  open(event: MouseEvent): void {
     event.stopPropagation();
     if (!this.disabled) {
       this.dropdown.toggleDropdown();
     }
   }
 
-  onSelectionChange(event) {
+  onSelectionChange(event): void {
     this.selectedName = this.getName(event);
     this.selectionChangeEmit(event);
     this.dropdown.isOpen = false;
   }
 
-  onSelectionCancel() {
+  onSelectionCancel(): void {
     this.dropdown.isOpen = false;
   }
 
-  getName(items: any) {
+  getName(items: any): string {
     if (items && items.length && this.options && this.options.length) {
       if (this.multiple && items.length > 1) {
         return this.selectedMessage + ': ' + items.length;
@@ -101,7 +100,7 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
     }
   }
 
-  selectionChangeEmit(items: any) {
+  selectionChangeEmit(items: any): void {
     if (!this.multiple) {
       const value = (items && items.length) ? items[0] : null;
       this.valueChange.emit(value);

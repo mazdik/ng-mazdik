@@ -1,18 +1,18 @@
-import {Row} from './row';
-import {Settings} from './settings';
-import {Column} from './column';
+import { Row } from './row';
+import { Settings } from './settings';
+import { Column } from './column';
 
 export class RowModelGenerator {
 
-  private uidRow: number = 0;
+  private uidRow = 0;
 
-  constructor(private readonly settings: Settings, private readonly columns: Column[]) {}
+  constructor(private readonly settings: Settings, private readonly columns: Column[]) { }
 
-  getUidRow() {
+  getUidRow(): number {
     return ++this.uidRow;
   }
 
-  curUidRow() {
+  curUidRow(): number {
     return this.uidRow;
   }
 

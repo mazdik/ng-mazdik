@@ -1,6 +1,6 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RowViewComponent} from './row-view.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RowViewComponent } from './row-view.component';
 
 @NgModule({
   imports: [
@@ -13,4 +13,4 @@ import {RowViewComponent} from './row-view.component';
     RowViewComponent,
   ]
 })
-export class RowViewModule {}
+export class RowViewModule { }

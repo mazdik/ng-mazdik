@@ -1,7 +1,7 @@
-import {Component, ViewChild, AfterViewInit} from '@angular/core';
-import {CdtSettings, DataManager, CrudTableComponent} from 'ng-mazdik-lib';
-import {DemoService} from './demo.service';
-import {getColumnsPlayers} from './columns';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { CdtSettings, DataManager, CrudTableComponent } from 'ng-mazdik-lib';
+import { DemoService } from './demo.service';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-custom-row-action-demo',
@@ -14,14 +14,14 @@ export class CustomRowActionDemoComponent implements AfterViewInit {
   settings: CdtSettings = new CdtSettings({
     crud: true
   });
-  @ViewChild('cdt', {static: false}) cdt: CrudTableComponent;
+  @ViewChild('cdt', { static: false }) cdt: CrudTableComponent;
 
   constructor(private service: DemoService) {
     const columns = getColumnsPlayers();
     this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     const menuIndex = this.cdt.actionMenu.findIndex(x => x.id === this.dataManager.messages.delete);
     const oldBeforeOpen = this.cdt.rowMenuBeforeOpen;
     // disable menu based on data

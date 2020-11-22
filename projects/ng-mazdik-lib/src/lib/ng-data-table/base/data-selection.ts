@@ -1,4 +1,4 @@
-import {Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 
 export class DataSelection<T> {
 
@@ -11,7 +11,7 @@ export class DataSelection<T> {
   constructor(private readonly _multiple = false, private readonly selectionSource: Subject<any>) {
   }
 
-  selectValue(value: T) {
+  selectValue(value: T): void {
     if (!this.isSelected(value)) {
       this._markSelected(value);
       this.selectionSource.next();
@@ -39,7 +39,7 @@ export class DataSelection<T> {
   }
 
   allSelected(values: T[]): boolean {
-    return(values &&
+    return (values &&
       this.selection &&
       this.selection.size === values.length &&
       values.length !== 0);
@@ -64,7 +64,7 @@ export class DataSelection<T> {
     return this.selection.size === 0;
   }
 
-  private _markSelected(value: T) {
+  private _markSelected(value: T): void {
     if (!this.isSelected(value)) {
       if (!this.multiple) {
         this._unmarkAll();
@@ -73,13 +73,13 @@ export class DataSelection<T> {
     }
   }
 
-  private _unmarkSelected(value: T) {
+  private _unmarkSelected(value: T): void {
     if (this.isSelected(value)) {
       this.selection.delete(value);
     }
   }
 
-  private _unmarkAll() {
+  private _unmarkAll(): void {
     if (!this.isEmpty()) {
       this.selection.forEach(value => this._unmarkSelected(value));
     }

@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter, OnInit, ViewChild} from '@angular/core';
-import {TreeDataSource, Tree, TreeNode} from '../tree-lib';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { TreeDataSource, Tree, TreeNode } from '../tree-lib';
 
 @Component({
   selector: 'app-tree-view',
@@ -35,25 +35,25 @@ export class TreeViewComponent implements OnInit {
   @Output() selectedChanged: EventEmitter<TreeNode> = new EventEmitter<TreeNode>();
   @Output() nodeRightClick: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('filterInput', {static: false}) filterInput: any;
+  @ViewChild('filterInput', { static: false }) filterInput: any;
 
   tree: Tree = new Tree();
   filterTimeout: any;
   loading: boolean;
   searchFilterText: any = null;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void  {
     this.initGetNodes();
   }
 
-  initGetNodes() {
+  initGetNodes(): void  {
     this.loading = true;
     this.tree.initLoadNodes().finally(() => { this.loading = false; });
   }
 
-  onFilterKeyup() {
+  onFilterKeyup(): void {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
@@ -64,27 +64,27 @@ export class TreeViewComponent implements OnInit {
     }, this.filterDelay);
   }
 
-  onNodeRightClick(event) {
-    this.nodeRightClick.emit({originalEvent: event.event, data: event.node});
+  onNodeRightClick(event): void  {
+    this.nodeRightClick.emit({ originalEvent: event.event, data: event.node });
   }
 
-  collapseAll() {
+  collapseAll(): void  {
     this.tree.collapseAll();
   }
 
-  refresh() {
+  refresh(): void  {
     this.nodes = [];
     this.initGetNodes();
     this.tree.selectedNode = null;
     this.filterInput.nativeElement.value = null;
   }
 
-  onClickClearSearch() {
+  onClickClearSearch(): void  {
     this.searchFilterText = null;
     this.onFilterKeyup();
   }
 
-  getNodeById(nodeId: string) {
+  getNodeById(nodeId: string): TreeNode {
     return this.tree.getNodeById(nodeId);
   }
 

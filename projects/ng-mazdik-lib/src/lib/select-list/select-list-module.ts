@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {SelectListComponent} from './select-list.component';
+import { SelectListComponent } from './select-list.component';
 
 @NgModule({
   imports: [
@@ -14,4 +14,4 @@ import {SelectListComponent} from './select-list.component';
     SelectListComponent,
   ]
 })
-export class SelectListModule {}
+export class SelectListModule { }

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CdtSettings, DataManager, SelectItem, DtMessages, DtMessagesEn} from 'ng-mazdik-lib';
-import {DemoService} from './demo.service';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit } from '@angular/core';
+import { CdtSettings, DataManager, SelectItem, DtMessages, DtMessagesEn } from 'ng-mazdik-lib';
+import { DemoService } from './demo.service';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-basic-demo',
@@ -34,14 +34,14 @@ export class CrudTableDemoComponent implements OnInit {
     this.dataManager.pager.perPage = 20;
   }
 
-  ngOnInit() {}
+  ngOnInit(): void { }
 
   filterValuesFunc(columnName: string): Promise<SelectItem[]> {
     return new Promise((resolve) => {
       setTimeout(() => resolve(
         [
-          {id: 'MALE', name: 'MALE'},
-          {id: 'FEMALE', name: 'FEMALE'},
+          { id: 'MALE', name: 'MALE' },
+          { id: 'FEMALE', name: 'FEMALE' },
         ]
       ), 1000);
     });

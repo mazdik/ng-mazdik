@@ -1,4 +1,4 @@
-import {isBlank} from './utils';
+import { isBlank } from './utils';
 
 export interface CSVargs {
   rows: any[];
@@ -9,7 +9,7 @@ export interface CSVargs {
   lineDelimiter?: string;
 }
 
-export function downloadCSV(args: CSVargs) {
+export function downloadCSV(args: CSVargs): void {
   args.filename = args.filename || 'export.csv';
   args.columnDelimiter = args.columnDelimiter || ';';
   args.lineDelimiter = args.lineDelimiter || '\n';
@@ -29,7 +29,7 @@ export function downloadCSV(args: CSVargs) {
   link.click();
 }
 
-function convertArrayOfObjectsToCSV(args: CSVargs) {
+function convertArrayOfObjectsToCSV(args: CSVargs): string {
   if (!args.rows || !args.rows.length) {
     return;
   }

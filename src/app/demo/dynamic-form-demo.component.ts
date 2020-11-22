@@ -21,7 +21,7 @@ import { HttpClient } from '@angular/common/http';
 export class DynamicFormDemoComponent {
 
   dynElements: DynamicFormElement[];
-  isNewItem: boolean = true;
+  isNewItem = true;
   getOptionsFunc: GetOptionsFunc;
   item: any = {};
 
@@ -36,11 +36,11 @@ export class DynamicFormDemoComponent {
     this.createDynamicFormElements(columns);
   }
 
-  onFormValid(event) { }
+  onFormValid(event): void { }
 
-  onLoaded(event) { }
+  onLoaded(event): void { }
 
-  createDynamicFormElements(columns: ColumnBase[]) {
+  createDynamicFormElements(columns: ColumnBase[]): void {
     const temp: DynamicFormElement[] = [];
 
     for (const column of columns) {

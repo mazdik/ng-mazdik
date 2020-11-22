@@ -1,11 +1,11 @@
-import {DataSource, RequestMetadata} from './types';
-import {FilterMetadata} from '../../ng-data-table/base/types';
-import {Row} from '../../ng-data-table/base/row';
-import {DataTable} from '../../ng-data-table/base/data-table';
-import {ColumnBase} from '../../ng-data-table/base/column-base';
-import {ColumnModelGenerator} from '../../ng-data-table/base/column-model-generator';
-import {CdtSettings} from './cdt-settings';
-import {DtMessages} from '../../dt-translate/dt-messages';
+import { DataSource, RequestMetadata } from './types';
+import { FilterMetadata } from '../../ng-data-table/base/types';
+import { Row } from '../../ng-data-table/base/row';
+import { DataTable } from '../../ng-data-table/base/data-table';
+import { ColumnBase } from '../../ng-data-table/base/column-base';
+import { ColumnModelGenerator } from '../../ng-data-table/base/column-model-generator';
+import { CdtSettings } from './cdt-settings';
+import { DtMessages } from '../../dt-translate/dt-messages';
 
 export class DataManager extends DataTable {
 
@@ -34,7 +34,7 @@ export class DataManager extends DataTable {
     this.events.onFilter();
   }
 
-  loadItems() {
+  loadItems(): Promise<any> {
     return this.getItems(this.settings.virtualScroll);
   }
 
@@ -45,7 +45,7 @@ export class DataManager extends DataTable {
     this.events.onLoading(true);
     this.setSortMetaGroup();
     const requestMeta: RequestMetadata = {
-      pageMeta: {currentPage: this.pager.current, perPage: this.pager.perPage},
+      pageMeta: { currentPage: this.pager.current, perPage: this.pager.perPage },
       filters: this.dataFilter.filters,
       sortMeta: this.sorter.sortMeta,
       globalFilterValue: this.dataFilter.globalFilterValue,
@@ -66,7 +66,7 @@ export class DataManager extends DataTable {
       .finally(() => { this.events.onLoading(false); });
   }
 
-  create(row: Row) {
+  create(row: Row): void  {
     this.events.onLoading(true);
     this.service
       .post(row)
@@ -80,7 +80,7 @@ export class DataManager extends DataTable {
       .finally(() => { this.events.onLoading(false); });
   }
 
-  update(row: Row) {
+  update(row: Row): void  {
     this.events.onLoading(true);
     this.service.put(row)
       .then(res => {
@@ -89,7 +89,7 @@ export class DataManager extends DataTable {
       .finally(() => { this.events.onLoading(false); });
   }
 
-  delete(row: Row) {
+  delete(row: Row): void  {
     this.events.onLoading(true);
     this.service
       .delete(row)
@@ -99,7 +99,7 @@ export class DataManager extends DataTable {
       .finally(() => { this.events.onLoading(false); });
   }
 
-  afterUpdate(row: Row, result: any) {
+  afterUpdate(row: Row, result: any): void  {
     if (this.refreshRowOnSave) {
       this.refreshRow(row);
     } else {
@@ -107,7 +107,7 @@ export class DataManager extends DataTable {
     }
   }
 
-  refreshRow(row: Row) {
+  refreshRow(row: Row): void  {
     this.events.onLoading(true);
     this.service.getItem(row)
       .then(data => {
@@ -116,12 +116,12 @@ export class DataManager extends DataTable {
       .finally(() => { this.events.onLoading(false); });
   }
 
-  clear() {
+  clear(): void  {
     this.rows = [];
     this.pager.total = 0;
   }
 
-  rowIsValid(row: Row) {
+  rowIsValid(row: Row): boolean {
     const hasError = this.columns.some(x => {
       const errors = x.validate(row[x.name]);
       return (errors && errors.length > 0);

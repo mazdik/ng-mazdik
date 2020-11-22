@@ -31,99 +31,99 @@ export class Events {
   readonly checkboxSource$ = this.checkboxSource.asObservable();
   readonly cellSource$ = this.cellSource.asObservable();
 
-  onSort() {
+  onSort(): void {
     this.sortSource.next();
   }
 
-  onFilter() {
+  onFilter(): void {
     this.filterSource.next();
   }
 
-  onSelectionChange() {
+  onSelectionChange(): void {
     this.selectionSource.next();
   }
 
-  onPage() {
+  onPage(): void {
     this.pageSource.next();
   }
 
-  onColumnMenuClick(data: ColumnMenuEventArgs) {
+  onColumnMenuClick(data: ColumnMenuEventArgs): void {
     this.columnMenuSource.next(data);
   }
 
-  onResizeBegin() {
+  onResizeBegin(): void {
     this.resizeBeginSource.next();
   }
 
-  onResize(data: any) {
+  onResize(data: any): void {
     this.resizeSource.next(data);
   }
 
-  onResizeEnd() {
+  onResizeEnd(): void {
     this.resizeEndSource.next();
   }
 
-  onRowsChanged() {
+  onRowsChanged(): void {
     this.rowsChanged.next();
   }
 
-  onScroll(data: any) {
+  onScroll(data: any): void {
     this.scrollSource.next(data);
   }
 
-  onLoading(data: boolean) {
+  onLoading(data: boolean): void {
     this.loadingSource.next(data);
   }
 
-  onCheckbox(data: any) {
+  onCheckbox(data: any): void {
     this.checkboxSource.next(data);
   }
 
-  onCell(data: CellEventArgs) {
+  onCell(data: CellEventArgs): void {
     this.cellSource.next(data);
   }
 
-  onMouseover(data: CellEventArgs) {
+  onMouseover(data: CellEventArgs): void {
     data.type = CellEventType.Mouseover;
     this.onCell(data);
   }
 
-  onMouseout(data: CellEventArgs) {
+  onMouseout(data: CellEventArgs): void {
     data.type = CellEventType.Mouseout;
     this.onCell(data);
   }
 
-  onActivateCell(data: CellEventArgs) {
+  onActivateCell(data: CellEventArgs): void {
     data.type = CellEventType.Activate;
     this.onCell(data);
   }
 
-  onClickCell(data: CellEventArgs) {
+  onClickCell(data: CellEventArgs): void {
     data.type = CellEventType.Click;
     this.onCell(data);
   }
 
-  onDblClickCell(data: CellEventArgs) {
+  onDblClickCell(data: CellEventArgs): void {
     data.type = CellEventType.DblClick;
     this.onCell(data);
   }
 
-  onKeydownCell(data: CellEventArgs) {
+  onKeydownCell(data: CellEventArgs): void {
     data.type = CellEventType.Keydown;
     this.onCell(data);
   }
 
-  onContextMenu(data: CellEventArgs) {
+  onContextMenu(data: CellEventArgs): void {
     data.type = CellEventType.ContextMenu;
     this.onCell(data);
   }
 
-  onCellEditMode(data: CellEventArgs) {
+  onCellEditMode(data: CellEventArgs): void {
     data.type = CellEventType.EditMode;
     this.onCell(data);
   }
 
-  onCellValueChanged(data: CellEventArgs) {
+  onCellValueChanged(data: CellEventArgs): void {
     data.type = CellEventType.ValueChanged;
     this.onCell(data);
   }

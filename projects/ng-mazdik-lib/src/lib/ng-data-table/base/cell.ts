@@ -1,5 +1,6 @@
 import { Column } from './column';
 import { Row } from './row';
+import { SelectItem } from '../../common';
 
 export class Cell {
 
@@ -30,7 +31,7 @@ export class Cell {
     this.updateViewValue();
   }
 
-  validate() {
+  validate(): void  {
     const errors = this.column.validate(this.value);
     this.hasError = (errors && errors.length > 0);
   }
@@ -43,7 +44,7 @@ export class Cell {
     this.viewValue = this.column.getValueView(this.row);
   }
 
-  getOptions() {
+  getOptions(): SelectItem[] {
     return this.column.getOptions(this.row[this.column.dependsColumn]);
   }
 

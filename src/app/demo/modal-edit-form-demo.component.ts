@@ -1,7 +1,7 @@
-import {Component, ViewChild} from '@angular/core';
-import {CdtSettings, DataManager, ModalEditFormComponent} from 'ng-mazdik-lib';
-import {DemoService} from './demo.service';
-import {getColumnsPlayers} from './columns';
+import { Component, ViewChild } from '@angular/core';
+import { CdtSettings, DataManager, ModalEditFormComponent } from 'ng-mazdik-lib';
+import { DemoService } from './demo.service';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-modal-edit-form-demo',
@@ -25,7 +25,7 @@ export class ModalEditFormDemoComponent {
     crud: true,
   });
 
-  @ViewChild('modalEditForm', {static: false}) modalEditForm: ModalEditFormComponent;
+  @ViewChild('modalEditForm', { static: false }) modalEditForm: ModalEditFormComponent;
 
   private item: any = {
     'id': 96491,
@@ -60,29 +60,29 @@ export class ModalEditFormDemoComponent {
     this.dataManager = new DataManager(columns, this.settings, this.service);
   }
 
-  onSaved(event) {
+  onSaved(event): void {
     console.log(event);
   }
 
-  onUpdated(event) {
+  onUpdated(event): void {
     console.log(event);
   }
 
-  createItem() {
+  createItem(): void {
     this.dataManager.item = {};
     this.modalEditForm.isNewItem = true;
     this.modalEditForm.detailView = false;
     this.modalEditForm.open();
   }
 
-  updateItem() {
+  updateItem(): void {
     this.dataManager.item = this.item;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = false;
     this.modalEditForm.open();
   }
 
-  viewItem() {
+  viewItem(): void {
     this.dataManager.item = this.item;
     this.modalEditForm.isNewItem = false;
     this.modalEditForm.detailView = true;

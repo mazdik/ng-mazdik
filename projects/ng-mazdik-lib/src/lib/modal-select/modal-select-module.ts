@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {ModalModule} from '../modal/modal-module';
-import {PaginationModule} from '../pagination/pagination-module';
-import {ModalSelectComponent} from './modal-select.component';
+import { ModalModule } from '../modal/modal-module';
+import { PaginationModule } from '../pagination/pagination-module';
+import { ModalSelectComponent } from './modal-select.component';
 
 @NgModule({
   imports: [
@@ -18,4 +18,4 @@ import {ModalSelectComponent} from './modal-select.component';
     ModalSelectComponent,
   ]
 })
-export class ModalSelectModule {}
+export class ModalSelectModule { }

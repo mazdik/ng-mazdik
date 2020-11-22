@@ -1,5 +1,5 @@
-import {Keys} from '../common';
-import {Subject} from 'rxjs';
+import { Keys } from '../common';
+import { Subject } from 'rxjs';
 
 export class DropDown {
 
@@ -17,7 +17,7 @@ export class DropDown {
     this.addEventListeners();
   }
 
-  addEventListeners() {
+  addEventListeners(): void {
     this.clickListener = this.onClick.bind(this);
     this.element.addEventListener('click', this.clickListener);
 
@@ -28,7 +28,7 @@ export class DropDown {
     window.document.addEventListener('keydown', this.windowKeydownListener);
   }
 
-  removeEventListeners() {
+  removeEventListeners(): void {
     this.element.removeEventListener('click', this.clickListener);
     window.document.removeEventListener('click', this.windowClickListener);
     window.document.removeEventListener('keydown', this.windowKeydownListener);
@@ -51,18 +51,18 @@ export class DropDown {
     }
   }
 
-  toggleDropdown() {
+  toggleDropdown(): void {
     this.isOpen ? this.closeDropdown() : this.openDropdown();
   }
 
-  openDropdown() {
+  openDropdown(): void {
     if (!this.isOpen) {
       this.isOpen = true;
       this.isOpenSource.next(this.isOpen);
     }
   }
 
-  closeDropdown() {
+  closeDropdown(): void {
     if (this.isOpen) {
       this.isOpen = false;
       this.isOpenSource.next(this.isOpen);

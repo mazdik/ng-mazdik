@@ -1,28 +1,28 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {TreeNode, TreeDataSource} from 'ng-mazdik-lib';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { TreeNode, TreeDataSource } from 'ng-mazdik-lib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TreeDemoService implements TreeDataSource {
 
-  url: string = 'assets/tree.json';
+  url = 'assets/tree.json';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getNodes(node: TreeNode): Promise<TreeNode[]> {
     const children: any[] = [
       {
         id: 'MALE',
         name: 'MALE',
-        data: {column: 'gender'},
+        data: { column: 'gender' },
         leaf: false,
       },
       {
         id: 'FEMALE',
         name: 'FEMALE',
-        data: {column: 'gender'},
+        data: { column: 'gender' },
       }];
     if (node) {
       children[0].id = 'MALE' + node.$$level;

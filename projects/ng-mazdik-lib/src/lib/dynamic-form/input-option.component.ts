@@ -1,7 +1,7 @@
-import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {GetOptionsFunc, KeyElementChangeEventArgs} from './types';
-import {InputComponent} from './input.component';
-import {SelectItem} from '../common';
+import { Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { GetOptionsFunc, KeyElementChangeEventArgs } from './types';
+import { InputComponent } from './input.component';
+import { SelectItem } from '../common';
 
 @Component({
   selector: 'app-form-input-option',
@@ -26,9 +26,9 @@ export class InputOptionComponent extends InputComponent implements OnInit {
   private _dependsValue: any;
 
   private _options: SelectItem[];
-  private firstCascade: boolean = true;
+  private firstCascade = true;
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.dynElement.optionsUrl && !this.dynElement.dependsElement) {
       this.loadOptions();
     } else {
@@ -37,7 +37,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     this.validate();
   }
 
-  setDependsOptions() {
+  setDependsOptions(): void {
     if (this.dependsValue) {
       if (this.dynElement.optionsUrl) {
         this.loadOptions();
@@ -50,7 +50,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     }
   }
 
-  loadOptions() {
+  loadOptions(): void {
     if (this.dynElement.optionsUrl && this.getOptionsFunc) {
       this.loading = true;
       this.getOptionsFunc(this.dynElement.optionsUrl, this._dependsValue).then((res) => {
@@ -68,7 +68,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     return this._options;
   }
 
-  onValueChange() {
+  onValueChange(): void {
     if (this.dynElement.keyElement) {
       this.keyElementChange.emit({
         keyElementName: this.dynElement.keyElement,
@@ -79,7 +79,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     }
   }
 
-  setDefaultSelect() {
+  setDefaultSelect(): void {
     const initValueOnEdit = (this.firstCascade && this.model !== null && this.model !== undefined && this.model.length !== 0);
     if (!initValueOnEdit) {
       this.model = '';
@@ -91,7 +91,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
     this.firstCascade = false;
   }
 
-  getName() {
+  getName(): string {
     if (this._options) {
       const option = this._options.find(x => x.id === this.model);
       return (option) ? option.name : '';

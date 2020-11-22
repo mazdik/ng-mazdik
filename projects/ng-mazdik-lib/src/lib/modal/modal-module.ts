@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ModalComponent} from './modal.component';
-import {ResizableModule} from '../resizable/resizable-module';
-import {DraggableModule} from '../draggable/draggable-module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ModalComponent } from './modal.component';
+import { ResizableModule } from '../resizable/resizable-module';
+import { DraggableModule } from '../draggable/draggable-module';
 
 @NgModule({
   imports: [
@@ -17,4 +17,4 @@ import {DraggableModule} from '../draggable/draggable-module';
     ModalComponent,
   ]
 })
-export class ModalModule {}
+export class ModalModule { }

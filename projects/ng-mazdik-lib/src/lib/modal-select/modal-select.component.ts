@@ -1,9 +1,8 @@
 import {
-  Component, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, HostBinding,
-  ChangeDetectorRef
+  Component, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, HostBinding, ChangeDetectorRef
 } from '@angular/core';
-import {PageEvent} from '../../lib/pagination/types';
-import {SelectItem, arrayPaginate} from '../common';
+import { PageEvent } from '../../lib/pagination/types';
+import { SelectItem, arrayPaginate } from '../common';
 
 @Component({
   selector: 'app-modal-select',
@@ -26,8 +25,8 @@ export class ModalSelectComponent {
   private _options: SelectItem[];
 
   @Input('value')
-  get model() { return this._model; }
-  set model(value) {
+  get model(): any { return this._model; }
+  set model(value: any) {
     if (this._model !== value) {
       this._model = value;
       this.valueChange.emit(this._model);
@@ -37,30 +36,30 @@ export class ModalSelectComponent {
   }
   private _model: any;
 
-  @Input() filterDelay: number = 300;
+  @Input() filterDelay = 300;
   @Input() disabled: boolean;
-  @Input() modalTitle: string = 'Search Dialog';
-  @Input() itemsPerPage: number = 10;
-  @Input() placeholder: string = 'Select';
-  @Input() searchInputPlaceholder: string = 'Search...';
+  @Input() modalTitle = 'Search Dialog';
+  @Input() itemsPerPage = 10;
+  @Input() placeholder = 'Select';
+  @Input() searchInputPlaceholder = 'Search...';
 
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Output() nameChanged: EventEmitter<any> = new EventEmitter();
 
   @HostBinding('class.dt-modal-select') cssClass = true;
-  @ViewChild('modal', {static: false}) modal: any;
+  @ViewChild('modal', { static: false }) modal: any;
   searchFilterText: string = null;
-  currentPage: number = 1;
-  sortOrder: number = 1;
+  currentPage = 1;
+  sortOrder = 1;
   totalItems: number;
   filterTimeout: any;
   selectedName: string;
 
   private optionsCopy: SelectItem[] = [];
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
-  open() {
+  open(): void  {
     if (!this.disabled) {
       this.searchFilterText = '';
       this.modal.show();
@@ -68,7 +67,7 @@ export class ModalSelectComponent {
     }
   }
 
-  onFilterKeyup() {
+  onFilterKeyup(): void  {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);
     }
@@ -79,7 +78,7 @@ export class ModalSelectComponent {
     }, this.filterDelay);
   }
 
-  getOptions() {
+  getOptions(): any[] {
     let data = [];
     if (this.optionsCopy && this.optionsCopy.length && this.searchFilterText) {
       data = this.optionsCopy.filter(x => x.name.toLocaleLowerCase().indexOf(this.searchFilterText.toLocaleLowerCase()) > -1);
@@ -92,13 +91,13 @@ export class ModalSelectComponent {
     return result;
   }
 
-  onPageChanged(event: PageEvent) {
+  onPageChanged(event: PageEvent): void  {
     this.currentPage = event.currentPage;
     this.itemsPerPage = event.perPage;
     this._options = this.getOptions();
   }
 
-  setSelected(option: SelectItem) {
+  setSelected(option: SelectItem): void  {
     this.model = option.id;
     this.modal.hide();
   }
@@ -107,7 +106,7 @@ export class ModalSelectComponent {
     return option.id === this.model;
   }
 
-  getName() {
+  getName(): string {
     if (this.optionsCopy) {
       const option = this.optionsCopy.find((x) => {
         return x.id === this.model;
@@ -116,7 +115,7 @@ export class ModalSelectComponent {
     }
   }
 
-  onClickClearSearch() {
+  onClickClearSearch(): void  {
     this.searchFilterText = '';
     this.onFilterKeyup();
   }

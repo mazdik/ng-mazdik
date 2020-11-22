@@ -1,6 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy,
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, Input, Output, EventEmitter, HostBinding, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import { DataTable, Row, Column } from '../ng-data-table/base';
 import { Subscription } from 'rxjs';
@@ -15,7 +14,7 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
   @Input() table: DataTable;
   @Input() createAction: boolean;
-  @Input() globalFilter: boolean = true;
+  @Input() globalFilter = true;
   @Input() exportAction: boolean;
   @Input() columnToggleAction: boolean;
   @Input() clearAllFiltersAction: boolean;
@@ -28,28 +27,28 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  ngOnInit(): void  {
     const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subFilter);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void  {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onClickGlobalSearch() {
+  onClickGlobalSearch(): void  {
     this.table.events.onFilter();
   }
 
-  onKeyPressGlobalSearch(event: KeyboardEvent) {
+  onKeyPressGlobalSearch(event: KeyboardEvent): void  {
     if (event.which === Keys.ENTER) {
       this.table.events.onFilter();
     }
   }
 
-  downloadCsv() {
+  downloadCsv(): void  {
     const keys = this.table.columns.map(col => col.name);
     const titles = this.table.columns.map(col => col.title);
 
@@ -65,11 +64,11 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
     downloadCSV({rows: resultRows, keys, titles});
   }
 
-  createActionClick() {
+  createActionClick(): void  {
     this.create.emit();
   }
 
-  clearAllFilters() {
+  clearAllFilters(): void  {
     if (this.table.dataFilter.hasFilters()) {
       this.table.dataFilter.clear();
       this.table.events.onFilter();

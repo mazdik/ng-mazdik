@@ -7,7 +7,7 @@ export class AfterViewFocusDirective implements AfterViewInit {
 
   constructor(private elementRef: ElementRef) { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void  {
     this.elementRef.nativeElement.focus();
   }
 

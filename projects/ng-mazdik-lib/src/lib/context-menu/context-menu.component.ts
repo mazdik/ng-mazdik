@@ -45,14 +45,14 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
     this.dropdown = new DropDown(this.element.nativeElement);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subDropdown = this.dropdown.isOpenSource$.subscribe(() => {
       this.cd.markForCheck();
     });
     this.subscriptions.push(subDropdown);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.dropdown.removeEventListeners();
     this.subscriptions.forEach(s => s.unsubscribe());
   }
@@ -62,9 +62,9 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
     this.dropdown.closeDropdown();
   }
 
-  getPositionMenu(left: number, top: number) {
+  getPositionMenu(left: number, top: number): { left: number, top: number } {
     const menu = this.element.nativeElement;
-    const {height, width} = this.getHiddenElementOuterSizes(menu);
+    const { height, width } = this.getHiddenElementOuterSizes(menu);
     // flip
     if (left + width - window.pageXOffset > window.innerWidth) {
       left -= width;
@@ -84,7 +84,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
     return { left, top };
   }
 
-  getHiddenElementOuterSizes(element: HTMLElement) {
+  getHiddenElementOuterSizes(element: HTMLElement): { height: number, width: number } {
     if (element.offsetParent) {
       return { height: element.offsetHeight, width: element.offsetWidth };
     }
@@ -98,7 +98,7 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
     return { height: elementHeight, width: elementWidth };
   }
 
-  show(event: MenuEventArgs) {
+  show(event: MenuEventArgs): void {
     this.eventArgs = event;
     let coords;
     if (!isBlank(event.left) && !isBlank(event.top)) {
@@ -119,11 +119,11 @@ export class ContextMenuComponent implements OnInit, OnDestroy {
     }
   }
 
-  hide() {
+  hide(): void {
     this.dropdown.closeDropdown();
   }
 
-  itemClick(event, item: MenuItem) {
+  itemClick(event, item: MenuItem): void {
     if (item.disabled) {
       event.preventDefault();
       return;

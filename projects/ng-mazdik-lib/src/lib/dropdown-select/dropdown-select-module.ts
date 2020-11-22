@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {SelectListModule} from '../select-list/select-list-module';
-import {DropdownSelectComponent} from './dropdown-select.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SelectListModule } from '../select-list/select-list-module';
+import { DropdownSelectComponent } from './dropdown-select.component';
 
 @NgModule({
   imports: [
@@ -15,4 +15,4 @@ import {DropdownSelectComponent} from './dropdown-select.component';
     DropdownSelectComponent,
   ]
 })
-export class DropdownSelectModule {}
+export class DropdownSelectModule { }

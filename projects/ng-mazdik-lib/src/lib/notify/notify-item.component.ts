@@ -29,15 +29,15 @@ export class NotifyItemComponent implements AfterViewInit, OnDestroy {
 
   constructor() { }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.initTimeout();
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.clearTimeout();
   }
 
-  initTimeout() {
+  initTimeout(): void {
     if (!this.message.sticky) {
       this.timeout = setTimeout(() => {
         this.closeNotify.emit(this.index);
@@ -45,14 +45,14 @@ export class NotifyItemComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  clearTimeout() {
+  clearTimeout(): void {
     if (this.timeout) {
       clearTimeout(this.timeout);
       this.timeout = null;
     }
   }
 
-  onCloseClick() {
+  onCloseClick(): void {
     this.clearTimeout();
     this.closeNotify.emit(this.index);
   }

@@ -44,7 +44,7 @@ export class DualListBoxComponent {
 
   constructor() { }
 
-  moveRight() {
+  moveRight(): void  {
     if (!isBlank(this.sourceModel) && !isBlank(this.source)) {
       const selectedItemIndex = this.source.findIndex(x => x.id === this.sourceModel);
       arrayTransfer(this.source, this.target, selectedItemIndex, this.target.length);
@@ -54,7 +54,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveRightAll() {
+  moveRightAll(): void  {
     if (!isBlank(this.source)) {
       this.target = [...this.target, ... this.source];
       this.source = [];
@@ -64,7 +64,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveLeft() {
+  moveLeft(): void  {
     if (!isBlank(this.targetModel) && !isBlank(this.target)) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       arrayTransfer(this.target, this.source, selectedItemIndex, this.source.length);
@@ -74,7 +74,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveLeftAll() {
+  moveLeftAll(): void  {
     if (!isBlank(this.target)) {
       this.target.forEach(item => this.source.push(item));
       this.target = [];
@@ -84,7 +84,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveUp() {
+  moveUp(): void  {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== 0) {
@@ -98,7 +98,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveTop() {
+  moveTop(): void  {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== 0) {
@@ -110,7 +110,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveDown() {
+  moveDown(): void  {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== (this.target.length - 1)) {
@@ -124,7 +124,7 @@ export class DualListBoxComponent {
     }
   }
 
-  moveBottom() {
+  moveBottom(): void  {
     if (!isBlank(this.targetModel) && this.target.length > 1) {
       const selectedItemIndex = this.target.findIndex(x => x.id === this.targetModel);
       if (selectedItemIndex !== (this.target.length - 1)) {
@@ -136,27 +136,27 @@ export class DualListBoxComponent {
     }
   }
 
-  filterSource() {
+  filterSource(): void  {
     if (this.source && this.source.length && this.target && this.target.length) {
       this._source = this.source.filter(x => this.target.every(t => t.id !== x.id));
     }
   }
 
-  get isBlankSourceModel() {
+  get isBlankSourceModel(): boolean {
     return isBlank(this.sourceModel);
   }
 
-  get isBlankTargetModel() {
+  get isBlankTargetModel(): boolean {
     return isBlank(this.targetModel);
   }
 
-  onDragStart(event: DragEvent, index: number) {
+  onDragStart(event: DragEvent, index: number): void  {
     event.dataTransfer.setData('text', index.toString());
     event.dataTransfer.effectAllowed = 'move';
     this.dragElementEvent = { event, index };
   }
 
-  onDropSource(event: DropElementEvent) {
+  onDropSource(event: DropElementEvent): void  {
     if (event.type === 'reorder') {
       arrayMove(this.source, event.previousIndex, event.currentIndex);
     } else {
@@ -167,7 +167,7 @@ export class DualListBoxComponent {
     this.targetChange.emit(this.target);
   }
 
-  onDropTarget(event: DropElementEvent) {
+  onDropTarget(event: DropElementEvent): void  {
     if (event.type === 'reorder') {
       arrayMove(this.target, event.previousIndex, event.currentIndex);
     } else {

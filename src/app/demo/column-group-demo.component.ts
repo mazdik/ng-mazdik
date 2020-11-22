@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-column-group-demo',
@@ -32,7 +32,7 @@ export class ColumnGroupDemoComponent implements OnInit {
     this.table = new DataTable(columns, this.settings);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
@@ -40,7 +40,7 @@ export class ColumnGroupDemoComponent implements OnInit {
     });
   }
 
-  getWidth(from: number, to: number) {
+  getWidth(from: number, to: number): number {
     let width = 0;
     for (let index = from; index < to; index++) {
       width += this.table.columns[index].width;
@@ -48,11 +48,11 @@ export class ColumnGroupDemoComponent implements OnInit {
     return width;
   }
 
-  translate3d() {
+  translate3d(): string {
     return `translate3d(${this.table.dimensions.offsetX * -1}px, 0, 0)`;
   }
 
-  translate3dCell() {
+  translate3dCell(): string {
     return `translate3d(${this.table.dimensions.offsetX}px, 0, 0)`;
   }
 

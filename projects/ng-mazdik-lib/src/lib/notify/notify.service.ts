@@ -9,11 +9,11 @@ export class NotifyService {
 
   private subject = new Subject<any>();
 
-  sendMessage(message: Message) {
+  sendMessage(message: Message): void {
     this.subject.next(message);
   }
 
-  clearMessage() {
+  clearMessage(): void {
     this.subject.next();
   }
 

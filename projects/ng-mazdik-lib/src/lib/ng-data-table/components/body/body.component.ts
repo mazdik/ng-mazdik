@@ -1,10 +1,10 @@
 import {
   Component, Input, HostBinding, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, ViewChild
 } from '@angular/core';
-import {DataTable} from '../../base';
-import {Subscription} from 'rxjs';
-import {ScrollerComponent} from '../../../scroller/scroller.component';
-import {RowGroupTemplateDirective} from '../../directives/row-group-template.directive';
+import { DataTable } from '../../base';
+import { Subscription } from 'rxjs';
+import { ScrollerComponent } from '../../../scroller/scroller.component';
+import { RowGroupTemplateDirective } from '../../directives/row-group-template.directive';
 
 @Component({
   selector: 'dt-body',
@@ -18,12 +18,12 @@ export class BodyComponent implements OnInit, OnDestroy {
   @Input() rowGroupTemplate: RowGroupTemplateDirective;
 
   @HostBinding('class') cssClass = 'datatable-body';
-  @ViewChild(ScrollerComponent, {static: true}) scroller: ScrollerComponent;
+  @ViewChild(ScrollerComponent, { static: true }) scroller: ScrollerComponent;
 
   private subscriptions: Subscription[] = [];
   rowTrackingFn = (index: number, row: any) => (this.table.settings.trackByProp) ? row[this.table.settings.trackByProp] : index;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {
@@ -36,11 +36,11 @@ export class BodyComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subFilter);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  updatePage(direction: string) {
+  updatePage(direction: string): void {
     if (this.table.settings.virtualScroll && direction && this.table.pager) {
       let page = this.scroller.start / this.scroller.itemsPerRow;
       page = Math.ceil(page) + 1;
@@ -51,7 +51,7 @@ export class BodyComponent implements OnInit, OnDestroy {
     }
   }
 
-  onScroll(event: any) {
+  onScroll(event: any): void {
     this.table.dimensions.offsetY = event.scrollYPos;
     this.table.dimensions.offsetX = event.scrollXPos;
     this.table.events.onScroll(event);

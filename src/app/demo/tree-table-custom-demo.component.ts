@@ -1,8 +1,8 @@
-import {Component, OnInit, OnDestroy, ViewChild, TemplateRef} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ColumnBase, Settings, DataTable, Row, Tree, TreeNode, TreeFlattener} from 'ng-mazdik-lib';
-import {getTreeColumns} from './columns';
-import {Subscription} from 'rxjs';
+import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ColumnBase, Settings, DataTable, Row, Tree, TreeNode, TreeFlattener } from 'ng-mazdik-lib';
+import { getTreeColumns } from './columns';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tree-table-custom-demo',
@@ -41,8 +41,8 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     selectionMode: 'checkbox',
   });
 
-  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
-  @ViewChild('cellNodeTemplate', {static: true}) cellNodeTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', { static: true }) cellTemplate: TemplateRef<any>;
+  @ViewChild('cellNodeTemplate', { static: true }) cellNodeTemplate: TemplateRef<any>;
 
   private treeFlattener: TreeFlattener;
   private subscriptions: Subscription[] = [];
@@ -54,7 +54,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     this.treeFlattener = new TreeFlattener(this.transformer);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.dataTable.columns[1].cellTemplate = this.cellNodeTemplate;
     this.dataTable.columns[4].cellTemplate = this.cellTemplate;
     this.dataTable.events.onLoading(true);
@@ -69,7 +69,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subCheckbox);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
@@ -83,7 +83,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     return Object.assign(data, node.data);
   }
 
-  prepareTreeData(nodes: TreeNode[]) {
+  prepareTreeData(nodes: TreeNode[]): any[] {
     const tree = new Tree();
     tree.nodes = nodes;
     const rows = this.treeFlattener.flattenNodes(tree.nodes);
@@ -103,7 +103,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     };
   }
 
-  getSum(row: Row, column: ColumnBase, value: any) {
+  getSum(row: Row, column: ColumnBase, value: any): any {
     if (value) {
       return value;
     }
@@ -119,7 +119,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     return row.$$level * 10;
   }
 
-  onExpand(row: any) {
+  onExpand(row: any): void {
     row.expanded = !row.expanded;
     if (!row.expanded) {
       const descendants = this.getDescendants(row, this.dataTable.rows);
@@ -132,7 +132,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getExpanderIcon(row: any) {
+  getExpanderIcon(row: any): string {
     if (row.hasChildren && !row.expanded) {
       return 'dt-icon-node dt-icon-collapsed';
     } else if (row.hasChildren) {
@@ -140,7 +140,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDescendants(row: Row, rows: Row[]) {
+  getDescendants(row: Row, rows: Row[]): any[] {
     const results = [];
     for (let i = row.$$index + 1; i < rows.length && row.$$level < rows[i].$$level; i++) {
       results.push(rows[i]);
@@ -148,7 +148,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     return results;
   }
 
-  getDescendantsByLevel(row: Row, rows: Row[], level: number) {
+  getDescendantsByLevel(row: Row, rows: Row[], level: number): any[] {
     const results = [];
     for (let i = row.$$index + 1; i < rows.length && row.$$level < rows[i].$$level; i++) {
       if (rows[i].$$level === level) {
@@ -166,7 +166,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
       : this.dataTable.selection.deselect(...descendants);
   }
 
-  getIcon(row: any) {
+  getIcon(row: any): string {
     return row.hasChildren ? 'dt-icon-folder' : 'dt-icon-file';
   }
 

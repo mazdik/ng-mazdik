@@ -1,11 +1,10 @@
 import {
-  Component, OnInit, OnDestroy, Input, HostBinding, ViewChild, TemplateRef,
-  ChangeDetectionStrategy
+  Component, OnInit, OnDestroy, Input, HostBinding, ViewChild, TemplateRef, ChangeDetectionStrategy
 } from '@angular/core';
-import {TreeTable} from './tree-table';
-import {Row} from '../ng-data-table/base/row';
-import {Subscription} from 'rxjs';
-import {TreeNode, TreeHelper} from '../tree-lib';
+import { TreeTable } from './tree-table';
+import { Row } from '../ng-data-table/base/row';
+import { Subscription } from 'rxjs';
+import { TreeNode, TreeHelper } from '../tree-lib';
 
 @Component({
   selector: 'app-tree-table',
@@ -17,13 +16,13 @@ export class TreeTableComponent implements OnInit, OnDestroy {
   @Input() treeTable: TreeTable;
 
   @HostBinding('class.datatable') cssClass = true;
-  @ViewChild('cellTemplate', {static: true}) cellTemplate: TemplateRef<any>;
+  @ViewChild('cellTemplate', { static: true }) cellTemplate: TemplateRef<any>;
 
   private subscriptions: Subscription[] = [];
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const index = this.treeTable.settings.selectionMode ? 1 : 0;
     this.treeTable.columns[index].cellTemplate = this.cellTemplate;
     this.initGetNodes();
@@ -34,11 +33,11 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subCheckbox);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  initGetNodes() {
+  initGetNodes(): void {
     this.treeTable.events.onLoading(true);
     this.treeTable.tree.initLoadNodes()
       .then(() => {
@@ -47,7 +46,7 @@ export class TreeTableComponent implements OnInit, OnDestroy {
       .finally(() => { this.treeTable.events.onLoading(false); });
   }
 
-  onExpand(node: TreeNode) {
+  onExpand(node: TreeNode): void {
     node.expanded = !node.expanded;
     if (node.expanded) {
       node.$$loading = true;
@@ -61,11 +60,11 @@ export class TreeTableComponent implements OnInit, OnDestroy {
     }
   }
 
-  getExpanderIcon(node: TreeNode) {
+  getExpanderIcon(node: TreeNode): string {
     return TreeHelper.getExpanderIcon(node);
   }
 
-  getIcon(node: TreeNode) {
+  getIcon(node: TreeNode): string {
     if (this.treeTable.getIconFunc) {
       return this.treeTable.getIconFunc(node);
     } else {

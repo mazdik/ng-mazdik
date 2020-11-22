@@ -32,7 +32,7 @@ export class Row {
     return column.editable;
   }
 
-  getRowClass() {
+  getRowClass(): any {
     const rowClass = this.$$settings ? this.$$settings.rowClass : null;
     if (rowClass) {
       if (typeof rowClass === 'string') {
@@ -43,7 +43,7 @@ export class Row {
     }
   }
 
-  getCellClass(column: Column) {
+  getCellClass(column: Column): any {
     if (column.cellClass) {
       if (typeof column.cellClass === 'string') {
         return column.cellClass;
@@ -53,7 +53,7 @@ export class Row {
     }
   }
 
-  merge(newRow: any) {
+  merge(newRow: any): void {
     Object.keys(newRow).forEach(key => {
       if (key in this) {
         this[key] = newRow[key];
@@ -66,13 +66,13 @@ export class Row {
     this.$$data = Object.assign({}, this);
   }
 
-  revertChanges(columns: Column[]) {
+  revertChanges(columns: Column[]): void {
     columns.forEach((column) => {
       this[column.name] = this.$$data[column.name];
     });
   }
 
-  dispose() {
+  dispose(): void {
     this.$$data = null;
   }
 

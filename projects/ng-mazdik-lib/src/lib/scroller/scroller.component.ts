@@ -1,10 +1,9 @@
 import {
-  Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnDestroy, OnInit, ViewChild,
-  NgZone, ChangeDetectionStrategy
+  Component, Input, Output, EventEmitter, HostBinding, ElementRef, OnDestroy, OnInit, ViewChild, NgZone, ChangeDetectionStrategy
 } from '@angular/core';
-import {RowHeightCache} from './row-height-cache';
-import {ScrollerEventArgs} from './types';
-import {isBlank} from '../common/utils';
+import { RowHeightCache } from './row-height-cache';
+import { ScrollerEventArgs } from './types';
+import { isBlank } from '../common/utils';
 
 @Component({
   selector: 'app-scroller, [scroller]',
@@ -37,7 +36,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   }
   private _rowHeight: number;
 
-  @Input() itemsPerRow: number = 20;
+  @Input() itemsPerRow = 20;
   @Input() rowHeightProp: string;
 
   @HostBinding('style.height.px')
@@ -55,7 +54,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     return this.virtualScroll;
   }
 
-  @ViewChild('content', {static: false}) content: ElementRef;
+  @ViewChild('content', { static: false }) content: ElementRef;
 
   get viewRows(): any[] {
     return (this.virtualScroll) ? this._viewRows : this.items;
@@ -66,10 +65,10 @@ export class ScrollerComponent implements OnInit, OnDestroy {
   }
   private _viewRows: any[];
 
-  scrollYPos: number = 0;
-  scrollXPos: number = 0;
-  prevScrollYPos: number = 0;
-  prevScrollXPos: number = 0;
+  scrollYPos = 0;
+  scrollXPos = 0;
+  prevScrollYPos = 0;
+  prevScrollXPos = 0;
   element: HTMLElement;
   scrollLength: number;
   start: number;
@@ -83,25 +82,25 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     this.element = element.nativeElement;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.scrollListener = this.onScrolled.bind(this);
       this.element.addEventListener('scroll', this.scrollListener);
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.element.removeEventListener('scroll', this.scrollListener);
   }
 
-  initChunkRows() {
+  initChunkRows(): void {
     if (this._virtualScroll && !isBlank(this.items) && !isBlank(this.rowHeight)) {
       this.resetPosition();
       this.chunkRows(true);
     }
   }
 
-  onScrolled(event: MouseEvent) {
+  onScrolled(event: MouseEvent): void {
     const dom: Element = event.currentTarget as Element;
     this.scrollYPos = dom.scrollTop;
     this.scrollXPos = dom.scrollLeft;
@@ -137,13 +136,13 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     }
   }
 
-  setOffsetY(offsetY: number) {
+  setOffsetY(offsetY: number): void {
     if (this.element) {
       this.element.scrollTop = offsetY;
     }
   }
 
-  setPageOffsetY(page: number) {
+  setPageOffsetY(page: number): void {
     const rowIndex = this.itemsPerRow * (page - 1);
     let offset = 0;
     if (this.rowHeightProp) {
@@ -154,7 +153,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     this.setOffsetY(offset);
   }
 
-  private calculateDimensions() {
+  private calculateDimensions(): void {
     if (this.rowHeightProp) {
       this.rowHeightCache.initCache(this.items, this.rowHeightProp);
     }
@@ -176,7 +175,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     }
   }
 
-  chunkRows(force: boolean = false) {
+  chunkRows(force: boolean = false): void {
     this.calculateDimensions();
     const totalRecords = this.items.length;
     if (this.rowHeightProp) {
@@ -199,7 +198,7 @@ export class ScrollerComponent implements OnInit, OnDestroy {
     }
   }
 
-  resetPosition() {
+  resetPosition(): void {
     this.start = 0;
     this.end = 0;
     this.previousStart = 0;

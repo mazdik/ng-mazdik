@@ -2,11 +2,11 @@ export class RowHeightCache {
 
   private cache: number[] = [];
 
-  calcScrollLength(totalRecords: number) {
+  calcScrollLength(totalRecords: number): number {
     return this.cache[totalRecords - 1];
   }
 
-  initCache(rows: any[], rowHeightProp: string) {
+  initCache(rows: any[], rowHeightProp: string): void {
     const size = rows.length;
     this.cache = new Array(size);
     for (let i = 0; i < size; ++i) {
@@ -36,7 +36,7 @@ export class RowHeightCache {
     return pos + 1;
   }
 
-  getRowOffset(rowIndex: number) {
+  getRowOffset(rowIndex: number): number {
     if (rowIndex < 0) {
       return 0;
     }

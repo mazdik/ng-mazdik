@@ -1,8 +1,8 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {HttpClient} from '@angular/common/http';
-import {getColumnsPlayers, getColumnsRank, getColumnsInventory} from './columns';
-import {Subscription} from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { HttpClient } from '@angular/common/http';
+import { getColumnsPlayers, getColumnsRank, getColumnsInventory } from './columns';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-master-detail-demo',
@@ -52,7 +52,7 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subSelection);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.dtPlayers.rows = data;
       const masterId = this.dtPlayers.rows[0]['id'];
@@ -74,11 +74,11 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  masterChanged() {
+  masterChanged(): void {
     const selection = this.dtPlayers.selection.getSelection();
     if (this.dtPlayers.rows.length > 0 && selection.length !== 0 && this.dtPlayers.rows[selection[0]]) {
 

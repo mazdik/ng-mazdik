@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, CdtSettings, DataTable, DataManager} from 'ng-mazdik-lib';
-import {DemoService} from './demo.service';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, CdtSettings, DataTable, DataManager } from 'ng-mazdik-lib';
+import { DemoService } from './demo.service';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-virtual-scroll-demo',
@@ -33,7 +33,7 @@ export class VirtualScrollDemoComponent implements OnInit {
     this.dataManager = new DataManager(columns, this.serverSideSettings, this.service);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       for (const row of data) {

@@ -18,16 +18,16 @@ export class DtColumnTogglerComponent {
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  onSelectionChange(event: SelectItem[]) {
+  onSelectionChange(event: SelectItem[]): void {
     this.selectedColumns = event;
   }
 
-  createSelectItems() {
+  createSelectItems(): void  {
     this.selectedColumns = this.table.columns.filter(x => !x.tableHidden).map(x => ({ id: x.name, name: x.title }) as SelectItem);
     this.selectColumns = this.table.columns.map(x => ({ id: x.name, name: x.title }) as SelectItem);
   }
 
-  save() {
+  save(): void  {
     this.table.columns.forEach(x => {x.tableHidden = true; x.index = 99; });
     this.selectedColumns.forEach((el, i) => {
       const index = this.table.columns.findIndex(x => x.name === el.id);
@@ -43,13 +43,13 @@ export class DtColumnTogglerComponent {
     this.cd.markForCheck();
   }
 
-  open() {
+  open(): void  {
     this.createSelectItems();
     this.childModal.show();
     this.cd.markForCheck();
   }
 
-  close() {
+  close(): void  {
     this.childModal.hide();
     this.cd.markForCheck();
   }

@@ -1,7 +1,5 @@
-import {
-  Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding
-} from '@angular/core';
-import {PageEvent} from './types';
+import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { PageEvent } from './types';
 
 @Component({
   selector: 'app-pagination',
@@ -16,7 +14,7 @@ export class PaginationComponent {
     this._perPage = value;
     this.pages = this.getPages();
   }
-  private _perPage: number = 10;
+  private _perPage = 10;
 
   @Input()
   get totalItems(): number { return this._totalItems; }
@@ -24,7 +22,7 @@ export class PaginationComponent {
     this._totalItems = value;
     this.pages = this.getPages();
   }
-  private _totalItems: number = 0;
+  private _totalItems = 0;
 
   @Input()
   get currentPage(): number { return this._currentPage; }
@@ -37,7 +35,7 @@ export class PaginationComponent {
     }
     this.pages = this.getPages();
   }
-  private _currentPage: number = 1;
+  private _currentPage = 1;
 
   @Input()
   get pageSizeOptions(): number[] { return this._pageSizeOptions; }
@@ -52,7 +50,7 @@ export class PaginationComponent {
 
   @HostBinding('class.pagination') cssClass = true;
 
-  setPage(page: number, event ?: MouseEvent): void {
+  setPage(page: number, event?: MouseEvent): void {
     if (event) {
       event.preventDefault();
     }
@@ -63,7 +61,7 @@ export class PaginationComponent {
     }
     if (page > 0 && page <= this.totalPages() && page !== this.currentPage) {
       this.currentPage = page;
-      this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
+      this.pageChanged.emit({ currentPage: this.currentPage, perPage: this.perPage } as PageEvent);
     }
   }
 
@@ -102,16 +100,16 @@ export class PaginationComponent {
     const startIndex = (page - 1) * pageSize;
 
     const endIndex = startIndex < length ?
-        Math.min(startIndex + pageSize, length) :
-        startIndex + pageSize;
+      Math.min(startIndex + pageSize, length) :
+      startIndex + pageSize;
 
     return `${startIndex + 1} - ${endIndex} of ${length}`;
   }
 
-  onChangePageSize(pageSize: number) {
+  onChangePageSize(pageSize: number): void {
     this.perPage = pageSize;
     this.currentPage = this._currentPage;
-    this.pageChanged.emit({currentPage: this.currentPage, perPage: this.perPage} as PageEvent);
+    this.pageChanged.emit({ currentPage: this.currentPage, perPage: this.perPage } as PageEvent);
   }
 
 }

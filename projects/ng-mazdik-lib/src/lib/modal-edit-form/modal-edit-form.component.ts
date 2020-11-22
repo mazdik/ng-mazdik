@@ -1,11 +1,11 @@
 import {
   Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {ModalComponent} from '../modal/modal.component';
-import {DataManager} from '../ng-crud-table/base/data-manager';
-import {DynamicFormElement} from '../dynamic-form/dynamic-form-element';
-import {GetOptionsFunc} from '../dynamic-form/types';
-import {KeyValuePair} from '../row-view/types';
+import { ModalComponent } from '../modal/modal.component';
+import { DataManager } from '../ng-crud-table/base/data-manager';
+import { DynamicFormElement } from '../dynamic-form/dynamic-form-element';
+import { GetOptionsFunc } from '../dynamic-form/types';
+import { KeyValuePair } from '../row-view/types';
 
 @Component({
   selector: 'app-modal-edit-form',
@@ -20,20 +20,20 @@ export class ModalEditFormComponent implements OnInit {
 
   @Output() loaded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('childModal', {static: false}) childModal: ModalComponent;
+  @ViewChild('childModal', { static: false }) childModal: ModalComponent;
 
   dynElements: DynamicFormElement[];
-  formValid: boolean = true;
+  formValid = true;
   transposedData: KeyValuePair[];
   getOptionsFunc: GetOptionsFunc;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private cd: ChangeDetectorRef) { }
 
-  ngOnInit() {
+  ngOnInit(): void  {
     this.getOptionsFunc = this.dataManager.service.getOptions.bind(this.dataManager.service);
   }
 
-  get modalTitle() {
+  get modalTitle(): string {
     if (!this.detailView) {
       return this.isNewItem ? this.dataManager.messages.titleCreate :
         this.dataManager.messages.titleUpdate;
@@ -42,7 +42,7 @@ export class ModalEditFormComponent implements OnInit {
     }
   }
 
-  save() {
+  save(): void  {
     if (this.isNewItem) {
       this.dataManager.create(this.dataManager.item);
     } else {
@@ -52,22 +52,22 @@ export class ModalEditFormComponent implements OnInit {
     this.cd.markForCheck();
   }
 
-  open() {
+  open(): void  {
     this.createDynamicFormElements();
     this.childModal.show();
     this.cd.markForCheck();
   }
 
-  close() {
+  close(): void  {
     this.childModal.hide();
     this.cd.markForCheck();
   }
 
-  onFormValid(event: any) {
+  onFormValid(event: any): void  {
     this.formValid = event;
   }
 
-  createDynamicFormElements() {
+  createDynamicFormElements(): void  {
     const temp: DynamicFormElement[] = [];
     const tempDetailView: KeyValuePair[] = [];
 
@@ -85,7 +85,7 @@ export class ModalEditFormComponent implements OnInit {
       element.keyElement = column.keyColumn;
       element.disableOnEdit = column.formDisableOnEdit;
       temp.push(element);
-      tempDetailView.push({key: column.title, value: column.getValueView(this.dataManager.item)});
+      tempDetailView.push({ key: column.title, value: column.getValueView(this.dataManager.item) });
     }
     this.dynElements = temp;
     this.transposedData = tempDetailView;

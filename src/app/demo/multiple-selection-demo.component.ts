@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Settings, DataTable} from 'ng-mazdik-lib';
-import {getColumnsPlayers} from './columns';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Settings, DataTable } from 'ng-mazdik-lib';
+import { getColumnsPlayers } from './columns';
 
 @Component({
   selector: 'app-multiple-selection-demo',
@@ -35,7 +35,7 @@ export class MultipleSelectionDemoComponent implements OnInit {
     this.table2 = new DataTable(columns2, this.settings2);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.table.events.onLoading(true);
     this.http.get<any[]>('assets/players.json').subscribe(data => {
       this.table.rows = data;
@@ -44,7 +44,7 @@ export class MultipleSelectionDemoComponent implements OnInit {
     });
   }
 
-  clearSelection() {
+  clearSelection(): void {
     this.table.selection.clearSelection();
     this.table2.selection.clearSelection();
   }

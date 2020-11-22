@@ -1,6 +1,6 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {InputComponent} from './input.component';
-import {inputFormattedDate} from '../common/utils';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { InputComponent } from './input.component';
+import { inputFormattedDate } from '../common/utils';
 
 @Component({
   selector: 'app-form-calendar',
@@ -21,7 +21,7 @@ import {inputFormattedDate} from '../common/utils';
 })
 export class CalendarComponent extends InputComponent {
 
-  get formattedDate() {
+  get formattedDate(): string {
     return inputFormattedDate(this.dynElement.type, this.model);
   }
 

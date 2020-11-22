@@ -1,6 +1,6 @@
-import {TreeNode} from './tree-node';
-import {TreeDataSource, FilterState, ITree} from './types';
-import {isBlank} from '../common/utils';
+import { TreeNode } from './tree-node';
+import { TreeDataSource, FilterState, ITree } from './types';
+import { isBlank } from '../common/utils';
 
 export class Tree implements ITree {
 
@@ -19,7 +19,7 @@ export class Tree implements ITree {
   }
   private _nodes: TreeNode[];
 
-  private uidNode: number = 0;
+  private uidNode = 0;
 
   constructor() {
   }
@@ -50,13 +50,13 @@ export class Tree implements ITree {
     }
   }
 
-  addNode(nodeId: number, children: TreeNode[]) {
+  addNode(nodeId: number, children: TreeNode[]): void {
     this.nodes.forEach((node) => {
       this._addNode(node, nodeId, children);
     });
   }
 
-  private _addNode(node: TreeNode, nodeId: number, children: TreeNode[]) {
+  private _addNode(node: TreeNode, nodeId: number, children: TreeNode[]): boolean {
     if (node.$$id === nodeId) {
       node.children = children;
       return true;
@@ -80,7 +80,7 @@ export class Tree implements ITree {
     }
   }
 
-  filterClientSide(filterValue: string) {
+  filterClientSide(filterValue: string): void  {
     if (!filterValue.trim()) {
       this.clearSearchState();
       return;
@@ -128,7 +128,7 @@ export class Tree implements ITree {
   }
 
   getNodeBy(predicate, startNode = null): TreeNode {
-    startNode = startNode || {children: this.nodes};
+    startNode = startNode || { children: this.nodes };
     if (!startNode.children) {
       return null;
     }
@@ -167,14 +167,14 @@ export class Tree implements ITree {
     }, this));
   }
 
-  expandAll() {
+  expandAll(): void  {
     this.doForEach(this.nodes, (node) => {
       node.expanded = true;
       return this.getChildren(node);
     }).then();
   }
 
-  collapseAll() {
+  collapseAll(): void  {
     this.doForEach(this.nodes, (node) => {
       node.expanded = false;
     }).then();

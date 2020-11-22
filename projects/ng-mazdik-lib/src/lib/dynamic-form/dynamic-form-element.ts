@@ -1,5 +1,5 @@
-import {TemplateRef} from '@angular/core';
-import {SelectItem, InputType, inputIsDateType} from '../common';
+import { TemplateRef } from '@angular/core';
+import { SelectItem, InputType, inputIsDateType } from '../common';
 
 export class DynamicFormElement {
 

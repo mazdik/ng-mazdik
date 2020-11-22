@@ -1,9 +1,8 @@
 import {
-  Component, Input, HostBinding, OnInit, OnDestroy, ElementRef,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  Component, Input, HostBinding, OnInit, OnDestroy, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
-import {DataTable, Cell, CellEventArgs, CellEventType} from '../../base';
-import {Subscription} from 'rxjs';
+import { DataTable, Cell, CellEventArgs, CellEventType } from '../../base';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dt-body-cell',
@@ -24,7 +23,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.datatable-body-cell') cssClass = true;
 
-  @HostBinding('class.dt-sticky') get cssSticky() {
+  @HostBinding('class.dt-sticky') get cssSticky(): boolean {
     return this.cell.column.frozen;
   }
   @HostBinding('class.cell-editing') get cssEditing(): boolean {
@@ -47,7 +46,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   }
 
   @HostBinding('style.left.px')
-  get left() {
+  get left(): number {
     return (this.cell.column.frozen) ? this.cell.column.left : null;
   }
 
@@ -64,7 +63,7 @@ export class BodyCellComponent implements OnInit, OnDestroy {
   editing: boolean;
   subscriptions: Subscription[] = [];
 
-  constructor(protected cd: ChangeDetectorRef, protected element: ElementRef) {}
+  constructor(protected cd: ChangeDetectorRef, protected element: ElementRef) { }
 
   ngOnInit(): void {
     const subRows = this.table.events.rowsChanged$.subscribe(() => {

@@ -12,9 +12,9 @@ export class LocalDataSource {
     private readonly dataFilter: DataFilter,
     private readonly pager: DataPager,
     private readonly sorter: DataSort,
-    private readonly settings: Settings) {}
+    private readonly settings: Settings) { }
 
-  setRows(data: Row[]) {
+  setRows(data: Row[]): void {
     this.dataFilter.clear();
     this.sorter.clear();
     this.pager.current = 1;
@@ -33,16 +33,16 @@ export class LocalDataSource {
     }
   }
 
-  post(newRow: Row) {
+  post(newRow: Row): void {
     this.localRows.push(newRow);
   }
 
-  put(row: Row) {
+  put(row: Row): void {
     const rowIndex = this.localRows.findIndex(x => x.$$uid === row.$$uid);
     this.localRows[rowIndex] = row;
   }
 
-  delete(row: Row) {
+  delete(row: Row): void {
     const rowIndex = this.localRows.findIndex(x => x.$$uid === row.$$uid);
     this.localRows.splice(rowIndex, 1);
   }

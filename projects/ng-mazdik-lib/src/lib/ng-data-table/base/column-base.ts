@@ -1,6 +1,6 @@
-import {AggregateType, DataType} from './types';
-import {TemplateRef, PipeTransform} from '@angular/core';
-import {SelectItem, InputType} from '../../common';
+import { AggregateType, DataType } from './types';
+import { TemplateRef, PipeTransform } from '@angular/core';
+import { SelectItem, InputType } from '../../common';
 
 type FilterValuesFunc = (columnName: string) => Promise<SelectItem[]>;
 type CellClassFunc = (obj: any) => any;

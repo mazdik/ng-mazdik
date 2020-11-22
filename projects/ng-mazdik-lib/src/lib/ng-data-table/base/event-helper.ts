@@ -30,7 +30,7 @@ export class EventHelper {
     }
   }
 
-  static getRowPosition(event: Event, virtualScroll: boolean = false) {
+  static getRowPosition(event: Event, virtualScroll: boolean = false): { left: number, top: number } {
     const rowElement = findAncestor(event.target, '.datatable-body-row');
     let top = rowElement.offsetTop + rowElement.offsetHeight;
     const cell = findAncestor(event.target, '.datatable-body-cell');
@@ -53,10 +53,10 @@ export class EventHelper {
     } else {
       top -= scrollTop;
     }
-    return {left, top};
+    return { left, top };
   }
 
-  static getColumnPosition(event: MouseEvent, menuWidth: number, isLast: boolean = false) {
+  static getColumnPosition(event: MouseEvent, menuWidth: number, isLast: boolean = false): { left: number, top: number } {
     const colElement = findAncestor(event.target, '.datatable-header-cell');
     const isSticky = colElement.classList.contains('dt-sticky');
     const header = findAncestor(event.target, '.datatable-header');
@@ -72,7 +72,7 @@ export class EventHelper {
     if ((event.pageX + 1 + menuWidth - document.body.scrollLeft > window.innerWidth) || isLast) {
       left = left + colElement.offsetWidth - menuWidth;
     }
-    return {left, top};
+    return { left, top };
   }
 
 }

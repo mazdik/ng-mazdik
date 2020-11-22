@@ -1,5 +1,5 @@
-import {isBlank} from '../../common/utils';
-import {AggregateType, AggregateMeta, GroupMetadata} from './types';
+import { isBlank } from '../../common/utils';
+import { AggregateType, AggregateMeta, GroupMetadata } from './types';
 
 export class DataAggregation {
 
@@ -13,7 +13,7 @@ export class DataAggregation {
     return keys.map(x => item[x]).join(', ');
   }
 
-  groupBy(array: any[], keys: any[]) {
+  groupBy(array: any[], keys: any[]): any {
     const groups = {};
     array.forEach(row => {
       const group = this.groupStringValues(row, keys);
@@ -30,7 +30,7 @@ export class DataAggregation {
         const row = array[i];
         const group = this.groupStringValues(row, keys);
         if (i === 0) {
-          groupMetadata[group] = {index: 0, size: 1};
+          groupMetadata[group] = { index: 0, size: 1 };
           groupMetadata[group].aggRow = this.summaryIterator(groupMetadata[group].aggRow, row);
         } else {
           const previousRow = array[i - 1];
@@ -39,7 +39,7 @@ export class DataAggregation {
             groupMetadata[group].size++;
             groupMetadata[group].aggRow = this.summaryIterator(groupMetadata[group].aggRow, row);
           } else {
-            groupMetadata[group] = {index: i, size: 1};
+            groupMetadata[group] = { index: i, size: 1 };
             groupMetadata[group].aggRow = this.summaryIterator(groupMetadata[group].aggRow, row);
           }
         }
@@ -51,7 +51,7 @@ export class DataAggregation {
     return groupMetadata;
   }
 
-  private summaryIterator(aggRow: any, currentRow: any) {
+  private summaryIterator(aggRow: any, currentRow: any): any {
     aggRow = aggRow || {};
     if (this.enabled) {
       for (const agg of this.aggregates) {
@@ -62,7 +62,7 @@ export class DataAggregation {
     return aggRow;
   }
 
-  private aggregate(previousValue: any, currentValue: any, aggregateType: AggregateType) {
+  private aggregate(previousValue: any, currentValue: any, aggregateType: AggregateType): any {
     if (aggregateType === 'sum' || aggregateType === 'average') {
       return parseFloat(previousValue || 0) + parseFloat(currentValue || 0);
     } else if (aggregateType === 'max') {
@@ -77,7 +77,7 @@ export class DataAggregation {
     }
   }
 
-  private average(aggRow: any, count: number) {
+  private average(aggRow: any, count: number): any {
     if (this.enabled) {
       this.aggregates.filter(x => x.type === 'average').forEach(agg => {
         aggRow[agg.field] = +(aggRow[agg.field] / count).toFixed(5);
@@ -86,7 +86,7 @@ export class DataAggregation {
     return aggRow;
   }
 
-  grandTotal(array: any[]) {
+  grandTotal(array: any[]): any {
     let total = {};
     if (array && this.enabled) {
       array.forEach((row, i) => {

@@ -1,4 +1,4 @@
-import {SelectionMode, EditMode} from './types';
+import { SelectionMode, EditMode } from './types';
 
 type RowClassFunc = (row) => any;
 

@@ -1,8 +1,8 @@
-import {TreeNode} from './tree-node';
+import { TreeNode } from './tree-node';
 
 export class TreeHelper {
 
-  static getExpanderIcon(node: TreeNode) {
+  static getExpanderIcon(node: TreeNode): string {
     let icon: string;
     if (node.$$loading && !node.isLeaf()) {
       return 'dt-loader';

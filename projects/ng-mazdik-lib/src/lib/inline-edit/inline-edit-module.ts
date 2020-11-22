@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {InlineEditComponent} from './inline-edit.component';
-import {AfterViewFocusDirective} from './after-view-focus-directory';
+import { InlineEditComponent } from './inline-edit.component';
+import { AfterViewFocusDirective } from './after-view-focus-directory';
 
 @NgModule({
   imports: [
@@ -16,4 +16,4 @@ import {AfterViewFocusDirective} from './after-view-focus-directory';
     InlineEditComponent,
   ]
 })
-export class InlineEditModule {}
+export class InlineEditModule { }

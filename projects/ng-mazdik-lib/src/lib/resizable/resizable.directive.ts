@@ -1,10 +1,8 @@
-import {
-  Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit
-} from '@angular/core';
-import {Subscription, fromEvent} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {isLeftButton, getEvent} from '../common/utils';
-import {ResizableEvent} from './types';
+import { Directive, ElementRef, HostListener, Input, Output, EventEmitter, OnDestroy, AfterViewInit } from '@angular/core';
+import { Subscription, fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { isLeftButton, getEvent } from '../common/utils';
+import { ResizableEvent } from './types';
 
 @Directive({
   selector: '[appResizable]'
@@ -109,20 +107,20 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.destroySubscription();
   }
 
-  private destroySubscription() {
+  private destroySubscription(): void {
     if (this.subscription) {
       this.subscription.unsubscribe();
       this.subscription = undefined;
     }
   }
 
-  private createHandle(edgeClass: string) {
+  private createHandle(edgeClass: string): void {
     const node = document.createElement('span');
     node.className = edgeClass;
     this.element.appendChild(node);
   }
 
-  initResize(event: MouseEvent | TouchEvent, isSouth: boolean, isEast: boolean, isSouthEast: boolean) {
+  initResize(event: MouseEvent | TouchEvent, isSouth: boolean, isEast: boolean, isSouthEast: boolean): void {
     if (isSouth) {
       this.resizingS = true;
     }
@@ -140,7 +138,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.resizeBegin.emit();
   }
 
-  endResize(event: MouseEvent | TouchEvent) {
+  endResize(event: MouseEvent | TouchEvent): void {
     this.resizingS = false;
     this.resizingE = false;
     this.resizingSE = false;
@@ -148,7 +146,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     this.resizeEnd.emit({ event: getEvent(event), width: this.newWidth, height: this.newHeight });
   }
 
-  resizeWidth(event: MouseEvent | Touch) {
+  resizeWidth(event: MouseEvent | Touch): void {
     const overMinWidth = !this.minWidth || this.newWidth >= this.minWidth;
     const underMaxWidth = !this.maxWidth || this.newWidth <= this.maxWidth;
 
@@ -162,7 +160,7 @@ export class ResizableDirective implements OnDestroy, AfterViewInit {
     }
   }
 
-  resizeHeight(event: MouseEvent | Touch) {
+  resizeHeight(event: MouseEvent | Touch): void {
     const overMinHeight = !this.minHeight || this.newHeight >= this.minHeight;
     const underMaxHeight = !this.maxHeight || this.newHeight <= this.maxHeight;
 

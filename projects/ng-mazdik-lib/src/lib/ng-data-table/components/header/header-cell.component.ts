@@ -1,10 +1,9 @@
 import {
   Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy
 } from '@angular/core';
-import {Column, DataTable, EventHelper} from '../../base';
-import {Subscription} from 'rxjs';
-import {ColumnMenuEventArgs} from '../../base/types';
-import {findAncestor} from '../../../common/utils';
+import { Column, DataTable, EventHelper } from '../../base';
+import { Subscription } from 'rxjs';
+import { ColumnMenuEventArgs } from '../../base/types';
 
 @Component({
   selector: 'dt-header-cell',
@@ -18,7 +17,7 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   @Input() column: Column;
 
   @HostBinding('class.datatable-header-cell') cssClass = true;
-  @HostBinding('class.dt-sticky') get cssSticky() {
+  @HostBinding('class.dt-sticky') get cssSticky(): boolean {
     return this.column.frozen;
   }
 
@@ -44,7 +43,7 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     return this.column.title;
   }
 
-  get direction() {
+  get direction(): string {
     const order = this.table.sorter.getOrder(this.column.name);
     return (order === -1) ? 'desc' : (order === 1) ? 'asc' : '';
   }
@@ -54,7 +53,7 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subFilter = this.table.events.filterSource$.subscribe(() => {
       this.cd.markForCheck();
     });
@@ -69,20 +68,20 @@ export class HeaderCellComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subSelection);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
   }
 
-  onSort() {
+  onSort(): void {
     if (this.column.sortable) {
       this.table.sorter.setOrder(this.column.name);
       this.table.events.onSort();
     }
   }
 
-  clickColumnMenu(event: MouseEvent, column: Column) {
-    const {left, top} = EventHelper.getColumnPosition(event, this.table.dimensions.columnMenuWidth);
-    this.table.events.onColumnMenuClick({left, top, column} as ColumnMenuEventArgs);
+  clickColumnMenu(event: MouseEvent, column: Column): void {
+    const { left, top } = EventHelper.getColumnPosition(event, this.table.dimensions.columnMenuWidth);
+    this.table.events.onColumnMenuClick({ left, top, column } as ColumnMenuEventArgs);
   }
 
   isFiltered(): boolean {

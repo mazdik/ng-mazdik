@@ -1,4 +1,4 @@
-import {SortMetadata} from './types';
+import { SortMetadata } from './types';
 
 export class DataSort {
 
@@ -7,13 +7,13 @@ export class DataSort {
   constructor(public multiple: boolean = false) {
   }
 
-  setOrder(columnName: string) {
+  setOrder(columnName: string): void {
     const index = this.sortMeta.findIndex(x => x.field === columnName);
     if (index === -1) {
       if (!this.multiple) {
         this.sortMeta = [];
       }
-      this.sortMeta.push({field: columnName, order: 1});
+      this.sortMeta.push({ field: columnName, order: 1 });
     } else if (this.sortMeta[index].order === 1) {
       this.sortMeta[index].order = -1;
     } else if (this.sortMeta[index].order === -1) {
@@ -28,12 +28,12 @@ export class DataSort {
         if (!this.multiple) {
           this.sortMeta = [];
         }
-        this.sortMeta.push({field: columnName, order: 1});
+        this.sortMeta.push({ field: columnName, order: 1 });
       }
     });
   }
 
-  getOrder(columnName: string) {
+  getOrder(columnName: string): number {
     const meta = this.sortMeta.find(x => x.field === columnName);
     return (meta) ? meta.order : 0;
   }
@@ -50,7 +50,7 @@ export class DataSort {
     });
   }
 
-  private multiSort(previous: any, current: any, meta: SortMetadata[], index: number) {
+  private multiSort(previous: any, current: any, meta: SortMetadata[], index: number): any {
     const value1 = previous[meta[index].field];
     const value2 = current[meta[index].field];
     const result = (value1 < value2) ? -1 : 1;
@@ -62,7 +62,7 @@ export class DataSort {
     return (meta[index].order * result);
   }
 
-  clear() {
+  clear(): void {
     this.sortMeta = [];
   }
 

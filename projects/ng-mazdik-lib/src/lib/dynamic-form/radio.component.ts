@@ -1,5 +1,5 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {InputOptionComponent} from './input-option.component';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { InputOptionComponent } from './input-option.component';
 
 @Component({
   selector: 'app-form-radio',

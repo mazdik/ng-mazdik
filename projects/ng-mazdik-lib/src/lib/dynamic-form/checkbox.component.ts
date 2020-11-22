@@ -37,29 +37,29 @@ export class CheckboxComponent extends InputOptionComponent {
     }
   }
 
-  onChecked(e: Event, option: SelectItem) {
+  onChecked(e: Event, option: SelectItem): void {
     const checkbox = e.target as HTMLInputElement;
     (checkbox.checked) ? this.check(option) : this.uncheck(option);
   }
 
-  check(option: SelectItem) {
+  check(option: SelectItem): void {
     if (Array.isArray(this.model)) {
       if (this.model.indexOf(option.id) === -1) {
         this.model.push(option.id);
       }
     } else {
-      return this.model = option.id;
+      this.model = option.id;
     }
   }
 
-  uncheck(option: SelectItem) {
+  uncheck(option: SelectItem): void {
     if (Array.isArray(this.model)) {
       const index = this.model.indexOf(option.id);
       if (index > -1) {
         this.model.splice(index, 1);
       }
     } else {
-      return this.model = null;
+      this.model = null;
     }
   }
 

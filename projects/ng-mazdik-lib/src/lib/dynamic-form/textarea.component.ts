@@ -1,5 +1,5 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {InputComponent} from './input.component';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { InputComponent } from './input.component';
 
 @Component({
   selector: 'app-form-textarea',

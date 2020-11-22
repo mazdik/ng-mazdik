@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding} from '@angular/core';
-import {SelectItem} from '../common';
-import {inputFormattedDate, inputIsDateType, checkStrDate, isBlank} from '../common/utils';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { SelectItem } from '../common';
+import { inputFormattedDate, inputIsDateType, checkStrDate, isBlank } from '../common/utils';
 
 @Component({
   selector: 'app-inline-edit, [inline-edit]',
@@ -27,16 +27,16 @@ export class InlineEditComponent {
     return inputIsDateType(this.type);
   }
 
-  get inputFormattedValue() {
+  get inputFormattedValue(): any {
     if (this.isDateType) {
       return inputFormattedDate(this.type, this.value);
     }
     return this.value;
   }
 
-  constructor() {}
+  constructor() { }
 
-  onInput(event: any) {
+  onInput(event: any): void  {
     if (this.type === 'number') {
       this.value = !isBlank(event.target.value) ? parseFloat(event.target.value) : null;
     } else if (this.isDateType) {
@@ -49,15 +49,15 @@ export class InlineEditComponent {
     this.valueChange.emit(this.value);
   }
 
-  onInputChange() {
+  onInputChange(): void  {
     this.inputChange.emit();
   }
 
-  onInputFocus() {
+  onInputFocus(): void  {
     this.focusChange.emit();
   }
 
-  onInputBlur() {
+  onInputBlur(): void  {
     this.blurChange.emit();
   }
 

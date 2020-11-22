@@ -21,7 +21,7 @@ export class ScrollerDemoComponent {
 
   constructor(private cd: ChangeDetectorRef) {}
 
-  onScroll(event) {
+  onScroll(event): void {
     this.cd.detectChanges();
   }
 

@@ -1,5 +1,5 @@
-import {Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {DynamicFormElement} from './dynamic-form-element';
+import { Component, Input, Output, OnInit, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { DynamicFormElement } from './dynamic-form-element';
 
 @Component({
   selector: 'app-form-input',
@@ -27,13 +27,13 @@ export class InputComponent implements OnInit {
 
   loading: boolean;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.validate();
   }
 
-  validate() {
+  validate(): void {
     this.dynElement.validate(this.model);
     this.valid.emit(!this.dynElement.hasError);
   }

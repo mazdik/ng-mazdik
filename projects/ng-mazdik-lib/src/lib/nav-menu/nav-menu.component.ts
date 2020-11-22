@@ -24,30 +24,30 @@ export class NavMenuComponent {
 
   tree: Tree = new Tree();
   expandedNode: TreeNode;
-  private collapsed: boolean = true;
+  private collapsed = true;
 
   @HostBinding('class.nav-menu') cssClass = true;
 
-  @HostBinding('class.nav-expanded') get cssClassExp() {
+  @HostBinding('class.nav-expanded') get cssClassExp(): boolean {
     return (this.minimize) ? !this.collapsed : true;
   }
-  @HostBinding('class.nav-collapsed') get cssClassCol() {
+  @HostBinding('class.nav-collapsed') get cssClassCol(): boolean {
     return (this.minimize) && this.collapsed;
   }
 
   @HostListener('mouseenter')
-  onMouseEnter() {
+  onMouseEnter(): void  {
     this.collapsed = false;
   }
 
   @HostListener('mouseleave')
-  onMouseLeave() {
+  onMouseLeave(): void  {
     this.collapsed = true;
   }
 
   constructor() {}
 
-  onLinkClicked(event) {
+  onLinkClicked(event): void  {
     this.linkClicked.emit(event);
   }
 

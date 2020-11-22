@@ -1,9 +1,9 @@
-import {DataTable, ColumnBase, Settings, Row} from '../ng-data-table/base';
-import {Tree} from '../tree-lib/tree';
-import {TreeNode} from '../tree-lib/tree-node';
-import {TreeFlattener} from '../tree-lib/tree-flattener';
-import {TreeDataSource} from '../tree-lib/types';
-import {DtMessages} from '../dt-translate/dt-messages';
+import { DataTable, ColumnBase, Settings, Row } from '../ng-data-table/base';
+import { Tree } from '../tree-lib/tree';
+import { TreeNode } from '../tree-lib/tree-node';
+import { TreeFlattener } from '../tree-lib/tree-flattener';
+import { TreeDataSource } from '../tree-lib/types';
+import { DtMessages } from '../dt-translate/dt-messages';
 
 export class TreeTable extends DataTable {
 
@@ -27,7 +27,7 @@ export class TreeTable extends DataTable {
   }
 
   getIconFunc: (node?: TreeNode) => string;
-  indent: number = 10;
+  indent = 10;
   readonly tree: Tree;
   private readonly treeFlattener: TreeFlattener;
 
@@ -48,12 +48,12 @@ export class TreeTable extends DataTable {
     return Object.assign(data, node.data);
   }
 
-  flatten() {
+  flatten(): void {
     this.rows = this.treeFlattener.flattenNodes(this.nodes);
     this.events.onRowsChanged();
   }
 
-  getDescendants(row: Row) {
+  getDescendants(row: Row): any[] {
     const results = [];
     for (let i = row.$$index + 1; i < this.rows.length && row.$$level < this.rows[i].$$level; i++) {
       results.push(this.rows[i]);

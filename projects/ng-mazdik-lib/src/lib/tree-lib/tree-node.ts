@@ -46,11 +46,11 @@ export class TreeNode {
     return (this.children && this.children.length > 0);
   }
 
-  get isSelected() {
+  get isSelected(): boolean {
     return this === this.tree.selectedNode;
   }
 
-  setSelected() {
+  setSelected(): void {
     this.tree.selectedNode = this;
   }
 
@@ -58,7 +58,7 @@ export class TreeNode {
     return this.leaf === false ? false : !this.hasChildren;
   }
 
-  ensureVisible() {
+  ensureVisible(): TreeNode {
     if (this.parent) {
       this.parent.expanded = true;
       this.parent.ensureVisible();

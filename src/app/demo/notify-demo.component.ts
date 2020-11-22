@@ -15,23 +15,23 @@ export class NotifyDemoComponent {
 
   constructor(private notifyService: NotifyService) { }
 
-  error() {
+  error(): void {
     this.notifyService.sendMessage({title: 'HttpErrorResponse', text: 'test1', severity: 'error'});
   }
 
-  info() {
+  info(): void {
     this.notifyService.sendMessage({title: 'HttpErrorResponse', text: 'test2', severity: 'info'});
   }
 
-  notify() {
+  notify(): void {
     this.notifyService.sendMessage({title: 'HttpErrorResponse', text: 'test3', severity: 'notify'});
   }
 
-  success() {
+  success(): void {
     this.notifyService.sendMessage({title: 'HttpErrorResponse', text: 'test4', severity: 'success'});
   }
 
-  warning() {
+  warning(): void {
     this.notifyService.sendMessage({title: 'HttpErrorResponse', text: 'test5', severity: 'warning'});
   }
 

@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {DragDropModule} from '../drag-drop/drag-drop-module';
-import {DualListBoxComponent} from './dual-list-box.component';
+import { DragDropModule } from '../drag-drop/drag-drop-module';
+import { DualListBoxComponent } from './dual-list-box.component';
 
 @NgModule({
   imports: [
@@ -16,4 +16,4 @@ import {DualListBoxComponent} from './dual-list-box.component';
     DualListBoxComponent,
   ]
 })
-export class DualListBoxModule {}
+export class DualListBoxModule { }

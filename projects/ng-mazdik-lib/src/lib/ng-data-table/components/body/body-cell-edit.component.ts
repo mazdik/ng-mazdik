@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
-import {BodyCellComponent} from './body-cell.component';
-import {CellEventArgs, EditMode, CellEventType} from '../../base';
-import {Keys} from '../../../common';
+import { Component, ElementRef, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { BodyCellComponent } from './body-cell.component';
+import { CellEventArgs, EditMode, CellEventType } from '../../base';
+import { Keys } from '../../../common';
 
 @Component({
   selector: 'dt-body-cell-edit',
@@ -22,7 +22,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     this.subscriptions.push(subCell);
   }
 
-  eventHandler(ev: CellEventArgs) {
+  eventHandler(ev: CellEventArgs): void {
     if (this.cell.exist(ev.rowIndex, ev.columnIndex)) {
       if (ev.type === CellEventType.DblClick) {
         if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
@@ -45,7 +45,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     }
   }
 
-  switchCellToEditMode() {
+  switchCellToEditMode(): void {
     if (this.cell.column.editable) {
       this.editing = true;
       this.cell.validate();
@@ -53,7 +53,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     }
   }
 
-  switchCellToViewMode() {
+  switchCellToViewMode(): void {
     this.editing = false;
     if (this.cell.value !== this.tempValue) {
       this.updateValue();
@@ -64,7 +64,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     }
   }
 
-  onCellKeydown(event: any) {
+  onCellKeydown(event: any): void {
     if (this.editing) {
       this.onCellEditorKeydown(event);
     } else {
@@ -77,7 +77,7 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     }
   }
 
-  onCellEditorKeydown(event: any) {
+  onCellEditorKeydown(event: any): void {
     if (event.keyCode === Keys.ENTER) {
       this.switchCellToViewMode();
       this.element.nativeElement.focus();
@@ -89,13 +89,13 @@ export class BodyCellEditComponent extends BodyCellComponent implements OnInit {
     }
   }
 
-  onInputBlur() {
+  onInputBlur(): void {
     if (this.table.settings.editMode !== EditMode.EditProgrammatically) {
       this.switchCellToViewMode();
     }
   }
 
-  onInputFocus() {
+  onInputFocus(): void {
     this.tempValue = this.cell.value;
   }
 

@@ -1,13 +1,13 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
-import {DataTableModule} from '../ng-data-table/data-table-module';
-import {DtToolbarModule} from '../dt-toolbar/dt-toolbar-module';
-import {NotifyModule} from '../notify/notify-module';
-import {ModalEditFormModule} from '../modal-edit-form/modal-edit-form-module';
-import {ContextMenuModule} from '../context-menu/context-menu-module';
-import {CrudTableComponent} from './components/crud-table/crud-table.component';
+import { DataTableModule } from '../ng-data-table/data-table-module';
+import { DtToolbarModule } from '../dt-toolbar/dt-toolbar-module';
+import { NotifyModule } from '../notify/notify-module';
+import { ModalEditFormModule } from '../modal-edit-form/modal-edit-form-module';
+import { ContextMenuModule } from '../context-menu/context-menu-module';
+import { CrudTableComponent } from './components/crud-table/crud-table.component';
 
 @NgModule({
   imports: [
@@ -26,4 +26,4 @@ import {CrudTableComponent} from './components/crud-table/crud-table.component';
     CrudTableComponent,
   ]
 })
-export class CrudTableModule {}
+export class CrudTableModule { }

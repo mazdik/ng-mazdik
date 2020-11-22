@@ -1,13 +1,13 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {DataSource, RequestMetadata, PagedResult, DataSort, DataFilter, NotifyService, arrayPaginate} from 'ng-mazdik-lib';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DataSource, RequestMetadata, PagedResult, DataSort, DataFilter, NotifyService, arrayPaginate } from 'ng-mazdik-lib';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DemoService implements DataSource {
 
-  url: string = 'assets/players.json';
+  url = 'assets/players.json';
   primaryKeys: string[] = ['id'];
 
   private dataFilter: DataFilter;
@@ -25,10 +25,10 @@ export class DemoService implements DataSource {
     this.dataSort.sortMeta = requestMeta.sortMeta;
     const perPage = requestMeta.pageMeta.perPage;
 
-    return this.http.get<PagedResult>(this.url)
+    return this.http.get<any[]>(this.url)
       .toPromise()
-      .then(function(res) {
-        const rows: any[] = res || [];
+      .then(res => {
+        const rows = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
         const sortedData = this.dataSort.sortRows(filteredData);
         const pageData = arrayPaginate(sortedData, currentPage, perPage);
@@ -44,17 +44,17 @@ export class DemoService implements DataSource {
           }
         } as PagedResult;
         return result;
-      }.bind(this))
+      })
       .catch(this.handleError.bind(this));
   }
 
   getItem(row: any): Promise<any> {
     const filters = {};
     for (const key of this.primaryKeys) {
-      filters[key] = {value: row[key]};
+      filters[key] = { value: row[key] };
     }
     const requestMeta = {
-      pageMeta: {currentPage: 1},
+      pageMeta: { currentPage: 1 },
       filters,
     } as RequestMetadata;
     return this.getItems(requestMeta)
@@ -93,7 +93,7 @@ export class DemoService implements DataSource {
       .catch(this.handleError);
   }
 
-  private handleError(error: any) {
+  private handleError(error: any): Promise<never> {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // client-side error
@@ -102,7 +102,7 @@ export class DemoService implements DataSource {
       // server-side error
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    this.notifyService.sendMessage({title: 'HttpErrorResponse', text: errorMessage, severity: 'error'});
+    this.notifyService.sendMessage({ title: 'HttpErrorResponse', text: errorMessage, severity: 'error' });
     return Promise.reject(errorMessage);
   }
 

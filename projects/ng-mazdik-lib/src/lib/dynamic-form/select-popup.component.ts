@@ -1,5 +1,5 @@
-import {Component, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
-import {InputOptionComponent} from './input-option.component';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { InputOptionComponent } from './input-option.component';
 
 @Component({
   selector: 'app-form-select-popup',

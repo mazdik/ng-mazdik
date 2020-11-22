@@ -2,10 +2,10 @@ import {
   Component, Input, OnInit, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef,
   OnDestroy, ElementRef
 } from '@angular/core';
-import {Column, DataTable} from '../../base';
-import {Subscription} from 'rxjs';
-import {ColumnMenuEventArgs} from '../../base/types';
-import {DropDown} from '../../../dropdown/drop-down';
+import { Column, DataTable } from '../../base';
+import { Subscription } from 'rxjs';
+import { ColumnMenuEventArgs } from '../../base/types';
+import { DropDown } from '../../../dropdown/drop-down';
 
 @Component({
   selector: 'app-filter',
@@ -49,7 +49,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.dropdown = new DropDown(this.element.nativeElement);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     const subColumnMenu = this.table.events.columnMenuSource$.subscribe((event) => {
       this.show(event);
     });
@@ -64,12 +64,12 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(subDropdown);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscriptions.forEach(s => s.unsubscribe());
     this.dropdown.removeEventListeners();
   }
 
-  show(event: ColumnMenuEventArgs) {
+  show(event: ColumnMenuEventArgs): void {
     this.element.nativeElement.style.width = this.table.dimensions.columnMenuWidth + 'px';
     this.column = event.column;
     this.dropdown.selectContainerClicked = true;
@@ -83,11 +83,11 @@ export class FilterComponent implements OnInit, OnDestroy {
     }
   }
 
-  hide() {
+  hide(): void {
     this.dropdown.closeDropdown();
   }
 
-  onFilterClose() {
+  onFilterClose(): void {
     this.dropdown.toggleDropdown();
   }
 
