@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 
@@ -17,7 +16,7 @@ export class EditableConditionDemoComponent implements OnInit {
     isEditableCellProp: '$$editable',
   });
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columns = getColumnsPlayers();
     columns.forEach((x, i) => (i > 0) ? x.editable = true : x.editable = false);
     this.table = new DataTable(columns, this.settings);
@@ -25,7 +24,7 @@ export class EditableConditionDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       for (const row of data) {
         row.$$editable = row.exp > 1000000;
       }

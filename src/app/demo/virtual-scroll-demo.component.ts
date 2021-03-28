@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, CdtSettings, DataTable, DataManager } from 'ng-mazdik-lib';
 import { DemoService } from './demo.service';
 import { getColumnsPlayers } from './columns';
@@ -27,7 +26,7 @@ export class VirtualScrollDemoComponent implements OnInit {
     virtualScroll: true,
   });
 
-  constructor(private service: DemoService, private http: HttpClient) {
+  constructor(private service: DemoService) {
     const columns = getColumnsPlayers();
     this.table = new DataTable(columns, this.settings);
     this.dataManager = new DataManager(columns, this.serverSideSettings, this.service);
@@ -35,7 +34,7 @@ export class VirtualScrollDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       for (const row of data) {
         row.$$height = (row.exp > 1000000) ? 40 : 25;
       }

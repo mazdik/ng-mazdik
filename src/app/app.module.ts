@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules, Routes } from '@angular/router';
 
 import {
@@ -161,7 +160,6 @@ const ROUTES: Routes = [
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules }),
     NavMenuModule,
     CrudTableModule,

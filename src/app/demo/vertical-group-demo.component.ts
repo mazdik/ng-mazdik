@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable, GroupMetadata, DataAggregation } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 import { Subscription } from 'rxjs';
@@ -55,7 +54,7 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
   private dataAggregation: DataAggregation;
   private subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columns = getColumnsPlayers();
     columns[2].tableHidden = true;
     columns[4].tableHidden = true;
@@ -66,7 +65,7 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.table.sorter.multiple = true;
       this.table.sorter.set(['race', 'gender']);
       this.table.rows = this.table.sorter.sortRows(data);

@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable, CellEventType, EventHelper } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 import { Subscription } from 'rxjs';
@@ -34,14 +33,14 @@ export class EventsDemoComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient, private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef) {
     const columns = getColumnsPlayers();
     this.table = new DataTable(columns, this.settings);
   }
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

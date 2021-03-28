@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ColumnBase, Settings, DataTable, FilterOperator } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 
@@ -63,7 +62,7 @@ export class TemplateDemoComponent implements OnInit {
     headerCellClass: 'action-cell',
   };
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.columns = getColumnsPlayers();
     for (const column of this.columns) {
       column.editable = false;
@@ -75,7 +74,7 @@ export class TemplateDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

@@ -19,8 +19,7 @@ Add global styles in angular.json
 Feature-rich data table component for Angular with CRUD operations.
 ```typescript
 import {Component}  from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {ColumnBase, CdtSettings, DataSource, DataManager, Validators, NotifyService} from 'ng-mazdik-lib';
+import {ColumnBase, CdtSettings, DataSource, DataManager, Validators} from 'ng-mazdik-lib';
 import {DemoService} from './samples/services';
 
 @Component({
@@ -120,9 +119,8 @@ export class PlayersComponent {
         bodyHeight: 380
     });
 
-    constructor(private http: HttpClient, private notifyService: NotifyService) {
-      // your custom service
-      const service = new DemoService(this.http, this.notifyService);
+    constructor(private demoService: DemoService) {
+      const service = this.demoService; // your custom service
       this.dataManager = new DataManager(this.columns, this.settings, service);
     }
 }

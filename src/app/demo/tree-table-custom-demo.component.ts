@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, ViewChild, TemplateRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ColumnBase, Settings, DataTable, Row, Tree, TreeNode, TreeFlattener } from 'ng-mazdik-lib';
 import { getTreeColumns } from './columns';
 import { Subscription } from 'rxjs';
@@ -47,7 +46,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
   private treeFlattener: TreeFlattener;
   private subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columns = getTreeColumns();
     this.dataTable = new DataTable(columns, this.settings, null);
     this.dataTable.pager.perPage = 1000;
@@ -58,7 +57,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     this.dataTable.columns[1].cellTemplate = this.cellNodeTemplate;
     this.dataTable.columns[4].cellTemplate = this.cellTemplate;
     this.dataTable.events.onLoading(true);
-    this.http.get<any[]>('assets/tree.json').subscribe(data => {
+    fetch('assets/tree.json').then(res => res.json()).then(data => {
       this.dataTable.rows = this.prepareTreeData(data);
       this.dataTable.events.onLoading(false);
     });

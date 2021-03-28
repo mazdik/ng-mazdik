@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { DynamicFormElement, GetOptionsFunc, ColumnBase } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dynamic-form-demo',
@@ -25,7 +24,7 @@ export class DynamicFormDemoComponent {
   getOptionsFunc: GetOptionsFunc;
   item: any = {};
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.getOptionsFunc = this.getOptions.bind(this);
 
     const columns = getColumnsPlayers();
@@ -70,8 +69,7 @@ export class DynamicFormDemoComponent {
   }
 
   getOptions(url: string, parentId: any): Promise<any> {
-    return this.http.get(url)
-      .toPromise()
+    return fetch(url).then(res => res.json())
       .then((response: any) => {
         const result = response.filter((value: any) => {
           return value.parentId === parentId;

@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { TreeTable, Settings, TreeBuilder } from 'ng-mazdik-lib';
 import { TreeDemoService } from './tree-demo.service';
 import { getTreeColumns } from './columns';
@@ -26,7 +25,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private treeService: TreeDemoService, private http: HttpClient) {
+  constructor(private treeService: TreeDemoService) {
     const columns = getTreeColumns();
     for (const column of columns) {
       column.editable = false;
@@ -44,7 +43,7 @@ export class TreeTableDemoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.flattenTreeTable.events.onLoading(true);
-    this.http.get<any[]>('assets/flatten-tree.json').subscribe(data => {
+    fetch('assets/flatten-tree.json').then(res => res.json()).then(data => {
       const nodes = TreeBuilder.rowsToTree(data, 'parentId', 'id');
       this.flattenTreeTable.nodes = nodes;
       this.flattenTreeTable.events.onLoading(false);

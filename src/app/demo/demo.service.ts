@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { DataSource, RequestMetadata, PagedResult, DataSort, DataFilter, NotifyService, arrayPaginate } from 'ng-mazdik-lib';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class DemoService implements DataSource {
   private dataFilter: DataFilter;
   private dataSort: DataSort;
 
-  constructor(private http: HttpClient, private notifyService: NotifyService) {
+  constructor(private notifyService: NotifyService) {
     this.dataFilter = new DataFilter();
     this.dataSort = new DataSort();
   }
@@ -25,8 +24,7 @@ export class DemoService implements DataSource {
     this.dataSort.sortMeta = requestMeta.sortMeta;
     const perPage = requestMeta.pageMeta.perPage;
 
-    return this.http.get<any[]>(this.url)
-      .toPromise()
+    return fetch(this.url).then(res => res.json())
       .then(res => {
         const rows = res || [];
         const filteredData = this.dataFilter.filterRows(rows);
@@ -80,8 +78,7 @@ export class DemoService implements DataSource {
   }
 
   getOptions(url: string, parentId: any): Promise<any> {
-    return this.http.get(url)
-      .toPromise()
+    return fetch(url).then(res => res.json())
       .then((response: any) => {
         const result = response.filter((value: any) => {
           return value.parentId === parentId;

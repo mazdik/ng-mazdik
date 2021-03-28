@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { TreeNode, TreeDataSource } from 'ng-mazdik-lib';
 
 @Injectable({
@@ -9,7 +8,7 @@ export class TreeDemoService implements TreeDataSource {
 
   url = 'assets/tree.json';
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   getNodes(node: TreeNode): Promise<TreeNode[]> {
     const children: any[] = [
@@ -34,8 +33,7 @@ export class TreeDemoService implements TreeDataSource {
         setTimeout(() => resolve(children), 500);
       });
     } else {
-      return this.http.get<TreeNode[]>(this.url)
-        .toPromise();
+      return fetch(this.url).then(res => res.json());
     }
   }
 

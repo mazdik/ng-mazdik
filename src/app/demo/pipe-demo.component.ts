@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 import { DateFormatPipe } from '../pipes/date-format.pipe';
@@ -15,7 +14,7 @@ export class PipeDemoComponent implements OnInit {
   table: DataTable;
   settings: Settings = new Settings({});
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columns = getColumnsPlayers();
     columns.find(x => x.name === 'last_online').pipe = new DateFormatPipe('en-US');
     this.table = new DataTable(columns, this.settings);
@@ -23,7 +22,7 @@ export class PipeDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable } from 'ng-mazdik-lib';
 import { getColumnsPlayers, getColumnsRank, getColumnsInventory } from './columns';
 
@@ -53,7 +52,7 @@ export class ModalDataTableDemoComponent implements OnInit {
   private rank: any = [];
   private inventory: any = [];
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columnsPlayers = getColumnsPlayers();
     columnsPlayers.splice(7);
     columnsPlayers[1].editable = false;
@@ -69,14 +68,14 @@ export class ModalDataTableDemoComponent implements OnInit {
     this.dtPlayers.columns[0].cellTemplate = this.template1;
     this.dtPlayers.columns[1].cellTemplate = this.template2;
 
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.dtPlayers.rows = data;
     });
-    this.http.get<any[]>('assets/rank.json').subscribe(rank => {
+    fetch('assets/rank.json').then(res => res.json()).then(rank => {
       this.rank = rank;
       this.dtRank.rows = rank;
     });
-    this.http.get<any[]>('assets/inventory.json').subscribe(inventory => {
+    fetch('assets/inventory.json').then(res => res.json()).then(inventory => {
       this.inventory = inventory;
       this.dtInventory.rows = inventory;
     });

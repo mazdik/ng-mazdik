@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 
 import { DataTableModule } from '../ng-data-table/data-table-module';
 import { DtToolbarModule } from '../dt-toolbar/dt-toolbar-module';
@@ -12,7 +11,6 @@ import { CrudTableComponent } from './components/crud-table/crud-table.component
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
     DataTableModule,
     DtToolbarModule,
     NotifyModule,

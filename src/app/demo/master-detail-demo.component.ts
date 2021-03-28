@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Settings, DataTable } from 'ng-mazdik-lib';
-import { HttpClient } from '@angular/common/http';
 import { getColumnsPlayers, getColumnsRank, getColumnsInventory } from './columns';
 import { Subscription } from 'rxjs';
 
@@ -34,7 +33,7 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
   private inventory: any = [];
   private subscriptions: Subscription[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columnsPlayers = getColumnsPlayers();
     for (const column of columnsPlayers) {
       column.editable = false;
@@ -53,18 +52,18 @@ export class MasterDetailDemoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.dtPlayers.rows = data;
       const masterId = this.dtPlayers.rows[0]['id'];
       this.dtPlayers.selectRow(0);
 
-      this.http.get('assets/rank.json').subscribe(rank => {
+      fetch('assets/rank.json').then(res => res.json()).then(rank => {
         this.rank = rank;
         this.dtRank.rows = this.rank.filter((value: any) => {
           return value['player_id'] === masterId;
         });
       });
-      this.http.get('assets/inventory.json').subscribe(inventory => {
+      fetch('assets/inventory.json').then(res => res.json()).then(inventory => {
         this.inventory = inventory;
         this.dtInventory.rows = this.inventory.filter((value: any) => {
           return value['itemOwner'] === masterId;

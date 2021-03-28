@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 
@@ -16,14 +15,14 @@ export class MultipleSortDemoComponent implements OnInit {
     multipleSort: true,
   });
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columns = getColumnsPlayers();
     this.table = new DataTable(columns, this.settings);
   }
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });

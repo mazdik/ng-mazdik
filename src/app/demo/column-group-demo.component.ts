@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Settings, DataTable } from 'ng-mazdik-lib';
 import { getColumnsPlayers } from './columns';
 
@@ -26,7 +25,7 @@ export class ColumnGroupDemoComponent implements OnInit {
   table: DataTable;
   settings: Settings = new Settings({});
 
-  constructor(private http: HttpClient) {
+  constructor() {
     const columns = getColumnsPlayers();
     columns.splice(17);
     this.table = new DataTable(columns, this.settings);
@@ -34,7 +33,7 @@ export class ColumnGroupDemoComponent implements OnInit {
 
   ngOnInit(): void {
     this.table.events.onLoading(true);
-    this.http.get<any[]>('assets/players.json').subscribe(data => {
+    fetch('assets/players.json').then(res => res.json()).then(data => {
       this.table.rows = data;
       this.table.events.onLoading(false);
     });
