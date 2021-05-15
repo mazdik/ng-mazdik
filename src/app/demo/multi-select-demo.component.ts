@@ -163,6 +163,7 @@ export class MultiSelectDemoComponent implements OnInit, OnDestroy {
         return (option) ? option.name : '';
       }
     }
+    return '';
   }
 
 }

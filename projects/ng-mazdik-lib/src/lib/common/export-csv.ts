@@ -31,7 +31,7 @@ export function downloadCSV(args: CSVargs): void {
 
 function convertArrayOfObjectsToCSV(args: CSVargs): string {
   if (!args.rows || !args.rows.length) {
-    return;
+    return null;
   }
   if (!args.keys || !args.keys.length) {
     args.keys = Object.keys(args.rows[0]);

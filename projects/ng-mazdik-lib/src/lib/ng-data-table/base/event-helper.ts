@@ -12,7 +12,7 @@ export class EventHelper {
       target = target.parentNode;
     }
     if (target === element) {
-      return;
+      return null;
     }
     return target;
   }
@@ -28,6 +28,7 @@ export class EventHelper {
         return { columnIndex, rowIndex, event, fromCell: target } as CellEventArgs;
       }
     }
+    return null;
   }
 
   static getRowPosition(event: Event, virtualScroll: boolean = false): { left: number, top: number } {

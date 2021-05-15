@@ -57,6 +57,7 @@ export class Column extends ColumnBase {
         return this.options;
       }
     }
+    return [];
   }
 
   getOptionName(value: any, dependsValue?: any): any {

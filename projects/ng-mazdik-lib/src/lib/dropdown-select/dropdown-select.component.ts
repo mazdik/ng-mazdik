@@ -98,6 +98,7 @@ export class DropdownSelectComponent implements OnInit, OnDestroy {
         return (option) ? option.name : '';
       }
     }
+    return '';
   }
 
   selectionChangeEmit(items: any): void {

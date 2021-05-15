@@ -39,12 +39,10 @@ export class Tree implements ITree {
   }
 
   loadNode(node: TreeNode): Promise<any> {
-    if ((!node.children || node.children.length === 0) && node.leaf === false) {
-      if (this.service) {
-        return this.service.getNodes(node).then(data => {
-          this.addNode(node.$$id, data);
-        });
-      }
+    if ((!node.children || node.children.length === 0) && node.leaf === false && this.service) {
+      return this.service.getNodes(node).then(data => {
+        this.addNode(node.$$id, data);
+      });
     } else {
       return Promise.resolve();
     }
@@ -65,6 +63,7 @@ export class Tree implements ITree {
         this._addNode(child, nodeId, children);
       });
     }
+    return false;
   }
 
   doForAll(fn: (node: TreeNode) => any): Promise<any> {
@@ -124,7 +123,7 @@ export class Tree implements ITree {
   }
 
   getNodeById(nodeId: string): TreeNode {
-    return this.getNodeBy((node) => node.id && node.id.toString() === nodeId.toString());
+    return this.getNodeBy(node => node.id && node.id.toString() === nodeId.toString());
   }
 
   getNodeBy(predicate, startNode = null): TreeNode {
@@ -144,6 +143,7 @@ export class Tree implements ITree {
           return foundInChildren;
         }
       }
+      return null;
     }
   }
 
@@ -160,9 +160,7 @@ export class Tree implements ITree {
   doForEach(nodes: TreeNode[], fn: (node: TreeNode) => any): Promise<any> {
     return Promise.all(nodes.map((node) => {
       return Promise.resolve(fn(node)).then(() => {
-        if (node.children) {
-          return this.doForEach(node.children, fn);
-        }
+        return (node.children) ? this.doForEach(node.children, fn) : null;
       });
     }, this));
   }
@@ -183,11 +181,7 @@ export class Tree implements ITree {
   loadPath(path: any[]): Promise<any> {
     if (path && path.length) {
       return Promise.all(path.map((p) => {
-        return this.doForEach(this.nodes, (node) => {
-          if (node.id === p) {
-            return this.getChildren(node);
-          }
-        });
+        return this.doForEach(this.nodes, (node) => (node.id === p) ? this.getChildren(node) : null);
       }, this)).then(() => {
         path.shift();
         return this.loadPath(path);
@@ -216,6 +210,7 @@ export class Tree implements ITree {
         });
       });
     }
+    return null;
   }
 
 }

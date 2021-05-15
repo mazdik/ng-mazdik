@@ -96,6 +96,7 @@ export class InputOptionComponent extends InputComponent implements OnInit {
       const option = this._options.find(x => x.id === this.model);
       return (option) ? option.name : '';
     }
+    return '';
   }
 
 }

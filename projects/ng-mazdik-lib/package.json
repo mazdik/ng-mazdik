@@ -1,11 +1,11 @@
 {
   "name": "ng-mazdik-lib",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "peerDependencies": {
-    "@angular/common": "^11.0.1",
-    "@angular/core": "^11.0.1"
+    "@angular/common": "^12.0.0",
+    "@angular/core": "^12.0.0"
   },
   "dependencies": {
-    "tslib": "^2.0.0"
+    "tslib": "^2.1.0"
   }
 }

@@ -92,6 +92,7 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     if (this.raceGroupMetadata) {
       return Object.keys(this.raceGroupMetadata);
     }
+    return [];
   }
 
   raceGroupHeight(key: string): number {
@@ -102,6 +103,7 @@ export class VerticalGroupDemoComponent implements OnInit, OnDestroy {
     if (this.genderGroupMetadata) {
       return Object.keys(this.genderGroupMetadata);
     }
+    return [];
   }
 
   genderGroupHeight(key: string): number {

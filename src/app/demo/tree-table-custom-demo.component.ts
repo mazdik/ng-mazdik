@@ -137,6 +137,7 @@ export class TreeTableCustomDemoComponent implements OnInit, OnDestroy {
     } else if (row.hasChildren) {
       return 'dt-icon-node';
     }
+    return '';
   }
 
   getDescendants(row: Row, rows: Row[]): any[] {

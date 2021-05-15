@@ -31,6 +31,7 @@ export class LocalDataSource {
       }
       return rows;
     }
+    return [];
   }
 
   post(newRow: Row): void {

@@ -113,6 +113,7 @@ export class ModalSelectComponent {
       });
       return (option) ? option.name : '';
     }
+    return '';
   }
 
   onClickClearSearch(): void  {
