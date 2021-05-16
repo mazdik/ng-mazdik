@@ -9,7 +9,7 @@
             <input class="dt-input"
                     placeholder="{{table.messages.search}}"
                     [value]="table.dataFilter.globalFilterValue"
-                    (input)="table.dataFilter.globalFilterValue = $event.target.value"
+                    (input)="onInputGlobalSearch($event)"
                     (keypress)="onKeyPressGlobalSearch($event)">
             <button class="dt-button"
                     (click)="onClickGlobalSearch()">{{table.messages.go}}

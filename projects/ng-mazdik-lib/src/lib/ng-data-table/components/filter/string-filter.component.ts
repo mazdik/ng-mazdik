@@ -91,7 +91,18 @@ export class StringFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.filterClose.emit(true);
   }
 
-  onKeyPressFilterInput(event: KeyboardEvent): void {
+  onChangeSelect(event: Event): void {
+    const element = event.target as HTMLSelectElement;
+    this.matchMode = element.value;
+    this.onModeChange();
+  }
+
+  onInputFilter(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.value = element.value;
+  }
+
+  onKeyPressFilter(event: KeyboardEvent): void {
     if (event.which === Keys.ENTER) {
       this.onClickOk();
     }

@@ -1,5 +1,5 @@
 <select class="dt-input sm dt-form-group"
-        (change)="matchMode = $event.target.value; onModeChange()">
+        (change)="onChangeSelect($event)">
   <option *ngFor="let opt of operators" [value]="opt.value" [selected]="(opt.value === matchMode)">
     {{opt.text}}
   </option>
@@ -9,8 +9,8 @@
        placeholder="{{column.name}}"
        *ngIf="isValueFilter"
        [value]="value"
-       (input)="value = $event.target.value"
-       (keypress)="onKeyPressFilterInput($event)">
+       (input)="onInputFilter($event)"
+       (keypress)="onKeyPressFilter($event)">
 
 <div class="dt-list-menu-row">
   <button class="dt-button dt-button-sm" (click)="onClickOk()" *ngIf="isValueFilter">{{table.messages.ok}}</button>

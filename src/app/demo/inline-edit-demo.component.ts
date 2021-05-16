@@ -12,7 +12,7 @@ import { SelectItem } from 'ng-mazdik-lib';
       [editing]="editing1"
       [type]="'text'"
       [selectPlaceholder]="'placeholder'"
-      (valueChange)="model1=$event"
+      (valueChange)="onChangeModel1($event)"
       (inputChange)="onInputChange()"
       (focusChange)="onInputFocus()"
       (blurChange)="onInputBlur()">
@@ -28,7 +28,7 @@ import { SelectItem } from 'ng-mazdik-lib';
       [editing]="editing2"
       [type]="'number'"
       [options]="options"
-      (valueChange)="model2=$event">
+      (valueChange)="onChangeModel2($event)">
     </app-inline-edit>
     &nbsp;
     <button class="dt-button" (click)="editing2=!editing2">{{editing2 ? 'View' : 'Edit'}}</button>&nbsp;
@@ -40,7 +40,7 @@ import { SelectItem } from 'ng-mazdik-lib';
       [viewValue]="model3"
       [editing]="editing3"
       [type]="'date'"
-      (valueChange)="model3=$event">
+      (valueChange)="onChangeModel3($event)">
     </app-inline-edit>
     &nbsp;
     <button class="dt-button" (click)="editing3=!editing3">{{editing3 ? 'View' : 'Edit'}}</button>&nbsp;
@@ -51,7 +51,7 @@ export class InlineEditDemoComponent {
 
   model1 = 'string';
   model2 = 2;
-  model3: Date = new Date();
+  model3 = new Date();
   editing1: boolean;
   editing2: boolean;
   editing3: boolean;
@@ -73,6 +73,18 @@ export class InlineEditDemoComponent {
 
   viewValue2(): string {
     return this.options.find(x => x.id === this.model2).name;
+  }
+
+  onChangeModel1(event: any): void {
+    this.model1 = event;
+  }
+
+  onChangeModel2(event: any): void {
+    this.model2 = event;
+  }
+
+  onChangeModel3(event: any): void {
+    this.model3 = event;
   }
 
 }

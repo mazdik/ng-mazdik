@@ -9,7 +9,7 @@ import { InputOptionComponent } from './input-option.component';
       <i class="dt-loader" *ngIf="loading"></i>
       <select class="dt-input"
               id="{{dynElement.name}}"
-              (change)="model = $event.target.value; onValueChange()"
+              (change)="onChangeSelect($event)"
               [disabled]="disabled">
         <option value="" disabled selected hidden>{{placeholder}}</option>
         <option *ngFor="let opt of getOptions()" [value]="opt.id" [selected]="(opt.id === model)">{{opt.name}}</option>
@@ -22,5 +22,11 @@ import { InputOptionComponent } from './input-option.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectComponent extends InputOptionComponent {
+
+  onChangeSelect(event: Event): void {
+    const element = event.target as HTMLSelectElement;
+    this.model = element.value;
+    this.onValueChange();
+  }
 
 }

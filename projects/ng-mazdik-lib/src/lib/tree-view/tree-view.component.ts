@@ -53,6 +53,11 @@ export class TreeViewComponent implements OnInit {
     this.tree.initLoadNodes().finally(() => { this.loading = false; });
   }
 
+  onFilterInput(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.searchFilterText = element.value;
+  }
+
   onFilterKeyup(): void {
     if (this.filterTimeout) {
       clearTimeout(this.filterTimeout);

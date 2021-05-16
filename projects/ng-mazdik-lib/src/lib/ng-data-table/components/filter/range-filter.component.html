@@ -1,5 +1,5 @@
 <select class="dt-input sm dt-form-group"
-        (change)="matchMode = $event.target.value; onModeChange()">
+        (change)="onChangeSelect($event)">
   <option *ngFor="let opt of operators" [value]="opt.value" [selected]="(opt.value === matchMode)">
     {{opt.text}}
   </option>
@@ -10,13 +10,13 @@
        placeholder="{{isRangeFilter ? '>' : column.name}}"
        *ngIf="isValueFilter"
        [value]="value"
-       (input)="value = $event.target.value">
+       (input)="onInputFilterValue($event)">
 <input class="dt-input dt-form-group"
        type="{{column.type}}"
        placeholder="<"
        *ngIf="isRangeFilter"
        [value]="valueTo"
-       (input)="valueTo = $event.target.value">
+       (input)="onInputFilterValueTo($event)">
 <ul class="dt-list-menu">
   <ng-template [ngIf]="column.isDateType">
     <li class="dt-list-menu-item" (click)="lastDate('year')">{{table.messages.lastYear}}</li>

@@ -106,10 +106,16 @@ export class PaginationComponent {
     return `${startIndex + 1} - ${endIndex} of ${length}`;
   }
 
-  onChangePageSize(pageSize: number): void {
+  private onChangePageSize(pageSize: number): void {
     this.perPage = pageSize;
     this.currentPage = this._currentPage;
     this.pageChanged.emit({ currentPage: this.currentPage, perPage: this.perPage } as PageEvent);
+  }
+
+  onChangeSelect(event: Event): void {
+    const element = event.target as HTMLSelectElement;
+    const value = parseInt(element.value, 10);
+    this.onChangePageSize(value);
   }
 
 }
