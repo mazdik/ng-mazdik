@@ -17,7 +17,7 @@
         <input class="dt-input select-input"
                placeholder={{searchInputPlaceholder}}
                [value]="searchFilterText"
-               (input)="searchFilterText = $event.target.value"
+               (input)="onFilterInput($event)"
                (keyup)="onFilterKeyup()">
         <span [style.display]="searchFilterText?.length > 0 ? 'block' : 'none' "
               (click)="onClickClearSearch()">&times;</span>

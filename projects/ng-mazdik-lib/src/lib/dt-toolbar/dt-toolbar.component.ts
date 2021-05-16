@@ -42,6 +42,11 @@ export class DtToolbarComponent implements OnInit, OnDestroy {
     this.table.events.onFilter();
   }
 
+  onInputGlobalSearch(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.table.dataFilter.globalFilterValue = element.value;
+  }
+
   onKeyPressGlobalSearch(event: KeyboardEvent): void  {
     if (event.which === Keys.ENTER) {
       this.table.events.onFilter();

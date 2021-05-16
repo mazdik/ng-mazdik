@@ -121,4 +121,9 @@ export class ModalSelectComponent {
     this.onFilterKeyup();
   }
 
+  onFilterInput(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.searchFilterText = element.value;
+  }
+
 }

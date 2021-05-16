@@ -11,7 +11,7 @@ import { InputComponent } from './input.component';
              placeholder="{{dynElement.title}}"
              id="{{dynElement.name}}"
              [value]="model || null"
-             (input)="model = $event.target.value"
+             (input)="onInputModel($event)"
              [disabled]="disabled"/>
       <div class="dt-help-block">
         <span *ngFor="let err of dynElement.errors">{{err}}<br></span>

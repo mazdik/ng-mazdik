@@ -7,7 +7,7 @@
            placeholder="Search"
            #filterInput
            [value]="searchFilterText"
-           (input)="searchFilterText = $event.target.value"
+           (input)="onFilterInput($event)"
            (keyup)="onFilterKeyup()">
     <span class="dt-loader"
           style="top: 25%; cursor:auto;"

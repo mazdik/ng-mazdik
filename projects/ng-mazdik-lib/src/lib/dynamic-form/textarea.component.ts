@@ -9,7 +9,7 @@ import { InputComponent } from './input.component';
       <textarea class="dt-input"
                 id="{{dynElement.name}}"
                 [value]="model || null"
-                (input)="model = $event.target.value"
+                (input)="onInputModel($event)"
                 [disabled]="disabled">
       </textarea>
       <div class="dt-help-block">

@@ -38,4 +38,9 @@ export class InputComponent implements OnInit {
     this.valid.emit(!this.dynElement.hasError);
   }
 
+  onInputModel(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.model = element.value;
+  }
+
 }

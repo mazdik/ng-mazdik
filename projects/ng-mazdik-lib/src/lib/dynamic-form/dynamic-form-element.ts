@@ -25,7 +25,7 @@ export class DynamicFormElement {
         return this.options;
       }
     }
-    return [];
+    return null;
   }
 
   validate(value: any): void {

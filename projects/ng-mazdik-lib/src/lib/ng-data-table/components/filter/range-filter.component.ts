@@ -107,4 +107,20 @@ export class RangeFilterComponent implements OnInit, AfterViewInit, OnChanges {
     this.filterClose.emit(true);
   }
 
+  onChangeSelect(event: Event): void {
+    const element = event.target as HTMLSelectElement;
+    this.matchMode = element.value;
+    this.onModeChange();
+  }
+
+  onInputFilterValue(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.value = element.value;
+  }
+
+  onInputFilterValueTo(event: Event): void {
+    const element = event.target as HTMLInputElement;
+    this.valueTo = element.value;
+  }
+
 }

@@ -142,7 +142,7 @@ export class SelectListComponent implements AfterViewInit {
     }
   }
 
-  onInputFilter(event: InputEvent): void {
+  onInputFilter(event: Event): void {
     this.searchFilterText = (event.target as HTMLInputElement).value;
     this.filteredOptions = this.filterOptionsByName(this.searchFilterText);
   }
