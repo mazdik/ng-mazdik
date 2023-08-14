@@ -14,6 +14,7 @@ export class ModalComponent implements AfterViewChecked {
   @Input() maximizable: boolean;
   @Input() backdrop = true;
   @Input() inViewport: boolean;
+  @Input() closeOnEsc: boolean;
 
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter();
 
@@ -44,9 +45,11 @@ export class ModalComponent implements AfterViewChecked {
 
   @HostListener('keydown.esc', ['$event'])
   onKeyDown(event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.hide();
+    if(closeOnEsc) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.hide();
+    }
   }
 
   @HostListener('window:resize')
